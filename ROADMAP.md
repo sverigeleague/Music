@@ -150,6 +150,32 @@ estimates; low or medium for UI and routine work.
 - Countries and city-level charts.
 - Public launch (domain, licence in place, E&O insurance checked).
 
+## Phase 7: Worth and Scout (owner, 2026-10-23: "insights for artists to understand their worth and labels to find new talent")
+
+The site gets two clear doors instead of eight tabs:
+- **Worth**, for artists: what their music earns, what they keep, and what the catalog would sell for.
+- **Scout**, for labels: who is rising, who is unsigned, and who is signed to whom.
+
+| # | Step | Effort | Why |
+| --- | --- | --- | --- |
+| 7.1 | Wikipedia attention: monthly page views for 24 months per artist (Wikimedia API, free, no key) | medium | The only free trend history we can read today. Our own listener history starts 2026-10-23 |
+| 7.2 | Fresh-release velocity: daily streams of songs out 90 days or less, from the song pages we already read | medium | The strongest free breakout signal; uses existing data |
+| 7.3 | Scout score 0-100. Factors: velocity, current share, today's listener change, attention trend, chart breadth, Deezer and YouTube pull. Each is ranked against artists of a similar size. Tiers: Watch / Rising / Breaking. Every factor is shown | high | A ranking labels will act on, so each input has to be visible and checkable |
+| 7.4 | Scout page: filters (unsigned only, size band, country, label status), sortable columns, CSV export | medium | The page a small label would pay for |
+| 7.5 | Worth: catalog value range (yearly net royalties × published sale multiples), a per-artist worth card, and an "Am I paid enough?" calculator (inputs: listeners or streams, deal type) | high | Money figures: ranges, grade C, sources |
+| 7.6 | Labels market map: share of the top 1,000 by label group and distributor (listeners and current listeners), indie share by size band, and a roster per label group | medium | Original research; uses existing label status |
+| 7.7 | Navigation and design: home with the two doors; nav Charts / Scout / Worth / Labels / Method; artist page opens on a summary card; phone tables keep the name column fixed and hide minor columns; sortable headers | medium | Clarity for both audiences |
+| 7.8 | Apple Music charts: daily most-played top 100 songs in 20+ countries (Apple's public RSS feed); presence per artist on a second platform | low-medium | A free second platform to confirm Spotify signals |
+| 7.9 | Levels and badges: Rookie → Rising → Headliner → Icon; badges such as Breakout, Feature magnet, Unsigned and rising | low | Gamification from the scores above |
+| 7.10 | Workflows: monthly page views, daily Apple charts, and a one-off Wayback backfill of kworb listener pages (2019 onwards) for real listener history | medium | web.archive.org is blocked in the build container; reachable from GitHub Actions |
+
+Next, queued after Phase 7:
+- feature network (who features whom);
+- MusicBrainz label-contract dates for the market map over time;
+- a Breakout Watch back-test once 90 days of history exist;
+- Last.fm listeners and setlist.fm show counts (each needs a free key as a GitHub secret);
+- other genres.
+
 ## My own additions (beyond the brief)
 
 - **Pay-gap explainer:** the same 100m streams under a DIY, distribution, joint-venture and major deal, side by side.

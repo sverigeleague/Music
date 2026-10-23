@@ -3,8 +3,8 @@ import csv
 import json
 from datetime import date, datetime, timedelta, timezone
 
-from . import current, labels, money, revenue
-from .collectors import deezer_releases, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
+from . import current, insights, labels, money, revenue
+from .collectors import apple_charts, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
 from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
@@ -13,7 +13,7 @@ OUT = SITE / "data" / "index.json"
 DETAIL_ONLY = ("genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
-               "peak_rank")
+               "peak_rank", "attention_series", "worth")
 
 
 def latest_streams() -> dict[str, dict]:
@@ -59,6 +59,8 @@ def build() -> dict:
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
+    views, history = wikipedia.load(), wayback.load()
+    apple, apple_day = apple_charts.presence({s: a["name"] for s, a in artists.items() if a["genre"] == "hip_hop"})
     # recording codes of each artist's songs released in the last 2 years: a second check on the label status
     cutoff = date(today.year - 2, today.month, min(today.day, 28)).isoformat()
     lead = {}  # track IDs where the artist is the lead (not a guest), from the latest kworb page
@@ -110,6 +112,12 @@ def build() -> dict:
             "cur_share": round(cur["current_share"], 4) if cur.get("current_share") is not None else None,
             "coverage": round(cur.get("coverage", 0), 3), "cl": round(ml * cur["current_share"]) if cur.get("ok") else None,
             "revivals": cur.get("revivals", []),
+            "fresh_share": round(cur["fresh_share"], 4) if cur.get("fresh_share") is not None and cur.get("ok") else None,
+            "fresh_daily": cur.get("fresh_daily"), "top_fresh": cur.get("top_fresh"),
+            "latest_release": cur.get("latest_release"),
+            "attention": insights.attention(views.get(t["spotify_id"], [])),
+            "apple": apple.get(t["spotify_id"]),
+            "growth90": insights.growth(history.get(t["spotify_id"], []), today.isoformat()),
             "yt_total": num(yt.get(t["spotify_id"], {}).get("total_views")),
             "yt_daily": num(yt.get(t["spotify_id"], {}).get("daily_views")),
             "yt_subs": num(ych.get(t["spotify_id"], {}).get("subscribers")),
@@ -126,6 +134,15 @@ def build() -> dict:
         sh = shares[r["deal_type"]]
         r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")})
     rows = rows[:TOP_N]  # the site covers the top 1,000 hip-hop artists by monthly listeners
+    insights.scout(rows)
+    mult = insights.multiples()
+    for r in rows:
+        r["worth"] = insights.worth(r, r["revenue"], mult)
+        r["worth_mid"] = round(r["worth"]["recordings"]["mid"] + r["worth"]["publishing"]["mid"])
+        r["level"] = insights.level(r)
+        att = r.pop("attention")
+        r["attention"] = {"trend": round(att["trend"], 3) if att["trend"] else None, "last3": att["last3"]} if att else None
+        r["attention_series"] = att and {"start": att["start"], "views": att["series"]}
     for i, r in enumerate(rows, 1):
         r["rank"] = i  # by monthly listeners
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
@@ -142,7 +159,9 @@ def build() -> dict:
             "platforms": revenue.platforms(), "multipliers": revenue.multipliers(), "tours": tour_table(rows),
             "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
-            "registrants": registrants, "unsigned": unsigned}
+            "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),
+            "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in insights.FACTORS.items()},
+            "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES)}
 
 
 SIGNED = ("major", "major_distributed", "independent")
@@ -243,10 +262,10 @@ if __name__ == "__main__":
         rev = r.pop("revenue")
         detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, "photo": r.get("photo")}  # full photo credit
         shards.setdefault(ord(r["id"][1]) % 32, {})[r["id"]] = {**rev, "artist": detail}
-        r["rev_total"] = rev["artist_total"]
+        r["rev_total"] = {k: round(v) for k, v in rev["artist_total"].items()} if rev["artist_total"] else None
         r["rev_lines"] = {l["key"]: round(l["generated"]["mid"]) for l in rev["lines"]}
         if r.get("money"):
-            r["money"] = {"generated": r["money"]["generated"], "deal_label": r["money"]["deal_label"]}
+            r["money"] = {"generated": {k: round(v) for k, v in r["money"]["generated"].items()}, "deal_label": r["money"]["deal_label"]}
         if r.get("photo"):
             r["photo"] = {"file": r["photo"]["file"]}
     for n, d in shards.items():

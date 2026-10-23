@@ -1,5 +1,5 @@
 # Monthly (2nd of the month, after the month's last daily snapshot): registry and genre review list, stream totals,
-# release dates of new songs, Deezer fans and photos for new artists. About 20 minutes after the first month (MusicBrainz allows one request a second).
+# release dates of new songs, Deezer fans and photos for new artists, Wikipedia page views. About 20 minutes after the first month (MusicBrainz allows one request a second).
 name: monthly
 on:
   schedule:
@@ -32,6 +32,7 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       - run: python -m src.run photos
+      - run: python -m src.run pageviews
       - name: Commit
         run: |
           git config user.name "music-bot"

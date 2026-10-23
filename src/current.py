@@ -24,6 +24,7 @@ FEATURE_WEIGHT = 0.5
 MIN_COVERAGE = 0.8
 DATE_SHARE, DATE_MAX = 0.90, 300  # songs dated per artist: until 90% of daily streams are covered, at most 300
 REVIVAL_RISE, REVIVAL_SHARE, REVIVAL_GAP_DAYS = 1.5, 0.02, 28
+FRESH_DAYS = 90  # Scout's release velocity: songs out this many days or fewer (not part of current listeners)
 
 
 def parse_date(s: str) -> date | None:
@@ -80,8 +81,8 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
     before (for revivals)."""
     wd = lambda r: r["daily"] * (FEATURE_WEIGHT if r["feature"] else 1)
     total = sum(wd(r) for r in rows)
-    dated = cur = 0.0
-    revivals = []
+    dated = cur = fresh = 0.0
+    revivals, top_fresh, latest = [], None, None
     before = {r["track_id"]: r["daily"] for r in earlier or []}
     for r in rows:
         d = parse_date(dates.get(r["track_id"], {}).get("first_release", ""))
@@ -89,6 +90,12 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
             continue
         dated += wd(r)
         cur += wd(r) * age_weight(d, today)
+        if 0 <= (today - d).days <= FRESH_DAYS:
+            fresh += wd(r)
+            if not top_fresh or r["daily"] > top_fresh["daily"]:
+                top_fresh = {"title": r["title"], "daily": r["daily"], "released": d.isoformat()}
+        if not r["feature"] and d <= today and (not latest or d > latest):
+            latest = d
         old = before.get(r["track_id"])
         if (months(d, today) > ZERO_MONTHS and old and r["daily"] >= REVIVAL_RISE * old
                 and total and wd(r) / total >= REVIVAL_SHARE):
@@ -96,4 +103,6 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
     coverage = dated / total if total else 0.0
     share = cur / dated if dated else None
     return {"current_share": share, "coverage": coverage, "revivals": revivals,
-            "ok": share is not None and coverage >= MIN_COVERAGE}
+            "ok": share is not None and coverage >= MIN_COVERAGE,
+            "fresh_daily": round(fresh), "fresh_share": fresh / total if total else 0.0, "top_fresh": top_fresh,
+            "latest_release": latest.isoformat() if latest else None}

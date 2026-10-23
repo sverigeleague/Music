@@ -14,6 +14,9 @@
   dates-retry  the same, and looks up again the songs that found no date
   mbdates   MusicBrainz first release dates for the ISRCs Deezer found, and a title search for songs it did not
             match (can run alongside `dates`)
+  apple     Apple Music's daily top 100 songs in 25 countries (public RSS feed)
+  backfill  weekly listener history since 2023 from the Internet Archive's copies of kworb's page (one-off; Actions)
+  pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
 """
 import csv
 import json
@@ -21,7 +24,7 @@ import sys
 from datetime import datetime, timezone
 
 from . import current, genre, photos
-from .collectors import deezer, deezer_releases, kworb, kworb_countries, kworb_youtube, musicbrainz, release_dates, wikidata, youtube_api
+from .collectors import apple_charts, deezer, wayback, deezer_releases, kworb, kworb_countries, kworb_youtube, musicbrainz, release_dates, wikidata, wikipedia, youtube_api
 from .config import DATA, REGISTRY, REVIEW
 
 ARTISTS = REGISTRY / "artists.csv"
@@ -242,12 +245,27 @@ def dates_step(limit: int | None = None, retry: bool = False) -> None:
     print(f"release dates: {have} of {len(todo)} songs dated")
 
 
+def backfill_step(limit: int | None = None) -> None:
+    keep = {a["spotify_id"] for a in load_artists().values() if a["genre"] in ("hip_hop", "review")}
+    done, bad = wayback.update(keep, limit=limit)
+    print(f"Wayback: {done} weekly snapshots read, {bad} unreadable")
+
+
+def apple_step() -> None:
+    print(f"Apple Music charts: {apple_charts.update(today())} rows for {today()}")
+
+
+def pageviews_step() -> None:
+    n = wikipedia.update({a["spotify_id"]: a["wikidata_id"] for a in tracked() if a.get("wikidata_id")})
+    print(f"Wikipedia page views: {n} artists have an English article")
+
+
 if __name__ == "__main__":
     step, args = sys.argv[1], sys.argv[2:]
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

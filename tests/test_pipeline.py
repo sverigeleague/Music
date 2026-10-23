@@ -195,3 +195,68 @@ def test_genre_with_deezer():
     border = [("hip hop", 8), ("pop", 6), ("electronic", 4), ("pop rap", 4), ("dance", 4)]
     assert genre.decide(border, [], dz(0.8))[0] == "hip_hop"                  # settles MusicBrainz's review zone
     assert genre.decide(border, [], dz(0.2))[0] == "other"
+
+
+# ---------- Phase 7: scout, worth, levels, Apple charts, Wayback history
+
+def test_scout_ranks_within_size_band_and_tiers():
+    from src import insights
+    rows = []
+    for i in range(10):  # ten small artists: the last has the strongest signals
+        rows.append({"id": f"s{i}", "ml": 1_000_000, "fresh_share": i / 10, "cur_share": i / 10, "daily": 100_000 + i,
+                     "chg_pct": i / 100, "geo": None, "attention": None})
+    rows.append({"id": "big", "ml": 50_000_000, "fresh_share": 0.9, "cur_share": 0.9, "daily": 1, "chg_pct": 1,
+                 "geo": None, "attention": None})
+    insights.scout(rows)
+    top = rows[9]["scout"]
+    assert top["score"] > rows[0]["scout"]["score"] and top["tier"] == "Breaking"
+    assert rows[10]["scout"] is None  # alone in its band: no percentile, no score
+
+
+def test_breaking_needs_an_absolute_signal_and_big_artists_get_no_tier():
+    from src import insights
+    rows = [{"id": f"s{i}", "ml": 1_000_000, "fresh_share": i / 100, "cur_share": i / 10, "daily": 1000 * i,
+             "chg_pct": i, "geo": None, "attention": None} for i in range(10)]
+    insights.scout(rows)
+    assert rows[9]["scout"]["score"] >= 80 and rows[9]["scout"]["tier"] == "Rising"  # new songs only 9% of streams
+    big = [{"id": f"b{i}", "ml": 20_000_000, "fresh_share": i / 10, "cur_share": i / 10, "daily": i, "chg_pct": i,
+            "geo": None, "attention": None} for i in range(5)]
+    insights.scout(big)
+    assert all(r["scout"]["tier"] is None for r in big)
+
+
+def test_growth_uses_the_snapshot_nearest_90_days():
+    from src import insights
+    h = [("2026-07-20", 1_000_000), ("2026-08-30", 1_200_000), ("2026-10-23", 1_500_000)]
+    assert abs(insights.growth(h, "2026-10-23") - 1.5) < 1e-9
+    assert insights.growth([("2026-10-01", 1), ("2026-10-23", 2)], "2026-10-23") is None  # nothing near 90 days
+
+
+def test_worth_multiple_follows_how_new_the_music_is():
+    from src import insights
+    table = insights.multiples()
+    assert insights.vintage(0.8, table)["vintage"] == "new"
+    assert insights.vintage(0.1, table)["vintage"] == "evergreen"
+    assert insights.vintage(None, table)["vintage"] == "mixed"
+    rev = {"lines": [{"group": "Streaming", "generated": {"low": 100, "mid": 200, "high": 300},
+                      "artist": {"low": 10, "mid": 20, "high": 30}},
+                     {"group": "Publishing", "generated": {"low": 20, "mid": 50, "high": 75}}]}
+    w = insights.worth({"cur_share": 0.8}, rev, table)
+    assert w["recordings"]["low"] == 100 * 5 and w["recordings"]["high"] == 300 * 10 and w["publishing"]["mid"] == 50 * 7.5
+
+
+def test_apple_names_split_and_fold():
+    from src.collectors import apple_charts as a
+    assert a.split_names("KAROL G, Judeline & rusowsky") == ["KAROL G, Judeline & rusowsky", "KAROL G", "Judeline", "rusowsky"]
+    assert a.split_names("Drake") == ["Drake"]
+    assert a.fold("Beyoncé") == a.fold("BEYONCE") and a.fold("bbno$") == "bbno$"
+
+
+def test_wayback_parser_reads_old_and_new_link_formats():
+    from src.collectors import wayback
+    html = ('<tr><td>1</td><td class="text"><div><a href="artist/0du5cEVh5yTK9QJze8zA0C_songs.html">Bruno Mars</a></div></td>'
+            '<td>128,438,090</td><td>-134,036</td></tr>'
+            '<tr><td>2</td><td><a href="artist/5pKCCKE2ajJHZ9KAiaK11H.html">X</a></td><td>99,000</td></tr>')
+    rows = wayback.parse(html)
+    assert rows == [{"spotify_id": "0du5cEVh5yTK9QJze8zA0C", "monthly_listeners": 128438090, "rank": 1},
+                    {"spotify_id": "5pKCCKE2ajJHZ9KAiaK11H", "monthly_listeners": 99000, "rank": 2}]

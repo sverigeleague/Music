@@ -1,0 +1,4 @@
+vintage,current_share_min,current_share_max,multiple_low,multiple_high,grade,source_url,source_note
+new,0.6,1.01,5,10,B,https://royaltyexchange.com/blog/music-rights-valuation-expert-tips-and-methods-2025,"Royalty Exchange (2025): newer catalogs 5x to 10x NPS"
+mixed,0.3,0.6,8,13.7,C,https://cm.citrincooperman.com/In-Focus-Resource-Center/2025-Music-Catalog-Valuations-Top-13-Billion,"Citrin Cooperman (2025): younger masters catalogs averaged 13.7x (hip-hop pulled it down); low end between the new and evergreen ranges (our interpolation)"
+evergreen,0,0.3,10,17,B,https://cm.citrincooperman.com/In-Focus-Resource-Center/2025-Music-Catalog-Valuations-Top-13-Billion,"Royalty Exchange (2025): evergreen catalogs 10x to 15x NPS; Citrin Cooperman (2025): older masters catalogs traded at more than 17x"
