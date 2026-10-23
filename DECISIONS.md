@@ -14,6 +14,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
   - The first ancestor our table places decides. Example: Hall Access → Sony Music Entertainment France → Sony.
   - A name shared by two MusicBrainz labels is skipped. "Urban" is one: the German Universal label shares its name
     with others.
+  - Relations MusicBrainz marks as ended (a past owner or distributor) are skipped. The first pass counted them
+    and placed Heavenly Recordings under Universal through an old distribution deal.
   - A label with no placed ancestor stays unknown, because a missing parent is not proof of independence. Wikidata
     was tried first and rejected: the items exist, but most lack the parent (Urban, Vertigo Berlin).
 - **Hand-added owners:** WEA Latina, WM Poland, Vertigo, Universal Records, Sony BMG, Zomba and Jive (majors);

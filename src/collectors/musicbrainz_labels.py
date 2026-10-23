@@ -14,7 +14,7 @@ from ..http import get
 
 API = "https://musicbrainz.org/ws/2"
 CACHE = DATA / "musicbrainz_labels.json"
-DEPTH = 4
+DEPTH = 4  # relations marked ended (a past owner or distributor) are skipped
 OWNER_TYPES = ("label ownership", "imprint")
 
 
@@ -58,8 +58,8 @@ def ancestors(mbid: str) -> tuple[list[str], list[str]]:
         for m in frontier:
             _name, rels = relations(m)
             for x in rels:
-                if x.get("direction") != "backward":
-                    continue
+                if x.get("direction") != "backward" or x.get("ended"):
+                    continue  # past owners and distributors do not count
                 lab = x.get("label") or {}
                 if x["type"] in OWNER_TYPES and lab.get("id") not in seen:
                     seen.add(lab["id"])
@@ -73,11 +73,18 @@ def ancestors(mbid: str) -> tuple[list[str], list[str]]:
     return chain, distributors
 
 
-def update(names: list[str]) -> int:
-    """Look up the names not yet cached. Saves after each name."""
+def update(names: list[str], refresh: bool = False) -> int:
+    """Look up the names not yet cached (refresh: also re-read the relations of names already matched). Saves after
+    each name."""
     cache = _load()
     n = 0
     for label in names:
+        if label in cache and refresh and cache[label].get("mbid"):
+            chain, dist = ancestors(cache[label]["mbid"])
+            cache[label] = {**cache[label], "chain": chain, "distributors": dist, "current_only": True}
+            CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=0))
+            n += 1
+            continue
         if label in cache:
             continue
         res = {"looked_up": [], "chain": [], "distributors": []}
@@ -85,7 +92,7 @@ def update(names: list[str]) -> int:
             mbid = find(p)
             if mbid:
                 chain, dist = ancestors(mbid)
-                res = {"looked_up": [p], "mbid": mbid, "chain": chain, "distributors": dist}
+                res = {"looked_up": [p], "mbid": mbid, "chain": chain, "distributors": dist, "current_only": True}
                 break
         cache[label] = res
         n += 1

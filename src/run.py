@@ -252,7 +252,7 @@ def backfill_step(limit: int | None = None) -> None:
     print(f"Wayback: {done} weekly snapshots read, {bad} unreadable")
 
 
-def mblabels_step(limit: int | None = None) -> None:
+def mblabels_step(limit: int | None = None, refresh: bool = False) -> None:
     from . import labels
     table, rels = labels.owners(), deezer_releases.load()
     names = {}
@@ -261,7 +261,7 @@ def mblabels_step(limit: int | None = None) -> None:
             if labels.classify_label(r["label"], a["name"], table, use_musicbrainz=False)[0] == "unknown":
                 names[r["label"]] = names.get(r["label"], 0) + 1
     todo = sorted(names, key=lambda n: -names[n])[:limit]
-    print(f"MusicBrainz labels: {musicbrainz_labels.update(todo)} label names looked up ({len(todo)} unplaced)")
+    print(f"MusicBrainz labels: {musicbrainz_labels.update(todo, refresh)} label names looked up ({len(todo)} unplaced)")
 
 
 def apple_step() -> None:
@@ -278,7 +278,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "mblabels": lambda: mblabels_step(lim), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
