@@ -19,6 +19,11 @@ LATIN_WORDS = ("reggaeton", "trap latino", "latin trap", "latin hip hop", "latin
                "urbano latino", "corrido", "regional mexicano")
 
 INCLUDE, REVIEW_LOW = 0.5, 0.3
+# Deezer files much Latin urbano under Rap/Hip Hop: an artist from these countries decided on Deezer alone goes to the
+# Latin list (owner's default: Latin trap and reggaeton apart; Brazilian and other rap stays in)
+SPANISH_SPEAKING = {"Argentina", "Bolivia", "Chile", "Colombia", "Costa Rica", "Cuba", "Dominican Republic", "Ecuador",
+                    "El Salvador", "Guatemala", "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru",
+                    "Puerto Rico", "Spain", "Uruguay", "Venezuela"}
 OVERRIDES = REGISTRY / "genre_overrides.csv"
 
 
@@ -45,7 +50,7 @@ def _deezer(dz: dict | None) -> tuple[float, float] | None:
 
 
 def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, bool]],
-           dz: dict | None = None) -> tuple[str, str]:
+           dz: dict | None = None, wikidata: bool = True, country: str = "") -> tuple[str, str]:
     """Returns (decision, basis). decision: hip_hop | latin | review | other."""
     d = _deezer(dz)
     dz_note = f"; Deezer: {d[0]:.0%} of {dz['releases']} releases Rap/Hip Hop" if d else ""
@@ -69,9 +74,12 @@ def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, boo
     # thin or no votes: Deezer decides when it can, else Wikidata, and a weak case goes to review
     if d:
         basis = f"Deezer: {d[0]:.0%} of {dz['releases']} releases Rap/Hip Hop, {d[1]:.0%} Latin (MusicBrainz votes: {total})"
-        if d[1] >= 0.5:
-            return "latin", basis
-        if d[0] >= 0.6:
+        if not wikidata:
+            # no Wikidata entry tying the Spotify ID to a person: the Deezer match rests on the name alone
+            return "review", basis + "; matched to Deezer by name only"
+        if d[1] >= 0.5 or country in SPANISH_SPEAKING:
+            return "latin", basis + (f"; {country}" if country in SPANISH_SPEAKING else "")
+        if d[0] >= 0.7:
             return "hip_hop", basis
         if d[0] <= 0.2:
             return "other", basis

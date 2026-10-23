@@ -116,7 +116,8 @@ def registry(mb_limit: int | None = None) -> None:
     for s in ids:
         d, prev = wd.get(s, {}), known.get(s, {})
         votes = musicbrainz.genres_of(mb.get(s, {}))
-        decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s))
+        decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")),
+                                       country=d.get("country", ""))
         reviewed = ""
         if s in over:
             decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]

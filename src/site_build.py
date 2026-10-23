@@ -6,7 +6,7 @@ from datetime import date, datetime, timedelta, timezone
 from . import current, labels, money, revenue
 from .collectors import deezer_releases, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
-from .run import PHOTOS, _json, latest_listeners, load_artists
+from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
@@ -125,6 +125,7 @@ def build() -> dict:
     for r in rows:
         sh = shares[r["deal_type"]]
         r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")})
+    rows = rows[:TOP_N]  # the site covers the top 1,000 hip-hop artists by monthly listeners
     for i, r in enumerate(rows, 1):
         r["rank"] = i  # by monthly listeners
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
