@@ -6,6 +6,7 @@
   streams   kworb artist pages (total and daily streams, lead vs feature) for hip-hop and review artists
   deezer    Deezer fans for hip-hop artists not yet matched
   photos    Wikimedia Commons photos for hip-hop artists not yet tried
+  youtube   YouTube total and daily views (kworb.net), for hip-hop artists not yet fetched this month
   dates     first release dates from Deezer for the songs behind 90% of each hip-hop artist's daily streams
   dates-retry  the same, and looks up again the songs that found no date
   mbdates   MusicBrainz first release dates for the ISRCs Deezer found, and a title search for songs it did not
@@ -17,7 +18,7 @@ import sys
 from datetime import datetime, timezone
 
 from . import current, genre, photos
-from .collectors import deezer, kworb, musicbrainz, release_dates, wikidata
+from .collectors import deezer, kworb, kworb_youtube, musicbrainz, release_dates, wikidata
 from .config import DATA, REGISTRY, REVIEW
 
 ARTISTS = REGISTRY / "artists.csv"
@@ -164,6 +165,14 @@ def photos_step(limit: int | None = None) -> None:
     print(f"photos: {sum(1 for v in done.values() if v)} of {len(done)} tried have a free-licence photo")
 
 
+def youtube_step(limit: int | None = None) -> None:
+    have = {s for s, r in kworb_youtube.load_latest().items() if r["date"][:7] == today()[:7]}
+    todo = [a for a in tracked() if a["spotify_id"] not in have][:limit]
+    rows = [r for r in (kworb_youtube.fetch(a["spotify_id"], a["name"], today()) for a in todo) if r]
+    kworb_youtube.save(rows)
+    print(f"YouTube: {len(rows)} of {len(todo)} artists found")
+
+
 def dates_step(limit: int | None = None, retry: bool = False) -> None:
     order = {r["spotify_id"]: r["rank"] for r in latest_listeners()}
     todo = []
@@ -180,7 +189,7 @@ if __name__ == "__main__":
     step, args = sys.argv[1], sys.argv[2:]
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
-     "deezer": deezer_step, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "deezer": deezer_step, "youtube": lambda: youtube_step(lim), "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

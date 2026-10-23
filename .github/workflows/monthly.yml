@@ -26,6 +26,7 @@ jobs:
       - run: python -m src.run dates
       - run: python -m src.run mbdates
       - run: python -m src.run deezer
+      - run: python -m src.run youtube
       - run: python -m src.run photos
       - name: Commit
         run: |
