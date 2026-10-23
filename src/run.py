@@ -181,5 +181,6 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
-     "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz(lim)} ISRCs looked up, "
-                              f"{release_dates.update_musicbrainz_search(lim)} undated songs searched")}[step]()
+     # the title search first: it adds coverage; the ISRC lookups then correct dates already found
+     "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
+                              f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
