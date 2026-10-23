@@ -62,3 +62,11 @@ Applications → self-hosted, domain `rap-ledger.pages.dev`, allow the owner's e
   "YouTube Data API v3" → Credentials → Create credentials → API key; restrict it to that API. Free quota
   (10,000 units a day) is far more than the monthly run needs (about 4 units).
 - `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`: website deploy (see Website).
+
+## Review desk
+
+Borderline genres and unplaced labels are settled on the claude.ai page "Rap Ledger Review Desk"
+(https://claude.ai/artifact/EA2MZxZE9DuhYBCRYAskAF): tap an answer per artist. Claude exports the answers
+(collections `genre` and `label`) to `review/decisions.json` and runs `python -m src.reviews` to write
+`registry/genre_overrides.csv` and `registry/label_overrides.csv`. `python -m src.reviews queue <file>` rebuilds the
+page's queue file from the two review lists.
