@@ -4,7 +4,7 @@ import { COLUMNS, RISING_LIMIT, DEALS } from "./config.js";
 
 const app = document.getElementById("app");
 const store = { data: null };
-const ui = { sort: ["ml", -1], q: "" };
+const ui = { sort: ["cl", -1], q: "", by: "current" };
 
 // ---------- helpers
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -23,7 +23,8 @@ const delta = v => v == null ? "–" : `<span class="${v > 0 ? "up" : v < 0 ? "d
 const pct = v => v == null ? "–" : `<span class="${v > 0 ? "up" : v < 0 ? "down" : ""}">${v > 0 ? "+" : ""}${v.toFixed(2)}%</span>`;
 const cell = (a, [, key, f]) => {
   const v = key === "gen_mid" ? a.money?.generated.mid : a[key];
-  return f === "count" ? count(v) : f === "delta" ? delta(v) : f === "pct" ? pct(v) : f === "money" ? usd(v) : f === "int" ? (v ?? "–") : esc(v);
+  return f === "count" ? count(v) : f === "delta" ? delta(v) : f === "pct" ? pct(v) : f === "money" ? usd(v)
+    : f === "share" ? (v == null ? "–" : Math.round(v * 100) + "%") : f === "int" ? (v ?? "–") : esc(v);
 };
 const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc(t)}</span>`;
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
@@ -31,12 +32,13 @@ const nav = id => document.querySelectorAll("[id^=nav-]").forEach(a => a.id === 
 
 // ---------- pages
 function table(rows, rankKey = "rank") {
+  const COLS = COLUMNS[ui.by];
   const [k, dir] = ui.sort;
   const val = a => k === "gen_mid" ? a.money?.generated.mid : a[k];
   const sorted = [...rows].sort((a, b) => ((val(a) ?? -Infinity) > (val(b) ?? -Infinity) ? 1 : -1) * dir);
-  const head = COLUMNS.map(c => `<th data-sort="${c[1]}"${c[1] === k ? ` aria-sort="${dir < 0 ? "descending" : "ascending"}"` : ""}>${esc(c[0])}</th>`).join("");
+  const head = COLS.map(c => `<th data-sort="${c[1]}"${c[1] === k ? ` aria-sort="${dir < 0 ? "descending" : "ascending"}"` : ""}>${esc(c[0])}</th>`).join("");
   const body = sorted.map(a => `<tr><td class="l">${a[rankKey]}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td>
-    <td class="l">${a.major ? esc(a.major) : a.labels.length ? "Independent" : "–"}</td>${COLUMNS.map(c => `<td>${cell(a, c)}</td>`).join("")}</tr>`).join("");
+    <td class="l">${a.major ? esc(a.major) : a.labels.length ? "Independent" : "–"}${a.revivals?.length ? " " + chip("Revival", a.revivals.map(r => `${r.title} (${r.year})`).join(", ")) : ""}</td>${COLS.map(c => `<td>${cell(a, c)}</td>`).join("")}</tr>`).join("");
   return `<div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Label group</th>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
 function bindSort(rerender) {
@@ -45,23 +47,35 @@ function bindSort(rerender) {
   });
 }
 
+function top100() {
+  const all = store.data.artists;
+  if (ui.by === "monthly") return all.slice(0, 100).map(a => ({ ...a, pos: a.rank }));
+  return all.filter(a => a.cl_rank && a.cl_rank <= 100).sort((a, b) => a.cl_rank - b.cl_rank).map(a => ({ ...a, pos: a.cl_rank }));
+}
 function top() {
   nav("top");
-  const d = store.data, list = d.artists.slice(0, 100).filter(a => a.name.toLowerCase().includes(ui.q));
-  const all = d.artists, ml = all.slice(0, 100).reduce((s, a) => s + a.ml, 0);
-  const gen = all.slice(0, 100).reduce((s, a) => s + (a.money?.generated.mid || 0), 0);
-  const up = [...all.slice(0, 100)].sort((a, b) => (b.chg_pct ?? -1e9) - (a.chg_pct ?? -1e9))[0];
-  const majors = all.slice(0, 100).filter(a => a.major).length;
+  const d = store.data, all = d.artists, hundred = top100();
+  const list = hundred.filter(a => a.name.toLowerCase().includes(ui.q));
+  const ml = hundred.reduce((s, a) => s + a.ml, 0);
+  const gen = hundred.reduce((s, a) => s + (a.money?.generated.mid || 0), 0);
+  const up = [...hundred].sort((a, b) => (b.chg_pct ?? -1e9) - (a.chg_pct ?? -1e9))[0];
+  const majors = hundred.filter(a => a.major).length;
+  const unranked = all.filter(a => a.cl == null);
+  const sub = ui.by === "current"
+    ? `Ranked by current listeners: each artist's monthly listeners, counting the listening that comes from recent releases, so songs from years ago that are still streamed a lot do not decide the order. ${esc(d.as_of)}.`
+    : `Ranked by Spotify monthly listeners, ${esc(d.as_of)}.`;
   app.innerHTML = `<section><h1>Top 100 hip-hop artists on Spotify</h1>
-    <p class="sub">By monthly listeners, ${esc(d.as_of)}. ${all.length} of Spotify's top ${d.universe.toLocaleString()} artists are hip-hop or rap.</p></section>
+    <p class="sub">${sub} ${all.length} of Spotify's top ${d.universe.toLocaleString()} artists are hip-hop or rap.</p>
+    <div class="seg" role="group" aria-label="Ranking" style="margin-top:12px"><button type="button" data-by="current" aria-pressed="${ui.by === "current"}">Our ranking: current listeners</button><button type="button" data-by="monthly" aria-pressed="${ui.by === "monthly"}">Monthly listeners</button></div></section>
     <section class="tiles">
-      <div class="tile"><div class="k">Combined monthly listeners</div><div class="v">${count(ml)}</div><div class="s">top 100, people counted once per artist</div></div>
+      <div class="tile"><div class="k">Combined monthly listeners</div><div class="v">${count(ml)}</div><div class="s">these 100, people counted once per artist</div></div>
       <div class="tile"><div class="k">Royalties generated / month</div><div class="v">${usd(gen)}</div><div class="s">Spotify recordings, top 100, mid estimate ${grade("C")}</div></div>
       <div class="tile"><div class="k">Biggest riser today</div><div class="v">${up ? esc(up.name) : "–"}</div><div class="s">${up ? pct(up.chg_pct) + " listeners" : ""}</div></div>
       <div class="tile"><div class="k">On a major label</div><div class="v">${majors} of 100</div><div class="s">as listed on Wikidata ${grade("B")}</div></div>
     </section>
     <section><div class="toolbar"><input type="search" placeholder="Find an artist" value="${esc(ui.q)}" aria-label="Find an artist"></div>
-      ${table(list)}<p class="note">Royalties generated are what Spotify pays the rights holders for the artist's own tracks (label or distributor), not the artist's pay. See the artist page and Pay gap.</p></section>`;
+      ${table(list, "pos")}<p class="note">Royalties generated are what Spotify pays the rights holders for the artist's own tracks (label or distributor), not the artist's pay. See the artist page and Pay gap.${ui.by === "current" && unranked.length ? ` Not yet ranked, because release dates are missing for too much of their listening: ${unranked.map(a => esc(a.name)).join(", ")}.` : ""}</p></section>`;
+  app.querySelectorAll("[data-by]").forEach(b => b.onclick = () => { ui.by = b.dataset.by; ui.sort = [ui.by === "current" ? "cl" : "ml", -1]; top(); });
   const inp = app.querySelector("input");
   inp.oninput = () => { ui.q = inp.value.toLowerCase(); const p = inp.selectionStart; top(); const i = app.querySelector("input"); i.focus(); i.setSelectionRange(p, p); };
   bindSort(top);
@@ -69,10 +83,10 @@ function top() {
 
 function rising() {
   nav("rising");
-  const rest = store.data.artists.slice(100).filter(a => a.chg_pct != null);
+  const inTop = new Set(top100().map(a => a.id)), rest = store.data.artists.filter(a => !inTop.has(a.id) && a.chg_pct != null);
   const list = [...rest].sort((a, b) => b.chg_pct - a.chg_pct).slice(0, RISING_LIMIT).map((a, i) => ({ ...a, rrank: i + 1 }));
   app.innerHTML = `<section><h1>Rising: hip-hop outside the top 100</h1>
-    <p class="sub">Biggest daily gains in monthly listeners among the ${rest.length} hip-hop artists ranked 101 and below. From the first full month, this page ranks month-on-month growth confirmed on a second platform (Breakout Watch, roadmap step 1.3).</p></section>
+    <p class="sub">Biggest daily gains in monthly listeners among the ${rest.length} hip-hop artists outside the top 100. From the first full month, this page ranks month-on-month growth confirmed on a second platform (Breakout Watch, roadmap step 1.3).</p></section>
     <section>${tableRising(list)}</section>`;
 }
 function tableRising(list) {
@@ -94,10 +108,11 @@ function artist(id) {
   const links = Object.entries(a.links).filter(([, u]) => u).map(([k, u]) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(k[0].toUpperCase() + k.slice(1))}</a>`).join("");
   const leadShare = a.streams ? a.lead_streams / a.streams : null;
   app.innerHTML = `<section class="head">${pic(a, true)}<div><h1>${esc(a.name)}</h1>
-      <p class="sub">#${a.rank} in hip-hop · #${a.rank_all} on Spotify overall${a.country ? " · " + esc(a.country) : ""}${a.since ? " · active since " + esc(a.since) : ""}</p>
+      <p class="sub">${a.cl_rank ? `#${a.cl_rank} in our ranking · ` : ""}#${a.rank} in hip-hop by listeners · #${a.rank_all} on Spotify overall${a.country ? " · " + esc(a.country) : ""}${a.since ? " · active since " + esc(a.since) : ""}</p>
       <div class="links" style="margin-top:10px">${links}</div></div></section>
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(a.ml)}</div><div class="s">${delta(a.chg)} today (${pct(a.chg_pct)})</div></div>
+      <div class="tile"><div class="k">Current listeners</div><div class="v">${a.cl != null ? count(a.cl) : "–"}</div><div class="s">${a.cur_share != null ? Math.round(a.cur_share * 100) + "% of listening on recent releases" : "release dates missing"}${a.cl == null && a.cur_share != null ? " · not ranked yet" : ""}</div></div>
       <div class="tile"><div class="k">Peak</div><div class="v">${count(a.peak_ml)}</div><div class="s">best rank #${a.peak_rank} on Spotify</div></div>
       <div class="tile"><div class="k">Streams, all time</div><div class="v">${count(a.streams)}</div><div class="s">${count(a.daily)} a day</div></div>
       <div class="tile"><div class="k">Deezer fans</div><div class="v">${count(a.deezer_fans)}</div><div class="s">second platform</div></div>
@@ -121,6 +136,7 @@ function artist(id) {
         <dt>Labels on record</dt><dd>${esc(a.labels.slice(0, 3).join(", ") || "–")}${a.labels.length > 3 ? ` +${a.labels.length - 3}` : ""}</dd>
       </dl><p class="note">Stream totals as of ${esc(a.streams_date || "–")} (kworb.net, from Spotify's public play counts).</p></div>
     </section>
+    ${a.revivals?.length ? `<section class="panel"><h2>Revival</h2><p>${a.revivals.map(r => `<b>${esc(r.title)}</b> (${r.year}) is up ${Math.round(r.rise * 100)}% in daily streams on a month ago.`).join(" ")} Older songs that come back stay out of current listeners.</p></section>` : ""}
     <section class="note">Genre: ${esc(a.genre_basis)}.${a.photo ? ` Photo: ${esc(a.photo.author)}, <a href="${esc(a.photo.page)}" target="_blank" rel="noopener">${esc(a.photo.license)}</a>, via Wikimedia Commons.` : ""}</section>`;
 }
 
@@ -149,6 +165,7 @@ function method() {
   <h2>Who is in the list</h2><ul>
    <li>Spotify's top ${store.data.universe.toLocaleString()} artists by monthly listeners (kworb.net, which compiles Spotify's public pages; updated daily).</li>
    <li>Hip-hop or rap if most of the artist's genre votes are hip-hop (MusicBrainz community votes), with Wikidata genres where votes are thin. Borderline cases are decided by hand. Latin trap and reggaeton are a separate list for now.</li></ul>
+  <h2>Our ranking</h2><p>The top 100 is ranked by <b>current listeners</b>: each artist's monthly listeners, counting the listening that comes from recent releases. Songs that came out years ago but are still streamed a lot add little, so the ranking shows who is drawing an audience with new music now. Release dates come from Deezer and MusicBrainz; an artist is ranked only when the dates cover most of their listening. Older songs that suddenly rise again are marked "Revival" and stay out of the ranking. The full method will be published here.</p>
   <h2>Numbers</h2><ul>
    <li><b>Monthly listeners:</b> unique listeners over the last 28 days, as Spotify shows them. Measured.</li>
    <li><b>Streams:</b> Spotify's public play counts summed over every track the artist is credited on (kworb.net); lead and featured credits apart. Measured.</li>

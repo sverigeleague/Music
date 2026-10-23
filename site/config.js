@@ -1,14 +1,24 @@
 // Rap Ledger content settings. Change what the pages show here; the logic is in app.js, the look in styles.css.
 
-// Top-100 table columns: [label, key, format]. Formats: count | delta | pct | money | text.
-export const COLUMNS = [
-  ["Monthly listeners", "ml", "count"],
-  ["Today", "chg", "delta"],
-  ["Spotify rank", "rank_all", "int"],
-  ["Peak listeners", "peak_ml", "count"],
-  ["Streams / day", "daily", "count"],
-  ["Royalties generated / month", "gen_mid", "money"],
-];
+// Top-100 table columns per ranking: [label, key, format]. Formats: count | delta | share | money | int.
+// "current": our ranking (current listeners, recent releases weighted up); "monthly": Spotify's monthly listeners.
+export const COLUMNS = {
+  current: [
+    ["Current listeners", "cl", "count"],
+    ["From recent releases", "cur_share", "share"],
+    ["Monthly listeners", "ml", "count"],
+    ["By listeners", "rank", "int"],
+    ["Royalties generated / month", "gen_mid", "money"],
+  ],
+  monthly: [
+    ["Monthly listeners", "ml", "count"],
+    ["Today", "chg", "delta"],
+    ["Spotify rank", "rank_all", "int"],
+    ["Peak listeners", "peak_ml", "count"],
+    ["Streams / day", "daily", "count"],
+    ["Royalties generated / month", "gen_mid", "money"],
+  ],
+};
 
 // How many artists outside the top 100 the Rising page lists.
 export const RISING_LIMIT = 50;

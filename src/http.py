@@ -10,7 +10,7 @@ _session = requests.Session()
 _session.headers["User-Agent"] = USER_AGENT
 _last: dict[str, float] = {}
 # Seconds between requests per host: each site's published limit or a polite default.
-PAUSE = {"musicbrainz.org": 1.1, "query.wikidata.org": 2.0, "kworb.net": 1.0, "api.deezer.com": 0.2}
+PAUSE = {"musicbrainz.org": 1.1, "query.wikidata.org": 2.0, "kworb.net": 1.0, "api.deezer.com": 0.11}
 
 
 def get(url, params=None, headers=None, tries=4, timeout=60, data=None):

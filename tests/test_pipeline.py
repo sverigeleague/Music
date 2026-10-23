@@ -55,3 +55,57 @@ def test_money_ranges():
 def test_deezer_names():
     assert deezer._norm("JAŸ-Z") == deezer._norm("Jay-Z")
     assert deezer._norm("Tyler, The Creator") == "tylerthecreator"
+
+
+def test_song_rows():
+    songs = kworb.parse_songs((FIX / "artist_drake.html").read_text())
+    one = songs[0]
+    assert one == {"track_id": "1zi7xx7UVEFkmKfv06H8x0", "title": "One Dance", "total": 4529127344,
+                   "daily": 1631893, "feature": False}
+    assert any(s["feature"] and s["title"] == "Work" for s in songs)  # kworb marks guest spots with *
+
+
+def test_age_weight():
+    from datetime import date
+    from src.current import age_weight
+    today = date(2026, 10, 23)
+    assert age_weight(date(2026, 5, 1), today) == 1.0              # 6 months: current
+    assert age_weight(date(2025, 4, 30), today) == 1.0              # just under 18 months
+    assert 0.45 < age_weight(date(2024, 7, 23), today) < 0.55       # 27 months: halfway down
+    assert age_weight(date(2023, 1, 1), today) == 0.0               # 46 months: catalog
+
+
+def test_current_share_and_coverage():
+    from datetime import date
+    from src.current import score
+    today = date(2026, 10, 23)
+    rows = [{"track_id": "new", "title": "New", "daily": 600, "feature": False},
+            {"track_id": "old", "title": "Old", "daily": 300, "feature": False},
+            {"track_id": "guest", "title": "Guest", "daily": 200, "feature": True},   # counts 100
+            {"track_id": "undated", "title": "?", "daily": 50, "feature": False}]
+    dates = {"new": {"first_release": "2026-09-01"}, "old": {"first_release": "2015"},
+             "guest": {"first_release": "2026-01-10"}}
+    s = score(rows, dates, today)
+    assert round(s["current_share"], 4) == round(700 / 1000, 4)  # (600 + 100) / (600 + 300 + 100)
+    assert round(s["coverage"], 4) == round(1000 / 1050, 4) and s["ok"]
+    assert score(rows, {"new": dates["new"]}, today)["ok"] is False  # 600 / 1050 dated: below 80%
+
+
+def test_revival():
+    from datetime import date
+    from src.current import score
+    today = date(2026, 10, 23)
+    rows = [{"track_id": "old", "title": "Old", "daily": 400, "feature": False},
+            {"track_id": "new", "title": "New", "daily": 600, "feature": False}]
+    earlier = [{"track_id": "old", "title": "Old", "daily": 200, "feature": False}]
+    dates = {"old": {"first_release": "2012-06-01"}, "new": {"first_release": "2026-08-01"}}
+    s = score(rows, dates, today, earlier)
+    assert s["revivals"] == [{"title": "Old", "year": 2012, "rise": 1.0}]
+    assert s["current_share"] == 0.6  # the revived song stays out of the current share
+
+
+def test_release_date_keys():
+    from src.collectors.release_dates import _key, norm
+    assert min(["2016-05-06", "2016"], key=_key) == "2016-05-06"   # a year-only date never wins by being short
+    assert min(["2018-06-29", "2018-01-19"], key=_key) == "2018-01-19"
+    assert norm("All The Stars (with SZA) - From \"Black Panther\"") == "allthestars"

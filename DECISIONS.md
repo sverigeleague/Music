@@ -2,7 +2,35 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
-## 2026-10-23 Proposed: our own top 100 by "current listeners" (owner asked; awaiting the owner's choice)
+## 2026-10-23 Built: our own top 100 by "current listeners" (owner: "go with recommended, build it")
+
+- **Owner's choices (all as recommended):**
+  - age weight 1 up to 18 months, falling to 0 at 36 months;
+  - featured songs at half weight;
+  - old songs that rise again stay out of the score and get a "Revival" badge.
+- **Formula:** not shown on the site yet (owner: "keep that formula as something we would show in the site in a later
+  stage"). The method page describes the ranking in general terms; the exact weights live in `src/current.py`.
+- **Built:**
+  - `kworb.parse_songs`: every song row of the archived artist pages: Spotify track ID, lifetime and daily streams,
+    and guest spots (marked *).
+  - `src/collectors/release_dates.py` dates the songs behind 90% of each hip-hop artist's daily streams (at most 40).
+    - Deezer search (artist + title, credits must include the artist) gives the edition date and ISRC
+      (`data/track_dates.csv`).
+    - MusicBrainz by ISRC gives the first release date (`data/isrc_dates.csv`).
+    - The earlier of the two is used.
+  - Checked on Drake's songs: MusicBrainz corrects edition dates, e.g. "God's Plan" 2018-06-29 → 2018-01-19 and
+    "Hotline Bling" 2016-05-06 → 2015-07-31.
+  - `src/current.py`: current share, coverage, revivals. The revival rule needs a page 28+ days older, so it starts
+    working with the second monthly refresh.
+  - Site: the top 100 defaults to current listeners, with a switch to monthly listeners. Artists under 80% coverage
+    are listed as "not yet ranked".
+- **Changed for speed:**
+  - 90% of streams and at most 40 songs per artist, instead of 95% and 60;
+  - Deezer requests at 0.11 s (its limit is 50 per 5 s);
+  - two caches so Deezer and MusicBrainz run side by side.
+  - First run: about 5,900 songs, 2 hours. Later months: only new songs.
+
+## 2026-10-23 Proposed: our own top 100 by "current listeners" (owner asked)
 
 - **Owner's ask:** a top 100 that is not driven by old songs that are still streamed a lot.
 - **Proposed:** current listeners = monthly listeners × the current share of the artist's daily streams.
@@ -23,6 +51,7 @@ What was chosen, what was considered and rejected, and why. Newest first.
   - Misses are features and multi-artist credits (Metro Boomin at 0% is suspect).
   - Before production: Spotify track ID → ISRC → MusicBrainz first release date (CC0), with Deezer as a fallback.
   - Publish an artist's figure only when at least 80% of their streams are dated.
+- **Outcome:** chosen as recommended; see the entry above.
 
 ## 2026-10-23 Phase 0 prototype: top 100 hip-hop on Spotify (built before the owner's answers; reversible)
 

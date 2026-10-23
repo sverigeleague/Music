@@ -16,6 +16,8 @@ python -m src.run registry      # hip-hop decision per artist -> registry/artist
 python -m src.run streams       # total and daily streams, lead vs feature (kworb.net artist pages)
 python -m src.run deezer        # Deezer fans
 python -m src.run photos        # Wikimedia Commons photos with credits
+python -m src.run dates         # first release dates of the songs behind each artist's streams (Deezer)
+python -m src.run mbdates       # MusicBrainz first release dates for those songs (can run alongside)
 python -m src.site_build && python -m http.server -d site 8000   # then open http://localhost:8000
 ```
 
@@ -25,6 +27,8 @@ python -m src.site_build && python -m http.server -d site 8000   # then open htt
 - `data/spotify_listeners.csv`: daily monthly listeners, rank, daily change and peak for tracked artists.
 - `data/spotify_streams.csv`: stream totals and daily streams per artist (total, as lead, solo, as feature).
 - `data/musicbrainz.csv`, `data/wikidata.json`: cached lookups (MusicBrainz genre votes are internal only, CC BY-NC-SA).
+- `data/track_dates.csv`, `data/isrc_dates.csv`: song release dates (Deezer edition date and ISRC; MusicBrainz first
+  release date by ISRC). They feed our ranking, current listeners (`src/current.py`).
 - `registry/artists.csv`: one row per candidate artist: genre decision and its basis, platform IDs, labels, major.
 - `registry/genre_overrides.csv`: the owner's genre decisions; they win over the rule.
 - `registry/rates.csv`, `registry/deal_shares.csv`: payout rates and artist shares, each with grade and source.

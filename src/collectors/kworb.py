@@ -67,6 +67,19 @@ def parse_artist(html: str) -> dict:
     return out
 
 
+def parse_songs(html: str) -> list[dict]:
+    """Every song row of an artist page: Spotify track ID, title, lifetime and daily streams; `feature` when the
+    artist is a featured guest (kworb marks those rows with *)."""
+    out = []
+    for row in re.findall(r"<tr>(.*?)</tr>", html, re.S):
+        m = re.search(r'<td class="text"><div>(\*?\s*)<a href="https://open\.spotify\.com/track/([0-9A-Za-z]{22})"'
+                      r'[^>]*>(.*?)</a></div></td><td>([\d,]+)</td><td>([\d,]+|--)</td>', row, re.S)
+        if m:
+            out.append({"track_id": m[2], "title": _unescape(_text(m[3])), "total": _int(m[4]),
+                        "daily": _int(m[5]) or 0, "feature": "*" in m[1]})
+    return out
+
+
 def _unescape(s: str) -> str:
     import html
     return html.unescape(s)
