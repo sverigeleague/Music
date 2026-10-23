@@ -2,6 +2,68 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-23 Unsigned tab and the move to the top 1,000 (owner: "another tab of unsigned artists ... benchmark against comparable growing signed artists ... then expand to the top 1,000")
+
+- **Who is signed, chosen: what the artist releases on now, not Wikidata's career-long label list.**
+  - **Labels:** Deezer gives the label printed on each release. The artist's last 2 years, up to 6 releases, are read
+    (`src/collectors/deezer_releases.py`).
+  - **Owner map:** `registry/label_owners.csv` (50 patterns; "X under exclusive license to Y" goes by Y). The majors'
+    labels were checked on Wikidata's parent organisations: 27 confirmed, 5 with no entry or no parent, marked as
+    such.
+  - **Artist status:** the status most of their recent releases share. Deezer lists a collaboration under every artist
+    on it, so the latest release alone misled: Tyler, The Creator showed as Warner.
+  - **Second check, recording codes (ISRCs) of the artist's own recent songs, not guest spots:**
+    - No public list maps ISRC prefixes to companies, so prefixes are learned from our own data. A prefix belongs to a
+      major when at least 10 lead-artist songs carry it and 90% or more come from artists whose labels are that
+      major's. Learned: USUG1, USUM7, USC4R (Universal); USAT2 (Warner); USSM1, USRC1, USQX9 (Sony); and a few
+      others.
+    - US codes issued after 2010 start QM/QZ/QT ([Wikipedia](https://en.wikipedia.org/wiki/International_Standard_Recording_Code)):
+      newer registrants, which DIY distributors and small labels use.
+  - **Statuses:**
+    - major;
+    - major's distribution (Virgin, The Orchard, AWAL, ADA);
+    - independent label (EMPIRE, gamma., BMG ...);
+    - self-released, i.e. unsigned: a distributor named on the release, "Independent", or the artist's own name;
+    - unknown.
+  - An own-name label on recordings registered by a major counts as major. This corrected Post Malone, Gunna, NF and
+    Metro Boomin.
+  - **Confidence:** "confirmed" (a distributor named, or most recent songs on QM/QZ/QT codes) or "label name only".
+- **Revenue:** the deal type now follows this status:
+  - major → major deal;
+  - major's distribution → label services, 70-85% (AWAL Core 85%, A);
+  - independent → independent label;
+  - self-released → DIY, 85-100% (UnitedMasters 90-100%, A).
+  - Wikidata's label list is now only a fallback.
+- **Benchmark (chosen):** each unsigned artist against the 5 signed artists closest in monthly listeners (0.6-1.67×,
+  else 0.4-2.5×) and share of listening on recent releases.
+  - "Growing" means at least 20% of listening on recent releases, until a month of listener history allows 28-day
+    growth. Catalog acts, such as Wu-Tang Clan and MF DOOM, were matching before this filter.
+  - **Shown:**
+    - what the artist generates and keeps now (95%);
+    - the peers' median;
+    - the artist's streams per listener against the peers';
+    - what they would keep on each deal type;
+    - the growth each deal must bring to pay the same: major 4.75×, independent 1.9×, label services 1.19×.
+  - Advances and label marketing money are not public and not included (stated).
+- **First result:** 12 unsigned in today's 191, 5 confirmed (BigXthaPlug, Aitch, YG, Lil Mosey, Powfu).
+  `review/label_review.csv` lists 62 artists to settle in `registry/label_overrides.csv`.
+- **Expansion:**
+  - kworb's listener pages go to 11 pages, about 25,000 artists with 500,000+ monthly listeners. Pages 2-11 have no
+    peak-rank column; the parser handles both.
+  - The daily snapshot reads all pages. Raw page 1 is archived daily and pages 2-11 weekly (about 1.4 MB a day
+    otherwise).
+  - Candidates: 1,567 Wikidata hip-hop artists are in the 25,000; Wikidata alone would give about 750 hip-hop artists.
+  - Deezer is added as a third genre source (`src/collectors/deezer_genres.py`): the share of an artist's releases filed
+    under Rap/Hip Hop (genre 116) or Latin (122, 197). Checks: Drake 86%, BigXthaPlug 98%, Bad Bunny 25% rap and
+    67% Latin, Bruno Mars 16%.
+    - It settles MusicBrainz's borderline cases and decides when votes are thin.
+    - It is used only with an exact name match and 5+ releases.
+    - It runs for the top 12,000 artists (one-off, 8 workers within Deezer's limit).
+  - The per-artist steps (streams, dates, labels, photos, YouTube) cover the top 1,000 hip-hop artists by monthly
+    listeners (`TOP_N`).
+- **Site at 1,000 artists:** fields only the artist page needs moved to `site/data/a/<id>.json`; the index went from
+  476 KB to 218 KB at 191 artists.
+
 ## 2026-10-23 Fan demographics and more YouTube (owner: "go with your defaults, next do fan demographics. Try to find YouTube data related to artists")
 
 - **Defaults confirmed by the owner:**

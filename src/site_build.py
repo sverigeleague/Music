@@ -9,6 +9,11 @@ from .config import REGISTRY, SITE
 from .run import PHOTOS, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
+# fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
+DETAIL_ONLY = ("genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
+               "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
+               "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
+               "peak_rank")
 
 
 def latest_streams() -> dict[str, dict]:
@@ -227,10 +232,16 @@ if __name__ == "__main__":
     # revenue detail per artist in its own file (site/data/a/<id>.json), loaded when the artist page opens; the index
     # keeps the totals and each streaming line's mid estimate for the tables
     (OUT.parent / "a").mkdir(exist_ok=True)
-    for r in data["artists"]:
+    for i, r in enumerate(data["artists"]):
         rev = r.pop("revenue")
-        (OUT.parent / "a" / f"{r['id']}.json").write_text(json.dumps(rev, ensure_ascii=False, separators=(",", ":")))
+        detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, "photo": r.get("photo")}  # full photo credit
+        (OUT.parent / "a" / f"{r['id']}.json").write_text(
+            json.dumps({**rev, "artist": detail}, ensure_ascii=False, separators=(",", ":")))
         r["rev_total"] = rev["artist_total"]
         r["rev_lines"] = {l["key"]: round(l["generated"]["mid"]) for l in rev["lines"]}
+        if r.get("money"):
+            r["money"] = {"generated": r["money"]["generated"], "deal_label": r["money"]["deal_label"]}
+        if r.get("photo"):
+            r["photo"] = {"file": r["photo"]["file"]}
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{OUT.relative_to(SITE.parent)}: {len(data['artists'])} hip-hop artists, {OUT.stat().st_size // 1024} KB")
