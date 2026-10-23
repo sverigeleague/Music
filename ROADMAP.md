@@ -177,6 +177,11 @@ estimates; low or medium for UI and routine work.
 See the questions in the session and `DECISIONS.md`. Phase 0 steps 0.1-0.5 are free and reversible; 0.6 onward wait
 for the answers.
 
+## Ranking method
+
+Our top 100 is ranked by current listeners: `docs/METHODOLOGY.md` (version 1.0), also at
+https://claude.ai/artifact/6jUwKAZx52ZVhgWbEt95ny.
+
 ## Board
 
 "Music Build Board": https://claude.ai/artifact/MdBgbsM31Any2J6FjBVnQn (claude.ai page with its own database,

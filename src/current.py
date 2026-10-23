@@ -1,4 +1,5 @@
-"""Current listeners: our own ranking, so that old songs still streamed a lot do not drive it (DECISIONS.md, 2026-10-23).
+"""Current listeners: our own ranking, so that old songs still streamed a lot do not drive it. Full reference with a
+worked example: docs/METHODOLOGY.md (keep it in step with the numbers here; a change is a new method version).
 
     current listeners = monthly listeners x current share
     current share     = sum(age weight x daily streams) / sum(daily streams), over the artist's dated songs

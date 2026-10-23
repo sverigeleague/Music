@@ -8,8 +8,12 @@ What was chosen, what was considered and rejected, and why. Newest first.
   - age weight 1 up to 18 months, falling to 0 at 36 months;
   - featured songs at half weight;
   - old songs that rise again stay out of the score and get a "Revival" badge.
-- **Formula:** not shown on the site yet (owner: "keep that formula as something we would show in the site in a later
-  stage"). The method page describes the ranking in general terms; the exact weights live in `src/current.py`.
+- **Formula:**
+  - Not shown on the site yet (owner: "keep that formula as something we would show in the site in a later stage").
+    The method page describes the ranking in general terms.
+  - The full reference is `docs/METHODOLOGY.md`, version 1.0, also as a private page:
+    https://claude.ai/artifact/6jUwKAZx52ZVhgWbEt95ny. The owner asked to be able to refer to it at any time.
+  - Its worked example is checked against `src/current.py`.
 - **Built:**
   - `kworb.parse_songs`: every song row of the archived artist pages: Spotify track ID, lifetime and daily streams,
     and guest spots (marked *).
