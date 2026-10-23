@@ -93,7 +93,27 @@ def build() -> dict:
     day = max((r["date"] for r in csv.DictReader(kworb.LISTENERS_CSV.open())), default=None)
     return {"built": datetime.now(timezone.utc).isoformat(timespec="minutes"), "as_of": day,
             "universe": len(top), "artists": rows, "rates": rates, "deals": deals,
-            "platforms": revenue.platforms(), "multipliers": revenue.multipliers()}
+            "platforms": revenue.platforms(), "multipliers": revenue.multipliers(), "tours": tour_table(rows)}
+
+
+def tour_table(rows: list[dict]) -> list[dict]:
+    """Every counted tour (registry/tours.csv, use=Y, grade A/B) with per-show and per-fan figures and the artist's
+    estimated slice (rule-of-thumb shares, C)."""
+    ids = {r["name"].casefold(): r["id"] for r in rows}
+    out = []
+    for t in revenue.tours():
+        if t.get("use") != "Y" or not t.get("gross_usd"):
+            continue
+        g, n, k = float(t["gross_usd"]), float(t["shows"] or 0), float(t["tickets"] or 0)
+        share = float(t.get("artist_share") or 1)
+        out.append({"artist": t["artist"], "id": ids.get(t["artist"].casefold()), "tour": t["tour"], "start": t["start"],
+                    "end": t.get("end"), "shows": int(n) or None, "tickets": int(k) or None, "gross": g,
+                    "per_show": g / n if n else None, "per_fan": g / k if k else None,
+                    "co": t.get("co_headliner") or None, "share": share, "grade": t["grade"],
+                    "artist_net": {kk: g * share * v for kk, v in zip(("low", "mid", "high"), revenue.TOUR_ARTIST_NET)},
+                    "merch": {kk: k * share * v for kk, v in zip(("low", "mid", "high"), revenue.MERCH_PER_FAN)} if k else None,
+                    "source": t["source_url"], "note": t["source_note"], "partial": bool(t.get("gross_through"))})
+    return sorted(out, key=lambda x: -x["gross"])
 
 
 if __name__ == "__main__":

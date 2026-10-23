@@ -94,6 +94,38 @@ function tableRising(list) {
   ${list.map(a => `<tr><td class="l">${a.rrank}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td>${a.rank}</td><td>${count(a.ml)}</td><td>${delta(a.chg)}</td><td>${pct(a.chg_pct)}</td><td>${count(a.peak_ml)}</td></tr>`).join("")}</tbody></table></div>`;
 }
 
+// ---------- tours
+function tours() {
+  nav("tours");
+  const T = store.data.tours;
+  const [sk, sd] = ui.tsort || ["gross", -1];
+  const val = (t, k) => k === "net" ? t.artist_net.mid : t[k];
+  const rows = [...T].sort((a, b) => ((val(a, sk) ?? -Infinity) > (val(b, sk) ?? -Infinity) ? 1 : -1) * sd);
+  const best = [...T].filter(t => t.per_fan).sort((a, b) => b.per_fan - a.per_fan)[0];
+  const top = T[0], sum = T.reduce((s, t) => s + t.gross, 0);
+  const cols = [["Shows", "shows"], ["Tickets", "tickets"], ["Gross", "gross"], ["Per show", "per_show"], ["Per fan", "per_fan"], ["Artist's slice", "net"]];
+  const steps = [["Venue, promoter and local costs", 0.35, "rent, staff, security, ticketing; the promoter keeps about 3% (Live Nation 10-K)"],
+    ["Artist's production and crew", 0.30, "stage, lights, trucks, band, crew, travel: 25–45%"],
+    ["Agent, manager, business manager", 0.15, "agent 10%, manager 15–20%, business manager 5% of the artist's fee"],
+    ["Artist's slice", 0.20, "15–35% of gross, before tax"]];
+  app.innerHTML = `<section><h1>Tours</h1>
+    <p class="sub">Box office reported by Billboard Boxscore and Pollstar for tours since 2023 by artists in the top 100: how much a tour makes, per show and per fan, and an estimate of what reaches the artist.</p></section>
+    <section class="tiles">
+      <div class="tile"><div class="k">Biggest tour</div><div class="v">${esc(top.artist)}</div><div class="s">${esc(top.tour)}: ${usd(top.gross)}</div></div>
+      <div class="tile"><div class="k">Most money per fan</div><div class="v">${best ? usd(best.per_fan) : "–"}</div><div class="s">${best ? esc(best.artist) + ", " + esc(best.tour) : ""}</div></div>
+      <div class="tile"><div class="k">Reported box office</div><div class="v">${usd(sum)}</div><div class="s">${T.length} tours, graded A or B</div></div>
+    </section>
+    <section class="panel"><h2>Where a ticket's money goes, roughly ${grade("C")}</h2>
+      <div class="bars">${steps.map(([l, v, n]) => `<div class="barrow"><span>${esc(l)}</span><div class="track"><i style="left:0;width:${v * 100}%"></i></div><span>about ${Math.round(v * 100)}%</span></div><p class="note" style="margin:-4px 0 4px">${esc(n)}</p>`).join("")}</div>
+      <p class="note">Industry rules of thumb, not reported figures: the split differs by deal (guarantee or door split) and by how big the production is. Stadium headliners keep more of the gross; a support act may keep little after costs.</p></section>
+    <section><div class="tablebox"><table><thead><tr><th class="l">Artist</th><th class="l">Tour</th><th class="l">Dates</th>${cols.map(([l, k]) => `<th data-tsort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${l}</th>`).join("")}<th>Grade</th></tr></thead><tbody>
+      ${rows.map(t => `<tr><td class="l">${t.id ? `<a href="#/a/${t.id}">${esc(t.artist)}</a>` : esc(t.artist)}</td><td class="l wrap">${esc(t.tour)}${t.co ? ` <span class="note">with ${esc(t.co)}${t.share < 1 ? ", half counted" : ""}</span>` : ""}${t.partial ? ` <span class="note" title="${esc(t.note)}">(part of the tour: Billboard's year to 30 Sep)</span>` : ""}</td><td class="l">${esc(t.start)}${t.end && t.end !== t.start ? " to " + esc(t.end) : ""}</td>
+        <td>${t.shows ?? "–"}</td><td>${count(t.tickets)}</td><td>${usd(t.gross)}</td><td>${usd(t.per_show)}</td><td>${usd(t.per_fan)}</td><td>${range(t.artist_net)}</td><td>${grade(t.grade)} <a href="${esc(t.source)}" target="_blank" rel="noopener" title="${esc(t.note)}">source</a></td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="note">Per fan = gross ÷ tickets sold. Artist's slice = 15–35% of gross (rule of thumb), half for a co-headline. Merch adds roughly $10–15 per fan in sales (ATVENU). Tours with no reported gross, such as Playboi Carti, GloRilla and Doechii, and most tours outside the US are not listed: Billboard and Pollstar publish no figure for them. Click a column to sort.</p></section>`;
+  app.querySelectorAll("th[data-tsort]").forEach(th => th.onclick = () => { ui.tsort = [th.dataset.tsort, sk === th.dataset.tsort ? -sd : -1]; tours(); });
+}
+
 // ---------- platforms
 const STREAMING = ["spotify", "youtube", "apple_music", "amazon", "deezer", "tidal", "soundcloud", "audiomack", "tiktok", "meta", "others"];
 const revOf = (a, key) => key === "streaming" ? STREAMING.reduce((s, k) => s + (a.rev_lines?.[k] || 0), 0) : a.rev_lines?.[key];
@@ -181,11 +213,13 @@ async function revenuePanel(a) {
     ${hasLive ? "" : `<tr class="sec"><td class="l" colspan="4">Live</td></tr><tr><td class="l">Touring and merch</td><td class="l note" colspan="3">No reported tour gross in the last 12 months</td></tr>`}
     <tr class="tot"><td class="l">Artist's slice, total</td><td></td><td>${range(rev.artist_total)}</td><td></td></tr></tbody></table></div>
     <p class="note"><b>Generated</b>: what the activity brings in before anyone's cut (royalties paid to the label or distributor, box office, merch sales). <b>Artist's slice</b>: before their manager, lawyer and tax. Recordings assume ${m ? `<b>${esc(m.deal_label)}</b>` : "an unknown deal"}${a.major ? ` (${esc(a.major)}, from Wikidata's record-label list)` : ""}, before advances are recouped. Spotify and YouTube are measured; the other services are estimated from Spotify. Hover a row for its basis.</p>`;
-  const tours = rev.lines.find(l => l.key === "touring")?.tours || [];
+  const tours = rev.lines.find(l => l.key === "touring")?.tours || [], other = rev.tours_context || [];
   const dbox = document.getElementById("deals");
-  if (dbox && (tours.length || rev.deals.length)) {
+  const tourItem = t => `<li><b>${esc(t.tour)}</b>, ${esc(t.start)}${t.end ? " to " + esc(t.end) : ""}: ${usd(t.gross)} gross${t.tickets ? `, ${count(t.tickets)} tickets (${usd(t.gross / t.tickets)} a fan)` : ""}${t.share && t.share < 1 ? `, ${Math.round(t.share * 100)}% counted in the last 12 months` : ""}${t.note ? ` (${esc(t.note)})` : ""} ${grade(t.grade || "C")} ${t.source ? `<a href="${esc(t.source)}" target="_blank" rel="noopener">source</a>` : ""}</li>`;
+  if (dbox && (tours.length || other.length || rev.deals.length)) {
     dbox.hidden = false;
-    dbox.innerHTML = `${tours.length ? `<h2>Tours counted</h2><ul class="note">${tours.map(t => `<li><b>${esc(t.tour)}</b>, ${esc(t.start)}${t.end ? " to " + esc(t.end) : ""}: ${usd(t.gross)} gross${t.tickets ? `, ${count(t.tickets)} tickets (${usd(t.gross / t.tickets)} a fan)` : ""}${t.share < 1 ? `, ${Math.round(t.share * 100)}% of it in the last 12 months` : ""} ${grade(t.grade || "C")} ${t.source ? `<a href="${esc(t.source)}" target="_blank" rel="noopener">source</a>` : ""}</li>`).join("")}</ul>` : ""}
+    dbox.innerHTML = `${tours.length ? `<h2>Tours counted (last 12 months)</h2><ul class="note">${tours.map(tourItem).join("")}</ul>` : ""}
+      ${other.length ? `<h2>Earlier or uncounted tours</h2><ul class="note">${other.map(tourItem).join("")}</ul>` : ""}
       ${rev.deals.length ? `<h2>Reported deals and other income</h2><ul class="note">${rev.deals.map(d => `<li><b>${esc(d.category)}:</b> ${esc(d.item)}${d.year ? ` (${esc(d.year)})` : ""}${d.amount_usd ? `: ${usd(+d.amount_usd)}` : ""}${d.amount_note ? `, ${esc(d.amount_note)}` : ""} ${grade(d.grade || "C")} ${d.source_url ? `<a href="${esc(d.source_url)}" target="_blank" rel="noopener">source</a>` : ""}</li>`).join("")}</ul>` : ""}`;
   }
 }
@@ -235,6 +269,7 @@ async function route() {
   else if (h[0] === "rising") rising();
   else if (h[0] === "pay") pay();
   else if (h[0] === "platforms") platforms();
+  else if (h[0] === "tours") tours();
   else if (h[0] === "method") method();
   else top();
   document.getElementById("foot").textContent = `Data as of ${store.data.as_of}; built ${store.data.built}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures.`;

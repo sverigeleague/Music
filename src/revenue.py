@@ -68,32 +68,52 @@ def _rate(p: dict) -> tuple[float, float, float] | None:
         return None
 
 
+def _day(s: str, end: bool) -> date | None:
+    """'2024-08-01', '2024-08' or '2024': a partial start is the first day, a partial end the last day it allows."""
+    parts = (s or "").strip()[:10].split("-")
+    try:
+        if len(parts) == 3:
+            return date.fromisoformat("-".join(parts))
+        y = int(parts[0])
+        if len(parts) == 2:
+            m = int(parts[1])
+            return date(y, m, 28) if end else date(y, m, 1)
+        return date(y, 12, 31) if end else date(y, 1, 1)
+    except ValueError:
+        return None
+
+
 def tour_last_12_months(artist: str, today: date) -> dict | None:
-    """Reported box office in the 12 months to `today`. A tour that spans the window counts pro rata by days."""
+    """Reported box office in the 12 months to `today` (registry/tours.csv rows marked use=Y, times the artist's share
+    of a co-headline). A tour that spans the window counts pro rata by days. Rows not counted (grade C, overlapping,
+    or outside the window) come back as context."""
     gross = tickets = 0.0
-    used, grades = [], []
+    used, context, grades = [], [], []
     start_window = date(today.year - 1, today.month, min(today.day, 28))
     for t in tours():
         if t.get("artist", "").casefold() != artist.casefold() or not t.get("gross_usd"):
             continue
-        try:
-            s = date.fromisoformat(t["start"][:10])
-            e = date.fromisoformat((t.get("end") or t["start"])[:10])
-        except ValueError:
+        s, e = _day(t["start"], False), _day(t.get("end") or t["start"], True)
+        row = {"tour": t["tour"], "start": t["start"], "end": t.get("end"), "gross": float(t["gross_usd"]),
+               "tickets": float(t["tickets"]) if t.get("tickets") else None, "grade": t.get("grade"),
+               "source": t.get("source_url"), "note": t.get("use_note") or ""}
+        if not s or not e:
             continue
+        # a Billboard year-end figure covers shows only to 30 September: the split stops where the gross stops
+        e = min(e, _day(t["gross_through"], True)) if t.get("gross_through") else e
         lo, hi = max(s, start_window), min(e, today)
-        if hi < lo:
+        if t.get("use", "Y") != "Y" or hi < lo:
+            context.append({**row, "share": 0})
             continue
-        share = 1.0 if e == s else ((hi - lo).days + 1) / ((e - s).days + 1)
-        gross += float(t["gross_usd"]) * share
-        tickets += float(t["tickets"] or 0) * share
-        used.append({"tour": t["tour"], "start": t["start"], "end": t.get("end"), "gross": float(t["gross_usd"]),
-                     "tickets": float(t["tickets"]) if t.get("tickets") else None, "share": round(share, 2),
-                     "grade": t.get("grade"), "source": t.get("source_url")})
+        share = (1.0 if e == s else ((hi - lo).days + 1) / ((e - s).days + 1)) * float(t.get("artist_share") or 1)
+        gross += row["gross"] * share
+        tickets += (row["tickets"] or 0) * share
+        used.append({**row, "share": round(share, 2)})
         grades.append(t.get("grade") or "C")
-    if not used:
+    if not used and not context:
         return None
-    return {"gross": gross, "tickets": tickets or None, "tours": used, "grade": max(grades)}
+    return {"gross": gross, "tickets": tickets or None, "tours": used, "context": context,
+            "grade": max(grades) if grades else None}
 
 
 def estimate(a: dict, today: date, deal_share: dict) -> dict:
@@ -125,7 +145,8 @@ def estimate(a: dict, today: date, deal_share: dict) -> dict:
                       "artist": None, "grade": "C",
                       "basis": "about a quarter of recording royalties, shared among the writers"})
     tour = tour_last_12_months(a["name"], today)
-    if tour:
+    tour_context = tour["context"] if tour else []
+    if tour and tour["tours"]:
         g = tour["gross"]
         lines.append({"key": "touring", "label": "Touring (box office)", "group": "Live",
                       "generated": _rng(g, g, g), "artist": {k: g * TOUR_ARTIST_NET[i] for i, k in enumerate(K)},
@@ -138,4 +159,4 @@ def estimate(a: dict, today: date, deal_share: dict) -> dict:
                           "grade": "C", "basis": "tickets × $10–15 a fan (ATVENU), less venue cut and costs"})
     reported = [d for d in deals() if d.get("artist", "").casefold() == a["name"].casefold()]
     total = {k: sum((l["artist"] or {}).get(k, 0) for l in lines) for k in K}
-    return {"lines": lines, "artist_total": total, "deals": reported}
+    return {"lines": lines, "artist_total": total, "deals": reported, "tours_context": tour_context}

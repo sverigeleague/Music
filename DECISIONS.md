@@ -2,6 +2,52 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-23 Platforms, revenue streams per artist, tours (owner: "add one tab for all streaming services ... and then begin with the work regarding revenue streams for each")
+
+- **Research** (each claim with a URL; a grade on each figure):
+  - `docs/research/research_platform_shares.md`: platform shares;
+  - `docs/research/research_tours.md` + `registry/tours.csv`: 116 rows, 100 artists;
+  - `docs/research/research_deals.md` + `registry/deals.csv`: 68 items, 29 artists.
+  - Two deal figures were spot-checked against their sources: Drake/Stake $100m a year (FT via Complex, B), and
+    Cardi B/Whipshots $3.3m minimum royalty (Starco 10-K, A).
+- **Platforms (chosen):**
+  - Spotify streams are measured, as before.
+  - YouTube views are measured from kworb.net. A page is accepted only if it links back to the same Spotify ID;
+    114 of 191 artists found.
+  - Deezer fans are measured.
+  - The other services publish no play counts. Their royalties are estimated as Spotify royalties × a multiplier
+    (`registry/platform_multipliers.csv`), from WMG's FY2025 10-K and UMG's 2025 report: Spotify 20% of revenue,
+    Apple 11%, YouTube 12%.
+    - Cross-check: all non-Spotify services together come to about 1.9× Spotify; ours sum to 1.3× plus measured
+      YouTube.
+  - YouTube views are priced at $0.60-4.80 per 1,000, mid $1.50. Official-video ads pay less than Duetti's $4.80
+    blended figure.
+  - **Rejected:** scaling YouTube from Spotify when its views are measured. **Rejected:** a TikTok or Meta rate per
+    view: both pay blanket licences.
+- **Revenue per artist (chosen):** each line has two amounts that are never mixed.
+  - **Generated:** before anyone's cut.
+  - **Artist's slice:** after the label's or promoter's share, before the artist's own manager and tax.
+  - Each line has a grade and a basis. Publishing is shown as generated only, because writer splits need song
+    credits.
+  - Brand and record deals are listed as reported, never annualised or added to the total.
+  - Court figures are labelled as allegations.
+- **Tours (chosen):**
+  - Only A/B rows count toward money. The C rows are shown as context: Drake's full-tour $320.5m traces to a Genius
+    Instagram post.
+  - Overlapping rows count once.
+  - Co-headlines count 50% to each artist, as an assumption (C).
+  - A tour spanning the 12-month window counts pro rata by days. The split stops where the gross stops: Billboard
+    year-end figures cover shows to 30 September.
+  - Artist net is 15-35% of gross, a rule of thumb (C). Merch is tickets × $10.24-15.16 (ATVENU), less the venue's
+    0-25% and 40-60% costs.
+- **Tours page:** all counted tours since 2023, with per show, per fan and the artist's slice. A "where a ticket's
+  money goes" explainer is marked as rules of thumb.
+- **Gaps (stated on the pages):**
+  - no reported gross for Playboi Carti, GloRilla, Doechii, Gunna or most non-US artists;
+  - no data for 77 artists on YouTube;
+  - no deals reported for 13 artists in the top 40.
+
+
 ## 2026-10-23 Current listeners: dating coverage fixed (method 1.1, no change to the weights)
 
 - **Found on the first full run:**
