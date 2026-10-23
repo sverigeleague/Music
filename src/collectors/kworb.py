@@ -37,11 +37,13 @@ def parse_listeners(html: str) -> list[dict]:
     for row in re.findall(r"<tr>(.*?)</tr>", html, re.S):
         cells = re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)
         link = re.search(r'artist/([0-9A-Za-z]{22})_songs\.html">(.*?)</a>', row, re.S)
-        if not link or len(cells) < 6:
+        if not link or len(cells) < 5:
             continue
+        # page 1 has a peak-rank column; pages 2-11 (ranks 2,501 on) do not
+        peak_rank, peak = (_int(_text(cells[4])), _int(_text(cells[5]))) if len(cells) >= 6 else (None, _int(_text(cells[4])))
         out.append({"spotify_id": link[1], "name": _unescape(_text(link[2])), "rank": _int(_text(cells[0])),
                     "monthly_listeners": _int(_text(cells[2])), "daily_change": _int(_text(cells[3])),
-                    "peak_rank": _int(_text(cells[4])), "peak_listeners": _int(_text(cells[5]))})
+                    "peak_rank": peak_rank, "peak_listeners": peak})
     return out
 
 
@@ -85,34 +87,53 @@ def _unescape(s: str) -> str:
     return html.unescape(s)
 
 
-def fetch_listeners(today: str | None = None) -> tuple[str, list[dict]]:
-    r = get(LISTENERS_URL)
-    r.raise_for_status()
-    html = r.text
-    day = parse_updated(html) or today or date.today().isoformat()
-    storage.archive(f"kworb/listeners/{day}.html", LISTENERS_URL, r.content)
-    rows = parse_listeners(html)
-    if len(rows) < 2000:
-        raise RuntimeError(f"kworb listeners page parsed only {len(rows)} rows: layout changed?")
+PAGES = 11  # listeners.html, listeners2.html ... listeners11.html: ranks 1 to about 25,000 (500,000+ listeners)
+
+
+def page_url(n: int) -> str:
+    return LISTENERS_URL if n == 1 else LISTENERS_URL.replace(".html", f"{n}.html")
+
+
+def fetch_listeners(today: str | None = None, archive_all: bool = False) -> tuple[str, list[dict]]:
+    """All listener pages. Page 1 (top 2,500) is archived every day; pages 2-11 only when archive_all (weekly), to
+    keep the raw archive near 50 MB a year."""
+    day, rows = None, []
+    for n in range(1, PAGES + 1):
+        r = get(page_url(n))
+        if r.status_code == 404:
+            break
+        r.raise_for_status()
+        page = parse_listeners(r.text)
+        if n == 1:
+            day = parse_updated(r.text) or today or date.today().isoformat()
+            if len(page) < 2000:
+                raise RuntimeError(f"kworb listeners page parsed only {len(page)} rows: layout changed?")
+        if n == 1 or archive_all:
+            storage.archive(f"kworb/listeners/{day}.html" if n == 1 else f"kworb/listeners/{day}-p{n}.html",
+                            page_url(n), r.content)
+        rows += page
+        if len(page) < 2500:
+            break
     return day, rows
 
 
 def save_listeners(day: str, rows: list[dict]) -> int:
-    """Append a day's rows unless that day is already stored. Returns rows written."""
+    """Append a day's rows for artists not yet stored for that day. Returns rows written."""
     seen = set()
     if LISTENERS_CSV.exists():
         with LISTENERS_CSV.open() as f:
-            seen = {r["date"] for r in csv.DictReader(f)}
-    if day in seen:
-        return 0
+            seen = {r["spotify_id"] for r in csv.DictReader(f) if r["date"] == day}
     new = not LISTENERS_CSV.exists()
+    n = 0
     with LISTENERS_CSV.open("a", newline="") as f:
         w = csv.DictWriter(f, LISTENER_FIELDS)
         if new:
             w.writeheader()
         for r in rows:
-            w.writerow({"date": day, **r})
-    return len(rows)
+            if r["spotify_id"] not in seen:
+                w.writerow({"date": day, **r})
+                n += 1
+    return n
 
 
 def fetch_artist(spotify_id: str) -> dict:

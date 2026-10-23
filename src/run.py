@@ -58,29 +58,54 @@ def _json(path, default):
 
 
 def latest_listeners() -> list[dict]:
-    """The newest archived top-2,500 page, parsed (all rows, not only the tracked ones)."""
+    """The newest archived listener pages, parsed: page 1 from the latest day, pages 2-11 from the latest weekly
+    archive (all rows, not only the tracked ones; an artist appears once, on its newest page)."""
     import gzip
+    import re as _re
     from .config import RAW
     files = sorted((RAW / "kworb" / "listeners").glob("*.html.gz"))
     if not files:
         raise SystemExit("no listeners snapshot yet: run `python -m src.run snapshot` first")
-    with gzip.open(files[-1], "rt") as f:
-        return kworb.parse_listeners(f.read())
+    newest: dict[int, object] = {}
+    for f in files:  # sorted by name: date first, so later files win
+        m = _re.match(r"(\d{4}-\d{2}-\d{2})(?:-p(\d+))?\.html\.gz$", f.name)
+        if m:
+            newest[int(m[2] or 1)] = f
+    rows: dict[str, dict] = {}
+    for n in sorted(newest, reverse=True):  # page 1 last, so today's top 2,500 overrides last week's pages
+        with gzip.open(newest[n], "rt") as fh:
+            for r in kworb.parse_listeners(fh.read()):
+                rows[r["spotify_id"]] = r
+    return sorted(rows.values(), key=lambda r: r["monthly_listeners"] or 0, reverse=True)
 
 
-def snapshot() -> None:
-    day, rows = kworb.fetch_listeners(today())
+def snapshot(archive_all: bool | None = None) -> None:
+    """Daily: all listener pages (about 25,000 artists); rows kept for tracked artists. The raw pages 2-11 are archived
+    on Mondays and whenever none is newer than 7 days."""
+    from .config import RAW
+    if archive_all is None:
+        from datetime import timedelta
+        now = datetime.now(timezone.utc).date()
+        recent = sorted((RAW / "kworb" / "listeners").glob("*-p2.html.gz"))
+        archive_all = now.weekday() == 0 or not recent or recent[-1].name[:10] < (now - timedelta(days=7)).isoformat()
+    day, rows = kworb.fetch_listeners(today(), archive_all=archive_all)
     tracked = {s for s, a in load_artists().items() if a["genre"] != "other"} | set(_json(CANDIDATES, []))
     kept = [r for r in rows if r["spotify_id"] in tracked or not tracked]
-    print(f"{day}: {len(rows)} artists on the page, {kworb.save_listeners(day, kept)} rows stored")
+    print(f"{day}: {len(rows)} artists on the pages, {kworb.save_listeners(day, kept)} rows stored"
+          f"{' (all pages archived)' if archive_all else ''}")
 
 
 def registry(mb_limit: int | None = None) -> None:
+    from .collectors import deezer_genres
     top = {r["spotify_id"]: r for r in latest_listeners()}
     cands = wikidata.hip_hop_spotify_ids()
     known = load_artists()
-    # candidates: Wikidata hip-hop artists in today's top 2,500, plus every artist already in the registry
-    ids = sorted({s for s in cands if s in top} | set(known))
+    dz = deezer_genres.load()
+    # candidates: in kworb's listener pages (about 25,000 artists), tagged hip-hop on Wikidata or with most releases
+    # filed under Rap/Hip Hop on Deezer; plus every artist already in the registry
+    dz_rap = {s for s, r in dz.items() if r.get("match") == "exact" and r.get("rap_share") not in ("", None)
+              and float(r["rap_share"]) >= 0.5}
+    ids = sorted({s for s in cands if s in top} | {s for s in dz_rap if s in top} | set(known))
     CANDIDATES.write_text(json.dumps(ids))
     wd = wikidata.details(ids)
     WIKIDATA_CACHE.write_text(json.dumps({k: {**v, "majors": sorted(v["majors"])} for k, v in wd.items()},
@@ -91,7 +116,7 @@ def registry(mb_limit: int | None = None) -> None:
     for s in ids:
         d, prev = wd.get(s, {}), known.get(s, {})
         votes = musicbrainz.genres_of(mb.get(s, {}))
-        decision, basis = genre.decide(votes, d.get("genres", []))
+        decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s))
         reviewed = ""
         if s in over:
             decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
@@ -102,6 +127,8 @@ def registry(mb_limit: int | None = None) -> None:
                   "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
                   "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
                   "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image", "")}
+        if not out[s].get("deezer_match") and s in dz and dz[s].get("deezer_id"):
+            out[s].update(deezer_id=dz[s]["deezer_id"], deezer_fans=dz[s]["fans"], deezer_match=dz[s]["match"])
     save_artists(out)
     write_review(out, top, mb, wd)
     counts = {}
@@ -128,8 +155,14 @@ def write_review(rows, top, mb, wd) -> None:
     print(f"{len(items)} artists in {GENRE_REVIEW.relative_to(REVIEW.parent)}")
 
 
-def tracked(genres=("hip_hop",)) -> list[dict]:
-    return [a for a in load_artists().values() if a["genre"] in genres]
+TOP_N = 1000  # artists the per-artist steps cover: the top 1,000 hip-hop artists by monthly listeners
+
+
+def tracked(genres=("hip_hop",), top_n: int | None = TOP_N) -> list[dict]:
+    """Artists of these genres, biggest first by today's monthly listeners; the per-artist steps take the top 1,000."""
+    ml = {r["spotify_id"]: r["monthly_listeners"] or 0 for r in latest_listeners()}
+    rows = sorted((a for a in load_artists().values() if a["genre"] in genres), key=lambda a: -ml.get(a["spotify_id"], 0))
+    return rows[:top_n] if top_n else rows
 
 
 def streams(limit: int | None = None) -> None:

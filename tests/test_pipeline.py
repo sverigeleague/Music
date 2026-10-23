@@ -180,3 +180,15 @@ def test_label_status_and_codes():
     ok = check_with_isrcs(own, ["QZAB1", "QZAB1", "USXX1"], reg)
     assert ok["status"] == "self_released" and ok["confidence"] == "confirmed"
     assert check_with_isrcs(own, [], reg)["confidence"] == "label name only"
+
+
+def test_genre_with_deezer():
+    dz = lambda rap, lat=0.0, n=20, m="exact": {"match": m, "releases": n, "rap_share": rap, "latin_share": lat}
+    assert genre.decide([], [], dz(0.98))[0] == "hip_hop"                      # thin votes: Deezer decides
+    assert genre.decide([], [], dz(0.25, 0.67))[0] == "latin"
+    assert genre.decide([], [], dz(0.16))[0] == "other"
+    assert genre.decide([], [], dz(0.98, m="ambiguous"))[0] == "review"       # never on an ambiguous match
+    assert genre.decide([], [], dz(0.98, n=3))[0] == "review"                 # nor on fewer than 5 releases
+    border = [("hip hop", 8), ("pop", 6), ("electronic", 4), ("pop rap", 4), ("dance", 4)]
+    assert genre.decide(border, [], dz(0.8))[0] == "hip_hop"                  # settles MusicBrainz's review zone
+    assert genre.decide(border, [], dz(0.2))[0] == "other"

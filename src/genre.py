@@ -2,7 +2,9 @@
 
 1. MusicBrainz community votes (used internally only): share of votes on hip-hop genres.
 2. Wikidata genres (CC0): share of the artist's genres under hip-hop.
-3. registry/genre_overrides.csv: the owner's decisions from the review list.
+3. Deezer: share of the artist's releases filed under Rap/Hip Hop (and under Latin genres). It settles MusicBrainz's
+   borderline cases and decides when votes are thin, if the name match is exact and there are 5+ releases.
+4. registry/genre_overrides.csv: the owner's decisions from the review list.
 
 Latin trap and reggaeton are a separate bucket ("latin") until the owner decides how to treat them.
 """
@@ -36,20 +38,44 @@ def overrides() -> dict[str, dict]:
         return {r["spotify_id"]: r for r in csv.DictReader(f)}
 
 
-def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, bool]]) -> tuple[str, str]:
+def _deezer(dz: dict | None) -> tuple[float, float] | None:
+    if not dz or dz.get("match") != "exact" or int(dz.get("releases") or 0) < 5 or dz.get("rap_share") in ("", None):
+        return None
+    return float(dz["rap_share"]), float(dz["latin_share"] or 0)
+
+
+def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, bool]],
+           dz: dict | None = None) -> tuple[str, str]:
     """Returns (decision, basis). decision: hip_hop | latin | review | other."""
+    d = _deezer(dz)
+    dz_note = f"; Deezer: {d[0]:.0%} of {dz['releases']} releases Rap/Hip Hop" if d else ""
     total = sum(n for _, n in mb_votes)
     if total >= 3:
         share = {"hip_hop": 0, "latin": 0, "other": 0}
         for g, n in mb_votes:
             share[family(g)] += n / total
-        basis = f"MusicBrainz votes: hip-hop {share['hip_hop']:.0%}, Latin {share['latin']:.0%} of {total}"
+        basis = f"MusicBrainz votes: hip-hop {share['hip_hop']:.0%}, Latin {share['latin']:.0%} of {total}" + dz_note
         if share["latin"] >= 0.4 and share["latin"] >= share["hip_hop"]:
             return "latin", basis
         if share["hip_hop"] >= INCLUDE:
             return "hip_hop", basis
-        return ("review" if share["hip_hop"] >= REVIEW_LOW else "other"), basis
-    # thin or no votes: Wikidata decides, and a weak case goes to review
+        if share["hip_hop"] >= REVIEW_LOW:
+            if d and d[0] >= 0.7:
+                return "hip_hop", basis
+            if d and d[0] <= 0.3:
+                return "other", basis
+            return "review", basis
+        return "other", basis
+    # thin or no votes: Deezer decides when it can, else Wikidata, and a weak case goes to review
+    if d:
+        basis = f"Deezer: {d[0]:.0%} of {dz['releases']} releases Rap/Hip Hop, {d[1]:.0%} Latin (MusicBrainz votes: {total})"
+        if d[1] >= 0.5:
+            return "latin", basis
+        if d[0] >= 0.6:
+            return "hip_hop", basis
+        if d[0] <= 0.2:
+            return "other", basis
+        return "review", basis
     if not wd_genres:
         return "review", "no genre data"
     hh = sum(1 for _, h, _l in wd_genres if h) / len(wd_genres)
