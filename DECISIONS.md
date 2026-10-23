@@ -63,6 +63,22 @@ What was chosen, what was considered and rejected, and why. Newest first.
     listeners (`TOP_N`).
 - **Site at 1,000 artists:** fields only the artist page needs moved to `site/data/a/<id>.json`; the index went from
   476 KB to 218 KB at 191 artists.
+- **Top 1,000 built:**
+  - **Genre rule tightened:** a Deezer-only call now needs a Wikidata identity and a rap share of 0.7 or more. Artists
+    from Spanish-speaking countries go to the Latin list. Colombian reggaeton acts and name-only matches had been
+    entering. Result: 1,145 hip-hop artists, with 1,491 borderline artists in `review/genre_review.csv`.
+  - **Bug fixed:** the streams step had been reading both hip-hop and review artists, so review artists took places
+    within the 1,000 cap. It now reads hip-hop only.
+  - **Coverage:**
+    - ranked: 918 of 1,000 (the other 82 have under 80% of their streams dated);
+    - label status known: 562 (350 major, 80 independent, 3 major-distributed, 129 self-released); 438 still unknown;
+    - unsigned tab: 128 artists, 35 of them confirmed;
+    - YouTube: 225; country charts: 275.
+  - **Artist files:** one file per artist would be 1,000 files, more than an artifact publish allows (255). They are now
+    grouped into 26 files, `site/data/a/<n>.json`. The group is set by the second character of the Spotify ID; the
+    first gives only 8 groups, because every ID starts with 0-7.
+  - **Preview photos:** the private preview carries 306 photos (top 300, unsigned, top 100 by monthly listeners). Any
+    other artist shows initials. The deployed site carries all 731 photos.
 
 ## 2026-10-23 Fan demographics and more YouTube (owner: "go with your defaults, next do fan demographics. Try to find YouTube data related to artists")
 

@@ -10,7 +10,7 @@ const ui = { sort: ["cl", -1], q: "", by: "current", size: 100 };
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const initials = n => String(n || "").split(/[\s\-–]+/).filter(w => /^[\p{L}\d]/u.test(w)).slice(0, 2).map(w => w[0]).join("").toUpperCase();
 const pic = (a, big) => a.photo
-  ? `<img class="pic${big ? " big" : ""}" src="${esc(a.photo.file)}" alt="" loading="lazy" decoding="async">`
+  ? `<img class="pic${big ? " big" : ""}" src="${esc(a.photo.file)}" alt="" loading="lazy" decoding="async" data-initials="${esc(initials(a.name))}">`
   : `<span class="pic none${big ? " big" : ""}" aria-hidden="true">${esc(initials(a.name))}</span>`;
 function count(v) {
   if (v == null) return "–";
@@ -30,13 +30,24 @@ const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 const nav = id => document.querySelectorAll("[id^=nav-]").forEach(a => a.id === "nav-" + id ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 
-// Per-artist detail lives in 32 shard files (src/site_build.py): data/a/<first character's code % 32>.json.
+// Per-artist detail lives in 32 shard files (src/site_build.py): data/a/<second character's code % 32>.json.
 const shards = {};
 async function detailOf(id) {
-  const n = id.charCodeAt(0) % 32;
+  const n = id.charCodeAt(1) % 32;  // the second character: Spotify IDs all start with 0-7
   try { shards[n] = shards[n] || await (await fetch(`data/a/${n}.json`)).json(); } catch { shards[n] = {}; }
   return shards[n][id] || { lines: [], deals: [], artist: {}, artist_total: null };
 }
+
+// A photo that fails to load (a copy of the site without every photo) falls back to the artist's initials.
+document.addEventListener("error", e => {
+  const img = e.target;
+  if (img.tagName !== "IMG" || !img.classList.contains("pic")) return;
+  const span = document.createElement("span");
+  span.className = img.className + " none";
+  span.setAttribute("aria-hidden", "true");
+  span.textContent = img.dataset.initials || "";
+  img.replaceWith(span);
+}, true);
 
 // ---------- pages
 function table(rows, rankKey = "rank") {

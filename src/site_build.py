@@ -232,7 +232,7 @@ if __name__ == "__main__":
     OUT.parent.mkdir(parents=True, exist_ok=True)
     # revenue detail per artist in its own file (site/data/a/<id>.json), loaded when the artist page opens; the index
     # keeps the totals and each streaming line's mid estimate for the tables
-    # per-artist detail in 32 shard files, site/data/a/<n>.json with n = first character's code % 32 (app.js uses the
+    # per-artist detail in 32 shard files, site/data/a/<n>.json with n = second character's code % 32 (app.js uses the
     # same rule): a few dozen files instead of one per artist
     shard_dir = OUT.parent / "a"
     shard_dir.mkdir(exist_ok=True)
@@ -242,7 +242,7 @@ if __name__ == "__main__":
     for r in data["artists"]:
         rev = r.pop("revenue")
         detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, "photo": r.get("photo")}  # full photo credit
-        shards.setdefault(ord(r["id"][0]) % 32, {})[r["id"]] = {**rev, "artist": detail}
+        shards.setdefault(ord(r["id"][1]) % 32, {})[r["id"]] = {**rev, "artist": detail}
         r["rev_total"] = rev["artist_total"]
         r["rev_lines"] = {l["key"]: round(l["generated"]["mid"]) for l in rev["lines"]}
         if r.get("money"):
