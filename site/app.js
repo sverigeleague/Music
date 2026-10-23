@@ -30,10 +30,10 @@ const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 // Five sections in the header; each page belongs to one, and sections with several pages show a sub-menu.
 const SECTION = { top: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
-  scout: "scout", unsigned: "scout", worth: "worth", pay: "worth", labels: "labels", method: "method" };
+  scout: "scout", unsigned: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", method: "method" };
 const SUBNAV = {
   charts: [["top", "#/", "Top list"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
-  scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"]],
+  scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["compare", "#/compare", "Compare artists"]],
   worth: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"]],
 };
 let pageId = "top";
@@ -288,9 +288,9 @@ async function artist(id) {
   const m = a.money, yr = r => ({ low: r.low * 12, mid: r.mid * 12, high: r.high * 12 });
   const links = Object.entries(a.links).filter(([, u]) => u).map(([k, u]) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(k[0].toUpperCase() + k.slice(1))}</a>`).join("");
   const leadShare = a.streams ? a.lead_streams / a.streams : null;
-  app.innerHTML = `<section class="head">${pic(a, true)}<div><h1>${esc(a.name)}</h1>
+  app.innerHTML = `<section class="head">${pic(a, true)}<div><h1>${esc(a.name)} ${star(a.id)}</h1>
       <p class="sub">${a.cl_rank ? `#${a.cl_rank} in our ranking · ` : ""}#${a.rank} in hip-hop by listeners · #${a.rank_all} on Spotify overall${a.country ? " · " + esc(a.country) : ""}${a.since ? " · active since " + esc(a.since) : ""}</p>
-      <div class="links" style="margin-top:10px">${links}</div></div></section>
+      <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a></div></div></section>
     ${summaryCard(a, store.rev[id])}
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(a.ml)}</div><div class="s">${delta(a.chg)} today (${pct(a.chg_pct)})</div></div>
@@ -317,6 +317,7 @@ async function artist(id) {
     ${audiencePanel(a)}
     <section class="panel" id="deals" hidden></section>
     <section class="note">Genre: ${esc(a.genre_basis)}.${a.photo ? ` Photo: ${esc(a.photo.author)}, <a href="${esc(a.photo.page)}" target="_blank" rel="noopener">${esc(a.photo.license)}</a>, via Wikimedia Commons.` : ""}</section>`;
+  bindStars(() => artist(id));
   revenuePanel(a);
 }
 
@@ -416,6 +417,13 @@ function download(name, rows) {
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 }
 
+// Watchlist: artists a scout follows, kept in this browser only.
+const WATCH_KEY = "rapledger.watch";
+const watch = new Set((() => { try { return JSON.parse(localStorage.getItem(WATCH_KEY) || "[]"); } catch { return []; } })());
+const saveWatch = () => { try { localStorage.setItem(WATCH_KEY, JSON.stringify([...watch])); } catch { /* storage blocked: kept for this visit */ } };
+const star = id => `<button type="button" class="star" data-watch="${id}" aria-pressed="${watch.has(id)}" title="${watch.has(id) ? "On your watchlist" : "Add to your watchlist"}">${watch.has(id) ? "★" : "☆"}</button>`;
+const bindStars = rerender => app.querySelectorAll("[data-watch]").forEach(b => b.onclick = e => { e.preventDefault(); const id = b.dataset.watch; watch.has(id) ? watch.delete(id) : watch.add(id); saveWatch(); rerender(); });
+
 // ---------- scout: who is rising, for labels
 const BANDS = ["under 1.5m", "1.5-3m", "3-6m", "6-15m", "15m+"];
 function scoutPage() {
@@ -424,7 +432,7 @@ function scoutPage() {
   const all = store.data.artists.filter(a => a.scout);
   const ok = a => (f.status === "all" || (f.status === "signed" ? ["major", "major_distributed", "independent"].includes(a.label_status) : a.label_status === f.status))
     && (f.band === "all" || a.scout.band === f.band) && (f.country === "all" || a.country === f.country)
-    && (f.tier === "all" || (f.tier === "rising" ? ["Breaking", "Rising"].includes(a.scout.tier) : a.scout.tier === f.tier));
+    && (f.tier !== "watch" || watch.has(a.id)) && (f.tier === "all" || f.tier === "watch" || (f.tier === "rising" ? ["Breaking", "Rising"].includes(a.scout.tier) : a.scout.tier === f.tier));
   const val = (a, k) => ({ score: a.scout.score, ml: a.ml, fresh: a.fresh_share, cur: a.cur_share, att: a.attention?.trend,
     spl: a.daily && a.ml ? a.daily / a.ml : null, geo: (a.geo?.countries || 0) + (a.apple?.countries.length || 0), chg: a.chg_pct })[k];
   const [sk, sd] = f.sort;
@@ -443,22 +451,23 @@ function scoutPage() {
       <div class="tile"><div class="k">Watch</div><div class="v">${n("Watch")}</div><div class="s">score 50–64</div></div>
     </section>
     <section class="filters">
-      ${seg("tier", [["rising", "Breaking + Rising"], ["Breaking", "Breaking"], ["Watch", "Watch"], ["all", "All"]])}
+      ${seg("tier", [["rising", "Breaking + Rising"], ["Breaking", "Breaking"], ["Watch", "Watch"], ["all", "All"], ["watch", `★ My watchlist (${watch.size})`]])}
       ${seg("status", [["all", "Any label"], ["self_released", "Unsigned"], ["independent", "Indie label"], ["signed", "Signed"], ["unknown", "Not yet known"]])}
       <label class="sel">Size <select data-f="band"><option value="all">all sizes</option>${BANDS.map(b => `<option${f.band === b ? " selected" : ""}>${b}</option>`).join("")}</select></label>
       <label class="sel">Country <select data-f="country"><option value="all">all countries</option>${countries.map(c => `<option${f.country === c ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></label>
       <button type="button" class="btn" id="csv">Download CSV</button>
     </section>
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th>${cols.slice(0, 1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Label</th>${cols.slice(1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Newest hit</th></tr></thead><tbody>
-      ${rows.map((a, i) => `<tr><td class="l">${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td><b>${a.scout.score}</b> ${tierChip(a.scout.tier)}</td><td class="l">${statusShort(a)}</td><td>${count(a.ml)}</td><td>${share(a.fresh_share)}</td><td>${share(a.cur_share)}</td><td>${trend(a.attention?.trend)}</td>
+      ${rows.map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td><b>${a.scout.score}</b> ${tierChip(a.scout.tier)}</td><td class="l">${statusShort(a)}</td><td>${count(a.ml)}</td><td>${share(a.fresh_share)}</td><td>${share(a.cur_share)}</td><td>${trend(a.attention?.trend)}</td>
         <td>${val(a, "spl") ? val(a, "spl").toFixed(2) : "–"}</td><td title="Spotify weekly top 200 + Apple Music daily top 100">${val(a, "geo") || "–"}</td><td>${pct(a.chg_pct)}</td>
         <td class="l wrap">${a.top_fresh ? `${esc(a.top_fresh.title)} <span class="note">${count(a.top_fresh.daily)}/day, out ${esc(a.top_fresh.released)}</span>` : `<span class="note">none in 90 days</span>`}</td></tr>`).join("") || `<tr><td class="l" colspan="12">No artist matches these filters.</td></tr>`}
     </tbody></table></div>
-    <p class="note">${rows.length} artists. Click a column to sort. Percentiles are within the artist's size band (monthly listeners ${BANDS.join(", ")}).</p></section>
+    <p class="note">${rows.length} artists. Click a column to sort. ☆ adds an artist to your watchlist (kept in this browser). Percentiles are within the artist's size band (monthly listeners ${BANDS.join(", ")}).</p></section>
     <section class="panel"><h2>How the score works</h2>
       <ul>${Object.values(store.data.scout_factors).map(x => `<li><b>${Math.round(x.weight * 100)}%</b> ${esc(x.label)}</li>`).join("")}</ul>
       <p class="note">Each signal becomes a percentile (0–100) among artists in the same size band; the score is their weighted average over the signals the artist has (at least three). Tiers: Breaking 80+ (and either new songs pulling 25%+ of streams or Wikipedia attention up 30%+), Rising 65+, Watch 50+; artists with 15m+ monthly listeners are established and get no tier. Wikipedia views count only artists with an English article. Our own listener history started on 2026-10-23: once 90 days exist, listener growth joins the score and every month's picks are checked against what happened next, and that hit rate is published. ${grade("C")}</p></section>`;
   app.querySelectorAll("button[data-f]").forEach(b => b.onclick = () => { f[b.dataset.f] = b.dataset.v; scoutPage(); });
+  bindStars(scoutPage);
   app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
   app.querySelector("#csv").onclick = () => download("rap-ledger-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
@@ -598,7 +607,41 @@ function pulse() {
   </div></section>`;
 }
 
+// ---------- compare: two artists side by side
+function compare(ids) {
+  nav("compare");
+  const d = store.data, byId = Object.fromEntries(d.artists.map(a => [a.id, a]));
+  const A = ids.map(id => byId[id]).filter(Boolean).slice(0, 2);
+  const spl = a => a.daily && a.ml ? a.daily / a.ml : null;
+  const charts = a => (a.geo?.countries || 0) + (a.apple?.countries.length || 0);
+  const rows = [
+    ["Level", a => a.level?.name, null],
+    ["Monthly listeners", a => a.ml, count], ["Current listeners", a => a.cl, count],
+    ["Listening on recent releases", a => a.cur_share, share], ["New-release pull (songs ≤ 90 days)", a => a.fresh_share, share],
+    ["Scout score", a => a.scout?.score, v => v], ["Streams a day", a => a.daily, count], ["Streams a day per listener", a => spl(a), v => v.toFixed(2)],
+    ["YouTube views a day", a => a.yt_daily, count], ["Deezer fans", a => a.deezer_fans, count], ["Chart countries (Spotify + Apple)", charts, v => v],
+    ["Wikipedia, last 3 months vs 9 before", a => a.attention?.trend, trend],
+    ["Label", a => a.label_status, (v, a) => statusShort(a)],
+    ["Royalties generated / year", a => streamingMid(a), usd], ["Artist keeps / year (mid)", a => a.rev_total?.mid, usd],
+    ["Recordings + songs, sale value (mid)", a => a.worth_mid, usd],
+  ];
+  const pickBox = i => `<label>Artist ${i + 1}<input data-i="${i}" list="c-names" placeholder="Type a name" value="${A[i] ? esc(A[i].name) : ""}"></label>`;
+  app.innerHTML = `${subnav()}<section><h1>Compare artists</h1><p class="sub">Two artists side by side: audience, momentum, label and money. The higher number of each pair is in bold.</p></section>
+    <section class="panel"><div class="calc">${pickBox(0)}${pickBox(1)}<datalist id="c-names">${d.artists.map(a => `<option value="${esc(a.name)}">`).join("")}</datalist></div></section>
+    ${A.length === 2 ? `<section><div class="tablebox"><table class="cmp"><thead><tr><th class="l"></th>${A.map(a => `<th class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></th>`).join("")}</tr></thead><tbody>
+      ${rows.map(([l, f, fmt]) => { const v = A.map(f), num = v.every(x => typeof x === "number"), hi = num && v[0] !== v[1] ? (v[0] > v[1] ? 0 : 1) : -1;
+        return `<tr><td class="l">${esc(l)}</td>${A.map((a, i) => `<td class="l">${v[i] == null ? "–" : `<span${i === hi ? ' class="hi"' : ""}>${fmt ? fmt(v[i], a) : esc(v[i])}</span>`}</td>`).join("")}</tr>`; }).join("")}
+    </tbody></table></div><p class="note">Money lines are estimates (grade C); see each artist's page for the ranges and sources.</p></section>` : `<p class="note">Pick two artists.</p>`}`;
+  app.querySelectorAll("input[data-i]").forEach(inp => inp.onchange = () => {
+    const a = d.artists.find(x => x.name.toLowerCase() === inp.value.trim().toLowerCase());
+    if (!a) return;
+    const next = A.map(x => x.id); next[+inp.dataset.i] = a.id;
+    location.hash = "#/compare/" + next.filter(Boolean).join("/");
+  });
+}
+
 // ---------- artist summary card: level, scout score, worth, attention
+const midRange = r => `about ${usd(r.mid)}<br><span class="note">${range(r)}</span>`;
 function summaryCard(a, rev) {
   const sc = a.scout, wo = rev.artist?.worth || a.worth, att = a.attention_series;
   return `<section class="card">
@@ -608,7 +651,7 @@ function summaryCard(a, rev) {
     <div class="cardcol"><h2>Scout score</h2>${sc ? `<div class="big">${sc.score} ${tierChip(sc.tier)}</div><p class="note">against artists of ${esc(sc.band)} monthly listeners</p>${factorBars(sc)}` : `<p class="note">Not enough signals yet.</p>`}</div>
     <div class="cardcol"><h2>Worth ${grade("C")}</h2>
       <dl class="kv"><dt>Artist keeps / year</dt><dd>${range(rev.artist_total || a.rev_total)}</dd>
-      ${wo ? `<dt>Recordings would sell for</dt><dd>${range(wo.recordings)}</dd><dt>Artist's royalties</dt><dd>${range(wo.artist_royalties)}</dd><dt>Songwriting</dt><dd>${range(wo.publishing)}</dd>` : ""}</dl>
+      ${wo ? `<dt>Recordings would sell for</dt><dd>${midRange(wo.recordings)}</dd><dt>Artist's royalties</dt><dd>${midRange(wo.artist_royalties)}</dd><dt>Songwriting</dt><dd>${midRange(wo.publishing)}</dd>` : ""}</dl>
       ${wo ? `<p class="note">${esc(wo.vintage)} music: ${wo.multiple[0]}–${wo.multiple[1]}× a year's royalties. <a href="#/worth">How</a></p>` : ""}
       <h2 style="margin-top:10px">Wikipedia attention</h2>
       ${att ? `<div class="sparkrow">${sparkline(att.views)}<span>${trend(a.attention?.trend)} <span class="note">last 3 months against the 9 before</span></span></div><p class="note">Monthly English Wikipedia page views since ${esc(att.start)}.</p>` : `<p class="note">No English Wikipedia article linked.</p>`}
@@ -629,8 +672,9 @@ async function route() {
   else if (h[0] === "unsigned") unsignedPage();
   else if (h[0] === "method") method();
   else if (h[0] === "scout") scoutPage();
-  else if (h[0] === "worth") worthPage();
+  else if (h[0] === "worth") { if (h[1]) { const a = store.data.artists.find(x => x.id === h[1]); ui.worth = { ...(ui.worth || { ml: 1000000, vintage: "auto" }), pick: h[1], deal: a && ["diy", "services", "independent", "major"].includes(a.deal_type) ? a.deal_type : "diy" }; } worthPage(); }
   else if (h[0] === "labels") labelsPage();
+  else if (h[0] === "compare") compare(h.slice(1).map(decodeURIComponent));
   else top();
   document.getElementById("foot").textContent = `Data as of ${store.data.as_of}; built ${store.data.built}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures.`;
   window.scrollTo(0, 0);

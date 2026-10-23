@@ -174,3 +174,9 @@ a.chip:hover { border-color: var(--fg); }
   .door span:last-child { display: none; }
   .door { padding: 12px 14px; }
 }
+.cmp td, .cmp th { white-space: normal; }
+.cmp td:first-child { color: var(--muted); }
+.cmp .hi { font-weight: 700; }
+.star { border: 0; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: var(--fg); padding: 0 4px 0 0; }
+h1 .star { font-size: 26px; vertical-align: middle; }
+.cmp th { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--fg); }
