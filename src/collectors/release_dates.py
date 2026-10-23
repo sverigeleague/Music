@@ -170,7 +170,7 @@ def update(todo: list[tuple[str, str, str, str]], limit: int | None = None, retr
             with lock:
                 w.writerow({k: row.get(k, "") for k in FIELDS})
                 f.flush()
-        # 4 workers overlap Deezer's response time; src.http keeps the shared pace under its limit
-        with ThreadPoolExecutor(4) as pool:
+        # 8 workers overlap Deezer's response time; src.http keeps the shared pace under its limit
+        with ThreadPoolExecutor(8) as pool:
             list(pool.map(work, jobs))
     return load()
