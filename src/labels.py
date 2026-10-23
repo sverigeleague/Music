@@ -36,8 +36,29 @@ def _matches(pattern: str, text: str) -> bool:
     return pattern in text
 
 
-def classify_label(label: str, artist: str, table: list[dict] | None = None) -> tuple[str, str]:
-    """(status, owner) of one release's label string."""
+_MB: dict | None = None
+
+
+def musicbrainz_owner(label: str, table: list[dict]) -> tuple[str, str] | None:
+    """The label's nearest owner or parent on MusicBrainz that our table places, else a major distributor."""
+    global _MB
+    if _MB is None:
+        from .collectors import musicbrainz_labels
+        _MB = musicbrainz_labels.load()
+    res = _MB.get(label) or {}
+    for name in res.get("chain", []):
+        st, owner = classify_label(name, "", table, use_musicbrainz=False)
+        if st != "unknown":
+            return st, owner
+    for name in res.get("distributors", []):
+        st, owner = classify_label(name, "", table, use_musicbrainz=False)
+        if st in ("major", "major_distributed"):
+            return "major_distributed", owner
+    return None
+
+
+def classify_label(label: str, artist: str, table: list[dict] | None = None, use_musicbrainz: bool = True) -> tuple[str, str]:
+    """(status, owner) of one release's label string: our table first, then the label's owners on MusicBrainz."""
     table = table or owners()
     text = label.casefold()
     m = re.search(r"under (?:exclusive )?licen[cs]e to (.+)$", text)
@@ -47,6 +68,10 @@ def classify_label(label: str, artist: str, table: list[dict] | None = None) -> 
         if hits:
             best = min(hits, key=lambda r: RANK[r["status"]])
             return best["status"], best["owner"]
+    if use_musicbrainz:
+        found = musicbrainz_owner(label, table)
+        if found:
+            return found
     if _norm(artist) and _norm(artist) in _norm(label):
         return "self_released", "the artist's own name"
     return "unknown", ""

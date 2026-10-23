@@ -27,6 +27,7 @@ jobs:
       - run: python -m src.run mbdates
       - run: python -m src.run deezer
       - run: python -m src.run labels
+      - run: python -m src.run mblabels
       - run: python -m src.run youtube
       - run: python -m src.run ytapi
         env:

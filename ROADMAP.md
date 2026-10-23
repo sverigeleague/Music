@@ -169,10 +169,22 @@ The site gets two clear doors instead of eight tabs:
 | 7.9 | Levels and badges: Rookie → Rising → Headliner → Icon; badges such as Breakout, Feature magnet, Unsigned and rising | low | Gamification from the scores above |
 | 7.10 | Workflows: monthly page views, daily Apple charts, and a one-off Wayback backfill of kworb listener pages (2019 onwards) for real listener history | medium | web.archive.org is blocked in the build container; reachable from GitHub Actions |
 
-Next, queued after Phase 7:
-- feature network (who features whom);
+Built on 2026-10-23: all of 7.1-7.10 (7.10's backfill waits for the merge to main and one manual run), plus a
+feature network (collaborations per artist, "Co-signed" badge) and a "Right now" strip on the home page.
+
+## Phase 8: Deeper signals (queued 2026-10-23)
+
+| # | Step | Effort | Why |
+| --- | --- | --- | --- |
+| 8.1 | Label coverage: MusicBrainz label relations (owned by, imprint of, distributed by) for the label names our table cannot place | high | 424 of the 1,000 have no known label; labels need this for the market map and for scouting |
+| 8.2 | Scout back-test on the Wayback history: did the artists scoring highest 90 days ago grow more than the rest? Published hit rate | high | Turns the score from a judgement into evidence |
+| 8.3 | Compare two artists side by side | medium | The most common question from both artists and labels |
+| 8.4 | Scout watchlist (kept in the browser), then email alerts | medium | Makes Scout a daily tool |
+| 8.5 | "This month": movers, new Breaking, unsigned prospects, change in label shares | medium | Needs 30 days of history; feeds the monthly summary (1.4) |
+| 8.6 | Genre review: settle the 1,491 borderline artists with the owner | low (owner) | Each one settled can move an artist into or out of the 1,000 |
+
+Further out:
 - MusicBrainz label-contract dates for the market map over time;
-- a Breakout Watch back-test once 90 days of history exist;
 - Last.fm listeners and setlist.fm show counts (each needs a free key as a GitHub secret);
 - other genres.
 

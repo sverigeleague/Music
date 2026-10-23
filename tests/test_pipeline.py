@@ -272,3 +272,14 @@ def test_feature_guests_from_titles_and_network_both_ways():
                    {"title": "MIA (feat. Drake)", "daily": 500, "feature": True}]}
     net = insights.collabs(songs, {"d": "Drake", "s": "21 Savage"}, fold)
     assert net["d"][0]["id"] == "s" and net["s"][0]["id"] == "d" and net["s"][0]["daily"] == 900
+
+
+def test_musicbrainz_label_parts_and_owner_chain(monkeypatch):
+    from src import labels
+    from src.collectors import musicbrainz_labels as mbl
+    assert mbl.parts("Lutèce Music / Mirage Records Music / AllPoints") == ["Lutèce Music", "Mirage Records Music", "AllPoints"]
+    assert mbl.parts("Eardrummer Entertainment LLC, under exclusive license to Giant Music") == ["Eardrummer Entertainment", "Giant Music"]
+    table = [{"pattern": "universal music", "owner": "Universal Music Group", "status": "major"}]
+    monkeypatch.setattr(labels, "_MB", {"Urban": {"chain": ["Motor Music GmbH", "Universal Music GmbH"], "distributors": []}})
+    assert labels.classify_label("Urban", "Someone", table) == ("major", "Universal Music Group")
+    assert labels.classify_label("Urban", "Someone", table, use_musicbrainz=False) == ("unknown", "")
