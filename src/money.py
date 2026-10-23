@@ -27,6 +27,7 @@ def deal_shares():
 
 
 def deal_type(majors: list[str], labels: list[str]) -> str:
+    """Fallback from Wikidata's record labels (whole career) when the current label status is unknown."""
     return "major" if majors else "independent" if labels else "unknown"
 
 

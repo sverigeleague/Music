@@ -2,3 +2,5 @@ deal_type,label,low,mid,high,grade,source,note
 major,Major label royalty deal,0.15,0.20,0.30,A,https://gov.uk/government/news/music-streaming-report-published,"UK CMA: average major-label royalty 19.7% (2012) to 23.3% (2021); superstar renegotiations reach about 30% (B)"
 independent,Independent label,0.20,0.50,0.80,C,https://complex.com/music/2020/03/megan-thee-stallion-sues-her-record-label-1501-certified-entertainment,"Wide: from 40% (1501 kept 60%, court filing) to label-services terms near 80%"
 unknown,Deal unknown,0.15,0.50,1.00,C,,"No label on record: anything from a major royalty to keeping 100% as a DIY artist"
+services,Label services / major distribution,0.70,0.80,0.85,A,https://help.awal.com/hc/en-us/articles/40137044024595-What-are-the-terms-of-the-standard-AWAL-agreement,"AWAL Core: the artist keeps 85%; other services take 15-30%"
+diy,Self-released through a distributor,0.85,0.95,1.00,A,https://untd.io/en/artists,"UnitedMasters free tier: 90%; paid tiers and DistroKid: 100%; some distributors take up to 15%"

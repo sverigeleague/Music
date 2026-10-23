@@ -3,8 +3,8 @@ import csv
 import json
 from datetime import date, datetime, timedelta, timezone
 
-from . import current, money, revenue
-from .collectors import kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
+from . import current, labels, money, revenue
+from .collectors import deezer_releases, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
 from .run import PHOTOS, _json, latest_listeners, load_artists
 
@@ -53,6 +53,21 @@ def build() -> dict:
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
+    rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
+    # recording codes of each artist's songs released in the last 2 years: a second check on the label status
+    cutoff = date(today.year - 2, today.month, min(today.day, 28)).isoformat()
+    lead = {}  # track IDs where the artist is the lead (not a guest), from the latest kworb page
+    for sid in artists:
+        pg = current.pages(sid)
+        if pg:
+            lead[sid] = {x["track_id"] for x in current.songs(pg[-1][1]) if not x["feature"]}
+    isrcs: dict[str, list[str]] = {}
+    for tid, tr in dates.items():
+        if tr.get("isrc") and tr.get("deezer_date", "") >= cutoff and tid in lead.get(tr["artist_id"], ()):
+            isrcs.setdefault(tr["artist_id"], []).append(tr["isrc"][:5])
+    first = {a["spotify_id"]: labels.artist_status(rels.get(a.get("deezer_id", ""), []), a["name"], table)
+             for a in artists.values() if a["genre"] == "hip_hop" and a.get("deezer_match") == "exact"}
+    registrants = labels.learn_registrants(first, isrcs)
     rows = []
     for t in top:
         a = artists.get(t["spotify_id"])
@@ -60,8 +75,14 @@ def build() -> dict:
             continue
         s = streams.get(t["spotify_id"], {})
         majors = [m for m in a["major"].split("|") if m]
-        labels = [l for l in a["labels"].split("|") if l]
-        deal = money.deal_type(majors, labels)
+        wd_labels = [l for l in a["labels"].split("|") if l]
+        status = first.get(t["spotify_id"]) or {"status": "unknown", "owner": "", "basis": None, "releases": []}
+        status = labels.check_with_isrcs(status, isrcs.get(t["spotify_id"], []), registrants)
+        if t["spotify_id"] in lab_over:
+            o = lab_over[t["spotify_id"]]
+            status = {**status, "status": o["status"], "owner": o.get("owner", ""), "override": o.get("note") or "owner"}
+        # deal type: the current label status when known, else Wikidata's career-long label list
+        deal = labels.DEAL_OF_STATUS.get(status["status"]) or money.deal_type(majors, wd_labels)
         ml, chg = t["monthly_listeners"], t["daily_change"]
         cur = current_of(t["spotify_id"], dates, today) or {}
         rows.append({
@@ -75,7 +96,10 @@ def build() -> dict:
             "top_track_streams": num(s.get("top_track_streams")), "streams_date": s.get("date"),
             "deezer_fans": num(a.get("deezer_fans")) if a.get("deezer_match") == "exact" else None,
             "country": a["country"] or None, "born": a["born"] or None, "since": a["active_since"][:4] or None,
-            "labels": labels, "major": majors[0] if len(majors) == 1 else ("several majors" if majors else None),
+            "labels": wd_labels, "major": majors[0] if len(majors) == 1 else ("several majors" if majors else None),
+            "deal_type": deal, "label_status": status["status"], "label_owner": status["owner"] or None,
+            "label_basis": status["basis"], "label_override": status.get("override"),
+            "label_isrc_note": status.get("isrc_note") or None, "label_confidence": status.get("confidence"),
             "money": money.estimate(num(s.get("lead_daily")), deal),
             "photo": pics.get(t["spotify_id"]) or None, "genre_basis": a["genre_basis"],
             "cur_share": round(cur["current_share"], 4) if cur.get("current_share") is not None else None,
@@ -94,13 +118,14 @@ def build() -> dict:
                       "x": a["x"] and f"https://x.com/{a['x']}"},
         })
     for r in rows:
-        sh = shares[r["money"]["deal_type"] if r["money"] else money.deal_type(
-            [r["major"]] if r["major"] else [], r["labels"])]
+        sh = shares[r["deal_type"]]
         r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")})
     for i, r in enumerate(rows, 1):
         r["rank"] = i  # by monthly listeners
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
         r["cl_rank"] = i  # our ranking: current listeners
+    unsigned = benchmark(rows, shares)
+    write_label_review(rows)
     with (REGISTRY / "rates.csv").open() as f:
         rates = list(csv.DictReader(f))
     with (REGISTRY / "deal_shares.csv").open() as f:
@@ -110,7 +135,70 @@ def build() -> dict:
             "universe": len(top), "artists": rows, "rates": rates, "deals": deals,
             "platforms": revenue.platforms(), "multipliers": revenue.multipliers(), "tours": tour_table(rows),
             "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
-            "chart_weeks": kworb_countries.load_recent()[1]}  # {"weeks": n, "latest": week}
+            "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
+            "registrants": registrants, "unsigned": unsigned}
+
+
+SIGNED = ("major", "major_distributed", "independent")
+
+
+def benchmark(rows: list[dict], shares: dict) -> list[dict]:
+    """Each unsigned (self-released) artist against the 5 growing signed artists closest in monthly listeners (within a
+    factor of 1.67 either way, else 2.5) and share of listening on recent releases. All money is yearly at today's
+    pace, mid estimate."""
+    import math
+    gen = lambda r: sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming") or None
+    spl = lambda r: r["daily"] / r["ml"] if r.get("daily") and r.get("ml") else None  # streams a day per listener
+    signed = [r for r in rows if r["label_status"] in SIGNED and gen(r)]
+    out = []
+    for u in rows:
+        if u["label_status"] != "self_released" or not gen(u):
+            continue
+        def dist(p):
+            d = abs(math.log(p["ml"] / u["ml"]))
+            if p.get("cur_share") is not None and u.get("cur_share") is not None:
+                d += abs(p["cur_share"] - u["cur_share"])
+            return d
+        # "growing" peers: active, with at least 20% of their listening on recent releases (until 28-day listener
+        # growth is available); the listener band widens when fewer than 3 qualify
+        active = [p for p in signed if (p.get("cur_share") or 0) >= 0.2]
+        peers = sorted([p for p in active if 0.6 <= p["ml"] / u["ml"] <= 1.67], key=dist)[:5]
+        if len(peers) < 3:
+            peers = sorted([p for p in active if 0.4 <= p["ml"] / u["ml"] <= 2.5], key=dist)[:5]
+        if not peers:
+            continue
+        med = lambda xs: sorted(xs)[len(xs) // 2] if xs else None
+        g_u, peer_gen = gen(u), med([gen(p) for p in peers])
+        peer_spl, u_spl = med([spl(p) for p in peers if spl(p)]), spl(u)
+        diy, keep = float(shares["diy"]["mid"]), {k: float(shares[k]["mid"]) for k in ("major", "services", "independent")}
+        out.append({
+            "id": u["id"], "name": u["name"], "ml": u["ml"], "cl": u.get("cl"), "cur_share": u.get("cur_share"),
+            "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label"),
+            "generated": round(g_u), "keeps_now": round(g_u * diy), "spl": u_spl,
+            "peers": [{"id": p["id"], "name": p["name"], "ml": p["ml"], "status": p["label_status"],
+                       "owner": p.get("label_owner"), "generated": round(gen(p)),
+                       "artist_slice": round(gen(p) * float(shares[p["deal_type"]]["mid"])), "spl": spl(p)} for p in peers],
+            "peer_generated": round(peer_gen), "peer_spl": peer_spl,
+            # what the artist would generate with the peers' streams per listener
+            "at_peer_engagement": round(g_u * peer_spl / u_spl) if peer_spl and u_spl else None,
+            # the artist's slice of today's royalties under each deal, and the growth a deal needs to beat staying DIY
+            "if_signed": {k: round(g_u * v) for k, v in keep.items()},
+            "break_even": {k: round(diy / v, 2) for k, v in keep.items()},
+        })
+    return sorted(out, key=lambda x: (-(x["cl"] or 0), -x["ml"]))  # our ranking first, then monthly listeners
+
+
+def write_label_review(rows: list[dict]) -> None:
+    """Artists whose label status is unknown, or rests on the label name only, for the owner to settle in
+    registry/label_overrides.csv. Biggest audience first."""
+    from .config import REVIEW
+    items = [r for r in rows if r["label_status"] == "unknown" or r.get("label_confidence") == "label name only"]
+    with (REVIEW / "label_review.csv").open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["spotify_id", "name", "monthly_listeners", "status_now", "latest_label", "codes_note", "spotify_url"])
+        for r in sorted(items, key=lambda r: -r["ml"]):
+            w.writerow([r["id"], r["name"], r["ml"], r["label_status"] + (" (label name only)" if r.get("label_confidence") == "label name only" else ""),
+                        (r.get("label_basis") or {}).get("label", ""), r.get("label_isrc_note") or "", r["links"]["spotify"]])
 
 
 def tour_table(rows: list[dict]) -> list[dict]:

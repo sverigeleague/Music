@@ -38,7 +38,7 @@ function table(rows, rankKey = "rank") {
   const sorted = [...rows].sort((a, b) => ((val(a) ?? -Infinity) > (val(b) ?? -Infinity) ? 1 : -1) * dir);
   const head = COLS.map(c => `<th data-sort="${c[1]}"${c[1] === k ? ` aria-sort="${dir < 0 ? "descending" : "ascending"}"` : ""}>${esc(c[0])}</th>`).join("");
   const body = sorted.map(a => `<tr><td class="l">${a[rankKey]}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td>
-    <td class="l">${a.major ? esc(a.major) : a.labels.length ? "Independent" : "–"}${a.revivals?.length ? " " + chip("Revival", a.revivals.map(r => `${r.title} (${r.year})`).join(", ")) : ""}</td>${COLS.map(c => `<td>${cell(a, c)}</td>`).join("")}</tr>`).join("");
+    <td class="l">${a.label_status === "major" || a.label_status === "major_distributed" ? esc(a.label_owner || "Major") : a.label_status === "independent" ? "Independent label" : a.label_status === "self_released" ? "Unsigned" : (a.major ? esc(a.major) : "–")}${a.revivals?.length ? " " + chip("Revival", a.revivals.map(r => `${r.title} (${r.year})`).join(", ")) : ""}</td>${COLS.map(c => `<td>${cell(a, c)}</td>`).join("")}</tr>`).join("");
   return `<div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Label group</th>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
 function bindSort(rerender) {
@@ -92,6 +92,38 @@ function rising() {
 function tableRising(list) {
   return `<div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th>Hip-hop rank</th><th>Monthly listeners</th><th>Today</th><th>Today %</th><th>Peak listeners</th></tr></thead><tbody>
   ${list.map(a => `<tr><td class="l">${a.rrank}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td>${a.rank}</td><td>${count(a.ml)}</td><td>${delta(a.chg)}</td><td>${pct(a.chg_pct)}</td><td>${count(a.peak_ml)}</td></tr>`).join("")}</tbody></table></div>`;
+}
+
+// ---------- unsigned
+const STATUS = { major: "Major label", major_distributed: "Major's distribution", independent: "Independent label", self_released: "Unsigned (self-released)", unknown: "Not yet classified" };
+function unsignedPage() {
+  nav("unsigned");
+  const U = store.data.unsigned || [], sh = Object.fromEntries(store.data.deals.map(d => [d.deal_type, d]));
+  const pct = k => Math.round(+sh[k].mid * 100) + "%";
+  const be = U[0]?.break_even || {};
+  app.innerHTML = `<section><h1>Unsigned</h1>
+    <p class="sub">Hip-hop artists releasing without a label, ranked by current listeners, each set against the five growing signed artists closest to them in audience. Unsigned means the label on their recent releases is a distributor or their own name, not a record label, checked against the recording codes of their recent songs where possible.</p></section>
+    <section class="tiles">
+      <div class="tile"><div class="k">Unsigned in the hip-hop list</div><div class="v">${U.length}</div><div class="s">${U.filter(u => u.confidence === "confirmed").length} confirmed by distributor or recording codes</div></div>
+      <div class="tile"><div class="k">Keeps today, unsigned</div><div class="v">${pct("diy")}</div><div class="s">of recording royalties, after the distributor's fee</div></div>
+      <div class="tile"><div class="k">Keeps on a major deal</div><div class="v">${pct("major")}</div><div class="s">so a deal must grow streams ${be.major}× to pay the same ${grade("A")}</div></div>
+      <div class="tile"><div class="k">Independent label / label services</div><div class="v">${pct("independent")} / ${pct("services")}</div><div class="s">break even at ${be.independent}× / ${be.services}× the streams</div></div>
+    </section>
+    <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Release label</th><th>Monthly listeners</th><th>Current listeners</th><th>Generates / yr</th><th>Keeps now</th><th>Signed peers generate</th><th>On a major deal would keep</th></tr></thead><tbody>
+      ${U.map((u, i) => `<tr><td class="l">${i + 1}</td><td class="l"><a class="who" href="#/a/${u.id}">${pic(store.data.artists.find(a => a.id === u.id) || u)}<span>${esc(u.name)}</span></a></td>
+        <td class="l wrap">${esc(u.label || "–")} ${u.confidence === "confirmed" ? chip("confirmed") : `<span class="chip warn" title="Own-name label with no other evidence: could be a small label or an imprint licensed to one">label name only</span>`}</td>
+        <td>${count(u.ml)}</td><td>${count(u.cl)}</td><td>${usd(u.generated)}</td><td>${usd(u.keeps_now)}</td><td>${usd(u.peer_generated)}</td><td>${usd(u.if_signed.major)}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="note">Yearly at today's pace, mid estimates, streaming only (all platforms). <b>Generates</b>: royalties paid for the recordings. <b>Keeps now</b>: ${pct("diy")} of that after a distributor's fee. <b>Signed peers generate</b>: the median of the five closest growing signed artists. <b>On a major deal</b>: ${pct("major")} of today's royalties, before any advance is recouped.</p></section>
+    <section><h2>Each artist against their signed peers</h2>
+      ${U.map(u => `<details class="panel"><summary><b>${esc(u.name)}</b>: ${count(u.ml)} monthly listeners, ${u.spl ? u.spl.toFixed(2) : "–"} streams a day per listener against ${u.peer_spl ? u.peer_spl.toFixed(2) : "–"} for the peers</summary>
+        <div class="tablebox"><table><thead><tr><th class="l">Peer</th><th class="l">Label</th><th>Monthly listeners</th><th>Streams / day per listener</th><th>Generates / yr</th><th>Artist's slice</th></tr></thead><tbody>
+        ${u.peers.map(p => `<tr><td class="l"><a href="#/a/${p.id}">${esc(p.name)}</a></td><td class="l">${esc(STATUS[p.status])}${p.owner ? " · " + esc(p.owner) : ""}</td><td>${count(p.ml)}</td><td>${p.spl ? p.spl.toFixed(2) : "–"}</td><td>${usd(p.generated)}</td><td>${usd(p.artist_slice)}</td></tr>`).join("")}
+        <tr class="tot"><td class="l">${esc(u.name)} (unsigned)</td><td class="l">${esc(u.label || "")}</td><td>${count(u.ml)}</td><td>${u.spl ? u.spl.toFixed(2) : "–"}</td><td>${usd(u.generated)}</td><td>${usd(u.keeps_now)}</td></tr>
+        </tbody></table></div>
+        <p class="note">${u.at_peer_engagement ? `With the peers' streams per listener, ${esc(u.name)} would generate about ${usd(u.at_peer_engagement)} a year. ` : ""}Signed today, ${esc(u.name)} would keep about ${usd(u.if_signed.major)} on a major deal, ${usd(u.if_signed.independent)} with an independent label or ${usd(u.if_signed.services)} on label services, against ${usd(u.keeps_now)} now. Label money on signing (advances, marketing) is not public and not included.</p></details>`).join("")}
+    </section>
+    <p class="note">Peers: signed artists (major, major-distributed or independent label) with 0.6–1.67× the monthly listeners and at least 20% of their listening on recent releases, closest first. Statuses come from the labels printed on each artist's last two years of releases (Deezer) and the recording codes (ISRCs) of their recent songs; artists that cannot be placed are on the review list for the owner.</p>`;
 }
 
 // ---------- audience
@@ -229,6 +261,7 @@ function artist(id) {
         <dt>Share from features</dt><dd>${leadShare != null ? ((1 - leadShare) * 100).toFixed(0) + "%" : "–"}</dd>
         <dt>Tracks credited</dt><dd>${a.tracks ?? "–"}</dd>
         <dt>Top track</dt><dd>${esc(a.top_track || "–")}${a.top_track_streams ? " · " + count(a.top_track_streams) : ""}</dd>
+        <dt>Label status</dt><dd>${esc(STATUS[a.label_status] || "–")}${a.label_owner && a.label_owner !== "the artist's own name" ? " · " + esc(a.label_owner) : ""}${a.label_basis ? `<br><span class="note">latest: ${esc(a.label_basis.label)} (${esc(a.label_basis.date)})</span>` : ""}</dd>
         <dt>Labels on record</dt><dd>${esc(a.labels.slice(0, 3).join(", ") || "–")}${a.labels.length > 3 ? ` +${a.labels.length - 3}` : ""}</dd>
       </dl><p class="note">Stream totals as of ${esc(a.streams_date || "–")} (kworb.net, from Spotify's public play counts).</p></div>
     </section>
@@ -315,6 +348,7 @@ async function route() {
   else if (h[0] === "platforms") platforms();
   else if (h[0] === "tours") tours();
   else if (h[0] === "audience") audience();
+  else if (h[0] === "unsigned") unsignedPage();
   else if (h[0] === "method") method();
   else top();
   document.getElementById("foot").textContent = `Data as of ${store.data.as_of}; built ${store.data.built}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures.`;

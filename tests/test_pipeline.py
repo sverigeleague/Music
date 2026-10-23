@@ -152,3 +152,31 @@ def test_youtube_api_parse():
     p = parse([{"id": "UC1", "statistics": {"subscriberCount": "1230000", "viewCount": "5", "videoCount": "9"}},
                {"id": "UC2", "statistics": {"hiddenSubscriberCount": True, "viewCount": "7", "videoCount": "1"}}])
     assert p["UC1"] == {"subscribers": 1230000, "views": 5, "videos": 9} and p["UC2"]["subscribers"] is None
+
+
+def test_label_classification():
+    from src.labels import classify_label as c
+    assert c("OVO/Republic", "Drake") == ("major", "Universal Music Group")
+    assert c("BigXthaPlug under exclusive license to UnitedMasters LLC", "BigXthaPlug")[0] == "self_released"
+    assert c("Maybach Music Group under exclusive license to gamma.", "Rick Ross") == ("independent", "gamma.")
+    assert c("bbno$$", "bbno$") == ("self_released", "the artist's own name")
+    assert c("Canada Dry Music", "x")[0] == "unknown"      # "ada" (ADA) is matched as a word only
+    assert c("Volume Records", "x")[0] == "unknown"        # nor "ume" (UME)
+    assert c("BBR Music Group/Jelly Roll", "Jelly Roll") == ("independent", "BMG")
+
+
+def test_label_status_and_codes():
+    from src.labels import artist_status, check_with_isrcs, learn_registrants
+    rel = [{"title": "Collab", "release_date": "2026-09-01", "label": "Some Label/Atlantic"},
+           {"title": "A", "release_date": "2026-05-01", "label": "Columbia"},
+           {"title": "B", "release_date": "2025-11-01", "label": "Columbia"}]
+    st = artist_status(rel, "X")
+    assert (st["status"], st["owner"]) == ("major", "Sony Music")     # the majority, not the latest collab
+    statuses = {f"a{i}": {"status": "major", "owner": "Universal Music Group"} for i in range(3)}
+    reg = learn_registrants(statuses, {f"a{i}": ["USUG1"] * 4 for i in range(3)})
+    assert reg == {"USUG1": "Universal Music Group"}
+    own = {"status": "self_released", "owner": "the artist's own name", "basis": None, "releases": []}
+    assert check_with_isrcs(own, ["USUG1", "USUG1", "QZAB1"], reg)["status"] == "major"
+    ok = check_with_isrcs(own, ["QZAB1", "QZAB1", "USXX1"], reg)
+    assert ok["status"] == "self_released" and ok["confidence"] == "confirmed"
+    assert check_with_isrcs(own, [], reg)["confidence"] == "label name only"

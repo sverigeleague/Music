@@ -96,3 +96,6 @@ tr.sec td { background: var(--soft); font-weight: 600; font-size: 12px; text-tra
 tr.tot td { font-weight: 650; }
 .panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip.warn { color: var(--bad); border-color: currentColor; background: none; }
+details.panel summary { cursor: pointer; }
+details.panel[open] summary { margin-bottom: 8px; }
