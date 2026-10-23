@@ -171,7 +171,7 @@ def streams(limit: int | None = None) -> None:
     if kworb.STREAMS_CSV.exists():
         with kworb.STREAMS_CSV.open() as f:
             have = {r["spotify_id"] for r in csv.DictReader(f) if r["date"][:7] == today()[:7]}
-    todo = [a["spotify_id"] for a in tracked(("hip_hop", "review")) if a["spotify_id"] not in have][:limit]
+    todo = [a["spotify_id"] for a in tracked() if a["spotify_id"] not in have][:limit]  # the top 1,000 hip-hop
     rows = []
     for s in todo:
         rows.append(kworb.fetch_artist(s))

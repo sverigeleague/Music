@@ -268,7 +268,7 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 28Qbi9jTj2eej21P2mImZI,Ceza,2228491,unknown,,,https://open.spotify.com/artist/28Qbi9jTj2eej21P2mImZI
 0E3pLs4jXz9tDQGY8m1A1d,JayDaYoungan,2221469,unknown,Fredo Bang x TEC,,https://open.spotify.com/artist/0E3pLs4jXz9tDQGY8m1A1d
 6aIm51fHkokqlJn2vzNTH8,Webbie,2214279,unknown,Trill 4 Life,,https://open.spotify.com/artist/6aIm51fHkokqlJn2vzNTH8
-3S0tlB4fE7ChxI2pWz8Xip,Giggs,2202941,unknown,Believe UK,,https://open.spotify.com/artist/3S0tlB4fE7ChxI2pWz8Xip
+3S0tlB4fE7ChxI2pWz8Xip,Giggs,2202941,unknown,Believe UK,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/3S0tlB4fE7ChxI2pWz8Xip
 7v49oVVUhvIQG5EK0jkcF7,PRO8L3M,2190200,unknown,2020,,https://open.spotify.com/artist/7v49oVVUhvIQG5EK0jkcF7
 0r0R5nIjDY04TfxRM10Bcb,Alligatoah,2160384,self_released (label name only),Alligatoah,,https://open.spotify.com/artist/0r0R5nIjDY04TfxRM10Bcb
 1oxn6cQ37twQ7yGnlE3ETd,OKI,2151060,unknown,2020,,https://open.spotify.com/artist/1oxn6cQ37twQ7yGnlE3ETd
@@ -299,368 +299,256 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 0cUMeX7DFLIvLy0q8uqp6q,Drunken Masters,1972713,unknown,HÖRCORE,,https://open.spotify.com/artist/0cUMeX7DFLIvLy0q8uqp6q
 7MNP6nVHIDvPCRvfCeAJpF,Pressure 9X19,1965196,unknown,WEA Latina,,https://open.spotify.com/artist/7MNP6nVHIDvPCRvfCeAJpF
 774od4b04zDMQMGxrJDeuB,Xcho,1954509,unknown,Glass Cage,,https://open.spotify.com/artist/774od4b04zDMQMGxrJDeuB
-5SyGEPymt1G2uto47tVWvZ,MadeinTYO,1948066,unknown,,,https://open.spotify.com/artist/5SyGEPymt1G2uto47tVWvZ
-3zSrc5vUlUxyDdS0KrxFJO,Hulvey,1944050,unknown,,,https://open.spotify.com/artist/3zSrc5vUlUxyDdS0KrxFJO
-7dlqUnjoF2U2DkNDMhcgG4,Hilltop Hoods,1923362,unknown,,,https://open.spotify.com/artist/7dlqUnjoF2U2DkNDMhcgG4
-62F9BiUmjqeXbBztCwiX1U,Lil Darkie,1921692,unknown,,,https://open.spotify.com/artist/62F9BiUmjqeXbBztCwiX1U
-5A7d4sfe5ZY1RRf90zlUeo,Crime Mob,1916401,unknown,,,https://open.spotify.com/artist/5A7d4sfe5ZY1RRf90zlUeo
-7jFaoqWPhYLrKzjzlpXmUO,David Banner,1914513,unknown,,,https://open.spotify.com/artist/7jFaoqWPhYLrKzjzlpXmUO
-1GLnyPuL45vOsZPs5iANcC,Sematary,1905303,unknown,,,https://open.spotify.com/artist/1GLnyPuL45vOsZPs5iANcC
-7FOQfJbC3e4GNoheojERnF,SleazyWorld Go,1899397,unknown,,,https://open.spotify.com/artist/7FOQfJbC3e4GNoheojERnF
+5SyGEPymt1G2uto47tVWvZ,MadeinTYO,1948066,unknown,PRIVATECLUB RECORDS,,https://open.spotify.com/artist/5SyGEPymt1G2uto47tVWvZ
+3zSrc5vUlUxyDdS0KrxFJO,Hulvey,1944050,unknown,Reach Records,,https://open.spotify.com/artist/3zSrc5vUlUxyDdS0KrxFJO
+62F9BiUmjqeXbBztCwiX1U,Lil Darkie,1921692,unknown,Never Too Different,,https://open.spotify.com/artist/62F9BiUmjqeXbBztCwiX1U
+5A7d4sfe5ZY1RRf90zlUeo,Crime Mob,1916401,unknown,RBC Records,,https://open.spotify.com/artist/5A7d4sfe5ZY1RRf90zlUeo
+7jFaoqWPhYLrKzjzlpXmUO,David Banner,1914513,unknown,A Banner Vision,,https://open.spotify.com/artist/7jFaoqWPhYLrKzjzlpXmUO
+1GLnyPuL45vOsZPs5iANcC,Sematary,1905303,self_released (label name only),Independent,,https://open.spotify.com/artist/1GLnyPuL45vOsZPs5iANcC
 7as5DY4Rz9jac9tgoTrj9H,Basta,1897123,unknown,,,https://open.spotify.com/artist/7as5DY4Rz9jac9tgoTrj9H
-1nzgtKYFckznkcVMR3Gg4z,KSI,1893829,unknown,,,https://open.spotify.com/artist/1nzgtKYFckznkcVMR3Gg4z
-1Zatb2YN4erBOoSivOXc0o,O.T. Genasis,1882306,unknown,,,https://open.spotify.com/artist/1Zatb2YN4erBOoSivOXc0o
-4PNHuWkk4ee6R8WEhFVPf5,NoCap,1878423,unknown,,,https://open.spotify.com/artist/4PNHuWkk4ee6R8WEhFVPf5
-1KQJOTeIMbixtnSWY4sYs2,Paky,1871095,unknown,,,https://open.spotify.com/artist/1KQJOTeIMbixtnSWY4sYs2
-0bMt8SJlp0gFRUufzifS05,K.I.Z,1863614,unknown,,,https://open.spotify.com/artist/0bMt8SJlp0gFRUufzifS05
+1Zatb2YN4erBOoSivOXc0o,O.T. Genasis,1882306,unknown,"COB ENTERTAINMENT, FASTLYFE LLC",,https://open.spotify.com/artist/1Zatb2YN4erBOoSivOXc0o
 3zNM2tRfTX6LI1lN2PlrTt,Westside Connection,1862859,unknown,,,https://open.spotify.com/artist/3zNM2tRfTX6LI1lN2PlrTt
-2J257euzcjnDLipsyJH3F2,Clipse,1855163,unknown,,,https://open.spotify.com/artist/2J257euzcjnDLipsyJH3F2
-32NfHH4nSmu97Z4RQjPyET,N.I.N.A,1854234,unknown,,,https://open.spotify.com/artist/32NfHH4nSmu97Z4RQjPyET
-0hk4xVujcyOr6USD95wcWb,Sick Luke,1848407,unknown,,,https://open.spotify.com/artist/0hk4xVujcyOr6USD95wcWb
-3PyWEKLWI0vHPmoNrIX0QE,Rakim,1842393,unknown,,,https://open.spotify.com/artist/3PyWEKLWI0vHPmoNrIX0QE
-2GHclqNVjqGuiE5mA7BEoc,Common,1841536,unknown,,,https://open.spotify.com/artist/2GHclqNVjqGuiE5mA7BEoc
-4Dokdwa3WB7ilQ2c2qvIBL,Bugzy Malone,1833659,unknown,,,https://open.spotify.com/artist/4Dokdwa3WB7ilQ2c2qvIBL
-3xEJ7cDz5rdg6VM8E6Mqhf,DA Uzi,1830038,unknown,,,https://open.spotify.com/artist/3xEJ7cDz5rdg6VM8E6Mqhf
-70uVwDuiOTyZqm8Ik2rk7O,GP Explorer,1829704,unknown,,,https://open.spotify.com/artist/70uVwDuiOTyZqm8Ik2rk7O
-4TEJudQY2pXxVHPE3gD2EU,BlocBoy JB,1828491,unknown,,,https://open.spotify.com/artist/4TEJudQY2pXxVHPE3gD2EU
-4sVieJlKgpZ2k9ESNS5IdN,Jamule,1820566,unknown,,,https://open.spotify.com/artist/4sVieJlKgpZ2k9ESNS5IdN
-6Mo9PoU6svvhgEum7wh2Nd,Public Enemy,1820538,unknown,,,https://open.spotify.com/artist/6Mo9PoU6svvhgEum7wh2Nd
-2NJWI8byqTSqDaJRnqJY2z,KALIM,1816101,unknown,,,https://open.spotify.com/artist/2NJWI8byqTSqDaJRnqJY2z
+32NfHH4nSmu97Z4RQjPyET,N.I.N.A,1854234,self_released (label name only),N.I.N.A.,,https://open.spotify.com/artist/32NfHH4nSmu97Z4RQjPyET
+3PyWEKLWI0vHPmoNrIX0QE,Rakim,1842393,self_released (label name only),Rakim x Kurupt x Masta Killa,,https://open.spotify.com/artist/3PyWEKLWI0vHPmoNrIX0QE
+4Dokdwa3WB7ilQ2c2qvIBL,Bugzy Malone,1833659,unknown,BSomebody,,https://open.spotify.com/artist/4Dokdwa3WB7ilQ2c2qvIBL
+3xEJ7cDz5rdg6VM8E6Mqhf,DA Uzi,1830038,self_released (label name only),Independent,,https://open.spotify.com/artist/3xEJ7cDz5rdg6VM8E6Mqhf
+70uVwDuiOTyZqm8Ik2rk7O,GP Explorer,1829704,unknown,Maison Baron Rouge,,https://open.spotify.com/artist/70uVwDuiOTyZqm8Ik2rk7O
+4TEJudQY2pXxVHPE3gD2EU,BlocBoy JB,1828491,self_released (label name only),BlocBoy JB,,https://open.spotify.com/artist/4TEJudQY2pXxVHPE3gD2EU
+2NJWI8byqTSqDaJRnqJY2z,KALIM,1816101,self_released (label name only),KALIM / GROOVE ATTACK / BELIEVE ARTIST SERVICES,,https://open.spotify.com/artist/2NJWI8byqTSqDaJRnqJY2z
 0NeC6ploeJUq8oDwYQjNPS,Bomfunk MC's,1808686,unknown,,,https://open.spotify.com/artist/0NeC6ploeJUq8oDwYQjNPS
-0tPKcpC8yXpfdWXFcN7Vwr,Nines,1806515,unknown,,,https://open.spotify.com/artist/0tPKcpC8yXpfdWXFcN7Vwr
-2sflbTtCirog5VxD6jPAfb,Monaleo,1806478,unknown,,,https://open.spotify.com/artist/2sflbTtCirog5VxD6jPAfb
-1K15GRZZATsCJyGJ4bYiEz,Luh Tyler,1806018,unknown,,,https://open.spotify.com/artist/1K15GRZZATsCJyGJ4bYiEz
-44DWomjW1oDuxIoBIRpmQ4,Rhove,1803390,unknown,,,https://open.spotify.com/artist/44DWomjW1oDuxIoBIRpmQ4
-18ISxWwWjV6rPLoVCXf1dz,RIN,1797962,unknown,,,https://open.spotify.com/artist/18ISxWwWjV6rPLoVCXf1dz
-3ZotbHeyVQKxQCPDJuQ4SU,Q-Tip,1797532,unknown,,,https://open.spotify.com/artist/3ZotbHeyVQKxQCPDJuQ4SU
-4tujQJicOnuZRLiBFdp3Ou,Xzibit,1796117,unknown,,,https://open.spotify.com/artist/4tujQJicOnuZRLiBFdp3Ou
-2ufQfSFDFXfMS7MEMzdGZE,Białas,1793044,unknown,,,https://open.spotify.com/artist/2ufQfSFDFXfMS7MEMzdGZE
-3e8V8NqZf6jsUjDEI6rwst,Majki,1792980,unknown,,,https://open.spotify.com/artist/3e8V8NqZf6jsUjDEI6rwst
+18ISxWwWjV6rPLoVCXf1dz,RIN,1797962,self_released (label name only),GOLD LEAGUE/RIN,,https://open.spotify.com/artist/18ISxWwWjV6rPLoVCXf1dz
+4tujQJicOnuZRLiBFdp3Ou,Xzibit,1796117,unknown,Good Compenny,,https://open.spotify.com/artist/4tujQJicOnuZRLiBFdp3Ou
+2ufQfSFDFXfMS7MEMzdGZE,Białas,1793044,unknown,SBM Label,,https://open.spotify.com/artist/2ufQfSFDFXfMS7MEMzdGZE
+3e8V8NqZf6jsUjDEI6rwst,Majki,1792980,unknown,Ekipa,,https://open.spotify.com/artist/3e8V8NqZf6jsUjDEI6rwst
 3c96G4d2lUOxhomM2mby5S,Bushido,1779184,unknown,,,https://open.spotify.com/artist/3c96G4d2lUOxhomM2mby5S
-1yq2JzsqbzFbJ1B7wGOXLc,Young Igi,1779057,unknown,,,https://open.spotify.com/artist/1yq2JzsqbzFbJ1B7wGOXLc
 6q1sTU51oryTTcWTPTd0VC,BEGE,1778257,unknown,,,https://open.spotify.com/artist/6q1sTU51oryTTcWTPTd0VC
-2kS0jWMkkFBL0mrl0VotD0,Ben Fero,1772462,unknown,,,https://open.spotify.com/artist/2kS0jWMkkFBL0mrl0VotD0
-462yq5vpZnO172v3nK9ibv,Paluch,1771997,unknown,,,https://open.spotify.com/artist/462yq5vpZnO172v3nK9ibv
-27w1NoOLMX7tJMYqcetPyG,VIC MENSA,1764491,unknown,,,https://open.spotify.com/artist/27w1NoOLMX7tJMYqcetPyG
-5IR3SxDdtCCw6KD1aoF6w9,Kidwild,1762983,unknown,,,https://open.spotify.com/artist/5IR3SxDdtCCw6KD1aoF6w9
-4mwdnO2jZrMmMVrjcHsZBv,Kenny Mason,1751230,unknown,,,https://open.spotify.com/artist/4mwdnO2jZrMmMVrjcHsZBv
-0g9vAlRPK9Gt3FKCekk4TW,Ab-Soul,1748394,unknown,,,https://open.spotify.com/artist/0g9vAlRPK9Gt3FKCekk4TW
-0Wi2fADbhwXlPUWxBmzo99,Szpaku,1746979,unknown,,,https://open.spotify.com/artist/0Wi2fADbhwXlPUWxBmzo99
-0vAALEhfbmllIOX1t7k5KU,Papa V,1745164,unknown,,,https://open.spotify.com/artist/0vAALEhfbmllIOX1t7k5KU
-1kfWoWgCugPkyxQP8lkRlY,Jackson Wang,1726546,unknown,,,https://open.spotify.com/artist/1kfWoWgCugPkyxQP8lkRlY
-2u4xMsh0M2B7R8Wb3pEWae,Anıl Piyancı,1725244,unknown,,,https://open.spotify.com/artist/2u4xMsh0M2B7R8Wb3pEWae
-2gGtD7OGXbNZAY3oCZvZqA,Rob Vicious,1712994,unknown,,,https://open.spotify.com/artist/2gGtD7OGXbNZAY3oCZvZqA
-74YbW6s8CZdaYLxJU9HeS7,Mister You,1703379,unknown,,,https://open.spotify.com/artist/74YbW6s8CZdaYLxJU9HeS7
-5Gv1C1LY8pWiYcfcdjSNMT,Tasha & Tracie,1703082,unknown,,,https://open.spotify.com/artist/5Gv1C1LY8pWiYcfcdjSNMT
-39SBljHcUD66edvRmiRqlS,Himra,1702409,unknown,,,https://open.spotify.com/artist/39SBljHcUD66edvRmiRqlS
-3x3jSlhyv5CiCZDZlaTq0M,Pi’erre Bourne,1701243,unknown,,,https://open.spotify.com/artist/3x3jSlhyv5CiCZDZlaTq0M
-3LIh5lV3zpZkgmO0K6R6bq,JBEE,1699845,unknown,,,https://open.spotify.com/artist/3LIh5lV3zpZkgmO0K6R6bq
-14uo609t1MvRGZcskySt9R,SXMPRA,1695726,unknown,,,https://open.spotify.com/artist/14uo609t1MvRGZcskySt9R
-60uPSVM3svOL8kZ3Wkb3Zw,Monet192,1694661,unknown,,,https://open.spotify.com/artist/60uPSVM3svOL8kZ3Wkb3Zw
-2jl4qd6UbzeCmImT4nWbtA,Nettspend,1694477,unknown,,,https://open.spotify.com/artist/2jl4qd6UbzeCmImT4nWbtA
-37ioGUZGhKk7VjWIocx8kM,DTF,1691220,unknown,,,https://open.spotify.com/artist/37ioGUZGhKk7VjWIocx8kM
-3rZxAl7fnH4NDynhJm3MUm,Kolja Goldstein,1689682,unknown,,,https://open.spotify.com/artist/3rZxAl7fnH4NDynhJm3MUm
-7BMccF0hQFBpP6417k1OtQ,Action Bronson,1684954,unknown,,,https://open.spotify.com/artist/7BMccF0hQFBpP6417k1OtQ
-3Cz37xnWAOtQEa5jfrTUbL,VEN1,1676252,unknown,,,https://open.spotify.com/artist/3Cz37xnWAOtQEa5jfrTUbL
-4pmNqFu71wEmFXSsYAiWK8,Makaveli,1657871,unknown,,,https://open.spotify.com/artist/4pmNqFu71wEmFXSsYAiWK8
-491U1PrV1EoQuhM0aUCn9r,M Huncho,1647254,unknown,,,https://open.spotify.com/artist/491U1PrV1EoQuhM0aUCn9r
-2BBnFUgIaLHqoRYPfshoPb,Marwan Moussa,1642072,unknown,,,https://open.spotify.com/artist/2BBnFUgIaLHqoRYPfshoPb
-10XY9PZCJKzUFzZOdtlQLU,LX,1641689,unknown,,,https://open.spotify.com/artist/10XY9PZCJKzUFzZOdtlQLU
-1XKjtpH5P81gpOXDB91IEB,Miami Yacine,1637942,unknown,,,https://open.spotify.com/artist/1XKjtpH5P81gpOXDB91IEB
-2hPgGN4uhvXAxiXQBIXOmE,KIDS SEE GHOSTS,1633430,unknown,,,https://open.spotify.com/artist/2hPgGN4uhvXAxiXQBIXOmE
-3mmI5HKArDwgggj4j0aJyC,BHZ,1632545,unknown,,,https://open.spotify.com/artist/3mmI5HKArDwgggj4j0aJyC
-1kwzW1IszUiq4Gs9BFesvW,Hornet La Frappe,1625946,unknown,,,https://open.spotify.com/artist/1kwzW1IszUiq4Gs9BFesvW
+2kS0jWMkkFBL0mrl0VotD0,Ben Fero,1772462,self_released (label name only),Ben Fero,,https://open.spotify.com/artist/2kS0jWMkkFBL0mrl0VotD0
+27w1NoOLMX7tJMYqcetPyG,VIC MENSA,1764491,unknown,OranJ,,https://open.spotify.com/artist/27w1NoOLMX7tJMYqcetPyG
+5IR3SxDdtCCw6KD1aoF6w9,Kidwild,1762983,self_released (label name only),Kidwild,,https://open.spotify.com/artist/5IR3SxDdtCCw6KD1aoF6w9
+4mwdnO2jZrMmMVrjcHsZBv,Kenny Mason,1751230,unknown,Create / Pack Records - JV,,https://open.spotify.com/artist/4mwdnO2jZrMmMVrjcHsZBv
+0Wi2fADbhwXlPUWxBmzo99,Szpaku,1746979,unknown,2115,,https://open.spotify.com/artist/0Wi2fADbhwXlPUWxBmzo99
+1kfWoWgCugPkyxQP8lkRlY,Jackson Wang,1726546,self_released (label name only),Jackson Wang,,https://open.spotify.com/artist/1kfWoWgCugPkyxQP8lkRlY
+2gGtD7OGXbNZAY3oCZvZqA,Rob Vicious,1712994,unknown,CVTCHXXII,,https://open.spotify.com/artist/2gGtD7OGXbNZAY3oCZvZqA
+74YbW6s8CZdaYLxJU9HeS7,Mister You,1703379,self_released (label name only),Mister You Production,,https://open.spotify.com/artist/74YbW6s8CZdaYLxJU9HeS7
+39SBljHcUD66edvRmiRqlS,Himra,1702409,self_released (label name only),Independent,,https://open.spotify.com/artist/39SBljHcUD66edvRmiRqlS
+3LIh5lV3zpZkgmO0K6R6bq,JBEE,1699845,self_released (label name only),JBEE,,https://open.spotify.com/artist/3LIh5lV3zpZkgmO0K6R6bq
+14uo609t1MvRGZcskySt9R,SXMPRA,1695726,self_released (label name only),SXMPRA LIMITED / 10K Projects,,https://open.spotify.com/artist/14uo609t1MvRGZcskySt9R
+37ioGUZGhKk7VjWIocx8kM,DTF,1691220,self_released (label name only),DTF,,https://open.spotify.com/artist/37ioGUZGhKk7VjWIocx8kM
+3rZxAl7fnH4NDynhJm3MUm,Kolja Goldstein,1689682,unknown,Moonboys Entertainment,,https://open.spotify.com/artist/3rZxAl7fnH4NDynhJm3MUm
+7BMccF0hQFBpP6417k1OtQ,Action Bronson,1684954,unknown,"All Rights Reserved Baklava Industries. Queens, New York.",,https://open.spotify.com/artist/7BMccF0hQFBpP6417k1OtQ
+4pmNqFu71wEmFXSsYAiWK8,Makaveli,1657871,self_released (label name only),Makaveli,,https://open.spotify.com/artist/4pmNqFu71wEmFXSsYAiWK8
+2BBnFUgIaLHqoRYPfshoPb,Marwan Moussa,1642072,unknown,The Basement Records,,https://open.spotify.com/artist/2BBnFUgIaLHqoRYPfshoPb
+10XY9PZCJKzUFzZOdtlQLU,LX,1641689,unknown,187 Strassenbande,,https://open.spotify.com/artist/10XY9PZCJKzUFzZOdtlQLU
+1XKjtpH5P81gpOXDB91IEB,Miami Yacine,1637942,self_released (label name only),Miami Yacine,,https://open.spotify.com/artist/1XKjtpH5P81gpOXDB91IEB
+2hPgGN4uhvXAxiXQBIXOmE,KIDS SEE GHOSTS,1633430,unknown,Team Araújo Music,,https://open.spotify.com/artist/2hPgGN4uhvXAxiXQBIXOmE
+3mmI5HKArDwgggj4j0aJyC,BHZ,1632545,self_released (label name only),BHZ,,https://open.spotify.com/artist/3mmI5HKArDwgggj4j0aJyC
+1kwzW1IszUiq4Gs9BFesvW,Hornet La Frappe,1625946,unknown,Suther Kane,,https://open.spotify.com/artist/1kwzW1IszUiq4Gs9BFesvW
 2KoLmBXwsgMkfAvoPBlPmb,Egor Kreed,1624701,unknown,,,https://open.spotify.com/artist/2KoLmBXwsgMkfAvoPBlPmb
-0gGcw3tA1fZoF23qa8KFb7,Bolémvn,1619066,unknown,,,https://open.spotify.com/artist/0gGcw3tA1fZoF23qa8KFb7
-31HjiqargV4NAw4GZqUale,Ace Hood,1614116,unknown,,,https://open.spotify.com/artist/31HjiqargV4NAw4GZqUale
-6qFt3TjvxMt77YGsktWG8Z,Sofiane,1611211,unknown,,,https://open.spotify.com/artist/6qFt3TjvxMt77YGsktWG8Z
-2eqoJbzUGDwys5ENUkbT3h,J.I the Prince of N.Y,1604083,unknown,,,https://open.spotify.com/artist/2eqoJbzUGDwys5ENUkbT3h
-1SUu1Bi7ev9HbOzyVC77qD,Kool Savas,1603965,unknown,,,https://open.spotify.com/artist/1SUu1Bi7ev9HbOzyVC77qD
-1hgaXjbAcED2p80Lj8dzXT,Canbay & Wolker,1603061,unknown,,,https://open.spotify.com/artist/1hgaXjbAcED2p80Lj8dzXT
-4GvOygVQquMaPm8oAc0vXi,The Streets,1601940,unknown,,,https://open.spotify.com/artist/4GvOygVQquMaPm8oAc0vXi
+0gGcw3tA1fZoF23qa8KFb7,Bolémvn,1619066,unknown,Play Two,,https://open.spotify.com/artist/0gGcw3tA1fZoF23qa8KFb7
+31HjiqargV4NAw4GZqUale,Ace Hood,1614116,unknown,Chord And Scale Music Group,,https://open.spotify.com/artist/31HjiqargV4NAw4GZqUale
+2eqoJbzUGDwys5ENUkbT3h,J.I the Prince of N.Y,1604083,unknown,G*STARR ENT,,https://open.spotify.com/artist/2eqoJbzUGDwys5ENUkbT3h
+1hgaXjbAcED2p80Lj8dzXT,Canbay & Wolker,1603061,self_released (label name only),Canbay & Wolker,,https://open.spotify.com/artist/1hgaXjbAcED2p80Lj8dzXT
+4GvOygVQquMaPm8oAc0vXi,The Streets,1601940,unknown,45th Generation Roman,,https://open.spotify.com/artist/4GvOygVQquMaPm8oAc0vXi
 3f5fB1YUbkUnW7cf7I0R48,Geto Boys,1601736,unknown,,,https://open.spotify.com/artist/3f5fB1YUbkUnW7cf7I0R48
-4LwRgSkj7AJJTKLnEaHjMv,Lucio101,1597990,unknown,,,https://open.spotify.com/artist/4LwRgSkj7AJJTKLnEaHjMv
-5adKMaYrGOMyOfnbiLPuHg,Jonna Fraser,1595462,unknown,,,https://open.spotify.com/artist/5adKMaYrGOMyOfnbiLPuHg
-2otUckChxWf2cp6UP2cD6e,Zuna,1593351,unknown,,,https://open.spotify.com/artist/2otUckChxWf2cp6UP2cD6e
-5rBUMBV7L6zPsEKnlgiOm9,Yener Çevik,1592667,unknown,,,https://open.spotify.com/artist/5rBUMBV7L6zPsEKnlgiOm9
-3Y365ZqTf6fJ4ZcRnLKPGt,Gorilla Zoe,1590791,unknown,,,https://open.spotify.com/artist/3Y365ZqTf6fJ4ZcRnLKPGt
-5m7wCUhYhBh7A3A3YMxrbt,Queen Latifah,1589681,unknown,,,https://open.spotify.com/artist/5m7wCUhYhBh7A3A3YMxrbt
-6QzzeKV0VcnT2vJMYDPuL4,Trettmann,1588802,unknown,,,https://open.spotify.com/artist/6QzzeKV0VcnT2vJMYDPuL4
-3bRGJQd7b4lE3ZAEMfOXJp,Luidji,1587986,unknown,,,https://open.spotify.com/artist/3bRGJQd7b4lE3ZAEMfOXJp
-5iyTbismzdvyjpjIuhKRvX,Foogiano,1587794,unknown,,,https://open.spotify.com/artist/5iyTbismzdvyjpjIuhKRvX
-5mMkUZv8uUrlH0SHX89BeS,Guts,1585760,unknown,,,https://open.spotify.com/artist/5mMkUZv8uUrlH0SHX89BeS
-0Ph64AJnzKQwXj4y7bWi2U,Delinquent Habits,1584701,unknown,,,https://open.spotify.com/artist/0Ph64AJnzKQwXj4y7bWi2U
-23DYJsw4uSCguIqiTIDtcN,Southside,1584674,unknown,,,https://open.spotify.com/artist/23DYJsw4uSCguIqiTIDtcN
-7aA592KWirLsnfb5ulGWvU,Danny Brown,1581868,unknown,,,https://open.spotify.com/artist/7aA592KWirLsnfb5ulGWvU
+5adKMaYrGOMyOfnbiLPuHg,Jonna Fraser,1595462,unknown,Noah's Ark BV,,https://open.spotify.com/artist/5adKMaYrGOMyOfnbiLPuHg
+2otUckChxWf2cp6UP2cD6e,Zuna,1593351,self_released (label name only),Zuna/WM Germany,,https://open.spotify.com/artist/2otUckChxWf2cp6UP2cD6e
+5rBUMBV7L6zPsEKnlgiOm9,Yener Çevik,1592667,unknown,ILS Vision Music,,https://open.spotify.com/artist/5rBUMBV7L6zPsEKnlgiOm9
+3Y365ZqTf6fJ4ZcRnLKPGt,Gorilla Zoe,1590791,self_released (label name only),Independent,,https://open.spotify.com/artist/3Y365ZqTf6fJ4ZcRnLKPGt
+5iyTbismzdvyjpjIuhKRvX,Foogiano,1587794,unknown,Work As Usual Distro,,https://open.spotify.com/artist/5iyTbismzdvyjpjIuhKRvX
+5mMkUZv8uUrlH0SHX89BeS,Guts,1585760,unknown,Heavenly Sweetness,,https://open.spotify.com/artist/5mMkUZv8uUrlH0SHX89BeS
+0Ph64AJnzKQwXj4y7bWi2U,Delinquent Habits,1584701,unknown,okwow,,https://open.spotify.com/artist/0Ph64AJnzKQwXj4y7bWi2U
+23DYJsw4uSCguIqiTIDtcN,Southside,1584674,unknown,Whole Lotta Racks Ent. / 808 Mafia West,,https://open.spotify.com/artist/23DYJsw4uSCguIqiTIDtcN
 6pb2Dl1FHK081UKW6aUqgF,Master Kato,1575224,unknown,,,https://open.spotify.com/artist/6pb2Dl1FHK081UKW6aUqgF
-2yJ6lsLqG06r9bckSTQRt4,Zkr,1573619,unknown,,,https://open.spotify.com/artist/2yJ6lsLqG06r9bckSTQRt4
-7k9T7lZlHjRAM1bb0r9Rm3,Wiley,1573420,unknown,,,https://open.spotify.com/artist/7k9T7lZlHjRAM1bb0r9Rm3
+7k9T7lZlHjRAM1bb0r9Rm3,Wiley,1573420,self_released (label name only),Independent,,https://open.spotify.com/artist/7k9T7lZlHjRAM1bb0r9Rm3
 7zliF6Q946WznVk3ZMYhZX,The Sugarhill Gang,1565572,unknown,,,https://open.spotify.com/artist/7zliF6Q946WznVk3ZMYhZX
-44XzG6GoJZNtkIGW19hsUK,Tommy Cash,1560592,unknown,,,https://open.spotify.com/artist/44XzG6GoJZNtkIGW19hsUK
-0oeiA5U9u1U45Gos5cywUU,Soso Maness,1558855,unknown,,,https://open.spotify.com/artist/0oeiA5U9u1U45Gos5cywUU
-48Fq6GV3S6on56TxSBu5NO,Celo & Abdi,1558284,unknown,,,https://open.spotify.com/artist/48Fq6GV3S6on56TxSBu5NO
-3KQylwDxYE7Vxli0BSuwaf,$OHO BANI,1556880,unknown,,,https://open.spotify.com/artist/3KQylwDxYE7Vxli0BSuwaf
-6kZWqUZqptyxb8Ki5DyBAg,DTG,1556172,unknown,,,https://open.spotify.com/artist/6kZWqUZqptyxb8Ki5DyBAg
-2gINJ8xw86xawPyGvx1bla,KRS-One,1547234,unknown,,,https://open.spotify.com/artist/2gINJ8xw86xawPyGvx1bla
-5AbLpsnTQVNB3OEadYiVrK,Yxng Bane,1547023,unknown,,,https://open.spotify.com/artist/5AbLpsnTQVNB3OEadYiVrK
-7oWrEQO1d3klp0Qrfh7a5h,badmómzjay,1544679,unknown,,,https://open.spotify.com/artist/7oWrEQO1d3klp0Qrfh7a5h
-0LnhY2fzptb0QEs5Q5gM7S,Laylow,1537091,unknown,,,https://open.spotify.com/artist/0LnhY2fzptb0QEs5Q5gM7S
-63X1WKthLQidtqxxO2sgeq,MIST,1536011,unknown,,,https://open.spotify.com/artist/63X1WKthLQidtqxxO2sgeq
+6kZWqUZqptyxb8Ki5DyBAg,DTG,1556172,unknown,A Class Sound,,https://open.spotify.com/artist/6kZWqUZqptyxb8Ki5DyBAg
+2gINJ8xw86xawPyGvx1bla,KRS-One,1547234,unknown,R.A.M.P Ent Agency,,https://open.spotify.com/artist/2gINJ8xw86xawPyGvx1bla
+5AbLpsnTQVNB3OEadYiVrK,Yxng Bane,1547023,unknown,Winners Globe Entertainment LLC under exclusive license to Amuseio AB,,https://open.spotify.com/artist/5AbLpsnTQVNB3OEadYiVrK
+7oWrEQO1d3klp0Qrfh7a5h,badmómzjay,1544679,unknown,Bad Momz Records & Vertigo Berlin,,https://open.spotify.com/artist/7oWrEQO1d3klp0Qrfh7a5h
+0LnhY2fzptb0QEs5Q5gM7S,Laylow,1537091,unknown,Malligator Préférence,,https://open.spotify.com/artist/0LnhY2fzptb0QEs5Q5gM7S
+63X1WKthLQidtqxxO2sgeq,MIST,1536011,unknown,Sickmade,,https://open.spotify.com/artist/63X1WKthLQidtqxxO2sgeq
 7scapvSjZLSm0fBgqGM0Mn,Lil Loaded,1533229,unknown,,,https://open.spotify.com/artist/7scapvSjZLSm0fBgqGM0Mn
-7kyIBL1EYouLqC8vw7IOui,L'Algérino,1518726,unknown,,,https://open.spotify.com/artist/7kyIBL1EYouLqC8vw7IOui
-39i5B6umzWzkfMe12JrMwW,TiaCorine,1516767,unknown,,,https://open.spotify.com/artist/39i5B6umzWzkfMe12JrMwW
-6X8WdFjrNhXATMDSs26aCc,Curren$y,1515529,unknown,,,https://open.spotify.com/artist/6X8WdFjrNhXATMDSs26aCc
-3qEnCAnX23lvoxZYtBiPgL,ENNY,1514167,unknown,,,https://open.spotify.com/artist/3qEnCAnX23lvoxZYtBiPgL
-30fnIb0InCgAp2IPY17nqd,RRARI DAL TACCO,1510453,unknown,,,https://open.spotify.com/artist/30fnIb0InCgAp2IPY17nqd
+7kyIBL1EYouLqC8vw7IOui,L'Algérino,1518726,unknown,Black Pearl Music,,https://open.spotify.com/artist/7kyIBL1EYouLqC8vw7IOui
+6X8WdFjrNhXATMDSs26aCc,Curren$y,1515529,unknown,GoodTalk,,https://open.spotify.com/artist/6X8WdFjrNhXATMDSs26aCc
+3qEnCAnX23lvoxZYtBiPgL,ENNY,1514167,unknown,ROOT 73 RECORDS,,https://open.spotify.com/artist/3qEnCAnX23lvoxZYtBiPgL
 1Zz5UxfKSSqc6hpa3xJPCw,J-Kwon,1507891,unknown,,,https://open.spotify.com/artist/1Zz5UxfKSSqc6hpa3xJPCw
-7yntSJ6uojO3z6GFUVwhAW,CORPSE,1503338,unknown,,,https://open.spotify.com/artist/7yntSJ6uojO3z6GFUVwhAW
-3RPYHNSwe3w0mtfJwKIN9P,Bubba Sparxxx,1500839,unknown,,,https://open.spotify.com/artist/3RPYHNSwe3w0mtfJwKIN9P
+7yntSJ6uojO3z6GFUVwhAW,CORPSE,1503338,self_released (label name only),CORPSE,,https://open.spotify.com/artist/7yntSJ6uojO3z6GFUVwhAW
+3RPYHNSwe3w0mtfJwKIN9P,Bubba Sparxxx,1500839,self_released (label name only),Bubba Sparxxx,,https://open.spotify.com/artist/3RPYHNSwe3w0mtfJwKIN9P
 0tMFcqLXhtm1Gep20iuIR3,SXTN,1493217,unknown,,,https://open.spotify.com/artist/0tMFcqLXhtm1Gep20iuIR3
-0PGtMx1bsqoCHCy3MB3gXA,Unk,1492988,unknown,,,https://open.spotify.com/artist/0PGtMx1bsqoCHCy3MB3gXA
-2cbnuG01tV93pqdfr4OBqL,SadiQ,1491545,unknown,,,https://open.spotify.com/artist/2cbnuG01tV93pqdfr4OBqL
-6ytOHdKh4xt4YvF7tz8Zcv,Kalash Criminel,1488282,unknown,,,https://open.spotify.com/artist/6ytOHdKh4xt4YvF7tz8Zcv
-1yIifIA91WgmfzBcjbQB8i,Kurdo,1482208,unknown,,,https://open.spotify.com/artist/1yIifIA91WgmfzBcjbQB8i
-4AllEJE7mVkhhyUV6DjqPz,D4L,1470561,unknown,,,https://open.spotify.com/artist/4AllEJE7mVkhhyUV6DjqPz
-1SnSPHBs8l5iAvoWF0aO05,FOURTY,1466334,unknown,,,https://open.spotify.com/artist/1SnSPHBs8l5iAvoWF0aO05
-5L15t6I0PQS9SBXbiklPEN,Summrs,1461392,unknown,,,https://open.spotify.com/artist/5L15t6I0PQS9SBXbiklPEN
+2cbnuG01tV93pqdfr4OBqL,SadiQ,1491545,self_released (label name only),SadiQ,,https://open.spotify.com/artist/2cbnuG01tV93pqdfr4OBqL
+6ytOHdKh4xt4YvF7tz8Zcv,Kalash Criminel,1488282,self_released (label name only),Kalash Criminel,,https://open.spotify.com/artist/6ytOHdKh4xt4YvF7tz8Zcv
+4AllEJE7mVkhhyUV6DjqPz,D4L,1470561,unknown,Back Home,,https://open.spotify.com/artist/4AllEJE7mVkhhyUV6DjqPz
+5L15t6I0PQS9SBXbiklPEN,Summrs,1461392,self_released (label name only),Summrs,,https://open.spotify.com/artist/5L15t6I0PQS9SBXbiklPEN
 3KuLo66B73btyQpdXlkqFx,Speaker Knockerz,1458973,unknown,,,https://open.spotify.com/artist/3KuLo66B73btyQpdXlkqFx
-29QKtXMaVczUBDiI3aPBWS,FBC,1457995,unknown,,,https://open.spotify.com/artist/29QKtXMaVczUBDiI3aPBWS
+29QKtXMaVczUBDiI3aPBWS,FBC,1457995,unknown,Xeque Mate Estúdios,,https://open.spotify.com/artist/29QKtXMaVczUBDiI3aPBWS
 7uWyXPJ04ihdQdYGGw3xVV,Guzior,1456338,unknown,,,https://open.spotify.com/artist/7uWyXPJ04ihdQdYGGw3xVV
 2z20q6EEfm6w6PiIKsgtb3,FACE,1455481,unknown,,,https://open.spotify.com/artist/2z20q6EEfm6w6PiIKsgtb3
-0iBTVnJ1Sff92zCDujfvyJ,Young Leosia,1455245,unknown,,,https://open.spotify.com/artist/0iBTVnJ1Sff92zCDujfvyJ
-3uJx5SnOM59Li7lCxA3b29,Lil Keed,1453578,unknown,,,https://open.spotify.com/artist/3uJx5SnOM59Li7lCxA3b29
-32UhRcgdXO6LdLhOpfIdxp,Rohff,1451746,unknown,,,https://open.spotify.com/artist/32UhRcgdXO6LdLhOpfIdxp
-2j2rh3oQh4QEUnNTDKYSJD,187 Strassenbande,1449788,unknown,,,https://open.spotify.com/artist/2j2rh3oQh4QEUnNTDKYSJD
-6C1X5Uh3DPIkC2gaVq00BL,Jala Brat,1445067,unknown,,,https://open.spotify.com/artist/6C1X5Uh3DPIkC2gaVq00BL
+0iBTVnJ1Sff92zCDujfvyJ,Young Leosia,1455245,unknown,WM Poland/WMI,,https://open.spotify.com/artist/0iBTVnJ1Sff92zCDujfvyJ
+3uJx5SnOM59Li7lCxA3b29,Lil Keed,1453578,self_released (label name only),Lil Keed,,https://open.spotify.com/artist/3uJx5SnOM59Li7lCxA3b29
+2j2rh3oQh4QEUnNTDKYSJD,187 Strassenbande,1449788,self_released (label name only),187 Strassenbande,,https://open.spotify.com/artist/2j2rh3oQh4QEUnNTDKYSJD
+6C1X5Uh3DPIkC2gaVq00BL,Jala Brat,1445067,unknown,"Imperia, by Yellowcake Music Group",,https://open.spotify.com/artist/6C1X5Uh3DPIkC2gaVq00BL
 7yO4IdJjCEPz7YgZMe25iS,A$AP Mob,1443456,unknown,,,https://open.spotify.com/artist/7yO4IdJjCEPz7YgZMe25iS
-3aGFCoR8xGN6DKwvdzeSja,ILOVEMAKONNEN,1441142,unknown,,,https://open.spotify.com/artist/3aGFCoR8xGN6DKwvdzeSja
-3ekwV8Mt8DgZvmuK2futxG,Buba Corelli,1438599,unknown,,,https://open.spotify.com/artist/3ekwV8Mt8DgZvmuK2futxG
-3IrUyDPQlQFcB5lMWhPml2,SSIO,1438039,unknown,,,https://open.spotify.com/artist/3IrUyDPQlQFcB5lMWhPml2
-5n30a5V4ftXNMHCHChmK2h,Young MC,1437780,unknown,,,https://open.spotify.com/artist/5n30a5V4ftXNMHCHChmK2h
-1KGwASmnB2xhGcJGt9epDc,Tom Hengst,1437220,unknown,,,https://open.spotify.com/artist/1KGwASmnB2xhGcJGt9epDc
-6k970rXaWAWVfWMjqWtFNI,Steel Banglez,1436177,unknown,,,https://open.spotify.com/artist/6k970rXaWAWVfWMjqWtFNI
-4pr7J7wzgObkE3DD3Izi7q,Young Buck,1436096,unknown,,,https://open.spotify.com/artist/4pr7J7wzgObkE3DD3Izi7q
-6XFQvBHGEr3mRfOHcqPXv8,XATAR,1435764,unknown,,,https://open.spotify.com/artist/6XFQvBHGEr3mRfOHcqPXv8
-1qz3nYVQit24tcOsCOdCvb,Cupidon,1435029,unknown,,,https://open.spotify.com/artist/1qz3nYVQit24tcOsCOdCvb
-2JwyRtuXf2l6sTnSnGVIa1,Farid Bang,1433368,unknown,,,https://open.spotify.com/artist/2JwyRtuXf2l6sTnSnGVIa1
-5VKufGMVAZ6fs111xYNKnU,MACAN,1432071,unknown,,,https://open.spotify.com/artist/5VKufGMVAZ6fs111xYNKnU
-7tmTvmqgTBcX88ZrSHByrD,nayt,1431652,unknown,,,https://open.spotify.com/artist/7tmTvmqgTBcX88ZrSHByrD
-5xJ9q1lHwa8AShRof94oIt,Phlocalyst,1426133,unknown,,,https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt
-3tCxM1rTj2qUXsiQZxvt2I,Nappy Roots,1422554,unknown,,,https://open.spotify.com/artist/3tCxM1rTj2qUXsiQZxvt2I
-19KwjzvIL92r29IINtlPNP,Scarface,1420313,unknown,,,https://open.spotify.com/artist/19KwjzvIL92r29IINtlPNP
-6r2ZZkSNgzLskyEJiqnD11,Schillah,1419712,unknown,,,https://open.spotify.com/artist/6r2ZZkSNgzLskyEJiqnD11
-2iK8weavvfS2xJCmzNzNE5,J-AX,1419163,unknown,,,https://open.spotify.com/artist/2iK8weavvfS2xJCmzNzNE5
-5CtPAGoxpJ4yLJLx6CSrO8,Zamdane,1416195,unknown,,,https://open.spotify.com/artist/5CtPAGoxpJ4yLJLx6CSrO8
+3aGFCoR8xGN6DKwvdzeSja,ILOVEMAKONNEN,1441142,unknown,Timeless Magic,,https://open.spotify.com/artist/3aGFCoR8xGN6DKwvdzeSja
+3ekwV8Mt8DgZvmuK2futxG,Buba Corelli,1438599,unknown,"Imperia, by Yellowcake Music Group",,https://open.spotify.com/artist/3ekwV8Mt8DgZvmuK2futxG
+3IrUyDPQlQFcB5lMWhPml2,SSIO,1438039,unknown,SOUTHACRIES Ent.,,https://open.spotify.com/artist/3IrUyDPQlQFcB5lMWhPml2
+5n30a5V4ftXNMHCHChmK2h,Young MC,1437780,unknown,Disco Theory,,https://open.spotify.com/artist/5n30a5V4ftXNMHCHChmK2h
+1KGwASmnB2xhGcJGt9epDc,Tom Hengst,1437220,unknown,Urban,,https://open.spotify.com/artist/1KGwASmnB2xhGcJGt9epDc
+6XFQvBHGEr3mRfOHcqPXv8,XATAR,1435764,unknown,Deadline,,https://open.spotify.com/artist/6XFQvBHGEr3mRfOHcqPXv8
+1qz3nYVQit24tcOsCOdCvb,Cupidon,1435029,self_released (label name only),Cupidonmusic,,https://open.spotify.com/artist/1qz3nYVQit24tcOsCOdCvb
+5VKufGMVAZ6fs111xYNKnU,MACAN,1432071,unknown,Golden Sound,,https://open.spotify.com/artist/5VKufGMVAZ6fs111xYNKnU
+5xJ9q1lHwa8AShRof94oIt,Phlocalyst,1426133,self_released (label name only),Erwin Do & Phlocalyst & Screen Jazzmaster,,https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt
+3tCxM1rTj2qUXsiQZxvt2I,Nappy Roots,1422554,self_released (label name only),Nappy Roots Entertainment Group LLC,,https://open.spotify.com/artist/3tCxM1rTj2qUXsiQZxvt2I
+6r2ZZkSNgzLskyEJiqnD11,Schillah,1419712,unknown,CHAPTER EIGHT,,https://open.spotify.com/artist/6r2ZZkSNgzLskyEJiqnD11
+2iK8weavvfS2xJCmzNzNE5,J-AX,1419163,unknown,Ludwig,,https://open.spotify.com/artist/2iK8weavvfS2xJCmzNzNE5
 5U05AU34EcZ8pfohg2dicI,UZI,1410924,unknown,,,https://open.spotify.com/artist/5U05AU34EcZ8pfohg2dicI
-3CnCGFxXbOA8bAK54jR8js,Vald,1403396,unknown,,,https://open.spotify.com/artist/3CnCGFxXbOA8bAK54jR8js
-29nrwultxQ8jENVmXoyMqK,Carl Brave,1402311,unknown,,,https://open.spotify.com/artist/29nrwultxQ8jENVmXoyMqK
-6ns6XAOsw4B0nDUIovAOUO,GZA,1401863,unknown,,,https://open.spotify.com/artist/6ns6XAOsw4B0nDUIovAOUO
-2TImI3DW7o5MdRXJs4D37h,SOB X RBE,1401349,unknown,,,https://open.spotify.com/artist/2TImI3DW7o5MdRXJs4D37h
-1uUuCEXmWpKN2YLl5xSoT2,$hirak,1397040,unknown,,,https://open.spotify.com/artist/1uUuCEXmWpKN2YLl5xSoT2
-7hj7ffJe6UkF1gsMpuweSI,Yungeen Ace,1392543,unknown,,,https://open.spotify.com/artist/7hj7ffJe6UkF1gsMpuweSI
+3CnCGFxXbOA8bAK54jR8js,Vald,1403396,unknown,FOR THUNES,,https://open.spotify.com/artist/3CnCGFxXbOA8bAK54jR8js
+6ns6XAOsw4B0nDUIovAOUO,GZA,1401863,self_released (label name only),Independent,,https://open.spotify.com/artist/6ns6XAOsw4B0nDUIovAOUO
+1uUuCEXmWpKN2YLl5xSoT2,$hirak,1397040,self_released (label name only),Maison $hirak,,https://open.spotify.com/artist/1uUuCEXmWpKN2YLl5xSoT2
+7hj7ffJe6UkF1gsMpuweSI,Yungeen Ace,1392543,self_released (label name only),Yungeen Ace,,https://open.spotify.com/artist/7hj7ffJe6UkF1gsMpuweSI
 1QPZhx0asYTBxD5RDqfU49,Black Rob,1391179,unknown,,,https://open.spotify.com/artist/1QPZhx0asYTBxD5RDqfU49
-6yJ6QQ3Y5l0s0tn7b0arrO,JPEGMAFIA,1386900,unknown,,,https://open.spotify.com/artist/6yJ6QQ3Y5l0s0tn7b0arrO
-3ASAxVN1hNoYfoMcIkzZWL,VillaBanks,1386745,unknown,,,https://open.spotify.com/artist/3ASAxVN1hNoYfoMcIkzZWL
-3YYbAExunnHv5pW7GUZefk,DC THE DON,1380260,unknown,,,https://open.spotify.com/artist/3YYbAExunnHv5pW7GUZefk
-6DvlemMOlMH6VD9tB7BPRf,Tom MacDonald,1375042,unknown,,,https://open.spotify.com/artist/6DvlemMOlMH6VD9tB7BPRf
-0kD3TUffiD0sPxGwygzjg7,nkeeei,1374062,unknown,,,https://open.spotify.com/artist/0kD3TUffiD0sPxGwygzjg7
+6yJ6QQ3Y5l0s0tn7b0arrO,JPEGMAFIA,1386900,unknown,PEGGY,,https://open.spotify.com/artist/6yJ6QQ3Y5l0s0tn7b0arrO
+3YYbAExunnHv5pW7GUZefk,DC THE DON,1380260,self_released (label name only),DC The Don,,https://open.spotify.com/artist/3YYbAExunnHv5pW7GUZefk
+6DvlemMOlMH6VD9tB7BPRf,Tom MacDonald,1375042,self_released (label name only),Independent,,https://open.spotify.com/artist/6DvlemMOlMH6VD9tB7BPRf
+0kD3TUffiD0sPxGwygzjg7,nkeeei,1374062,unknown,Koala Music,,https://open.spotify.com/artist/0kD3TUffiD0sPxGwygzjg7
 382aq8Pij5V2nE2JMHMoxl,Hoodie Allen,1371762,unknown,,,https://open.spotify.com/artist/382aq8Pij5V2nE2JMHMoxl
-4Q5sPmM8j4SpMqL4UA1DtS,Lil' Flip,1368098,unknown,,,https://open.spotify.com/artist/4Q5sPmM8j4SpMqL4UA1DtS
-4lPl9gqgox3JDiaJ1yklKh,Tierra Whack,1357869,unknown,,,https://open.spotify.com/artist/4lPl9gqgox3JDiaJ1yklKh
-7iKgSlIINjat3bsCYiNMYX,EBK Jaaybo,1356957,unknown,,,https://open.spotify.com/artist/7iKgSlIINjat3bsCYiNMYX
-3wDn3kW2zDRLnaQAnX0S3x,Dat Boi Dee,1350016,unknown,,,https://open.spotify.com/artist/3wDn3kW2zDRLnaQAnX0S3x
-1ZVACPeq7ccGCoUXwtafUU,KNEECAP,1349933,unknown,,,https://open.spotify.com/artist/1ZVACPeq7ccGCoUXwtafUU
+4Q5sPmM8j4SpMqL4UA1DtS,Lil' Flip,1368098,unknown,Segedric Wade / Rapbay / Urbanlife Distribution,,https://open.spotify.com/artist/4Q5sPmM8j4SpMqL4UA1DtS
+1ZVACPeq7ccGCoUXwtafUU,KNEECAP,1349933,unknown,Heavenly Recordings,,https://open.spotify.com/artist/1ZVACPeq7ccGCoUXwtafUU
 2zrZfs23sjuHDv4E6YRmNf,Kris Kross,1348604,unknown,,,https://open.spotify.com/artist/2zrZfs23sjuHDv4E6YRmNf
-2Im8m4STDBosjfmb5hmP80,Loredana,1345519,unknown,,,https://open.spotify.com/artist/2Im8m4STDBosjfmb5hmP80
-3nU8TSIICYDbUqRpJISTRE,MC Solaar,1343771,unknown,,,https://open.spotify.com/artist/3nU8TSIICYDbUqRpJISTRE
-008PpLcKUtVXle6JSwkq3I,Emiway Bantai,1336930,unknown,,,https://open.spotify.com/artist/008PpLcKUtVXle6JSwkq3I
-4reog9Hn84AuUWvGX5a2Yq,Zed,1336916,unknown,,,https://open.spotify.com/artist/4reog9Hn84AuUWvGX5a2Yq
-4John8fJ3LKqFho0pselVr,CZARFACE,1335528,unknown,,,https://open.spotify.com/artist/4John8fJ3LKqFho0pselVr
-1t22AdiJ8P9eXOnoJ8xPJT,YTB Fatt,1332730,unknown,,,https://open.spotify.com/artist/1t22AdiJ8P9eXOnoJ8xPJT
-3s8alQfNnY0roAHaJh7Xxt,Dom Kennedy,1332040,unknown,,,https://open.spotify.com/artist/3s8alQfNnY0roAHaJh7Xxt
-38KSpOSYnwQX9zcOcVKdym,Frauenarzt,1329501,unknown,,,https://open.spotify.com/artist/38KSpOSYnwQX9zcOcVKdym
-3u579Gdap91lMptBSdXTpf,Kash Doll,1324041,unknown,,,https://open.spotify.com/artist/3u579Gdap91lMptBSdXTpf
-6FD0unjzGQhX3b6eMccMJe,Ghostface Killah,1321287,unknown,,,https://open.spotify.com/artist/6FD0unjzGQhX3b6eMccMJe
-2ubn2zwyYaLdHOCKnTouU2,Ziak,1320671,unknown,,,https://open.spotify.com/artist/2ubn2zwyYaLdHOCKnTouU2
-3b5bg1k6N9u31OtzSfK2dP,Dosseh,1319590,unknown,,,https://open.spotify.com/artist/3b5bg1k6N9u31OtzSfK2dP
-7MJaBrtUNMCVWliXOa7mwk,Jeriq,1315655,unknown,,,https://open.spotify.com/artist/7MJaBrtUNMCVWliXOa7mwk
-0XNKQFs2Ewb3y0VsFUFc5l,MORGENSHTERN,1312880,unknown,,,https://open.spotify.com/artist/0XNKQFs2Ewb3y0VsFUFc5l
-05hirnMeVIzCrcUxbrysZU,Hatik,1311739,unknown,,,https://open.spotify.com/artist/05hirnMeVIzCrcUxbrysZU
-3r1Md7Hk5iqtpyEoGo8032,ARTEM SHILOVETS,1311316,unknown,,,https://open.spotify.com/artist/3r1Md7Hk5iqtpyEoGo8032
-7MP4jhYmFEgb0AtiOkw55s,Play-N-Skillz,1308988,unknown,,,https://open.spotify.com/artist/7MP4jhYmFEgb0AtiOkw55s
-1TpOqFPZPxxeuLHL3oSl2t,Diggy Graves,1302472,unknown,,,https://open.spotify.com/artist/1TpOqFPZPxxeuLHL3oSl2t
-1w7GLktHE8w0aEhhaZ0QKB,Shakewell,1302210,unknown,,,https://open.spotify.com/artist/1w7GLktHE8w0aEhhaZ0QKB
-2jZ78PLlC1PuYKQ2bVwRvz,Jolagreen23,1297936,unknown,,,https://open.spotify.com/artist/2jZ78PLlC1PuYKQ2bVwRvz
+2Im8m4STDBosjfmb5hmP80,Loredana,1345519,self_released (label name only),Loredana,,https://open.spotify.com/artist/2Im8m4STDBosjfmb5hmP80
+3nU8TSIICYDbUqRpJISTRE,MC Solaar,1343771,unknown,Suther Kane,,https://open.spotify.com/artist/3nU8TSIICYDbUqRpJISTRE
+4reog9Hn84AuUWvGX5a2Yq,Zed,1336916,unknown,LDS PRODUCTION,,https://open.spotify.com/artist/4reog9Hn84AuUWvGX5a2Yq
+4John8fJ3LKqFho0pselVr,CZARFACE,1335528,self_released (label name only),Czarface,,https://open.spotify.com/artist/4John8fJ3LKqFho0pselVr
+3s8alQfNnY0roAHaJh7Xxt,Dom Kennedy,1332040,unknown,Popular Stranger Records,,https://open.spotify.com/artist/3s8alQfNnY0roAHaJh7Xxt
+38KSpOSYnwQX9zcOcVKdym,Frauenarzt,1329501,unknown,1UP Management GmbH,,https://open.spotify.com/artist/38KSpOSYnwQX9zcOcVKdym
+6FD0unjzGQhX3b6eMccMJe,Ghostface Killah,1321287,unknown,Architect Recording Company LLC,,https://open.spotify.com/artist/6FD0unjzGQhX3b6eMccMJe
+2ubn2zwyYaLdHOCKnTouU2,Ziak,1320671,unknown,Errro / Chrome Castle,,https://open.spotify.com/artist/2ubn2zwyYaLdHOCKnTouU2
+7MJaBrtUNMCVWliXOa7mwk,Jeriq,1315655,unknown,Iyoo Cartel,,https://open.spotify.com/artist/7MJaBrtUNMCVWliXOa7mwk
+0XNKQFs2Ewb3y0VsFUFc5l,MORGENSHTERN,1312880,unknown,ALISHER | BM LABEL,,https://open.spotify.com/artist/0XNKQFs2Ewb3y0VsFUFc5l
+05hirnMeVIzCrcUxbrysZU,Hatik,1311739,self_released (label name only),Hatik,,https://open.spotify.com/artist/05hirnMeVIzCrcUxbrysZU
+3r1Md7Hk5iqtpyEoGo8032,ARTEM SHILOVETS,1311316,unknown,Koala Music,,https://open.spotify.com/artist/3r1Md7Hk5iqtpyEoGo8032
+1TpOqFPZPxxeuLHL3oSl2t,Diggy Graves,1302472,self_released (label name only),Diggy Graves,,https://open.spotify.com/artist/1TpOqFPZPxxeuLHL3oSl2t
+1w7GLktHE8w0aEhhaZ0QKB,Shakewell,1302210,unknown,G59 Records,,https://open.spotify.com/artist/1w7GLktHE8w0aEhhaZ0QKB
 4TjXA854eWs8P5EBgCbQmv,Jah Khalib,1297278,unknown,,,https://open.spotify.com/artist/4TjXA854eWs8P5EBgCbQmv
 1mG23iQeR29Ojhq89D5gbh,DJ Jazzy Jeff & The Fresh Prince,1296469,unknown,,,https://open.spotify.com/artist/1mG23iQeR29Ojhq89D5gbh
-6UtYvUtXnmg5EtllDFlWp8,CHIKA,1295849,unknown,,,https://open.spotify.com/artist/6UtYvUtXnmg5EtllDFlWp8
-1bpI6QDUqmfKmV0Tlhj0Jm,Pajel,1292401,unknown,,,https://open.spotify.com/artist/1bpI6QDUqmfKmV0Tlhj0Jm
-47UhY4DqayBiq2gp43WOcZ,VonOff1700,1290856,unknown,,,https://open.spotify.com/artist/47UhY4DqayBiq2gp43WOcZ
-1EPZusBDP8yewhsaKtwktz,ALIZADE,1288909,unknown,,,https://open.spotify.com/artist/1EPZusBDP8yewhsaKtwktz
+6UtYvUtXnmg5EtllDFlWp8,CHIKA,1295849,self_released (label name only),Chika (USA),,https://open.spotify.com/artist/6UtYvUtXnmg5EtllDFlWp8
+1bpI6QDUqmfKmV0Tlhj0Jm,Pajel,1292401,unknown,Leto,,https://open.spotify.com/artist/1bpI6QDUqmfKmV0Tlhj0Jm
+1EPZusBDP8yewhsaKtwktz,ALIZADE,1288909,self_released (label name only),ALIZADE,,https://open.spotify.com/artist/1EPZusBDP8yewhsaKtwktz
 7Kp7SzuRuNiPFCy7JIwnLx,Ca$h Out,1288900,unknown,,,https://open.spotify.com/artist/7Kp7SzuRuNiPFCy7JIwnLx
-5GvMLzUp6tMBpaCbr903RN,Broederliefde,1287830,unknown,,,https://open.spotify.com/artist/5GvMLzUp6tMBpaCbr903RN
-4bbjivSh1oG4NOc7uYHfw5,Lil B,1285043,unknown,,,https://open.spotify.com/artist/4bbjivSh1oG4NOc7uYHfw5
-6ZhjJOJXXwnPS8PrXdmjLw,UGK,1285026,unknown,,,https://open.spotify.com/artist/6ZhjJOJXXwnPS8PrXdmjLw
-7Gx2wDVHyW5HJh7dc2t5h7,Lil Zey,1284832,unknown,,,https://open.spotify.com/artist/7Gx2wDVHyW5HJh7dc2t5h7
-6QfFTZJHFSe9Xyes6DkAli,ReTo,1282422,unknown,,,https://open.spotify.com/artist/6QfFTZJHFSe9Xyes6DkAli
-31lnFZEM6ysvjOx59VyxRE,Krept & Konan,1270484,unknown,,,https://open.spotify.com/artist/31lnFZEM6ysvjOx59VyxRE
-4IZLJdhHCqAvT4pjn8TLH5,Jme,1269508,unknown,,,https://open.spotify.com/artist/4IZLJdhHCqAvT4pjn8TLH5
-2jXb8AWz82Sn3RRGOaia7a,Danger Dan,1268887,unknown,,,https://open.spotify.com/artist/2jXb8AWz82Sn3RRGOaia7a
-3RRODs1rHC2ktLqyDDfgPH,Fettes Brot,1263145,unknown,,,https://open.spotify.com/artist/3RRODs1rHC2ktLqyDDfgPH
-6Rs7Ufqb4h0FTuVg6wlqOy,Nine Vicious,1262912,unknown,,,https://open.spotify.com/artist/6Rs7Ufqb4h0FTuVg6wlqOy
+5GvMLzUp6tMBpaCbr903RN,Broederliefde,1287830,unknown,Top Notch Music BV,,https://open.spotify.com/artist/5GvMLzUp6tMBpaCbr903RN
+4bbjivSh1oG4NOc7uYHfw5,Lil B,1285043,unknown,Aaliproductions,,https://open.spotify.com/artist/4bbjivSh1oG4NOc7uYHfw5
+6ZhjJOJXXwnPS8PrXdmjLw,UGK,1285026,self_released (label name only),UGK,,https://open.spotify.com/artist/6ZhjJOJXXwnPS8PrXdmjLw
+6QfFTZJHFSe9Xyes6DkAli,ReTo,1282422,self_released (label name only),ReTo,,https://open.spotify.com/artist/6QfFTZJHFSe9Xyes6DkAli
+4IZLJdhHCqAvT4pjn8TLH5,Jme,1269508,unknown,Boy Better Know,,https://open.spotify.com/artist/4IZLJdhHCqAvT4pjn8TLH5
+2jXb8AWz82Sn3RRGOaia7a,Danger Dan,1268887,unknown,Antilopen Geldwaesche/WM Germany,,https://open.spotify.com/artist/2jXb8AWz82Sn3RRGOaia7a
+3RRODs1rHC2ktLqyDDfgPH,Fettes Brot,1263145,self_released (label name only),Fettes Brot Schallplatten,,https://open.spotify.com/artist/3RRODs1rHC2ktLqyDDfgPH
+6Rs7Ufqb4h0FTuVg6wlqOy,Nine Vicious,1262912,self_released (label name only),Nine Vicious,,https://open.spotify.com/artist/6Rs7Ufqb4h0FTuVg6wlqOy
 6jHG1YQkqgojdEzerwvrVv,Eric B. & Rakim,1262475,unknown,,,https://open.spotify.com/artist/6jHG1YQkqgojdEzerwvrVv
-3ZooCJzNMTLpmJaIRUEorI,Young Dro,1262330,unknown,,,https://open.spotify.com/artist/3ZooCJzNMTLpmJaIRUEorI
-1VmIfQToGVtxmv2w3QtyVY,Symba,1261131,unknown,,,https://open.spotify.com/artist/1VmIfQToGVtxmv2w3QtyVY
-4Q4yUu2v7zN40G0LtsnY98,BEN plg,1259154,unknown,,,https://open.spotify.com/artist/4Q4yUu2v7zN40G0LtsnY98
-4JhbRL6zaItAyzqx4gHTqz,22Gz,1254283,unknown,,,https://open.spotify.com/artist/4JhbRL6zaItAyzqx4gHTqz
-2sBKOwN0fSjx39VtL2WpjJ,La Fève,1254033,unknown,,,https://open.spotify.com/artist/2sBKOwN0fSjx39VtL2WpjJ
-6gm3ZEpugRTHbtEn3A6Siw,Johnny Prez,1251899,unknown,,,https://open.spotify.com/artist/6gm3ZEpugRTHbtEn3A6Siw
-3PDMMt0Ip2WHysoAOEAdBq,Ca$his,1249755,unknown,,,https://open.spotify.com/artist/3PDMMt0Ip2WHysoAOEAdBq
-3AGggQTwJaSofLcpDlYhV4,Still Fresh,1248109,unknown,,,https://open.spotify.com/artist/3AGggQTwJaSofLcpDlYhV4
-3EXdLajEO02ziZ90P90bSW,Lil Xan,1244403,unknown,,,https://open.spotify.com/artist/3EXdLajEO02ziZ90P90bSW
-1SAugjIcuwNPKS4urSB7A6,Joe Budden,1239087,unknown,,,https://open.spotify.com/artist/1SAugjIcuwNPKS4urSB7A6
-6FAo7ORAHEzSSf5q10LLfN,Lil Mabu,1238561,unknown,,,https://open.spotify.com/artist/6FAo7ORAHEzSSf5q10LLfN
+4Q4yUu2v7zN40G0LtsnY98,BEN plg,1259154,unknown,Pour La Gloire,,https://open.spotify.com/artist/4Q4yUu2v7zN40G0LtsnY98
+4JhbRL6zaItAyzqx4gHTqz,22Gz,1254283,unknown,BLIXKY ENT + BetterVibesOnly,,https://open.spotify.com/artist/4JhbRL6zaItAyzqx4gHTqz
+2sBKOwN0fSjx39VtL2WpjJ,La Fève,1254033,unknown,Walone,,https://open.spotify.com/artist/2sBKOwN0fSjx39VtL2WpjJ
+6gm3ZEpugRTHbtEn3A6Siw,Johnny Prez,1251899,unknown,High Level Music Inc.,,https://open.spotify.com/artist/6gm3ZEpugRTHbtEn3A6Siw
+3PDMMt0Ip2WHysoAOEAdBq,Ca$his,1249755,unknown,Bogish Brand Ent,,https://open.spotify.com/artist/3PDMMt0Ip2WHysoAOEAdBq
+3AGggQTwJaSofLcpDlYhV4,Still Fresh,1248109,unknown,Nouvelle école,,https://open.spotify.com/artist/3AGggQTwJaSofLcpDlYhV4
+3EXdLajEO02ziZ90P90bSW,Lil Xan,1244403,unknown,Xanarchy Militia Music,,https://open.spotify.com/artist/3EXdLajEO02ziZ90P90bSW
+1SAugjIcuwNPKS4urSB7A6,Joe Budden,1239087,unknown,Mood Musik,,https://open.spotify.com/artist/1SAugjIcuwNPKS4urSB7A6
+6FAo7ORAHEzSSf5q10LLfN,Lil Mabu,1238561,unknown,YOUNG GENIUS ACADEMY INC.,,https://open.spotify.com/artist/6FAo7ORAHEzSSf5q10LLfN
 5vgHNLPDrYD3hztA8yKoxP,TACONAFIDE,1238155,unknown,,,https://open.spotify.com/artist/5vgHNLPDrYD3hztA8yKoxP
-6GoNVmYCl0yUm4pEp80vn6,badchieff,1224406,unknown,,,https://open.spotify.com/artist/6GoNVmYCl0yUm4pEp80vn6
-1TMrnxBwZfmfRxsGzkNIHw,Andy Mineo,1222975,unknown,,,https://open.spotify.com/artist/1TMrnxBwZfmfRxsGzkNIHw
-4Fn5clYETVpCxnIcFSZhr9,Massaka,1218912,unknown,,,https://open.spotify.com/artist/4Fn5clYETVpCxnIcFSZhr9
-2qDdxfKUpYg8wc49KIuT3b,Tommy Genesis,1218531,unknown,,,https://open.spotify.com/artist/2qDdxfKUpYg8wc49KIuT3b
-5qeFPM2PZUCzcpkY4e4RC8,ADF Samski,1217582,unknown,,,https://open.spotify.com/artist/5qeFPM2PZUCzcpkY4e4RC8
-5qZLYtTL3ldN6Uw7OXHESR,Sa4,1215717,unknown,,,https://open.spotify.com/artist/5qZLYtTL3ldN6Uw7OXHESR
-0ksX396B3t2Gt8kwr0BJZk,Fumez The Engineer,1208950,unknown,,,https://open.spotify.com/artist/0ksX396B3t2Gt8kwr0BJZk
-4MRRW42s9ymwa5zu4xTKJh,Kaza,1208875,unknown,,,https://open.spotify.com/artist/4MRRW42s9ymwa5zu4xTKJh
+6GoNVmYCl0yUm4pEp80vn6,badchieff,1224406,self_released (label name only),Four Music/BADCHIEFF,,https://open.spotify.com/artist/6GoNVmYCl0yUm4pEp80vn6
+1TMrnxBwZfmfRxsGzkNIHw,Andy Mineo,1222975,unknown,"Miner League Recordings & Tapes, indie tribe.",,https://open.spotify.com/artist/1TMrnxBwZfmfRxsGzkNIHw
+4Fn5clYETVpCxnIcFSZhr9,Massaka,1218912,unknown,Königsrasse,,https://open.spotify.com/artist/4Fn5clYETVpCxnIcFSZhr9
+5qeFPM2PZUCzcpkY4e4RC8,ADF Samski,1217582,unknown,ADF ENT,,https://open.spotify.com/artist/5qeFPM2PZUCzcpkY4e4RC8
+0ksX396B3t2Gt8kwr0BJZk,Fumez The Engineer,1208950,unknown,Relxvant Limited under exclusive license to Amuseio AB,,https://open.spotify.com/artist/0ksX396B3t2Gt8kwr0BJZk
 77AKJs9SJqxHXbPgtJPKRa,King Geedorah,1202197,unknown,,,https://open.spotify.com/artist/77AKJs9SJqxHXbPgtJPKRa
-4Jd9XCHzRXTB7ZPPVzJoUm,Milano,1198330,unknown,,,https://open.spotify.com/artist/4Jd9XCHzRXTB7ZPPVzJoUm
-42yf4QkiE9a252krn9OUCb,Sauce Walka,1194190,unknown,,,https://open.spotify.com/artist/42yf4QkiE9a252krn9OUCb
-2IoSLl3tqYMq9DzR0d6NJN,Elams,1193581,unknown,,,https://open.spotify.com/artist/2IoSLl3tqYMq9DzR0d6NJN
-6PcYcDQ7UCL4U5PopumiWY,Diho,1187004,unknown,,,https://open.spotify.com/artist/6PcYcDQ7UCL4U5PopumiWY
-7LmtogB01302Utf3C3R4GT,GAULOIS,1184910,unknown,,,https://open.spotify.com/artist/7LmtogB01302Utf3C3R4GT
-2oM7LMPFu882oC6jSwEqjd,xaviersobased,1184839,unknown,,,https://open.spotify.com/artist/2oM7LMPFu882oC6jSwEqjd
-39HJXjH5hKcCzaU0g6mv8G,Plutonio,1179569,unknown,,,https://open.spotify.com/artist/39HJXjH5hKcCzaU0g6mv8G
-2r8iLFeSTuOiZualHmSXxS,Patron,1178132,unknown,,,https://open.spotify.com/artist/2r8iLFeSTuOiZualHmSXxS
+4Jd9XCHzRXTB7ZPPVzJoUm,Milano,1198330,unknown,DEUX FRÈRES MUSIC & Vertigo Berlin,,https://open.spotify.com/artist/4Jd9XCHzRXTB7ZPPVzJoUm
+2IoSLl3tqYMq9DzR0d6NJN,Elams,1193581,self_released (label name only),Elams,,https://open.spotify.com/artist/2IoSLl3tqYMq9DzR0d6NJN
+6PcYcDQ7UCL4U5PopumiWY,Diho,1187004,unknown,℗ DISCORELAX,,https://open.spotify.com/artist/6PcYcDQ7UCL4U5PopumiWY
+7LmtogB01302Utf3C3R4GT,GAULOIS,1184910,unknown,La G Corp / Tiens Tiens Retiens,,https://open.spotify.com/artist/7LmtogB01302Utf3C3R4GT
+2oM7LMPFu882oC6jSwEqjd,xaviersobased,1184839,unknown,"1-chance, Surf Gang, AMG",,https://open.spotify.com/artist/2oM7LMPFu882oC6jSwEqjd
+39HJXjH5hKcCzaU0g6mv8G,Plutonio,1179569,unknown,Bridgetown Records,,https://open.spotify.com/artist/39HJXjH5hKcCzaU0g6mv8G
+2r8iLFeSTuOiZualHmSXxS,Patron,1178132,unknown,PMC,,https://open.spotify.com/artist/2r8iLFeSTuOiZualHmSXxS
 4fpTMHe34LC5t3h5ztK8qu,The Carters,1178070,unknown,,,https://open.spotify.com/artist/4fpTMHe34LC5t3h5ztK8qu
 5DKuVtlpDH0agZQUFDy8O7,Pharoahe Monch,1177372,unknown,,,https://open.spotify.com/artist/5DKuVtlpDH0agZQUFDy8O7
-3v0QTRruILayLe5VsaYdvk,HAARPER,1175748,unknown,,,https://open.spotify.com/artist/3v0QTRruILayLe5VsaYdvk
-5NMwoStnfHT4LdETlJSwDT,Big Baby Tape,1174899,unknown,,,https://open.spotify.com/artist/5NMwoStnfHT4LdETlJSwDT
-5B5qmrbTFvA7TAxWruuwbo,Aarne,1173929,unknown,,,https://open.spotify.com/artist/5B5qmrbTFvA7TAxWruuwbo
-5Va9LuEmaZxnbk1gMnjMD7,Arrested Development,1168238,unknown,,,https://open.spotify.com/artist/5Va9LuEmaZxnbk1gMnjMD7
-2z6t0UGq0WAM8X6zDeXKXj,Don Xhoni,1160949,unknown,,,https://open.spotify.com/artist/2z6t0UGq0WAM8X6zDeXKXj
-6jQZzWW3JlEtcRDSzFVKSP,Nitro,1160843,unknown,,,https://open.spotify.com/artist/6jQZzWW3JlEtcRDSzFVKSP
-7AWAljMatr7bxddF4kWzXG,TOQUEL,1158082,unknown,,,https://open.spotify.com/artist/7AWAljMatr7bxddF4kWzXG
-1020a42xVklY6c56imNcaa,Slum Village,1157796,unknown,,,https://open.spotify.com/artist/1020a42xVklY6c56imNcaa
-6MvnyPinXRQbUCMsPoymhR,Lenny Loops,1149659,unknown,,,https://open.spotify.com/artist/6MvnyPinXRQbUCMsPoymhR
-3oaGNYMn968LbpA1sthjos,Rap La Rue,1146589,unknown,,,https://open.spotify.com/artist/3oaGNYMn968LbpA1sthjos
+5NMwoStnfHT4LdETlJSwDT,Big Baby Tape,1174899,unknown,BENZO RECORDS,,https://open.spotify.com/artist/5NMwoStnfHT4LdETlJSwDT
+5B5qmrbTFvA7TAxWruuwbo,Aarne,1173929,self_released (label name only),Aarne,,https://open.spotify.com/artist/5B5qmrbTFvA7TAxWruuwbo
+5Va9LuEmaZxnbk1gMnjMD7,Arrested Development,1168238,unknown,Vagabond Productions,,https://open.spotify.com/artist/5Va9LuEmaZxnbk1gMnjMD7
+2z6t0UGq0WAM8X6zDeXKXj,Don Xhoni,1160949,unknown,New Chicago LLC,,https://open.spotify.com/artist/2z6t0UGq0WAM8X6zDeXKXj
+1020a42xVklY6c56imNcaa,Slum Village,1157796,unknown,"Conscious Minds For Righteous Revolution, Distributed by Venice Music",,https://open.spotify.com/artist/1020a42xVklY6c56imNcaa
+6MvnyPinXRQbUCMsPoymhR,Lenny Loops,1149659,self_released (label name only),Lenny Loops,,https://open.spotify.com/artist/6MvnyPinXRQbUCMsPoymhR
 2ht3wxeT69CzyKFChNnNAB,Big Boi,1145218,unknown,,,https://open.spotify.com/artist/2ht3wxeT69CzyKFChNnNAB
-24zj84GShUIcBQYq6VpOYW,Duke Deuce,1143842,unknown,,,https://open.spotify.com/artist/24zj84GShUIcBQYq6VpOYW
-57UnSUpae3SbRekxNa5Kgl,El-P,1141148,unknown,,,https://open.spotify.com/artist/57UnSUpae3SbRekxNa5Kgl
-2pSObt5Fk8izuX8ZfI3jRn,Upchurch,1140800,unknown,,,https://open.spotify.com/artist/2pSObt5Fk8izuX8ZfI3jRn
-5RaQ9nmVGoTye2SI76x3yw,Kofs,1137840,unknown,,,https://open.spotify.com/artist/5RaQ9nmVGoTye2SI76x3yw
+24zj84GShUIcBQYq6VpOYW,Duke Deuce,1143842,unknown,A Banner Vision,,https://open.spotify.com/artist/24zj84GShUIcBQYq6VpOYW
+2pSObt5Fk8izuX8ZfI3jRn,Upchurch,1140800,unknown,Music City Magic Man,,https://open.spotify.com/artist/2pSObt5Fk8izuX8ZfI3jRn
 1Yfe3ONJlioHys7jwHdfVm,Lomepal,1136594,unknown,,,https://open.spotify.com/artist/1Yfe3ONJlioHys7jwHdfVm
-56Q6weEROZ1RsVrTak8Bm7,IAM,1136440,unknown,,,https://open.spotify.com/artist/56Q6weEROZ1RsVrTak8Bm7
 76RrKpsvOmSKG8CIjROdSG,MiMS,1135805,unknown,,,https://open.spotify.com/artist/76RrKpsvOmSKG8CIjROdSG
-5delTPpDAtBDsjk60f5xnt,Autumn!,1134318,unknown,,,https://open.spotify.com/artist/5delTPpDAtBDsjk60f5xnt
-4z3TiM4dsnvWDRcnqf3l0r,Icegergert,1132883,unknown,,,https://open.spotify.com/artist/4z3TiM4dsnvWDRcnqf3l0r
-3iAhNz3e31lBuXYOsqGsf3,Unknown T,1129135,unknown,,,https://open.spotify.com/artist/3iAhNz3e31lBuXYOsqGsf3
-2hTmpvdwhpNZryOkwTisRW,Toxi$,1127365,unknown,,,https://open.spotify.com/artist/2hTmpvdwhpNZryOkwTisRW
-09qHO1fFJ6iIeTuCjO7Bfa,Roc Boyz,1119771,unknown,,,https://open.spotify.com/artist/09qHO1fFJ6iIeTuCjO7Bfa
-4DG2pTwQBor7a6wtoEABau,Ozbi,1116738,unknown,,,https://open.spotify.com/artist/4DG2pTwQBor7a6wtoEABau
-6NyJIFHAePjHR1pFxwisqz,Kurupt,1114161,unknown,,,https://open.spotify.com/artist/6NyJIFHAePjHR1pFxwisqz
-3GViqleny7XZGug7Ym2Fjk,Niko B,1113979,unknown,,,https://open.spotify.com/artist/3GViqleny7XZGug7Ym2Fjk
-3L9uBgjdSGghrzkEpr4Fy7,FattMack,1113734,unknown,,,https://open.spotify.com/artist/3L9uBgjdSGghrzkEpr4Fy7
-6pdcQa7by8IKuoVXvgknlI,Rilès,1107230,unknown,,,https://open.spotify.com/artist/6pdcQa7by8IKuoVXvgknlI
+5delTPpDAtBDsjk60f5xnt,Autumn!,1134318,self_released (label name only),Autumn!,,https://open.spotify.com/artist/5delTPpDAtBDsjk60f5xnt
+4z3TiM4dsnvWDRcnqf3l0r,Icegergert,1132883,unknown,GAZ,,https://open.spotify.com/artist/4z3TiM4dsnvWDRcnqf3l0r
+2hTmpvdwhpNZryOkwTisRW,Toxi$,1127365,unknown,RNDM CREW,,https://open.spotify.com/artist/2hTmpvdwhpNZryOkwTisRW
+09qHO1fFJ6iIeTuCjO7Bfa,Roc Boyz,1119771,self_released (label name only),Roc Boyz,,https://open.spotify.com/artist/09qHO1fFJ6iIeTuCjO7Bfa
+4DG2pTwQBor7a6wtoEABau,Ozbi,1116738,unknown,Bayhan Prodüksiyon,,https://open.spotify.com/artist/4DG2pTwQBor7a6wtoEABau
+3GViqleny7XZGug7Ym2Fjk,Niko B,1113979,self_released (label name only),Niko B,,https://open.spotify.com/artist/3GViqleny7XZGug7Ym2Fjk
+3L9uBgjdSGghrzkEpr4Fy7,FattMack,1113734,self_released (label name only),FattMack,,https://open.spotify.com/artist/3L9uBgjdSGghrzkEpr4Fy7
+6pdcQa7by8IKuoVXvgknlI,Rilès,1107230,self_released (label name only),RILÈSUNDAYZ,,https://open.spotify.com/artist/6pdcQa7by8IKuoVXvgknlI
 06s35sbFfZJUEwFjAaZfiW,Cookin Soul,1107118,unknown,,,https://open.spotify.com/artist/06s35sbFfZJUEwFjAaZfiW
-4RnBFZRiMLRyZy0AzzTg2C,Run The Jewels,1107088,unknown,,,https://open.spotify.com/artist/4RnBFZRiMLRyZy0AzzTg2C
-2zNmlxTlRfyMAAifd2f71Q,amies,1104696,unknown,,,https://open.spotify.com/artist/2zNmlxTlRfyMAAifd2f71Q
-1WO1hFAkFbeo9tV3uVX7Dy,A1 x J1,1102052,unknown,,,https://open.spotify.com/artist/1WO1hFAkFbeo9tV3uVX7Dy
-6wjkiUBMMYSIx5UBTp7eKC,Bekar,1100422,unknown,,,https://open.spotify.com/artist/6wjkiUBMMYSIx5UBTp7eKC
-7MNEVabc4cs19CbzAFZmXz,Terrace Martin,1096359,unknown,,,https://open.spotify.com/artist/7MNEVabc4cs19CbzAFZmXz
+2zNmlxTlRfyMAAifd2f71Q,amies,1104696,self_released (label name only),amies,,https://open.spotify.com/artist/2zNmlxTlRfyMAAifd2f71Q
+1WO1hFAkFbeo9tV3uVX7Dy,A1 x J1,1102052,self_released (label name only),Independent,,https://open.spotify.com/artist/1WO1hFAkFbeo9tV3uVX7Dy
+6wjkiUBMMYSIx5UBTp7eKC,Bekar,1100422,unknown,Panenka Music,,https://open.spotify.com/artist/6wjkiUBMMYSIx5UBTp7eKC
 5Y8EphH8Vdqu5SLj6K5vjj,Tone-Loc,1096186,unknown,,,https://open.spotify.com/artist/5Y8EphH8Vdqu5SLj6K5vjj
-3UROQ34SGxV7h71Z3Gqp8u,Haviah Mighty,1095679,unknown,,,https://open.spotify.com/artist/3UROQ34SGxV7h71Z3Gqp8u
-6nfYGe7IIuuP5bMY1jkJP6,Jermaine Dupri,1093649,unknown,,,https://open.spotify.com/artist/6nfYGe7IIuuP5bMY1jkJP6
-1LyTmnoxLipUwTEHWSRziG,Prof,1091332,unknown,,,https://open.spotify.com/artist/1LyTmnoxLipUwTEHWSRziG
+3UROQ34SGxV7h71Z3Gqp8u,Haviah Mighty,1095679,unknown,Mighty Gang Inc.,,https://open.spotify.com/artist/3UROQ34SGxV7h71Z3Gqp8u
+1LyTmnoxLipUwTEHWSRziG,Prof,1091332,unknown,Ineffable Records,,https://open.spotify.com/artist/1LyTmnoxLipUwTEHWSRziG
 56OMwqr8qaLIRH4ZrvvdXq,Dilated Peoples,1088485,unknown,,,https://open.spotify.com/artist/56OMwqr8qaLIRH4ZrvvdXq
-1W9qOBYRTfP7HcizWN43G1,Slick Rick,1087340,unknown,,,https://open.spotify.com/artist/1W9qOBYRTfP7HcizWN43G1
-1Ij5ZIGlPTkoZibay58zHe,Articolo 31,1086469,unknown,,,https://open.spotify.com/artist/1Ij5ZIGlPTkoZibay58zHe
-1MXZ0hsGic96dWRDKwAwdr,Tyla Yaweh,1086005,unknown,,,https://open.spotify.com/artist/1MXZ0hsGic96dWRDKwAwdr
-6wN4QyhoM6fN49kEB25rnl,SNIK,1084023,unknown,,,https://open.spotify.com/artist/6wN4QyhoM6fN49kEB25rnl
-2qMezKrAKRh2Z2uR3fCqHt,PA Sports,1082673,unknown,,,https://open.spotify.com/artist/2qMezKrAKRh2Z2uR3fCqHt
-1pkDzgHvVqC17qYGKfLPpb,Mozzik,1081272,unknown,,,https://open.spotify.com/artist/1pkDzgHvVqC17qYGKfLPpb
-7dlH4L7i8CtRUZMQDSuXqH,Hubert.,1080200,unknown,,,https://open.spotify.com/artist/7dlH4L7i8CtRUZMQDSuXqH
+1Ij5ZIGlPTkoZibay58zHe,Articolo 31,1086469,unknown,Best Sound,,https://open.spotify.com/artist/1Ij5ZIGlPTkoZibay58zHe
+1MXZ0hsGic96dWRDKwAwdr,Tyla Yaweh,1086005,unknown,Rager Boy Records,,https://open.spotify.com/artist/1MXZ0hsGic96dWRDKwAwdr
+1pkDzgHvVqC17qYGKfLPpb,Mozzik,1081272,self_released (label name only),"Mozzik, by Yellowcake Inc.",,https://open.spotify.com/artist/1pkDzgHvVqC17qYGKfLPpb
 50mdotNCJ2PcoZiAgsh8dY,SFB,1079596,unknown,,,https://open.spotify.com/artist/50mdotNCJ2PcoZiAgsh8dY
-5Kuxl5ZenCl9fYzmtin6ot,Sokół,1075982,unknown,,,https://open.spotify.com/artist/5Kuxl5ZenCl9fYzmtin6ot
-4zO6WqG8mu49ek0ZDIptTk,The Returners,1072778,unknown,,,https://open.spotify.com/artist/4zO6WqG8mu49ek0ZDIptTk
-5No9X0ZejwFDnD1dVllwQA,Terror Reid,1070501,unknown,,,https://open.spotify.com/artist/5No9X0ZejwFDnD1dVllwQA
-74V3dE1a51skRkdII8y2C6,André 3000,1061497,unknown,,,https://open.spotify.com/artist/74V3dE1a51skRkdII8y2C6
-5GwdnlZaSwKpHmjcAijATP,Smolasty,1060188,unknown,,,https://open.spotify.com/artist/5GwdnlZaSwKpHmjcAijATP
-290nCNEce1y6rfoJiO2rK7,Pa Salieu,1058060,unknown,,,https://open.spotify.com/artist/290nCNEce1y6rfoJiO2rK7
-3hGJ4nHdF99Vs0gQdXz5Nw,smokedope2016,1054547,unknown,,,https://open.spotify.com/artist/3hGJ4nHdF99Vs0gQdXz5Nw
-0T5OJgMVjKIX3b3W3ekqOl,Rocko,1053141,unknown,,,https://open.spotify.com/artist/0T5OJgMVjKIX3b3W3ekqOl
-2GRDbUJRZwKzeiwxrjJdmQ,2Rare,1048580,unknown,,,https://open.spotify.com/artist/2GRDbUJRZwKzeiwxrjJdmQ
-3XVpDdKav6C6zwlDXPhMEO,Kamaiyah,1045714,unknown,,,https://open.spotify.com/artist/3XVpDdKav6C6zwlDXPhMEO
-5Sjj30aHCmKcM9SdVX7PBK,GRiNGO,1043820,unknown,,,https://open.spotify.com/artist/5Sjj30aHCmKcM9SdVX7PBK
-6o5sl0TGublDPXyMHdMq1E,Moha K,1041674,unknown,,,https://open.spotify.com/artist/6o5sl0TGublDPXyMHdMq1E
-0HSc7yUdNSosxRb2UJnXlz,Namika,1041145,unknown,,,https://open.spotify.com/artist/0HSc7yUdNSosxRb2UJnXlz
-1ywkNtrO3WGuwaehqxyjAO,Chilla,1040912,unknown,,,https://open.spotify.com/artist/1ywkNtrO3WGuwaehqxyjAO
-0tJCNteqwm7LmRZ6KWr8GT,Chip,1040414,unknown,,,https://open.spotify.com/artist/0tJCNteqwm7LmRZ6KWr8GT
-6n9sdNb7mWvVmARDT6ujnJ,Memphis Cult,1037291,unknown,,,https://open.spotify.com/artist/6n9sdNb7mWvVmARDT6ujnJ
-79mgHJytm385Muv7GfaneD,Foolio,1037063,unknown,,,https://open.spotify.com/artist/79mgHJytm385Muv7GfaneD
-7ChbI909duz2evHDqsYsSa,Grubson,1036675,unknown,,,https://open.spotify.com/artist/7ChbI909duz2evHDqsYsSa
-3TKCdsX8yNNoiC1gesn6or,RONNY J,1036636,unknown,,,https://open.spotify.com/artist/3TKCdsX8yNNoiC1gesn6or
-396eHybVCEUr0PcED4yFga,Young Adz,1033161,unknown,,,https://open.spotify.com/artist/396eHybVCEUr0PcED4yFga
-22282KfMxDo2PMjnBc82I4,Biz Markie,1031994,unknown,,,https://open.spotify.com/artist/22282KfMxDo2PMjnBc82I4
-1BH45DVSTeGBvcYXNCd67g,M.O.P.,1030804,unknown,,,https://open.spotify.com/artist/1BH45DVSTeGBvcYXNCd67g
-7jocoSCuCtpCxCI6IbP8ye,Digital Underground,1026007,unknown,,,https://open.spotify.com/artist/7jocoSCuCtpCxCI6IbP8ye
-0Pk4JEXgC64RBmovnQDZ27,Jogja Hip Hop Foundation,1022695,unknown,,,https://open.spotify.com/artist/0Pk4JEXgC64RBmovnQDZ27
-0U7ti3mwGrBNlKNE4YlbfT,Sierra Kidd,1021700,unknown,,,https://open.spotify.com/artist/0U7ti3mwGrBNlKNE4YlbfT
-4gJT0OnBISFA5CPMNYBGIE,OG Keemo,1021679,unknown,,,https://open.spotify.com/artist/4gJT0OnBISFA5CPMNYBGIE
+5Kuxl5ZenCl9fYzmtin6ot,Sokół,1075982,self_released (label name only),Wojtek Sokol,,https://open.spotify.com/artist/5Kuxl5ZenCl9fYzmtin6ot
+4zO6WqG8mu49ek0ZDIptTk,The Returners,1072778,self_released (label name only),The Returners,,https://open.spotify.com/artist/4zO6WqG8mu49ek0ZDIptTk
+5No9X0ZejwFDnD1dVllwQA,Terror Reid,1070501,self_released (label name only),Terror Reid,,https://open.spotify.com/artist/5No9X0ZejwFDnD1dVllwQA
+3hGJ4nHdF99Vs0gQdXz5Nw,smokedope2016,1054547,unknown,LISTEN TO THE KIDS,,https://open.spotify.com/artist/3hGJ4nHdF99Vs0gQdXz5Nw
+0T5OJgMVjKIX3b3W3ekqOl,Rocko,1053141,self_released (label name only),Rocko,,https://open.spotify.com/artist/0T5OJgMVjKIX3b3W3ekqOl
+3XVpDdKav6C6zwlDXPhMEO,Kamaiyah,1045714,unknown,Thirty Knots / moshpit projects.,,https://open.spotify.com/artist/3XVpDdKav6C6zwlDXPhMEO
+5Sjj30aHCmKcM9SdVX7PBK,GRiNGO,1043820,unknown,Mashkal,,https://open.spotify.com/artist/5Sjj30aHCmKcM9SdVX7PBK
+6o5sl0TGublDPXyMHdMq1E,Moha K,1041674,unknown,Double A Entertainment,,https://open.spotify.com/artist/6o5sl0TGublDPXyMHdMq1E
+0HSc7yUdNSosxRb2UJnXlz,Namika,1041145,unknown,Hansa Local,,https://open.spotify.com/artist/0HSc7yUdNSosxRb2UJnXlz
+1ywkNtrO3WGuwaehqxyjAO,Chilla,1040912,unknown,Lejionnaire,,https://open.spotify.com/artist/1ywkNtrO3WGuwaehqxyjAO
+6n9sdNb7mWvVmARDT6ujnJ,Memphis Cult,1037291,self_released (label name only),Memphis Cult,,https://open.spotify.com/artist/6n9sdNb7mWvVmARDT6ujnJ
+79mgHJytm385Muv7GfaneD,Foolio,1037063,self_released (label name only),Foolio,,https://open.spotify.com/artist/79mgHJytm385Muv7GfaneD
+7ChbI909duz2evHDqsYsSa,Grubson,1036675,self_released (label name only),Grubson,,https://open.spotify.com/artist/7ChbI909duz2evHDqsYsSa
+3TKCdsX8yNNoiC1gesn6or,RONNY J,1036636,unknown,Kinetica Records,,https://open.spotify.com/artist/3TKCdsX8yNNoiC1gesn6or
+396eHybVCEUr0PcED4yFga,Young Adz,1033161,unknown,Music Entertainment,,https://open.spotify.com/artist/396eHybVCEUr0PcED4yFga
+22282KfMxDo2PMjnBc82I4,Biz Markie,1031994,self_released (label name only),Biz Markie,,https://open.spotify.com/artist/22282KfMxDo2PMjnBc82I4
+1BH45DVSTeGBvcYXNCd67g,M.O.P.,1030804,unknown,NewDEF,,https://open.spotify.com/artist/1BH45DVSTeGBvcYXNCd67g
+7jocoSCuCtpCxCI6IbP8ye,Digital Underground,1026007,unknown,"Tommy Boy Music, LLC",,https://open.spotify.com/artist/7jocoSCuCtpCxCI6IbP8ye
+0Pk4JEXgC64RBmovnQDZ27,Jogja Hip Hop Foundation,1022695,unknown,JAVA HIP HOP,,https://open.spotify.com/artist/0Pk4JEXgC64RBmovnQDZ27
+4gJT0OnBISFA5CPMNYBGIE,OG Keemo,1021679,unknown,Chimperator Productions,,https://open.spotify.com/artist/4gJT0OnBISFA5CPMNYBGIE
 0gqIrDRL7CEPBWMmkuZPdQ,Digable Planets,1018607,unknown,,,https://open.spotify.com/artist/0gqIrDRL7CEPBWMmkuZPdQ
-3Px6IenueysHsgCQf9xFVr,Kwesta,1017893,unknown,,,https://open.spotify.com/artist/3Px6IenueysHsgCQf9xFVr
 0xEVr5H3VEj3g11u1q6ifW,MZ,1017496,unknown,,,https://open.spotify.com/artist/0xEVr5H3VEj3g11u1q6ifW
-44JEJiBvti7NiEhAfzWstv,MO3,1016095,unknown,,,https://open.spotify.com/artist/44JEJiBvti7NiEhAfzWstv
 4KivBMgSnZ7hCDfPm46fKc,Jan Delay,1015406,unknown,,,https://open.spotify.com/artist/4KivBMgSnZ7hCDfPm46fKc
-4H9W4cb3X0qRpv87yKV7fV,Kwam.E,1014345,unknown,,,https://open.spotify.com/artist/4H9W4cb3X0qRpv87yKV7fV
-4cG43cUBRJWWDsRh4SW48i,Viktor Sheen,1011395,unknown,,,https://open.spotify.com/artist/4cG43cUBRJWWDsRh4SW48i
-4fpwOzxFRMVGfd197dKIdY,Boldy James,1009746,unknown,,,https://open.spotify.com/artist/4fpwOzxFRMVGfd197dKIdY
-64k5e9kV9MdukXjFrR5R37,Jessi,1009382,unknown,,,https://open.spotify.com/artist/64k5e9kV9MdukXjFrR5R37
-27kGBCjiz5OXojkKX4xQ6R,BUSHIDO ZHO,1006846,unknown,,,https://open.spotify.com/artist/27kGBCjiz5OXojkKX4xQ6R
-4nqQTosM2Mbg7iRjvJU0N0,Samara Cyn,1006636,unknown,,,https://open.spotify.com/artist/4nqQTosM2Mbg7iRjvJU0N0
-6WzxopGY3sy97IeNFaDELc,Trannos,1004040,unknown,,,https://open.spotify.com/artist/6WzxopGY3sy97IeNFaDELc
+4fpwOzxFRMVGfd197dKIdY,Boldy James,1009746,unknown,Royal House Records,,https://open.spotify.com/artist/4fpwOzxFRMVGfd197dKIdY
+27kGBCjiz5OXojkKX4xQ6R,BUSHIDO ZHO,1006846,unknown,Koala Music,,https://open.spotify.com/artist/27kGBCjiz5OXojkKX4xQ6R
 6xyaria4AcxjRuJZLkWvMW,Guru,1003340,unknown,,,https://open.spotify.com/artist/6xyaria4AcxjRuJZLkWvMW
-0T2sGLJKge2eaFmZJxX7sq,Wretch 32,1001352,unknown,,,https://open.spotify.com/artist/0T2sGLJKge2eaFmZJxX7sq
-6zrOXBaNn0DqJeXxgC2eyH,Houari,998982,unknown,,,https://open.spotify.com/artist/6zrOXBaNn0DqJeXxgC2eyH
-5LUxu287CsPM7jy3yS3l86,Şanışer,998610,unknown,,,https://open.spotify.com/artist/5LUxu287CsPM7jy3yS3l86
-721o1Z0J6jQupyzLt9RnEk,Yzomandias,997725,unknown,,,https://open.spotify.com/artist/721o1Z0J6jQupyzLt9RnEk
-6Uh8uJyN9g7oFjDK16nJgb,Juelz Santana,997588,unknown,,,https://open.spotify.com/artist/6Uh8uJyN9g7oFjDK16nJgb
-748dDObrUoBetes0pLj788,Die Fantastischen Vier,997487,unknown,,,https://open.spotify.com/artist/748dDObrUoBetes0pLj788
+0T2sGLJKge2eaFmZJxX7sq,Wretch 32,1001352,self_released (label name only),Wretch 32,,https://open.spotify.com/artist/0T2sGLJKge2eaFmZJxX7sq
+6zrOXBaNn0DqJeXxgC2eyH,Houari,998982,unknown,Rien100Rien,,https://open.spotify.com/artist/6zrOXBaNn0DqJeXxgC2eyH
+5LUxu287CsPM7jy3yS3l86,Şanışer,998610,unknown,Collabel,,https://open.spotify.com/artist/5LUxu287CsPM7jy3yS3l86
+6Uh8uJyN9g7oFjDK16nJgb,Juelz Santana,997588,unknown,MNRK Records LP,,https://open.spotify.com/artist/6Uh8uJyN9g7oFjDK16nJgb
+748dDObrUoBetes0pLj788,Die Fantastischen Vier,997487,unknown,Rekord Music and Distribution,,https://open.spotify.com/artist/748dDObrUoBetes0pLj788
 2OqENqJFXPORP4BUGnu2Qq,Youngbloodz,994545,unknown,,,https://open.spotify.com/artist/2OqENqJFXPORP4BUGnu2Qq
-2NfwGBr2swqZ1rzE3kAV23,Saucy Santana,992307,unknown,,,https://open.spotify.com/artist/2NfwGBr2swqZ1rzE3kAV23
-7e10JUMF7MJmmwYpnTSMI5,Dave East,992228,unknown,,,https://open.spotify.com/artist/7e10JUMF7MJmmwYpnTSMI5
-4eEkR7IDAXyGngHvnJZpdV,Stunna Girl,990682,unknown,,,https://open.spotify.com/artist/4eEkR7IDAXyGngHvnJZpdV
-0t84CBqmvihsUVFme33TLd,GReeeN,990671,unknown,,,https://open.spotify.com/artist/0t84CBqmvihsUVFme33TLd
-1CbA4z6JauNQnHzOErDQL6,Luci4,989002,unknown,,,https://open.spotify.com/artist/1CbA4z6JauNQnHzOErDQL6
-551EawRj5350YQYs1MC2Ot,Devon Hendryx,987522,unknown,,,https://open.spotify.com/artist/551EawRj5350YQYs1MC2Ot
-5erVsKXNZIBRE5ePB50c7j,SPLYXER,986048,unknown,,,https://open.spotify.com/artist/5erVsKXNZIBRE5ePB50c7j
+2NfwGBr2swqZ1rzE3kAV23,Saucy Santana,992307,self_released (label name only),Saucy Santana / StreamCut,,https://open.spotify.com/artist/2NfwGBr2swqZ1rzE3kAV23
+7e10JUMF7MJmmwYpnTSMI5,Dave East,992228,unknown,FTD,,https://open.spotify.com/artist/7e10JUMF7MJmmwYpnTSMI5
+4eEkR7IDAXyGngHvnJZpdV,Stunna Girl,990682,self_released (label name only),Stunna Girl Media LLC,,https://open.spotify.com/artist/4eEkR7IDAXyGngHvnJZpdV
+1CbA4z6JauNQnHzOErDQL6,Luci4,989002,self_released (label name only),Luci4 X Kayla G,,https://open.spotify.com/artist/1CbA4z6JauNQnHzOErDQL6
+551EawRj5350YQYs1MC2Ot,Devon Hendryx,987522,unknown,© 2009 Generation Y 1989,,https://open.spotify.com/artist/551EawRj5350YQYs1MC2Ot
+5erVsKXNZIBRE5ePB50c7j,SPLYXER,986048,unknown,Memphis Cult,,https://open.spotify.com/artist/5erVsKXNZIBRE5ePB50c7j
 5xpkLC1MxiPRiIJUDEzuVm,Odd Future,985648,unknown,,,https://open.spotify.com/artist/5xpkLC1MxiPRiIJUDEzuVm
-0zhMujl1yB8pkB023Qm4Y2,Green Montana,978278,unknown,,,https://open.spotify.com/artist/0zhMujl1yB8pkB023Qm4Y2
 0siBQaURCli5wn2lqv8WZg,DPR LIVE,969076,unknown,,,https://open.spotify.com/artist/0siBQaURCli5wn2lqv8WZg
-3x6gZfwmkDn92EKOwnYq4H,Rasheeda,964788,unknown,,,https://open.spotify.com/artist/3x6gZfwmkDn92EKOwnYq4H
-6gto7HVNhu4ARE3P3g8Y5Y,Kollegah,962693,unknown,,,https://open.spotify.com/artist/6gto7HVNhu4ARE3P3g8Y5Y
+3x6gZfwmkDn92EKOwnYq4H,Rasheeda,964788,unknown,Dlo Entertainment,,https://open.spotify.com/artist/3x6gZfwmkDn92EKOwnYq4H
+6gto7HVNhu4ARE3P3g8Y5Y,Kollegah,962693,unknown,Kumite Musik,,https://open.spotify.com/artist/6gto7HVNhu4ARE3P3g8Y5Y
 1E8w172gkuT5htpwaIEsEl,Népal,961506,unknown,,,https://open.spotify.com/artist/1E8w172gkuT5htpwaIEsEl
-5xkFVS6IwwgHEAaRzXc9U3,Tay Keith,958540,unknown,,,https://open.spotify.com/artist/5xkFVS6IwwgHEAaRzXc9U3
-6xS5PpBWaVYraexEkEjjXv,Maxo Kream,957833,unknown,,,https://open.spotify.com/artist/6xS5PpBWaVYraexEkEjjXv
-3tTvSeZiFDP3CY5EdPGcR4,ASHE 22,957358,unknown,,,https://open.spotify.com/artist/3tTvSeZiFDP3CY5EdPGcR4
-2aDaFARm4U9hf5DI9Fhbnh,schafter,947032,unknown,,,https://open.spotify.com/artist/2aDaFARm4U9hf5DI9Fhbnh
-4v1lRzkxvSsxo1JVUxXEOK,Mehnersmoos,940860,unknown,,,https://open.spotify.com/artist/4v1lRzkxvSsxo1JVUxXEOK
+3tTvSeZiFDP3CY5EdPGcR4,ASHE 22,957358,self_released (label name only),Seven G & Ashe 22,,https://open.spotify.com/artist/3tTvSeZiFDP3CY5EdPGcR4
+2aDaFARm4U9hf5DI9Fhbnh,schafter,947032,unknown,Restaurant Posse,,https://open.spotify.com/artist/2aDaFARm4U9hf5DI9Fhbnh
+4v1lRzkxvSsxo1JVUxXEOK,Mehnersmoos,940860,self_released (label name only),Mehnersmoos Live GbR,,https://open.spotify.com/artist/4v1lRzkxvSsxo1JVUxXEOK
 7EWU4FhUJM1sZQgQKdENeT,Hopsin,938900,unknown,,,https://open.spotify.com/artist/7EWU4FhUJM1sZQgQKdENeT
-7LQLsKs1Qulq0BxYdhRnBU,AZAD,934530,unknown,,,https://open.spotify.com/artist/7LQLsKs1Qulq0BxYdhRnBU
-0IVcLMMbm05VIjnzPkGCyp,J Dilla,934302,unknown,,,https://open.spotify.com/artist/0IVcLMMbm05VIjnzPkGCyp
-69irZ4R8OsrLHjr6VmMmMg,Gaël Faye,928015,unknown,,,https://open.spotify.com/artist/69irZ4R8OsrLHjr6VmMmMg
-0FnDCrmcQT8qz5TEsZIYw5,Awich,927388,unknown,,,https://open.spotify.com/artist/0FnDCrmcQT8qz5TEsZIYw5
+69irZ4R8OsrLHjr6VmMmMg,Gaël Faye,928015,unknown,Excuse My French,,https://open.spotify.com/artist/69irZ4R8OsrLHjr6VmMmMg
 3Y2MLcrD3ZQXRXmtn4fZQx,SpotemGottem,926981,unknown,,,https://open.spotify.com/artist/3Y2MLcrD3ZQXRXmtn4fZQx
-725KKhVCSCQbYkZBptBTfg,Baby K,920575,unknown,,,https://open.spotify.com/artist/725KKhVCSCQbYkZBptBTfg
 3LIJJJkO7R5RasRwt7xIn5,Mystikal,917327,unknown,,,https://open.spotify.com/artist/3LIJJJkO7R5RasRwt7xIn5
-6RedK3o51NbUJuJxXlT4kj,88-Keys,916554,unknown,,,https://open.spotify.com/artist/6RedK3o51NbUJuJxXlT4kj
-67gqUXxHedeUGDTxwBzdjS,Conway the Machine,915210,unknown,,,https://open.spotify.com/artist/67gqUXxHedeUGDTxwBzdjS
-6UDhlW8uEVBBrqHS3RrKuv,Casper,911224,unknown,,,https://open.spotify.com/artist/6UDhlW8uEVBBrqHS3RrKuv
+6RedK3o51NbUJuJxXlT4kj,88-Keys,916554,unknown,Straight Clutch Entertainment,,https://open.spotify.com/artist/6RedK3o51NbUJuJxXlT4kj
 1ZKqrja0WvbSssYNFO3lzs,New Boyz,903744,unknown,,,https://open.spotify.com/artist/1ZKqrja0WvbSssYNFO3lzs
 3r1XkJ7vCs8kHBSzGvPLdP,slowthai,892511,unknown,,,https://open.spotify.com/artist/3r1XkJ7vCs8kHBSzGvPLdP
