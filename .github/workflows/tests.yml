@@ -1,0 +1,19 @@
+# Pull requests, and code changes on main; not on the data commits (saves Actions minutes on a private repository).
+name: tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths-ignore: ["data/**", "raw/**", "review/**", "registry/**", "site/photos/**"]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q

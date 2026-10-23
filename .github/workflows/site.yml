@@ -1,0 +1,47 @@
+# Website (site/): builds site/data/ and deploys to Cloudflare Pages after each data run, when the site changes on
+# main, or by hand. Needs CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID; without them the deploy step is skipped.
+# Keep it private with Cloudflare Access (one email login), as for Hoop Ledger (README, "Website").
+name: site
+on:
+  workflow_run:
+    workflows: [daily, monthly]
+    types: [completed]
+  push:
+    branches: [main]
+    paths: ["site/**", "src/site_build.py", "src/money.py", "registry/rates.csv", ".github/workflows/site.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: site
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m src.site_build
+      - name: Check the secrets
+        id: secrets
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$TOKEN" ] && [ -n "$ACCOUNT" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else
+            echo "::notice::CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID not set: site built but not deployed"; fi
+      - name: Deploy to Cloudflare Pages
+        if: steps.secrets.outputs.ok == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=rap-ledger --branch=main --commit-dirty=true
+          preCommands: npx wrangler pages project create rap-ledger --production-branch=main || true

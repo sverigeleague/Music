@@ -1,0 +1,34 @@
+# Monthly (2nd of the month, after the month's last daily snapshot): registry and genre review list, stream totals,
+# Deezer fans and photos for new artists. About 15 minutes (MusicBrainz allows one request a second).
+name: monthly
+on:
+  schedule:
+    - cron: "41 10 2 * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: data
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m src.run registry
+      - run: python -m src.run streams
+      - run: python -m src.run deezer
+      - run: python -m src.run photos
+      - name: Commit
+        run: |
+          git config user.name "music-bot"
+          git config user.email "music-bot@users.noreply.github.com"
+          git add raw data registry review site/photos
+          git diff --cached --quiet || git commit -m "Monthly refresh $(date -u +%F)"
+          git push

@@ -1,0 +1,86 @@
+# Decisions
+
+What was chosen, what was considered and rejected, and why. Newest first.
+
+## 2026-10-23 Phase 0 prototype: top 100 hip-hop on Spotify (built before the owner's answers; reversible)
+
+- **Why build before the answers:** steps 0.1-0.5 use only free sources, and nothing is public. They give the owner a
+  real list and site to react to, the same way the Sweden mock did for Hoop Ledger. Everything that depends on an
+  open question (genre scope, money display, licence) is kept behind a switch or a review list.
+- **Universe (0.1):**
+  - **Chosen:** kworb.net's daily top 2,500 by monthly listeners.
+    - The raw page is archived gzipped with its SHA-256 (`raw/manifest.csv`).
+    - The rows of tracked artists go to `data/spotify_listeners.csv`. The first day keeps all 2,500.
+    - 133 KB a day compressed, about 50 MB a year: move raw pages out of git later, as Public-Registry plans.
+  - **Rejected:** Spotify Web API. Since February 2026 new apps get no followers or popularity, and monthly
+    listeners were never in it.
+  - **Rejected:** scraping Spotify's own artist pages. This is banned by Spotify's User Guidelines, and the pages
+    only give rounded figures (94.6M).
+  - **Risk accepted for a private prototype:** kworb compiles Spotify's public counts. Its tables are not
+    republished; the site shows our own selection and derived figures with credit. Ask kworb's operator before
+    any public use (question 1).
+- **Genre (0.2):**
+  - **Chosen:** candidates are Wikidata items that have a Spotify ID and a genre under hip-hop (Q11401). Of today's
+    top 2,500, 406 are candidates. Recall checked on 30 well-known rappers: all 30 are in.
+  - **Chosen:** the decision comes from the share of MusicBrainz community votes on hip-hop genres:
+    - 50% or more: hip-hop;
+    - 30-50%: review;
+    - below 30%: other.
+  - **Chosen:** Wikidata is used only where there are fewer than 3 votes, and then always goes to review.
+  - **Chosen:** Latin trap and reggaeton are a separate bucket (`latin`) until the owner decides.
+  - **Rejected:** Wikidata alone. It tags Bruno Mars, Ed Sheeran and Miley Cyrus as hip-hop.
+  - **Licence:** MusicBrainz genre tags are CC BY-NC-SA. They are used only as an internal input and never shown.
+    A commercial launch needs a MetaBrainz licence (or dropping the input).
+- **Identity (0.3):**
+  - **Chosen:** platform IDs come only from Wikidata statements (Spotify P1902, MusicBrainz P434, YouTube P2397,
+    Instagram P2003, TikTok P7085, X P2002), never guessed.
+  - **Chosen:** Deezer is matched by exact name; an ambiguous match is not shown.
+- **Labels:** Wikidata record labels (P264), traced to a major through parent organisation (P749) or owned by (P127).
+  - QIDs looked up: UMG Q38903, WMG Q21077, Sony Music Q56760250, Q330629 and Q11315210.
+  - Caveat shown on the site: P264 lists labels over the whole career, not the current deal.
+- **Money v0 (0.6, provisional):** Spotify recordings only.
+  - Lead-artist streams a month × $2.50 / $3.00 / $4.40 per 1,000 (Duetti 2024, grade B; high end C) gives
+    royalties generated.
+  - × the artist's share by deal type gives take-home:
+    - major 15-30% (UK CMA, A);
+    - independent 20-80% (C);
+    - unknown 15-100%.
+  - Shown as ranges, labelled C, with "not the artist's pay" next to the generated figure.
+  - **Rejected:** a single number, and influencer rate cards for brand deals.
+- **Photos (0.5):** only Wikimedia Commons files with a CC or public-domain licence, with a credit on the artist
+  page; initials otherwise. **Rejected:** Spotify, Deezer and Last.fm images (terms).
+- **Site:** the same plain-file setup and look as Hoop Ledger (no build step; tokens in `styles.css`, lists in
+  `config.js`, pages in `app.js`). It is private (`noindex`; Cloudflare Access when deployed).
+- **Working name:** "Rap Ledger", by analogy with Hoop Ledger. The owner chooses (question 4).
+
+## 2026-10-23 Discovery and roadmap
+
+- **Research:** three reports with a URL for each claim are in `docs/research/`:
+  - data sources;
+  - artist economics;
+  - market, labels, product and legal.
+- **Chosen:** a private prototype on free data now, with licensed data (Soundcharts trial, then a public-display
+  licence) as the gate before going public or paid (ROADMAP.md, Phase 2).
+- **Rejected:** building on the official Spotify API. Since the February 2026 Development Mode changes it no longer
+  gives followers, popularity or monthly listeners to new apps. Extended access needs 250k+ MAU, and Developer Policy
+  III.13 bans derived listener metrics.
+- **Rejected:** publishing unsourced fan demographics. There is no reputable public survey of hip-hop listeners by age
+  or gender newer than about 20 years. Per-artist demographics come only from licensed aggregators, labelled
+  "modelled".
+- **Reframed:** the brief asks to compare "labels that pay x per stream". Public data cannot measure this, so the site
+  shows instead:
+  - deal types;
+  - known terms from court filings and published contracts;
+  - the take-home range those terms imply.
+- **Rejected:** net-worth figures and Celebrity Net Worth-type sources (defamation risk, no method). Earnings are
+  ranges, with royalties generated kept apart from take-home.
+
+## 2026-10-23 Working agreement
+
+- **Chosen:** the Public-Registry `session-architect` skill, adapted:
+  - the standing rules now cover platform IDs, estimates and platform terms;
+  - checkpoints are in `ROADMAP.md`;
+  - the board is "Music Build Board".
+- **Chosen:** no CLAUDE.md, as in Public-Registry (add rules only when a failure repeats).
+- **Repository:** `main` was empty and was seeded with a one-line README so pull requests have a base. Work goes to
+  `claude/music-roadmap`.
