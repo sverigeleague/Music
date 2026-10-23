@@ -22,7 +22,7 @@ const range = r => r ? `${usd(r.low)}–${usd(r.high)}` : "–";
 const delta = v => v == null ? "–" : `<span class="${v > 0 ? "up" : v < 0 ? "down" : ""}">${v > 0 ? "+" : ""}${count(v)}</span>`;
 const pct = v => v == null ? "–" : `<span class="${v > 0 ? "up" : v < 0 ? "down" : ""}">${v > 0 ? "+" : ""}${v.toFixed(2)}%</span>`;
 const cell = (a, [, key, f]) => {
-  const v = key === "gen_mid" ? a.money?.generated.mid : a[key];
+  const v = key === "gen_mid" ? a.money?.generated.mid : key === "scout" ? a.scout?.score : a[key];
   return f === "count" ? count(v) : f === "delta" ? delta(v) : f === "pct" ? pct(v) : f === "money" ? usd(v)
     : f === "share" ? (v == null ? "–" : Math.round(v * 100) + "%") : f === "int" ? (v ?? "–") : esc(v);
 };
@@ -63,7 +63,7 @@ document.addEventListener("error", e => {
 function table(rows, rankKey = "rank") {
   const COLS = COLUMNS[ui.by];
   const [k, dir] = ui.sort;
-  const val = a => k === "gen_mid" ? a.money?.generated.mid : a[k];
+  const val = a => k === "gen_mid" ? a.money?.generated.mid : k === "scout" ? a.scout?.score : a[k];
   const sorted = [...rows].sort((a, b) => ((val(a) ?? -Infinity) > (val(b) ?? -Infinity) ? 1 : -1) * dir);
   const head = COLS.map(c => `<th data-sort="${c[1]}"${c[1] === k ? ` aria-sort="${dir < 0 ? "descending" : "ascending"}"` : ""}>${esc(c[0])}</th>`).join("");
   const body = sorted.map(a => `<tr><td class="l">${a[rankKey]}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td>
@@ -149,10 +149,10 @@ function unsignedPage() {
       <div class="tile"><div class="k">Keeps on a major deal</div><div class="v">${pct("major")}</div><div class="s">so a deal must grow streams ${be.major}× to pay the same ${grade("A")}</div></div>
       <div class="tile"><div class="k">Independent label / label services</div><div class="v">${pct("independent")} / ${pct("services")}</div><div class="s">break even at ${be.independent}× / ${be.services}× the streams</div></div>
     </section>
-    <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Release label</th><th>Monthly listeners</th><th>Current listeners</th><th>Generates / yr</th><th>Keeps now</th><th>Signed peers generate</th><th>On a major deal would keep</th></tr></thead><tbody>
+    <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Release label</th><th>Monthly listeners</th><th>Current listeners</th><th>Generates / yr</th><th>Keeps now</th><th>Signed peers generate</th><th>On a major deal would keep</th><th>Scout</th></tr></thead><tbody>
       ${U.map((u, i) => `<tr><td class="l">${i + 1}</td><td class="l"><a class="who" href="#/a/${u.id}">${pic(store.data.artists.find(a => a.id === u.id) || u)}<span>${esc(u.name)}</span></a></td>
         <td class="l wrap">${esc(u.label || "–")} ${u.confidence === "confirmed" ? chip("confirmed") : `<span class="chip warn" title="Own-name label with no other evidence: could be a small label or an imprint licensed to one">label name only</span>`}</td>
-        <td>${count(u.ml)}</td><td>${count(u.cl)}</td><td>${usd(u.generated)}</td><td>${usd(u.keeps_now)}</td><td>${usd(u.peer_generated)}</td><td>${usd(u.if_signed.major)}</td></tr>`).join("")}
+        <td>${count(u.ml)}</td><td>${count(u.cl)}</td><td>${usd(u.generated)}</td><td>${usd(u.keeps_now)}</td><td>${usd(u.peer_generated)}</td><td>${usd(u.if_signed.major)}</td><td>${(s => s ? `${s.score} ${tierChip(s.tier)}` : "–")(store.data.artists.find(a => a.id === u.id)?.scout)}</td></tr>`).join("")}
     </tbody></table></div>
     <p class="note">Yearly at today's pace, mid estimates, streaming only (all platforms). <b>Generates</b>: royalties paid for the recordings. <b>Keeps now</b>: ${pct("diy")} of that after a distributor's fee. <b>Signed peers generate</b>: the median of the five closest growing signed artists. <b>On a major deal</b>: ${pct("major")} of today's royalties, before any advance is recouped.</p></section>
     <section><h2>Each artist against their signed peers</h2>
@@ -312,6 +312,7 @@ async function artist(id) {
       </dl><p class="note">Stream totals as of ${esc(a.streams_date || "–")} (kworb.net, from Spotify's public play counts).</p></div>
     </section>
     ${a.revivals?.length ? `<section class="panel"><h2>Revival</h2><p>${a.revivals.map(r => `<b>${esc(r.title)}</b> (${r.year}) is up ${Math.round(r.rise * 100)}% in daily streams on a month ago.`).join(" ")} Older songs that come back stay out of current listeners.</p></section>` : ""}
+    ${collabPanel(a)}
     ${audiencePanel(a)}
     <section class="panel" id="deals" hidden></section>
     <section class="note">Genre: ${esc(a.genre_basis)}.${a.photo ? ` Photo: ${esc(a.photo.author)}, <a href="${esc(a.photo.page)}" target="_blank" rel="noopener">${esc(a.photo.license)}</a>, via Wikimedia Commons.` : ""}</section>`;
@@ -569,6 +570,16 @@ function labelsPage() {
       ${indies.map(([l, v]) => `<tr><td class="l">${esc(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div></section>
     <section><h2>Rosters: the biggest artists in each group</h2>
       ${G.map(g => `<details class="panel"><summary><b>${esc(g)}</b>: ${gv(g, "artists")} artists</summary><div class="chips">${m.groups[g].top.map(id => byId[id]).filter(Boolean).map(a => `<a class="chip" href="#/a/${a.id}">${esc(a.name)} · ${count(a.ml)}</a>`).join(" ")}</div></details>`).join("")}</section>`;
+}
+
+function collabPanel(a) {
+  const C = a.collabs || [];
+  if (!C.length) return "";
+  const inSite = new Set(store.data.artists.map(x => x.id));
+  return `<section class="panel"><h2>Collaborations</h2>
+    <div class="tablebox"><table><thead><tr><th class="l">With</th><th>Songs</th><th>Their daily streams</th><th class="l">Biggest</th></tr></thead><tbody>
+    ${C.map(c => `<tr><td class="l">${inSite.has(c.id) ? `<a href="#/a/${c.id}">${esc(c.name)}</a>` : esc(c.name)}</td><td>${c.songs}</td><td>${count(c.daily)}</td><td class="l wrap">${esc(c.top)}</td></tr>`).join("")}
+    </tbody></table></div><p class="note">Songs where one of the two is the lead artist and the other is named in the title (feat. / with), from Spotify's play counts. Featuring a much bigger artist is an early sign labels watch.</p></section>`;
 }
 
 // ---------- artist summary card: level, scout score, worth, attention

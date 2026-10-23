@@ -260,3 +260,15 @@ def test_wayback_parser_reads_old_and_new_link_formats():
     rows = wayback.parse(html)
     assert rows == [{"spotify_id": "0du5cEVh5yTK9QJze8zA0C", "monthly_listeners": 128438090, "rank": 1},
                     {"spotify_id": "5pKCCKE2ajJHZ9KAiaK11H", "monthly_listeners": 99000, "rank": 2}]
+
+
+def test_feature_guests_from_titles_and_network_both_ways():
+    from src import insights
+    from src.collectors.apple_charts import fold
+    assert insights.guests("Knife Talk (with 21 Savage ft. Project Pat)") == ["21 Savage", "Project Pat"]
+    assert insights.guests("Rich Baby Daddy (feat. Sexyy Red & SZA)") == ["Sexyy Red", "SZA"]
+    assert insights.guests("With You") == [] and insights.guests("HYFR (Hell Ya Fucking Right)") == []
+    songs = {"d": [{"title": "Jimmy Cooks (feat. 21 Savage)", "daily": 900, "feature": False},
+                   {"title": "MIA (feat. Drake)", "daily": 500, "feature": True}]}
+    net = insights.collabs(songs, {"d": "Drake", "s": "21 Savage"}, fold)
+    assert net["d"][0]["id"] == "s" and net["s"][0]["id"] == "d" and net["s"][0]["daily"] == 900

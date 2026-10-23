@@ -2,6 +2,65 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-23 Phase 7: Worth and Scout (owner: "insights for artists to understand their worth and labels to find new talent ... optimize the site design, usability and clarity ... find data that will bolster its appeal")
+
+The owner was away overnight, so discovery questions were replaced by the assumptions at the end of this entry.
+
+- **Navigation:** five sections, Charts / Scout / Worth / Labels / Method, instead of eight tabs. Sections with
+  several pages show a sub-menu. The home page opens with three doors: worth for artists, rising artists for labels,
+  and the market.
+  - Rejected: separate sites for artists and labels. One data set, and labels and artists look at the same artists.
+- **Scout score** (`src/insights.py`), 0-100, from six signals:
+  - new-release pull: share of daily streams from songs out 90 days or less;
+  - listener growth against 90 days ago;
+  - current share;
+  - Wikipedia attention: last 3 months against the 9 before;
+  - streams a day per listener;
+  - chart reach: Spotify weekly top 200 plus Apple Music daily top 100.
+  - **Comparison:** each signal is a percentile among artists of a similar size (5 monthly-listener bands, at about
+    the top 1,000's quartiles). A small act that is taking off can therefore score as high as a superstar.
+  - **Missing signals:** they are left out and the weights rescaled. Listener growth is missing for everyone until 90
+    days of history exist.
+  - **Tiers:** Breaking 80+, Rising 65+, Watch 50+.
+    - Breaking also needs a measured absolute signal: new songs pull 25%+ of the streams, or Wikipedia attention is up
+      30%+. Without that rule Drake showed as "Breaking", ranked high only against the other 94 superstars.
+    - Artists with 15m+ listeners get no tier: they are established, not talent to find.
+  - **Rejected:**
+    - one ranking across all sizes, which superstars win on every absolute signal;
+    - a machine-learned model, which needs labelled history we do not have. A back-test is planned once 90 days of
+      history exist.
+- **Worth** (`registry/catalog_multiples.csv`): the value of an income stream = a year's income × a sale multiple
+  that depends on how new the music is, judged from current share.
+  - new music: 5-10× (Royalty Exchange 2025);
+  - mixed: 8-13.7× (Citrin Cooperman 2025: younger masters catalogs averaged 13.7×; the low end is our
+    interpolation, grade C);
+  - evergreen: 10-17× (Royalty Exchange 10-15×; Citrin: older masters traded above 17×).
+  - **Calculator:** for a typed-in audience, royalties come from the middle half of what artists of that size in our
+    list generate per listener. For an artist in our list, their own measured lines are used.
+  - Advances, recoupment and touring are not in the calculator, and the page says so.
+  - Rejected: one multiple for all catalogs. Sources agree that young hip-hop catalogs trade lower.
+- **Labels market map:** share of the top 1,000 by group (UMG, Sony, Warner, independent labels, self-released, not
+  yet known) by artists, monthly listeners and current listeners, overall and by size band.
+  - Finding: among artists whose label is known, the majors hold 82% of those with 15m+ listeners and 46% of those
+    under 1.5m.
+- **Levels and badges:**
+  - levels: Rookie, Rising star 5m+, Headliner 15m+, Icon 40m+;
+  - badges: Breaking, Unsigned and rising, Feature magnet (80%+ of daily streams as a guest), Co-signed (under 3m listeners, with a song of 50k+ daily streams together with a 20m+ artist), Global (20+ chart
+    countries), Revival, Hot release.
+- **New free data:**
+  - **Wikipedia page views** (Wikimedia API, 24 months, the article linked on Wikidata, so no name matching). The
+    API throttled 20 requests a second (HTTP 429, a 30-second wait), so it now runs at 2 workers, 0.2 seconds apart.
+  - **Apple Music's daily top 100** in 25 countries (Apple's public marketing feed). It is matched by exact folded
+    name; a name two artists in our list share is skipped. This is chart presence only.
+  - **Wayback Machine copies of kworb's listeners page**, weekly since 2023, for real listener history.
+    web.archive.org is blocked in the build container, so this runs as the one-off Actions workflow `backfill`.
+- **Assumptions made without asking (owner to confirm):**
+  1. The site keeps the black-and-white look; colour stays reserved for up and down.
+  2. Scout signal weights as above. They are a judgement, to revisit after the first back-test.
+  3. Apple's feed is used for chart presence with a link back. Its terms aim at promoting Apple Music, so the site
+     never shows the feed's artwork.
+  4. The Wayback backfill reads about 150 snapshots at one request every 3 seconds.
+
 ## 2026-10-23 Unsigned tab and the move to the top 1,000 (owner: "another tab of unsigned artists ... benchmark against comparable growing signed artists ... then expand to the top 1,000")
 
 - **Who is signed, chosen: what the artist releases on now, not Wikidata's career-long label list.**

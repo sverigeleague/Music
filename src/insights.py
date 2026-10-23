@@ -142,7 +142,7 @@ def level(r: dict) -> dict:
         badges.append("Breaking")
     if r.get("label_status") == "self_released" and (sc.get("score") or 0) >= 65:
         badges.append("Unsigned and rising")
-    if r.get("feature_daily") and r.get("daily") and r["feature_daily"] / r["daily"] >= 0.4:
+    if r.get("feature_daily") and r.get("daily") and r["feature_daily"] / r["daily"] >= 0.8:
         badges.append("Feature magnet")
     if ((r.get("geo") or {}).get("countries") or 0) + len((r.get("apple") or {}).get("countries", [])) >= 20:
         badges.append("Global")
@@ -181,3 +181,46 @@ def market(rows: list[dict]) -> dict:
     band_totals = [sum(g["bands"][i] for g in groups.values()) for i in range(len(BAND_LABELS))]
     return {"groups": groups, "band_labels": list(BAND_LABELS), "band_totals": band_totals,
             "total_ml": sum(g["ml"] for g in groups.values()), "total_cl": sum(g["cl"] for g in groups.values())}
+
+
+# ---------- feature network: who features whom, from song titles on the artist's own songs
+import re as _re
+
+_GUEST = _re.compile(r"\(([^)]*)\)")
+_KEY = _re.compile(r"\b(?:feat\.?|ft\.?|featuring|with)\s+", _re.I)
+_SPLIT = _re.compile(r"\s*(?:,|&|\bx\b|\band\b|\b(?:feat\.?|ft\.?)\s)\s*", _re.I)
+
+
+def guests(title: str) -> list[str]:
+    """'Knife Talk (with 21 Savage ft. Project Pat)' -> ['21 Savage', 'Project Pat']."""
+    out = []
+    for inner in _GUEST.findall(title):
+        m = _KEY.search(inner)
+        if m:
+            out += [g.strip() for g in _SPLIT.split(inner[m.end():]) if g.strip()]
+    return out
+
+
+def collabs(songs_by_artist: dict[str, list[dict]], names: dict[str, str], fold) -> dict[str, list[dict]]:
+    """Per artist: collaborators matched to our registry by exact folded name, with the shared songs' daily streams.
+    Edges come from the lead artist's own songs, and count for both sides."""
+    by_fold: dict[str, list[str]] = {}
+    for sid, n in names.items():
+        by_fold.setdefault(fold(n), []).append(sid)
+    edges: dict[str, dict[str, dict]] = {}
+    for sid, songs in songs_by_artist.items():
+        for s in songs:
+            if s["feature"]:
+                continue
+            for g in guests(s["title"]):
+                ids = by_fold.get(fold(g), [])
+                if len(ids) != 1 or ids[0] == sid:
+                    continue
+                for a, b in ((sid, ids[0]), (ids[0], sid)):
+                    e = edges.setdefault(a, {}).setdefault(b, {"daily": 0, "songs": 0, "top": None, "top_daily": -1})
+                    e["daily"] += s["daily"] or 0
+                    e["songs"] += 1
+                    if (s["daily"] or 0) > e["top_daily"]:
+                        e["top"], e["top_daily"] = s["title"], s["daily"] or 0
+    return {a: sorted(({"id": b, "name": names[b], "daily": v["daily"], "songs": v["songs"], "top": v["top"]}
+                       for b, v in es.items()), key=lambda x: -x["daily"]) for a, es in edges.items()}

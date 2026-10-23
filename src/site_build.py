@@ -13,7 +13,7 @@ OUT = SITE / "data" / "index.json"
 DETAIL_ONLY = ("genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
-               "peak_rank", "attention_series", "worth")
+               "peak_rank", "attention_series", "worth", "collabs")
 
 
 def latest_streams() -> dict[str, dict]:
@@ -63,11 +63,13 @@ def build() -> dict:
     apple, apple_day = apple_charts.presence({s: a["name"] for s, a in artists.items() if a["genre"] == "hip_hop"})
     # recording codes of each artist's songs released in the last 2 years: a second check on the label status
     cutoff = date(today.year - 2, today.month, min(today.day, 28)).isoformat()
-    lead = {}  # track IDs where the artist is the lead (not a guest), from the latest kworb page
+    lead, songs_of = {}, {}  # track IDs where the artist is the lead (not a guest), from the latest kworb page
     for sid in artists:
         pg = current.pages(sid)
         if pg:
-            lead[sid] = {x["track_id"] for x in current.songs(pg[-1][1]) if not x["feature"]}
+            songs_of[sid] = current.songs(pg[-1][1])
+            lead[sid] = {x["track_id"] for x in songs_of[sid] if not x["feature"]}
+    network = insights.collabs(songs_of, {s: a["name"] for s, a in artists.items()}, apple_charts.fold)
     isrcs: dict[str, list[str]] = {}
     for tid, tr in dates.items():
         if tr.get("isrc") and tr.get("deezer_date", "") >= cutoff and tid in lead.get(tr["artist_id"], ()):
@@ -117,6 +119,7 @@ def build() -> dict:
             "latest_release": cur.get("latest_release"),
             "attention": insights.attention(views.get(t["spotify_id"], [])),
             "apple": apple.get(t["spotify_id"]),
+            "collabs": network.get(t["spotify_id"], [])[:12],
             "growth90": insights.growth(history.get(t["spotify_id"], []), today.isoformat()),
             "yt_total": num(yt.get(t["spotify_id"], {}).get("total_views")),
             "yt_daily": num(yt.get(t["spotify_id"], {}).get("daily_views")),
@@ -136,10 +139,14 @@ def build() -> dict:
     rows = rows[:TOP_N]  # the site covers the top 1,000 hip-hop artists by monthly listeners
     insights.scout(rows)
     mult = insights.multiples()
+    ml_of = {t["spotify_id"]: t["monthly_listeners"] or 0 for t in top}
     for r in rows:
         r["worth"] = insights.worth(r, r["revenue"], mult)
         r["worth_mid"] = round(r["worth"]["recordings"]["mid"] + r["worth"]["publishing"]["mid"])
         r["level"] = insights.level(r)
+        # co-signed: an artist under 3m listeners with a song (50k+ streams a day) together with a 20m+ listener artist
+        if r["ml"] < 3_000_000 and any(ml_of.get(c["id"], 0) >= 20_000_000 and c["daily"] >= 50_000 for c in r["collabs"]):
+            r["level"]["badges"].append("Co-signed")
         att = r.pop("attention")
         r["attention"] = {"trend": round(att["trend"], 3) if att["trend"] else None, "last3": att["last3"]} if att else None
         r["attention_series"] = att and {"start": att["start"], "views": att["series"]}

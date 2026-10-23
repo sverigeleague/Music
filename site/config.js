@@ -8,6 +8,7 @@ export const COLUMNS = {
     ["From recent releases", "cur_share", "share"],
     ["Monthly listeners", "ml", "count"],
     ["By listeners", "rank", "int"],
+    ["Scout score", "scout", "int"],
     ["Royalties generated / month", "gen_mid", "money"],
   ],
   monthly: [
