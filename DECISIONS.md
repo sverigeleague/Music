@@ -2,6 +2,28 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-23 Proposed: our own top 100 by "current listeners" (owner asked; awaiting the owner's choice)
+
+- **Owner's ask:** a top 100 that is not driven by old songs that are still streamed a lot.
+- **Proposed:** current listeners = monthly listeners × the current share of the artist's daily streams.
+  - **Current share:** daily streams weighted by song age (from the earliest release date), divided by all daily
+    streams.
+    - Weight 1 up to 18 months: the industry's line between current and catalog music.
+    - Weight falls straight to 0 between 18 and 36 months, so an album does not drop off a cliff the month it turns
+      18 months old.
+    - Songs where the artist is the featured guest count at half weight.
+  - **Displayed beside it:** monthly listeners, catalog share and momentum. Momentum is kept out of the formula so the
+    ranking stays easy to explain.
+- **Rejected:** "implied age" = lifetime streams ÷ daily streams. It needs no dates but fails: "Not Like Us" (2024)
+  comes out as 7 years old, because hits earn most of their streams early.
+- **Preview** on today's top 100, top 20 songs each, Deezer album dates:
+  - Drake stays #1; Don Toliver moves 14 → 2; Doechii 48 → 6; Latto 98 → 17.
+  - Kanye West, Travis Scott, Lil Wayne, 50 Cent, Eminem and XXXTENTACION fall out of the top 45.
+- **Not good enough yet:** dates were found for a median 70% of the artists' lead-artist daily streams; Drake only 26%.
+  - Misses are features and multi-artist credits (Metro Boomin at 0% is suspect).
+  - Before production: Spotify track ID → ISRC → MusicBrainz first release date (CC0), with Deezer as a fallback.
+  - Publish an artist's figure only when at least 80% of their streams are dated.
+
 ## 2026-10-23 Phase 0 prototype: top 100 hip-hop on Spotify (built before the owner's answers; reversible)
 
 - **Why build before the answers:** steps 0.1-0.5 use only free sources, and nothing is public. They give the owner a
