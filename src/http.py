@@ -1,4 +1,5 @@
 """HTTP with a User-Agent, a pause between requests to the same host and a few retries."""
+import threading
 import time
 from urllib.parse import urlparse
 
@@ -9,6 +10,7 @@ from .config import USER_AGENT
 _session = requests.Session()
 _session.headers["User-Agent"] = USER_AGENT
 _last: dict[str, float] = {}
+_lock = threading.Lock()  # pacing is shared by threads, so a worker pool still keeps each site's limit
 # Seconds between requests per host: each site's published limit or a polite default.
 PAUSE = {"musicbrainz.org": 1.1, "query.wikidata.org": 2.0, "kworb.net": 1.0, "api.deezer.com": 0.11}
 
@@ -17,10 +19,11 @@ def get(url, params=None, headers=None, tries=4, timeout=60, data=None):
     """GET, or POST when `data` is given (long SPARQL queries)."""
     host = urlparse(url).hostname
     for attempt in range(tries):
-        wait = PAUSE.get(host, 0.5) - (time.monotonic() - _last.get(host, 0))
-        if wait > 0:
-            time.sleep(wait)
-        _last[host] = time.monotonic()
+        with _lock:
+            slot = max(time.monotonic(), _last.get(host, 0) + PAUSE.get(host, 0.5))
+            _last[host] = slot
+        if slot > time.monotonic():
+            time.sleep(slot - time.monotonic())
         try:
             r = (_session.post(url, data=data, headers=headers, timeout=timeout) if data is not None
                  else _session.get(url, params=params, headers=headers, timeout=timeout))

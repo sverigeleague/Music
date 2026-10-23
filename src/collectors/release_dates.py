@@ -10,6 +10,8 @@ gap, never as current or catalog.
 """
 import csv
 import re
+import threading
+from concurrent.futures import ThreadPoolExecutor
 import unicodedata
 from datetime import date
 
@@ -104,20 +106,25 @@ def update_musicbrainz(limit: int | None = None) -> int:
 def update(todo: list[tuple[str, str, str, str]], limit: int | None = None) -> dict[str, dict]:
     """Deezer pass. todo: (artist_id, artist name, track_id, title); tracks already in the cache are skipped."""
     cache = _read(CACHE, "track_id")
+    seen, jobs = set(cache), []
+    for job in todo:
+        if job[2] not in seen:
+            seen.add(job[2])
+            jobs.append(job)
+    jobs = jobs[:limit]
     new = not CACHE.exists()
-    n = 0
+    lock = threading.Lock()
     with CACHE.open("a", newline="") as f:
         w = csv.DictWriter(f, FIELDS)
         if new:
             w.writeheader()
-        for artist_id, name, track_id, title in todo:
-            if track_id in cache:
-                continue
-            if limit is not None and n >= limit:
-                break
-            row = lookup(artist_id, name, track_id, title)
-            w.writerow({k: row.get(k, "") for k in FIELDS})
-            f.flush()
-            cache[track_id] = row
-            n += 1
+
+        def work(job):
+            row = lookup(*job)
+            with lock:
+                w.writerow({k: row.get(k, "") for k in FIELDS})
+                f.flush()
+        # 4 workers overlap Deezer's response time; src.http keeps the shared pace under its limit
+        with ThreadPoolExecutor(4) as pool:
+            list(pool.map(work, jobs))
     return load()
