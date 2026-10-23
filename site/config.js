@@ -42,3 +42,15 @@ export const DEALS = [
     note: "UnitedMasters free tier: the artist keeps 90%; SELECT ($59.99 a year): 100%.",
     src: "https://untd.io/en/artists" },
 ];
+
+// Platforms page: the per-artist columns [label, key, format]; "rev:<platform>" is yearly royalties (mid estimate).
+export const PLATFORM_COLUMNS = [
+  ["Spotify streams / day", "daily", "count"],
+  ["YouTube views / day", "yt_daily", "count"],
+  ["Deezer fans", "deezer_fans", "count"],
+  ["Spotify", "rev:spotify", "money"],
+  ["YouTube", "rev:youtube", "money"],
+  ["Apple Music", "rev:apple_music", "money"],
+  ["Amazon", "rev:amazon", "money"],
+  ["All streaming", "rev:streaming", "money"],
+];

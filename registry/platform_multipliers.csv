@@ -1,0 +1,10 @@
+platform,low,mid,high,grade,source,note
+apple_music,0.45,0.55,0.85,B,https://www.sec.gov/Archives/edgar/data/1319161/000131916125000034/wmg-20250930.htm,WMG FY2025 10-K: Apple 11% of revenue vs Spotify 20%; UMG 2025: 11% vs 20%. US hip-hop skews higher (about 0.65-0.75)
+amazon,0.15,0.30,0.45,C,docs/research/research_platform_shares.md,MIDiA subscriber shares and Duetti rates; Prime bundle
+deezer,0.01,0.03,0.04,C,docs/research/research_platform_shares.md,Deezer revenue vs Spotify; small for US rap
+tidal,0.005,0.01,0.02,C,docs/research/research_platform_shares.md,"Small subscriber base, high rate"
+soundcloud,0.01,0.02,0.04,C,docs/research/research_platform_shares.md,Fan-powered royalties; no disclosed totals
+audiomack,0.002,0.005,0.015,C,docs/research/research_platform_shares.md,50M+ monthly users (Jan 2026); no disclosed payouts
+tiktok,0.02,0.05,0.08,C,docs/research/research_platform_shares.md,"UMG's TikTok deal was about 1% of revenue; licence, not per view"
+meta,0.02,0.04,0.06,C,docs/research/research_platform_shares.md,Blanket licences; terms undisclosed
+others,0.15,0.30,0.45,C,docs/research/research_platform_shares.md,"Tencent/NetEase, Pandora, regional services"

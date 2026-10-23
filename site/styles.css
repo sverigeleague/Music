@@ -91,3 +91,7 @@ td a { text-decoration: none; } td a:hover { text-decoration: underline; }
 .calc { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; }
 .calc label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
 .calc input, .calc select { font: inherit; padding: 6px 10px; border: 1px solid var(--line); min-width: 0; }
+td.wrap { white-space: normal; min-width: 220px; max-width: 420px; }
+tr.sec td { background: var(--soft); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+tr.tot td { font-weight: 650; }
+.panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }

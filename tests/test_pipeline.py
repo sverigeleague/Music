@@ -111,3 +111,25 @@ def test_release_date_keys():
     assert norm("All The Stars (with SZA) - From \"Black Panther\"") == "allthestars"
     assert norm("LOVE. FEAT. ZACARI.") == norm("LOVE.") == "love"
     assert norm("Bitch, Don’t Kill My Vibe") == norm("Bitch, Don't Kill My Vibe")
+
+
+def test_revenue_lines(monkeypatch):
+    from datetime import date
+    from src import revenue
+    monkeypatch.setattr(revenue, "tours", lambda: [
+        {"artist": "Test", "tour": "Old", "start": "2024-01-01", "end": "2024-06-01", "gross_usd": "50000000", "tickets": "400000", "grade": "A"},
+        {"artist": "Test", "tour": "Now", "start": "2026-04-23", "end": "2026-12-31", "gross_usd": "100000000", "tickets": "500000", "grade": "A"}])
+    monkeypatch.setattr(revenue, "deals", lambda: [])
+    today = date(2026, 10, 23)
+    t = revenue.tour_last_12_months("Test", today)
+    assert [x["tour"] for x in t["tours"]] == ["Now"]           # the 2024 tour is outside the 12 months
+    assert 0.72 < t["tours"][0]["share"] < 0.74                  # 184 of 253 days so far
+    est = revenue.estimate({"name": "Test", "lead_daily": 1_000_000, "yt_daily": 100_000}, today,
+                           {"low": 0.15, "mid": 0.2, "high": 0.3})
+    by = {l["key"]: l for l in est["lines"]}
+    assert round(by["spotify"]["generated"]["mid"]) == 1_095_000   # 365m streams x $3.00 per 1,000
+    assert by["spotify"]["artist"]["mid"] == by["spotify"]["generated"]["mid"] * 0.2
+    assert by["publishing"]["artist"] is None                       # writer share unknown: generated only
+    assert by["touring"]["grade"] == "A" and by["merch"]["grade"] == "C"
+    assert by["merch"]["artist"]["mid"] < by["merch"]["generated"]["mid"]
+    assert est["artist_total"]["low"] < est["artist_total"]["mid"] < est["artist_total"]["high"]

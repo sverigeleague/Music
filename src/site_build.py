@@ -3,8 +3,8 @@ import csv
 import json
 from datetime import date, datetime, timedelta, timezone
 
-from . import current, money
-from .collectors import kworb, release_dates
+from . import current, money, revenue
+from .collectors import kworb, kworb_youtube, release_dates
 from .config import REGISTRY, SITE
 from .run import PHOTOS, _json, latest_listeners, load_artists
 
@@ -40,6 +40,7 @@ def build() -> dict:
     top = latest_listeners()
     streams, pics = latest_streams(), _json(PHOTOS, {})
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
+    yt, shares = kworb_youtube.load_latest(), money.deal_shares()
     rows = []
     for t in top:
         a = artists.get(t["spotify_id"])
@@ -68,6 +69,8 @@ def build() -> dict:
             "cur_share": round(cur["current_share"], 4) if cur.get("current_share") is not None else None,
             "coverage": round(cur.get("coverage", 0), 3), "cl": round(ml * cur["current_share"]) if cur.get("ok") else None,
             "revivals": cur.get("revivals", []),
+            "yt_total": num(yt.get(t["spotify_id"], {}).get("total_views")),
+            "yt_daily": num(yt.get(t["spotify_id"], {}).get("daily_views")),
             "links": {"spotify": f"https://open.spotify.com/artist/{t['spotify_id']}",
                       "wikidata": a["wikidata_id"] and f"https://www.wikidata.org/wiki/{a['wikidata_id']}",
                       "youtube": a["youtube_channel"] and f"https://www.youtube.com/channel/{a['youtube_channel']}",
@@ -75,6 +78,10 @@ def build() -> dict:
                       "tiktok": a["tiktok"] and f"https://www.tiktok.com/@{a['tiktok']}",
                       "x": a["x"] and f"https://x.com/{a['x']}"},
         })
+    for r in rows:
+        sh = shares[r["money"]["deal_type"] if r["money"] else money.deal_type(
+            [r["major"]] if r["major"] else [], r["labels"])]
+        r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")})
     for i, r in enumerate(rows, 1):
         r["rank"] = i  # by monthly listeners
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
@@ -85,11 +92,20 @@ def build() -> dict:
         deals = list(csv.DictReader(f))
     day = max((r["date"] for r in csv.DictReader(kworb.LISTENERS_CSV.open())), default=None)
     return {"built": datetime.now(timezone.utc).isoformat(timespec="minutes"), "as_of": day,
-            "universe": len(top), "artists": rows, "rates": rates, "deals": deals}
+            "universe": len(top), "artists": rows, "rates": rates, "deals": deals,
+            "platforms": revenue.platforms(), "multipliers": revenue.multipliers()}
 
 
 if __name__ == "__main__":
     data = build()
     OUT.parent.mkdir(parents=True, exist_ok=True)
+    # revenue detail per artist in its own file (site/data/a/<id>.json), loaded when the artist page opens; the index
+    # keeps the totals and each streaming line's mid estimate for the tables
+    (OUT.parent / "a").mkdir(exist_ok=True)
+    for r in data["artists"]:
+        rev = r.pop("revenue")
+        (OUT.parent / "a" / f"{r['id']}.json").write_text(json.dumps(rev, ensure_ascii=False, separators=(",", ":")))
+        r["rev_total"] = rev["artist_total"]
+        r["rev_lines"] = {l["key"]: round(l["generated"]["mid"]) for l in rev["lines"]}
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{OUT.relative_to(SITE.parent)}: {len(data['artists'])} hip-hop artists, {OUT.stat().st_size // 1024} KB")
