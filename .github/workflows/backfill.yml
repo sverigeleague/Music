@@ -1,6 +1,7 @@
 # One-off, by hand: weekly listener history since 2023 from the Internet Archive's copies of kworb's listeners page
 # (web.archive.org is not reachable from the build container). About 150 snapshots at one request every 3 seconds:
-# under 15 minutes. Safe to run again: weeks already stored are skipped.
+# under 15 minutes. Then Wikipedia page views (saved as it goes; Wikimedia may throttle). Safe to run again: weeks
+# and artists already stored are skipped.
 name: backfill
 on:
   workflow_dispatch:
@@ -21,10 +22,12 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: python -m src.run backfill
+      - run: python -m src.run pageviews
+        continue-on-error: true
       - name: Commit
         run: |
           git config user.name "music-bot"
           git config user.email "music-bot@users.noreply.github.com"
-          git add data/listener_history.csv
+          git add data/listener_history.csv data/wikipedia_pageviews.csv
           git diff --cached --quiet || git commit -m "Listener history from the Wayback Machine $(date -u +%F)"
           git push

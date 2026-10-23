@@ -40,26 +40,44 @@ def month_range(today: date, months: int = MONTHS) -> tuple[str, str]:
     return f"{y}{m:02d}0100", f"{today.year}{today.month:02d}0100"
 
 
-def views(title: str, start: str, end: str) -> list[tuple[str, int]]:
+def views(title: str, start: str, end: str) -> list[tuple[str, int]] | None:
+    """Monthly views, or None when the API refused (throttled) so the artist is tried again next run."""
     r = get(f"{API}/{quote(title.replace(' ', '_'), safe='')}/monthly/{start}/{end}")
+    if r.status_code == 404:
+        return []  # no views recorded
     if r.status_code != 200:
-        return []
+        return None
     return [(i["timestamp"][:4] + "-" + i["timestamp"][4:6], i["views"]) for i in r.json().get("items", [])]
 
 
-def update(qids: dict[str, str], today: date | None = None, workers: int = 2) -> int:
-    """Rewrite the file for the given artists (spotify_id -> QID). Returns the number of artists with an article."""
+def update(qids: dict[str, str], today: date | None = None, workers: int = 1) -> int:
+    """Fetch the artists (spotify_id -> QID) not yet up to the last full month; saves every 25 artists, so a run cut
+    short by throttling keeps what it got. Returns the number of artists with an English article."""
     today = today or date.today()
     start, end = month_range(today)
+    last_month = month_range(today, 1)[0][:4] + "-" + month_range(today, 1)[0][4:6]
+    have = load()
     titles = articles(qids)
+    todo = [s for s in titles if not have.get(s) or have[s][-1][0] < last_month]
+    got: dict[str, list] = {}
+
+    def save():
+        rows = {**have, **got}
+        with CSV.open("w", newline="") as f:
+            w = csv.DictWriter(f, FIELDS)
+            w.writeheader()
+            for s in sorted(rows):
+                for month, n in rows[s]:
+                    w.writerow({"spotify_id": s, "qid": qids.get(s, ""), "article": titles.get(s, ""), "month": month,
+                                "views": n})
+
     with ThreadPoolExecutor(workers) as pool:
-        results = list(pool.map(lambda s: (s, views(titles[s], start, end)), list(titles)))
-    with CSV.open("w", newline="") as f:
-        w = csv.DictWriter(f, FIELDS)
-        w.writeheader()
-        for s, rows in sorted(results):
-            for month, n in rows:
-                w.writerow({"spotify_id": s, "qid": qids[s], "article": titles[s], "month": month, "views": n})
+        for i, (s, v) in enumerate(pool.map(lambda s: (s, views(titles[s], start, end)), todo), 1):
+            if v:
+                got[s] = v
+            if i % 25 == 0:
+                save()
+    save()
     return len(titles)
 
 
