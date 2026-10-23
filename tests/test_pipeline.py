@@ -109,3 +109,5 @@ def test_release_date_keys():
     assert min(["2016-05-06", "2016"], key=_key) == "2016-05-06"   # a year-only date never wins by being short
     assert min(["2018-06-29", "2018-01-19"], key=_key) == "2018-01-19"
     assert norm("All The Stars (with SZA) - From \"Black Panther\"") == "allthestars"
+    assert norm("LOVE. FEAT. ZACARI.") == norm("LOVE.") == "love"
+    assert norm("Bitch, Don’t Kill My Vibe") == norm("Bitch, Don't Kill My Vibe")

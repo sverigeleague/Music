@@ -179,7 +179,7 @@ for the answers.
 
 ## Ranking method
 
-Our top 100 is ranked by current listeners: `docs/METHODOLOGY.md` (version 1.0), also at
+Our top 100 is ranked by current listeners: `docs/METHODOLOGY.md` (version 1.1), also at
 https://claude.ai/artifact/6jUwKAZx52ZVhgWbEt95ny.
 
 ## Board

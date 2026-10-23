@@ -1,6 +1,6 @@
 # Current listeners: how our top 100 is ranked
 
-Version 1.0, 23 October 2026. Code: `src/current.py` (weights), `src/collectors/release_dates.py` (dates). A change to
+Version 1.1, 23 October 2026. Code: `src/current.py` (weights), `src/collectors/release_dates.py` (dates). A change to
 any number below is a new version, logged in `DECISIONS.md`.
 
 ## The idea
@@ -55,11 +55,15 @@ Current share = 950,000 / 2,000,000 = 47.5%. Current listeners = 20m × 47.5% = 
 ## Release dates
 
 - Songs dated: the artist's songs by daily streams, largest first, until 90% of their (weighted) daily streams are
-  covered, at most 40 songs.
-- **Deezer:** search by artist and title. The match must have the same title, ignoring brackets such as "(feat. …)",
-  and must credit the artist as lead or guest. This gives the edition's release date and the recording's ISRC code.
+  covered, at most 300 songs. Large catalogues need many: Drake's 90% takes 249 of his 500 songs.
+- **Deezer:** search by artist and title. The match must have the same title, ignoring brackets and "feat."
+  suffixes, and must credit the artist as lead or guest. The artist's own releases are checked before covers and
+  "sped up" uploads. This gives the edition's release date and the recording's ISRC code.
 - **MusicBrainz:** the ISRC gives the recording's first release date. This corrects re-releases: "God's Plan" is dated
   19 Jan 2018 (single), not 29 Jun 2018 (album); "Hotline Bling" 31 Jul 2015, not 2016.
+- **Songs Deezer cannot match** (some albums are missing there): MusicBrainz recording search by title and artist
+  gives the earliest first release date among matching recordings. Example: Kendrick Lamar's "Money Trees" is dated
+  22 Oct 2012.
 - **The earlier of the two dates is used.** A year-only date counts as 1 July of that year.
 - **Undated songs** are left out of the share, never counted as new or old.
 
@@ -84,4 +88,7 @@ Current share = 950,000 / 2,000,000 = 47.5%. Current listeners = 20m × 47.5% = 
 
 ## Change log
 
+- 1.1 (2026-10-23): no ranking weights changed. Up to 300 songs dated per artist instead of 40, because the cap
+  kept large catalogues under the 80% rule (Drake 50%, Kendrick Lamar 64%). Better title matching, and a
+  MusicBrainz search for songs Deezer cannot match.
 - 1.0 (2026-10-23): first version. Owner's choices: taper 18 → 36 months, features at half weight, Revival badge.

@@ -7,7 +7,9 @@
   deezer    Deezer fans for hip-hop artists not yet matched
   photos    Wikimedia Commons photos for hip-hop artists not yet tried
   dates     first release dates from Deezer for the songs behind 90% of each hip-hop artist's daily streams
-  mbdates   MusicBrainz first release dates for the ISRCs Deezer found (can run alongside `dates`)
+  dates-retry  the same, and looks up again the songs that found no date
+  mbdates   MusicBrainz first release dates for the ISRCs Deezer found, and a title search for songs it did not
+            match (can run alongside `dates`)
 """
 import csv
 import json
@@ -162,14 +164,14 @@ def photos_step(limit: int | None = None) -> None:
     print(f"photos: {sum(1 for v in done.values() if v)} of {len(done)} tried have a free-licence photo")
 
 
-def dates_step(limit: int | None = None) -> None:
+def dates_step(limit: int | None = None, retry: bool = False) -> None:
     order = {r["spotify_id"]: r["rank"] for r in latest_listeners()}
     todo = []
     for a in sorted(tracked(), key=lambda a: order.get(a["spotify_id"], 1e9)):
         p = current.pages(a["spotify_id"])
         if p:
             todo += [(a["spotify_id"], a["name"], s["track_id"], s["title"]) for s in current.to_date(current.songs(p[-1][1]))]
-    cache = release_dates.update(todo, limit=limit)
+    cache = release_dates.update(todo, limit=limit, retry=retry)
     have = sum(1 for _a, _n, t, _ in todo if cache.get(t, {}).get("first_release"))
     print(f"release dates: {have} of {len(todo)} songs dated")
 
@@ -178,5 +180,6 @@ if __name__ == "__main__":
     step, args = sys.argv[1], sys.argv[2:]
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
-     "deezer": deezer_step, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim),
-     "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
+     "deezer": deezer_step, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz(lim)} ISRCs looked up, "
+                              f"{release_dates.update_musicbrainz_search(lim)} undated songs searched")}[step]()

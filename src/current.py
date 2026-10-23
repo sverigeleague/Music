@@ -22,7 +22,7 @@ from .config import RAW
 FULL_MONTHS, ZERO_MONTHS = 18, 36
 FEATURE_WEIGHT = 0.5
 MIN_COVERAGE = 0.8
-DATE_SHARE, DATE_MAX = 0.90, 40  # songs dated per artist: until 90% of daily streams are covered, at most 40
+DATE_SHARE, DATE_MAX = 0.90, 300  # songs dated per artist: until 90% of daily streams are covered, at most 300
 REVIVAL_RISE, REVIVAL_SHARE, REVIVAL_GAP_DAYS = 1.5, 0.02, 28
 
 
@@ -63,7 +63,7 @@ def songs(path: str) -> list[dict]:
 
 
 def to_date(rows: list[dict]) -> list[dict]:
-    """The songs worth dating: biggest daily streams first, until 90% of the weighted daily total (max 40)."""
+    """The songs worth dating: biggest daily streams first, until 90% of the weighted daily total (max 300)."""
     wd = lambda r: r["daily"] * (FEATURE_WEIGHT if r["feature"] else 1)
     total = sum(wd(r) for r in rows) or 1
     out, acc = [], 0.0

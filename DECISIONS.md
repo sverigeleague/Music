@@ -2,6 +2,24 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-23 Current listeners: dating coverage fixed (method 1.1, no change to the weights)
+
+- **Found on the first full run:**
+  - 5,652 of 5,936 songs were dated, but only 115 of 191 artists reached 80% coverage.
+  - Drake (50%), Kendrick Lamar (64%) and Gunna (69%) were not ranked.
+- **Cause:**
+  - The 40-song cap: Drake's 90% takes 249 of his 500 songs.
+  - Deezer searches return covers and "sped up" uploads first.
+  - Some catalogues are missing on Deezer ("Money Trees").
+- **Chosen:**
+  - cap 300;
+  - the artist's own releases are checked first in the Deezer results (50 instead of 15);
+  - "feat." suffixes are ignored when matching titles;
+  - undated songs are retried (`dates-retry`);
+  - a MusicBrainz recording search for songs Deezer cannot match (`data/musicbrainz_search_dates.csv`).
+- **Rejected:** lowering the 80% rule to rank the big names. It would rank artists on a minority of their listening.
+- **Cost:** about 10,900 songs in all; one-off, about 1 hour on Deezer and 2-3 hours trailing on MusicBrainz.
+
 ## 2026-10-23 Built: our own top 100 by "current listeners" (owner: "go with recommended, build it")
 
 - **Owner's choices (all as recommended):**
@@ -11,7 +29,7 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - **Formula:**
   - Not shown on the site yet (owner: "keep that formula as something we would show in the site in a later stage").
     The method page describes the ranking in general terms.
-  - The full reference is `docs/METHODOLOGY.md`, version 1.0, also as a private page:
+  - The full reference is `docs/METHODOLOGY.md`, version 1.1, also as a private page:
     https://claude.ai/artifact/6jUwKAZx52ZVhgWbEt95ny. The owner asked to be able to refer to it at any time.
   - Its worked example is checked against `src/current.py`.
 - **Built:**
