@@ -17,6 +17,8 @@
   apple     Apple Music's daily top 100 songs in 25 countries (public RSS feed)
   backfill  weekly listener history since 2023 from the Internet Archive's copies of kworb's page (one-off; Actions)
   mblabels  owners of the label names we cannot place, from MusicBrainz label relationships (monthly, new names only)
+  scoutlog  today's Scout scores and monthly listeners for the top 1,000 -> data/scout_history.csv (daily; the
+            back-test reads it after 90 days)
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
 """
 import csv
@@ -264,6 +266,29 @@ def mblabels_step(limit: int | None = None, refresh: bool = False) -> None:
     print(f"MusicBrainz labels: {musicbrainz_labels.update(todo, refresh)} label names looked up ({len(todo)} unplaced)")
 
 
+def scoutlog_step() -> None:
+    from .site_build import build
+    path = DATA / "scout_history.csv"
+    data = build()
+    day = data["as_of"]
+    new = not path.exists()
+    if not new:
+        with path.open() as f:
+            if any(r["date"] == day for r in csv.DictReader(f)):
+                print(f"Scout log: {day} already stored")
+                return
+    with path.open("a", newline="") as f:
+        w = csv.writer(f)
+        if new:
+            w.writerow(["date", "spotify_id", "score", "tier", "monthly_listeners", "label_status"])
+        n = 0
+        for a in data["artists"]:
+            if a.get("scout"):
+                w.writerow([day, a["id"], a["scout"]["score"], a["scout"]["tier"] or "", a["ml"], a["label_status"]])
+                n += 1
+    print(f"Scout log: {n} artists for {day}")
+
+
 def apple_step() -> None:
     print(f"Apple Music charts: {apple_charts.update(today())} rows for {today()}")
 
@@ -278,7 +303,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

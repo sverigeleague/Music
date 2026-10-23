@@ -25,6 +25,7 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python -m src.run snapshot
       - run: python -m src.run apple
+      - run: python -m src.run scoutlog
       - name: Country charts (Fridays, when kworb has the new week)
         run: if [ "$(date -u +%u)" = "5" ]; then python -m src.run countries; fi
       - name: Commit
