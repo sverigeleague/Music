@@ -231,17 +231,24 @@ if __name__ == "__main__":
     OUT.parent.mkdir(parents=True, exist_ok=True)
     # revenue detail per artist in its own file (site/data/a/<id>.json), loaded when the artist page opens; the index
     # keeps the totals and each streaming line's mid estimate for the tables
-    (OUT.parent / "a").mkdir(exist_ok=True)
-    for i, r in enumerate(data["artists"]):
+    # per-artist detail in 32 shard files, site/data/a/<n>.json with n = first character's code % 32 (app.js uses the
+    # same rule): a few dozen files instead of one per artist
+    shard_dir = OUT.parent / "a"
+    shard_dir.mkdir(exist_ok=True)
+    for old in shard_dir.glob("*.json"):
+        old.unlink()
+    shards: dict[int, dict] = {}
+    for r in data["artists"]:
         rev = r.pop("revenue")
         detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, "photo": r.get("photo")}  # full photo credit
-        (OUT.parent / "a" / f"{r['id']}.json").write_text(
-            json.dumps({**rev, "artist": detail}, ensure_ascii=False, separators=(",", ":")))
+        shards.setdefault(ord(r["id"][0]) % 32, {})[r["id"]] = {**rev, "artist": detail}
         r["rev_total"] = rev["artist_total"]
         r["rev_lines"] = {l["key"]: round(l["generated"]["mid"]) for l in rev["lines"]}
         if r.get("money"):
             r["money"] = {"generated": r["money"]["generated"], "deal_label": r["money"]["deal_label"]}
         if r.get("photo"):
             r["photo"] = {"file": r["photo"]["file"]}
+    for n, d in shards.items():
+        (shard_dir / f"{n}.json").write_text(json.dumps(d, ensure_ascii=False, separators=(",", ":")))
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{OUT.relative_to(SITE.parent)}: {len(data['artists'])} hip-hop artists, {OUT.stat().st_size // 1024} KB")

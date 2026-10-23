@@ -30,6 +30,14 @@ const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 const nav = id => document.querySelectorAll("[id^=nav-]").forEach(a => a.id === "nav-" + id ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
 
+// Per-artist detail lives in 32 shard files (src/site_build.py): data/a/<first character's code % 32>.json.
+const shards = {};
+async function detailOf(id) {
+  const n = id.charCodeAt(0) % 32;
+  try { shards[n] = shards[n] || await (await fetch(`data/a/${n}.json`)).json(); } catch { shards[n] = {}; }
+  return shards[n][id] || { lines: [], deals: [], artist: {}, artist_total: null };
+}
+
 // ---------- pages
 function table(rows, rankKey = "rank") {
   const COLS = COLUMNS[ui.by];
@@ -245,7 +253,7 @@ async function artist(id) {
   nav("");
   const base = store.data.artists.find(x => x.id === id);
   if (!base) { app.innerHTML = `<p>Artist not found. <a href="#/">Back to the top 100</a></p>`; return; }
-  if (!store.rev[id]) { try { store.rev[id] = await (await fetch(`data/a/${id}.json`)).json(); } catch { store.rev[id] = { lines: [], deals: [], artist: {} }; } }
+  if (!store.rev[id]) store.rev[id] = await detailOf(id);
   const a = { ...base, ...store.rev[id].artist, photo: base.photo && { ...base.photo, ...(store.rev[id].artist.photo || {}) } };
   document.getElementById("crumbs").innerHTML = `<a href="#/">Top 100</a> / ${esc(a.name)}`;
   const m = a.money, yr = r => ({ low: r.low * 12, mid: r.mid * 12, high: r.high * 12 });
@@ -284,11 +292,8 @@ async function artist(id) {
 // ---------- revenue streams (artist page): detail from data/a/<id>.json
 async function revenuePanel(a) {
   const box = document.getElementById("revenue");
-  let rev = store.rev[a.id];
-  if (!rev) {
-    try { rev = store.rev[a.id] = await (await fetch(`data/a/${a.id}.json`)).json(); }
-    catch { if (box) box.innerHTML = `<h2>Revenue streams</h2><p class="note">Could not load the estimate.</p>`; return; }
-  }
+  const rev = store.rev[a.id] || (store.rev[a.id] = await detailOf(a.id));
+  if (!rev.lines.length && box) { box.innerHTML = `<h2>Revenue streams</h2><p class="note">No estimate for this artist yet.</p>`; return; }
   if (!box || !document.body.contains(box)) return;
   const m = a.money, groups = ["Streaming", "Publishing", "Live"];
   const rowsFor = g => rev.lines.filter(l => l.group === g).map(l => `<tr title="${esc(l.basis)}"><td class="l">${esc(l.label)}</td><td>${range(l.generated)}</td><td>${l.artist ? range(l.artist) : "–"}</td><td>${grade(l.grade)}</td></tr>`).join("");
