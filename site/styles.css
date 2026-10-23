@@ -72,11 +72,11 @@ td a { text-decoration: none; } td a:hover { text-decoration: underline; }
 
 /* artist page */
 .head { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-.panel { border: 1px solid var(--line); padding: 16px 18px; display: grid; gap: 12px; min-width: 0; }
+.panel { border: 1px solid var(--line); padding: 16px 18px; display: grid; gap: 12px; min-width: 0; align-content: start; }
 .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
 @media (max-width: 820px) { .two { grid-template-columns: 1fr; } h1 { font-size: 28px; } }
-.kv { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; }
-.kv dt { color: var(--muted); } .kv dd { margin: 0; text-align: right; font-weight: 600; }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 16px; }
+.kv dt { color: var(--muted); white-space: nowrap; } .kv dd { margin: 0; text-align: right; font-weight: 600; overflow-wrap: anywhere; }
 .bars { display: grid; gap: 10px; }
 .barrow { display: grid; grid-template-columns: minmax(110px, 180px) minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 14px; }
 .track { height: 14px; background: var(--soft); border: 1px solid var(--line); position: relative; }
