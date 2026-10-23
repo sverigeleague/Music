@@ -2,6 +2,39 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-23 Fan demographics and more YouTube (owner: "go with your defaults, next do fan demographics. Try to find YouTube data related to artists")
+
+- **Defaults confirmed by the owner:**
+  - co-headlines at 50%;
+  - artist tour net 15-35%;
+  - grade C tour figures as context only;
+  - worldwide platform shares;
+  - Billboard year-end grosses stop at 30 September.
+- **What can be measured, checked one source at a time:**
+  - **Countries: measured.** kworb.net's copy of Spotify's weekly top 200 in 76 countries
+    (`src/collectors/kworb_countries.py`, `data/spotify_country_charts.csv`). Every artist linked on a row is
+    credited, featured artists included. It runs every Friday, and the site combines the last 4 weeks.
+  - **Cities: not collected.** Spotify shows each artist's top 5 cities, but its terms bar collecting them.
+  - **Age and gender per artist: not public anywhere.** Only licensed providers (Soundcharts from $50 a month,
+    Chartmetric) model it from Instagram/YouTube/TikTok followers. This stays at the Phase 2 licence gate; it is
+    spending, so it is the owner's call.
+  - **Genre level: reported.** Luminate 2025 (349.9bn US streams, about 25%, falling), Edison Q2 2025 (3h48m a
+    day), YouGov 2023 (+61 under 45 / -33 over 45). No recent reliable gender or ethnicity split exists; the ones
+    that circulate are about 20 years old or unsourced, so none is shown.
+- **Chosen: chart presence per artist, not shares.** The first version showed shares of chart streams. That
+  misled: Playboi Carti showed "0% US, Malaysia 41%", because a small country's top 200 takes far fewer streams
+  than the US one, so a guest verse charting there outweighs everything else. The artist page now lists countries
+  and best positions. Shares are kept only for the top 100 combined, where big markets rightly dominate.
+- **Fixed:** Wikidata gave Central Cee's citizenship as "English people". Values that are not countries are now
+  dropped.
+- **YouTube:**
+  - kworb's YouTube artist list (`archive.html`) added 1 artist; 115 of 191 now have views.
+  - The other 75 are not tracked by kworb. 70 of them, and 179 of all 191, have a channel ID on Wikidata.
+  - Built `src/collectors/youtube_api.py` (YouTube Data API v3, channels.list, 1 unit per 50 channels). It runs
+    when the GitHub secret `YOUTUBE_API_KEY` exists, and adds subscribers and channel views for 179 artists.
+  - Per the API terms, it keeps only the latest snapshot (no history without YouTube's III.L approval).
+  - **Rejected:** scraping YouTube channel pages or charts.youtube.com's internal API (terms).
+
 ## 2026-10-23 Platforms, revenue streams per artist, tours (owner: "add one tab for all streaming services ... and then begin with the work regarding revenue streams for each")
 
 - **Research** (each claim with a URL; a grade on each figure):

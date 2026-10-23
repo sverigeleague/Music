@@ -133,3 +133,22 @@ def test_revenue_lines(monkeypatch):
     assert by["touring"]["grade"] == "A" and by["merch"]["grade"] == "C"
     assert by["merch"]["artist"]["mid"] < by["merch"]["generated"]["mid"]
     assert est["artist_total"]["low"] < est["artist_total"]["mid"] < est["artist_total"]["high"]
+
+
+def test_country_chart_row():
+    from src.collectors.kworb_countries import parse
+    row = ('<tr><td class="np">7</td><td class="np">+1</td><td class="text mp"><div>'
+           '<a href="../artist/3TVXtAsR1Inumwj472S9r4.html">Drake</a> - <a href="../track/x.html">Song</a> (w/ '
+           '<a href="../artist/2hlmm7s2ICUX0LVIhVFlZQ.html">Gunna</a>)</div></td><td>3</td><td>2</td>'
+           '<td class="np mini text"></td><td>1,234,567</td><td>-5</td><td>9,999,999</td></tr>')
+    week, d = parse("Week ending 2026/10/15" + row + row.replace(">7<", ">40<", 1))
+    assert week == "2026-10-15"
+    assert d["3TVXtAsR1Inumwj472S9r4"] == [2469134, 2, 7]       # both rows, best position 7
+    assert d["2hlmm7s2ICUX0LVIhVFlZQ"][0] == 2469134             # the featured artist is credited too
+
+
+def test_youtube_api_parse():
+    from src.collectors.youtube_api import parse
+    p = parse([{"id": "UC1", "statistics": {"subscriberCount": "1230000", "viewCount": "5", "videoCount": "9"}},
+               {"id": "UC2", "statistics": {"hiddenSubscriberCount": True, "viewCount": "7", "videoCount": "1"}}])
+    assert p["UC1"] == {"subscribers": 1230000, "views": 5, "videos": 9} and p["UC2"]["subscribers"] is None

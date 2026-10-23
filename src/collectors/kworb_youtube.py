@@ -7,6 +7,7 @@ accepted only if it links back to the same Spotify artist ID, so a namesake is n
 import csv
 import glob
 import gzip
+import html as htmllib
 import re
 import unicodedata
 
@@ -43,8 +44,21 @@ def parse(html: str) -> dict:
             "videos": videos, "spotify_id": back[1] if back else None}
 
 
+_archive: dict[str, str] | None = None
+
+
+def slug_from_archive(name: str) -> str | None:
+    """kworb's list of every YouTube artist it tracks (names whose page address is not the plain name: "jay-z")."""
+    global _archive
+    if _archive is None:
+        r = get("https://kworb.net/youtube/archive.html")
+        links = re.findall(r'href="(?:\.\./)?(?:/youtube/)?artist/([^"]+)\.html"[^>]*>(.*?)</a>', r.text) if r.status_code == 200 else []
+        _archive = {slug_guess(htmllib.unescape(n)): s for s, n in links}
+    return _archive.get(slug_guess(name))
+
+
 def fetch(spotify_id: str, name: str, day: str) -> dict | None:
-    for slug in dict.fromkeys(filter(None, (slug_from_spotify_page(spotify_id), slug_guess(name)))):
+    for slug in dict.fromkeys(filter(None, (slug_from_spotify_page(spotify_id), slug_guess(name), slug_from_archive(name)))):
         r = get(URL.format(slug=slug))
         if r.status_code != 200:
             continue

@@ -95,3 +95,4 @@ td.wrap { white-space: normal; min-width: 220px; max-width: 420px; }
 tr.sec td { background: var(--soft); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 tr.tot td { font-weight: 650; }
 .panel ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }

@@ -16,6 +16,8 @@ python -m src.run registry      # hip-hop decision per artist -> registry/artist
 python -m src.run streams       # total and daily streams, lead vs feature (kworb.net artist pages)
 python -m src.run deezer        # Deezer fans
 python -m src.run photos        # Wikimedia Commons photos with credits
+python -m src.run ytapi         # YouTube channel subscribers and views (needs the secret YOUTUBE_API_KEY)
+python -m src.run countries     # weekly Spotify top 200 in 76 countries: where each artist's songs chart
 python -m src.run dates         # first release dates of the songs behind each artist's streams (Deezer)
 python -m src.run mbdates       # MusicBrainz first release dates for those songs (can run alongside)
 python -m src.site_build && python -m http.server -d site 8000   # then open http://localhost:8000
@@ -53,3 +55,10 @@ Plain files, no build step, the same setup as Hoop Ledger: colours and spacing i
 show in `site/config.js`, the pages in `site/app.js`. Deploys to Cloudflare Pages project `rap-ledger` with the secrets
 `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. Keep it private with Cloudflare Access (Zero Trust → Access →
 Applications → self-hosted, domain `rap-ledger.pages.dev`, allow the owner's email, one-time PIN), as for Hoop Ledger.
+
+## Secrets (GitHub → Settings → Secrets and variables → Actions)
+
+- `YOUTUBE_API_KEY`: YouTube Data API v3 key. Google Cloud console → new project → APIs & Services → enable
+  "YouTube Data API v3" → Credentials → Create credentials → API key; restrict it to that API. Free quota
+  (10,000 units a day) is far more than the monthly run needs (about 4 units).
+- `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`: website deploy (see Website).

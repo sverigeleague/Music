@@ -7,6 +7,8 @@
   deezer    Deezer fans for hip-hop artists not yet matched
   photos    Wikimedia Commons photos for hip-hop artists not yet tried
   youtube   YouTube total and daily views (kworb.net), for hip-hop artists not yet fetched this month
+  ytapi     YouTube channel subscribers and views (YouTube Data API; needs the secret YOUTUBE_API_KEY)
+  countries kworb's weekly Spotify top 200 in 76 countries: where each hip-hop artist's songs are streamed
   dates     first release dates from Deezer for the songs behind 90% of each hip-hop artist's daily streams
   dates-retry  the same, and looks up again the songs that found no date
   mbdates   MusicBrainz first release dates for the ISRCs Deezer found, and a title search for songs it did not
@@ -18,7 +20,7 @@ import sys
 from datetime import datetime, timezone
 
 from . import current, genre, photos
-from .collectors import deezer, kworb, kworb_youtube, musicbrainz, release_dates, wikidata
+from .collectors import deezer, kworb, kworb_countries, kworb_youtube, musicbrainz, release_dates, wikidata, youtube_api
 from .config import DATA, REGISTRY, REVIEW
 
 ARTISTS = REGISTRY / "artists.csv"
@@ -95,7 +97,7 @@ def registry(mb_limit: int | None = None) -> None:
         out[s] = {**prev, "spotify_id": s, "name": (top.get(s) or prev).get("name", ""), "genre": decision,
                   "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid", ""),
                   "musicbrainz_id": d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""),
-                  "country": d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
+                  "country": "" if "people" in d.get("country", "") else d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
                   "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
                   "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
                   "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image", "")}
@@ -173,6 +175,16 @@ def youtube_step(limit: int | None = None) -> None:
     print(f"YouTube: {len(rows)} of {len(todo)} artists found")
 
 
+def ytapi_step() -> None:
+    n = youtube_api.update({a["spotify_id"]: a["youtube_channel"] for a in tracked() if a["youtube_channel"]})
+    print("YouTube API: no YOUTUBE_API_KEY, skipped" if n is None else f"YouTube API: {n} channels")
+
+
+def countries_step() -> None:
+    week, n = kworb_countries.update({a["spotify_id"] for a in tracked(("hip_hop", "review"))})
+    print(f"country charts, week ending {week}: {n} rows for tracked artists")
+
+
 def dates_step(limit: int | None = None, retry: bool = False) -> None:
     order = {r["spotify_id"]: r["rank"] for r in latest_listeners()}
     todo = []
@@ -189,7 +201,8 @@ if __name__ == "__main__":
     step, args = sys.argv[1], sys.argv[2:]
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
-     "deezer": deezer_step, "youtube": lambda: youtube_step(lim), "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
+     "ytapi": ytapi_step, "countries": countries_step, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

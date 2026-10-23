@@ -4,7 +4,7 @@ import json
 from datetime import date, datetime, timedelta, timezone
 
 from . import current, money, revenue
-from .collectors import kworb, kworb_youtube, release_dates
+from .collectors import kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
 from .run import PHOTOS, _json, latest_listeners, load_artists
 
@@ -24,6 +24,17 @@ def latest_streams() -> dict[str, dict]:
 num = lambda v: int(v) if v not in (None, "") else None
 
 
+def geography(by_country: dict[str, dict]) -> dict | None:
+    """Chart presence: the countries where the artist has a song in Spotify's weekly top 200, best position first.
+    Streams are kept for the combined top-100 view only: per artist they mislead, because a small country's chart
+    needs far fewer streams than the US one."""
+    if not by_country:
+        return None
+    top = sorted(by_country.items(), key=lambda x: (x[1]["best_pos"], -x[1]["streams"]))
+    return {"chart_streams": sum(v["streams"] for v in by_country.values()), "countries": len(top),
+            "in_us": "us" in by_country, "charts": [[cc, v["best_pos"], v["streams"]] for cc, v in top]}
+
+
 def current_of(spotify_id: str, dates: dict, today: date) -> dict | None:
     """Current share, coverage and revivals from the artist's latest page (and one 28+ days older, if any)."""
     pages = current.pages(spotify_id)
@@ -41,6 +52,7 @@ def build() -> dict:
     streams, pics = latest_streams(), _json(PHOTOS, {})
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
+    (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rows = []
     for t in top:
         a = artists.get(t["spotify_id"])
@@ -71,6 +83,9 @@ def build() -> dict:
             "revivals": cur.get("revivals", []),
             "yt_total": num(yt.get(t["spotify_id"], {}).get("total_views")),
             "yt_daily": num(yt.get(t["spotify_id"], {}).get("daily_views")),
+            "yt_subs": num(ych.get(t["spotify_id"], {}).get("subscribers")),
+            "yt_channel_views": num(ych.get(t["spotify_id"], {}).get("views")),
+            "geo": geography(geo.get(t["spotify_id"], {})),
             "links": {"spotify": f"https://open.spotify.com/artist/{t['spotify_id']}",
                       "wikidata": a["wikidata_id"] and f"https://www.wikidata.org/wiki/{a['wikidata_id']}",
                       "youtube": a["youtube_channel"] and f"https://www.youtube.com/channel/{a['youtube_channel']}",
@@ -93,7 +108,9 @@ def build() -> dict:
     day = max((r["date"] for r in csv.DictReader(kworb.LISTENERS_CSV.open())), default=None)
     return {"built": datetime.now(timezone.utc).isoformat(timespec="minutes"), "as_of": day,
             "universe": len(top), "artists": rows, "rates": rates, "deals": deals,
-            "platforms": revenue.platforms(), "multipliers": revenue.multipliers(), "tours": tour_table(rows)}
+            "platforms": revenue.platforms(), "multipliers": revenue.multipliers(), "tours": tour_table(rows),
+            "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
+            "chart_weeks": kworb_countries.load_recent()[1]}  # {"weeks": n, "latest": week}
 
 
 def tour_table(rows: list[dict]) -> list[dict]:

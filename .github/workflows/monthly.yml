@@ -27,6 +27,9 @@ jobs:
       - run: python -m src.run mbdates
       - run: python -m src.run deezer
       - run: python -m src.run youtube
+      - run: python -m src.run ytapi
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       - run: python -m src.run photos
       - name: Commit
         run: |

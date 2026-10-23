@@ -1,4 +1,5 @@
 # Daily: kworb's top 2,500 by monthly listeners (raw page archived, tracked artists' rows kept). About 1 minute.
+# Fridays also: the weekly Spotify top 200 of 76 countries (where each artist's songs are streamed), about 2 minutes.
 # Scheduled workflows run only from the default branch (main).
 name: daily
 on:
@@ -22,6 +23,8 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: python -m src.run snapshot
+      - name: Country charts (Fridays, when kworb has the new week)
+        run: if [ "$(date -u +%u)" = "5" ]; then python -m src.run countries; fi
       - name: Commit
         run: |
           git config user.name "music-bot"
