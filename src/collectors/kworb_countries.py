@@ -94,12 +94,12 @@ def load_recent(weeks: int = 4) -> tuple[dict[str, dict[str, dict]], dict]:
                  "latest": max((r["week"] for r in rows), default=None)}
 
 
-def reparse_archived() -> int:
-    """Rebuild data/spotify_country_charts.csv from the archived pages (after a parser change), tracked artists only."""
+def reparse_archived(tracked: set[str]) -> int:
+    """Rebuild data/spotify_country_charts.csv from the archived pages, for these artists (after a parser change or
+    when the tracked list grows)."""
     import glob
     import gzip
     from ..config import RAW
-    tracked = {r["spotify_id"] for r in csv.DictReader(CSV.open())} if CSV.exists() else set()
     rows = []
     for p in sorted(glob.glob(str(RAW / "kworb" / "country" / "*" / "*.html.gz"))):
         with gzip.open(p, "rt") as f:

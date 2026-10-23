@@ -214,8 +214,13 @@ def ytapi_step() -> None:
     print("YouTube API: no YOUTUBE_API_KEY, skipped" if n is None else f"YouTube API: {n} channels")
 
 
+def countries_reparse() -> None:
+    n = kworb_countries.reparse_archived({a["spotify_id"] for a in tracked(("hip_hop", "review"), top_n=None)})
+    print(f"country charts rebuilt from the archived pages: {n} rows")
+
+
 def countries_step() -> None:
-    week, n = kworb_countries.update({a["spotify_id"] for a in tracked(("hip_hop", "review"))})
+    week, n = kworb_countries.update({a["spotify_id"] for a in tracked(("hip_hop", "review"), top_n=None)})
     print(f"country charts, week ending {week}: {n} rows for tracked artists")
 
 
@@ -241,7 +246,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "labels": labels_step, "countries": countries_step, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
