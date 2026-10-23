@@ -2,6 +2,26 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-23 Review desk, label owners from MusicBrainz, compare and watchlist
+
+- **Review desk** (claude.ai page, its own database): the 1,491 genre and 516 label cases as cards, biggest audience
+  first, one tap per decision, usable on a phone. `src/reviews.py` turns the saved answers into the two override
+  files.
+  - Rejected: editing the CSVs by hand. Slow on a phone, and 2,000 rows would never get done.
+- **Label owners from MusicBrainz** (`src/collectors/musicbrainz_labels.py`): for a label name our table cannot
+  place, the MusicBrainz label of exactly that name; then its owners and parents, up to 4 levels, and its
+  distributors.
+  - The first ancestor our table places decides. Example: Hall Access → Sony Music Entertainment France → Sony.
+  - A name shared by two MusicBrainz labels is skipped. "Urban" is one: the German Universal label shares its name
+    with others.
+  - A label with no placed ancestor stays unknown, because a missing parent is not proof of independence. Wikidata
+    was tried first and rejected: the items exist, but most lack the parent (Urban, Vertigo Berlin).
+- **Hand-added owners:** WEA Latina, WM Poland, Vertigo, Universal Records, Sony BMG, Zomba and Jive (majors);
+  Loma Vista (Concord), 88rising and Reach Records (independent).
+- **Compare page and watchlist:**
+  - The compare page puts two artists side by side and highlights the higher figure in each row.
+  - The watchlist stars artists. It is kept in the viewer's browser only, until accounts exist.
+
 ## 2026-10-23 Phase 7: Worth and Scout (owner: "insights for artists to understand their worth and labels to find new talent ... optimize the site design, usability and clarity ... find data that will bolster its appeal")
 
 The owner was away overnight, so discovery questions were replaced by the assumptions at the end of this entry.
