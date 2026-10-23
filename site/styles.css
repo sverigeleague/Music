@@ -158,3 +158,19 @@ a.chip:hover { border-color: var(--fg); }
   header .seg.main { width: 100%; }
   header .seg.main .segbtn { flex: 1; text-align: center; padding-inline: 6px; }
 }
+
+/* home: right now */
+.pulses { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: var(--gap); }
+.pulse { display: flex; gap: 12px; align-items: center; border: 1px solid var(--line); padding: 12px 14px; text-decoration: none; min-width: 0; }
+.pulse:hover { border-color: var(--fg); }
+.pulse > span { display: grid; min-width: 0; }
+.pulse .k { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.pulse b { font-size: 16px; }
+.pulse .pic { width: 48px; height: 48px; }
+@media (max-width: 560px) {
+  .tiles { grid-template-columns: 1fr 1fr; }
+  .tile { padding: 10px 12px; }
+  .tile .v { font-size: 20px; }
+  .door span:last-child { display: none; }
+  .door { padding: 12px 14px; }
+}
