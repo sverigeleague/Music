@@ -1,0 +1,416 @@
+{
+ "report": {
+  "company": "BMG Rights Management (UK) Ltd",
+  "document": "Annual accounts made up to 2021-12-31 (Companies House 06705101, filed 2022-05-10)",
+  "period_end": "2021-12-31",
+  "period_type": "FY",
+  "url": "https://find-and-update.company-information.service.gov.uk/company/06705101/filing-history/MzMzODc5ODUzOWFkaXF6a2N4/document?format=pdf&download=1",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "",
+  "note": "Full accounts made up to 31 December 2021",
+  "basis": "company"
+ },
+ "read": {
+  "currency": "GBP",
+  "unit_multiplier": 1000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "IS",
+    "period_end": "2021-12-31",
+    "months": 12
+   },
+   {
+    "column": 2,
+    "statement": "IS",
+    "period_end": "2020-12-31",
+    "months": 12
+   },
+   {
+    "column": 3,
+    "statement": "BS",
+    "period_end": "2021-12-31",
+    "months": 0
+   },
+   {
+    "column": 4,
+    "statement": "BS",
+    "period_end": "2020-12-31",
+    "months": 0
+   },
+   {
+    "column": 5,
+    "statement": "CF",
+    "period_end": "2021-12-31",
+    "months": 12
+   },
+   {
+    "column": 6,
+    "statement": "CF",
+    "period_end": "2020-12-31",
+    "months": 12
+   }
+  ],
+  "lines": [
+   {
+    "item": "revenue",
+    "label": "Revenue",
+    "column": 1,
+    "value": 201684,
+    "page": 17
+   },
+   {
+    "item": "revenue",
+    "label": "Revenue",
+    "column": 2,
+    "value": 183970,
+    "page": 17
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 1,
+    "value": 154846,
+    "page": 17
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 2,
+    "value": 138396,
+    "page": 17
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 1,
+    "value": 43279,
+    "page": 17
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 2,
+    "value": 35508,
+    "page": 17
+   },
+   {
+    "item": "da",
+    "label": "Amortisation of intangible assets",
+    "column": 1,
+    "value": 14859,
+    "page": 28
+   },
+   {
+    "item": "da",
+    "label": "Amortisation of intangible assets",
+    "column": 2,
+    "value": 13928,
+    "page": 28
+   },
+   {
+    "item": "operating_income",
+    "label": "Profit from operations",
+    "column": 1,
+    "value": 3559,
+    "page": 17
+   },
+   {
+    "item": "operating_income",
+    "label": "Profit from operations",
+    "column": 2,
+    "value": 10066,
+    "page": 17
+   },
+   {
+    "item": "interest_expense",
+    "label": "Finance cost",
+    "column": 1,
+    "value": 10050,
+    "page": 17
+   },
+   {
+    "item": "interest_expense",
+    "label": "Finance cost",
+    "column": 2,
+    "value": 8860,
+    "page": 17
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit before taxation",
+    "column": 1,
+    "value": 3663,
+    "page": 17
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit before taxation",
+    "column": 2,
+    "value": 21825,
+    "page": 17
+   },
+   {
+    "item": "income_tax",
+    "label": "Taxation",
+    "column": 1,
+    "value": 785,
+    "page": 17
+   },
+   {
+    "item": "income_tax",
+    "label": "Taxation",
+    "column": 2,
+    "value": 3378,
+    "page": 17
+   },
+   {
+    "item": "net_income",
+    "label": "Profit and total comprehensive income for the year",
+    "column": 1,
+    "value": 2878,
+    "page": 17
+   },
+   {
+    "item": "net_income",
+    "label": "Profit and total comprehensive income for the year",
+    "column": 2,
+    "value": 18447,
+    "page": 17
+   },
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 3,
+    "value": 57,
+    "page": 18
+   },
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 4,
+    "value": 206,
+    "page": 18
+   },
+   {
+    "item": "current_assets",
+    "label": "Total current assets",
+    "column": 3,
+    "value": 205721,
+    "page": 18
+   },
+   {
+    "item": "current_assets",
+    "label": "Total current assets",
+    "column": 4,
+    "value": 197757,
+    "page": 18
+   },
+   {
+    "item": "total_assets",
+    "label": "Total assets",
+    "column": 3,
+    "value": 588203,
+    "page": 18
+   },
+   {
+    "item": "total_assets",
+    "label": "Total assets",
+    "column": 4,
+    "value": 574203,
+    "page": 18
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Total current liabilities",
+    "column": 3,
+    "value": 467748,
+    "page": 18
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Total current liabilities",
+    "column": 4,
+    "value": 456654,
+    "page": 18
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 3,
+    "value": 112408,
+    "page": 18
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 4,
+    "value": 109530,
+    "page": 18
+   },
+   {
+    "item": "cfo",
+    "label": "Net cash generated from operating activities",
+    "column": 5,
+    "value": 21764,
+    "page": 20
+   },
+   {
+    "item": "cfo",
+    "label": "Net cash generated from operating activities",
+    "column": 6,
+    "value": 2315,
+    "page": 20
+   },
+   {
+    "item": "capex",
+    "label": "Acquisition of intangible assets",
+    "column": 5,
+    "value": 12749,
+    "page": 20
+   },
+   {
+    "item": "capex",
+    "label": "Acquisition of intangible assets",
+    "column": 6,
+    "value": 11531,
+    "page": 20
+   },
+   {
+    "item": "cfi",
+    "label": "Net cash (used in) / generated from investing activities",
+    "column": 5,
+    "value": -12749,
+    "page": 20
+   },
+   {
+    "item": "cfi",
+    "label": "Net cash (used in) / generated from investing activities",
+    "column": 6,
+    "value": 6269,
+    "page": 20
+   },
+   {
+    "item": "cff",
+    "label": "Net cash used in financing activities",
+    "column": 5,
+    "value": -9164,
+    "page": 20
+   },
+   {
+    "item": "cff",
+    "label": "Net cash used in financing activities",
+    "column": 6,
+    "value": -8668,
+    "page": 20
+   }
+  ],
+  "absent": [
+   {
+    "item": "total_liabilities",
+    "reason": "Total liabilities is not printed on the statement of financial position; only total current and non-current liabilities lines appear."
+   },
+   {
+    "item": "long_term_debt",
+    "reason": "No long-term borrowings line is printed; the non-current item is deferred consideration."
+   },
+   {
+    "item": "short_term_debt",
+    "reason": "No short-term borrowings line is printed; amounts due to group companies are within trade and other payables."
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "reason": "Not printed as a line on the statement of financial position."
+   },
+   {
+    "item": "catalog_purchases",
+    "reason": "No separate catalogue purchases line is printed; acquisitions of intangible assets are shown as a single line."
+   },
+   {
+    "item": "dividends_paid",
+    "reason": "No dividends paid line appears in the cash flow statement; the directors recommended no dividend."
+   }
+  ],
+  "labels_named": [
+   "Infectious Music",
+   "Loaded Records",
+   "Mute Records",
+   "Ram Records",
+   "Sanctuary Records Group",
+   "Skint Records",
+   "The Echo Label",
+   "Union Square Music",
+   "World Circuit",
+   "Cavalcade Records",
+   "Creole Records",
+   "Air Records",
+   "Trojan Recordings",
+   "Men From The North"
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 66350,
+  "output_tokens": 3511,
+  "output_tokens_details": {
+   "thinking_tokens": 1601
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}

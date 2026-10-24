@@ -3,8 +3,8 @@ import csv
 import json
 from datetime import date, datetime, timedelta, timezone
 
-from . import current, health, insights, labels, money, revenue
-from .collectors import apple_charts, logos, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
+from . import backtest, current, monthly, health, insights, labels, money, revenue
+from .collectors import apple_charts, logos, sony_music, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
 from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
@@ -177,9 +177,11 @@ def build() -> dict:
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
             "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),
             "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in insights.FACTORS.items()},
+            "month": monthly.build(rows, history, day or today.isoformat()),
+            "backtest": backtest.run({k: v for k, v in history.items() if artists.get(k, {}).get("genre") == "hip_hop"}, views),
             "labels": insights.labels_index(rows, release_counts(rels, table)),
             "label_logos": logos.load(), "label_financials": label_financials(),
-            "group_finances": health.build(), "company_of": health.COMPANY_OF,
+            "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
             "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES)}
 
 

@@ -30,10 +30,10 @@ const cell = (a, [, key, f]) => {
 const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc(t)}</span>`;
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 // Five sections in the header; each page belongs to one, and sections with several pages show a sub-menu.
-const SECTION = { top: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
+const SECTION = { top: "charts", month: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
   scout: "scout", unsigned: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", label: "labels", method: "method" };
 const SUBNAV = {
-  charts: [["top", "#/", "Top list"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
+  charts: [["top", "#/", "Top list"], ["month", "#/month", "This month"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
   scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["compare", "#/compare", "Compare artists"]],
   worth: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"]],
 };
@@ -511,13 +511,54 @@ function scoutPage() {
     <p class="note">${rows.length} artists. Click a column to sort. ☆ adds an artist to your watchlist (kept in this browser). Percentiles are within the artist's size band (monthly listeners ${BANDS.join(", ")}).</p></section>
     <section class="panel"><h2>How the score works</h2>
       <ul>${Object.values(store.data.scout_factors).map(x => `<li><b>${Math.round(x.weight * 100)}%</b> ${esc(x.label)}</li>`).join("")}</ul>
-      <p class="note">Each signal becomes a percentile (0–100) among artists in the same size band; the score is their weighted average over the signals the artist has (at least three). Tiers: Breaking 80+ (and either new songs pulling 25%+ of streams or Wikipedia attention up 30%+), Rising 65+, Watch 50+; artists with 15m+ monthly listeners are established and get no tier. Wikipedia views count only artists with an English article. Our own listener history started on 2026-10-23: once 90 days exist, listener growth joins the score and every month's picks are checked against what happened next, and that hit rate is published. ${grade("C")}</p></section>`;
+      <p class="note">Each signal becomes a percentile (0–100) among artists in the same size band; the score is their weighted average over the signals the artist has (at least three). Tiers: Breaking 80+ (and either new songs pulling 25%+ of streams or Wikipedia attention up 30%+), Rising 65+, Watch 50+; artists with 15m+ monthly listeners are established and get no tier. Wikipedia views count only artists with an English article. Listener growth uses the Internet Archive's weekly copies of kworb's listener page, so it exists only for artists that page lists. ${grade("C")}</p></section>
+    ${backtestPanel()}`;
   app.querySelectorAll("button[data-f]").forEach(b => b.onclick = () => { f[b.dataset.f] = b.dataset.v; scoutPage(); });
   bindStars(scoutPage);
   app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
   app.querySelector("#csv").onclick = () => download("tventy-music-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
     ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || "", a.label_status, a.label_owner || "", a.country || "", a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
+}
+
+// ---------- this month: movers, new on Scout's list, unsigned prospects, label shares (src/monthly.py)
+function monthPage() {
+  nav("month");
+  const M = store.data.month, byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
+  const who = id => { const a = byId[id]; return a ? `<a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a>` : ""; };
+  const moverTable = (list, title) => `<div><h3>${title}</h3><div class="tablebox"><table><thead><tr><th class="l">Artist</th><th>Then</th><th>Now</th><th>Change</th></tr></thead><tbody>
+    ${list.map(m => `<tr><td class="l">${who(m.id)}</td><td>${count(m.then)}</td><td>${count(m.now)}</td><td>${pct(m.pct)}</td></tr>`).join("")}</tbody></table></div></div>`;
+  const ready = new Date(Date.parse(M.log_from) + M.min_log * 864e5).toISOString().slice(0, 10);
+  const label = s => ({ major: "Major label", major_distributed: "Distributed by a major", independent: "Independent label", self_released: "Self-released", catalog: "Catalog (no release in 2 years)", unknown: "Not yet known" })[s] || s;
+  app.innerHTML = `${subnav()}<section><h1>This month</h1>
+    <p class="sub">What changed in hip-hop's top 1,000 over the last 30 days: who gained and lost listeners, who joined Scout's list, the unsigned acts worth a look, and how listening splits between majors, indies and the self-released.</p></section>
+    <section class="panel"><h2>Movers</h2>
+      ${M.movers_n ? `<div class="grid2">${moverTable(M.up, "Biggest gains, %")}${moverTable(M.down, "Biggest falls, %")}</div>
+      <p class="note">Monthly listeners on ${esc(M.today)} against the snapshot nearest 30 days earlier (from ${esc(M.movers_from)}). ${M.movers_n} of the 1,000 have one yet: our own daily snapshots began on ${esc(M.log_from)}, so for now the month-ago values come from the Internet Archive's copies of kworb's listener page, which lists the biggest artists only. From ${esc(ready)} every artist has one.</p>` : `<p class="note">No month-ago values yet.</p>`}</section>
+    <section class="panel"><h2>New on Scout's list</h2>
+      ${M.log_start ? `<p>Breaking now, not on ${esc(M.log_start)}: ${M.new_breaking.map(id => who(id)).join(" ") || "none"}</p><p>Rising now, not on ${esc(M.log_start)}: ${M.new_rising.map(id => who(id)).join(" ") || "none"}</p>`
+        : `<p class="note">From ${esc(ready)}. Scout's daily log began on ${esc(M.log_from)}, and the score's method changed in its first days, so a shorter comparison would show our changes rather than the artists'. Today's Breaking and Rising artists are on the <a href="#/scout">Scout list</a>.</p>`}</section>
+    <section class="panel"><h2>Unsigned and worth a look</h2>
+      <div class="chips">${M.prospects.map(id => byId[id] ? `<a class="chip" href="#/a/${id}">${esc(byId[id].name)} · ${byId[id].scout?.score ?? "–"} ${byId[id].scout?.tier ? esc(byId[id].scout.tier) : ""}</a>` : "").join(" ")}</div>
+      <p class="note">Self-released artists (their own label through a DIY distributor) with a Breaking or Rising Scout tier, best score first. <a href="#/unsigned">Unsigned against signed peers</a></p></section>
+    <section class="panel"><h2>Who owns the listening</h2><div class="tablebox"><table><thead><tr><th class="l">Label status</th><th>${M.log_start ? esc(M.log_start) : "30 days ago"}</th><th>Now</th></tr></thead><tbody>
+      ${M.shares.map(x => `<tr><td class="l">${esc(label(x.status))}</td><td>${x.then == null ? "–" : share(x.then)}</td><td>${share(x.now)}</td></tr>`).join("")}</tbody></table></div>
+      <p class="note">Share of the top 1,000's monthly listeners (added per artist). Both columns use each artist's label status today, so a share moves only with listening, not with our relabelling. The comparison starts on ${esc(ready)}. ${grade("B")}</p></section>`;
+}
+
+function backtestPanel() {
+  const B = store.data.backtest;
+  if (!B || !B.picks) return "";
+  const years = {};
+  for (const t of B.tests) { const y = (years[t.date.slice(0, 4)] = years[t.date.slice(0, 4)] || { n: 0, hr: 0, pg: [], rg: [] }); y.n++; y.hr += t.hit_rate; y.pg.push(t.pick_growth); y.rg.push(t.rest_growth); }
+  const avg = xs => xs.reduce((a, b) => a + b, 0) / xs.length;
+  return `<section class="panel"><h2>Does it work? The back-test</h2>
+    <p>Of the artists that would have been Scout's picks (the top fifth of their size band) on ${B.tests.length} dates from ${esc(B.from)} to ${esc(B.to)}, <b>${Math.round(B.hit_rate * 100)}%</b> outgrew the typical artist of their size over the next 90 days (${B.hits} of ${B.picks} picks). Chance is 50%. With Wikipedia attention added (dates since late 2025): <b>${B.hit_rate_with_attention == null ? "–" : Math.round(B.hit_rate_with_attention * 100) + "%"}</b>.</p>
+    <p>So far, the signals with an archived history do <b>not</b> pick next quarter's risers: fast listener growth tends to cool off again over the next 90 days. Only listener growth and Wikipedia attention (35% of the weight) have history before our own daily log; the other signals (new-release pull, current share, engagement, chart reach) are back-tested from that log once it is 90 days old, from January 2027.</p>
+    <div class="tablebox"><table><thead><tr><th class="l">Year</th><th>Test dates</th><th>Hit rate</th><th>Picks' growth, next 90 days</th><th>Everyone else's</th></tr></thead><tbody>
+    ${Object.entries(years).map(([y, v]) => `<tr><td class="l">${y}</td><td>${v.n}</td><td>${Math.round(v.hr / v.n * 100)}%</td><td>${pct(avg(v.pg) * 100)}</td><td>${pct(avg(v.rg) * 100)}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="note">Each date: hip-hop artists under 15m monthly listeners in the archived page then, 90 days before and 90 days after. Growth is the median within each group, averaged over the year's dates. The artists are today's registry, so acts that rose and fell away are missing. ${grade("B")}</p></section>`;
 }
 
 // ---------- worth: what the music earns and what it would sell for, for artists
@@ -623,7 +664,7 @@ function labelsPage() {
     <section class="panel"><h2>Independent labels and distributors in the top 1,000</h2>
       <div class="tablebox"><table><thead><tr><th class="l">Label</th><th>Artists</th><th>Monthly listeners</th></tr></thead><tbody>
       ${indies.map(([l, v]) => `<tr><td class="l">${esc(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div></section>
-    ${groupsCompare()}
+    ${groupsCompare()}${groupsCompare(true)}
     ${labelDirectory()}
     <section><h2>Rosters: the biggest artists in each group</h2>
       ${G.map(g => `<details class="panel"><summary><b>${esc(g)}</b>: ${gv(g, "artists")} artists</summary><div class="chips">${m.groups[g].top.map(id => byId[id]).filter(Boolean).map(a => `<a class="chip" href="#/a/${a.id}">${esc(a.name)} · ${count(a.ml)}</a>`).join(" ")}</div></details>`).join("")}</section>`;
@@ -762,7 +803,9 @@ function labelPage(s) {
       ${roster.map(a => `<tr><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td>${count(a.ml)}</td><td>${count(a.cl)}</td><td>${a.scout ? `${a.scout.score} ${tierChip(a.scout.tier)}` : "–"}</td><td>${share(a.fresh_share)}</td><td>${pct(a.chg_pct)}</td><td>${usd(a.streaming_mid)}</td><td class="l wrap">${a.top_fresh ? esc(a.top_fresh.title) : `<span class="note">none in 90 days</span>`}</td></tr>`).join("")}
     </tbody></table></div><p class="note">Hip-hop artists in the top 1,000 whose recent releases carry this label. Royalties are paid to the label before the artist's share (see each artist's page).</p></section>
     <section class="panel"><h2>${esc(L.name)}: finances</h2>${own ? `<p class="note">${esc(L.name)} is part of ${esc(L.parent)} and publishes no accounts of its own. The best public measure of its size is the roster's royalties above.</p>` : finTable(L.name)}</section>
+    ${(own ? L.parent : L.name) === "Sony Music" ? sonyMusicPanel() : ""}
     ${healthPanel((store.data.company_of || {})[own ? L.parent : L.name])}
+    ${Object.entries(store.data.group_finances || {}).filter(([, F]) => F.uk?.labels.includes(L.name)).map(([c]) => healthPanel(c)).join("")}
     ${own ? `<section class="panel"><h2>${esc(L.parent)}: key reported figures</h2>${finTable(L.parent)}</section>` : ""}
     ${sister.length ? `<section class="panel"><h2>Other ${esc(L.parent)} labels in the top 1,000</h2><div class="chips">${sister.map(x => `<a class="chip" href="#/label/${x.slug}">${esc(x.name)} · ${x.artists.length}</a>`).join(" ")}</div></section>` : ""}
     ${(store.data.label_logos || {})[L.name] ? `<p class="note">Logo: <a href="${esc(store.data.label_logos[L.name].page)}" target="_blank" rel="noopener">Wikimedia Commons</a> (${esc(store.data.label_logos[L.name].licence)}). Trademarks belong to their owners.</p>` : ""}`;
@@ -781,7 +824,7 @@ const STMT = { IS: ["revenue", "direct_costs", "sga", "da", "operating_income", 
 const RATIO = { revenue_growth: ["Revenue growth", "pct"], operating_margin: ["Operating margin", "pct"], fcf_margin: ["Free cash flow margin", "pct"],
   leverage: ["Net debt / EBITDA (proxy)", "x"], interest_cover: ["Interest cover", "x"], current_ratio: ["Current ratio", "x"], equity_ratio: ["Equity ratio", "pct"],
   net_debt: ["Net debt", "money"], fcf: ["Free cash flow", "money"] };
-const money2 = (v, cur) => v == null ? "–" : `${v < 0 ? "−" : ""}${({ EUR: "€", USD: "$", JPY: "¥" })[cur] || ""}${count(Math.abs(v))}`;
+const money2 = (v, cur) => v == null ? "–" : `${v < 0 ? "−" : ""}${({ EUR: "€", USD: "$", JPY: "¥", GBP: "£" })[cur] || ""}${count(Math.abs(v))}`;
 const fmtRatio = (v, kind, cur) => v == null ? "–" : kind === "pct" ? (v * 100).toFixed(1) + "%" : kind === "x" ? v.toFixed(1) + "×" : money2(v, cur);
 const readingChip = r => r ? `<span class="chip read-${r}">${({ good: "healthy", watch: "watch", weak: "weak" })[r]}</span>` : "";
 function healthPanel(company) {
@@ -791,22 +834,41 @@ function healthPanel(company) {
   const table = (st, title) => { const items = STMT[st].filter(i => cols.some(c => c.values[i] != null)); if (!items.length) return "";
     return `<h3>${title}</h3><div class="tablebox"><table><thead><tr><th class="l"></th>${cols.map(c => `<th${c.type !== "FY" ? ' class="q"' : ""}><a href="${esc(c.source)}" target="_blank" rel="noopener">${esc(c.label)}</a></th>`).join("")}</tr></thead><tbody>
       ${items.map(i => `<tr><td class="l">${esc(ITEM_LABEL[i])}</td>${cols.map(c => `<td${c.type !== "FY" ? ' class="q"' : ""}>${money2(c.values[i], cur)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`; };
+  const uk = F.uk ? `<p class="note">The UK company, not ${esc(F.uk.group)} worldwide: it runs ${F.uk.labels.length ? esc(F.uk.labels.join(", ")) : "the group's labels"} in the UK (labels named in its accounts, or whose releases carry a UK name). <a href="https://find-and-update.company-information.service.gov.uk/company/${esc(F.uk.number)}" target="_blank" rel="noopener">Companies House ${esc(F.uk.number)}</a>. UK accounts are annual; a blank line is one the accounts do not print (UK subsidiaries often file no cash flow statement).</p>` : "";
   return `<section class="panel"><h2>${esc(company)}: financial health ${grade("A")}</h2>
-    ${F.note ? `<p class="note">${esc(F.note)}.</p>` : ""}
+    ${F.note ? `<p class="note">${esc(F.note)}.</p>` : ""}${uk}
     <div class="healthgrid">${Object.entries(RATIO).filter(([k]) => F.health[k]).map(([k, [l, kind]]) => `<div class="hcell"><span class="k">${esc(l)}</span><b>${fmtRatio(F.health[k].value, kind, cur)}</b>${readingChip(F.health[k].reading)}</div>`).join("")}</div>
     <p class="note">Latest fiscal year (${esc(F.years.at(-1)?.period || "–")}), from the company's filed statements (${esc(F.source_kind)}). Readings are credit-analysis rules of thumb, not ratings; the current-ratio bands are set lower for music groups, whose royalties owed to artists and songwriters sit in current liabilities. Compare the groups with each other rather than with other industries.</p>
     ${table("IS", "Income statement")}${table("BS", "Balance sheet")}${table("CF", "Cash flow")}
     <p class="note">Figures as filed, in ${esc(cur)}. Column headings link to the filings. Shaded columns are interim periods: a quarter (three months) or a half-year (six months) to that date, with the balance sheet at that date. A blank means the company does not tag that line in its XBRL; the full statements are in the filing.</p></section>`;
 }
-function groupsCompare() {
+function sonyMusicPanel() {
+  const S = store.data.sony_music;
+  if (!S?.periods?.length) return "";
+  const fy = S.periods.filter(p => p.period_type === "FY" && p.values.sales).slice(-3), q = S.periods.filter(p => p.period_type === "Q" && p.values.sales).slice(-4);
+  const cols = [...fy.map(p => ({ ...p, label: "FY to " + p.period_end.slice(0, 7) })), ...q.map(p => ({ ...p, label: "Q to " + p.period_end.slice(0, 7) }))];
+  const prev = p => S.periods.find(x => x.period_type === p.period_type && x.period_end === `${+p.period_end.slice(0, 4) - 1}${p.period_end.slice(4)}`);
+  const rows = [["recorded_streaming", "Recorded music: streaming"], ["recorded_other", "Recorded music: other"], ["publishing", "Music publishing"], ["visual_media", "Visual media and platform"], ["sales", "Music sales"], ["operating_income", "Operating income"]];
+  const yen = v => v == null ? "–" : "¥" + Math.round(v / 1e9).toLocaleString("en") + "bn";
+  const growth = p => { const b = prev(p); return b?.values.sales ? pct((p.values.sales / b.values.sales - 1) * 100) : "–"; };
+  return `<section class="panel"><h2>Sony Music: the music business on its own ${grade("A")}</h2>
+    <p class="note">Sony Group reports Music as one segment. Its results releases split music sales by type; operating income is the segment's.</p>
+    <div class="tablebox"><table><thead><tr><th class="l"></th>${cols.map(c => `<th${c.period_type !== "FY" ? ' class="q"' : ""}><a href="${esc(c.source)}" target="_blank" rel="noopener">${esc(c.label)}</a></th>`).join("")}</tr></thead><tbody>
+    ${rows.map(([k, l]) => `<tr><td class="l">${k === "sales" || k === "operating_income" ? `<b>${l}</b>` : l}</td>${cols.map(c => `<td${c.period_type !== "FY" ? ' class="q"' : ""}>${yen(c.values[k])}</td>`).join("")}</tr>`).join("")}
+    <tr><td class="l">Operating margin</td>${cols.map(c => `<td${c.period_type !== "FY" ? ' class="q"' : ""}>${c.values.sales && c.values.operating_income != null ? (c.values.operating_income / c.values.sales * 100).toFixed(1) + "%" : "–"}</td>`).join("")}</tr>
+    <tr><td class="l">Sales growth, year on year</td>${cols.map(c => `<td${c.period_type !== "FY" ? ' class="q"' : ""}>${growth(c)}</td>`).join("")}</tr>
+    </tbody></table></div>
+    <p class="note">Sony's fiscal year ends on 31 March. Sales are to external customers by product category, as filed with the SEC (Form 6-K); shaded columns are quarters. Column headings link to the releases.</p></section>`;
+}
+function groupsCompare(uk = false) {
   const G = store.data.group_finances || {};
-  const names = Object.keys(G);
+  const names = Object.keys(G).filter(n => !!G[n].uk === uk);
   if (!names.length) return "";
-  return `<section class="panel"><h2>Label groups' financial health, side by side ${grade("A")}</h2><div class="tablebox"><table><thead><tr><th class="l">Measure</th>${names.map(n => `<th>${esc(n)}</th>`).join("")}</tr></thead><tbody>
+  return `<section class="panel"><h2>${uk ? "The majors' UK record companies" : "Label groups'"} financial health, side by side ${grade("A")}</h2><div class="tablebox"><table><thead><tr><th class="l">Measure</th>${names.map(n => `<th>${esc(n)}</th>`).join("")}</tr></thead><tbody>
     <tr><td class="l">Latest fiscal year</td>${names.map(n => `<td>${esc(G[n].years.at(-1)?.period || "–")}</td>`).join("")}</tr>
     <tr><td class="l">Revenue</td>${names.map(n => `<td>${money2(G[n].years.at(-1)?.values.revenue, G[n].currency)}</td>`).join("")}</tr>
     ${Object.entries(RATIO).map(([k, [l, kind]]) => `<tr><td class="l">${esc(l)}</td>${names.map(n => { const h = G[n].health[k]; return `<td>${h ? fmtRatio(h.value, kind, G[n].currency) + " " + readingChip(h.reading) : "–"}</td>`; }).join("")}</tr>`).join("")}
-  </tbody></table></div><p class="note">Sony Group is the whole group (games, pictures, music, electronics). Bertelsmann (BMG's owner) files no machine-readable accounts, and private labels (EMPIRE, Concord before the BMG merger) publish none.</p></section>`;
+  </tbody></table></div><p class="note">${uk ? "Each company's statutory accounts at Companies House: the UK business only, where the groups' UK labels sign and market artists. A label page shows its UK company when the accounts name the label or its releases carry a UK name (\"Atlantic Records UK\")." : `Sony Group is the whole group (games, pictures, music, electronics). Bertelsmann (BMG's owner) files no machine-readable accounts, and private labels (EMPIRE, Concord before the BMG merger) publish none.`}</p></section>`;
 }
 
 // ---------- artist summary card: level, scout score, worth, attention
@@ -838,6 +900,7 @@ async function route() {
   crumbs((NAMES[h[0]] || []).map((t, i, xs) => [t, i < xs.length - 1 ? SEC[t] : ""]));
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
   else if (h[0] === "rising") rising();
+  else if (h[0] === "month") monthPage();
   else if (h[0] === "pay") pay();
   else if (h[0] === "platforms") platforms();
   else if (h[0] === "tours") tours();

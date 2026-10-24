@@ -368,3 +368,85 @@ def test_report_check_catches_a_wrong_unit():
     assert any("under one million" in f for f in r.checks(read))
     read["unit_multiplier"] = 1000000
     assert r.checks(read) == []
+
+
+def test_scanned_uk_accounts_go_whole_with_the_uk_notes(monkeypatch):
+    import io
+    from pypdf import PdfWriter
+    from src.extract import report_pdf as r
+    w = PdfWriter()
+    for _ in range(30):
+        w.add_blank_page(595, 842)  # a scan: pages without a text layer
+    buf = io.BytesIO()
+    w.write(buf)
+    sent = {}
+    ok = {"currency": "GBP", "unit_multiplier": 1000, "columns": [{"column": 1, "statement": "IS", "period_end": "2025-12-31", "months": 12}],
+          "lines": [{"item": "revenue", "label": "Turnover", "column": 1, "value": 900000, "page": 20}],
+          "absent": [{"item": i, "reason": "x"} for i in ("net_income", "total_assets", "cfo")], "labels_named": ["Polydor"]}
+
+    def call(content, model, effort):
+        sent["pages"] = len(__import__("pypdf").PdfReader(io.BytesIO(__import__("base64").b64decode(content[0]["source"]["data"]))).pages)
+        sent["prompt"] = content[1]["text"]
+        return {"read": ok, "model": model, "usage": {}}
+    monkeypatch.setattr(r, "call", call)
+    row = {"company": "Universal Music Operations Ltd", "document": "Annual accounts", "period_end": "2025-12-31",
+           "url": "https://example.org/x", "basis": "company"}
+    res = r.read_report(row, buf.getvalue())
+    assert sent["pages"] == 30 and res["status"] == "passed"
+    assert "company's own" in sent["prompt"] and "turnover is revenue" in sent["prompt"] and "scan without a text layer" in sent["prompt"]
+
+
+def test_companies_house_filing_history_keeps_full_accounts(monkeypatch):
+    from src.collectors import companies_house as ch
+    page = ('<table><tr><th>Date</th></tr>'
+            '<tr><td>12 Oct 2026</td><td>AA</td><td>Full accounts made up to 31 December 2025</td>'
+            '<td><a href="/company/00950138/filing-history/AbC/document?format=pdf&amp;download=0">View PDF</a></td></tr>'
+            '<tr><td>22 Dec 2025</td><td>CS01</td><td>Confirmation statement</td><td><a href="/x/document?format=pdf&amp;download=0">PDF</a></td></tr>'
+            '<tr><td>01 Jan 2025</td><td>AA</td><td>Dormant company accounts made up to 31 March 2024</td><td><a href="/y/document?format=pdf">PDF</a></td></tr></table>')
+    calls = []
+
+    class R:
+        status_code, text = 200, page
+    monkeypatch.setattr(ch, "get", lambda url, params=None: calls.append(params) or (R if params["page"] == 1 else type("E", (), {"status_code": 404})))
+    got = ch.accounts("00950138")
+    assert [a["made_up"] for a in got] == ["2025-12-31"]
+    assert got[0]["url"].endswith("/company/00950138/filing-history/AbC/document?format=pdf&download=1")
+
+
+def test_backtest_finds_a_signal_that_persists():
+    from datetime import date, timedelta
+    from src import backtest
+    hist = {}
+    start = date(2024, 1, 1)
+    for i in range(120):  # each artist keeps its own weekly growth rate: past growth predicts future growth
+        rate = 1 + (i % 20 - 9.5) / 1000
+        ml = 2_000_000 + i * 1000
+        hist[f"a{i}"] = [((start + timedelta(weeks=w)).isoformat(), int(ml * rate ** w)) for w in range(60)]
+    r = backtest.run(hist, {})
+    assert r["picks"] > 0 and r["hit_rate"] > 0.9
+
+
+def test_this_month_movers_and_short_log(monkeypatch, tmp_path):
+    from src import monthly
+    monkeypatch.setattr(monthly, "SCOUT_LOG", tmp_path / "log.csv")
+    (tmp_path / "log.csv").write_text("date,spotify_id,score,tier,monthly_listeners,label_status\n2026-10-20,a,90,Breaking,100,major\n")
+    rows = [{"id": "a", "ml": 150, "label_status": "major", "scout": {"score": 90, "tier": "Breaking"}},
+            {"id": "b", "ml": 50, "label_status": "self_released", "scout": {"score": 70, "tier": "Rising"}}]
+    hist = {"a": [("2026-09-23", 100), ("2026-10-24", 150)], "b": [("2026-10-10", 60)]}
+    m = monthly.build(rows, hist, "2026-10-24")
+    assert [x["id"] for x in m["up"]] == ["a"] and m["up"][0]["pct"] == 50.0  # b has no value near 30 days ago
+    assert m["log_start"] is None and m["new_breaking"] == [] and m["prospects"] == ["b"]
+    assert all(x["then"] is None for x in m["shares"])
+
+
+def test_sony_music_segment_tables():
+    from src.collectors import sony_music as s
+    pages = ["Segment profit\nYen in millions\nThree months ended June 30\n2025 | 2026 | Change\nOperating income (loss):\n"
+             "Game & Network Services | 147,957 | 202,014 | 54,057\nMusic | 92,807 | 105,882 | 13,075\nTotal | 1 | 2 | 1",
+             "Sales by product category\nYen in millions\nThree months ended June 30\nSales: | 2025 | 2026 | Change\nMusic\n"
+             "Recorded Music - Streaming | 196,016 | 237,066 | 41,050\nRecorded Music - Others | 105,473 | 143,885 | 38,412\n"
+             "Music Publishing | 98,685 | 116,002 | 17,317\nVisual Media and Platform | 58,778 | 60,913 | 2,135\n"
+             "Total | 458,952 | 557,866 | 98,914\nPictures\nMotion Pictures | 107,133 | 102,718 | (4,415"]
+    rows = {(r["period_end"], r["item"]): r["value"] for r in s.parse(pages, "u")}
+    assert rows[("2026-06-30", "operating_income")] == 105_882e6 and rows[("2025-06-30", "sales")] == 458_952e6
+    assert rows[("2026-06-30", "recorded_streaming")] == 237_066e6 and ("2026-06-30", "Motion Pictures") not in rows

@@ -2,6 +2,119 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label research, batch 2 (step a)
+
+- **Researched:** the next 20 unknown artists by monthly listeners. 50 Cent, Soulja Boy and Eve were skipped (low
+  confidence in batch 1).
+  - Evidence: release ℗ lines from Apple's iTunes lookup first, then press, Wikipedia and Deezer.
+  - The 2-year window counts releases where the artist is the lead name, not features.
+- **Applied (11):** ScHoolboy Q, Travie McCoy, Lil' Kim and Twista as catalog: their recent Deezer labels came from
+  features, and their last lead releases were in 2019-2024.
+  - Also applied: Danny Chung (self-released: DistroKid's numbered label name), Matuê and WIU (independent,
+    30PRAUM), Lithe (GSL/Atlantic), PLK (Panenka Music, distributed by Wagram), Baby Rasta y Gringo (Interscope)
+    and Tinie Tempah (Imhotep Records licensed to Believe).
+- **Not applied (9), still unknown:**
+  - Low confidence: BLOK3, Logic (BMG until January 2025, own Boom.Records since), Connor Price, Baby Bash and BIN.
+  - Medium on the label, but no distributor named, so the status could be independent, self-released or
+    major-distributed: Pineapple StormTv, Kid Ink, Wyclef Jean and Niska.
+- **Finding again:** in 8 of the 20, the Deezer label string belonged to another artist's release the artist only
+  featured on.
+  - Proposed fix, for a later step: read the latest *lead* release, not the latest release.
+- **Result:** unknown fell from 253 to 242.
+
+## 2026-10-24 Sony's music business split out (step d)
+
+- **Source:** Sony Group's results releases as filed on EDGAR (Form 6-K, HTML), since sony.com refuses automated
+  access.
+  - Each release has a table of sales by product category, with Music split into Recorded Music (streaming and
+    other), Music Publishing, and Visual Media and Platform.
+  - A segment profit table gives Music's operating income.
+- **Read by rule, not by Claude** (`src/collectors/sony_music.py`): plain tables with fixed row names, at no cost.
+  - Every 6-K since 2023 is checked once for the music table (data/sony_6k_checked.csv): 16 results releases out of
+    about 150 filings.
+  - Each release carries the year before; a later release's figure replaces an earlier one.
+  - In every period the four parts add up exactly to the Music total (checked).
+- **Coverage:** the sales split from FY to March 2024 through the June 2026 quarter. Operating income from FY to
+  March 2022 (older releases lay out the sales table differently and are not parsed).
+- **Site:** Sony Music label pages (Columbia, RCA, Epic and the rest) show a "Sony Music: the music business on its
+  own" panel above Sony Group's health panel: 3 fiscal years and the latest 4 quarters, with margin and growth.
+  Latest year: FY to March 2026, music sales ¥2,091bn (+15%), operating income ¥447bn (21.4%).
+- **Rejected:** Claude reads of the releases. The tables are regular, so a rule is exact and free.
+
+## 2026-10-24 "This month" page (ROADMAP 8.5)
+
+- **Where:** Charts > This month (`#/month`), built by `src/monthly.py`.
+- **Contents:**
+  - movers over 30 days;
+  - new Breaking and Rising artists;
+  - unsigned prospects (self-released with a Breaking or Rising tier);
+  - the share of listening by label status.
+- **Movers today:** 263 of the 1,000 have a month-ago value. It comes from the Wayback copies of kworb's listeners
+  page, which lists only the biggest artists. From 2026-11-20 our own daily snapshots cover every artist.
+- **New Breaking and Rising: held back until the Scout log is 28 days old (from 2026-11-20).** Rejected: comparing
+  with 2026-10-23. Scout's method changed on 10-24 (the ranking update and release dates), so that comparison
+  showed 49 "new" Rising artists caused by our changes, not the artists'.
+- **Label shares:** both dates use today's label status. Comparing the statuses as logged mixed the relabelling
+  (unknown fell from 26% to 14% after the label research) with real shifts in listening.
+
+## 2026-10-24 Scout back-test (ROADMAP 8.2; owner: "Follow steps a to d ... in order")
+
+- **What can be tested:** only listener growth (the Wayback Machine's weekly copies of kworb's listeners page since
+  2023) and Wikipedia attention (24 months of page views, so testable from late 2025). Together they carry 35% of
+  the score.
+  - New-release pull, current share, engagement and chart reach have no archived history; they are tested from our
+    daily log (data/scout_history.csv) once it is 90 days old, in January 2027.
+- **Method (`src/backtest.py`):** one test date a month. On each date: hip-hop artists under 15m listeners in the
+  archived page, with a copy 90 days before and 90 days after.
+  - Scoring is as on the site: percentiles within the size band, weighted mean.
+  - Picks are the top fifth of each band. A hit is a pick that outgrew its band's median over the next 90 days;
+    chance is 50%.
+  - A synthetic test checks that the method finds a signal that persists.
+- **Result:** 39 dates, 2023-05 to 2026-06, 1,448 picks: **45% hit rate**.
+  - With attention (9 dates since late 2025): 49%.
+  - Each factor alone: growth 44%, attention 43% (fewer picks).
+  - Fast 90-day listener growth tends to cool off over the next 90 days. The signals with history do not pick next
+    quarter's risers; if anything, they lean the wrong way.
+- **Published as is** on the Scout page ("Does it work?"), with the bias: the artists are today's registry, so acts
+  that rose and fell away are missing.
+- **Not changed without the owner:** the weights. The question goes to the owner in chat: lower listener growth
+  from 20% (or drop it) until the full back-test in January 2027.
+
+## 2026-10-24 UK label companies' accounts (owner: "R2: yes")
+
+- **Companies:** the majors' UK record companies at Companies House (registry/uk_companies.csv), numbers looked up on
+  the register's own search:
+  - Universal Music Operations Ltd (00950138);
+  - Warner Music UK Ltd (00680511);
+  - Sony Music Entertainment UK Ltd (01471066);
+  - BMG Rights Management (UK) Ltd (06705101).
+- **Route:** Public-Registry's, using the public website, which needs no key or login. The filing history gives each
+  set of full accounts. The latest 5 years per company are kept, 20 documents in all; each also carries the year
+  before, so 6 years are covered.
+- **Scans:** all 20 are scanned paper with no text layer, so pages cannot be selected. Each goes to Claude whole, as
+  Public-Registry sends scans, with notes on UK terms: turnover, the Companies Act balance-sheet format, and no cash
+  flow statement under FRS 101. The checks and correction ladder are the same as for the groups.
+  - Cost: Haiku 5.5 at $0.10 per million input tokens. A 50-page scan is about 80,000 tokens, about 1 cent, so all
+    20 cost about $0.20, plus any corrections.
+- **Rejected: BMG's iXBRL.** BMG's UK company also files machine-readable iXBRL. A second parser (FRS 101/102
+  taxonomies) for one document a year saves about a cent, so its PDF goes the same way.
+- **Labels linked to a UK company:** nothing is linked by assumption; there are two sources, and only labels of the
+  company's own group count.
+  - The labels its accounts name (labels_named in the read). In practice the accounts mostly list subsidiary
+    companies ("Laurel Records Limited"), which are separate, often dormant, so names ending in Limited/Ltd are left
+    out. Warner Music UK's strategic report speaks only of "its constituent labels".
+  - The group's labels whose releases carry a UK name ("Atlantic Records UK", "Parlophone UK", "Epic Records UK",
+    "BMG Rights Management (UK) Ltd."). That is the group's UK arm, and each major has one UK record company.
+  - Result: UMO for Def Jam Recordings, EMI, Island Records, Polydor and Virgin Music Group; Warner Music UK for
+    Atlantic Records and Parlophone; Sony Music UK for Epic Records; BMG UK for BMG.
+  - The label page shows the UK company's health under the group's, marked as the UK business only.
+- **First reads (2026-10-24):** all 20 passed Haiku's first read, with no correction and no Opus call: about 1.4
+  million input and 70,000 output tokens, about $0.18. Spot checks against the scans match: Warner Music UK FY2025
+  turnover £309.3m, profit £40.9m and equity £127.0m; BMG UK 2025 net assets £483.0m (2024: £463.3m, after a £380m
+  share capital), creditors due within a year £127.4m.
+- **Not covered:** the US label companies (Atlantic, Interscope, Columbia and the rest) are subsidiaries that publish
+  no accounts. The UK is the one large market where label companies must file theirs.
+
 ## 2026-10-24 · Design and usability in line with tventy sport
 - **Owner:** "Revamp the tventy music site so its design is more in line with tventy sport ... consistency in usability when switching from sport to music on desktop and mobile."
 - **Chosen,** each taken from the sport site:
@@ -26,6 +139,7 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - **Serving:** this repository still builds and deploys the Cloudflare Pages project rap-ledger. The tventy.se router lives in the Public-Registry repository (`worker/`) and serves this project under /music. The site's relative paths work there unchanged.
 - **Rejected:** moving this repository's code and data into Public-Registry. Two unrelated pipelines would be joined for no gain on the site.
 - **Owner's steps:** remove the Cloudflare Access application on rap-ledger.pages.dev, since the router must reach it. DNS and the router are set up from Public-Registry.
+
 ## 2026-10-24 First report reads (owner added the API key: "R1 done ... Check company sites for PDFs if not found somewhere else")
 
 - **Sony's site:** sony.com refuses automated requests ("Access Denied"). Its results releases are read from the

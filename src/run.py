@@ -22,6 +22,8 @@
   reports   report PDFs with no XBRL (registry/report_pdfs.csv) read by Claude: Haiku, checks, Opus fallback (needs
             the ANTHROPIC_API_KEY secret)
   financials label groups' income statement, balance sheet and cash flow from XBRL filings (SEC, ESEF; quarterly)
+            and the list of the majors' UK accounts at Companies House (data/uk_accounts.csv, read by `reports`)
+            and Sony's Music segment from its results releases on EDGAR (data/sony_music.csv)
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
 """
 import csv
@@ -300,6 +302,10 @@ def reports_step(limit: int | None = None) -> None:
 def financials_step() -> None:
     from .collectors import financials
     print("financial statements:", financials.update())
+    from .collectors import companies_house
+    print("UK accounts at Companies House:", companies_house.update())
+    from .collectors import sony_music
+    print("Sony Music segment figures:", sony_music.update())
 
 
 def apple_step() -> None:

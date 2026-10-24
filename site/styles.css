@@ -215,6 +215,8 @@ th[data-lsort] { cursor: pointer; user-select: none; }
 .panel h3 { font-size: 14px; margin: 8px 0 0; }
 td.q, th.q { background: var(--soft); }
 .hcell .chip { justify-self: start; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
 /* tventy.se: the small section word under the wordmark switches between /music and /sport (Public-Registry worker) */
 .brandbox { display: inline-flex; flex-direction: column; line-height: 1; }
 .brandbox .section { align-self: flex-end; margin-top: 1px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: lowercase; text-decoration: none; color: var(--muted); }
