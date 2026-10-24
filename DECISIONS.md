@@ -43,6 +43,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
   (grade C); see the C1 entry. Presentation pending the owner (suggested: as now).
 - **Kept fresh:** the monthly workflow runs every per-artist step for country too, plus `countrycrawl`,
   `country-from-crawl` and `confirm-country`; the daily Scout log records country scores.
+- **MusicBrainz dates** were stopped for country tonight: the step works through every unlooked-up ISRC in the shared
+  song cache (36,000 at one a second, about 10 hours). Deezer already dates 7,287 of the 7,526 country songs; the
+  monthly workflow keeps working through the backlog within its 75-minute limit.
 - **Copy:** on country pages "top 1,000" reads as the real list size and "hip-hop or rap" as "country".
 
 ## 2026-10-24 Country tours (overnight research)
