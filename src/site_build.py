@@ -1,6 +1,7 @@
 """Builds site/data/index.json: every number the pages show, computed once; the browser only reads and sorts."""
 import csv
 import json
+import re
 from datetime import date, datetime, timedelta, timezone
 
 from . import backtest, current, monthly, health, insights, labels, money, revenue
@@ -57,6 +58,7 @@ def build() -> dict:
     streams, pics = latest_streams(), _json(PHOTOS, {})
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
+    videos = json.loads(kworb_youtube.VIDEOS.read_text()) if kworb_youtube.VIDEOS.exists() else {}
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
     views, history = wikipedia.load(), wayback.load()
@@ -123,6 +125,7 @@ def build() -> dict:
             "revivals": cur.get("revivals", []),
             "fresh_share": round(cur["fresh_share"], 4) if cur.get("fresh_share") is not None and cur.get("ok") else None,
             "fresh_daily": cur.get("fresh_daily"), "top_fresh": cur.get("top_fresh"),
+            "video": pick_video(videos.get(t["spotify_id"]), a["name"], (cur.get("top_fresh") or {}).get("title")),
             "latest_release": cur.get("latest_release"),
             "attention": insights.attention(views.get(t["spotify_id"], [])),
             "apple": apple.get(t["spotify_id"]),
@@ -186,6 +189,27 @@ def build() -> dict:
 
 
 SIGNED = ("major", "major_distributed", "independent")
+
+
+def _norm(s: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
+
+
+def pick_video(entry: dict | None, name: str, hit: str | None) -> dict | None:
+    """The video to show for a Scout riser (data/videos.json): the one titled after the newest hit; else, from kworb,
+    the most watched yesterday among the artist's own videos (title starts with their name; kworb also lists videos
+    they only feature on); from a channel feed, the latest upload."""
+    vids = (entry or {}).get("videos") or []
+    if not vids:
+        return None
+    if hit and len(_norm(hit)) >= 3:
+        match = next((v for v in vids if _norm(hit) in _norm(v["title"])), None)
+        if match:
+            return {**match, "why": "newest hit"}
+    if entry.get("source") == "feed":
+        return {**vids[0], "why": "latest upload"}
+    own = [v for v in vids if _norm(v["title"]).startswith(_norm(name))]
+    return {**(own or vids)[0], "why": "most watched"}
 
 
 def release_counts(rels: dict, table: list[dict]) -> dict[str, int]:

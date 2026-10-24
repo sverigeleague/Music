@@ -70,6 +70,42 @@ def fetch(spotify_id: str, name: str, day: str) -> dict | None:
     return None
 
 
+VIDEOS = DATA / "videos.json"
+KEEP = 6
+
+
+def videos(html: str) -> list[dict]:
+    """The page's video table: YouTube video ID, title, total views, yesterday's views, month published."""
+    out = []
+    for vid, title, views, yday, pub in re.findall(
+            r'href="\.\./video/([\w-]{11})\.html">(.*?)</a>.*?<td>([\d,]+)</td>\s*<td>([\d,]*)</td>\s*<td>(\d{4}/\d{2})</td>', html, re.S):
+        out.append({"id": vid, "title": htmllib.unescape(re.sub(r"<[^>]+>", "", title)).strip(), "views": _int(views),
+                    "yesterday": _int(yday) or 0, "published": pub.replace("/", "-")})
+    return out
+
+
+def update_videos(artists: dict[str, str], day: str) -> int:
+    """For Scout's risers (spotify_id -> kworb slug, from data/youtube.csv): the KEEP videos with the most views
+    yesterday, saved to data/videos.json. The page must link back to the same Spotify ID. Videos play on the site
+    in YouTube's privacy-enhanced player, only on a click."""
+    import json
+    have = json.loads(VIDEOS.read_text()) if VIDEOS.exists() else {}
+    n = 0
+    for sid, slug in artists.items():
+        r = get(URL.format(slug=slug))
+        if r.status_code != 200:
+            continue
+        html = r.content.decode("utf-8", "replace")
+        if parse(html)["spotify_id"] != sid:
+            continue
+        vids = sorted(videos(html), key=lambda v: -v["yesterday"])[:KEEP]
+        if vids:
+            have[sid] = {"date": day, "source": "kworb", "slug": slug, "videos": vids}
+            n += 1
+    VIDEOS.write_text(json.dumps(have, ensure_ascii=False, indent=0))
+    return n
+
+
 def save(rows: list[dict]) -> None:
     new = not CSV.exists()
     with CSV.open("a", newline="") as f:

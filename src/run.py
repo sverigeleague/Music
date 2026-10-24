@@ -24,6 +24,7 @@
   financials label groups' income statement, balance sheet and cash flow from XBRL filings (SEC, ESEF; quarterly)
             and the list of the majors' UK accounts at Companies House (data/uk_accounts.csv, read by `reports`)
             and Sony's Music segment from its results releases on EDGAR (data/sony_music.csv)
+  videos    the busiest YouTube videos of Scout's risers from kworb's YouTube pages -> data/videos.json (weekly)
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
 """
 import csv
@@ -221,6 +222,31 @@ def youtube_step(limit: int | None = None) -> None:
     print(f"YouTube: {len(rows)} of {len(todo)} artists found")
 
 
+def videos_step(limit: int | None = None) -> None:
+    """Weekly: the busiest YouTube videos of Scout's Breaking and Rising artists and the unsigned prospects."""
+    log = DATA / "scout_history.csv"
+    rows = list(csv.DictReader(log.open())) if log.exists() else []
+    day = max((r["date"] for r in rows), default="")
+    risers = {r["spotify_id"] for r in rows if r["date"] == day and r["tier"] in ("Breaking", "Rising")}
+    risers |= {r["spotify_id"] for r in rows if r["date"] == day and r["label_status"] == "self_released"
+               and r["tier"] == "Watch"}
+    slugs = {s: r["slug"] for s, r in kworb_youtube.load_latest().items() if s in risers and r["slug"]}
+    artists = load_artists()
+    todo = dict(list(slugs.items())[:limit])
+    print(f"YouTube videos: {kworb_youtube.update_videos(todo, today())} of {len(todo)} risers with a kworb page")
+    # the rest: the channel's latest uploads from YouTube's public feed (channel IDs from Wikidata)
+    from .collectors import youtube_feed
+    vids = json.loads(kworb_youtube.VIDEOS.read_text()) if kworb_youtube.VIDEOS.exists() else {}
+    n = 0
+    for s in [s for s in risers if s not in slugs and artists.get(s, {}).get("youtube_channel")][:limit]:
+        latest = youtube_feed.latest(artists[s]["youtube_channel"])[:kworb_youtube.KEEP]
+        if latest:
+            vids[s] = {"date": today(), "source": "feed", "videos": latest}
+            n += 1
+    kworb_youtube.VIDEOS.write_text(json.dumps(vids, ensure_ascii=False, indent=0))
+    print(f"YouTube videos: {n} more risers from their channel's feed")
+
+
 def ytapi_step() -> None:
     n = youtube_api.update({a["spotify_id"]: a["youtube_channel"] for a in tracked() if a["youtube_channel"]})
     print("YouTube API: no YOUTUBE_API_KEY, skipped" if n is None else f"YouTube API: {n} channels")
@@ -322,7 +348,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

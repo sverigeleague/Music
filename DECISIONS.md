@@ -2,6 +2,46 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label research batch 3, videos for the risers, Scout radio (owner: "Go with a, b and c in that order")
+
+- **a) Label research on the 14 that moved from major to unknown:**
+  - Applied (medium confidence): DYSTINCT (Avalon Music, in a Sony Music partnership: major-distributed), MF DOOM
+    (Rhymesayers, a 2024 reissue: independent) and Teto (30PRAUM: independent). 30PRAUM was added to the owner
+    table, so Matuê, WIU and Teto read the same.
+  - Still unknown (low confidence: only the artist's own imprint on the ℗ line, no distributor named): Mauvais
+    djo, Waka Flocka Flame, L7NNON, MC Cabelinho, Millonario, Vacra, Eypio, Djonga, Vegedream, Caio Luccas and
+    Chris MC. Each could be independent, self-released or major-distributed. Guessing would put a wrong label on
+    the site.
+  - Unknown fell from 289 to 286.
+- **b) Videos for the risers:**
+  - **Sources:** kworb's YouTube artist pages (the busiest videos by yesterday's views) where kworb has a page, and
+    otherwise the channel's public feed of its latest uploads (no key, no login; channel IDs from Wikidata). kworb
+    tracks only artists big on YouTube: 22 of the 194 risers.
+  - **Coverage:** 125 of the 194 risers have a video (25 from kworb, 100 from channel feeds). The rest have neither
+    a kworb page nor a channel ID.
+  - **Pick (`pick_video`):** the video titled after the newest hit (34); otherwise the artist's own most-watched video
+    on kworb, skipping videos they only feature on (21); otherwise the latest upload (70). Shorts are left out.
+  - **Site:** a 🎬 button beside ▶ on the Scout list, the unsigned prospects and the riser's page. It plays in
+    YouTube's privacy-enhanced player (youtube-nocookie.com) in the same docked player, loaded only on a click.
+  - **Schedule:** weekly on Fridays in the daily workflow (`python -m src.run videos`, about 4 minutes).
+  - **Rejected:** the YouTube Data API. It needs a key and quota, and the free sources cover what kworb and the
+    feeds can.
+- **c) Scout radio:**
+  - **What:** a "📻 Scout radio" button on the Scout list plays a 30-second Deezer preview of each artist's newest hit,
+    one after another, in the order shown. It follows the list's filters, so "Unsigned" plus radio plays the unsigned
+    risers only.
+  - **Controls:** previous, pause, next, ☆ watchlist, and a link to the track on Deezer ("Preview: Deezer").
+  - **Coverage:** 406 of the 1,000 have a newest hit with a Deezer track ID; 208 are on the default Breaking + Rising
+    list.
+  - **How:** Deezer's preview links expire within the hour, so each is fetched just before it plays, through Deezer's
+    API in its documented JSONP form (the API sends no CORS headers). Nothing loads before the radio is started; a
+    song without a preview is skipped after 2 seconds.
+  - **Tested** in headless Chromium: Deezer answered and the previews streamed (HTTP 206), skipping works and the
+    watchlist star toggles.
+  - **Rejected:** Deezer's widget (no queue we can drive) and Apple's previews (found only by searching for the song
+    by name, so less exact).
+
+
 ## 2026-10-24 Scout weights after the back-test, labels from lead releases, and a player for the risers
 
 - **Scout weights (owner: "S1: 5%" and "Don't put so much weight on Wikipedia attention"):** listener growth 20% to

@@ -94,7 +94,8 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
         if 0 <= (today - d).days <= FRESH_DAYS:
             fresh += wd(r)
             if not top_fresh or r["daily"] > top_fresh["daily"]:
-                top_fresh = {"title": r["title"], "daily": r["daily"], "released": d.isoformat(), "id": r["track_id"]}
+                top_fresh = {"title": r["title"], "daily": r["daily"], "released": d.isoformat(), "id": r["track_id"],
+                             "dz": dates.get(r["track_id"], {}).get("deezer_id") or None}
         if not r["feature"] and d <= today and (not latest or d > latest):
             latest = d
         old = before.get(r["track_id"])
