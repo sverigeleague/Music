@@ -5,8 +5,8 @@
   {
    "key": "majors",
    "label": "Majors' share of the top 1,000's listeners",
-   "value": "57%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 738 of 1000 artists are known",
+   "value": "58%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 745 of 1000 artists are known",
    "link": "#/labels"
   },
   {
@@ -48,7 +48,7 @@
    "key": "producer",
    "label": "Producer behind the most streams",
    "value": "Ye",
-   "detail": "credited on songs with 4.4m Spotify streams a day (credits partial)",
+   "detail": "credited on songs with 4.5m Spotify streams a day (credits partial)",
    "link": "#/producers"
   },
   {
