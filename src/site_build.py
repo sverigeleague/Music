@@ -5,7 +5,7 @@ import re
 from datetime import date, datetime, timedelta, timezone
 
 from . import backtest, current, monthly, health, insights, labels, money, revenue
-from .collectors import apple_charts, logos, sony_music, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
+from .collectors import apple_charts, deezer, logos, sony_music, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
 from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
@@ -115,7 +115,7 @@ def build(genre: str = "hip_hop") -> dict:
         if tr.get("isrc") and tr.get("deezer_date", "") >= cutoff and tid in lead.get(tr["artist_id"], ()):
             isrcs.setdefault(tr["artist_id"], []).append(tr["isrc"][:5])
     first = {a["spotify_id"]: labels.artist_status(rels.get(a.get("deezer_id", ""), []), a["name"], table)
-             for a in artists.values() if a["genre"] == genre and a.get("deezer_match") == "exact"}
+             for a in artists.values() if a["genre"] == genre and a.get("deezer_match") in deezer.CONFIRMED}
     registrants = labels.learn_registrants(first, isrcs)
     rows = []
     for t in top:
@@ -147,7 +147,7 @@ def build(genre: str = "hip_hop") -> dict:
             "lead_daily": num(s.get("lead_daily")), "feature_daily": num(s.get("feature_daily")),
             "tracks": num(s.get("tracks")), "top_track": s.get("top_track") or None,
             "top_track_streams": num(s.get("top_track_streams")), "streams_date": s.get("date"),
-            "deezer_fans": num(a.get("deezer_fans")) if a.get("deezer_match") == "exact" else None,
+            "deezer_fans": num(a.get("deezer_fans")) if a.get("deezer_match") in deezer.CONFIRMED else None,
             "country": a["country"] or None, "born": a["born"] or None, "since": a["active_since"][:4] or None,
             "labels": wd_labels, "major": majors[0] if len(majors) == 1 else ("several majors" if majors else None),
             "deal_type": deal, "label_status": status["status"], "label_owner": status["owner"] or None,

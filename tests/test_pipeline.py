@@ -538,3 +538,26 @@ def test_country_revenue_has_pandora_and_radio_songwriting():
     r = cy["radio"]
     assert r["artist"] is None and r["group"] == "Publishing"
     assert round(r["generated"]["mid"]) == round(48.65e6 * 52 * 0.25 / 1000)  # about $632k
+
+
+def test_deezer_by_isrc_takes_the_artist_credited_on_most_songs(monkeypatch):
+    from src.collectors import deezer
+
+    class R:
+        status_code = 200
+
+        def __init__(self, j):
+            self.j = j
+
+        def json(self):
+            return self.j
+    songs = {"A": [{"id": 1, "name": "Eve"}], "B": [{"id": 1, "name": "Eve"}, {"id": 9, "name": "Swizz"}],
+             "C": [{"id": 2, "name": "Eve"}]}
+
+    def fake(url, params=None):
+        if "isrc:" in url:
+            return R({"id": 5, "contributors": songs[url.split(":")[-1]]})
+        return R({"nb_fan": 77})
+    monkeypatch.setattr(deezer, "get", fake)
+    assert deezer.by_isrc("Eve", ["A", "B", "C"]) == {"deezer_id": 1, "deezer_fans": 77, "deezer_match": "isrc"}
+    assert deezer.by_isrc("Eve", ["A", "C"]) is None  # one song each: no majority
