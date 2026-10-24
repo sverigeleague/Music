@@ -332,3 +332,15 @@ def test_health_ratios():
     r = health._ratios(p, {"revenue": 800})
     assert r["revenue_growth"] == 0.25 and r["net_debt"] == 400 and r["leverage"] == 2.0 and r["fcf"] == 180
     assert health._reading("leverage", 2.0) == "good" and health._reading("current_ratio", 0.8) == "watch"
+
+
+def test_report_pdf_locates_interim_statement_headings():
+    from src.extract import report_pdf as r
+    filler = "Our strategy and our people. " * 40
+    nums = " ".join(f"{i},{i:03d}" for i in range(100, 130))
+    pages = [filler,
+             "Condensed Consolidated Interim Statements of Profit or Loss Six months ended June 30 Revenues 6,194 947 312 " + "(1) 12 " * 5,
+             "Main aggregates of the Statement of profit or loss " + nums,
+             "Condensed Consolidated Interim Statements of Financial Position " + nums,
+             "Notes to the condensed consolidated interim financial statements " + nums]
+    assert r.locate(pages) == [1, 3]

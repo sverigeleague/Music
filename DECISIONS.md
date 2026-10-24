@@ -27,6 +27,20 @@ What was chosen, what was considered and rejected, and why. Newest first.
   - **Current ratio bands set for music:** good 0.9+, watch 0.6+. Royalties owed to artists sit in current
     liabilities, so every group runs below 1.
   - **UMG's EBITDA proxy:** operating income plus amortisation and impairment of intangibles, the only D&A it tags.
+- **PDF route aligned with Public-Registry** (owner: "make sure you are using the efficient pdf reading we
+  established"):
+  - **Same as there:**
+    - its page finder;
+    - PDF input, not text;
+    - Haiku at medium effort;
+    - corrections first by Haiku at high effort, then by Opus with the server-side fallback;
+    - failed reads excluded and listed;
+    - a fixed 2% Opus audit chosen by document ID.
+  - **Interim reports:** "Consolidated Interim Statements of ..." headings and short numbers ("947") are now
+    recognised.
+  - **Dry run on the 5 queued reports (no Claude call):** exactly the income statement, balance sheet and cash flow
+    pages of each, 15 pages sent of 435.
+  - **Not taken over:** the Batches API. About 5 documents a month would save under $0.05.
 - **PDF route, built and not yet run** (`src/extract/report_pdf.py`, `registry/report_pdfs.csv`): UMG's half-year
   reports, Sony's quarterly results (music segment) and Bertelsmann/BMG. It needs the `ANTHROPIC_API_KEY` secret on
   this repository and the owner's approval of the cost.
