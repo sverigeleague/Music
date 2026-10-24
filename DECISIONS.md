@@ -2,6 +2,17 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 · The site becomes tventy music at tventy.se/music, public
+- **Owner:** "tventy.se/sport for the basketball site and then tventy.se/music for the rap ledger ... no mention of rap ledger just that site there. The theme should be inverse with a black background and white text ... Public. Go."
+- **Chosen:**
+  - **Name:** the site name is tventy, with "music" in small type below it to the right. Pressing it goes to tventy.se/sport, whose header reads "sport" and links back.
+  - **Rap Ledger removed** from every page: title, header and the CSV file name. The browser-storage key for watchlists keeps its old name, so saved watchlists survive.
+  - **Theme:** inverse, a black background and white text, using the same tokens. The up/down colours are lightened for contrast; logos keep a white backing; the label-share shades run light to dark.
+  - **Public:** the noindex tag is removed.
+- **Serving:** this repository still builds and deploys the Cloudflare Pages project rap-ledger. The tventy.se router lives in the Public-Registry repository (`worker/`) and serves this project under /music. The site's relative paths work there unchanged.
+- **Rejected:** moving this repository's code and data into Public-Registry. Two unrelated pipelines would be joined for no gain on the site.
+- **Owner's steps:** remove the Cloudflare Access application on rap-ledger.pages.dev, since the router must reach it. DNS and the router are set up from Public-Registry.
+
 ## 2026-10-24 Label groups' financial statements and health (owner: "download and screen all their relevant quarterly and annual financial reports with all three statements ... learn from ... Hoop Ledger / Tventy ... cheap extraction of information from PDFs")
 
 - **Lesson from the Public-Registry project:** machine-readable filings first, at no Claude cost. A PDF goes to

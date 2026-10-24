@@ -471,7 +471,7 @@ function scoutPage() {
   bindStars(scoutPage);
   app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
-  app.querySelector("#csv").onclick = () => download("rap-ledger-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
+  app.querySelector("#csv").onclick = () => download("tventy-music-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
     ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || "", a.label_status, a.label_owner || "", a.country || "", a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
 }
 
@@ -542,7 +542,7 @@ function worthTable() {
 
 // ---------- labels: who owns the hip-hop top 1,000
 const GROUP_ORDER = ["Universal Music Group", "Sony Music", "Warner Music Group", "Independent labels", "Self-released", "Not yet known"];
-const SHADE = ["#000", "#3b3f46", "#6b7079", "#a3a8b1", "#d3d6db", "repeating-linear-gradient(45deg,#d3d6db 0 3px,#fff 3px 6px)"];
+const SHADE = ["#fff", "#d3d6db", "#a3a8b1", "#6b7079", "#3b3f46", "repeating-linear-gradient(45deg,#3b3f46 0 3px,#000 3px 6px)"];  // light to dark on the black theme
 function stack(parts) {
   const tot = parts.reduce((s, [, v]) => s + v, 0) || 1;
   return `<div class="stack">${parts.map(([g, v], i) => `<i style="width:${v / tot * 100}%;background:${SHADE[i]}" title="${esc(g)}: ${Math.round(v / tot * 100)}%"></i>`).join("")}</div>`;
