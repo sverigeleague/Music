@@ -2,6 +2,26 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label research, batch 2 (step a)
+
+- **Researched:** the next 20 unknown artists by monthly listeners. 50 Cent, Soulja Boy and Eve were skipped (low
+  confidence in batch 1).
+  - Evidence: release ℗ lines from Apple's iTunes lookup first, then press, Wikipedia and Deezer.
+  - The 2-year window counts releases where the artist is the lead name, not features.
+- **Applied (11):** ScHoolboy Q, Travie McCoy, Lil' Kim and Twista as catalog: their recent Deezer labels came from
+  features, and their last lead releases were in 2019-2024.
+  - Also applied: Danny Chung (self-released: DistroKid's numbered label name), Matuê and WIU (independent,
+    30PRAUM), Lithe (GSL/Atlantic), PLK (Panenka Music, distributed by Wagram), Baby Rasta y Gringo (Interscope)
+    and Tinie Tempah (Imhotep Records licensed to Believe).
+- **Not applied (9), still unknown:**
+  - Low confidence: BLOK3, Logic (BMG until January 2025, own Boom.Records since), Connor Price, Baby Bash and BIN.
+  - Medium on the label, but no distributor named, so the status could be independent, self-released or
+    major-distributed: Pineapple StormTv, Kid Ink, Wyclef Jean and Niska.
+- **Finding again:** in 8 of the 20, the Deezer label string belonged to another artist's release the artist only
+  featured on.
+  - Proposed fix, for a later step: read the latest *lead* release, not the latest release.
+- **Result:** unknown fell from 253 to 242.
+
 ## 2026-10-24 Sony's music business split out (step d)
 
 - **Source:** Sony Group's results releases as filed on EDGAR (Form 6-K, HTML), since sony.com refuses automated
