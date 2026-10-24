@@ -347,3 +347,13 @@ def test_report_pdf_locates_interim_statement_headings():
              "Notes to the Condensed Consolidated Interim Financial Statements " + nums,
              "Main aggregates of the Statement of profit or loss " + nums]
     assert r.locate(pages) == [1, 3]
+
+
+def test_report_html_tables_become_pages():
+    from src.extract import report_pdf as r
+    nums = "".join(f"<tr><td>Line {i}</td><td>{i},{i:03d}</td><td>{i},{i + 1:03d}</td></tr>" for i in range(100, 115))
+    html = (f"<html><body><p>Overview of the quarter</p><p>Condensed Quarterly Consolidated Statements of Income</p>"
+            f"<table>{nums}</table><p>Notes to the Condensed Consolidated Financial Statements</p><table>{nums}</table>"
+            f"</body></html>").encode()
+    pages = r.html_pages(html)
+    assert len(pages) == 2 and r.locate(pages) == [0]
