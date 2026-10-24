@@ -1,5 +1,8 @@
 # Monthly (2nd of the month, after the month's last daily snapshot): registry and genre review list, stream totals,
-# release dates of new songs, Deezer fans and photos for new artists, Wikipedia page views. About 20 minutes after the first month (MusicBrainz allows one request a second).
+# release dates of new songs (Deezer, then MusicBrainz, then a second Deezer pass for the songs still undated),
+# Deezer fans, labels and label owners, YouTube, photos for new artists, Wikipedia page views.
+# Each data step may fail or time out on its own without losing the others: the commit runs whatever happened.
+# Can also be started by hand (Actions > monthly > Run workflow) on any branch; it commits to that branch.
 name: monthly
 on:
   schedule:
@@ -13,7 +16,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -22,22 +25,49 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: python -m src.run registry
+        continue-on-error: true
+        timeout-minutes: 40
       - run: python -m src.run streams
+        continue-on-error: true
+        timeout-minutes: 40
       - run: python -m src.run dates
+        continue-on-error: true
+        timeout-minutes: 90
       - run: python -m src.run mbdates
+        continue-on-error: true
+        timeout-minutes: 75
+      - run: python -m src.run dates-retry
+        continue-on-error: true
+        timeout-minutes: 40
       - run: python -m src.run deezer
+        continue-on-error: true
+        timeout-minutes: 15
       - run: python -m src.run labels
+        continue-on-error: true
+        timeout-minutes: 20
       - run: python -m src.run mblabels
+        continue-on-error: true
+        timeout-minutes: 20
       - run: python -m src.run youtube
+        continue-on-error: true
+        timeout-minutes: 20
       - run: python -m src.run ytapi
+        continue-on-error: true
+        timeout-minutes: 10
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       - run: python -m src.run photos
+        continue-on-error: true
+        timeout-minutes: 15
       - run: python -m src.run pageviews
+        continue-on-error: true
+        timeout-minutes: 20
       - name: Commit
+        if: always()
         run: |
           git config user.name "music-bot"
           git config user.email "music-bot@users.noreply.github.com"
           git add raw data registry review site/photos
           git diff --cached --quiet || git commit -m "Monthly refresh $(date -u +%F)"
-          git push
+          git pull --no-rebase --no-edit origin "${GITHUB_REF_NAME}" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}"
