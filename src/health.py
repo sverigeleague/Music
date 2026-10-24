@@ -14,7 +14,8 @@ from .collectors import financials
 YEARS, QUARTERS = 5, 4
 # label-page parent name -> company in the statements
 COMPANY_OF = {"Universal Music Group": "Universal Music Group", "Warner Music Group": "Warner Music Group",
-              "Sony Music": "Sony Group", "Believe": "Believe", "Reservoir Media": "Reservoir Media"}
+              "Sony Music": "Sony Group", "Believe": "Believe", "Reservoir Media": "Reservoir Media",
+              "BMG": "Bertelsmann", "Bertelsmann": "Bertelsmann"}
 # ratio -> (good when, watch when) as (comparison, value); anything else reads "weak"
 HEALTH_RULES = {
     "leverage": (("<=", 2.5), ("<=", 4.0)),
@@ -89,7 +90,7 @@ def build() -> dict:
         latest = years[-1] if years else None
         out[name] = {
             "currency": next((r["currency"] for r in mine if r["item"] == "revenue"), ""),
-            "note": c.get("note", ""), "source_kind": "SEC XBRL" if c["source"] == "sec" else "ESEF annual report (XBRL)",
+            "note": c.get("note", ""), "source_kind": {"sec": "SEC XBRL", "esef": "ESEF annual report (XBRL)", "pdf": "report PDFs read by Claude, checked"}[c["source"]],
             "years": years, "quarters": quarters,
             "health": {k: {"value": v, "reading": _reading(k, v)} for k, v in (latest["ratios"].items() if latest else [])
                        if k in HEALTH_RULES or k in ("net_debt", "fcf", "revenue_growth")},

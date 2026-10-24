@@ -29,6 +29,8 @@ COMPANIES = [
      "note": "the whole Sony group (games, pictures, music, electronics); its music segment is not split out here"},
     {"company": "Universal Music Group", "source": "esef", "lei": "724500GJBUL3D9TW9Y18"},
     {"company": "Believe", "source": "esef", "lei": "969500WGEAZ8YE4UAI86"},
+    {"company": "Bertelsmann", "source": "pdf",
+     "note": "BMG's owner; the whole Bertelsmann group (BMG is one division), read from its report PDFs"},
 ]
 
 # standard item -> (statement, concepts in order of preference); the first concept with a value for a period wins.
@@ -186,6 +188,8 @@ def esef(c: dict) -> list[dict]:
 def update() -> dict[str, int]:
     rows, counts = [], {}
     for c in COMPANIES:
+        if c["source"] == "pdf":
+            continue  # read from report PDFs (src/extract/report_pdf.py)
         got = sec(c) if c["source"] == "sec" else esef(c)
         counts[c["company"]] = len(got)
         rows += got
