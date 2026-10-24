@@ -2,6 +2,30 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 · Design and usability in line with tventy sport
+- **Owner:** "Revamp the tventy music site so its design is more in line with tventy sport ... consistency in usability when switching from sport to music on desktop and mobile."
+- **Chosen,** each taken from the sport site:
+  - **Header:** the wordmark with the section switcher, a search box, and the section buttons on the right.
+  - **Phone header:** the search takes a full row, and the section buttons scroll in one row below it.
+  - **Search:** artists by name, then labels. Arrow keys and Enter work, and "/" focuses the box. There is a second, larger search on the start page.
+  - **Breadcrumbs under the header:** Home / section / page.
+  - **Start page:** "Global Hip-Hop", the big search, four headline figures, then "Right now" as a framed band with a button, then the three doors, then the top list.
+  - **Key-figure tiles:** outlined, no fill, the value at 22px, as sport's key figures.
+  - **Phones:** the artist photo and label logo sit beside the name, the "Right now" cards are two per row, and the sub-menus scroll sideways.
+  - **Footer:** links to Method, Report a correction and tventy sport.
+- **Unchanged:** every page's content, figures, tables and sources.
+- **Rejected:** copying the sport site's code wholesale. The two sites have different pages; only the shared shell and patterns were brought over.
+
+## 2026-10-24 · The site becomes tventy music at tventy.se/music, public
+- **Owner:** "tventy.se/sport for the basketball site and then tventy.se/music for the rap ledger ... no mention of rap ledger just that site there. The theme should be inverse with a black background and white text ... Public. Go."
+- **Chosen:**
+  - **Name:** the site name is tventy, with "music" in small type below it to the right. Pressing it goes to tventy.se/sport, whose header reads "sport" and links back.
+  - **Rap Ledger removed** from every page: title, header and the CSV file name. The browser-storage key for watchlists keeps its old name, so saved watchlists survive.
+  - **Theme:** inverse, a black background and white text, using the same tokens. The up/down colours are lightened for contrast; logos keep a white backing; the label-share shades run light to dark.
+  - **Public:** the noindex tag is removed.
+- **Serving:** this repository still builds and deploys the Cloudflare Pages project rap-ledger. The tventy.se router lives in the Public-Registry repository (`worker/`) and serves this project under /music. The site's relative paths work there unchanged.
+- **Rejected:** moving this repository's code and data into Public-Registry. Two unrelated pipelines would be joined for no gain on the site.
+- **Owner's steps:** remove the Cloudflare Access application on rap-ledger.pages.dev, since the router must reach it. DNS and the router are set up from Public-Registry.
 ## 2026-10-24 First report reads (owner added the API key: "R1 done ... Check company sites for PDFs if not found somewhere else")
 
 - **Sony's site:** sony.com refuses automated requests ("Access Denied"). Its results releases are read from the

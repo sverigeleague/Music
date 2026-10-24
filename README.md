@@ -53,8 +53,8 @@ run applies it.
 
 Plain files, no build step, the same setup as Hoop Ledger: colours and spacing in `site/styles.css`, what the pages
 show in `site/config.js`, the pages in `site/app.js`. Deploys to Cloudflare Pages project `rap-ledger` with the secrets
-`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. Keep it private with Cloudflare Access (Zero Trust → Access →
-Applications → self-hosted, domain `rap-ledger.pages.dev`, allow the owner's email, one-time PIN), as for Hoop Ledger.
+`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. Public at https://tventy.se/music (owner, 2026-10-24), served by the tventy.se router in the Public-Registry
+repository (`worker/`); no Cloudflare Access application on rap-ledger.pages.dev, or the router cannot reach it.
 
 ## Secrets (GitHub → Settings → Secrets and variables → Actions)
 
