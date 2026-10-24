@@ -75,6 +75,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - 34 stay unknown: the ℗ line names only the artist's own imprint, with no distributor (G-Unit, SODMG, Brick Squad
   Monopoly, Pineapple Storm and others). Not guessed.
 - Unknown in the top 1,000: 262 -> 236.
+- **Batch 5** (the next 48 strings): 13 rows, all with a distributor on the ℗ line: Plata o Plomo, Only Pro, Blue
+  Magic, Carré Bleu (Sony France), Maison Baron Rouge (Warner France), Strange Music (Virgin), Verdansk, Indipendenza
+  and Futura (Believe), Toreshi (Stem, from 2025-11-24), Twenty Nine (Tully), MORE VISION (Kakao), KOZ (HYBE). Left
+  out though placeable as companies: LAIKA, COLORSxSTUDIOS, Big Noise (no distributor named). 32 stay unknown.
 
 ## 2026-10-24 Country money (owner C5): platform weights and radio songwriting
 
