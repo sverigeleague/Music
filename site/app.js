@@ -30,10 +30,10 @@ const cell = (a, [, key, f]) => {
 const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc(t)}</span>`;
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 // Five sections in the header; each page belongs to one, and sections with several pages show a sub-menu.
-const SECTION = { top: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
+const SECTION = { top: "charts", month: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
   scout: "scout", unsigned: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", label: "labels", method: "method" };
 const SUBNAV = {
-  charts: [["top", "#/", "Top list"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
+  charts: [["top", "#/", "Top list"], ["month", "#/month", "This month"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
   scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["compare", "#/compare", "Compare artists"]],
   worth: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"]],
 };
@@ -476,6 +476,31 @@ function scoutPage() {
     ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || "", a.label_status, a.label_owner || "", a.country || "", a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
 }
 
+// ---------- this month: movers, new on Scout's list, unsigned prospects, label shares (src/monthly.py)
+function monthPage() {
+  nav("month");
+  const M = store.data.month, byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
+  const who = id => { const a = byId[id]; return a ? `<a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a>` : ""; };
+  const moverTable = (list, title) => `<div><h3>${title}</h3><div class="tablebox"><table><thead><tr><th class="l">Artist</th><th>Then</th><th>Now</th><th>Change</th></tr></thead><tbody>
+    ${list.map(m => `<tr><td class="l">${who(m.id)}</td><td>${count(m.then)}</td><td>${count(m.now)}</td><td>${pct(m.pct)}</td></tr>`).join("")}</tbody></table></div></div>`;
+  const ready = new Date(Date.parse(M.log_from) + M.min_log * 864e5).toISOString().slice(0, 10);
+  const label = s => ({ major: "Major label", major_distributed: "Distributed by a major", independent: "Independent label", self_released: "Self-released", catalog: "Catalog (no release in 2 years)", unknown: "Not yet known" })[s] || s;
+  app.innerHTML = `${subnav()}<section><h1>This month</h1>
+    <p class="sub">What changed in hip-hop's top 1,000 over the last 30 days: who gained and lost listeners, who joined Scout's list, the unsigned acts worth a look, and how listening splits between majors, indies and the self-released.</p></section>
+    <section class="panel"><h2>Movers</h2>
+      ${M.movers_n ? `<div class="grid2">${moverTable(M.up, "Biggest gains, %")}${moverTable(M.down, "Biggest falls, %")}</div>
+      <p class="note">Monthly listeners on ${esc(M.today)} against the snapshot nearest 30 days earlier (from ${esc(M.movers_from)}). ${M.movers_n} of the 1,000 have one yet: our own daily snapshots began on ${esc(M.log_from)}, so for now the month-ago values come from the Internet Archive's copies of kworb's listener page, which lists the biggest artists only. From ${esc(ready)} every artist has one.</p>` : `<p class="note">No month-ago values yet.</p>`}</section>
+    <section class="panel"><h2>New on Scout's list</h2>
+      ${M.log_start ? `<p>Breaking now, not on ${esc(M.log_start)}: ${M.new_breaking.map(id => who(id)).join(" ") || "none"}</p><p>Rising now, not on ${esc(M.log_start)}: ${M.new_rising.map(id => who(id)).join(" ") || "none"}</p>`
+        : `<p class="note">From ${esc(ready)}. Scout's daily log began on ${esc(M.log_from)}, and the score's method changed in its first days, so a shorter comparison would show our changes rather than the artists'. Today's Breaking and Rising artists are on the <a href="#/scout">Scout list</a>.</p>`}</section>
+    <section class="panel"><h2>Unsigned and worth a look</h2>
+      <div class="chips">${M.prospects.map(id => byId[id] ? `<a class="chip" href="#/a/${id}">${esc(byId[id].name)} · ${byId[id].scout?.score ?? "–"} ${byId[id].scout?.tier ? esc(byId[id].scout.tier) : ""}</a>` : "").join(" ")}</div>
+      <p class="note">Self-released artists (their own label through a DIY distributor) with a Breaking or Rising Scout tier, best score first. <a href="#/unsigned">Unsigned against signed peers</a></p></section>
+    <section class="panel"><h2>Who owns the listening</h2><div class="tablebox"><table><thead><tr><th class="l">Label status</th><th>${M.log_start ? esc(M.log_start) : "30 days ago"}</th><th>Now</th></tr></thead><tbody>
+      ${M.shares.map(x => `<tr><td class="l">${esc(label(x.status))}</td><td>${x.then == null ? "–" : share(x.then)}</td><td>${share(x.now)}</td></tr>`).join("")}</tbody></table></div>
+      <p class="note">Share of the top 1,000's monthly listeners (added per artist). Both columns use each artist's label status today, so a share moves only with listening, not with our relabelling. The comparison starts on ${esc(ready)}. ${grade("B")}</p></section>`;
+}
+
 function backtestPanel() {
   const B = store.data.backtest;
   if (!B || !B.picks) return "";
@@ -807,6 +832,7 @@ async function route() {
   const h = location.hash.replace(/^#\/?/, "").split("/");
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
   else if (h[0] === "rising") rising();
+  else if (h[0] === "month") monthPage();
   else if (h[0] === "pay") pay();
   else if (h[0] === "platforms") platforms();
   else if (h[0] === "tours") tours();

@@ -424,3 +424,16 @@ def test_backtest_finds_a_signal_that_persists():
         hist[f"a{i}"] = [((start + timedelta(weeks=w)).isoformat(), int(ml * rate ** w)) for w in range(60)]
     r = backtest.run(hist, {})
     assert r["picks"] > 0 and r["hit_rate"] > 0.9
+
+
+def test_this_month_movers_and_short_log(monkeypatch, tmp_path):
+    from src import monthly
+    monkeypatch.setattr(monthly, "SCOUT_LOG", tmp_path / "log.csv")
+    (tmp_path / "log.csv").write_text("date,spotify_id,score,tier,monthly_listeners,label_status\n2026-10-20,a,90,Breaking,100,major\n")
+    rows = [{"id": "a", "ml": 150, "label_status": "major", "scout": {"score": 90, "tier": "Breaking"}},
+            {"id": "b", "ml": 50, "label_status": "self_released", "scout": {"score": 70, "tier": "Rising"}}]
+    hist = {"a": [("2026-09-23", 100), ("2026-10-24", 150)], "b": [("2026-10-10", 60)]}
+    m = monthly.build(rows, hist, "2026-10-24")
+    assert [x["id"] for x in m["up"]] == ["a"] and m["up"][0]["pct"] == 50.0  # b has no value near 30 days ago
+    assert m["log_start"] is None and m["new_breaking"] == [] and m["prospects"] == ["b"]
+    assert all(x["then"] is None for x in m["shares"])

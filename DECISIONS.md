@@ -2,6 +2,22 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 "This month" page (ROADMAP 8.5)
+
+- **Where:** Charts > This month (`#/month`), built by `src/monthly.py`.
+- **Contents:**
+  - movers over 30 days;
+  - new Breaking and Rising artists;
+  - unsigned prospects (self-released with a Breaking or Rising tier);
+  - the share of listening by label status.
+- **Movers today:** 263 of the 1,000 have a month-ago value. It comes from the Wayback copies of kworb's listeners
+  page, which lists only the biggest artists. From 2026-11-20 our own daily snapshots cover every artist.
+- **New Breaking and Rising: held back until the Scout log is 28 days old (from 2026-11-20).** Rejected: comparing
+  with 2026-10-23. Scout's method changed on 10-24 (the ranking update and release dates), so that comparison
+  showed 49 "new" Rising artists caused by our changes, not the artists'.
+- **Label shares:** both dates use today's label status. Comparing the statuses as logged mixed the relabelling
+  (unknown fell from 26% to 14% after the label research) with real shifts in listening.
+
 ## 2026-10-24 Scout back-test (ROADMAP 8.2; owner: "Follow steps a to d ... in order")
 
 - **What can be tested:** only listener growth (the Wayback Machine's weekly copies of kworb's listeners page since
