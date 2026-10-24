@@ -1,0 +1,361 @@
+{
+ "report": {
+  "company": "BMG Rights Management (UK) Ltd",
+  "document": "Annual accounts made up to 2024-12-31 (Companies House 06705101, filed 2025-04-30)",
+  "period_end": "2024-12-31",
+  "period_type": "FY",
+  "url": "https://find-and-update.company-information.service.gov.uk/company/06705101/filing-history/MzQ2NDYzMjA5MmFkaXF6a2N4/document?format=pdf&download=1",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "",
+  "note": "Full accounts made up to 31 December 2024",
+  "basis": "company"
+ },
+ "read": {
+  "currency": "GBP",
+  "unit_multiplier": 1000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "IS",
+    "period_end": "2024-12-31",
+    "months": 12
+   },
+   {
+    "column": 2,
+    "statement": "IS",
+    "period_end": "2023-12-31",
+    "months": 12
+   },
+   {
+    "column": 3,
+    "statement": "BS",
+    "period_end": "2024-12-31",
+    "months": 0
+   },
+   {
+    "column": 4,
+    "statement": "BS",
+    "period_end": "2023-12-31",
+    "months": 0
+   }
+  ],
+  "lines": [
+   {
+    "item": "revenue",
+    "label": "Revenue",
+    "column": 1,
+    "value": 232133,
+    "page": 17
+   },
+   {
+    "item": "revenue",
+    "label": "Revenue",
+    "column": 2,
+    "value": 262919,
+    "page": 17
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 1,
+    "value": 162661,
+    "page": 17
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 2,
+    "value": 192777,
+    "page": 17
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 1,
+    "value": 43480,
+    "page": 17
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 2,
+    "value": 72432,
+    "page": 17
+   },
+   {
+    "item": "da",
+    "label": "Amortisation of intangible assets",
+    "column": 1,
+    "value": 19494,
+    "page": 33
+   },
+   {
+    "item": "da",
+    "label": "Amortisation of intangible assets",
+    "column": 2,
+    "value": 27895,
+    "page": 33
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit/(loss)",
+    "column": 1,
+    "value": 25992,
+    "page": 17
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit/(loss)",
+    "column": 2,
+    "value": -2290,
+    "page": 17
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar expenses",
+    "column": 1,
+    "value": 23535,
+    "page": 17
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar expenses",
+    "column": 2,
+    "value": 32855,
+    "page": 17
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit/(loss) before tax",
+    "column": 1,
+    "value": 5698,
+    "page": 17
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit/(loss) before tax",
+    "column": 2,
+    "value": -32030,
+    "page": 17
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax on profit/(loss)",
+    "column": 1,
+    "value": 2696,
+    "page": 17
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax on profit/(loss)",
+    "column": 2,
+    "value": -4526,
+    "page": 17
+   },
+   {
+    "item": "net_income",
+    "label": "Profit/(loss) for the financial year",
+    "column": 1,
+    "value": 3002,
+    "page": 17
+   },
+   {
+    "item": "net_income",
+    "label": "Profit/(loss) for the financial year",
+    "column": 2,
+    "value": -27504,
+    "page": 17
+   },
+   {
+    "item": "cash",
+    "label": "Cash at bank and in hand",
+    "column": 3,
+    "value": 21,
+    "page": 18
+   },
+   {
+    "item": "cash",
+    "label": "Cash at bank and in hand",
+    "column": 4,
+    "value": 202,
+    "page": 18
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets",
+    "column": 3,
+    "value": 188760,
+    "page": 18
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets",
+    "column": 4,
+    "value": 175528,
+    "page": 18
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Creditors: amounts falling due within one year",
+    "column": 3,
+    "value": 159002,
+    "page": 18
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Creditors: amounts falling due within one year",
+    "column": 4,
+    "value": 544489,
+    "page": 18
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Creditors: amounts falling due after more than one year",
+    "column": 3,
+    "value": 2814,
+    "page": 18
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Creditors: amounts falling due after more than one year",
+    "column": 4,
+    "value": 9001,
+    "page": 18
+   },
+   {
+    "item": "equity",
+    "label": "Net assets",
+    "column": 3,
+    "value": 463265,
+    "page": 18
+   },
+   {
+    "item": "equity",
+    "label": "Net assets",
+    "column": 4,
+    "value": 80263,
+    "page": 18
+   }
+  ],
+  "absent": [
+   {
+    "item": "total_assets",
+    "reason": "Balance sheet is in Companies Act format and prints no total assets line."
+   },
+   {
+    "item": "total_liabilities",
+    "reason": "Total liabilities is not printed."
+   },
+   {
+    "item": "short_term_debt",
+    "reason": "No short-term debt line is printed separately from creditors."
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "reason": "Not printed in the balance sheet."
+   },
+   {
+    "item": "cfo",
+    "reason": "No cash flow statement is presented (FRS 101 reduced disclosure)."
+   },
+   {
+    "item": "capex",
+    "reason": "No cash flow statement is presented."
+   },
+   {
+    "item": "catalog_purchases",
+    "reason": "No cash flow statement is presented; intangible additions are not a cash flow line."
+   },
+   {
+    "item": "cfi",
+    "reason": "No cash flow statement is presented."
+   },
+   {
+    "item": "dividends_paid",
+    "reason": "No cash flow statement is presented; no dividend was paid."
+   },
+   {
+    "item": "cff",
+    "reason": "No cash flow statement is presented."
+   }
+  ],
+  "labels_named": [
+   "Infectious Music Ltd",
+   "Loaded Records Ltd",
+   "Mute Records Ltd",
+   "Ram Records Ltd",
+   "Sanctuary Records Group Ltd",
+   "The Echo Label Ltd",
+   "Union Square Music Ltd",
+   "World Circuit Ltd"
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 71072,
+  "output_tokens": 3859,
+  "output_tokens_details": {
+   "thinking_tokens": 2204
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41,
+  42,
+  43,
+  44
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}

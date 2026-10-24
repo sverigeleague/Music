@@ -1,0 +1,365 @@
+{
+ "report": {
+  "company": "Sony Music Entertainment UK Ltd",
+  "document": "Annual accounts made up to 2021-03-31 (Companies House 01471066, filed 2021-12-23)",
+  "period_end": "2021-03-31",
+  "period_type": "FY",
+  "url": "https://find-and-update.company-information.service.gov.uk/company/01471066/filing-history/MzMyNDI1MTAxNWFkaXF6a2N4/document?format=pdf&download=1",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "",
+  "note": "Full accounts made up to 31 March 2021",
+  "basis": "company"
+ },
+ "read": {
+  "currency": "GBP",
+  "unit_multiplier": 1000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "IS",
+    "period_end": "2021-03-31",
+    "months": 12
+   },
+   {
+    "column": 2,
+    "statement": "IS",
+    "period_end": "2020-03-31",
+    "months": 12
+   },
+   {
+    "column": 3,
+    "statement": "BS",
+    "period_end": "2021-03-31",
+    "months": 0
+   },
+   {
+    "column": 4,
+    "statement": "BS",
+    "period_end": "2020-03-31",
+    "months": 0
+   }
+  ],
+  "lines": [
+   {
+    "item": "revenue",
+    "label": "Turnover",
+    "column": 1,
+    "value": 280285,
+    "page": 18
+   },
+   {
+    "item": "revenue",
+    "label": "Turnover",
+    "column": 2,
+    "value": 278537,
+    "page": 18
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 1,
+    "value": 135338,
+    "page": 18
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 2,
+    "value": 125066,
+    "page": 18
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 1,
+    "value": 70270,
+    "page": 18
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 2,
+    "value": 92607,
+    "page": 18
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit",
+    "column": 1,
+    "value": 77890,
+    "page": 18
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit",
+    "column": 2,
+    "value": 33577,
+    "page": 18
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar expenses",
+    "column": 1,
+    "value": 1428,
+    "page": 18
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar expenses",
+    "column": 2,
+    "value": 3294,
+    "page": 18
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit before taxation",
+    "column": 1,
+    "value": 98042,
+    "page": 18
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit before taxation",
+    "column": 2,
+    "value": 31446,
+    "page": 18
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax on profit",
+    "column": 1,
+    "value": 16597,
+    "page": 18
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax on profit",
+    "column": 2,
+    "value": 9823,
+    "page": 18
+   },
+   {
+    "item": "net_income",
+    "label": "Profit for the financial year",
+    "column": 1,
+    "value": 81445,
+    "page": 18
+   },
+   {
+    "item": "net_income",
+    "label": "Profit for the financial year",
+    "column": 2,
+    "value": 21623,
+    "page": 18
+   },
+   {
+    "item": "cash",
+    "label": "Cash at bank and in hand",
+    "column": 3,
+    "value": 1958,
+    "page": 20
+   },
+   {
+    "item": "cash",
+    "label": "Cash at bank and in hand",
+    "column": 4,
+    "value": 19366,
+    "page": 20
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets (total)",
+    "column": 3,
+    "value": 385133,
+    "page": 20
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets (total)",
+    "column": 4,
+    "value": 292751,
+    "page": 20
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Creditors: Amounts falling due within one year",
+    "column": 3,
+    "value": 162536,
+    "page": 20
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Creditors: Amounts falling due within one year",
+    "column": 4,
+    "value": 208007,
+    "page": 20
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Loan notes",
+    "column": 3,
+    "value": 0,
+    "page": 41
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Loan notes",
+    "column": 4,
+    "value": 40011,
+    "page": 41
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 3,
+    "value": 387109,
+    "page": 20
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 4,
+    "value": 305664,
+    "page": 20
+   }
+  ],
+  "absent": [
+   {
+    "item": "da",
+    "reason": "No single depreciation and amortisation total is printed; depreciation (649) and amortisation (2,742) appear separately in note 6 on page 29."
+   },
+   {
+    "item": "total_assets",
+    "reason": "Balance sheet is in Companies Act format and prints no total assets line."
+   },
+   {
+    "item": "total_liabilities",
+    "reason": "Total liabilities is not printed."
+   },
+   {
+    "item": "long_term_debt",
+    "reason": "No long-term debt line is printed."
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "reason": "Not printed in the balance sheet."
+   },
+   {
+    "item": "cfo",
+    "reason": "No cash flow statement is presented (FRS 102 section 7 disclosure exemption taken)."
+   },
+   {
+    "item": "capex",
+    "reason": "No cash flow statement is presented."
+   },
+   {
+    "item": "catalog_purchases",
+    "reason": "No cash flow statement is presented."
+   },
+   {
+    "item": "cfi",
+    "reason": "No cash flow statement is presented."
+   },
+   {
+    "item": "dividends_paid",
+    "reason": "No cash flow statement is presented; directors recommend no dividend."
+   },
+   {
+    "item": "cff",
+    "reason": "No cash flow statement is presented."
+   }
+  ],
+  "labels_named": [
+   "Cheeky Records Limited",
+   "Conifer Records Limited",
+   "Creation Records Limited",
+   "Century Media Records Limited",
+   "Indolent Records Limited",
+   "Logic Records (UK) Limited",
+   "Multitone Records Limited",
+   "Wildstar Records Limited",
+   "Zomba Records Limited",
+   "Silvertone Records Limited",
+   "Sony Music Entertainment Arista Records Limited",
+   "Sony Music Entertainment Ariola Records Limited",
+   "Ministry of Sound Recordings Limited",
+   "Sign of The Times Records Limited",
+   "B1 Records Limited",
+   "Black Butter Limited",
+   "Phonogenic Limited",
+   "Major Label Limited",
+   "Deconstruction Limited",
+   "Vogelcourt Limited"
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 74220,
+  "output_tokens": 3307,
+  "output_tokens_details": {
+   "thinking_tokens": 1593
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41,
+  42,
+  43,
+  44,
+  45,
+  46
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}
