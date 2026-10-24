@@ -158,14 +158,15 @@ def group_of(r: dict) -> str:
     s = r.get("label_status")
     if s in ("major", "major_distributed"):
         return r.get("label_owner") or "Major (unnamed)"
-    return {"independent": "Independent labels", "self_released": "Self-released"}.get(s, "Not yet known")
+    return {"independent": "Independent labels", "self_released": "Self-released", "catalog": "Catalog"}.get(s, "Not yet known")
 
 
 def market(rows: list[dict]) -> dict:
     """Share of the top 1,000 by group: artists, monthly listeners, current listeners; overall and per size band.
     Independent labels are also listed one by one."""
     groups: dict[str, dict] = {}
-    for r in rows:
+    catalog = [r for r in rows if r.get("label_status") == "catalog"]  # no new releases: left out of the shares
+    for r in (r for r in rows if r.get("label_status") != "catalog"):
         g = groups.setdefault(group_of(r), {"artists": 0, "ml": 0, "cl": 0, "bands": [0] * len(BAND_LABELS),
                                             "top": [], "labels": {}})
         g["artists"] += 1
@@ -179,7 +180,7 @@ def market(rows: list[dict]) -> dict:
             lab["artists"] += 1
             lab["ml"] += r["ml"] or 0
     band_totals = [sum(g["bands"][i] for g in groups.values()) for i in range(len(BAND_LABELS))]
-    return {"groups": groups, "band_labels": list(BAND_LABELS), "band_totals": band_totals,
+    return {"groups": groups, "catalog": len(catalog), "band_labels": list(BAND_LABELS), "band_totals": band_totals,
             "total_ml": sum(g["ml"] for g in groups.values()), "total_cl": sum(g["cl"] for g in groups.values())}
 
 

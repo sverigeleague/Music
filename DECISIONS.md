@@ -2,6 +2,26 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Owner's answers in chat: backfill, assumptions, Latin, catalog acts
+
+- **A1 (yes):** the history backfill was started by Claude (Actions → backfill, on main).
+- **A2 (yes):** the five Phase 7 assumptions stand:
+  - black-and-white look;
+  - Scout weights;
+  - Apple chart presence only;
+  - Feature magnet at 80%+;
+  - Co-signed under 3m with a 20m+ artist.
+- **P1 (a): Latin trap and reggaeton stay off the site.** The 236 artists marked Latin are kept in the registry
+  (`genre = latin`) but not shown. Rejected:
+  - (b) a separate Latin list;
+  - (c) counting them as hip-hop.
+- **P2 (yes): catalog acts.** An artist with no release in the last two years on Deezer is "Catalog", not "Not yet
+  known".
+  - They leave the label review list and the market-map shares (the page states how many were left out).
+  - They were never in the Unsigned list.
+  - The labels step now records an artist checked with nothing recent, so a catalog act is told apart from one not
+    yet checked.
+
 ## 2026-10-24 Genre review settled on Claude's recommendations (owner: "go with all your recommended for the 1491 names")
 
 Reviews now happen in chat (working agreement). The owner accepted every recommendation in the genre queue. The
