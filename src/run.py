@@ -135,14 +135,17 @@ def registry(mb_limit: int | None = None) -> None:
                                          ensure_ascii=False, indent=0))
     mb = musicbrainz.update({s: wd.get(s, {}).get("musicbrainz_id") for s in ids}, limit=mb_limit)
     over = genre.overrides()
+    # Deezer matches confirmed from the artist's own songs (ISRCs or titles) count like a Wikidata identity
+    sure = {s for s, a in known.items() if a.get("deezer_match") in ("isrc", "titles")
+            and str(a.get("deezer_id")) == str(dz.get(s, {}).get("deezer_id"))}
     out = {}
     for s in ids:
         d, prev = wd.get(s, {}), known.get(s, {})
         votes = musicbrainz.genres_of(mb.get(s, {}))
-        decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")),
+        decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")) or s in sure,
                                        country=d.get("country", ""))
         if decision in ("other", "review"):  # a second genre: country (owner, 2026-10-24)
-            c = genre.decide_country(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")))
+            c = genre.decide_country(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")) or s in sure)
             if c and not (decision == "review" and c[0] == "review"):
                 decision, basis = c[0], f"{c[1]}; hip-hop rule: {decision}"
             elif c:
@@ -245,6 +248,31 @@ def deezer_isrc_step(limit: int | None = None) -> None:
             n += 1
     save_artists(rows)
     print(f"Deezer IDs confirmed by ISRC: {n} of {len(todo[:limit])} unconfirmed artists")
+
+
+def confirm_country_step(limit: int | None = None) -> None:
+    """Country candidates held for review only because their Deezer match is by name alone (no Wikidata entry):
+    confirm the Deezer artist from the songs (the artist's 5 biggest songs as lead on kworb against Deezer's top
+    tracks). A confirmed match counts like a Wikidata one at the next registry run."""
+    from .collectors import deezer_genres
+    rows, dz, n, todo = load_artists(), deezer_genres.load(), 0, []
+    for a in rows.values():
+        d = dz.get(a["spotify_id"], {})
+        if (a["genre"] == "review" and "name only" in a["genre_basis"] and d.get("deezer_id")
+                and d.get("country_share") not in ("", None) and float(d["country_share"]) >= genre.COUNTRY_REVIEW
+                and a.get("deezer_match") not in ("isrc", "titles")):
+            todo.append((a, d["deezer_id"]))
+    for a, did in todo[:limit]:
+        p = current.pages(a["spotify_id"])
+        if not p:
+            kworb.fetch_artist(a["spotify_id"])  # archives the page
+            p = current.pages(a["spotify_id"])
+        songs = sorted((x for x in current.songs(p[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:5] if p else []
+        if songs and deezer.by_titles(did, [x["title"] for x in songs]):
+            rows[a["spotify_id"]].update(deezer_id=did, deezer_match="titles")
+            n += 1
+    save_artists(rows)
+    print(f"country candidates confirmed on Deezer by their songs: {n} of {len(todo[:limit])}")
 
 
 def photos_step(limit: int | None = None) -> None:
@@ -445,7 +473,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

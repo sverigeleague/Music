@@ -53,3 +53,27 @@ def by_isrc(name: str, isrcs: list[str], need: int = 2) -> dict | None:
     a = get(f"{API}/artist/{best}")
     fans = a.json().get("nb_fan") if a.status_code == 200 else None
     return {"deezer_id": best, "deezer_fans": fans, "deezer_match": "isrc"}
+
+
+def _title(t: str) -> str:
+    """A song title without its featured artists or version note, for matching across services."""
+    import re
+    return _norm(re.split(r"\s[\(\[-]|\s(?:feat|ft|with)\.?\s", t, maxsplit=1, flags=re.I)[0])
+
+
+def by_titles(deezer_id, titles: list[str]) -> bool:
+    """Whether the Deezer artist is the same act as a Spotify artist: at least two of the artist's biggest Spotify
+    songs (titles from kworb) are among the Deezer artist's 50 top tracks (one, when only one title is given). For a
+    name that matches a single Deezer artist but has no Wikidata entry to confirm it."""
+    import time
+    for wait in (5, 10, None):
+        r = get(f"{API}/artist/{deezer_id}/top", params={"limit": 50})
+        j = r.json() if r.status_code == 200 else {}
+        if isinstance(j, dict) and j.get("error", {}).get("code") == 4 and wait:  # quota: wait and retry
+            time.sleep(wait)
+            continue
+        break
+    theirs = {_title(t.get("title", "")) for t in (j.get("data") or [])} - {""}
+    ours = [x for x in (_title(t) for t in titles) if x]
+    hits = sum(1 for t in ours if t in theirs)
+    return bool(ours) and hits >= min(2, len(ours))

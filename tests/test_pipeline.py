@@ -561,3 +561,18 @@ def test_deezer_by_isrc_takes_the_artist_credited_on_most_songs(monkeypatch):
     monkeypatch.setattr(deezer, "get", fake)
     assert deezer.by_isrc("Eve", ["A", "B", "C"]) == {"deezer_id": 1, "deezer_fans": 77, "deezer_match": "isrc"}
     assert deezer.by_isrc("Eve", ["A", "C"]) is None  # one song each: no majority
+
+
+def test_deezer_by_titles_needs_two_of_the_biggest_songs(monkeypatch):
+    from src.collectors import deezer
+
+    class R:
+        status_code = 200
+
+        def json(self):
+            return {"data": [{"title": "Whiskey Glasses"}, {"title": "Chasin' You (Live)"}, {"title": "Sand In My Boots"}]}
+    monkeypatch.setattr(deezer, "get", lambda url, params=None: R())
+    assert deezer._title("Chasin' You - Acoustic") == deezer._title("Chasin' You (Live)") == "chasinyou"
+    assert deezer.by_titles(1, ["Whiskey Glasses", "Chasin' You (feat. X)", "Other"])
+    assert not deezer.by_titles(1, ["Whiskey Glasses", "Nope", "Other"])
+    assert deezer.by_titles(1, ["Sand In My Boots"])
