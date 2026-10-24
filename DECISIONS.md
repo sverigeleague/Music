@@ -2,6 +2,33 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label pages, monthly run now, robust ranking (method 1.2)
+
+- **Label pages** (owner: "an option to select on each label ... logo ... parent company ... a snapshot ... artists
+  ... how they are performing, how the label is financially performing, how the parent company is financially
+  performing"):
+  - **Directory and pages:** a directory of every label with artists in the top 1,000 (search, filter by owner,
+    sortable columns), and one page per label.
+  - **Which label:** the label printed on the artist's recent releases. "X under exclusive license to Y" counts as Y.
+    The display names are in `registry/label_owners.csv`.
+  - **Each page shows:**
+    - the roster with listeners, current listeners, Scout and newest hit;
+    - the roster's yearly recording royalties (C);
+    - momentum and the one to watch;
+    - releases in two years;
+    - the parent company and its sister labels in the top 1,000.
+  - **Finances:** a label inside a major publishes no accounts of its own. The page says so and shows the roster's
+    royalties as the best public measure of its size, with the parent's reported results (company filings, A)
+    beside them. Private independents show press-reported figures (B) where they exist.
+  - **Logos:** only free files on Wikimedia Commons (Wikidata's logo property), mostly public-domain text logos,
+    credited on each page. Labels with no free logo show initials. Rejected: copying logos from label websites
+    (copyright and trademark).
+- **Monthly run started now** (owner) on the working branch. Its steps no longer stop the run when one fails or times
+  out, the commit always runs, and a second Deezer dates pass follows MusicBrainz.
+- **Current-listeners method 1.2:** artists with 50-80% of their streams dated get a provisional rank, marked * with
+  the range the undated songs could move it. Ranked: 914 → 970 of 1,000. Rejected: lowering the 80% rule outright,
+  which would hide how uncertain those ranks are.
+
 ## 2026-10-24 Owner's answers in chat: backfill, assumptions, Latin, catalog acts
 
 - **A1 (yes):** the history backfill was started by Claude (Actions → backfill, on main).

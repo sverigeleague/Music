@@ -189,3 +189,4 @@ h1 .star { font-size: 26px; vertical-align: middle; }
 .parentchip { display: inline-flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 14px; border: 1px solid var(--line); padding: 4px 10px 4px 4px; }
 #lab-q { font: inherit; padding: 6px 10px; border: 1px solid var(--line); min-width: 0; flex: 1 1 200px; max-width: 320px; }
 th[data-lsort] { cursor: pointer; user-select: none; }
+.prov { color: var(--muted); font-weight: 600; margin-left: 2px; cursor: help; }

@@ -22,6 +22,7 @@ from .config import RAW
 FULL_MONTHS, ZERO_MONTHS = 18, 36
 FEATURE_WEIGHT = 0.5
 MIN_COVERAGE = 0.8
+PROVISIONAL_COVERAGE = 0.5  # 50-80% dated: a provisional rank with a range (method 1.2)
 DATE_SHARE, DATE_MAX = 0.90, 300  # songs dated per artist: until 90% of daily streams are covered, at most 300
 REVIVAL_RISE, REVIVAL_SHARE, REVIVAL_GAP_DAYS = 1.5, 0.02, 28
 FRESH_DAYS = 90  # Scout's release velocity: songs out this many days or fewer (not part of current listeners)
@@ -104,5 +105,8 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
     share = cur / dated if dated else None
     return {"current_share": share, "coverage": coverage, "revivals": revivals,
             "ok": share is not None and coverage >= MIN_COVERAGE,
+            "provisional": share is not None and PROVISIONAL_COVERAGE <= coverage < MIN_COVERAGE,
+            # the range the undated songs could move the share: all old (weight 0) to all new (weight 1)
+            "share_range": (round(share * coverage, 4), round(share * coverage + 1 - coverage, 4)) if share is not None else None,
             "fresh_daily": round(fresh), "fresh_share": fresh / total if total else 0.0, "top_fresh": top_fresh,
             "latest_release": latest.isoformat() if latest else None}
