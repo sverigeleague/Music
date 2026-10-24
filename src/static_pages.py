@@ -163,16 +163,17 @@ def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:
     im.save(path, "PNG", optimize=True)
 
 
-def state_page(st: dict) -> tuple[str, str]:
+def state_page(st: dict, prefix: str = "") -> tuple[str, str]:
     from datetime import date
-    url = f"{BASE}state/{st['month']}/"
+    url = f"{BASE}{prefix}state/{st['month']}/"
+    word = "country" if prefix.startswith("country") else "hip-hop"
     month = date.fromisoformat(st["month"] + "-01").strftime("%B %Y")
-    desc = f"State of hip-hop, {month}: " + "; ".join(f"{i['label']}: {i['value']}" for i in st["items"][:4]) + "."
-    body = (f'<article class="static"><h1>State of hip-hop, {esc(month)}</h1><p class="sub">{esc(desc)}</p><ul>'
+    desc = f"State of {word}, {month}: " + "; ".join(f"{i['label']}: {i['value']}" for i in st["items"][:4]) + "."
+    body = (f'<article class="static"><h1>State of {word}, {esc(month)}</h1><p class="sub">{esc(desc)}</p><ul>'
             + "".join(f"<li><b>{esc(i['label'])}:</b> {esc(i['value'])} ({esc(i['detail'])})</li>" for i in st["items"]) + "</ul></article>")
-    ld = {"@context": "https://schema.org", "@type": "Article", "headline": f"State of hip-hop, {month}", "url": url,
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": f"State of {word}, {month}", "url": url,
           "datePublished": st["as_of"], "publisher": {"@type": "Organization", "name": "tventy music"}}
-    return url, _shell(f"State of hip-hop, {month}", desc, url, None, ld, f"#/state/{st['month']}", body)
+    return url, _shell(f"State of {word}, {month}", desc, url, None, ld, f"#/{prefix}state/{st['month']}", body, prefix)
 
 
 def build(data: dict, cards: bool = True, states: list[dict] | None = None, prefix: str = "") -> list[str]:
@@ -200,8 +201,8 @@ def build(data: dict, cards: bool = True, states: list[dict] | None = None, pref
         out.write_text(page)
         urls.append(url)
     for st in states or []:
-        url, page = state_page(st)
-        out = SITE / "state" / st["month"] / "index.html"
+        url, page = state_page(st, prefix)
+        out = root / "state" / st["month"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page)
         urls.append(url)

@@ -765,7 +765,7 @@ function statePage(ym) {
   const all = store.data.state || [], st = all.find(x => x.month === ym) || all[0];
   if (!st) { app.innerHTML = `<p class="note">No month stored yet.</p>`; return; }
   const month = new Date(st.month + "-01T00:00:00Z").toLocaleDateString("en", { month: "long", year: "numeric", timeZone: "UTC" });
-  const cite = `tventy music, "State of hip-hop, ${month}", ${SITE_URL}state/${st.month}/ (data as of ${st.as_of}).`;
+  const cite = `tventy music, "State of hip-hop, ${month}", ${SITE_URL}${GENRE === "hip_hop" ? "" : GENRE + "/"}state/${st.month}/ (data as of ${st.as_of}).`;
   app.innerHTML = `<section><h1>State of hip-hop, ${esc(month)}</h1>
     <p class="sub">The month in hip-hop's top 1,000, in numbers you can quote. ${st.month === all[0]?.month ? `This month's page updates daily until the month ends; then its numbers are fixed. ` : ""}Data as of ${esc(st.as_of)}.</p>
     ${all.length > 1 ? `<div class="chips">${all.map(x => `<a class="chip" href="#/state/${x.month}"${x.month === st.month ? ' aria-current="page"' : ""}>${esc(x.month)}</a>`).join(" ")}</div>` : ""}</section>

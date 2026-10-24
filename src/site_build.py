@@ -438,7 +438,7 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     # after index.json; the start page and artist pages render without it
     extra = {k: data.pop(k) for k in EXTRA_KEYS if k in data}
     from . import state
-    extra["state"] = state.update(data, extra) if genre == "hip_hop" else []
+    extra["state"] = state.update(data, extra)
     (out.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
     out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{out.relative_to(SITE.parent)}: {len(data['artists'])} {genre} artists, {out.stat().st_size // 1024} KB")

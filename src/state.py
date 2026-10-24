@@ -23,6 +23,7 @@ def _count(n) -> str:
 
 def build(data: dict, extra: dict) -> dict:
     A = data["artists"]
+    word = "country" if data.get("genre") == "country" else "hip-hop"
     by = {a["id"]: a for a in A}
     as_of = data.get("as_of") or ""
     m = extra.get("market") or {}
@@ -63,17 +64,19 @@ def build(data: dict, extra: dict) -> dict:
                       "detail": f"credited on songs with {_count(prod['daily'])} Spotify streams a day (credits partial)", "link": "#/producers"})
     shz = max((a for a in A if a.get("shazam")), key=lambda a: a["shazam"]["charts"], default=None)
     if shz:
-        items.append({"key": "shazam", "label": "Most Shazamed hip-hop artist", "value": shz["name"],
+        items.append({"key": "shazam", "label": f"Most Shazamed {word} artist", "value": shz["name"],
                       "detail": f"on {shz['shazam']['charts']} Shazam charts in the last 7 days", "link": f"#/a/{shz['id']}"})
-    items.append({"key": "size", "label": "Hip-hop artists tracked", "value": f"{len(A):,}",
+    items.append({"key": "size", "label": f"{word.capitalize()} artists tracked", "value": f"{len(A):,}",
                   "detail": f"{_count(sum(a['ml'] for a in A))} combined monthly listeners, from Spotify's top {data.get('universe', 0):,}", "link": "#/"})
     return {"month": as_of[:7], "as_of": as_of, "items": items}
 
 
 def update(data: dict, extra: dict) -> list[dict]:
-    """Saves this month's state and returns every stored month, newest first."""
-    DIR.mkdir(parents=True, exist_ok=True)
+    """Saves this month's state and returns every stored month, newest first. Country (since 2026-10-24) is kept in
+    data/state/country/."""
+    d = DIR if data.get("genre", "hip_hop") == "hip_hop" else DIR / data["genre"]
+    d.mkdir(parents=True, exist_ok=True)
     cur = build(data, extra)
     if cur["month"]:
-        (DIR / f"{cur['month']}.json").write_text(json.dumps(cur, ensure_ascii=False, indent=1))
-    return [json.loads(p.read_text()) for p in sorted(DIR.glob("*.json"), reverse=True)]
+        (d / f"{cur['month']}.json").write_text(json.dumps(cur, ensure_ascii=False, indent=1))
+    return [json.loads(p.read_text()) for p in sorted(d.glob("*.json"), reverse=True)]
