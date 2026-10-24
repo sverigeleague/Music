@@ -14,7 +14,24 @@ What was chosen, what was considered and rejected, and why. Newest first.
   release_labels.csv now stores `lead`.
   - Releases the artist only features on are left out of the label and catalog decisions. Up to 30 releases in the
     window are looked at to find 6 lead ones.
-  - The 7,100 stored releases were checked once (`fill_lead`).
+  - The 7,100 stored releases were checked once (`fill_lead`): 4,483 lead releases and 2,548 features. A deeper read
+    then added 2,197 lead releases.
+  - Reading lead releases alone exposed the artists' own imprints, which the owner table did not know. Nicki Minaj's
+    "Nicki Minaj/Cash Money", for example, read as self-released.
+  - **L2 (owner: "go with suggested"):** the 30 most-listened imprints were researched from ℗ lines and press. The 19
+    with high or medium confidence were added to registry/label_owners.csv: Cash Money, Taylor Gang, Boominati,
+    Black Belt, Numinati, DJ Khaled Productions, Hitmaker, 4Hunnid, Lizzy Records, Virgin Music Group France, Trippy
+    Music, BSB Productions, Tiger Turn, MNT, MSTT, Uptown and Coke Boys. Left out: 8 artist imprints with no named
+    distributor, and the generic strings "Independent" and "2020".
+  - **Review batch (owner: "All as suggested"):** of the 46 artists over 5m listeners whose status changed:
+    - B1 (16 sourced moves), B2 (8 to catalog) and B5 (2 to Sony Music) were accepted.
+    - B3: Chance the Rapper, G Herbo, BK and Hungria are self-released. Yung Lean (Young, a Beggars label) and
+      Orochi (Believe Artist Services) are set to independent through review/decisions.json.
+    - B4: 14 artists stay unknown and lead the next research batch: Mauvais djo, Waka Flocka Flame, L7NNON,
+      DYSTINCT, MC Cabelinho, MF DOOM, Millonario, Vacra, Eypio, Djonga, Teto, Vegedream, Caio Luccas and Chris MC.
+  - **Net, across the 1,000:** major 430 to 316, major-distributed 16 to 20, independent 86 to 87, self-released 138
+    to 144, catalog 88 to 144, unknown 242 to 289. The old major count included artists counted only through labels
+    of songs they featured on.
 - **Player for the risers (owner: "links to the songs and be able to play audio ... only for the risers/scout";
   "Go with suggested"):**
   - **What:** a ▶ button beside the newest hit of every Breaking, Rising and Watch artist on the Scout list, on the
