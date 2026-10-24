@@ -219,7 +219,7 @@ def deezer_step() -> None:
     rows = load_artists()
     n = 0
     for a in rows.values():
-        if a["genre"] == "hip_hop" and not a.get("deezer_match"):
+        if a["genre"] == GENRE and not a.get("deezer_match"):
             a.update({k: v for k, v in deezer.match(a["name"]).items()})
             n += 1
     save_artists(rows)

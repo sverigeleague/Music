@@ -105,6 +105,14 @@ jobs:
         timeout-minutes: 20
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: "Country (owner, 2026-10-24): the per-artist steps for the country top artists"
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' country ') }}
+        continue-on-error: true
+        timeout-minutes: 150
+        run: |
+          for step in streams dates mbdates deezer deezer-isrc labels mblabels youtube photos pageviews awards certifications credits; do
+            python -m src.run "$step" --genre=country || echo "country $step failed"
+          done
       - name: Commit
         if: always()
         run: |
