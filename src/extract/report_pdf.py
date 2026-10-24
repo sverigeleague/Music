@@ -198,6 +198,15 @@ def checks(read: dict) -> list[str]:
                 fails.append(f"column {col}: {k} should be a positive amount")
     if read.get("unit_multiplier") not in (1, 1000, 1000000):
         fails.append("unit_multiplier must be 1, 1000 or 1000000")
+    # the groups read here are large: total assets below one million (after the multiplier) means a wrong unit
+    # (Bertelsmann's 2025 annual report, first read 2026-10-24: "EUR millions" read with a multiplier of 1)
+    mult = read.get("unit_multiplier") or 1
+    for col, v in by.items():
+        for k in ("total_assets", "revenue"):
+            if v.get(k) is not None and 0 < abs(v[k]) * mult < 1_000_000:
+                fails.append(f"column {col}: {k} {v[k]} x {mult} is under one million; the statements are probably "
+                             "in thousands or millions (check the unit printed in the heading, e.g. 'EUR millions')")
+                break
     return fails
 
 
