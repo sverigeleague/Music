@@ -77,6 +77,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
   is on the first phone screen (it was cut off at the right edge).
 - **Labels:** the "majors, under 1.5m" figure rested on 30 artists (the top 1,000 starts near 1.4m); it now
   covers everyone under 3m (about 380): 56% against 75% at 15m+.
+- **Producers:** a song on several artists' pages (a duo and its members: Macklemore, Ryan Lewis, "Macklemore & Ryan
+  Lewis") counted once per page; it now counts once per person (by ISRC).
 - Tiles fit one row on desktop (six tiles at 1280px) and no longer leave an empty slot when a page has fewer.
 
 ## 2026-10-24 Country: below-floor crawl, radio in Scout, Big Machine by date

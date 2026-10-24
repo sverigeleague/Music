@@ -576,3 +576,12 @@ def test_deezer_by_titles_needs_two_of_the_biggest_songs(monkeypatch):
     assert deezer.by_titles(1, ["Whiskey Glasses", "Chasin' You (feat. X)", "Other"])
     assert not deezer.by_titles(1, ["Whiskey Glasses", "Nope", "Other"])
     assert deezer.by_titles(1, ["Sand In My Boots"])
+
+
+def test_credits_leaderboard_counts_a_shared_song_once(monkeypatch):
+    from src.collectors import credits
+    monkeypatch.setattr(credits, "load", lambda: {"US1": {"producers": "Ryan Lewis|mb1", "writers": ""}})
+    monkeypatch.setattr(credits, "split", lambda v: [tuple(v.split("|"))] if v else [])
+    songs = [{"isrc": "US1", "title": "Thrift Shop", "daily": 100, "artist_id": a, "artist": a} for a in ("m", "rl", "m&rl")]
+    (p,) = credits.leaderboard(songs)
+    assert p["daily"] == 100 and len(p["songs"]) == 1

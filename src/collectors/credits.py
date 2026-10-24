@@ -78,7 +78,10 @@ def leaderboard(songs: list[dict], role: str = "producers", top: int = 50) -> li
     for s in songs:
         c = cred.get(s.get("isrc") or "")
         for name, mbid in split(c[role]) if c else []:
-            p = people.setdefault(mbid, {"name": name, "mbid": mbid, "daily": 0, "songs": [], "artists": set()})
+            p = people.setdefault(mbid, {"name": name, "mbid": mbid, "daily": 0, "songs": [], "artists": set(), "isrcs": set()})
+            if s["isrc"] in p["isrcs"]:  # one song on several artists' pages (a duo and its members) counts once
+                continue
+            p["isrcs"].add(s["isrc"])
             p["daily"] += s["daily"]
             p["songs"].append({"title": s["title"], "artist": s["artist"], "artist_id": s["artist_id"], "daily": s["daily"]})
             p["artists"].add(s["artist_id"])
@@ -86,4 +89,5 @@ def leaderboard(songs: list[dict], role: str = "producers", top: int = 50) -> li
     for p in out:
         p["songs"] = sorted(p["songs"], key=lambda s: -s["daily"])[:5]
         p["artists"] = len(p["artists"])
+        del p["isrcs"]
     return out
