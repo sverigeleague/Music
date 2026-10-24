@@ -11,6 +11,7 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
+EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market")
 DETAIL_ONLY = ("award_list", "song_credits", "genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
@@ -385,6 +386,10 @@ if __name__ == "__main__":
             r["photo"] = {"file": r["photo"]["file"]}
     for n, d in shards.items():
         (shard_dir / f"{n}.json").write_text(json.dumps(d, ensure_ascii=False, separators=(",", ":")))
+    # lighter first load (owner, 2026-10-24, D6): page-specific data in data/extra.json, fetched in the background
+    # after index.json; the start page and artist pages render without it
+    extra = {k: data.pop(k) for k in EXTRA_KEYS if k in data}
+    (OUT.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{OUT.relative_to(SITE.parent)}: {len(data['artists'])} hip-hop artists, {OUT.stat().st_size // 1024} KB")
     print("static pages and cards:", static_pages.build(data))

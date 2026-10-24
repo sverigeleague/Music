@@ -4,6 +4,14 @@ What was chosen, what was considered and rejected, and why. Newest first.
 
 ## 2026-10-24 Pages search engines can find, shareable cards (D2, D3), Shazam (K3)
 
+- **D6: lighter first load:**
+  - Page-specific data (unsigned peers, label and group finances, credits, tours, Sony Music, back-test, movers,
+    market map) moved from data/index.json to data/extra.json. It is fetched in the background right after the
+    core file, and pages that use it wait for it.
+  - The start page and artist pages render from the core alone.
+  - The core is 1.46 MB (about 330 KB compressed); extra is 364 KB. A per-page split of the artist list itself was
+    rejected: search, Scout, labels and the start page all need it.
+
 - **D2: static pages** (`src/static_pages.py`, generated at each build and deploy, gitignored):
   - **What:** site/a/<slug>/ for every artist (1,000) and site/label/<slug>/ for every label (116), each with its own
     title, description, canonical address (https://tventy.se/music/...), Open Graph and Twitter tags, structured

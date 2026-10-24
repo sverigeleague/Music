@@ -1075,7 +1075,11 @@ function summaryCard(a, rev) {
 
 // ---------- router
 async function route() {
-  if (!store.data) store.data = await (await fetch("data/index.json")).json();
+  if (!store.data) {
+    store.data = await (await fetch("data/index.json")).json();
+    // page-specific data loads in the background (D6); pages other than the start page and artist pages wait for it
+    store.extra = fetch("data/extra.json").then(r => r.json()).then(x => Object.assign(store.data, x));
+  }
   // a static page (site/a/<slug>/, site/label/<slug>/) opens its artist or label until the visitor navigates
   const h = (location.hash || window.BOOT || "").replace(/^#\/?/, "").replace(/\?.*$/, "").split("/");
   const NAMES = { movers: ["Artists", "Movers"], month: ["Artists", "Movers"], rising: ["Artists", "Movers"], compare: ["Artists", "Compare"],
@@ -1088,6 +1092,7 @@ async function route() {
     platforms: "Hip-hop royalties by streaming platform", tours: "Hip-hop tours: gross and revenue per fan", audience: "Where hip-hop is streamed",
     unsigned: "Unsigned hip-hop artists against signed peers", method: "Method and sources", scout: "Scout: rising hip-hop artists for A&R",
     worth: "What is your music worth?", producers: "The producers and songwriters behind hip-hop's biggest songs", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
+  if (h[0] !== "" && h[0] !== "a") await store.extra;
   setMeta(TITLES[h[0]] || "Global hip-hop: listeners, earnings and labels of the top 1,000 artists");
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
   else if (h[0] === "rising") rising();
