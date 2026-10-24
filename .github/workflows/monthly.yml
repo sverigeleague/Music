@@ -87,6 +87,10 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' certifications ') }}
         continue-on-error: true
         timeout-minutes: 60
+      - run: python -m src.run countrycrawl
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' countrycrawl ') }}
+        continue-on-error: true
+        timeout-minutes: 45
       - run: python -m src.run credits
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' credits ') }}
         continue-on-error: true
