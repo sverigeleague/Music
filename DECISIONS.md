@@ -2,6 +2,23 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Country: below-floor crawl, radio in Scout, Big Machine by date
+
+- **Below kworb's 500k floor (C1):** kworb has nothing usable below
+  500k listeners. Deezer's related-artists graph, seeded from its country chart, our matched artists and Wikidata,
+  finds about 1,077 country artists, about 400 of them above the floor. `src/collectors/deezer_country.py`, monthly
+  step `countrycrawl` -> data/country_deezer.csv. Ordered by the summed Deezer rank of the top 10 tracks (r 0.79 with
+  log Spotify listeners on 240 country artists, but Spearman 0.22 among artists of similar size): grade C, an order
+  only, never a converted listener figure. How to show ranks 401-1,000 goes to the owner.
+- **Radio in country Scout (C4):** a factor of its own, 15%: the summed AM/FM audience of the artist's songs on
+  kworb's airplay chart, 0 when none. Only our percentile reaches the site. Chart reach weighs 8% (country charts are
+  mostly US, Canada, Australia), new-release pull 30%, current share 20%, engagement 12%. Hip-hop is unchanged.
+  Credits like "Move On f/Shaboozey" now count for the featured artist.
+- **Big Machine** (registry/label_owners.csv gains `from`/`until` columns): releases to 2026-02-17 are HYBE America's
+  Big Machine Label Group (distributed by Universal: major-distributed); from 2026-02-18 Big Machine Records is
+  Scott Borchetta's relaunched independent. Blue Highway Records, Nashville Harbor and Valory: HYBE America.
+  Sources: Variety and Billboard (February 2026), Wikipedia.
+
 ## 2026-10-24 Certifications from Wikipedia discographies
 
 - **Source** (`src/collectors/certifications.py`, monthly step `certifications`): the artist's English Wikipedia

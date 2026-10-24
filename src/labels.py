@@ -59,9 +59,19 @@ def musicbrainz_owner(label: str, table: list[dict]) -> tuple[str, str] | None:
     return None
 
 
-def classify_label(label: str, artist: str, table: list[dict] | None = None, use_musicbrainz: bool = True) -> tuple[str, str]:
+def _in_force(row: dict, released: str) -> bool:
+    """A row with a from/until date (a label that changed hands, e.g. Big Machine in February 2026) applies only to
+    releases dated inside it; without a release date, only rows with no dates apply."""
+    lo, hi = row.get("from") or "", row.get("until") or ""
+    if not (lo or hi):
+        return True
+    return bool(released) and (not lo or released[:10] >= lo) and (not hi or released[:10] <= hi)
+
+
+def classify_label(label: str, artist: str, table: list[dict] | None = None, use_musicbrainz: bool = True,
+                   released: str = "") -> tuple[str, str]:
     """(status, owner) of one release's label string: our table first, then the label's owners on MusicBrainz."""
-    table = table or owners()
+    table = [r for r in (table or owners()) if _in_force(r, released)]
     text = label.casefold()
     m = re.search(r"under (?:exclusive )?licen[cs]e to (.+)$", text)
     parts = [m[1], text] if m else [text]  # the licensee decides
@@ -107,7 +117,7 @@ def artist_status(releases: list[dict], artist: str, table: list[dict] | None = 
     table = table or owners()
     seen = []
     for r in releases:
-        st, owner = classify_label(r["label"], artist, table)
+        st, owner = classify_label(r["label"], artist, table, released=r.get("release_date", ""))
         seen.append({"title": r["title"], "date": r["release_date"], "label": r["label"], "status": st, "owner": owner})
     known = [x for x in seen if x["status"] != "unknown"]
     if not known:

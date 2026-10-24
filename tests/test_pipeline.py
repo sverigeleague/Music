@@ -516,3 +516,11 @@ def test_scout_weights_sum_to_one_per_genre():
     from src import insights
     for factors in insights.FACTORS_BY_GENRE.values():
         assert abs(sum(w for w, _ in factors.values()) - 1) < 1e-9
+
+
+def test_label_rows_by_release_date():
+    from src import labels
+    t = labels.owners()
+    assert labels.classify_label("Big Machine Records, LLC", "", t, False, "2023-05-01") == ("major_distributed", "HYBE America")
+    assert labels.classify_label("Big Machine Records", "", t, False, "2026-06-01") == ("independent", "Big Machine Records (Scott Borchetta)")
+    assert labels.classify_label("Blue Highway Records", "", t, False, "2026-06-01")[1] == "HYBE America"
