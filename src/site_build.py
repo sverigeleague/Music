@@ -87,6 +87,9 @@ def build() -> dict:
         wd_labels = [l for l in a["labels"].split("|") if l]
         status = first.get(t["spotify_id"]) or {"status": "unknown", "owner": "", "basis": None, "releases": []}
         status = labels.check_with_isrcs(status, isrcs.get(t["spotify_id"], []), registrants)
+        # catalog act (owner, 2026-10-24): no release in the last 2 years on Deezer, so nothing tells the current label
+        if status["status"] == "unknown" and a.get("deezer_id", "") in rels and not rels[a["deezer_id"]]:
+            status = {**status, "status": "catalog", "owner": ""}
         if t["spotify_id"] in lab_over:
             o = lab_over[t["spotify_id"]]
             status = {**status, "status": o["status"], "owner": o.get("owner", ""), "override": o.get("note") or "owner"}

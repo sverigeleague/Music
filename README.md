@@ -65,6 +65,8 @@ Applications → self-hosted, domain `rap-ledger.pages.dev`, allow the owner's e
 
 ## Review desk
 
+Reviews are answered in chat: Claude posts numbered batches and applies the replies. The page below is optional.
+
 Borderline genres and unplaced labels are settled on the claude.ai page "Rap Ledger Review Desk"
 (https://claude.ai/artifact/EA2MZxZE9DuhYBCRYAskAF): tap an answer per artist. Claude exports the answers
 (collections `genre` and `label`) to `review/decisions.json` and runs `python -m src.reviews` to write

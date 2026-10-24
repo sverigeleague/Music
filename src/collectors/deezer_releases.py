@@ -20,12 +20,14 @@ RAP = 116  # Deezer's Rap/Hip Hop genre
 
 
 def load() -> dict[str, list[dict]]:
-    """deezer_artist_id -> releases, newest first."""
+    """deezer_artist_id -> releases, newest first. An artist checked with no release in the window has an empty list."""
     out: dict[str, list[dict]] = {}
     if CSV.exists():
         with CSV.open() as f:
             for r in csv.DictReader(f):
-                out.setdefault(r["deezer_artist_id"], []).append(r)
+                rows = out.setdefault(r["deezer_artist_id"], [])
+                if r["record_type"] != "none":  # marker row: checked, nothing recent
+                    rows.append(r)
     for v in out.values():
         v.sort(key=lambda r: r["release_date"], reverse=True)
     return out
@@ -41,7 +43,10 @@ def update(deezer_ids: list[str], today: date | None = None, workers: int = 6) -
     overlap the waiting; src.http keeps the shared pace within Deezer's limit."""
     today = today or date.today()
     cutoff = date(today.year - YEARS, today.month, min(today.day, 28)).isoformat()
-    have = {(a, r["album_id"]) for a, rs in load().items() for r in rs}
+    have = set()
+    if CSV.exists():
+        with CSV.open() as f:
+            have = {(r["deezer_artist_id"], r["album_id"]) for r in csv.DictReader(f)}
     new = not CSV.exists()
     lock, count = threading.Lock(), [0]
     with CSV.open("a", newline="") as f:
@@ -51,7 +56,12 @@ def update(deezer_ids: list[str], today: date | None = None, workers: int = 6) -
 
         def work(did):
             rel = sorted(releases(did), key=lambda a: a.get("release_date", ""), reverse=True)
-            for a in [a for a in rel if a.get("release_date", "") >= cutoff][:RECENT]:
+            recent = [a for a in rel if a.get("release_date", "") >= cutoff][:RECENT]
+            if rel and not recent and (did, "none") not in have:
+                with lock:  # checked: nothing in the window (a catalog act)
+                    w.writerow({"deezer_artist_id": did, "album_id": "none", "title": "", "release_date": rel[0].get("release_date", ""),
+                                "record_type": "none", "genre_id": "", "label": "", "checked": today.isoformat()})
+            for a in recent:
                 if (did, str(a["id"])) in have:
                     continue
                 d = get(f"{API}/album/{a['id']}")
