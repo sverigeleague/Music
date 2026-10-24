@@ -10,6 +10,7 @@ Worth: the value of an income stream = yearly income x a sale multiple. The mult
 Shown as a range (low income x low multiple to high income x high multiple), grade C.
 """
 import csv
+import re
 from bisect import bisect_right
 
 from .config import REGISTRY
@@ -225,3 +226,42 @@ def collabs(songs_by_artist: dict[str, list[dict]], names: dict[str, str], fold)
                         e["top"], e["top_daily"] = s["title"], s["daily"] or 0
     return {a: sorted(({"id": b, "name": names[b], "daily": v["daily"], "songs": v["songs"], "top": v["top"]}
                        for b, v in es.items()), key=lambda x: -x["daily"]) for a, es in edges.items()}
+
+
+# ---------- label pages: one entry per label (the imprint on the release), with its parent company
+PARENT_OF = {"BMG": "Bertelsmann", "BBR Music Group": "BMG", "Concord": "Concord", "Loma Vista Recordings": "Concord"}
+
+
+def slug(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", name.casefold()).strip("-") or "label"
+
+
+def labels_index(rows: list[dict], release_counts: dict[str, int]) -> list[dict]:
+    """Every label with at least one top-1,000 artist: roster (biggest first), combined audience, momentum and the
+    royalties its roster's recordings generate (mid estimate, all streaming services)."""
+    by: dict[str, dict] = {}
+    for r in rows:
+        name = r.get("label_name")
+        if not name:
+            continue
+        group = r.get("label_owner") or ""
+        L = by.setdefault(name, {"name": name, "slug": slug(name), "status": r["label_status"], "group": group,
+                                 "parent": group if r["label_status"] != "independent" else PARENT_OF.get(group, group),
+                                 "artists": [], "ml": 0, "cl": 0, "royalties": 0, "breaking": 0, "rising": 0,
+                                 "scores": []})
+        L["artists"].append(r["id"])
+        L["ml"] += r["ml"] or 0
+        L["cl"] += r.get("cl") or 0
+        L["royalties"] += r.get("streaming_mid") or 0
+        tier = (r.get("scout") or {}).get("tier")
+        L["breaking"] += tier == "Breaking"
+        L["rising"] += tier == "Rising"
+        if (r.get("scout") or {}).get("score") is not None:
+            L["scores"].append(r["scout"]["score"])
+    out = []
+    for L in by.values():
+        sc = L.pop("scores")
+        L["scout_avg"] = round(sum(sc) / len(sc)) if sc else None
+        L["releases_2y"] = release_counts.get(L["name"], 0)
+        out.append(L)
+    return sorted(out, key=lambda L: -L["ml"])

@@ -2,6 +2,97 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label groups' financial statements and health (owner: "download and screen all their relevant quarterly and annual financial reports with all three statements ... learn from ... Hoop Ledger / Tventy ... cheap extraction of information from PDFs")
+
+- **Lesson from the Public-Registry project:** machine-readable filings first, at no Claude cost. A PDF goes to
+  Claude only where no XBRL exists, and then cheaply: page selection, a Haiku first read, checks in code, an Opus
+  correction, a 10% audit sample.
+  - **Measured there:** about $1.30 per 100 documents, against $8 with Opus alone. Haiku with checks made 3 wrong
+    figures in about 280.
+  - **Also learned there:** sending the text layer instead of the PDF saved nothing on short documents, so PDFs stay
+    PDFs.
+- **Free structured sources, built** (`src/collectors/financials.py`, `data/financials.csv`):
+  - **SEC companyfacts API:** Warner Music Group (10-K and 10-Q, so quarters too), Reservoir Media (10-K and 10-Q),
+    and Sony Group (20-F, annual, the whole group).
+  - **ESEF annual reports as xBRL-JSON from filings.xbrl.org:** Universal Music Group (2021-2025) and Believe
+    (2021-2024).
+  - **Three statements,** 24 standard items. The concept map is taken from Public-Registry, with debt, capex,
+    catalogue purchases, interest, tax and dividends added. UMG's catalogue investments and Believe's borrowings are
+    tagged under the companies' own concepts.
+  - **Checked against the published totals:** UMG revenue 2025 €12,507m, WMG FY2025 $6,707m, Believe 2024 €988.8m,
+    Reservoir FY2026 $175.7m. 110 of 113 balance sheets balance within 1%.
+- **Health ratios** (`src/health.py`): revenue growth, operating margin, free cash flow and FCF margin, FCF after
+  catalogue investment, net debt, net debt / EBITDA proxy, interest cover, current ratio, equity ratio.
+  - **Readings:** healthy / watch / weak, by credit-analysis rules of thumb.
+  - **Current ratio bands set for music:** good 0.9+, watch 0.6+. Royalties owed to artists sit in current
+    liabilities, so every group runs below 1.
+  - **UMG's EBITDA proxy:** operating income plus amortisation and impairment of intangibles, the only D&A it tags.
+- **PDF route aligned with Public-Registry** (owner: "make sure you are using the efficient pdf reading we
+  established"):
+  - **Same as there:**
+    - its page finder;
+    - PDF input, not text;
+    - Haiku at medium effort;
+    - corrections first by Haiku at high effort, then by Opus with the server-side fallback;
+    - failed reads excluded and listed;
+    - a fixed 2% Opus audit chosen by document ID.
+  - **Interim reports:** "Consolidated Interim Statements of ..." headings and short numbers ("947") are now
+    recognised.
+  - **Dry run on the 5 queued reports (no Claude call):** exactly the income statement, balance sheet and cash flow
+    pages of each, 15 pages sent of 435.
+  - **Not taken over:** the Batches API. About 5 documents a month would save under $0.05.
+- **PDF route, built and not yet run** (`src/extract/report_pdf.py`, `registry/report_pdfs.csv`): UMG's half-year
+  reports, Sony's quarterly results (music segment) and Bertelsmann/BMG. It needs the `ANTHROPIC_API_KEY` secret on
+  this repository and the owner's approval of the cost.
+- **Not available anywhere:** EMPIRE, Concord before the merger, and other private labels publish no accounts.
+
+## 2026-10-24 Label research (owner: "Research to find out"), finances and logos
+
+- **25 artists researched:** the 5 the owner could not answer and the next 20 unknowns.
+  - **Evidence:** release ℗ lines (Apple's iTunes lookup), press and Wikipedia; one source per artist.
+  - **Applied:** 22 rows of high or medium confidence, to `registry/label_overrides.csv` with the source in the note.
+  - **Not applied (low confidence):** 50 Cent and Soulja Boy (only their own label names on 2025-26 releases; the
+    last documented major deals date from 2014 and 2021) and Eve (no new releases found). They stay unknown.
+  - **Finding:** some Deezer label strings belong to the other artist on a collaboration. Examples: Childish
+    Gambino's "ALTER Music" and Mustard's "CactusJack". The research corrected these.
+- **Finances** (`registry/label_financials.csv`): 126 rows, each with period, currency, source and basis.
+  - **Reported (A):** UMG FY2025, WMG FY2025, Sony's music segment FY2025, BMG 2025, Believe FY2024, Reservoir FY2026.
+  - **Press-reported (B):** Concord.
+  - **None found:** EMPIRE (no reputable figure). The page says so.
+  - **Checked against the sources:** UMG revenue €12,507m and adjusted EBITDA €2,810m (2025 results release), and
+    BMG and Concord's merger, completed on 1 September 2026 with Bertelsmann holding 67%.
+- **Logos** (`registry/label_logos.csv`, `site/logos/`): 25 Wikimedia Commons files, mostly PD-textlogo.
+  - **Left out:** Atlantic (a "CC0" file sourced from a fan site) and Death Row (a picture logo under a doubtful
+    licence).
+  - **No logo on Wikidata:** Capitol and gamma.
+
+## 2026-10-24 Label pages, monthly run now, robust ranking (method 1.2)
+
+- **Label pages** (owner: "an option to select on each label ... logo ... parent company ... a snapshot ... artists
+  ... how they are performing, how the label is financially performing, how the parent company is financially
+  performing"):
+  - **Directory and pages:** a directory of every label with artists in the top 1,000 (search, filter by owner,
+    sortable columns), and one page per label.
+  - **Which label:** the label printed on the artist's recent releases. "X under exclusive license to Y" counts as Y.
+    The display names are in `registry/label_owners.csv`.
+  - **Each page shows:**
+    - the roster with listeners, current listeners, Scout and newest hit;
+    - the roster's yearly recording royalties (C);
+    - momentum and the one to watch;
+    - releases in two years;
+    - the parent company and its sister labels in the top 1,000.
+  - **Finances:** a label inside a major publishes no accounts of its own. The page says so and shows the roster's
+    royalties as the best public measure of its size, with the parent's reported results (company filings, A)
+    beside them. Private independents show press-reported figures (B) where they exist.
+  - **Logos:** only free files on Wikimedia Commons (Wikidata's logo property), mostly public-domain text logos,
+    credited on each page. Labels with no free logo show initials. Rejected: copying logos from label websites
+    (copyright and trademark).
+- **Monthly run started now** (owner) on the working branch. Its steps no longer stop the run when one fails or times
+  out, the commit always runs, and a second Deezer dates pass follows MusicBrainz.
+- **Current-listeners method 1.2:** artists with 50-80% of their streams dated get a provisional rank, marked * with
+  the range the undated songs could move it. Ranked: 914 → 970 of 1,000. Rejected: lowering the 80% rule outright,
+  which would hide how uncertain those ranks are.
+
 ## 2026-10-24 Owner's answers in chat: backfill, assumptions, Latin, catalog acts
 
 - **A1 (yes):** the history backfill was started by Claude (Actions → backfill, on main).

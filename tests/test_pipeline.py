@@ -283,3 +283,67 @@ def test_musicbrainz_label_parts_and_owner_chain(monkeypatch):
     monkeypatch.setattr(labels, "_MB", {"Urban": {"chain": ["Motor Music GmbH", "Universal Music GmbH"], "distributors": []}})
     assert labels.classify_label("Urban", "Someone", table) == ("major", "Universal Music Group")
     assert labels.classify_label("Urban", "Someone", table, use_musicbrainz=False) == ("unknown", "")
+
+
+def test_provisional_rank_between_half_and_eighty_percent_dated():
+    from datetime import date
+    from src import current
+    rows = [{"track_id": "a", "title": "A", "daily": 60, "feature": False},
+            {"track_id": "b", "title": "B", "daily": 40, "feature": False}]
+    dates = {"a": {"first_release": "2026-09-01"}}  # 60% of streams dated, all new
+    s = current.score(rows, dates, date(2026, 10, 24))
+    assert not s["ok"] and s["provisional"] and s["share_range"] == (0.6, 1.0)
+    s = current.score(rows, {}, date(2026, 10, 24))
+    assert not s["provisional"]
+
+
+def test_label_display_names_follow_the_licensee():
+    from src import labels
+    assert labels.label_name("OVO/Republic") == "Republic Records"
+    assert labels.label_name("X LLC, under exclusive license to Atlantic Recording Corporation") == "Atlantic Records"
+    assert labels.label_name("Death Note Music, LLC") == "Death Note Music"
+
+
+def test_report_pdf_checks_and_rows():
+    from src.extract import report_pdf as r
+    read = {"currency": "EUR", "unit_multiplier": 1000000,
+            "columns": [{"column": 1, "statement": "IS", "period_end": "2026-06-30", "months": 6},
+                        {"column": 2, "statement": "BS", "period_end": "2026-06-30", "months": 0}],
+            "lines": [{"item": "revenue", "label": "Revenue", "column": 1, "value": 6000, "page": 3},
+                      {"item": "net_income", "label": "Profit", "column": 1, "value": 800, "page": 3},
+                      {"item": "total_assets", "label": "Total assets", "column": 2, "value": 100, "page": 4},
+                      {"item": "total_liabilities", "label": "Total liabilities", "column": 2, "value": 70, "page": 4},
+                      {"item": "equity", "label": "Equity", "column": 2, "value": 30, "page": 4},
+                      {"item": "capex", "label": "Capex", "column": 1, "value": -5, "page": 5}],
+            "absent": [{"item": "cfo", "reason": "no cash flow statement in a trading update"}]}
+    fails = r.checks(read)
+    assert fails == ["column 1: capex should be a positive amount"]
+    rows = r.rows_of({"company": "UMG", "period_type": "H", "url": "https://x"}, {"read": read, "model": "m"})
+    rev = next(x for x in rows if x["item"] == "revenue")
+    assert rev["period_type"] == "H" and rev["value"] == 6000 * 1000000
+    assert next(x for x in rows if x["item"] == "total_assets")["period_type"] == "Q"
+
+
+def test_health_ratios():
+    from src import health
+    p = {"revenue": 1000, "operating_income": 150, "da": 50, "net_income": 100, "cash": 100, "long_term_debt": 500,
+         "short_term_debt": 0, "cfo": 200, "capex": 20, "current_assets": 400, "current_liabilities": 500,
+         "equity": 300, "total_assets": 1000, "interest_expense": 25}
+    r = health._ratios(p, {"revenue": 800})
+    assert r["revenue_growth"] == 0.25 and r["net_debt"] == 400 and r["leverage"] == 2.0 and r["fcf"] == 180
+    assert health._reading("leverage", 2.0) == "good" and health._reading("current_ratio", 0.8) == "watch"
+
+
+def test_report_pdf_locates_interim_statement_headings():
+    from src.extract import report_pdf as r
+    filler = "Our strategy and our people. " * 40
+    nums = " ".join(f"{i},{i:03d}" for i in range(100, 130))
+    pages = [filler,
+             # UMG's half-year layout: few thousands separators on the statement pages
+             "Condensed Consolidated Interim Statements of Profit or Loss Six months ended June 30 Revenues 6,194 5,881 "
+             "Cost of revenues (3,622) (3,341) Operating profit 1,021 947 Net income 812 701 Total 2,410 1,977",
+             filler,
+             "Condensed Consolidated Interim Statements of Financial Position " + nums,
+             "Notes to the Condensed Consolidated Interim Financial Statements " + nums,
+             "Main aggregates of the Statement of profit or loss " + nums]
+    assert r.locate(pages) == [1, 3]
