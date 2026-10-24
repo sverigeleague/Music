@@ -80,7 +80,7 @@ function bindSearchBox(input, box, global) {
   input.addEventListener("focus", () => input.value && draw());
   input.addEventListener("keydown", ev => {
     if (ev.key === "ArrowDown" || ev.key === "ArrowUp") { ev.preventDefault(); at = (at + (ev.key === "ArrowDown" ? 1 : -1) + hits.length) % Math.max(1, hits.length); mark(); }
-    else if (ev.key === "Enter" && hits[at]) { location.hash = hits[at].href; input.value = ""; close(); input.blur(); }
+    else if (ev.key === "Enter" && hits[at]) { go(hits[at].href); input.value = ""; close(); input.blur(); }
     else if (ev.key === "Escape") { close(); input.blur(); }
   });
   box.addEventListener("click", ev => { if (ev.target.closest("a")) { input.value = ""; close(); } });
@@ -89,12 +89,38 @@ function bindSearchBox(input, box, global) {
   document.addEventListener("keydown", ev => { if (ev.key === "/" && !/input|select|textarea/i.test(document.activeElement.tagName)) { ev.preventDefault(); input.focus(); } });
 }
 
-// Per-artist detail lives in 32 shard files (src/site_build.py): data/a/<second character's code % 32>.json.
+// ---------- genres (owner, 2026-10-24, C3): hip-hop at #/..., country at #/country/..., each with its own data
+// (data/ and data/country/). Page copy is written for hip-hop; on country pages the word is swapped in the rendered
+// text, and links inside the pages stay on the country side.
+let GENRE = "hip_hop";
+const DATA_DIR = () => GENRE === "hip_hop" ? "data/" : `data/${GENRE}/`;
+const PREFIX = () => GENRE === "hip_hop" ? "#/" : `#/${GENRE}/`;
+const genreStore = {};
+function swapWords(root) {
+  if (GENRE !== "country" || !root) return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  for (let n = w.nextNode(); n; n = w.nextNode())
+    if (/hip[- ]hop/i.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(/Hip-Hop|Hip-hop/g, "Country").replace(/hip-hop|hip hop/g, "country");
+}
+new MutationObserver(() => { swapWords(document.getElementById("app")); swapWords(document.getElementById("crumbs")); })
+  .observe(document.getElementById("app"), { childList: true, subtree: true });
+const go = hash => { location.hash = GENRE !== "hip_hop" && hash.startsWith("#/") && !hash.startsWith(PREFIX()) ? PREFIX() + hash.slice(2) : hash; };
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#/"]');
+  if (!a || GENRE === "hip_hop" || a.dataset.genre || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+  const href = a.getAttribute("href");
+  if (href.startsWith(PREFIX()) || href === "#/state" || href.startsWith("#/state/") || href === "#/method") return;
+  e.preventDefault();
+  go(href);
+});
+
+// Per-artist detail lives in 32 shard files (src/site_build.py): <data>/a/<second character's code % 32>.json.
 const shards = {};
 async function detailOf(id) {
   const n = id.charCodeAt(1) % 32;  // the second character: Spotify IDs all start with 0-7
-  try { shards[n] = shards[n] || await (await fetch(`data/a/${n}.json`)).json(); } catch { shards[n] = {}; }
-  return shards[n][id] || { lines: [], deals: [], artist: {}, artist_total: null };
+  const key = GENRE + n;
+  try { shards[key] = shards[key] || await (await fetch(`${DATA_DIR()}a/${n}.json`)).json(); } catch { shards[key] = {}; }
+  return shards[key][id] || { lines: [], deals: [], artist: {}, artist_total: null };
 }
 
 // A photo that fails to load (a copy of the site without every photo) falls back to the artist's initials.
@@ -924,7 +950,7 @@ function compare(ids) {
     const a = d.artists.find(x => x.name.toLowerCase() === inp.value.trim().toLowerCase());
     if (!a) return;
     const next = A.map(x => x.id); next[+inp.dataset.i] = a.id;
-    location.hash = "#/compare/" + next.filter(Boolean).join("/");
+    go("#/compare/" + next.filter(Boolean).join("/"));
   });
 }
 
@@ -1090,13 +1116,20 @@ function summaryCard(a, rev) {
 
 // ---------- router
 async function route() {
-  if (!store.data) {
-    store.data = await (await fetch("data/index.json")).json();
-    // page-specific data loads in the background (D6); pages other than the start page and artist pages wait for it
-    store.extra = fetch("data/extra.json").then(r => r.json()).then(x => Object.assign(store.data, x));
-  }
   // a static page (site/a/<slug>/, site/label/<slug>/) opens its artist or label until the visitor navigates
-  const h = (location.hash || window.BOOT || "").replace(/^#\/?/, "").replace(/\?.*$/, "").split("/");
+  let h = (location.hash || window.BOOT || "").replace(/^#\/?/, "").replace(/\?.*$/, "").split("/");
+  GENRE = h[0] === "country" ? "country" : "hip_hop";
+  if (GENRE !== "hip_hop") h = h.slice(1).length ? h.slice(1) : [""];
+  document.documentElement.dataset.genre = GENRE;
+  document.querySelectorAll("[data-genre]").forEach(a => a.dataset.genre === GENRE ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  document.querySelectorAll(".mainnav a").forEach(a => { const base = a.dataset.href || a.getAttribute("href"); a.dataset.href = base; a.setAttribute("href", GENRE === "hip_hop" ? base : PREFIX() + base.slice(2)); });
+  if (!genreStore[GENRE]) {
+    const g = genreStore[GENRE] = { data: await (await fetch(`${DATA_DIR()}index.json`)).json() };
+    // page-specific data loads in the background (D6); pages other than the start page and artist pages wait for it
+    g.extra = fetch(`${DATA_DIR()}extra.json`).then(r => r.json()).then(x => Object.assign(g.data, x));
+  }
+  store.data = genreStore[GENRE].data;
+  store.extra = genreStore[GENRE].extra;
   const NAMES = { movers: ["Artists", "Movers"], month: ["Artists", "Movers"], rising: ["Artists", "Movers"], compare: ["Artists", "Compare"],
     scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], producers: ["Scout", "Producers"],
     worth: ["Money"], pay: ["Money", "Pay gap by deal"], platforms: ["Money", "Platforms"], tours: ["Money", "Tours"],
@@ -1131,6 +1164,7 @@ async function route() {
   window.scrollTo(0, 0);
 }
 function setMeta(title, desc) {
+  if (GENRE === "country") { title = title.replace(/Hip-hop|Hip-Hop/g, "Country").replace(/hip-hop/g, "country"); desc = desc && desc.replace(/hip-hop/g, "country"); }
   document.title = `${title} · tventy music`;
   const m = document.querySelector('meta[name="description"]');
   if (m) m.content = desc || "Who is drawing an audience in hip-hop, what the music earns, who owns it and who is about to break: the top 1,000 artists, updated daily, every figure sourced.";
