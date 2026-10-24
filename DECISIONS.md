@@ -2,6 +2,17 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Country tours (overnight research)
+
+- registry/tours.csv gains 52 country rows: 22 reported grosses (grade A: Billboard year-end 2025 and midyear 2026,
+  Billboard's NFL-stadium list, Pollstar box office) and 30 context rows for tours with no reported total.
+- Billboard's year-end 2025 figures end 2025-09-30, so they fall outside the last 12 months; what counts now:
+  Luke Combs $86.5m (three reported runs), Chris Stapleton $73.5m (summer 2026 leg), George Strait $28.4m (Lubbock),
+  Treaty Oak Revival $26.7m, Tim McGraw $13.5m, Lainey Wilson $12.4m, Zach Bryan $10.2m (one reported show), HARDY.
+- Not estimated: Morgan Wallen's 2025 and 2026 stadium tours and most of Zach Bryan's 2026 tour have no reported
+  gross anywhere (projections and per-night averages are not reports). Billboard's year-end 2026 (about December)
+  should fill most gaps.
+
 ## 2026-10-24 Label research batch 4 (overnight) and Deezer IDs from ISRCs
 
 - **Shared names:** 18 artists in the top 1,000 (Aminé, City Girls, Luciano, Eve...) had a Deezer name that several
