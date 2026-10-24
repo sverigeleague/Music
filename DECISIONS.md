@@ -2,6 +2,33 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Scout weights after the back-test, labels from lead releases, and a player for the risers
+
+- **Scout weights (owner: "S1: 5%" and "Don't put so much weight on Wikipedia attention"):** listener growth 20% to
+  5% and Wikipedia attention 18% to 5%, the two signals the back-test found below chance (44% and 43% of picks).
+  - The freed points go to the other signals in proportion: new-release pull 35%, current share 22%, streams per
+    listener 14%, chart reach 14%, today's change 5%.
+  - Kept: attention's part in the Breaking rule (new songs pulling 25%+ of streams, or attention up 30%+).
+  - Review again with the full back-test from our daily log, in January 2027.
+- **Labels from lead releases only (owner: "L1: yes"):** Deezer's album record names its lead artist, and
+  release_labels.csv now stores `lead`.
+  - Releases the artist only features on are left out of the label and catalog decisions. Up to 30 releases in the
+    window are looked at to find 6 lead ones.
+  - The 7,100 stored releases were checked once (`fill_lead`).
+- **Player for the risers (owner: "links to the songs and be able to play audio ... only for the risers/scout";
+  "Go with suggested"):**
+  - **What:** a ▶ button beside the newest hit of every Breaking, Rising and Watch artist on the Scout list, on the
+    unsigned prospects of "This month", and on tiered artists' pages. It opens Spotify's own player docked at the
+    foot of the screen; the next ▶ switches the song.
+  - **Spotify's embed:** full songs for listeners signed in to Spotify, 30-second previews for others. Nothing from
+    Spotify loads before the first press, so no third-party code or cookies arrive unasked.
+  - **The song:** the track ID of the newest hit, already in the ranking data (`top_fresh.id`). No new collector and
+    no cost.
+  - **Video, later:** YouTube video IDs from kworb's YouTube pages (free), played in YouTube's privacy-enhanced
+    player on a click.
+  - **Rejected for now:** a "Scout radio" queue of Deezer previews (built after the first version is used); the
+    YouTube API (quota and a key).
+
 ## 2026-10-24 Label research, batch 2 (step a)
 
 - **Researched:** the next 20 unknown artists by monthly listeners. 50 Cent, Soulja Boy and Eve were skipped (low
@@ -56,33 +83,6 @@ What was chosen, what was considered and rejected, and why. Newest first.
   showed 49 "new" Rising artists caused by our changes, not the artists'.
 - **Label shares:** both dates use today's label status. Comparing the statuses as logged mixed the relabelling
   (unknown fell from 26% to 14% after the label research) with real shifts in listening.
-
-## 2026-10-24 Scout weights after the back-test, labels from lead releases, and a player for the risers
-
-- **Scout weights (owner: "S1: 5%" and "Don't put so much weight on Wikipedia attention"):** listener growth 20% to
-  5% and Wikipedia attention 18% to 5%, the two signals the back-test found below chance (44% and 43% of picks).
-  - The freed points go to the other signals in proportion: new-release pull 35%, current share 22%, streams per
-    listener 14%, chart reach 14%, today's change 5%.
-  - Kept: attention's part in the Breaking rule (new songs pulling 25%+ of streams, or attention up 30%+).
-  - Review again with the full back-test from our daily log, in January 2027.
-- **Labels from lead releases only (owner: "L1: yes"):** Deezer's album record names its lead artist, and
-  release_labels.csv now stores `lead`.
-  - Releases the artist only features on are left out of the label and catalog decisions. Up to 30 releases in the
-    window are looked at to find 6 lead ones.
-  - The 7,100 stored releases were checked once (`fill_lead`).
-- **Player for the risers (owner: "links to the songs and be able to play audio ... only for the risers/scout";
-  "Go with suggested"):**
-  - **What:** a ▶ button beside the newest hit of every Breaking, Rising and Watch artist on the Scout list, on the
-    unsigned prospects of "This month", and on tiered artists' pages. It opens Spotify's own player docked at the
-    foot of the screen; the next ▶ switches the song.
-  - **Spotify's embed:** full songs for listeners signed in to Spotify, 30-second previews for others. Nothing from
-    Spotify loads before the first press, so no third-party code or cookies arrive unasked.
-  - **The song:** the track ID of the newest hit, already in the ranking data (`top_fresh.id`). No new collector and
-    no cost.
-  - **Video, later:** YouTube video IDs from kworb's YouTube pages (free), played in YouTube's privacy-enhanced
-    player on a click.
-  - **Rejected for now:** a "Scout radio" queue of Deezer previews (built after the first version is used); the
-    YouTube API (quota and a key).
 
 ## 2026-10-24 Scout back-test (ROADMAP 8.2; owner: "Follow steps a to d ... in order")
 
