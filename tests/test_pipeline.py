@@ -339,8 +339,11 @@ def test_report_pdf_locates_interim_statement_headings():
     filler = "Our strategy and our people. " * 40
     nums = " ".join(f"{i},{i:03d}" for i in range(100, 130))
     pages = [filler,
-             "Condensed Consolidated Interim Statements of Profit or Loss Six months ended June 30 Revenues 6,194 947 312 " + "(1) 12 " * 5,
-             "Main aggregates of the Statement of profit or loss " + nums,
+             # UMG's half-year layout: few thousands separators on the statement pages
+             "Condensed Consolidated Interim Statements of Profit or Loss Six months ended June 30 Revenues 6,194 5,881 "
+             "Cost of revenues (3,622) (3,341) Operating profit 1,021 947 Net income 812 701 Total 2,410 1,977",
+             filler,
              "Condensed Consolidated Interim Statements of Financial Position " + nums,
-             "Notes to the condensed consolidated interim financial statements " + nums]
+             "Notes to the Condensed Consolidated Interim Financial Statements " + nums,
+             "Main aggregates of the Statement of profit or loss " + nums]
     assert r.locate(pages) == [1, 3]
