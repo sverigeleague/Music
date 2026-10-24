@@ -2,6 +2,30 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Genre review settled on Claude's recommendations (owner: "go with all your recommended for the 1491 names")
+
+Reviews now happen in chat (working agreement). The owner accepted every recommendation in the genre queue. The
+recommendation rule, applied in this order:
+1. The 12 artists shown in chat: as suggested there (Pharrell, Bryson Tiller, AP Dhillon and Omar Camacho other; T-Pain,
+   Anderson .Paak and AUDREY NUNA hip-hop; the rest Latin).
+2. The pipeline's Latin suggestions (170): Latin.
+3. Any Latin evidence: Latin. That means a Spanish-speaking home country, 25%+ of Deezer releases filed as Latin, or 25%+
+   of MusicBrainz votes on Latin genres.
+4. Artists with MusicBrainz votes or an exact Deezer match tied to a Wikidata identity: hip-hop when the average of the
+   hip-hop vote share and the Deezer rap share is 45% or more, else other.
+5. Artists found on Deezer by name only: hip-hop when 50%+ of releases are rap and the Deezer audience is at least 1%
+   of the Spotify listeners. Without the audience check the name could belong to a different, smaller act.
+   - The other 623 stay in review: identity not confirmed. Most are producers, whose Spotify listeners come from
+     credits.
+6. Wikidata genres only: hip-hop when half or more are hip-hop genres.
+7. No data (50): stay in review.
+
+- **Result:** 818 decisions; 485 hip-hop, 236 Latin, 97 other. 673 stay in review. Registry: 1,630 hip-hop artists
+  (was 1,145).
+- **Labels:** the 5 label cases with a recommendation in chat are applied (Macklemore, B.o.B and Tory Lanez unsigned;
+  Lil Peep and Coolio independent label).
+- Rejected: moving all 1,491 by the pipeline's lean alone. 1,321 of them had no lean, which is why they were in review.
+
 ## 2026-10-23 Review desk, label owners from MusicBrainz, compare and watchlist
 
 - **Review desk** (claude.ai page, its own database): the 1,491 genre and 516 label cases as cards, biggest audience

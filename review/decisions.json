@@ -1,0 +1,4944 @@
+{
+ "genre": {
+  "4q3ewBCX7sLwd24euuV69X": {
+   "decision": "latin",
+   "name": "Bad Bunny",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1vyhD5VmyZ7KMfW5gqLgo5": {
+   "decision": "latin",
+   "name": "J Balvin",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "790FomKkXshlbRYZFtlgla": {
+   "decision": "latin",
+   "name": "KAROL G",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4VMYDCV2IEDYJArk749S6m": {
+   "decision": "latin",
+   "name": "Daddy Yankee",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1mcTU81TzQhprhouKaTkpq": {
+   "decision": "latin",
+   "name": "Rauw Alejandro",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1i8SpTcr7yvPOmcqrbnVXY": {
+   "decision": "latin",
+   "name": "Ozuna",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1r4hJ1h58CWwUQe3MxPuau": {
+   "decision": "latin",
+   "name": "Maluma",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2R21vXR83lH98kGeO99Y66": {
+   "decision": "latin",
+   "name": "Anuel AA",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "329e4yvIujISKGKz1BZZbO": {
+   "decision": "latin",
+   "name": "Farruko",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7iK8PXO48WeuP03g8YR51W": {
+   "decision": "latin",
+   "name": "Myke Towers",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "12GqGscKJx3aE4t07u7eVZ": {
+   "decision": "latin",
+   "name": "Peso Pluma",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "33ScadVnbm2X8kkUqOkC6Z": {
+   "decision": "latin",
+   "name": "Don Omar",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2RdwBSPQiwcmiDo9kixcl8": {
+   "decision": "other",
+   "name": "Pharrell Williams",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "2LRoIwlKmHjgvigdNGBHNo": {
+   "decision": "latin",
+   "name": "Feid",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1SupJlEpv7RS2tPNRaHViT": {
+   "decision": "latin",
+   "name": "Nicky Jam",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4SsVbpTthjScTS7U2hmr1X": {
+   "decision": "latin",
+   "name": "Arcángel",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4obzFoKoKRHIphyHzJ35G3": {
+   "decision": "latin",
+   "name": "Becky G",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "52iwsT98xCoGgiGntTiR7K": {
+   "decision": "latin",
+   "name": "Quevedo",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7j6DKwmjbxvpQO8h914uEz": {
+   "decision": "latin",
+   "name": "Ryan Castro",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7Gi6gjaWy3DxyilpF1a8Is": {
+   "decision": "latin",
+   "name": "Junior H",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6nVcHLIgY5pE2YCl8ubca1": {
+   "decision": "latin",
+   "name": "JHAYCO",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1wZtkThiXbVNtj6hee6dz9": {
+   "decision": "latin",
+   "name": "Wisin & Yandel",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3m5qlPf2OkihLz3dRYnkPA": {
+   "decision": "latin",
+   "name": "Ovy On The Drums",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7a0XAaPaK2aDSqa8p3QnC7": {
+   "decision": "latin",
+   "name": "Beéle",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "12vb80Km0Ew53ABfJOepVz": {
+   "decision": "latin",
+   "name": "Ñengo Flow",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0GM7qgcRCORpGnfcN2tCiB": {
+   "decision": "latin",
+   "name": "Tainy",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0eHQ9o50hj6ZDNBt6Ys1sD": {
+   "decision": "latin",
+   "name": "Yandel",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1TA5sGRlKUJXBN4ZyJuDIX": {
+   "decision": "latin",
+   "name": "Blessd",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "716NhGYqD1jl2wI1Qkgq36": {
+   "decision": "latin",
+   "name": "Bizarrap",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3aQeKQSyrW4qWr35idm0cy": {
+   "decision": "hip_hop",
+   "name": "T-Pain",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "2oQX8QiMXOyuqbcZEFsZfm": {
+   "decision": "latin",
+   "name": "El Alfa",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1rTUwYS38LkQTlT2fhikch": {
+   "decision": "latin",
+   "name": "Yung Beef",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3EiLUeyEcA6fbRPSHkG5kb": {
+   "decision": "latin",
+   "name": "De La Ghetto",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2EMAnMvWE2eb56ToJVfCWs": {
+   "decision": "other",
+   "name": "Bryson Tiller",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "1pQWsZQehhS4wavwh7Fnxd": {
+   "decision": "latin",
+   "name": "Lenny Tavárez",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3jK9MiCrA42lLAdMGUZpwa": {
+   "decision": "hip_hop",
+   "name": "Anderson .Paak",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "14zUHaJZo1mnYtn6IBRaRP": {
+   "decision": "latin",
+   "name": "Justin Quiles",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "3UTF2no3muGdiFXVujl94i": {
+   "decision": "latin",
+   "name": "Kapo",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2IMZYfNi21MGqxopj9fWx8": {
+   "decision": "latin",
+   "name": "Rels B",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3qsKSpcV3ncke3hw52JSMB": {
+   "decision": "latin",
+   "name": "Young Miko",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0Wwji82sLA0Hcvtuak3omb": {
+   "decision": "hip_hop",
+   "name": "AUDREY NUNA",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "54seKvtsZauR1iauN0ptpo": {
+   "decision": "latin",
+   "name": "De La Rose",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "3RtNN1VnooWEn3KQk03DUL": {
+   "decision": "latin",
+   "name": "Noriel",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "00XhexlJEXQstHimpZN910": {
+   "decision": "latin",
+   "name": "Brytiago",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6w9ToX5slZ4uIdmD17hJ3c": {
+   "decision": "latin",
+   "name": "Bryant Myers",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5XJDexmWFLWOkjOEjOVX3e": {
+   "decision": "latin",
+   "name": "Eladio Carrion",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0Q8NcsJwoCbZOHHW63su5S": {
+   "decision": "latin",
+   "name": "Mora",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3vQ0GE3mI0dAaxIMYe5g7z": {
+   "decision": "latin",
+   "name": "Paulo Londra",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2YRyPiW98bpkARAS4B3OQP": {
+   "decision": "latin",
+   "name": "Dei V",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "00me4Ke1LsvMxt5kydlMyU": {
+   "decision": "latin",
+   "name": "Cosculluela",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1TtXnWcUs0FCkaZDPGYHdf": {
+   "decision": "latin",
+   "name": "Darell",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1DxLCyH42yaHKGK3cl5bvG": {
+   "decision": "latin",
+   "name": "Maria Becerra",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2TjgzYcbTdsZjbT9OItIeB": {
+   "decision": "latin",
+   "name": "Héctor \"El Father\"",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "1Ts9of7VPZElwPQnqnDSfW": {
+   "decision": "latin",
+   "name": "Lyanno",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2cy1zPcrFcXAJTP0APWewL": {
+   "decision": "latin",
+   "name": "Gente De Zona",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4axKuDPr6WKcDCyh8vueTY": {
+   "decision": "latin",
+   "name": "Luar La L",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6LEG9Ld1aLImEFEVHdWNSB": {
+   "decision": "other",
+   "name": "AP Dhillon",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "1bAftSH8umNcGZ0uyV7LMg": {
+   "decision": "latin",
+   "name": "Duki",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4F4pp8NUW08JuXwnoxglpN": {
+   "decision": "latin",
+   "name": "Bad Gyal",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3i6lAgVHplDXb6zrjIeBeK": {
+   "decision": "latin",
+   "name": "Kris R.",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "2UZIAOlrnyZmyzt1nuXr9y": {
+   "decision": "latin",
+   "name": "Nicki Nicole",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0rUu2qzqezBrCddX1RuUyJ": {
+   "decision": "other",
+   "name": "Omar Camacho",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "4o0NtnL2m0lzZmEdRas1qv": {
+   "decision": "latin",
+   "name": "Ovi",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5Y3MV9DZ0d87NnVm56qSY1": {
+   "decision": "latin",
+   "name": "Tiago PZK",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "47MpMsUfWtgyIIBEFOr4FE": {
+   "decision": "latin",
+   "name": "Lunay",
+   "at": "2026-10-24",
+   "basis": "shown in chat"
+  },
+  "4CQdcx66F116k2db2Y0rjE": {
+   "decision": "latin",
+   "name": "Hades66",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2x7PC78TmgqpEIjaGAZ0Oz": {
+   "decision": "hip_hop",
+   "name": "Trueno",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3SUT1jjM5hzZj9TLfLZGIP": {
+   "decision": "latin",
+   "name": "Tego Calderón",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6XFITTl7cFTdopDY3lUdlY": {
+   "decision": "latin",
+   "name": "J Alvarez",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1aWJsBQa67l72j1VT3D6Ow": {
+   "decision": "latin",
+   "name": "Micro TDH",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1GKIlPFdcewHtpDVCQ8zmJ": {
+   "decision": "latin",
+   "name": "Brray",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5bWUlnPx9OYKsLiUJrhCA1": {
+   "decision": "latin",
+   "name": "Jon Z",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "5hdhHgpxyniooUiQVaPxQ0": {
+   "decision": "latin",
+   "name": "Nio Garcia",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7gR53ad9JjCweCv4f9MWEX": {
+   "decision": "latin",
+   "name": "Eddy Lover",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4m6ubhNsdwF4psNf3R8kwR": {
+   "decision": "latin",
+   "name": "KHEA",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "01nUdqwuIHCHLZNP2TvYVF": {
+   "decision": "latin",
+   "name": "Boy Wonder CF",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1fux65HMCBvfJHqlBc4Nno": {
+   "decision": "latin",
+   "name": "Casper Magico",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2CCgb0KApjfQDuTppovpf8": {
+   "decision": "latin",
+   "name": "Rvfv",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5r3wPya2PpeTTsXsGhQU8O": {
+   "decision": "hip_hop",
+   "name": "Shubh",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 49%"
+  },
+  "1oH2B8tcHn4Gpl2bmmyd4A": {
+   "decision": "hip_hop",
+   "name": "La Santa Grifa",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6w3SkAHYPsQ1bxV7VDlG5y": {
+   "decision": "latin",
+   "name": "Cazzu",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "07PdYoE4jVRF6Ut40GgVSP": {
+   "decision": "latin",
+   "name": "Cartel De Santa",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1WaFQSHVGZQJTbf0BdxdNo": {
+   "decision": "other",
+   "name": "Tommy Richman",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 26%"
+  },
+  "6ndLrsgT3MV5CNxIrW71fw": {
+   "decision": "latin",
+   "name": "DFZM",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2O8vbr4RYPpk6MRA4fio7u": {
+   "decision": "latin",
+   "name": "SAIKO",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0AqlFI0tz2DsEoJlKSIiT9": {
+   "decision": "latin",
+   "name": "Emilia",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7JGdIwHe5RyFZvLEuRdR7N": {
+   "decision": "latin",
+   "name": "El Americano 4KT",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "18dspUI6gqabm5XCC2RcUD": {
+   "decision": "latin",
+   "name": "SOG",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1cUpGtXcSQsovNYEZOQgOG": {
+   "decision": "latin",
+   "name": "Nanpa Básico",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0FwnPHExlRRxEZPLAi5tmG": {
+   "decision": "latin",
+   "name": "JC Reyes",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2h5Ha0ZiMFmOQD3iYcSXsy": {
+   "decision": "other",
+   "name": "KayBlack",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 20%"
+  },
+  "5TYxZTjIPqKM8K8NuP9woO": {
+   "decision": "latin",
+   "name": "C. Tangana",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0QJIPDAEDILuo8AIq3pMuU": {
+   "decision": "hip_hop",
+   "name": "M.I.A.",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 45%"
+  },
+  "7tU1VKOuxiNZwBZC6RHidA": {
+   "decision": "latin",
+   "name": "Alexis y Fido",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0JjPiLQNgAFaEkwoy56B1C": {
+   "decision": "hip_hop",
+   "name": "L7NNON",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 60%"
+  },
+  "2hejA1Dkf8v8R0koF44FvW": {
+   "decision": "latin",
+   "name": "Gera MX",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5YwzDz4RJfTiMHS4tdR5Lf": {
+   "decision": "hip_hop",
+   "name": "Xamã",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 59%"
+  },
+  "5NS0854TqZQVoRmJKSWtFZ": {
+   "decision": "latin",
+   "name": "Chino & Nacho",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2OnKRchqP7tT0FzTvWIFI7": {
+   "decision": "latin",
+   "name": "Wolfine",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1RBzGO6Nm3uyhUSxP7EDWO": {
+   "decision": "latin",
+   "name": "KEVIN ROLDAN",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3hfWiirwdO1ijoZQwj7uzZ": {
+   "decision": "latin",
+   "name": "Lil Naay",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1WQBwwssN6r8DSjUlkyUGW": {
+   "decision": "hip_hop",
+   "name": "MC Cabelinho",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "11pXvO7wYuzRWYONDOBd33": {
+   "decision": "hip_hop",
+   "name": "Danny Chung",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7GQDI5Vmxs92RsIRZzYT11": {
+   "decision": "latin",
+   "name": "Pirlo",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "09U6hmCerKcIJrixubiBjm": {
+   "decision": "hip_hop",
+   "name": "Pineapple StormTv",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0vLuOi2k62sHujIfplInlK": {
+   "decision": "hip_hop",
+   "name": "Hungria",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 51%"
+  },
+  "1YOVBTvznjiDvtAj4ExHeo": {
+   "decision": "hip_hop",
+   "name": "BK",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2wYOpkTJZGByNEOjEnSmoW": {
+   "decision": "latin",
+   "name": "Revol",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2LmcxBak1alK1bf7d1beTr": {
+   "decision": "latin",
+   "name": "Juhn",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5DUlefCLzVRzNWaNURTFpK": {
+   "decision": "latin",
+   "name": "Cali Y El Dandee",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1vqR17Iv8VFdzure1TAXEq": {
+   "decision": "latin",
+   "name": "LIT killah",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7LnaAXbDVIL75IVPnndf7w": {
+   "decision": "hip_hop",
+   "name": "Jamie Foxx",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 67%"
+  },
+  "1pf0MPKfKdvS8J779mS1Ay": {
+   "decision": "latin",
+   "name": "Miky Woodz",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4s6Xg38sbqh4xpf4OqhVUK": {
+   "decision": "hip_hop",
+   "name": "iZaak",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 62%"
+  },
+  "4aSlfXDn9R60UlbZEboBUy": {
+   "decision": "latin",
+   "name": "YOVNGCHIMI",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6p2442ymrT9lZEuCZJdYcH": {
+   "decision": "latin",
+   "name": "Ivy Queen",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2N2aJ1SXQxMkhHD8C6fhYD": {
+   "decision": "hip_hop",
+   "name": "Millonario",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "13VwGEitoK8J0qjNjbgeTN": {
+   "decision": "latin",
+   "name": "Flex",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4kKazhy9tDfOgKSWm5g3F9": {
+   "decision": "latin",
+   "name": "Katteyes",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "68PYmgkbRP1qZnEWOry7sB": {
+   "decision": "hip_hop",
+   "name": "Chefin",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "25XJqeReVV38w0tR04GGBd": {
+   "decision": "hip_hop",
+   "name": "Mainstreet",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "60XHOAhvEBiV6BGBOv8ClM": {
+   "decision": "latin",
+   "name": "La Joaqui",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3fZk3Gm5dN5v5yfYMQ04Bx": {
+   "decision": "latin",
+   "name": "Dímelo Flow",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7gU9VyFRN3JWPJ5oHOil60": {
+   "decision": "hip_hop",
+   "name": "Tayc",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 48%"
+  },
+  "2zHzn2oA1QJOB8SPIpoiYD": {
+   "decision": "hip_hop",
+   "name": "Dadju",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1pi7nGhOM7PTHR5YEgXVGq": {
+   "decision": "latin",
+   "name": "Villano Antillano",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6kq4GHwUcUojGIu0ziSNXf": {
+   "decision": "latin",
+   "name": "Amenazzy",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2ExGrw6XpbtUAJHTLtUXUD": {
+   "decision": "other",
+   "name": "Stefflon Don",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 41%"
+  },
+  "0Tob4H0FLtEONHU1MjpUEp": {
+   "decision": "hip_hop",
+   "name": "Tinie Tempah",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 48%"
+  },
+  "1WXbiUMl1AT9Inb619xPUg": {
+   "decision": "hip_hop",
+   "name": "BIN",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0hWRVPGWjaXcEvg8l65Tx0": {
+   "decision": "hip_hop",
+   "name": "Luiz Lins",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4gaipGwvI72oJZVL2P0WJd": {
+   "decision": "latin",
+   "name": "Nigga",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5CE2IfdYZEQGIDsfiRm8SI": {
+   "decision": "hip_hop",
+   "name": "DJ Shadow",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 51%"
+  },
+  "6PERJZF7wohA034PAxDK0b": {
+   "decision": "hip_hop",
+   "name": "Neo Beats",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1jSjfSgDjedJdi5MoyRu78": {
+   "decision": "latin",
+   "name": "Lary Over",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5kCv5opFav2P7nPl8FiEQx": {
+   "decision": "latin",
+   "name": "Conep",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "7wU2WGCJ8HxkekHHE2QLul": {
+   "decision": "latin",
+   "name": "Fuego",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "204IwDdaHE4ymGk9Kya2pY": {
+   "decision": "hip_hop",
+   "name": "Djonga",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 57%"
+  },
+  "23ot0eI6ByBW6LrlBfr2bm": {
+   "decision": "hip_hop",
+   "name": "Pedro Lotto",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2OhUNb01gLwygOizYvTm0e": {
+   "decision": "latin",
+   "name": "Big One",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3lIU3RoZiHen1QXAQ3KQ9e": {
+   "decision": "hip_hop",
+   "name": "Tz da Coronel",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6I8TDGeUmmLom8auKPzMdX": {
+   "decision": "latin",
+   "name": "CA7RIEL & Paco Amoroso",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2Atk4SWx7daQtItQBa735M": {
+   "decision": "latin",
+   "name": "Yeri Mua",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1WQPuG7Fbf4bru7nhGr7pW": {
+   "decision": "hip_hop",
+   "name": "Hamza",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3lY9Fxceu60W1rbon7PkuF": {
+   "decision": "hip_hop",
+   "name": "Omar Montes",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6E2st8OqIaS7PU5gj95FSE": {
+   "decision": "hip_hop",
+   "name": "1Kilo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7zxFc10N9BP2lg73b8cwZ0": {
+   "decision": "hip_hop",
+   "name": "Salve Malak",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6lHL3ubAMgSasKjNqKb8HF": {
+   "decision": "other",
+   "name": "Mýa",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6WLvgbfYXQPO396oJEYCsi": {
+   "decision": "hip_hop",
+   "name": "Macklemore & Ryan Lewis",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4LAFtDzlQM89xov636hMVv": {
+   "decision": "hip_hop",
+   "name": "Dallass",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0IEzMvarfVycBJAXjjEZOL": {
+   "decision": "latin",
+   "name": "La Pantera",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1a3fr7NdeBT4JlGj6YlbDL": {
+   "decision": "hip_hop",
+   "name": "Caio Luccas",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6wcKDqJRY3TzbcdRKo6EiE": {
+   "decision": "latin",
+   "name": "Jone Quest",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "51DevdOxIJin6DB1FXJpD1": {
+   "decision": "hip_hop",
+   "name": "UZI",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3TGeuw7OmACouH5JAKkX7I": {
+   "decision": "hip_hop",
+   "name": "MC Davo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1IDBhlpDyKr53UKKxXRHXD": {
+   "decision": "other",
+   "name": "NDX A.K.A.",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "11HepfI1lj6KJHj651rZhM": {
+   "decision": "latin",
+   "name": "Lucky Brown",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "6CHaM7DPIvAhLVOB5wNncN": {
+   "decision": "latin",
+   "name": "Kenny Die",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1phfTBIocBW3UwqcYjaEN6": {
+   "decision": "latin",
+   "name": "Mike Bahía",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4ncaw2cfA3Wlly1tBD2eWt": {
+   "decision": "latin",
+   "name": "Yailin la Mas Viral",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0obu7Om4zu9ahul5DI4JtY": {
+   "decision": "hip_hop",
+   "name": "Chris MC",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7Ceg1mJmu4lAzuhQU9hQFJ": {
+   "decision": "hip_hop",
+   "name": "Knust",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "46wEUZyujVrFSrdCnTKQmV": {
+   "decision": "other",
+   "name": "Marwa Loud",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 44%"
+  },
+  "4exLIFE8sISLr28sqG1qNX": {
+   "decision": "other",
+   "name": "Travis Barker",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 44%"
+  },
+  "78nr1pVnDR7qZH6QbVMYZf": {
+   "decision": "latin",
+   "name": "Baco Exu do Blues",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6TPJK8tv3AKKSsw0lENTQk": {
+   "decision": "hip_hop",
+   "name": "Nagalli",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1QhaqxeqF9sipS2gwbEKpu": {
+   "decision": "hip_hop",
+   "name": "C-Kan",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5lYeiQxUTcGKVgAuTqbTeL": {
+   "decision": "hip_hop",
+   "name": "Charles Ans",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0dUyjgCyjfj5eMx6bX2TWf": {
+   "decision": "latin",
+   "name": "FMK",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0y7B2G0jNMGWyQJsOoRMUt": {
+   "decision": "hip_hop",
+   "name": "Ajaxx",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1xxS2WrLlgl9QNGEUCsbPG": {
+   "decision": "hip_hop",
+   "name": "Tribo da Periferia",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "60QJavT1315GeS57lU0YXN": {
+   "decision": "latin",
+   "name": "FANTA ROSARIO",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "3jLj1sAQaEpLpktyJmyGIh": {
+   "decision": "hip_hop",
+   "name": "Lourena",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6jBww4kwlSrjaNYP7AQPtX": {
+   "decision": "hip_hop",
+   "name": "Borges",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6eXHRfK9Ad3IpMpSAqvcDf": {
+   "decision": "latin",
+   "name": "Lefty Sm",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "44cW3xznP61BXbu0e7fgxn": {
+   "decision": "latin",
+   "name": "Slayter",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6vP4azTCk053nGL0xAYnVH": {
+   "decision": "hip_hop",
+   "name": "Tenxi",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 63%"
+  },
+  "66RfYVdftqnuHRicyClgL0": {
+   "decision": "latin",
+   "name": "Dharius",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5XenQ7XfcvQdfIbpLEFaKQ": {
+   "decision": "hip_hop",
+   "name": "GoldLink",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 56%"
+  },
+  "72aE07MxpePfCELo4vGZcK": {
+   "decision": "hip_hop",
+   "name": "Mãolee",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5WFFFHVqeVk5tLuYh2KjQy": {
+   "decision": "hip_hop",
+   "name": "Luccas Carlos",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2G7VQ1kVhVfNagytlousgm": {
+   "decision": "hip_hop",
+   "name": "Al James",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 68%"
+  },
+  "6cUTkFvlPW27lYc3qcoOgy": {
+   "decision": "hip_hop",
+   "name": "Baviera",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "51MxI9mWmRMPLK9eNlyQ7o": {
+   "decision": "hip_hop",
+   "name": "3robi",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3Apb2lGmGJaBmr0TTBJvIZ": {
+   "decision": "latin",
+   "name": "Rusherking",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4yxLYO2imECxGYTTV7RQKb": {
+   "decision": "latin",
+   "name": "Pailita",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0GutRVONcyyBj1WduodFc6": {
+   "decision": "latin",
+   "name": "Vico C",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4bJh7sMPcVRiqe5jlnsWQV": {
+   "decision": "latin",
+   "name": "DELLAFUENTE",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3VHAySZQPlfGlNLslzXYpN": {
+   "decision": "latin",
+   "name": "NATHY PELUSO",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1r3tpVQ08jFAA2P4xzV5o4": {
+   "decision": "latin",
+   "name": "Gaby Music",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1A6HQzOvtGaCYihOuIKjE6": {
+   "decision": "hip_hop",
+   "name": "Mr. Polska",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 48%"
+  },
+  "4QSTyDpxsKmv3UfavVUImR": {
+   "decision": "hip_hop",
+   "name": "Darkoo",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 50%"
+  },
+  "3J7r4VsNmuWixU0nXvyPd8": {
+   "decision": "hip_hop",
+   "name": "Kalash",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 50%"
+  },
+  "768O5GliF0bqscyghggrbE": {
+   "decision": "latin",
+   "name": "Polimá Westcoast",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4wAqlYtTaaHELEgyCh9KjG": {
+   "decision": "hip_hop",
+   "name": "FAVE",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3KNIG74xSTc3dj0TRy7pGX": {
+   "decision": "other",
+   "name": "Yung Bleu",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 37%"
+  },
+  "12fZoiFXBSs7aVMxGKQgBN": {
+   "decision": "latin",
+   "name": "FLVCKKA",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "5pU9lKGn9IUnVvOCONrcIS": {
+   "decision": "hip_hop",
+   "name": "Rich Gang",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7rOlQwf8OuFLFQp4aydjBt": {
+   "decision": "latin",
+   "name": "Paloma Mami",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3ATyg4fGC9F8trfb0GRWmX": {
+   "decision": "latin",
+   "name": "Joey Montana",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4LyGCVZ22bGCY4BaW04Uyl": {
+   "decision": "latin",
+   "name": "Mackie",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "6GRG2j3z9S1Lsa47YgPjkH": {
+   "decision": "hip_hop",
+   "name": "Kayuá",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2kqUKsTuEj1lPbm6BSn1AU": {
+   "decision": "hip_hop",
+   "name": "Rich Music LTD",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6AT27ojKlBuZToFIGwQZDc": {
+   "decision": "latin",
+   "name": "Sammy & Falsetto",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "6LGGOg5XbaaB5cBo7HR61a": {
+   "decision": "latin",
+   "name": "GeezyDee",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "40JMTpVRUw90SrN4pFA6Mz": {
+   "decision": "latin",
+   "name": "Ana Tijoux",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5KWQms4jSjzMC3P9cJUP9L": {
+   "decision": "latin",
+   "name": "Yeyo",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "0SmgVe3giVHaJjGmIz8xA4": {
+   "decision": "latin",
+   "name": "Yoss Bones",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7fT2Me47PQ8T7954PKrcwR": {
+   "decision": "hip_hop",
+   "name": "Bhavi",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0VZrPa7mWAYXH4CwmYk8Km": {
+   "decision": "hip_hop",
+   "name": "Kidd Keo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6OQggpm01CmAB717TKtDCr": {
+   "decision": "hip_hop",
+   "name": "Dopebwoy",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0ixIqccVXNU45qPhq3kWex": {
+   "decision": "hip_hop",
+   "name": "Maquiny",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0KKUc4amZyvswV2YL6WTar": {
+   "decision": "latin",
+   "name": "Mariah Angeliq",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5Ynf8bbQV9ICbK3vZoPxGF": {
+   "decision": "hip_hop",
+   "name": "Dudu",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0PMk31f9Log4ixwUUY40p6": {
+   "decision": "hip_hop",
+   "name": "Malibu",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1iNqsUDUraNWrj00bqssQG": {
+   "decision": "hip_hop",
+   "name": "Dreamville",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2wrxoZjEVKfJZhxCiqK0ju": {
+   "decision": "other",
+   "name": "JayDon",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4DITWCDQL8b3VZTBYpNDR9": {
+   "decision": "hip_hop",
+   "name": "Bob do Contra",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2v2UIkZpgupzvSNS9wicgV": {
+   "decision": "latin",
+   "name": "Young Fatty",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "3Wb38LDP3N4tkobValgE9D": {
+   "decision": "latin",
+   "name": "Juanka",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4DqSAnlpn10M4pHUFPEt4E": {
+   "decision": "hip_hop",
+   "name": "Blaaze",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 56%"
+  },
+  "4puAp107dCehraE47QXVQX": {
+   "decision": "latin",
+   "name": "C.R.O",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5wPoxI5si3eJsYYwyXV4Wi": {
+   "decision": "other",
+   "name": "N.E.R.D",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 44%"
+  },
+  "76dRoxKtDwYkgCQePok9cU": {
+   "decision": "hip_hop",
+   "name": "Miksu / Macloud",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2qWK8K2Jfh67UqtwY8tCW6": {
+   "decision": "latin",
+   "name": "YSY A",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2zW6nGPGBEaGNENvqaw9lo": {
+   "decision": "hip_hop",
+   "name": "Bello&Dallas",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7HoPy2YmahCCaYaFSFq497": {
+   "decision": "hip_hop",
+   "name": "Yago Oproprio",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2PhFsxtwCQLS3e9SJwDN3j": {
+   "decision": "hip_hop",
+   "name": "Coyote Beatz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5RmQ8k4l3HZ8JoPb4mNsML": {
+   "decision": "other",
+   "name": "Agust D",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "1MRiIeZbc0cRuxOafDUCtH": {
+   "decision": "other",
+   "name": "BLANCO",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 38%"
+  },
+  "2Jb9jVnCpWkXtoGznFJ6bF": {
+   "decision": "latin",
+   "name": "ECKO",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7IlBcKrGUBJ0NKdnbDde89": {
+   "decision": "hip_hop",
+   "name": "Sant",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6DDTbUgrNrVcAJFVrOjmVK": {
+   "decision": "hip_hop",
+   "name": "Diomedes Chinaski",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 63%"
+  },
+  "5YCc6xS5Gpj3EkaYGdjyNK": {
+   "decision": "latin",
+   "name": "WOS",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3uL4UpqShC4p2x1dJutoRW": {
+   "decision": "hip_hop",
+   "name": "Ghostemane",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 62%"
+  },
+  "3mYFuz6iY7D9X78rOXg5CG": {
+   "decision": "latin",
+   "name": "Akwid",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "05qCf6M7E7AxizHVmrcPqh": {
+   "decision": "hip_hop",
+   "name": "Kyan",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7FeObngbQ0GY3SojNwKdKn": {
+   "decision": "other",
+   "name": "Bresh",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 26%"
+  },
+  "0OROVBEZCocg0FcgJpyBse": {
+   "decision": "latin",
+   "name": "Alex Sensation",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1ZyqnbV7Brg5LgyS4EZCUD": {
+   "decision": "hip_hop",
+   "name": "FiNCH",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5ZZsFnpO7frU8h5xH1wtjT": {
+   "decision": "hip_hop",
+   "name": "Saint Levant",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 60%"
+  },
+  "2Cm6C9PNHioyjRKBfO7n9N": {
+   "decision": "hip_hop",
+   "name": "Dylan Brady",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 60%"
+  },
+  "1AT8NKdQOU0EVPu6ehN4NA": {
+   "decision": "hip_hop",
+   "name": "Meryl",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7meyrw7Or5DwteYxDJrkCM": {
+   "decision": "other",
+   "name": "YK Osiris",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 28%"
+  },
+  "384MqcXCGGFh9UcjI5Tpc5": {
+   "decision": "latin",
+   "name": "Eix",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4XWaILHqySwH1y6LhlYcsb": {
+   "decision": "hip_hop",
+   "name": "ilyTOMMY",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 66%"
+  },
+  "6s5ubAp65wXoTZefE01RNR": {
+   "decision": "other",
+   "name": "Joost",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 36%"
+  },
+  "4riOEaOW5hCeqomFDBk0aP": {
+   "decision": "latin",
+   "name": "Rochy RD",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6Gsh7oJoJ5EQUuQk0EhfWL": {
+   "decision": "latin",
+   "name": "Malandro",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1TYJOhNSxMOODWiDVhuyZb": {
+   "decision": "hip_hop",
+   "name": "Kawe",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7gHzR22tDNSWGS4HkvvPgw": {
+   "decision": "hip_hop",
+   "name": "THE BOX",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "76hYPcWML9NGEh8LashwT5": {
+   "decision": "hip_hop",
+   "name": "Major RD",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "15AZJFNrXtIN4Nk8BIOnS2": {
+   "decision": "hip_hop",
+   "name": "Batuflex",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7rFHoDuiSlV0DGHxckjm89": {
+   "decision": "latin",
+   "name": "Lia Kali",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2e4G04F77jxVuDYo44TCSm": {
+   "decision": "other",
+   "name": "Loco",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 31%"
+  },
+  "5Cj0xJrG2k8TPOJQ1vdAmZ": {
+   "decision": "hip_hop",
+   "name": "Tayna",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 62%"
+  },
+  "0MIG6gMcQTSvFbKvUwK0id": {
+   "decision": "hip_hop",
+   "name": "Mata",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6fMZytDgX1Q9OV6ndSugym": {
+   "decision": "latin",
+   "name": "Akapellah",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4Yv6fnHVbZNKaCtYZxaHuZ": {
+   "decision": "hip_hop",
+   "name": "Nouvelle École",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1INuLZXjjVbcJRyWvD1iSq": {
+   "decision": "other",
+   "name": "Jack & Jack",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "5YBSzuCs7WaFKNr7Bky0Uf": {
+   "decision": "other",
+   "name": "Olivia",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6p46LxMXeRu3FRYN4tK5Lv": {
+   "decision": "hip_hop",
+   "name": "SativaMusic",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1FCItwxfRieMGhR0eRxotU": {
+   "decision": "hip_hop",
+   "name": "Rich Vagos",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0PNcEYeVDBqbywI00Y3ANT": {
+   "decision": "hip_hop",
+   "name": "Honaiser",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5GIcOzVFTNnzArytjmTkW8": {
+   "decision": "hip_hop",
+   "name": "Bizzey",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6m1LYS5NQonxjOcQFPQOb5": {
+   "decision": "hip_hop",
+   "name": "Frenna",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 63%"
+  },
+  "4fR3W8XFXsqHB8f8IqEr1y": {
+   "decision": "hip_hop",
+   "name": "No.1",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4JreHVYyb6GqE2BU03Kx96": {
+   "decision": "latin",
+   "name": "Dayme y El High",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "0oNOkdVXXFaWC9tPb7Ol10": {
+   "decision": "hip_hop",
+   "name": "Dfideliz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5OGraDcSkO4oTWthkm77WL": {
+   "decision": "latin",
+   "name": "Tornillo",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "5BWqFYIPTnFx3OPWOoJvmD": {
+   "decision": "other",
+   "name": "Gabriel O Pensador",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 26%"
+  },
+  "5ZlyVrDhzKVvaZNj3b58fE": {
+   "decision": "hip_hop",
+   "name": "Lossa",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5Uox3n7m4W2CoM9MmHPJwQ": {
+   "decision": "latin",
+   "name": "Delaossa",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0QSrUuv6y5Woazd3LAjbSH": {
+   "decision": "hip_hop",
+   "name": "İzel",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 60%"
+  },
+  "31eYHfjltzC2VyNsoVHHR9": {
+   "decision": "hip_hop",
+   "name": "Flame 火炎",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5KORW1YGiERJqfuYjXMCyz": {
+   "decision": "hip_hop",
+   "name": "Mattafix",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6J6U2JAv7LUF0cSQ98gpjM": {
+   "decision": "hip_hop",
+   "name": "PL Quest",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5wUO3A6DT4tO5UDz21kE2Y": {
+   "decision": "latin",
+   "name": "Neutro Shorty",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "01m2XZ7m7rAz6KY3scTdaV": {
+   "decision": "latin",
+   "name": "Neo Pistea",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "645xd9cHiiLqqehoLzLMDR": {
+   "decision": "hip_hop",
+   "name": "Adán Cruz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0IVBT8qQNwvHLzOJL6kGpE": {
+   "decision": "hip_hop",
+   "name": "Oriente",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2zGf6lwQ9PxXdoeo5XXP2K": {
+   "decision": "hip_hop",
+   "name": "Projota",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2n0Ki4A5tKTEloq3WCt1IH": {
+   "decision": "hip_hop",
+   "name": "Samurai Jay",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 58%"
+  },
+  "2E7qpjo4NUBhV8tEUdPVkJ": {
+   "decision": "hip_hop",
+   "name": "Azer Bülbül",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "27mFvqQj8KpjmdKIqcw1mG": {
+   "decision": "hip_hop",
+   "name": "Ayo & Teo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5J5DLfdC5YmPjVk8ljdOqU": {
+   "decision": "latin",
+   "name": "Big Metra",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "3AlRiyjMywTVNzTcHbf9QT": {
+   "decision": "hip_hop",
+   "name": "Lil Kleine",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2ODbg2404zUzTi02qIPEjB": {
+   "decision": "hip_hop",
+   "name": "Tay-K",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5VHv8HRkyW4zmhoYXu476k": {
+   "decision": "latin",
+   "name": "Opi the Hit Machine",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "3pgCLfNbw5ozIfoNsvDU7i": {
+   "decision": "hip_hop",
+   "name": "Fedez",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 48%"
+  },
+  "20JMfmzDb5cjHxEoMXXMyY": {
+   "decision": "latin",
+   "name": "Favé",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5MbNzCW3qokGyoo9giHA3V": {
+   "decision": "hip_hop",
+   "name": "EARTHGANG",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 67%"
+  },
+  "5QS9NAK4AgJPTcRe472pZA": {
+   "decision": "latin",
+   "name": "Bb trickz",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7yiq52SDJKenHVST8xGCuF": {
+   "decision": "latin",
+   "name": "Alu Mix",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1QAoT8rjnSPy5pXpu3yiHS": {
+   "decision": "hip_hop",
+   "name": "NOG",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2BJWqrBKEqtZUKWtzmpPDj": {
+   "decision": "latin",
+   "name": "Tobal Mj",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1JlC6XG7lkwT6GzgQB9xOx": {
+   "decision": "hip_hop",
+   "name": "Duquesa",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "30BSBWLKnYJION1lCPugXc": {
+   "decision": "latin",
+   "name": "Santa RM",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3ZOk6bDH8ORFWZUA4qvevR": {
+   "decision": "hip_hop",
+   "name": "Gio Pika",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7w0t8O8nbirfLvGJgKK0xk": {
+   "decision": "latin",
+   "name": "Leo RD",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2XoNHBh5o3I1Niqsr5uA3P": {
+   "decision": "hip_hop",
+   "name": "Anyme023",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4WbHbolEKZIhnkO2xv2Lm0": {
+   "decision": "hip_hop",
+   "name": "Pelé MilFlows",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 50%"
+  },
+  "3Okcq0dqLVlEFHRZ5t22bA": {
+   "decision": "latin",
+   "name": "Voltio",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0xEdwBYYjxw6wk179Tq2sJ": {
+   "decision": "hip_hop",
+   "name": "Leviano",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3YVxmhkewoRHu8WFgWlCb7": {
+   "decision": "hip_hop",
+   "name": "NADAMAL",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3oeGRVD8DcZWhciWnRry89": {
+   "decision": "latin",
+   "name": "baektowo",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "36caCzfSrrL7a8Mvd1SuRr": {
+   "decision": "hip_hop",
+   "name": "Chapo102",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6FJeuwLBCX8VSTf6hp1Vc9": {
+   "decision": "hip_hop",
+   "name": "Lege-Cy",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6HWumjoLO58NYInUHk9565": {
+   "decision": "hip_hop",
+   "name": "El Vega",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0zgFL90nGTrH2iOMD8Vysy": {
+   "decision": "latin",
+   "name": "Sabino",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "28TqrmNSPiKo5w3WVb3A3N": {
+   "decision": "hip_hop",
+   "name": "Aymen",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "46HzS7yz0c9udVwtbHk1sx": {
+   "decision": "hip_hop",
+   "name": "Cochise",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2d9LRvQJnAXRijqIJDDs2K": {
+   "decision": "other",
+   "name": "Emicida",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 30%"
+  },
+  "5bIttAFRf7URUmuuI9w7XA": {
+   "decision": "other",
+   "name": "ONE OR EIGHT",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 27%"
+  },
+  "0Jsk5iYMr5aNjHury7blm1": {
+   "decision": "hip_hop",
+   "name": "Boef",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4BUeuxQIWI69tEYuvzbv6D": {
+   "decision": "hip_hop",
+   "name": "Timar",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7CW7QdOgRStOg7JktRuZ3E": {
+   "decision": "other",
+   "name": "Imen Es",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 21%"
+  },
+  "08zSkHjCY3ypH4gdBVHWgO": {
+   "decision": "hip_hop",
+   "name": "BUDAH",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "76whng5pl9msPkkjFUtWYn": {
+   "decision": "latin",
+   "name": "Tempo",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "24b0qNYNgeOfpP5rbljIB3": {
+   "decision": "hip_hop",
+   "name": "JADE",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 52%"
+  },
+  "0zfvfy9XlborSqXNRhi8Bk": {
+   "decision": "hip_hop",
+   "name": "Samantha Barrón",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4Tw0VaV1ENei24iQnktjXj": {
+   "decision": "latin",
+   "name": "Alexio",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "6RGDPzIqEVP895rTeeYk2Q": {
+   "decision": "latin",
+   "name": "Nacho G Flow",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1SiLK8gdECx2iEm2SSj0Bl": {
+   "decision": "latin",
+   "name": "Ak4:20",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "18hpynG63scJYxOSDYHUVN": {
+   "decision": "hip_hop",
+   "name": "Burak King",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5G9kmDLg3OeUyj8KVBLzbu": {
+   "decision": "other",
+   "name": "mike.",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 31%"
+  },
+  "0L1f9i3L3fkMNENljDOsjG": {
+   "decision": "hip_hop",
+   "name": "Rocco Hunt",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1E4r5qziZja6v8jA7iTqjn": {
+   "decision": "other",
+   "name": "Negra Li",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 43%"
+  },
+  "19i93sA0D7yS9dYoVNBqAA": {
+   "decision": "hip_hop",
+   "name": "tha Supreme",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 67%"
+  },
+  "5qvphJwi72TG198xn5VVYH": {
+   "decision": "hip_hop",
+   "name": "CJota",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0WZOmdnCln6FK6GM9e2tGm": {
+   "decision": "latin",
+   "name": "Redimi2",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4C29ETLBPmYKYwtJUepbJz": {
+   "decision": "latin",
+   "name": "Seven Kayne",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6NxJgAQlIO7Tgs0AKGkMXZ": {
+   "decision": "latin",
+   "name": "Enayy",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "5pughe5rcsOq3GF0utMOs5": {
+   "decision": "latin",
+   "name": "DrefQuila",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "460m2YG30duLCuHwFdiLgX": {
+   "decision": "hip_hop",
+   "name": "Yunk Vino",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "69TcMkhvenAeokIhBGIUCQ": {
+   "decision": "hip_hop",
+   "name": "Bob",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3hvDAraTidCTjQHIc4m8P3": {
+   "decision": "latin",
+   "name": "Princesa Alba",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0V6FSnhjLqpJpS6srrNiRg": {
+   "decision": "latin",
+   "name": "ANMI",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "662f8mEv1eRLXE9DzBy4vV": {
+   "decision": "hip_hop",
+   "name": "Jauria Santa",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0V5bkwV2Bd90bMLMc8JFeS": {
+   "decision": "hip_hop",
+   "name": "IShowSpeed",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 63%"
+  },
+  "6bwkMlweHsBCpI2a0C5nnN": {
+   "decision": "hip_hop",
+   "name": "D Double E",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 58%"
+  },
+  "1oHPSeQJBwNmpq0J52Wjn1": {
+   "decision": "hip_hop",
+   "name": "Toser One",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4cJD9t5QBFTUQcd3xfbOb2": {
+   "decision": "latin",
+   "name": "Dillom",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4CflzQprp6nZxKiv0t78tH": {
+   "decision": "hip_hop",
+   "name": "Mohamed Ramadan",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 65%"
+  },
+  "71jSVPQ6yskfyvWeiwvT5s": {
+   "decision": "hip_hop",
+   "name": "S1mba",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 51%"
+  },
+  "2SNfNJDsahTSVFwgxposF5": {
+   "decision": "latin",
+   "name": "Soge Culebra",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "53iGNetIf91uZx4Jb54cgb": {
+   "decision": "hip_hop",
+   "name": "Haikaiss",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2SJhf6rTOU53g8yBdAjPby": {
+   "decision": "hip_hop",
+   "name": "SoFaygo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "56n1NeXsTOOxjX3Z4lVMTJ": {
+   "decision": "hip_hop",
+   "name": "SFDK",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3IJ21966TwNZI24MwZHMu4": {
+   "decision": "hip_hop",
+   "name": "Baby Tate",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 53%"
+  },
+  "0L3wrFI3QcbXAvFL7IaPQX": {
+   "decision": "hip_hop",
+   "name": "Güneş",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 64%"
+  },
+  "5IYRfypwG9BDDh5ZRPI80z": {
+   "decision": "latin",
+   "name": "Totoy El Frio",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "6hkKbkZGvAXuvle2FhCnxy": {
+   "decision": "latin",
+   "name": "Shablo",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0iUdFhwiXjGQWAt9yXPP1T": {
+   "decision": "hip_hop",
+   "name": "ConeCrewDiretoria",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1mjuRRMumbLmGmHmYvMDcb": {
+   "decision": "hip_hop",
+   "name": "Rock Danger",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "60ZOYUFnCYEeKYsxgvPxOS": {
+   "decision": "latin",
+   "name": "Cano",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4oxFgud0qa3A1tE6JFpFVp": {
+   "decision": "hip_hop",
+   "name": "JayA Luuck",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1vEN3d3dJbmdHQpXD6AIkL": {
+   "decision": "hip_hop",
+   "name": "Marcelo D2",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 50%"
+  },
+  "1LJ9q30BIBFwaTDrJ5BZu5": {
+   "decision": "latin",
+   "name": "Viglezz",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4kqedTxyE5EDJWLLplYXpu": {
+   "decision": "hip_hop",
+   "name": "Choice",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3p3jPcp8b7WL9XYj4xlsWj": {
+   "decision": "hip_hop",
+   "name": "Snow Tha Product",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0MBLQbpbPvJ4oXM0Cj4aKR": {
+   "decision": "other",
+   "name": "Trobi",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 40%"
+  },
+  "6VpdTQWCRE01WVoEuby2a6": {
+   "decision": "hip_hop",
+   "name": "Mc Luanna",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1ZzJx2AgPmbnOE6OXhnn5K": {
+   "decision": "hip_hop",
+   "name": "Ryu, The Runner",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6USMTwO0MNDnKte5a5h0xx": {
+   "decision": "hip_hop",
+   "name": "Y2K",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "12lHTAdc9T204lw5qPtasv": {
+   "decision": "latin",
+   "name": "Foreign Teck",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6aUgzC0cMh0StjV7LyFEDr": {
+   "decision": "hip_hop",
+   "name": "Grits",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2r8r62VGJKGi463aH1HJUZ": {
+   "decision": "hip_hop",
+   "name": "Kirko Bangz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2fYAyTS2erZgqEHKHYqgi2": {
+   "decision": "hip_hop",
+   "name": "Edi Rock",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6lYSDSFhJyUV6CtNix2fBA": {
+   "decision": "hip_hop",
+   "name": "Al2 El Aldeano",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "00edlcHg3ILdHtrYL54bxX": {
+   "decision": "hip_hop",
+   "name": "Le Crime",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4Y5HJP3oFOJ8UVBXHYWBgx": {
+   "decision": "hip_hop",
+   "name": "Tiro Loko",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2NgTPluNpfsoYZnoeU2VsH": {
+   "decision": "hip_hop",
+   "name": "TIF",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5gUZ67Vzi1FV2SnrWl1GlE": {
+   "decision": "latin",
+   "name": "Benny Benni",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2gzWmhOZhDN6gXL49JW9qj": {
+   "decision": "hip_hop",
+   "name": "Nasty C",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 68%"
+  },
+  "6vPXtLmNd3mW0dd1Rb9eQ9": {
+   "decision": "latin",
+   "name": "Don Patricio",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0ebNdVaOfp6N0oZ1guIxM8": {
+   "decision": "other",
+   "name": "SUGA",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "6yZKPB8eRoJesHjtxPxSLs": {
+   "decision": "hip_hop",
+   "name": "MD Chefe",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "081t7kkrq7re69pk4vTurz": {
+   "decision": "hip_hop",
+   "name": "JRK 19",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4h52MPCFvx56uhmH254Uqz": {
+   "decision": "hip_hop",
+   "name": "LEALL",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1xCRJ0XrcQKEkjk50ILWbt": {
+   "decision": "other",
+   "name": "Hakim",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3YiFVUColvEK1dQAqDKYzU": {
+   "decision": "hip_hop",
+   "name": "Black Cat",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2QjS2N6sORI7H4qbf6xitS": {
+   "decision": "hip_hop",
+   "name": "WC no Beat",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2qsETcaDdvTRTaL3nU4zNK": {
+   "decision": "latin",
+   "name": "Dj Aza",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1NB6QyaNXhrDd82y0WyG3I": {
+   "decision": "hip_hop",
+   "name": "Bilouki",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "56chSp36PsMhpQvUn1kdR3": {
+   "decision": "hip_hop",
+   "name": "Marwan Pablo",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 46%"
+  },
+  "3lMQtpA4i6FrIe6DmDfDVa": {
+   "decision": "hip_hop",
+   "name": "Predella",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1iVZ4G8loVE1bb5EWuOvMM": {
+   "decision": "hip_hop",
+   "name": "pumapjl",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6o7TsOGOEF5Mqpiz2KCyWE": {
+   "decision": "other",
+   "name": "HammAli & Navai",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 34%"
+  },
+  "0Do6bAo2kcVLp7ekzypskJ": {
+   "decision": "hip_hop",
+   "name": "A Banca Records",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5UN0rzL594mWY2RbOtZqIN": {
+   "decision": "latin",
+   "name": "Ptazeta",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1bbr3P3o6BGIdvTWKb6rxL": {
+   "decision": "hip_hop",
+   "name": "Saïf",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3p7Bs02UWDt5ENoJeUGqaB": {
+   "decision": "hip_hop",
+   "name": "Porta",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2kFBKRwutklbaGSKBpc6TS": {
+   "decision": "latin",
+   "name": "l0rna",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "45Yz90pqjzEdJzpEQg1eII": {
+   "decision": "hip_hop",
+   "name": "Froid",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2QYEvpsWUOjqaYuxDPTCmV": {
+   "decision": "hip_hop",
+   "name": "Diddy - Dirty Money",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3vvLuXEEf7sl3izJcw0GIn": {
+   "decision": "hip_hop",
+   "name": "Skryptonite",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2IVvZIe3P9BMuCI6h48Bjg": {
+   "decision": "hip_hop",
+   "name": "Nizi19",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3DEdNjxF3ea9taOMCXouZ6": {
+   "decision": "hip_hop",
+   "name": "Sainté",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5HZtdKfC4xU0wvhEyYDWiY": {
+   "decision": "hip_hop",
+   "name": "HIEUTHUHAI",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 57%"
+  },
+  "49UAapOfpOg1ZOU4xf2NgY": {
+   "decision": "hip_hop",
+   "name": "Noyz Narcos",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4ocdD0Bi1syVqLs1GiHqQ9": {
+   "decision": "hip_hop",
+   "name": "Mixtape Madness",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1EYdbYpGAuJy6uZo4sVMoM": {
+   "decision": "hip_hop",
+   "name": "Idaly",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "54NBSkiOmMBEfacGfefPq0": {
+   "decision": "latin",
+   "name": "Louis BPM",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4Hzj6dfl1y5x5TzCSsvLB6": {
+   "decision": "hip_hop",
+   "name": "Remik Gonzalez",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6TgVQhHx0BWvzdEQxRnr23": {
+   "decision": "hip_hop",
+   "name": "POLLO",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6289Bbkkk3gaCbh1K7Rv8F": {
+   "decision": "hip_hop",
+   "name": "Izi",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5qPRgWcEOGRzoIST0sHAiI": {
+   "decision": "latin",
+   "name": "Angel Dior",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1PNgAcUW6UgN59okEaTpvG": {
+   "decision": "latin",
+   "name": "McKlopedia",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0WI8OfWCRvK4nGHmKfFQmd": {
+   "decision": "latin",
+   "name": "Alex Zurdo",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1Jx9NS6PLxRIVCCv0NxGjA": {
+   "decision": "other",
+   "name": "Ayna",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3TP2Ucsow6rW1s24aq9gb4": {
+   "decision": "hip_hop",
+   "name": "Lagui",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "24CgJHK6T7C5OmUbiLLMjJ": {
+   "decision": "other",
+   "name": "Luh Kel",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 22%"
+  },
+  "5Do9u0GoN4gFn6Nk8NGDhh": {
+   "decision": "hip_hop",
+   "name": "Stormy",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1QJbbsxg2wqidJj51d3otw": {
+   "decision": "latin",
+   "name": "Natos y Waor",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3dKjmeRZcSUw617CoMzEA0": {
+   "decision": "hip_hop",
+   "name": "Nafe Smallz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0NnUMWDCDi1snuMja6IdxH": {
+   "decision": "latin",
+   "name": "Harry Nach",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0Xo4VFS3v07L0GwIVkZLfg": {
+   "decision": "latin",
+   "name": "Homer El Mero Mero",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4V6S8Exb51yXRs6oiJYIgE": {
+   "decision": "hip_hop",
+   "name": "SonoTWS",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "77IKXFvO7SpWrq8hflrUXc": {
+   "decision": "other",
+   "name": "KB",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 25%"
+  },
+  "4BKC2HOGEqtYz2Xbgp9N1q": {
+   "decision": "other",
+   "name": "Wegz",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5DDpDYLDv4xasIBS6kp2wf": {
+   "decision": "latin",
+   "name": "Loyaltty",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7bchfd9ZihGesFniE7tM71": {
+   "decision": "hip_hop",
+   "name": "Velet",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "75WcpJKWXBV3o3cfluWapK": {
+   "decision": "hip_hop",
+   "name": "Lute",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0wY1K9SgxbaRfoFRmSR5x5": {
+   "decision": "hip_hop",
+   "name": "SL",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2vVtmqEXliBFxqCa3Juo5W": {
+   "decision": "hip_hop",
+   "name": "Niaks",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "49mOLAzenRv6kDrr4Akajh": {
+   "decision": "hip_hop",
+   "name": "Booska-P",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3GM0VyM1n1qvk0v2PfXX4n": {
+   "decision": "hip_hop",
+   "name": "Tiago Mac",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7mXfsy3lF4kU0f2KTNKSr8": {
+   "decision": "latin",
+   "name": "Corina Smith",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "0VWHKHfSFwUhP0cuvVUfRN": {
+   "decision": "hip_hop",
+   "name": "WIXO & LA2S",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5hhclzZsaNfmBh0eQI44JQ": {
+   "decision": "latin",
+   "name": "Magnate Y Valentino",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4dyfAiJCbl7jS1GHOCdiJv": {
+   "decision": "hip_hop",
+   "name": "Club Dogo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0eHkGhhUyp3LZdtZjaA8gd": {
+   "decision": "hip_hop",
+   "name": "AJULLIACOSTA",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4oE4ASN8auDhoW9vsXp3VJ": {
+   "decision": "hip_hop",
+   "name": "MV Bill",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3Gcn7eKPiTv6jwqoyIhVMO": {
+   "decision": "hip_hop",
+   "name": "Mous-K",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7GmXwGXJSsmWTkCyk5Twux": {
+   "decision": "hip_hop",
+   "name": "Kase.O",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0hKJVChUaok3RN4noo7G3c": {
+   "decision": "latin",
+   "name": "Penyair",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "054k3bx4tpjx1tfypvq3eq": {
+   "decision": "hip_hop",
+   "name": "Bobby Vandamme",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2eYGPD8O1chWmQ92TvdtCW": {
+   "decision": "hip_hop",
+   "name": "JXNV$",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7IUaYyqcGB3aU2Tm4s5JY8": {
+   "decision": "hip_hop",
+   "name": "Zxmyr",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2DWRgncNMnTfwDiKSI0VoP": {
+   "decision": "hip_hop",
+   "name": "TY1",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 61%"
+  },
+  "7Jp5Nw7cNZTkwFgJX06Cqk": {
+   "decision": "hip_hop",
+   "name": "Dan Lellis",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0UgMoItq2HrVT6sRUF9ouY": {
+   "decision": "latin",
+   "name": "Fazzini",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4PzPx1yc3kGVo4EgCiLqCQ": {
+   "decision": "hip_hop",
+   "name": "DomLaike",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5gOXpF0vOYUvYwBCd80hQv": {
+   "decision": "hip_hop",
+   "name": "Trilha Sonora do Gueto",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4CtW1JCmaMN6PhgBBQHxpX": {
+   "decision": "hip_hop",
+   "name": "San Joe",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "26aPjwxSSJsGy6yQ19YL55": {
+   "decision": "hip_hop",
+   "name": "Sain",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6I3MElirhT5t6Kf7p0hGk9": {
+   "decision": "other",
+   "name": "Duckwrth",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 44%"
+  },
+  "1wFoE1RwBMWoWkXcFrCgsx": {
+   "decision": "hip_hop",
+   "name": "Josylvio",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2563ILWHSx52eOxOoi5rJW": {
+   "decision": "hip_hop",
+   "name": "7 Minutoz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "78TTCmh2koperK5NBn7DgR": {
+   "decision": "hip_hop",
+   "name": "102 Boyz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0BMccF4OSgl180EzdVFY9m": {
+   "decision": "hip_hop",
+   "name": "Raffé",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7phpDFUX97M0DTGIcjXKRk": {
+   "decision": "hip_hop",
+   "name": "Lord ADL",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4Y0VwRwAOyJutxoVpPX4td": {
+   "decision": "hip_hop",
+   "name": "Derek",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3EsjO0y0DE1GC453Sgyr7Z": {
+   "decision": "other",
+   "name": "FEDUK",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 40%"
+  },
+  "6IcW0vncoYwp4NQWSm4uXc": {
+   "decision": "latin",
+   "name": "Sayuri & Sopholov",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4qZ8YxDrcaqbBjcTUKNaEe": {
+   "decision": "hip_hop",
+   "name": "KLN",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1tnx55teqOt1cV6IlKcgNs": {
+   "decision": "hip_hop",
+   "name": "Slipmami",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7q1aEytv83jXNECmyaMhgn": {
+   "decision": "hip_hop",
+   "name": "Costa Gold",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5Q2fyL2TcdUY9IqKTkGk5G": {
+   "decision": "latin",
+   "name": "Bardero$",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2RKcy8YT2w2QYn0D7TjiIi": {
+   "decision": "hip_hop",
+   "name": "Cacife Clandestino",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1silJqJQfrrZNFvWWjAyhh": {
+   "decision": "hip_hop",
+   "name": "Tymek",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1Q5COYHgA7ch0y3HqCNgwt": {
+   "decision": "hip_hop",
+   "name": "madk1d",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 67%"
+  },
+  "4bWHA8fMNjzfGPQqnh5D6y": {
+   "decision": "latin",
+   "name": "Recycled J",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2w1wJcGdJQ4Lw08oKBnDsw": {
+   "decision": "latin",
+   "name": "El Jincho",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6aCbXH85qN6xo54C7atSMx": {
+   "decision": "hip_hop",
+   "name": "Black Alien",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5UFABCQ4gZ6kZAweVndK1F": {
+   "decision": "latin",
+   "name": "Ezya",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2gGvBjb55mnnbQO2gNQSLo": {
+   "decision": "hip_hop",
+   "name": "ONDA ANDAR",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 60%"
+  },
+  "379IT6Szv0zgnw4xrdu4mu": {
+   "decision": "hip_hop",
+   "name": "LADIPOE",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 54%"
+  },
+  "1YMvmHRTq8YdlABZk6C8av": {
+   "decision": "hip_hop",
+   "name": "Trill Family",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0OLpdla9YvZOtlPnQkXScl": {
+   "decision": "hip_hop",
+   "name": "Jovem Dex",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3uZFBSsMiooimnprFL9jD1": {
+   "decision": "hip_hop",
+   "name": "Snow",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 51%"
+  },
+  "3UPT0Jis9AptVg4GTdo0K9": {
+   "decision": "hip_hop",
+   "name": "Jory",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "26ZKmgHKJWQdnSKUZCVEKa": {
+   "decision": "hip_hop",
+   "name": "TKS 2G",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2PaZWGu5T5nHjY2xxAkFsT": {
+   "decision": "hip_hop",
+   "name": "THE SCOTTS",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2uwIwpXUSnFLDvw6tfiX43": {
+   "decision": "hip_hop",
+   "name": "Pacificadores",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1Wic7dyEeEpQXDBbDf6HKm": {
+   "decision": "hip_hop",
+   "name": "HoodBlaq",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6extd4B6hl8VTmnlhpl2bY": {
+   "decision": "hip_hop",
+   "name": "Huncho Jack",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2FwWGogJ04HZdALWeMxZA4": {
+   "decision": "hip_hop",
+   "name": "Didi B",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6M6XXCcO5gI68XpIlrUL3Z": {
+   "decision": "hip_hop",
+   "name": "Young T & Bugsey",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3tQzzidoPfVifoURnDfgmD": {
+   "decision": "hip_hop",
+   "name": "t-low",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6wcHZUQ0rNcvv35os6xUQA": {
+   "decision": "hip_hop",
+   "name": "Afaz Natural",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3q7isf09BuwXLyR2khBs60": {
+   "decision": "hip_hop",
+   "name": "Khia",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 56%"
+  },
+  "26JloX1vHxGGrGUVeMItFJ": {
+   "decision": "hip_hop",
+   "name": "iamjakehill",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 56%"
+  },
+  "6XQrv3AiNUS61JFK1VITTU": {
+   "decision": "hip_hop",
+   "name": "Jean Tassy",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "520qA5VGL9iI0SbmEnTVNg": {
+   "decision": "other",
+   "name": "Maleek Berry",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 40%"
+  },
+  "2n4q8jLM4WLwlva1sZ2WRx": {
+   "decision": "hip_hop",
+   "name": "Chaar Diwaari",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 53%"
+  },
+  "438nTuoZFCZCyBl33jE9dU": {
+   "decision": "hip_hop",
+   "name": "Ashafar",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7dL0nOHwnSAsNAwpkPSGWP": {
+   "decision": "hip_hop",
+   "name": "sangiovanni",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 50%"
+  },
+  "1RaUlYy9nsEiDlucisa5Bk": {
+   "decision": "hip_hop",
+   "name": "Anezzi",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3IstlZaHyUP9SONpulb4SM": {
+   "decision": "hip_hop",
+   "name": "Chris Webby",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0IxgA9wO4Op3CSnPlhfwV1": {
+   "decision": "hip_hop",
+   "name": "Kevin",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4QLlbZcntdcWpm40NooC2M": {
+   "decision": "hip_hop",
+   "name": "Maiyarap",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 54%"
+  },
+  "4G1zP5i0r57g1c1CxrPhfM": {
+   "decision": "other",
+   "name": "ZillaKami",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 22%"
+  },
+  "5meD8C7oGK5yUEY2T7ZZ7W": {
+   "decision": "hip_hop",
+   "name": "Max Korzh",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2NtN73hhhgFt2NmbBOlFz1": {
+   "decision": "hip_hop",
+   "name": "Under Side 821",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2RIWb22QZmud0Ik6Ad7dS1": {
+   "decision": "hip_hop",
+   "name": "Kuban",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 50%"
+  },
+  "1eVPKI2R4NlX6P5FIuMXis": {
+   "decision": "hip_hop",
+   "name": "MILLI",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 56%"
+  },
+  "7MVKH9fm8zwRycJpRU1UGc": {
+   "decision": "hip_hop",
+   "name": "MATRANG",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 51%"
+  },
+  "754BUADwzMYecBgOoBaetK": {
+   "decision": "hip_hop",
+   "name": "Neima Ezza",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6q3p11nP1p80Ey6LrOOSed": {
+   "decision": "hip_hop",
+   "name": "Hit-Boy",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2g8Pu5gVtDpkYGsP3RLepJ": {
+   "decision": "hip_hop",
+   "name": "Draganov",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "39XT9gMoNmMCOlvTTR273m": {
+   "decision": "hip_hop",
+   "name": "K-Trap",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6DjBv6gyR1HLsvwGUOD5V9": {
+   "decision": "latin",
+   "name": "TREN LOKOTE",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4TsHKU8l8Wq7n7OPVikirn": {
+   "decision": "other",
+   "name": "Jidenna",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 42%"
+  },
+  "6JFRI91YaCXREGQYzHSnUH": {
+   "decision": "hip_hop",
+   "name": "Jake La Furia",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "51loVlVgRomkJwd04A6B1e": {
+   "decision": "hip_hop",
+   "name": "ZZ",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5uLkZ7FWMTBUg1corQqdkR": {
+   "decision": "other",
+   "name": "Lund",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 43%"
+  },
+  "03Enzet8KLMkjdeQnbqbmn": {
+   "decision": "latin",
+   "name": "Pacho El Antifeka",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5g5a3ENOYfn6myyLen218w": {
+   "decision": "hip_hop",
+   "name": "Kaspiyskiy Gruz",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6LkMGN0t3HDNL8hIvma70r": {
+   "decision": "other",
+   "name": "Käärijä",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 39%"
+  },
+  "19vCtDMDfX2wjU5vULq6FG": {
+   "decision": "hip_hop",
+   "name": "Mr Black El Presidente",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4DdazUhIad0cymOHGifQO6": {
+   "decision": "hip_hop",
+   "name": "Cortesia Da Casa",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0mnNM5o7vtxo3ivC7Tmoah": {
+   "decision": "hip_hop",
+   "name": "Chily",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0wopeyG3WHLoKcmrFD2jrY": {
+   "decision": "hip_hop",
+   "name": "Azevedo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7lPCTAKDofGUQgXGonMrKd": {
+   "decision": "hip_hop",
+   "name": "Flipperachi",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5lEkQtWa3UKlI1hj7sktcd": {
+   "decision": "hip_hop",
+   "name": "Calin",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 68%"
+  },
+  "7w4W5Yr7oTBAqhglv0IP87": {
+   "decision": "hip_hop",
+   "name": "MHRAP",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0Ludmn78UAusTsNCXgICrN": {
+   "decision": "hip_hop",
+   "name": "Fabio Brazza",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "09E5z6upwkmwTKX8LGQgMo": {
+   "decision": "hip_hop",
+   "name": "Yaro",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0x7qiZJaal6j8qS7yCydFk": {
+   "decision": "hip_hop",
+   "name": "Savage Ga$p",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "47v3oYMWQ0JjGhHb77dRmc": {
+   "decision": "hip_hop",
+   "name": "Lune",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6XvKTz2XRPwlry0UdjqoKq": {
+   "decision": "hip_hop",
+   "name": "Ghetto Kids",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "59MLbXG0jLVwJup3KAd6m1": {
+   "decision": "hip_hop",
+   "name": "Mr.Rain",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0BKx4UjPvXVGY15u0xFbbi": {
+   "decision": "hip_hop",
+   "name": "JAY1",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3nfVTPYDnppERKGCRS4vim": {
+   "decision": "hip_hop",
+   "name": "PJ HOUDINI",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4ygR3mAG9AsBRVKIlmFYP1": {
+   "decision": "hip_hop",
+   "name": "Clavish",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "35B6bq5keTR1PYEahq1TAF": {
+   "decision": "hip_hop",
+   "name": "Sasso",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "06zC1Z0YDLeWPBLIEAkswh": {
+   "decision": "hip_hop",
+   "name": "Medellin",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4SqTiwOEdYrNayaGMkc7ia": {
+   "decision": "other",
+   "name": "LÉON",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5FqTuN42w2zGw4Pzd50yaS": {
+   "decision": "hip_hop",
+   "name": "Reckol",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "23951Pg9PiLB8Uza3k12g6": {
+   "decision": "hip_hop",
+   "name": "The Opposites",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6CSKMBCeQhddsPL63zvDhX": {
+   "decision": "hip_hop",
+   "name": "Dj Leska",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2YkP9pfIZ6hJKeuppuz8qT": {
+   "decision": "hip_hop",
+   "name": "Yade Lauren",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "78rkeQAvjl85yNyLAqEMVe": {
+   "decision": "hip_hop",
+   "name": "Mañas Ru-Fino",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1ZcIMjx9kP46pUdFOdjWKQ": {
+   "decision": "hip_hop",
+   "name": "Abbot",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6cV92JqHZPWNfa7T4oAvR9": {
+   "decision": "hip_hop",
+   "name": "Ari",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4PFgfReja3r59JaekHpeuf": {
+   "decision": "latin",
+   "name": "El Taiger",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4TGltjqP0MQxdGeSIrM4es": {
+   "decision": "other",
+   "name": "RIDSA",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 39%"
+  },
+  "7juKTDFlPesGeWQ1GmjmOv": {
+   "decision": "other",
+   "name": "Silentó",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 34%"
+  },
+  "51WwqSqhXeyz3q9Q105Kjy": {
+   "decision": "latin",
+   "name": "Metrika",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "6JG2QQcaQBzinELNvu9PRk": {
+   "decision": "hip_hop",
+   "name": "Bipo Montana",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0n1kV1G3NQrfuLGJosIGxb": {
+   "decision": "hip_hop",
+   "name": "Longus Mongus",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3L4ZO0ZaSe1qeucpQK8tBR": {
+   "decision": "other",
+   "name": "DJ Neptune",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 29%"
+  },
+  "2t0frJEIdex2PTwuLlGxDD": {
+   "decision": "hip_hop",
+   "name": "Carbonne",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "65smG2lgnRmrDB8g7z1hG0": {
+   "decision": "hip_hop",
+   "name": "Paper Route EMPIRE",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "50u2mXgysmTttY0BizYWAo": {
+   "decision": "latin",
+   "name": "Movimiento Original",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2ShoGcsu8kekluGvbggGKQ": {
+   "decision": "hip_hop",
+   "name": "Taladro",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "69u5rPwWBKP7pJHpCGB9O5": {
+   "decision": "hip_hop",
+   "name": "MoTrip",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 69%"
+  },
+  "4BLLuraEiS8Sb3j5csO1jd": {
+   "decision": "hip_hop",
+   "name": "Iss",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "40lro6xpFS9TxV2uC7yvs4": {
+   "decision": "latin",
+   "name": "Leebrian",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "13IyCFiPKhpVejuTyNulgU": {
+   "decision": "hip_hop",
+   "name": "Josas",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1eXXCUkwhu0MRLTamWEgXE": {
+   "decision": "hip_hop",
+   "name": "Oskoow",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6INEFmHKLhMIJAQzHUBAMd": {
+   "decision": "hip_hop",
+   "name": "Lijpe",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6TcTgRYJBQzadIFeXXWA3I": {
+   "decision": "hip_hop",
+   "name": "Andrew E.",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 46%"
+  },
+  "3dctbbXhrRgigX1icexnws": {
+   "decision": "hip_hop",
+   "name": "Adam Hicks",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1sSt1DqqqFLkPwfrqafVyn": {
+   "decision": "hip_hop",
+   "name": "Ice Prince",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6FIkk8GqVuqCHg2vMKWKqm": {
+   "decision": "hip_hop",
+   "name": "iDS",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5tdug7wnpNPEAOesKa1Aw1": {
+   "decision": "latin",
+   "name": "Murder",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4PCeJ2EIn3YtzYYRsHHWyy": {
+   "decision": "hip_hop",
+   "name": "GRM Daily",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3x3gsBtmPOSQVqdBzO7N5E": {
+   "decision": "hip_hop",
+   "name": "Nahir",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "38XiDu0kK3Z5jdHUDqBzNT": {
+   "decision": "hip_hop",
+   "name": "Lil Kesh",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 63%"
+  },
+  "7rn8MwX4RRLRC4yhQJ6sKR": {
+   "decision": "hip_hop",
+   "name": "MISAEL",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2AMeiDbfU2vonrTkpXDKUu": {
+   "decision": "hip_hop",
+   "name": "Kay Flock",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4acowSAiQXmdhs4DCgUQ0U": {
+   "decision": "hip_hop",
+   "name": "Ryflo",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7JMwO9tyFPMsb2KnsJqZlp": {
+   "decision": "hip_hop",
+   "name": "B Young",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3Vnl7pKDxagUgRJ3NMtEcE": {
+   "decision": "hip_hop",
+   "name": "Soufian",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0YOr5sV4zMMyj5xviWiFjW": {
+   "decision": "hip_hop",
+   "name": "Chris Beats Zn",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3vzJueN7TkCtYpz1myVmDU": {
+   "decision": "hip_hop",
+   "name": "Dontcry",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 52%"
+  },
+  "65jIUih0ZeTUJhSTRuYxpi": {
+   "decision": "latin",
+   "name": "Omy de Oro",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "5MVcNHzaXuOnZSrOav2Kav": {
+   "decision": "latin",
+   "name": "EL NOBA",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3Ns5FA1ANQOzsHLWspsrC6": {
+   "decision": "hip_hop",
+   "name": "Doode",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "21H6paZGGR6dQpVmAqbdzV": {
+   "decision": "hip_hop",
+   "name": "1986zig",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7h1amg0X7Q5d0D5KfuyKTg": {
+   "decision": "hip_hop",
+   "name": "Pyrex",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 66%"
+  },
+  "79N4S7UXdjo2fAh3OHJQuB": {
+   "decision": "latin",
+   "name": "Hard GZ",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "1m7LSAMIB1BErIHYSOn32W": {
+   "decision": "hip_hop",
+   "name": "DJ Scheme",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5y1mXGApE4lshXA10gQ0S3": {
+   "decision": "latin",
+   "name": "Jovaan",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4V2V4PaSblStayYVWTGDbZ": {
+   "decision": "hip_hop",
+   "name": "Geassassin",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2V5xArcB3BGAHmwsK46tyU": {
+   "decision": "other",
+   "name": "Vladimir Cauchemar",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 38%"
+  },
+  "1akovilveREPmx1E535jJU": {
+   "decision": "hip_hop",
+   "name": "Trapical",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6tJRAxu0HwB2GI9GueEj4l": {
+   "decision": "latin",
+   "name": "Faruz Feet",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3yGA8yyowtKVXgNIXguMfz": {
+   "decision": "hip_hop",
+   "name": "Lele Blade",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1GQ4ihUi4W36nt5ZKmtMgh": {
+   "decision": "hip_hop",
+   "name": "DJ Kayz",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2o9hRZ3xI27UQpHT61A4Mm": {
+   "decision": "hip_hop",
+   "name": "Kojo Funds",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 62%"
+  },
+  "6cpOyiEibAAlRlUF4Kk3vI": {
+   "decision": "hip_hop",
+   "name": "YAKARY",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "19u3RGWKsjmbg9eI6zAiNp": {
+   "decision": "hip_hop",
+   "name": "13 Organisé",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2dkbKcHXhN7ooFBdqAV76G": {
+   "decision": "hip_hop",
+   "name": "Nyno Vargas",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0nX3Nh4oVhkSak7V2RMtdm": {
+   "decision": "hip_hop",
+   "name": "Expressão Ativa",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3XZewrXpRQqqCMuUMAIhvN": {
+   "decision": "hip_hop",
+   "name": "Domiziana",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 61%"
+  },
+  "6qezoPrE1toz7o7R0ew9ou": {
+   "decision": "latin",
+   "name": "The Secret Panda",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "44XAmn8OQeCCeigsJuju7D": {
+   "decision": "hip_hop",
+   "name": "Ratu",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4CuMwzDzEdlUJMEna38VQ0": {
+   "decision": "hip_hop",
+   "name": "Dark Polo Gang",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7EyzyrMNgqiK8bMrbkOT9l": {
+   "decision": "hip_hop",
+   "name": "Sidoka",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7uQjkmip3qpclXt7hJ6EI9": {
+   "decision": "latin",
+   "name": "Flaco G",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "7tojcuXcZ7eBlQjbAc65Ee": {
+   "decision": "hip_hop",
+   "name": "MC Caverinha",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6csA2rxNLkQJXeEa7lyGXn": {
+   "decision": "hip_hop",
+   "name": "Mis-Teeq",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 64%"
+  },
+  "6Qc96byIWUrGk7BHxfvK4F": {
+   "decision": "hip_hop",
+   "name": "Coby",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4BZ0ACrHCLropCpHJypPvV": {
+   "decision": "hip_hop",
+   "name": "Hash Produções",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2mNP0EIVZICxF8NJ46SG0L": {
+   "decision": "hip_hop",
+   "name": "Meno Tody",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6PCKJU7fu36U4fRl7354wU": {
+   "decision": "hip_hop",
+   "name": "Mateca",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0AEQNlJAZeghMaFyIYfrQG": {
+   "decision": "hip_hop",
+   "name": "SB Maffija",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5WgRuO0mhM36NFoapzpWBH": {
+   "decision": "hip_hop",
+   "name": "Rashid",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2NFWbreVmIEJG0iqIvLDOI": {
+   "decision": "hip_hop",
+   "name": "Bokoesam",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1nTVNdaDAzXB1AbP30cGk6": {
+   "decision": "hip_hop",
+   "name": "SNIPER",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3Igua105OJq78XPcPKPGku": {
+   "decision": "hip_hop",
+   "name": "Febre90s",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3jHBxvZ9gbBkZ17wKUqVsO": {
+   "decision": "hip_hop",
+   "name": "Kent Jones",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7nNS9kiCWRqHGBcWxLB0Pk": {
+   "decision": "latin",
+   "name": "J Castle",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "5Ljk2MIIax91pypZ9Wcgaj": {
+   "decision": "hip_hop",
+   "name": "ADK",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 49%"
+  },
+  "6J2bFI9tQDWfPHjoKHKrOu": {
+   "decision": "hip_hop",
+   "name": "Yung Felix",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 66%"
+  },
+  "3B4P9BeoaJXid1mY7BmUvY": {
+   "decision": "hip_hop",
+   "name": "a6el",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "1QivQCLVipV61DiQiyV14A": {
+   "decision": "latin",
+   "name": "Kim Loaiza",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4v3iE7RK6SOyplsSQxZsjc": {
+   "decision": "hip_hop",
+   "name": "Yorssy",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0eu0y7eJ5NMo07NEQEIq1V": {
+   "decision": "other",
+   "name": "Black",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6ixe2JpfacOq9BvkwQ9rXM": {
+   "decision": "hip_hop",
+   "name": "Brocasito",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0XtC2d9ZVigYA7iMy5YkW0": {
+   "decision": "other",
+   "name": "2Pillz",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6AVuBAosGPLRJYwoJ88wtt": {
+   "decision": "hip_hop",
+   "name": "Derxan",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3pVfscwg2QxhdHtk966inb": {
+   "decision": "hip_hop",
+   "name": "The Cratez",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7IHsnK4J6QJQTjFNAxwERE": {
+   "decision": "hip_hop",
+   "name": "JKSN",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2EahEAOUPPXAcncTr8laCj": {
+   "decision": "hip_hop",
+   "name": "MADE",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0pghUohLPptZWBasy2wmUx": {
+   "decision": "hip_hop",
+   "name": "THEY.",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 58%"
+  },
+  "2LakckgvXEtJlKOYP6BO11": {
+   "decision": "hip_hop",
+   "name": "Lancey Foux",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7DpYMZzVNrjqw1geHziUEd": {
+   "decision": "hip_hop",
+   "name": "KA",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3MkkSf3u5KU52Mb2iMrqeX": {
+   "decision": "hip_hop",
+   "name": "MadMan",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4en2ObzSYlIYbCGknXjgG9": {
+   "decision": "hip_hop",
+   "name": "Pháo",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0lsEtpjLWn4S7KBra82VG3": {
+   "decision": "latin",
+   "name": "Aldo Ranks",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7Gz6VlTVwlNtBNMYV4OI3w": {
+   "decision": "hip_hop",
+   "name": "Shotgun Willy",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6rYogEVj60BCIsLukpAnwr": {
+   "decision": "hip_hop",
+   "name": "Scarlxrd",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 47%"
+  },
+  "1peH5tSqnYm8W6Bo3I5egE": {
+   "decision": "hip_hop",
+   "name": "Kat Dahlia",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 53%"
+  },
+  "4lb9cT2fdVU8h1YDoBPy1o": {
+   "decision": "hip_hop",
+   "name": "La Hasba22",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0Kwx9LPnkelacgHzRI8vxl": {
+   "decision": "hip_hop",
+   "name": "Jakone",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 67%"
+  },
+  "7bZpYWk0ZZN7CkOeXbAY0Z": {
+   "decision": "hip_hop",
+   "name": "Potter Payper",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "2gKYxTUOqw9aPt7ljMwSHT": {
+   "decision": "latin",
+   "name": "Orishas",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "7KO08sObbX1IHeiIR9b5NB": {
+   "decision": "hip_hop",
+   "name": "Dk 47",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "53sIBaVjXQhfH89Vu6nEGh": {
+   "decision": "other",
+   "name": "GoonRock",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "09WqkYnqWKUQAYSlEvaf6s": {
+   "decision": "hip_hop",
+   "name": "Murda",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "5xfBWklmIwTOoijr3nMgHB": {
+   "decision": "hip_hop",
+   "name": "Ramos.",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4cgw3nEf6uOQ2NqHwSXErR": {
+   "decision": "hip_hop",
+   "name": "Balti",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "0FUsrstJwmg4WVHQMTYuUA": {
+   "decision": "hip_hop",
+   "name": "Şehinşah",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4q6hTJmeYXCwp0ivdtoSWA": {
+   "decision": "hip_hop",
+   "name": "Dappy",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "3YNm5MBjwq1QDeKQJq7wze": {
+   "decision": "hip_hop",
+   "name": "Nucci",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 51%"
+  },
+  "6LNDkL0VeHXi0fMuefWS1w": {
+   "decision": "hip_hop",
+   "name": "TVLM",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "7AiFAkvE8VYLDdsmLC78ik": {
+   "decision": "hip_hop",
+   "name": "Bubaseta",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "4mar1GMMEhvGyJdWagu6KS": {
+   "decision": "other",
+   "name": "Quad City DJ's",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 39%"
+  },
+  "4KHdmkq99PXA6QEJ2lKpA3": {
+   "decision": "hip_hop",
+   "name": "Heavy D & The Boyz",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 60%"
+  },
+  "6pg4S5KTCPiEBp0rSWsaI6": {
+   "decision": "hip_hop",
+   "name": "HMZ",
+   "at": "2026-10-24",
+   "basis": "Deezer: mostly rap releases and a Deezer audience that fits"
+  },
+  "6tkyhGe9hGI3Lcfo4gVh6Z": {
+   "decision": "latin",
+   "name": "ChocQuibTown",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "4M0DLz8te9Q1lNIXBBwvfG": {
+   "decision": "hip_hop",
+   "name": "Karmin",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3Ces1OJeGOVGcUB0wPaPXJ": {
+   "decision": "latin",
+   "name": "Mala Rodríguez",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "40giwFcTQtv9ezxW8yqxJU": {
+   "decision": "other",
+   "name": "Chiddy Bang",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2KbikmQKGiUPR2ARs1h0sq": {
+   "decision": "hip_hop",
+   "name": "Gilli",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7502fDxg339jvGV08Jd4R0": {
+   "decision": "hip_hop",
+   "name": "Jasiah",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0UntV1Bw2hk3fbRrm9eMP6": {
+   "decision": "other",
+   "name": "B.I",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5HenzRvMtSrgtvU16XAoby": {
+   "decision": "other",
+   "name": "Zion.T",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "68dW5BU6sdVNf099EylxEt": {
+   "decision": "hip_hop",
+   "name": "Hov1",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3dHnXBJdd4O9KXwP1kxF6L": {
+   "decision": "hip_hop",
+   "name": "OT7 Quanny",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "19zuiWthJYU6FCqnV4mJYC": {
+   "decision": "hip_hop",
+   "name": "Kinny Zimmer",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7FwxJtVorL07N6kbqmkPr6": {
+   "decision": "hip_hop",
+   "name": "PlanBe",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1rmR17cbB34R3cKheHJBDZ": {
+   "decision": "hip_hop",
+   "name": "Gemelli Diversi",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4oEO6Ud3efrjTNSR9SMleI": {
+   "decision": "hip_hop",
+   "name": "Silent Bob",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "25fqWEebq6PoiGQIHIrdtv": {
+   "decision": "hip_hop",
+   "name": "Baauer",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 45%"
+  },
+  "6O9WquDfQTxGRZqZUXVEQx": {
+   "decision": "other",
+   "name": "RedOne",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3xPDzlchimtvIGqPc1lZl2": {
+   "decision": "hip_hop",
+   "name": "Leblanco",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3M1quhETLChtt9NHKVaajX": {
+   "decision": "hip_hop",
+   "name": "Quin Nfn",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4OtcoXGM3abQUnErfCczaj": {
+   "decision": "other",
+   "name": "Kidda",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1zT9SWCzN45r7oVhy0VYLK": {
+   "decision": "hip_hop",
+   "name": "S10",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0JQ4vokBBqHxHzRb36fSWN": {
+   "decision": "hip_hop",
+   "name": "Devito",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0I0zS0aiq9JeGMBT45x6d8": {
+   "decision": "hip_hop",
+   "name": "Greekazo",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0bOSNnz9bGAUlV3OJ3rnQW": {
+   "decision": "hip_hop",
+   "name": "Tima Belorusskih",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3N4FiTxpPQRsrihmTMN349": {
+   "decision": "other",
+   "name": "Marcus & Martinus",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2SeRP5iAIhVec4azKHJzjX": {
+   "decision": "hip_hop",
+   "name": "INSTASAMKA",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4PrinKSrmILmo0kERG0Ogn": {
+   "decision": "hip_hop",
+   "name": "Trina",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 46%"
+  },
+  "1iJdyDcY98X3GMnUesl7tf": {
+   "decision": "hip_hop",
+   "name": "Comethazine",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5NTFOMIZSgupSw6yfnD4E2": {
+   "decision": "hip_hop",
+   "name": "North West",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2408j875K0AESndCiOw5UO": {
+   "decision": "other",
+   "name": "Priceless",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1iJrQKRh5aJnp6cG5lpITr": {
+   "decision": "hip_hop",
+   "name": "Khontkar",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "29XOeO6KIWxGthejQqn793": {
+   "decision": "other",
+   "name": "Flying Lotus",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 44%"
+  },
+  "5olcgTzelGdyP1rHRLyWgs": {
+   "decision": "hip_hop",
+   "name": "S.Pri Noir",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0qHbO3z6lgLE6ZYCkQBo1K": {
+   "decision": "latin",
+   "name": "Lil Supa",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "01lZudgXsojt5TBHuygB8r": {
+   "decision": "hip_hop",
+   "name": "T-Fest",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0XDfNJsQy7B3q0GfsMHSkp": {
+   "decision": "hip_hop",
+   "name": "Tjuvjakt",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0Yj3N31EWXHc6e3eDyJPLP": {
+   "decision": "other",
+   "name": "Lyna Mahyem",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1dqGS5sT6PE2wEvP1gROZC": {
+   "decision": "hip_hop",
+   "name": "Flatbush Zombies",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5VwCIS8jdx9ZHjApLFNrTZ": {
+   "decision": "hip_hop",
+   "name": "Noga Erez",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7aASXckUdNXJ5X338n8C1D": {
+   "decision": "hip_hop",
+   "name": "Voyage",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4O2YL4ygn6eTBC0w1hyWUM": {
+   "decision": "other",
+   "name": "Melanie Fiona",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1PyToLP6F2rzV0ZSR71lgl": {
+   "decision": "hip_hop",
+   "name": "Bryan Mg",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0LvzywQsf3X6Gt6aGAdlDq": {
+   "decision": "latin",
+   "name": "Tali Goya",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2iUbk5KhZYZt4CRvWbwb7S": {
+   "decision": "other",
+   "name": "LunchMoney Lewis",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "1KJvuZHmkpnrjIyTLhhwpb": {
+   "decision": "hip_hop",
+   "name": "Solar",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1jB62pOe5WpGiHOBDtKBBG": {
+   "decision": "latin",
+   "name": "La Zowi",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "2mHURFmt3SwlrBWImZwYoq": {
+   "decision": "latin",
+   "name": "Serko",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "1jiZvw42D4oquLl24x2VWV": {
+   "decision": "hip_hop",
+   "name": "Lefty Gunplay",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7cpXJIW3DMvOlUTHyIm4wx": {
+   "decision": "hip_hop",
+   "name": "Diiya",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5kgH3qVSSDPPmKnQfrkblH": {
+   "decision": "hip_hop",
+   "name": "RIP SLYME",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4J6A7DGmVEA4CXhTnCxxEd": {
+   "decision": "other",
+   "name": "ANDRO",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7qd6KGoABHifvXKeFNe2Yb": {
+   "decision": "hip_hop",
+   "name": "Wolftyla",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "38iqZSGa2pvToKrMISU8g1": {
+   "decision": "hip_hop",
+   "name": "TEDE",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6WBf0WXqyBkCCYAEPUeDxn": {
+   "decision": "other",
+   "name": "Kenza Farah",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1nnaE1FllcW0TlDdPVmdPg": {
+   "decision": "hip_hop",
+   "name": "Scally Milano",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5sRhscbWRXFbjXtSZyfaWY": {
+   "decision": "hip_hop",
+   "name": "Rittz",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4DpmPt7gfAAq7WEx0E1X8s": {
+   "decision": "other",
+   "name": "piri",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7qPISKHhhKDLZTmYcX7bWd": {
+   "decision": "other",
+   "name": "Stylo G",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5quv5QEyL2XAloebaau69m": {
+   "decision": "hip_hop",
+   "name": "Ali B",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0tkHE1pQ5ZCgQb8WZ0ba79": {
+   "decision": "hip_hop",
+   "name": "Gaeko",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "49eo9xE4yGzJLWkOndiODs": {
+   "decision": "other",
+   "name": "Deichkind",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 38%"
+  },
+  "0OCyDRYamSDX0nSnJ59W1u": {
+   "decision": "hip_hop",
+   "name": "GUF",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5W7N6u4EjCEMKj7bDyzPEC": {
+   "decision": "hip_hop",
+   "name": "Geegun",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5erZiBCKPxe9FaTiXHO00m": {
+   "decision": "hip_hop",
+   "name": "Adje",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0FNfiTQCR5o3ounOlWzm1d": {
+   "decision": "other",
+   "name": "John Glacier",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 40%"
+  },
+  "7kaEEK2cQh07aEfEEBd4Hn": {
+   "decision": "hip_hop",
+   "name": "Donguralesko",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5fg02ZNJViLdPyxJnRdcsi": {
+   "decision": "hip_hop",
+   "name": "Zoë Tauran",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3eb6CZwogsXvGkmEUYa9XV": {
+   "decision": "hip_hop",
+   "name": "Zachz Winner",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7ajUo7DyiAOYvCndGLoJ1u": {
+   "decision": "hip_hop",
+   "name": "Prince Paul",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5oDxGfxYaJkfp6xZlXQnr8": {
+   "decision": "hip_hop",
+   "name": "Fatal Bazooka",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7zXRgSpjJkQmB9SnPLq1Qk": {
+   "decision": "latin",
+   "name": "Crack Family",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "32iYExttk1mlpOmY7gCqk3": {
+   "decision": "hip_hop",
+   "name": "Die Firma",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0YPIovtLh5msFPFuCcn30R": {
+   "decision": "hip_hop",
+   "name": "CHO",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7a35Zdc78bDXJv2vYf5hSO": {
+   "decision": "hip_hop",
+   "name": "Beendo Z",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2xe5FZM6bB4k1KhfTZBBSx": {
+   "decision": "hip_hop",
+   "name": "SkyDxddy",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3FD9VAd0ppjmKbfxF4LzUh": {
+   "decision": "other",
+   "name": "Danity Kane",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1VhhG66haEwN2jTjaXiYRQ": {
+   "decision": "other",
+   "name": "RaiM",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4e5oZygHeeRoTXc00gYWiu": {
+   "decision": "hip_hop",
+   "name": "Danny Towers",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5UNWQJdUbO8Gbg9Qn3r52M": {
+   "decision": "other",
+   "name": "Touliver",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0tOrKkXIn3VYyVHFEPG6Xd": {
+   "decision": "hip_hop",
+   "name": "Galimatias",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3O5HD95HTEPgoPFOjAb7yV": {
+   "decision": "hip_hop",
+   "name": "DripReport",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2EWsHDexsSInArfFkhA2i6": {
+   "decision": "other",
+   "name": "JIREEL",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "73aKnLT4O8G2pBEfdlQzrE": {
+   "decision": "other",
+   "name": "Purrple Cat",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 32%"
+  },
+  "5qK5bOC6wLtuLhG5KvU17c": {
+   "decision": "hip_hop",
+   "name": "Lil Mama",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "24oVOFAARWAYUb1LaedbI0": {
+   "decision": "hip_hop",
+   "name": "Icy Subzero",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7blTwZGiTplsvBEvYOsDot": {
+   "decision": "hip_hop",
+   "name": "Ramil'",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5CkZIA3WpaEFxp0wSjMzRI": {
+   "decision": "hip_hop",
+   "name": "Young Multi",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5RCdjio4ASMQ8CFaSuAl6C": {
+   "decision": "other",
+   "name": "D'banj",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7eH1UUCyxL8Wf9PztvvPJ6": {
+   "decision": "latin",
+   "name": "Arce",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "0GeeIVcvGA8GSlWsoY1dkG": {
+   "decision": "hip_hop",
+   "name": "Vory",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2hBfmHHnM4dS4pJgEJENCg": {
+   "decision": "hip_hop",
+   "name": "Chivv",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "24sVPKlhUfQ8rMyUg7qLUq": {
+   "decision": "hip_hop",
+   "name": "RAIZHELL",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4h8pGxEIOi7j4me1yhYxlD": {
+   "decision": "other",
+   "name": "LSP",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7pv4pK2Q3iHVi0cfT1xlSQ": {
+   "decision": "hip_hop",
+   "name": "Pendhoza",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5bCwYvvFvWOEXtO9W7p0Iv": {
+   "decision": "hip_hop",
+   "name": "Craig Xen",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4hXT6A14n901v8DU5Of337": {
+   "decision": "hip_hop",
+   "name": "KAYEF",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1MZ1TtfmzMHEYIlynXsr1a": {
+   "decision": "hip_hop",
+   "name": "Gedz",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2s6lxOYvvCvzpHtd3VyuMj": {
+   "decision": "other",
+   "name": "Uffie",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1EDrjPOlEjmbzjbet1DxTN": {
+   "decision": "hip_hop",
+   "name": "Kiliana",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "48XeauxB5rhLPXPtACuuUR": {
+   "decision": "hip_hop",
+   "name": "Katastrofe",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4XjCsLo0E4017wblpE9BDL": {
+   "decision": "other",
+   "name": "Natty Rico",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5RaTuqY7SJHvh6MNzMagut": {
+   "decision": "hip_hop",
+   "name": "D1MA",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1nQdZyarkEApwhC24Ftdpk": {
+   "decision": "hip_hop",
+   "name": "Ulukmanapo",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5N47dnIfPuGH8kIHpf8gZK": {
+   "decision": "other",
+   "name": "Duncan Mighty",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4EePV5BljRSXJnYww4d5Qa": {
+   "decision": "other",
+   "name": "Deluxe",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "6gvVFtkTV4OCyQSCzGgU1h": {
+   "decision": "hip_hop",
+   "name": "Nik Tendo",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5G8IlDlnPQPN4YmtJ6NDxK": {
+   "decision": "other",
+   "name": "Cham",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3zz52ViyCBcplK0ftEVPSS": {
+   "decision": "other",
+   "name": "Quadeca",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 44%"
+  },
+  "5QWQYxfuoNq7iJBlbIAYRS": {
+   "decision": "hip_hop",
+   "name": "Eves Laurent",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5RADpgYLOuS2ZxDq7ggYYH": {
+   "decision": "other",
+   "name": "Death Grips",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 45%"
+  },
+  "5FeGhv7je3hPQi2TLslPIl": {
+   "decision": "hip_hop",
+   "name": "MC Lon",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7CGSp2GbiOpLPSq61qjxf8": {
+   "decision": "other",
+   "name": "midwxst",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "1MAUqH0haKBYbjpknTfreY": {
+   "decision": "hip_hop",
+   "name": "PENOMECO",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4p5IspnsqtILeRtckOxumu": {
+   "decision": "hip_hop",
+   "name": "Il Tre",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "62zLrboqOTPyozwi721CVy": {
+   "decision": "hip_hop",
+   "name": "Lorenzo",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7dDYME7Y3GoEQotd8gUvQg": {
+   "decision": "hip_hop",
+   "name": "Millyz",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5AvkVClT6JuPL4LFy7liYN": {
+   "decision": "hip_hop",
+   "name": "Gers Pardoel",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3xhksfxjNLUAyxUdijvk4x": {
+   "decision": "other",
+   "name": "Kalibwoy",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "51o6QF11Nswx5jMlp6rAL8": {
+   "decision": "hip_hop",
+   "name": "Dr. Fuchs",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6vRKWcwC6OphUNy3Ds5O0U": {
+   "decision": "hip_hop",
+   "name": "Atay",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1wak0ZG1LUrZPYx8RDTQoD": {
+   "decision": "other",
+   "name": "Noa Kirel",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "509E47UmbRPKWPXOMaieh2": {
+   "decision": "other",
+   "name": "Tim Godfrey",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7GkUskIBOKpJRyzpE7WQBD": {
+   "decision": "hip_hop",
+   "name": "Zizan Razak",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0oJM3iJjMdzgsd4z5VHQvw": {
+   "decision": "hip_hop",
+   "name": "Professor Green",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7muPB2GhV0sEg2K1Fgj0Xm": {
+   "decision": "hip_hop",
+   "name": "Dargen D'Amico",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1eTRyiHsWMoWKPD6s4Kiqt": {
+   "decision": "hip_hop",
+   "name": "Lujipeka",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0hWRiJV8KlRZvsZeemUJVv": {
+   "decision": "other",
+   "name": "Fun Lovin' Criminals",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "65AzRSW0jKSs0WtttEXrOw": {
+   "decision": "other",
+   "name": "ELIF",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "462bQVHRwoW4loeQRHlRzq": {
+   "decision": "hip_hop",
+   "name": "ELMAN",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "71k6SmcYKiIPq8M2RxK2Jr": {
+   "decision": "other",
+   "name": "Nik & Jay",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 33%"
+  },
+  "17pbOSPIn3lmY0vHhOlKGL": {
+   "decision": "hip_hop",
+   "name": "Tuna",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1n5LD9Ar3D6RK2X2ewGvXb": {
+   "decision": "other",
+   "name": "Carla's Dreams",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6I63R76ouyFvUIwPggQxxT": {
+   "decision": "latin",
+   "name": "The Tyets",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "348pk4o3EhKmsSahzuClSf": {
+   "decision": "latin",
+   "name": "CA7RIEL",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "3Vfd5HJnhjnvdyuQYHtYa2": {
+   "decision": "hip_hop",
+   "name": "Markul",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2u1aL8XADqj0nJFHMKRjNw": {
+   "decision": "hip_hop",
+   "name": "ppcocaine",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2R1OELuSJzXjRm8lc8FjPC": {
+   "decision": "hip_hop",
+   "name": "Rem Digga",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4grjJqg7iwQ8RKHs8d9Snh": {
+   "decision": "hip_hop",
+   "name": "Andree Right Hand",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2X11x8C63wCzAf1WwsIuLg": {
+   "decision": "latin",
+   "name": "Kaze",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "7cg61q8kK8jlFi8TKKw70p": {
+   "decision": "other",
+   "name": "Afrika Bambaataa",
+   "at": "2026-10-24",
+   "basis": "average hip-hop evidence 43%"
+  },
+  "6b4jozQw0RkUzPOp2tuIEn": {
+   "decision": "latin",
+   "name": "Faraón Love Shady",
+   "at": "2026-10-24",
+   "basis": "pipeline: Latin"
+  },
+  "3a4bEvoyyeZPOLxCkSgPO6": {
+   "decision": "hip_hop",
+   "name": "A.V.G",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7fRBY7RRf4iMn2Z4bhZcYA": {
+   "decision": "hip_hop",
+   "name": "Scylla",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "52XMlxvCIzmiNkzSqEw3Uv": {
+   "decision": "hip_hop",
+   "name": "O.S.T.R.",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4bOG1sx3QHFbOUVLNmMpPe": {
+   "decision": "hip_hop",
+   "name": "Timbuktu",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2KCRLxlHd2OgZG6YAOAcSu": {
+   "decision": "hip_hop",
+   "name": "YNW BSlime",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5ILMkt5lW4KAyTXMNYWaGF": {
+   "decision": "other",
+   "name": "Dani M",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4u1dsEB1FKbGcdG0EAvxP8": {
+   "decision": "hip_hop",
+   "name": "Jambene",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4ntkql3f3ect7NDRUJ7aAY": {
+   "decision": "other",
+   "name": "The Cheetah Girls",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "15ZjD8Gus20Miqw3fdOaXX": {
+   "decision": "hip_hop",
+   "name": "Stunna Gambino",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5IQZA1dxUd3Qv73mHNln59": {
+   "decision": "hip_hop",
+   "name": "Peja",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "7HLErdUiPhh7mg5AxVEAX0": {
+   "decision": "hip_hop",
+   "name": "Killa Hakan",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4isewEHTP7Az2QheDdBQ6J": {
+   "decision": "hip_hop",
+   "name": "24hrs",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5uvOG0MwnD2ANrxNBUPtNr": {
+   "decision": "hip_hop",
+   "name": "1.Cuz",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3tNPDodRNuLdezJnTsYOqy": {
+   "decision": "hip_hop",
+   "name": "Dree Low",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1eLxAzPSnsl03ajNNihddF": {
+   "decision": "hip_hop",
+   "name": "Jayh",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3LuYfF9A3UhXY4xqQkXjJ7": {
+   "decision": "hip_hop",
+   "name": "Trzeci Wymiar",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6JvU33PZ8MtZyeFTESr09O": {
+   "decision": "hip_hop",
+   "name": "Kap G",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3NRXKeatDxKe4apH6XawKX": {
+   "decision": "hip_hop",
+   "name": "DA PUMP",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3cDi1D2FHMVgljfdB1QVgr": {
+   "decision": "other",
+   "name": "Jasmin Moallem",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "4FhC69hLxEcpLUaC08ityW": {
+   "decision": "latin",
+   "name": "Skinny Flex",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "2ac0Lmf5nfZU6sq2t6MJLh": {
+   "decision": "hip_hop",
+   "name": "Yuston XIII",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3BzIl6CMuDeAj8zXVYA8ng": {
+   "decision": "hip_hop",
+   "name": "JANAGA",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "6RIJu05yhEIYskbVgxmk3R": {
+   "decision": "hip_hop",
+   "name": "Angel",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5NUVwRESNqYBUTRbiATjy7": {
+   "decision": "hip_hop",
+   "name": "BE'O",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "1RnSjp7u3KIyEJbRiQLs9O": {
+   "decision": "hip_hop",
+   "name": "Dess Dior",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5Ypafuz95Xk09YDf4tgAvU": {
+   "decision": "latin",
+   "name": "Ayax y Prok",
+   "at": "2026-10-24",
+   "basis": "Latin evidence"
+  },
+  "4nXezpatStChCEWVvYLjd5": {
+   "decision": "hip_hop",
+   "name": "TopGunn",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "10hnt5byoob9FKHUN8Awfa": {
+   "decision": "other",
+   "name": "YOO YOUNG JIN",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0O1cTzccAEKaEFShgzAK9V": {
+   "decision": "hip_hop",
+   "name": "Bass Santana",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "0pq3BIPRIccDxXRCzlCePX": {
+   "decision": "hip_hop",
+   "name": "Watson",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "2Ca9nb6MJ3lwyF7dRNJm3M": {
+   "decision": "hip_hop",
+   "name": "Citizen King",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "5hXMMzNyqGj17MtUASdtnI": {
+   "decision": "hip_hop",
+   "name": "BUKA",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  },
+  "3E8Mx37sikkaFoX5DRecLi": {
+   "decision": "other",
+   "name": "Oskar Linnros",
+   "at": "2026-10-24",
+   "basis": "Wikidata genres"
+  }
+ },
+ "label": {
+  "3JhNCzhSMTxs9WLGJJxWOY": {
+   "status": "self_released",
+   "owner": "",
+   "name": "Macklemore",
+   "at": "2026-10-24"
+  },
+  "5ndkK3dpZLKtBklKjxNQwT": {
+   "status": "self_released",
+   "owner": "",
+   "name": "B.o.B",
+   "at": "2026-10-24"
+  },
+  "2jku7tDXc6XoB6MO2hFuqg": {
+   "status": "self_released",
+   "owner": "",
+   "name": "Tory Lanez",
+   "at": "2026-10-24"
+  },
+  "2kCcBybjl3SAtIcwdWpUe3": {
+   "status": "independent",
+   "owner": "",
+   "name": "Lil Peep",
+   "at": "2026-10-24"
+  },
+  "3y24n3XhZ96wgwRXjvS17T": {
+   "status": "independent",
+   "owner": "",
+   "name": "Coolio",
+   "at": "2026-10-24"
+  }
+ }
+}
