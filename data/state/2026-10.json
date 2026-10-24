@@ -1,0 +1,69 @@
+{
+ "month": "2026-10",
+ "as_of": "2026-10-24",
+ "items": [
+  {
+   "key": "majors",
+   "label": "Majors' share of the top 1,000's listeners",
+   "value": "57%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 738 of 1000 artists are known",
+   "link": "#/labels"
+  },
+  {
+   "key": "top",
+   "label": "No. 1 by current listeners",
+   "value": "Don Toliver",
+   "detail": "26.0m current listeners, 45.7m monthly",
+   "link": "#/a/4Gso3d4CscCijv0lmajZWs"
+  },
+  {
+   "key": "mover",
+   "label": "Biggest riser over 30 days",
+   "value": "Yung Lean",
+   "detail": "+69% monthly listeners, 7.0m to 11.9m since 2026-09-29",
+   "link": "#/a/67lytN32YpUxiSeWlKfHJ3"
+  },
+  {
+   "key": "breaking",
+   "label": "Breaking now",
+   "value": "21",
+   "detail": "artists Scout rates Breaking; top: Tiakola (95)",
+   "link": "#/scout"
+  },
+  {
+   "key": "unsigned",
+   "label": "Top unsigned prospect",
+   "value": "SadiQ",
+   "detail": "Scout 92, 1.5m monthly listeners, releasing without a label",
+   "link": "#/a/2cbnuG01tV93pqdfr4OBqL"
+  },
+  {
+   "key": "royalties",
+   "label": "What the top 100 earn on Spotify",
+   "value": "$335.7m a year",
+   "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
+   "link": "#/worth"
+  },
+  {
+   "key": "producer",
+   "label": "Producer behind the most streams",
+   "value": "Ye",
+   "detail": "credited on songs with 4.4m Spotify streams a day (credits partial)",
+   "link": "#/producers"
+  },
+  {
+   "key": "shazam",
+   "label": "Most Shazamed hip-hop artist",
+   "value": "JADE",
+   "detail": "on 41 Shazam charts in the last 7 days",
+   "link": "#/a/24b0qNYNgeOfpP5rbljIB3"
+  },
+  {
+   "key": "size",
+   "label": "Hip-hop artists tracked",
+   "value": "1,000",
+   "detail": "6.54bn combined monthly listeners, from Spotify's top 25,225",
+   "link": "#/"
+  }
+ ]
+}

@@ -149,7 +149,7 @@ function top() {
   const scoutTop = all.filter(x => x.scout?.tier === "Breaking").sort((x, y) => y.scout.score - x.scout.score).slice(0, 3);
   const labelsN = (d.labels || []).length, total = all.reduce((s, a) => s + a.ml, 0);
   app.innerHTML = `<section class="hero"><h1>Global Hip-Hop</h1>
-      <p class="lede">Who is really drawing an audience in hip-hop right now, what their music earns, who owns it, and who is about to break. ${all.length.toLocaleString()} artists, updated daily, every figure sourced.</p>
+      <p class="lede">Who is really drawing an audience in hip-hop right now, what their music earns, who owns it, and who is about to break. ${all.length.toLocaleString()} artists, updated daily, every figure sourced. <a href="#/state">This month in numbers →</a></p>
       <div class="stats"><div><b>${all.length.toLocaleString()}</b><span>hip-hop artists tracked, of Spotify's top ${d.universe.toLocaleString()}</span></div><div><b>${count(total)}</b><span>combined monthly listeners</span></div><div><b>${labelsN}</b><span>labels with artists in the top 1,000</span></div><div><b>${esc(d.as_of)}</b><span>listener data as of</span></div></div></section>
     ${pulse()}
     <section class="doors">
@@ -709,6 +709,21 @@ function producersPage() {
   if (want) app.querySelector("tr.hl")?.scrollIntoView({ block: "center" });
 }
 
+// ---------- State of hip-hop (owner, 2026-10-24, D5): the month's quotable numbers, one permanent page per month
+function statePage(ym) {
+  nav("state");
+  const all = store.data.state || [], st = all.find(x => x.month === ym) || all[0];
+  if (!st) { app.innerHTML = `<p class="note">No month stored yet.</p>`; return; }
+  const month = new Date(st.month + "-01T00:00:00Z").toLocaleDateString("en", { month: "long", year: "numeric", timeZone: "UTC" });
+  const cite = `tventy music, "State of hip-hop, ${month}", ${SITE_URL}state/${st.month}/ (data as of ${st.as_of}).`;
+  app.innerHTML = `<section><h1>State of hip-hop, ${esc(month)}</h1>
+    <p class="sub">The month in hip-hop's top 1,000, in numbers you can quote. ${st.month === all[0]?.month ? `This month's page updates daily until the month ends; then its numbers are fixed. ` : ""}Data as of ${esc(st.as_of)}.</p>
+    ${all.length > 1 ? `<div class="chips">${all.map(x => `<a class="chip" href="#/state/${x.month}"${x.month === st.month ? ' aria-current="page"' : ""}>${esc(x.month)}</a>`).join(" ")}</div>` : ""}</section>
+    <section class="statgrid">${st.items.map(i => `<a class="stat" href="${esc(i.link)}"><span class="k">${esc(i.label)}</span><b>${esc(i.value)}</b><span class="note">${esc(i.detail)}</span></a>`).join("")}</section>
+    <section class="panel"><h2>Quoting these numbers</h2><p>Please cite: <code>${esc(cite)}</code> <button type="button" class="linkbtn" data-share="${esc(cite)}" data-url="${esc(SITE_URL + "state/" + st.month + "/")}">Share</button></p>
+    <p class="note">Every figure links to the page it comes from, with its sources and grades. Listener counts are Spotify's public numbers via kworb; money is our estimate, shown as a range on each page; labels come from the ℗ lines of recent releases. <a href="#/method">Method</a></p></section>`;
+}
+
 // ---------- Shazam (owner, 2026-10-24, K3): an internal Scout signal, shown only as a badge with a link to Shazam's chart
 const shazamBadge = (a, short = false) => { const z = a.shazam; if (!z) return short ? "–" : "";
   const best = `#${z.best.rank} ${z.best.kind === "genre" ? "hip-hop" : ""} in ${z.best.place.replace(/-/g, " ")}`.replace(/\s+/g, " ");
@@ -1085,13 +1100,13 @@ async function route() {
   const NAMES = { movers: ["Artists", "Movers"], month: ["Artists", "Movers"], rising: ["Artists", "Movers"], compare: ["Artists", "Compare"],
     scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], producers: ["Scout", "Producers"],
     worth: ["Money"], pay: ["Money", "Pay gap by deal"], platforms: ["Money", "Platforms"], tours: ["Money", "Tours"],
-    labels: ["Labels"], audience: ["Labels", "Where it is streamed"], method: ["Method"] };
+    labels: ["Labels"], audience: ["Labels", "Where it is streamed"], method: ["Method"], state: ["State of hip-hop"] };
   const SEC = { Artists: "#/", Scout: "#/scout", Money: "#/worth", Labels: "#/labels", Method: "#/method" };
   crumbs((NAMES[h[0]] || []).map((t, i, xs) => [t, i < xs.length - 1 ? SEC[t] : ""]));
   const TITLES = { rising: "Rising hip-hop artists today", month: "Hip-hop movers: the last 30 days", movers: h[1] === "today" ? "Hip-hop movers today" : "Hip-hop movers: the last 30 days", pay: "Pay gap by record deal",
     platforms: "Hip-hop royalties by streaming platform", tours: "Hip-hop tours: gross and revenue per fan", audience: "Where hip-hop is streamed",
     unsigned: "Unsigned hip-hop artists against signed peers", method: "Method and sources", scout: "Scout: rising hip-hop artists for A&R",
-    worth: "What is your music worth?", producers: "The producers and songwriters behind hip-hop's biggest songs", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
+    worth: "What is your music worth?", state: "State of hip-hop: the month in numbers", producers: "The producers and songwriters behind hip-hop's biggest songs", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
   if (h[0] !== "" && h[0] !== "a") await store.extra;
   setMeta(TITLES[h[0]] || "Global hip-hop: listeners, earnings and labels of the top 1,000 artists");
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
@@ -1099,6 +1114,7 @@ async function route() {
   else if (h[0] === "movers") (h[1] === "today" ? rising() : monthPage());
   else if (h[0] === "month") monthPage();
   else if (h[0] === "producers") producersPage();
+  else if (h[0] === "state") statePage(h[1]);
   else if (h[0] === "pay") pay();
   else if (h[0] === "platforms") platforms();
   else if (h[0] === "tours") tours();
@@ -1111,7 +1127,7 @@ async function route() {
   else if (h[0] === "label") labelPage(decodeURIComponent(h[1] || ""));
   else if (h[0] === "compare") compare(h.slice(1).map(decodeURIComponent));
   else top();
-  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/method">Method</a> · <a href="mailto:swedenrocked@gmail.com?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
+  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of hip-hop</a> · <a href="#/method">Method</a> · <a href="mailto:swedenrocked@gmail.com?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
   window.scrollTo(0, 0);
 }
 function setMeta(title, desc) {

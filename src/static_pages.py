@@ -155,10 +155,22 @@ def card(a: dict, as_of: str, path: Path) -> None:
     im.save(path, "PNG", optimize=True)
 
 
-def build(data: dict, cards: bool = True) -> dict:
+def state_page(st: dict) -> tuple[str, str]:
+    from datetime import date
+    url = f"{BASE}state/{st['month']}/"
+    month = date.fromisoformat(st["month"] + "-01").strftime("%B %Y")
+    desc = f"State of hip-hop, {month}: " + "; ".join(f"{i['label']}: {i['value']}" for i in st["items"][:4]) + "."
+    body = (f'<article class="static"><h1>State of hip-hop, {esc(month)}</h1><p class="sub">{esc(desc)}</p><ul>'
+            + "".join(f"<li><b>{esc(i['label'])}:</b> {esc(i['value'])} ({esc(i['detail'])})</li>" for i in st["items"]) + "</ul></article>")
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": f"State of hip-hop, {month}", "url": url,
+          "datePublished": st["as_of"], "publisher": {"@type": "Organization", "name": "tventy music"}}
+    return url, _shell(f"State of hip-hop, {month}", desc, url, None, ld, f"#/state/{st['month']}", body)
+
+
+def build(data: dict, cards: bool = True, states: list[dict] | None = None) -> dict:
     as_of = data.get("as_of") or ""
     urls = [BASE]
-    for sub in ("a", "label"):
+    for sub in ("a", "label", "state"):
         root = SITE / sub
         if root.exists():
             for old in root.glob("*/index.html"):
@@ -174,6 +186,12 @@ def build(data: dict, cards: bool = True) -> dict:
     for L in data.get("labels", []):
         url, page = label_page(L, as_of)
         out = SITE / "label" / L["slug"] / "index.html"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(page)
+        urls.append(url)
+    for st in states or []:
+        url, page = state_page(st)
+        out = SITE / "state" / st["month"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page)
         urls.append(url)

@@ -389,7 +389,9 @@ if __name__ == "__main__":
     # lighter first load (owner, 2026-10-24, D6): page-specific data in data/extra.json, fetched in the background
     # after index.json; the start page and artist pages render without it
     extra = {k: data.pop(k) for k in EXTRA_KEYS if k in data}
+    from . import state
+    extra["state"] = state.update(data, extra)
     (OUT.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{OUT.relative_to(SITE.parent)}: {len(data['artists'])} hip-hop artists, {OUT.stat().st_size // 1024} KB")
-    print("static pages and cards:", static_pages.build(data))
+    print("static pages and cards:", static_pages.build(data, states=extra["state"]))

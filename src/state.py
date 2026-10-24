@@ -1,0 +1,79 @@
+"""State of hip-hop (owner, 2026-10-24, D5): a dated monthly page of quotable headline numbers, each with a citation.
+
+Each build writes the current month's numbers to data/state/<YYYY-MM>.json (committed by the data workflows), so a
+month keeps its permanent address and its figures once it ends; the current month refreshes until then. The site
+shows every stored month at #/state/<YYYY-MM> and as a static page, site/state/<YYYY-MM>/.
+"""
+import json
+
+from .config import DATA
+
+DIR = DATA / "state"
+MAJORS = ("Universal Music Group", "Sony Music", "Warner Music Group")
+
+
+def _pct(x: float) -> str:
+    return f"{round(100 * x)}%"
+
+
+def _count(n) -> str:
+    n = float(n or 0)
+    return f"{n / 1e9:.2f}bn" if n >= 1e9 else f"{n / 1e6:.1f}m" if n >= 1e6 else f"{n / 1e3:.0f}k"
+
+
+def build(data: dict, extra: dict) -> dict:
+    A = data["artists"]
+    by = {a["id"]: a for a in A}
+    as_of = data.get("as_of") or ""
+    m = extra.get("market") or {}
+    groups, total = m.get("groups", {}), m.get("total_ml") or 1
+    major_ml = sum(groups.get(g, {}).get("ml", 0) for g in MAJORS)
+    items = [{"key": "majors", "label": "Majors' share of the top 1,000's listeners",
+              "value": _pct(major_ml / total),
+              "detail": f"Universal, Sony and Warner, by monthly listeners added per artist; labels on {sum(1 for a in A if a.get('label_status') != 'unknown')} of {len(A)} artists are known",
+              "link": "#/labels"}]
+    ranked = sorted((a for a in A if a.get("cl_rank")), key=lambda a: a["cl_rank"])
+    if ranked:
+        a = ranked[0]
+        items.append({"key": "top", "label": "No. 1 by current listeners", "value": a["name"],
+                      "detail": f"{_count(a['cl'])} current listeners, {_count(a['ml'])} monthly", "link": f"#/a/{a['id']}"})
+    up = ((extra.get("month") or {}).get("up") or [None])[0]
+    if up and up["id"] in by:
+        items.append({"key": "mover", "label": "Biggest riser over 30 days", "value": by[up["id"]]["name"],
+                      "detail": f"+{up['pct']:.0f}% monthly listeners, {_count(up['then'])} to {_count(up['now'])} since {up['from']}",
+                      "link": f"#/a/{up['id']}"})
+    tiers = {t: [a for a in A if (a.get("scout") or {}).get("tier") == t] for t in ("Breaking", "Rising")}
+    if tiers["Breaking"]:
+        best = max(tiers["Breaking"], key=lambda a: a["scout"]["score"])
+        items.append({"key": "breaking", "label": "Breaking now", "value": str(len(tiers["Breaking"])),
+                      "detail": f"artists Scout rates Breaking; top: {best['name']} ({best['scout']['score']})", "link": "#/scout"})
+    unsigned = sorted((a for a in A if a.get("label_status") == "self_released" and a.get("scout")), key=lambda a: -a["scout"]["score"])
+    if unsigned:
+        u = unsigned[0]
+        items.append({"key": "unsigned", "label": "Top unsigned prospect", "value": u["name"],
+                      "detail": f"Scout {u['scout']['score']}, {_count(u['ml'])} monthly listeners, releasing without a label", "link": f"#/a/{u['id']}"})
+    top100 = ranked[:100]
+    gen = sum((a.get("money") or {}).get("generated", {}).get("mid", 0) for a in top100)
+    if gen:
+        items.append({"key": "royalties", "label": "What the top 100 earn on Spotify", "value": f"${_count(gen * 12)} a year",
+                      "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)", "link": "#/worth"})
+    prod = ((extra.get("credits") or {}).get("producers") or [None])[0]
+    if prod:
+        items.append({"key": "producer", "label": "Producer behind the most streams", "value": prod["name"],
+                      "detail": f"credited on songs with {_count(prod['daily'])} Spotify streams a day (credits partial)", "link": "#/producers"})
+    shz = max((a for a in A if a.get("shazam")), key=lambda a: a["shazam"]["charts"], default=None)
+    if shz:
+        items.append({"key": "shazam", "label": "Most Shazamed hip-hop artist", "value": shz["name"],
+                      "detail": f"on {shz['shazam']['charts']} Shazam charts in the last 7 days", "link": f"#/a/{shz['id']}"})
+    items.append({"key": "size", "label": "Hip-hop artists tracked", "value": f"{len(A):,}",
+                  "detail": f"{_count(sum(a['ml'] for a in A))} combined monthly listeners, from Spotify's top {data.get('universe', 0):,}", "link": "#/"})
+    return {"month": as_of[:7], "as_of": as_of, "items": items}
+
+
+def update(data: dict, extra: dict) -> list[dict]:
+    """Saves this month's state and returns every stored month, newest first."""
+    DIR.mkdir(parents=True, exist_ok=True)
+    cur = build(data, extra)
+    if cur["month"]:
+        (DIR / f"{cur['month']}.json").write_text(json.dumps(cur, ensure_ascii=False, indent=1))
+    return [json.loads(p.read_text()) for p in sorted(DIR.glob("*.json"), reverse=True)]

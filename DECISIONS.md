@@ -4,6 +4,15 @@ What was chosen, what was considered and rejected, and why. Newest first.
 
 ## 2026-10-24 Pages search engines can find, shareable cards (D2, D3), Shazam (K3)
 
+- **D5: State of hip-hop** (`src/state.py`, #/state/<YYYY-MM> and a static page site/state/<YYYY-MM>/):
+  - **Headline numbers:** majors' share of listening, No. 1 by current listeners, biggest 30-day riser, Breaking
+    count, top unsigned prospect, what the top 100 earn on Spotify, the top producer, the most Shazamed artist, and
+    the size of the list. Each links to the page it comes from.
+  - **Citation:** a ready citation line and a Share button.
+  - **Storage:** each month is stored in data/state/<YYYY-MM>.json. The current month refreshes with each build;
+    past months keep their figures and their address.
+  - **Links:** from the footer, and from the start page's value line ("This month in numbers").
+
 - **D6: lighter first load:**
   - Page-specific data (unsigned peers, label and group finances, credits, tours, Sony Music, back-test, movers,
     market map) moved from data/index.json to data/extra.json. It is fetched in the background right after the
