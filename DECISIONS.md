@@ -2,6 +2,22 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label research batch 4 (overnight) and Deezer IDs from ISRCs
+
+- **Shared names:** 18 artists in the top 1,000 (Aminé, City Girls, Luciano, Eve...) had a Deezer name that several
+  artists share, so their labels were never read. Their Deezer ID is now confirmed from their own songs: Deezer's
+  `track/isrc:<code>` for their 5 biggest songs as lead; the same-named contributor on at least 2 of them
+  (`python -m src.run deezer-isrc`, match "isrc"). No name guessing.
+- **Batch 4:** the 45 biggest unknown label strings, read from the ℗ lines on Deezer's public album pages plus
+  press and Wikipedia. 14 rows added (each sourced in registry/label_owners.csv): Capricarolesque, Just Woke Up and
+  Groove Attack (Believe), broke (Create Music Group), Giant Music (Stem, from 2026-01-21), 187 Strassenbande and
+  Teamwrk (Universal-distributed), Hall Access, Altafonte and A Quadrilha (Sony-distributed), WM Mexico (Warner),
+  Viva Records and Cleopatra (independent). Just Woke Up was with Warner's ADA until 2025-06-19. Altafonte's
+  start date (2024-01-01) is assumed: Sony's purchase was notified in November 2023 and done by August 2024.
+- 34 stay unknown: the ℗ line names only the artist's own imprint, with no distributor (G-Unit, SODMG, Brick Squad
+  Monopoly, Pineapple Storm and others). Not guessed.
+- Unknown in the top 1,000: 262 -> 236.
+
 ## 2026-10-24 Country money (owner C5): platform weights and radio songwriting
 
 - Research in docs/research/research_country_rates.md (every figure sourced and graded).
