@@ -2,6 +2,32 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Owner's answers on country, sources and structure (the 12-hour research run)
+
+- **Country:**
+  - **C1 "c, dig deeper":** a country top 1,000. Research has started on ranking country artists below kworb's
+    500,000-listener floor (Deezer fans, kworb's other lists, Wikidata, charts). Only about 340 sit above it.
+  - **C2:** Jelly Roll moves to country (decision in review/decisions.json; `country` is now a genre value). He
+    leaves the hip-hop top 1,000; the next artist takes his place.
+  - **C3:** a genre switch in the header (hip-hop ↔ country), with Labels and Method shared.
+  - **C4:** radio from kworb's radio estimates and Country Aircheck, used inside our scoring only. Ask before
+    showing their figures.
+  - **C5:** country platform weights (Pandora, Amazon) and a radio songwriting line, grade C.
+- **Sources:**
+  - **K1:** API keys (Ticketmaster and others) later; the owner adds them.
+  - **K2:** the site is non-commercial for now. That keeps non-commercial-licensed sources open.
+  - **K3:** Shazam charts as an internal Scout signal, shown only as a badge with a link.
+- **Structure and growth, all as suggested:**
+  - D1: four sections (Artists, Scout, Money, Labels); Method in the footer.
+  - D2: indexable static pages per artist and label.
+  - D3: shareable artist cards, after D2.
+  - D4: email alerts later.
+  - D5: a monthly "State of hip-hop" page.
+  - D6: a lighter first load.
+- **Labels:** R1 accepted. "Urban" means Universal Music Germany only when it is the whole label string (new
+  "=" exact-match rule in registry/label_owners.csv). That places Sido, Capital Bra, Pashanim, MERO, Samra, Shindy,
+  SSIO and Tom Hengst.
+
 ## 2026-10-24 New sources, step 2: credits (MusicBrainz) and label parents (Discogs)
 
 - **Producer and songwriter credits** (`src/collectors/credits.py`, monthly step `credits`):

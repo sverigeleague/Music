@@ -31,6 +31,8 @@ def owners() -> list[dict]:
 
 
 def _matches(pattern: str, text: str) -> bool:
+    if pattern.startswith("="):  # the whole label string, for generic names ("=urban": Universal Music Germany's label)
+        return text.strip() == pattern[1:]
     if re.fullmatch(r"[a-z0-9 ]+", pattern):
         return re.search(r"\b" + re.escape(pattern) + r"\b", text) is not None
     return pattern in text
