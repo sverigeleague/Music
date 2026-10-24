@@ -2,6 +2,36 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Pages search engines can find, shareable cards (D2, D3), Shazam (K3)
+
+- **D2: static pages** (`src/static_pages.py`, generated at each build and deploy, gitignored):
+  - **What:** site/a/<slug>/ for every artist (1,000) and site/label/<slug>/ for every label (116), each with its own
+    title, description, canonical address (https://tventy.se/music/...), Open Graph and Twitter tags, structured
+    data (schema.org MusicGroup / Organization) and a short readable summary.
+  - **How it opens:** the full app loads on top and opens that artist or label (window.BOOT), so visitors see the
+    usual page; navigating onward goes to the main site.
+  - **Sitemap:** sitemap.xml lists all 1,117 addresses; robots.txt points to it.
+  - **Rejected:** a server-rendered site. Static pages beside the app keep one codebase and the Cloudflare Pages
+    deploy.
+- **D3: artist cards** (1200×630 PNG per artist, site/cards/<slug>.png):
+  - Shows the rank, monthly listeners, Scout score and tier, label, and what the artist keeps a year (marked
+    "est."), with the data date and the address.
+  - Used as each artist page's link preview and offered on the artist page as "Download card". Share now gives the
+    artist's own page address.
+  - Font: Bricolage Grotesque TTF (SIL Open Font Licence) in assets/fonts.
+  - Build time: about 80 seconds for the cards, within the 10-minute deploy job.
+- **K3: Shazam** (`src/collectors/shazam.py`, daily step `shazam`):
+  - **Charts:** 58 of Shazam's public charts (world top 200, world hip-hop, 15 countries, 10 countries' hip-hop,
+    31 cities), each covering the last 7 days.
+  - **Matching:** to registry artists by name; featured artists in titles count. 321 hip-hop artists matched on
+    the first day.
+  - **Shown:** a "Shazam" column on the Scout list and a "Discovery" badge on artist pages, linking to Shazam's
+    chart. Shazam's tables are not reproduced (owner, K3).
+  - **Not in the Scout score yet:** it joins once our daily log can back-test it (from January 2027, as the other
+    signals).
+  - **Source note:** Shazam's own pages answer 403 to our client. The CSV service answers and is the documented
+    download behind its "Download" button.
+
 ## 2026-10-24 Four sections (D1)
 
 - **Header:** Artists · Scout · Money · Labels. Method moved to the footer, which already links it. On a phone the four

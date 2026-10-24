@@ -348,8 +348,9 @@ async function artist(id) {
   app.innerHTML = `<section class="head">${pic(a, true)}<div><h1>${esc(a.name)} ${star(a.id)}</h1>
       <p class="sub">${a.cl_rank ? `#${a.cl_rank} in our ranking · ` : ""}#${a.rank} in hip-hop by listeners · #${a.rank_all} on Spotify overall${a.country ? " · " + esc(a.country) : ""}${a.since ? " · active since " + esc(a.since) : ""}</p>
       ${labelOf(a) ? `<div class="parentchip">${logo(labelOf(a).name, "logo")}<span>${labelLink(a)}${labelOf(a).parent && labelOf(a).parent !== labelOf(a).name ? ` · ${esc(labelOf(a).parent)}` : ""}</span></div>` : ""}
-      <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a>${shareBtn(`${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in hip-hop by current listeners` : ""} (tventy music)`)}</div></div></section>
+      <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a>${shareBtn(`${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in hip-hop by current listeners` : ""} (tventy music)`, a.slug ? `${SITE_URL}a/${a.slug}/` : "")}${a.slug ? `<a href="cards/${esc(a.slug)}.png" download="${esc(a.slug)}-tventy-music.png">Download card</a>` : ""}</div></div></section>
     ${summaryCard(a, store.rev[id])}
+    ${a.shazam ? `<section class="panel"><h2>Discovery</h2><p>${shazamBadge(a)}</p><p class="note">People looking the song up on Shazam: often an early sign, before streams follow. From Shazam's public charts (world, 15 countries and 31 cities, the last 7 days).</p></section>` : ""}
     ${awardsPanel(a)}
     ${creditsPanel(a)}
     <section class="tiles">
@@ -494,14 +495,14 @@ function scoutPage() {
     && (f.band === "all" || a.scout.band === f.band) && (f.country === "all" || a.country === f.country)
     && (f.tier !== "watch" || watch.has(a.id)) && (f.tier === "all" || f.tier === "watch" || (f.tier === "rising" ? ["Breaking", "Rising"].includes(a.scout.tier) : a.scout.tier === f.tier));
   const val = (a, k) => ({ score: a.scout.score, ml: a.ml, fresh: a.fresh_share, cur: a.cur_share, att: a.attention?.trend,
-    spl: a.daily && a.ml ? a.daily / a.ml : null, geo: (a.geo?.countries || 0) + (a.apple?.countries.length || 0), chg: a.chg_pct })[k];
+    spl: a.daily && a.ml ? a.daily / a.ml : null, geo: (a.geo?.countries || 0) + (a.apple?.countries.length || 0), shz: a.shazam?.charts ?? null, chg: a.chg_pct })[k];
   const [sk, sd] = f.sort;
   const rows = all.filter(ok).sort((a, b) => ((val(a, sk) ?? -Infinity) - (val(b, sk) ?? -Infinity)) * sd);
   const countries = [...new Set(all.map(a => a.country).filter(Boolean))].sort();
   const n = t => all.filter(a => a.scout.tier === t).length;
   const unsignedRising = all.filter(a => a.label_status === "self_released" && ["Breaking", "Rising"].includes(a.scout.tier));
   const seg = (key, opts) => `<div class="seg" role="group">${opts.map(([v, l]) => `<button type="button" data-f="${key}" data-v="${v}" aria-pressed="${f[key] === v}">${esc(l)}</button>`).join("")}</div>`;
-  const cols = [["Scout score", "score"], ["Monthly listeners", "ml"], ["New-release pull", "fresh"], ["Current share", "cur"], ["Wikipedia, 3 mo", "att"], ["Streams / listener", "spl"], ["Chart countries", "geo"], ["Today", "chg"]];
+  const cols = [["Scout score", "score"], ["Monthly listeners", "ml"], ["New-release pull", "fresh"], ["Current share", "cur"], ["Wikipedia, 3 mo", "att"], ["Streams / listener", "spl"], ["Chart countries", "geo"], ["Shazam", "shz"], ["Today", "chg"]];
   app.innerHTML = `${subnav()}<section><h1>Scout: who is rising</h1>
     <p class="sub">Every hip-hop artist in the top 1,000, scored 0–100 on six signals of momentum. Each artist is compared only with artists of a similar size, so a 1m-listener act that is taking off scores as high as a superstar. The score points at who to look at; it does not predict a hit.</p></section>
     <section class="tiles">
@@ -520,7 +521,7 @@ function scoutPage() {
     </section>
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th>${cols.slice(0, 1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}><span${defn(l)}>${esc(l)}</span></th>`).join("")}<th class="l">Label</th>${cols.slice(1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}><span${defn(l)}>${esc(l)}</span></th>`).join("")}<th class="l">Newest hit</th></tr></thead><tbody>
       ${rows.slice(0, f.all ? rows.length : 50).map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td><b>${a.scout.score}</b> ${tierChip(a.scout.tier)}</td><td class="l">${statusShort(a)}</td><td>${count(a.ml)}</td><td>${share(a.fresh_share)}</td><td>${share(a.cur_share)}</td><td>${trend(a.attention?.trend)}</td>
-        <td>${val(a, "spl") ? val(a, "spl").toFixed(2) : "–"}</td><td title="Spotify weekly top 200 + Apple Music daily top 100">${val(a, "geo") || "–"}</td><td>${pct(a.chg_pct)}</td>
+        <td>${val(a, "spl") ? val(a, "spl").toFixed(2) : "–"}</td><td title="Spotify weekly top 200 + Apple Music daily top 100">${val(a, "geo") || "–"}</td><td>${shazamBadge(a, true)}</td><td>${pct(a.chg_pct)}</td>
         <td class="l wrap">${a.top_fresh ? `${a.scout.tier ? playBtn(a) + videoBtn(a) : ""}${esc(a.top_fresh.title)} <span class="note">${count(a.top_fresh.daily)}/day, out ${esc(a.top_fresh.released)}</span>` : `<span class="note">none in 90 days</span>`}</td></tr>`).join("") || `<tr><td class="l" colspan="12">No artist matches these filters.</td></tr>`}
     </tbody></table></div>
     ${!f.all && rows.length > 50 ? `<p class="more"><button type="button" class="btn" id="showall">Show all ${rows.length}</button></p>` : ""}
@@ -570,11 +571,12 @@ function monthPage() {
 // previews for everyone else. Where Spotify's control script cannot load, a plain embed is used.
 let spotifyCtl = null, spotifyApi = null;
 // share: the device's share sheet where there is one, else the link is copied
-const shareBtn = text => `<button type="button" class="linkbtn" data-share="${esc(text)}">Share</button>`;
+const SITE_URL = "https://tventy.se/music/";
+const shareBtn = (text, url = "") => `<button type="button" class="linkbtn" data-share="${esc(text)}" data-url="${esc(url)}">Share</button>`;
 document.addEventListener("click", async e => {
   const b = e.target.closest("[data-share]");
   if (!b) return;
-  const url = location.href, text = b.dataset.share;
+  const url = b.dataset.url || location.href, text = b.dataset.share;
   try { if (navigator.share) { await navigator.share({ title: document.title, text, url }); return; } } catch { return; }
   try { await navigator.clipboard.writeText(`${text} ${url}`); b.textContent = "Link copied"; } catch { b.textContent = "Copy the address bar"; }
   setTimeout(() => (b.textContent = "Share"), 2500);
@@ -706,6 +708,11 @@ function producersPage() {
     <p class="note">Credits from <a href="https://musicbrainz.org" target="_blank" rel="noopener">MusicBrainz</a> (open data, CC0). They are partial, so the ranking favours people whose credits are entered: read it as "credited on", not as a complete count. ${grade("B")}</p></section>`;
   if (want) app.querySelector("tr.hl")?.scrollIntoView({ block: "center" });
 }
+
+// ---------- Shazam (owner, 2026-10-24, K3): an internal Scout signal, shown only as a badge with a link to Shazam's chart
+const shazamBadge = (a, short = false) => { const z = a.shazam; if (!z) return short ? "–" : "";
+  const best = `#${z.best.rank} ${z.best.kind === "genre" ? "hip-hop" : ""} in ${z.best.place.replace(/-/g, " ")}`.replace(/\s+/g, " ");
+  return `<a class="chip" href="${esc(z.url)}" target="_blank" rel="noopener" title="On ${z.charts} Shazam chart${z.charts > 1 ? "s" : ""} (7 days)${z.cities ? `, ${z.cities} cities` : ""}; best ${esc(best)}">${short ? z.charts : `Shazam: ${z.charts} chart${z.charts > 1 ? "s" : ""}, best ${esc(best)}`}</a>`; };
 
 // ---------- awards and nominations (Wikidata, CC0)
 function awardsPanel(a) {
@@ -958,6 +965,7 @@ function labelPage(s) {
   const L = labelBySlug(s);
   if (!L) { app.innerHTML = `<p>Label not found. <a href="#/labels">All labels</a></p>`; return; }
   crumbs([["Labels", "#/labels"], [L.name]]);
+  setMeta(`${L.name}: roster, momentum and finances`, `${L.name}${L.parent && L.parent !== L.name ? ", owned by " + L.parent : ""}: artists in hip-hop's top 1,000, how they are performing, and the finances behind them.`);
   const byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
   const roster = L.artists.map(id => byId[id]).filter(Boolean);
   const total = store.data.artists.reduce((x, a) => x + a.ml, 0);
@@ -1068,7 +1076,8 @@ function summaryCard(a, rev) {
 // ---------- router
 async function route() {
   if (!store.data) store.data = await (await fetch("data/index.json")).json();
-  const h = location.hash.replace(/^#\/?/, "").replace(/\?.*$/, "").split("/");
+  // a static page (site/a/<slug>/, site/label/<slug>/) opens its artist or label until the visitor navigates
+  const h = (location.hash || window.BOOT || "").replace(/^#\/?/, "").replace(/\?.*$/, "").split("/");
   const NAMES = { movers: ["Artists", "Movers"], month: ["Artists", "Movers"], rising: ["Artists", "Movers"], compare: ["Artists", "Compare"],
     scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], producers: ["Scout", "Producers"],
     worth: ["Money"], pay: ["Money", "Pay gap by deal"], platforms: ["Money", "Platforms"], tours: ["Money", "Tours"],

@@ -68,4 +68,5 @@ export const GLOSSARY = {
   "Streams / listener": "Spotify streams a day per monthly listener: how often listeners come back.",
   "Chart countries": "Countries where a song is in Spotify's weekly top 200 or Apple Music's daily top 100.",
   "By listeners": "Rank among hip-hop artists by Spotify monthly listeners.",
+  "Shazam": "Number of Shazam charts (world, 15 countries, 31 cities; last 7 days) the artist is on: people looking their songs up, often before streams follow. Not part of the score yet.",
 };

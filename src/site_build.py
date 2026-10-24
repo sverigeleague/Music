@@ -59,8 +59,8 @@ def build() -> dict:
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
     videos = json.loads(kworb_youtube.VIDEOS.read_text()) if kworb_youtube.VIDEOS.exists() else {}
-    from .collectors import awards as awards_src
-    award = awards_src.load()
+    from .collectors import awards as awards_src, shazam as shazam_src
+    award, shaz = awards_src.load(), shazam_src.presence()
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
     views, history = wikipedia.load(), wayback.load()
@@ -147,6 +147,8 @@ def build() -> dict:
                         "grammys": sum(1 for e in award[t["spotify_id"]]["wins"] if e["family"] == "Grammy")}
                        if t["spotify_id"] in award else None),
             "award_list": award.get(t["spotify_id"]),
+            "shazam": (lambda z: {"charts": z["charts"], "best": z["best"], "cities": len(z.get("cities") or []),
+                                  "url": z.get("url")} if z else None)(shaz.get(t["spotify_id"])),
             "video": pick_video(videos.get(t["spotify_id"]), a["name"], (cur.get("top_fresh") or {}).get("title")),
             "latest_release": cur.get("latest_release"),
             "attention": insights.attention(views.get(t["spotify_id"], [])),
@@ -367,6 +369,8 @@ if __name__ == "__main__":
     for old in shard_dir.glob("*.json"):
         old.unlink()
     shards: dict[int, dict] = {}
+    from . import static_pages
+    static_pages.assign_slugs(data["artists"])
     for r in data["artists"]:
         rev = r.pop("revenue")
         # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
@@ -383,3 +387,4 @@ if __name__ == "__main__":
         (shard_dir / f"{n}.json").write_text(json.dumps(d, ensure_ascii=False, separators=(",", ":")))
     OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{OUT.relative_to(SITE.parent)}: {len(data['artists'])} hip-hop artists, {OUT.stat().st_size // 1024} KB")
+    print("static pages and cards:", static_pages.build(data))
