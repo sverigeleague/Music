@@ -481,3 +481,21 @@ def test_credits_leaderboard(monkeypatch):
     top = credits.leaderboard(songs)
     assert [(p["name"], p["daily"], p["artists"]) for p in top] == [("Mustard", 150, 2), ("Sounwave", 100, 1)]
     assert credits.split("Mustard~m1;Sounwave~m2") == [("Mustard", "m1"), ("Sounwave", "m2")]
+
+
+def test_radio_parse_and_presence(monkeypatch, tmp_path):
+    from src.collectors import radio
+    page = ('<table><tr><th>Pos</th></tr><tr><td>1</td><td>=</td><td><a>Morgan Wallen - Just In Case</a></td><td>90</td>'
+            '<td>1</td><td>(x5)</td><td>45.10</td><td>+0.30</td><td>2</td><td>46.0</td></tr>'
+            '<tr><td>2</td><td>+1</td><td><a>Shaboozey - Good News (feat. Jelly Roll)</a></td><td>40</td><td>2</td><td></td>'
+            '<td>30.00</td><td>-0.10</td><td>3</td><td>31.0</td></tr></table>')
+    rows = radio.parse(page)
+    assert [(r["pos"], r["artist_raw"], r["aud"]) for r in rows] == [(1, "Morgan Wallen", 45.1), (2, "Shaboozey", 30.0)]
+    monkeypatch.setattr(radio, "CSV", tmp_path / "radio.csv")
+    import csv
+    with radio.CSV.open("w", newline="") as f:
+        w = csv.DictWriter(f, radio.FIELDS); w.writeheader()
+        for r in rows:
+            w.writerow({"date": "2026-10-24", **r})
+    p = radio.presence({"mw": "Morgan Wallen", "jr": "Jelly Roll"})
+    assert p["mw"]["aud"] == 45.1 and p["jr"]["best_pos"] == 2

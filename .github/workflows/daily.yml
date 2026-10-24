@@ -28,6 +28,8 @@ jobs:
       - run: python -m src.run apple
       - run: python -m src.run shazam
         continue-on-error: true
+      - run: python -m src.run radio
+        continue-on-error: true
       - run: python -m src.run scoutlog
       - name: Country charts (Fridays, when kworb has the new week)
         run: if [ "$(date -u +%u)" = "5" ]; then python -m src.run countries; fi

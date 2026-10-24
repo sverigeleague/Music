@@ -2,6 +2,23 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Country groundwork (before the C1 research returns)
+
+- **Nashville label map** (registry/label_owners.csv, each row sourced):
+  - Universal: MCA Nashville, including its pre-2025 name UMG Nashville.
+  - BMG (BBR Music Group): Broken Bow, Stoney Creek, Wheelhouse.
+  - Big Loud: distributed by Mercury/Republic.
+  - Belting Bronco: Zach Bryan, with Warner.
+  - American Dogwood: Shaboozey, with EMPIRE.
+  - Thirty Tigers: independent.
+  - Already covered by existing patterns: Mercury, EMI and Capitol Nashville, Columbia and RCA Nashville, Warner.
+  - **Left for research:** Big Machine / Blue Highway (HYBE renamed it in February 2026; Borchetta kept the name for a
+    new independent label), so it must be read by release date.
+- **US radio** (`src/collectors/radio.py`, daily step `radio`; owner C4):
+  - kworb.net/radio's daily estimate of each song's US AM/FM audience (about 100 songs), plus the 30 archived days
+    before: 3,100 song-days on the first run.
+  - Used inside country scoring only. kworb's figures are not shown until the owner has asked them.
+
 ## 2026-10-24 Pages search engines can find, shareable cards (D2, D3), Shazam (K3)
 
 - **D5: State of hip-hop** (`src/state.py`, #/state/<YYYY-MM> and a static page site/state/<YYYY-MM>/):
