@@ -5,7 +5,8 @@ Only two of Scout's factors have an archived history, so only they can be scored
   since 2023: data/listener_history.csv);
 - Wikipedia attention: page views of the last 3 full months against the 9 before (data/wikipedia_pageviews.csv,
   24 months, so from 12 months back).
-Together they carry 35% of today's weight (growth 20, attention 15). New-release pull, current share, engagement,
+Together they carried 35% of the weight when this was first run (growth 20, attention 15); since the owner's answers of
+2026-10-24 each carries 5%. New-release pull, current share, engagement,
 chart reach and daily momentum have no history before our own daily log (data/scout_history.csv, since
 2026-10-23); the full score is back-tested from that log once it is 90 days old.
 

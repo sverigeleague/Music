@@ -2,6 +2,50 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Scout weights after the back-test, labels from lead releases, and a player for the risers
+
+- **Scout weights (owner: "S1: 5%" and "Don't put so much weight on Wikipedia attention"):** listener growth 20% to
+  5% and Wikipedia attention 18% to 5%, the two signals the back-test found below chance (44% and 43% of picks).
+  - The freed points go to the other signals in proportion: new-release pull 35%, current share 22%, streams per
+    listener 14%, chart reach 14%, today's change 5%.
+  - Kept: attention's part in the Breaking rule (new songs pulling 25%+ of streams, or attention up 30%+).
+  - Review again with the full back-test from our daily log, in January 2027.
+- **Labels from lead releases only (owner: "L1: yes"):** Deezer's album record names its lead artist, and
+  release_labels.csv now stores `lead`.
+  - Releases the artist only features on are left out of the label and catalog decisions. Up to 30 releases in the
+    window are looked at to find 6 lead ones.
+  - The 7,100 stored releases were checked once (`fill_lead`): 4,483 lead releases and 2,548 features. A deeper read
+    then added 2,197 lead releases.
+  - Reading lead releases alone exposed the artists' own imprints, which the owner table did not know. Nicki Minaj's
+    "Nicki Minaj/Cash Money", for example, read as self-released.
+  - **L2 (owner: "go with suggested"):** the 30 most-listened imprints were researched from ℗ lines and press. The 19
+    with high or medium confidence were added to registry/label_owners.csv: Cash Money, Taylor Gang, Boominati,
+    Black Belt, Numinati, DJ Khaled Productions, Hitmaker, 4Hunnid, Lizzy Records, Virgin Music Group France, Trippy
+    Music, BSB Productions, Tiger Turn, MNT, MSTT, Uptown and Coke Boys. Left out: 8 artist imprints with no named
+    distributor, and the generic strings "Independent" and "2020".
+  - **Review batch (owner: "All as suggested"):** of the 46 artists over 5m listeners whose status changed:
+    - B1 (16 sourced moves), B2 (8 to catalog) and B5 (2 to Sony Music) were accepted.
+    - B3: Chance the Rapper, G Herbo, BK and Hungria are self-released. Yung Lean (Young, a Beggars label) and
+      Orochi (Believe Artist Services) are set to independent through review/decisions.json.
+    - B4: 14 artists stay unknown and lead the next research batch: Mauvais djo, Waka Flocka Flame, L7NNON,
+      DYSTINCT, MC Cabelinho, MF DOOM, Millonario, Vacra, Eypio, Djonga, Teto, Vegedream, Caio Luccas and Chris MC.
+  - **Net, across the 1,000:** major 430 to 316, major-distributed 16 to 20, independent 86 to 88, self-released 138
+    to 143, catalog 88 to 144, unknown 242 to 289. The old major count included artists counted only through labels
+    of songs they featured on.
+- **Player for the risers (owner: "links to the songs and be able to play audio ... only for the risers/scout";
+  "Go with suggested"):**
+  - **What:** a ▶ button beside the newest hit of every Breaking, Rising and Watch artist on the Scout list, on the
+    unsigned prospects of "This month", and on tiered artists' pages. It opens Spotify's own player docked at the
+    foot of the screen; the next ▶ switches the song.
+  - **Spotify's embed:** full songs for listeners signed in to Spotify, 30-second previews for others. Nothing from
+    Spotify loads before the first press, so no third-party code or cookies arrive unasked.
+  - **The song:** the track ID of the newest hit, already in the ranking data (`top_fresh.id`). No new collector and
+    no cost.
+  - **Video, later:** YouTube video IDs from kworb's YouTube pages (free), played in YouTube's privacy-enhanced
+    player on a click.
+  - **Rejected for now:** a "Scout radio" queue of Deezer previews (built after the first version is used); the
+    YouTube API (quota and a key).
+
 ## 2026-10-24 Label research, batch 2 (step a)
 
 - **Researched:** the next 20 unknown artists by monthly listeners. 50 Cent, Soulja Boy and Eve were skipped (low

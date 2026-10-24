@@ -506,7 +506,7 @@ function scoutPage() {
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th>${cols.slice(0, 1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Label</th>${cols.slice(1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Newest hit</th></tr></thead><tbody>
       ${rows.map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td><b>${a.scout.score}</b> ${tierChip(a.scout.tier)}</td><td class="l">${statusShort(a)}</td><td>${count(a.ml)}</td><td>${share(a.fresh_share)}</td><td>${share(a.cur_share)}</td><td>${trend(a.attention?.trend)}</td>
         <td>${val(a, "spl") ? val(a, "spl").toFixed(2) : "–"}</td><td title="Spotify weekly top 200 + Apple Music daily top 100">${val(a, "geo") || "–"}</td><td>${pct(a.chg_pct)}</td>
-        <td class="l wrap">${a.top_fresh ? `${esc(a.top_fresh.title)} <span class="note">${count(a.top_fresh.daily)}/day, out ${esc(a.top_fresh.released)}</span>` : `<span class="note">none in 90 days</span>`}</td></tr>`).join("") || `<tr><td class="l" colspan="12">No artist matches these filters.</td></tr>`}
+        <td class="l wrap">${a.top_fresh ? `${a.scout.tier ? playBtn(a) : ""}${esc(a.top_fresh.title)} <span class="note">${count(a.top_fresh.daily)}/day, out ${esc(a.top_fresh.released)}</span>` : `<span class="note">none in 90 days</span>`}</td></tr>`).join("") || `<tr><td class="l" colspan="12">No artist matches these filters.</td></tr>`}
     </tbody></table></div>
     <p class="note">${rows.length} artists. Click a column to sort. ☆ adds an artist to your watchlist (kept in this browser). Percentiles are within the artist's size band (monthly listeners ${BANDS.join(", ")}).</p></section>
     <section class="panel"><h2>How the score works</h2>
@@ -539,12 +539,43 @@ function monthPage() {
       ${M.log_start ? `<p>Breaking now, not on ${esc(M.log_start)}: ${M.new_breaking.map(id => who(id)).join(" ") || "none"}</p><p>Rising now, not on ${esc(M.log_start)}: ${M.new_rising.map(id => who(id)).join(" ") || "none"}</p>`
         : `<p class="note">From ${esc(ready)}. Scout's daily log began on ${esc(M.log_from)}, and the score's method changed in its first days, so a shorter comparison would show our changes rather than the artists'. Today's Breaking and Rising artists are on the <a href="#/scout">Scout list</a>.</p>`}</section>
     <section class="panel"><h2>Unsigned and worth a look</h2>
-      <div class="chips">${M.prospects.map(id => byId[id] ? `<a class="chip" href="#/a/${id}">${esc(byId[id].name)} · ${byId[id].scout?.score ?? "–"} ${byId[id].scout?.tier ? esc(byId[id].scout.tier) : ""}</a>` : "").join(" ")}</div>
+      <div class="chips">${M.prospects.map(id => byId[id] ? `<span class="chipplay">${playBtn(byId[id])}<a class="chip" href="#/a/${id}">${esc(byId[id].name)} · ${byId[id].scout?.score ?? "–"} ${byId[id].scout?.tier ? esc(byId[id].scout.tier) : ""}</a></span>` : "").join(" ")}</div>
       <p class="note">Self-released artists (their own label through a DIY distributor) with a Breaking or Rising Scout tier, best score first. <a href="#/unsigned">Unsigned against signed peers</a></p></section>
     <section class="panel"><h2>Who owns the listening</h2><div class="tablebox"><table><thead><tr><th class="l">Label status</th><th>${M.log_start ? esc(M.log_start) : "30 days ago"}</th><th>Now</th></tr></thead><tbody>
       ${M.shares.map(x => `<tr><td class="l">${esc(label(x.status))}</td><td>${x.then == null ? "–" : share(x.then)}</td><td>${share(x.now)}</td></tr>`).join("")}</tbody></table></div>
       <p class="note">Share of the top 1,000's monthly listeners (added per artist). Both columns use each artist's label status today, so a share moves only with listening, not with our relabelling. The comparison starts on ${esc(ready)}. ${grade("B")}</p></section>`;
 }
+
+// ---------- docked player for Scout's risers (owner, 2026-10-24): Spotify's own embed, loaded on the first press of ▶,
+// so no third-party code or cookies load before a listener asks for them. Full songs for listeners signed in to
+// Spotify, 30-second previews for everyone else. Where Spotify's control script cannot load, a plain embed is used.
+let spotifyCtl = null, spotifyApi = null;
+const playBtn = a => a?.top_fresh?.id ? `<button type="button" class="play" data-track="${esc(a.top_fresh.id)}" data-label="${esc(a.name + " · " + a.top_fresh.title)}" aria-label="Play ${esc(a.top_fresh.title)} by ${esc(a.name)}" title="Play on Spotify">▶</button>` : "";
+const loadSpotify = () => spotifyApi = spotifyApi || new Promise(res => {
+  window.onSpotifyIframeApiReady = api => res(api);
+  const s = Object.assign(document.createElement("script"), { src: "https://open.spotify.com/embed/iframe-api/v1", async: true, onerror: () => res(null) });
+  document.body.appendChild(s);
+  setTimeout(() => res(null), 6000);
+});
+async function play(id, label) {
+  let dock = document.getElementById("dock");
+  if (!dock) {
+    dock = Object.assign(document.createElement("aside"), { id: "dock", className: "dock" });
+    dock.setAttribute("aria-label", "Player");
+    dock.innerHTML = `<div class="wrap dockbar"><span class="docklabel"></span><a class="note" href="#/scout">Scout list</a><button type="button" class="dockclose" aria-label="Close the player">×</button></div><div class="wrap"><div id="dockframe"></div></div>`;
+    document.body.appendChild(dock);
+    document.body.classList.add("has-dock");
+    dock.querySelector(".dockclose").onclick = () => { spotifyCtl?.destroy?.(); spotifyCtl = null; dock.remove(); document.body.classList.remove("has-dock"); };
+  }
+  dock.querySelector(".docklabel").textContent = label;
+  const uri = "spotify:track:" + id;
+  if (spotifyCtl) { spotifyCtl.loadUri(uri); spotifyCtl.play(); return; }
+  const api = await loadSpotify(), el = document.getElementById("dockframe");
+  if (!el) return;
+  if (!api) { el.innerHTML = `<iframe title="Spotify player" src="https://open.spotify.com/embed/track/${encodeURIComponent(id)}" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media"></iframe>`; return; }
+  api.createController(el, { uri, width: "100%", height: 80 }, c => { spotifyCtl = c; c.addListener("ready", () => c.play()); });
+}
+document.addEventListener("click", e => { const b = e.target.closest("button.play"); if (b) { e.preventDefault(); play(b.dataset.track, b.dataset.label); } });
 
 function backtestPanel() {
   const B = store.data.backtest;
@@ -554,7 +585,7 @@ function backtestPanel() {
   const avg = xs => xs.reduce((a, b) => a + b, 0) / xs.length;
   return `<section class="panel"><h2>Does it work? The back-test</h2>
     <p>Of the artists that would have been Scout's picks (the top fifth of their size band) on ${B.tests.length} dates from ${esc(B.from)} to ${esc(B.to)}, <b>${Math.round(B.hit_rate * 100)}%</b> outgrew the typical artist of their size over the next 90 days (${B.hits} of ${B.picks} picks). Chance is 50%. With Wikipedia attention added (dates since late 2025): <b>${B.hit_rate_with_attention == null ? "–" : Math.round(B.hit_rate_with_attention * 100) + "%"}</b>.</p>
-    <p>So far, the signals with an archived history do <b>not</b> pick next quarter's risers: fast listener growth tends to cool off again over the next 90 days. Only listener growth and Wikipedia attention (35% of the weight) have history before our own daily log; the other signals (new-release pull, current share, engagement, chart reach) are back-tested from that log once it is 90 days old, from January 2027.</p>
+    <p>So far, the signals with an archived history do <b>not</b> pick next quarter's risers: fast listener growth tends to cool off again over the next 90 days. Only listener growth and Wikipedia attention (${Math.round(((store.data.scout_factors.growth?.weight || 0) + (store.data.scout_factors.attention?.weight || 0)) * 100)}% of the weight now; both were cut to 5% after this test) have history before our own daily log; the other signals (new-release pull, current share, engagement, chart reach) are back-tested from that log once it is 90 days old, from January 2027.</p>
     <div class="tablebox"><table><thead><tr><th class="l">Year</th><th>Test dates</th><th>Hit rate</th><th>Picks' growth, next 90 days</th><th>Everyone else's</th></tr></thead><tbody>
     ${Object.entries(years).map(([y, v]) => `<tr><td class="l">${y}</td><td>${v.n}</td><td>${Math.round(v.hr / v.n * 100)}%</td><td>${pct(avg(v.pg) * 100)}</td><td>${pct(avg(v.rg) * 100)}</td></tr>`).join("")}
     </tbody></table></div>
@@ -879,7 +910,7 @@ function summaryCard(a, rev) {
     <div class="cardcol"><h2>Level</h2><div class="big">${esc(a.level?.name || "–")}</div>
       <div class="chips">${(a.level?.badges || []).map(b => `<span class="chip badge">${esc(b)}</span>`).join(" ") || `<span class="note">no badges yet</span>`}</div>
       <p class="note">Rookie under 5m monthly listeners, Rising star 5m+, Headliner 15m+, Icon 40m+.</p></div>
-    <div class="cardcol"><h2>Scout score</h2>${sc ? `<div class="big">${sc.score} ${tierChip(sc.tier)}</div><p class="note">against artists of ${esc(sc.band)} monthly listeners</p>${factorBars(sc)}` : `<p class="note">Not enough signals yet.</p>`}</div>
+    <div class="cardcol"><h2>Scout score</h2>${sc ? `<div class="big">${sc.score} ${tierChip(sc.tier)}</div><p class="note">against artists of ${esc(sc.band)} monthly listeners</p>${sc.tier && a.top_fresh?.id ? `<p class="hear">${playBtn(a)}<span>Newest hit: <b>${esc(a.top_fresh.title)}</b></span></p>` : ""}${factorBars(sc)}` : `<p class="note">Not enough signals yet.</p>`}</div>
     <div class="cardcol"><h2>Worth ${grade("C")}</h2>
       <dl class="kv"><dt>Artist keeps / year</dt><dd>${range(rev.artist_total || a.rev_total)}</dd>
       ${wo ? `<dt>Recordings would sell for</dt><dd>${midRange(wo.recordings)}</dd><dt>Artist's royalties</dt><dd>${midRange(wo.artist_royalties)}</dd><dt>Songwriting</dt><dd>${midRange(wo.publishing)}</dd>` : ""}</dl>

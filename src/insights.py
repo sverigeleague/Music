@@ -18,15 +18,20 @@ from .config import REGISTRY
 BANDS = (1_500_000, 3_000_000, 6_000_000, 15_000_000)  # monthly-listener bands, about the top 1,000's quartiles
 BAND_LABELS = ("under 1.5m", "1.5-3m", "3-6m", "6-15m", "15m+")
 # factor: (weight, label shown on the site)
-# Listener growth counts once 90 days of history exist (our snapshots since 2026-10-23, or the Wayback backfill);
-# until then it is missing for everyone and the other weights are scaled up to 100%.
+# Listener growth counts where 90 days of history exist (our snapshots since 2026-10-23, or the Wayback backfill);
+# where it is missing the other weights are scaled up to 100%.
+# Owner, 2026-10-24 ("S1: 5%"): listener growth cut from 20% to 5% after the back-test (src/backtest.py: fast 90-day
+# growth cooled off over the next 90 days, 44% of picks beat their peers). The 15 points go to the other factors in
+# proportion, rounded: until the full back-test from our daily log in January 2027.
+# Owner, same day: "Don't put so much weight on Wikipedia attention" (43% of picks in the back-test): 18% -> 5%, the
+# freed points to new-release pull, current share, engagement and chart reach in proportion.
 FACTORS = {
-    "velocity": (0.25, "New-release pull: share of daily streams from songs out 90 days or less"),
-    "growth": (0.20, "Listener growth: monthly listeners against 90 days ago"),
-    "current": (0.15, "Current share: listening on releases of the last 18-36 months"),
-    "attention": (0.15, "Wikipedia attention: page views of the last 3 months against the 9 before"),
-    "engagement": (0.10, "Streams a day per monthly listener"),
-    "breadth": (0.10, "Chart reach: countries with a song in Spotify's weekly top 200, plus Apple Music's daily top 100"),
+    "velocity": (0.35, "New-release pull: share of daily streams from songs out 90 days or less"),
+    "growth": (0.05, "Listener growth: monthly listeners against 90 days ago"),
+    "current": (0.22, "Current share: listening on releases of the last 18-36 months"),
+    "attention": (0.05, "Wikipedia attention: page views of the last 3 months against the 9 before"),
+    "engagement": (0.14, "Streams a day per monthly listener"),
+    "breadth": (0.14, "Chart reach: countries with a song in Spotify's weekly top 200, plus Apple Music's daily top 100"),
     "momentum": (0.05, "Monthly listeners, change today"),
 }
 TIERS = ((80, "Breaking"), (65, "Rising"), (50, "Watch"))
