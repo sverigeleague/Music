@@ -1,0 +1,55 @@
+{
+ "month": "2026-10",
+ "as_of": "2026-10-24",
+ "items": [
+  {
+   "key": "majors",
+   "label": "Majors' share of the top 1,000's listeners",
+   "value": "47%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 179 of 318 artists are known",
+   "link": "#/labels"
+  },
+  {
+   "key": "top",
+   "label": "No. 1 by current listeners",
+   "value": "Ella Langley",
+   "detail": "26.3m current listeners, 32.0m monthly",
+   "link": "#/a/6BRxQ8cD3eqnrVj6WKDok8"
+  },
+  {
+   "key": "mover",
+   "label": "Biggest riser over 30 days",
+   "value": "Jelly Roll",
+   "detail": "+-6% monthly listeners, 17.0m to 16.0m since 2026-09-21",
+   "link": "#/a/19k8AgwwTSxeaxkOuCQEJs"
+  },
+  {
+   "key": "unsigned",
+   "label": "Top unsigned prospect",
+   "value": "Bryan White",
+   "detail": "Scout 70, 620k monthly listeners, releasing without a label",
+   "link": "#/a/45kyLFJs5SIEqyzfVopuSc"
+  },
+  {
+   "key": "royalties",
+   "label": "What the top 100 earn on Spotify",
+   "value": "$59.8m a year",
+   "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
+   "link": "#/worth"
+  },
+  {
+   "key": "shazam",
+   "label": "Most Shazamed country artist",
+   "value": "Morgan Wallen",
+   "detail": "on 3 Shazam charts in the last 7 days",
+   "link": "#/a/4oUHIQIBe0LHzYfvXNW4QM"
+  },
+  {
+   "key": "size",
+   "label": "Country artists tracked",
+   "value": "318",
+   "detail": "1.32bn combined monthly listeners, from Spotify's top 25,225",
+   "link": "#/"
+  }
+ ]
+}

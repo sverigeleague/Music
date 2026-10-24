@@ -91,6 +91,13 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' countrycrawl ') }}
         continue-on-error: true
         timeout-minutes: 45
+      - name: Country candidates confirmed from their songs (decided at the next registry run)
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' countrycrawl ') }}
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          python -m src.run country-from-crawl
+          python -m src.run confirm-country
       - run: python -m src.run credits
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' credits ') }}
         continue-on-error: true

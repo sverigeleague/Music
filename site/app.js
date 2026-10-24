@@ -100,8 +100,12 @@ function swapWords(root) {
   if (GENRE !== "country" || !root) return;
   const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   for (let n = w.nextNode(); n; n = w.nextNode())
-    if (/hip[- ]hop/i.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(/Hip-Hop|Hip-hop/g, "Country").replace(/hip-hop|hip hop/g, "country");
+    if (/hip[- ]hop|1,000/i.test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(/hip-hop or rap/g, "country")
+      .replace(/Hip-Hop|Hip-hop/g, "Country").replace(/hip-hop|hip hop/g, "country")
+      .replace(/\b(top|Top|the) 1,000\b/g, `$1 ${measured()}`);  // the country list is smaller than hip-hop's
 }
+// the country list's size: artists with a measured audience (above Spotify's public 500k floor)
+const measured = () => (store.data?.artists?.length || 1000).toLocaleString();
 new MutationObserver(() => { swapWords(document.getElementById("app")); swapWords(document.getElementById("crumbs")); })
   .observe(document.getElementById("app"), { childList: true, subtree: true });
 const go = hash => { location.hash = GENRE !== "hip_hop" && hash.startsWith("#/") && !hash.startsWith(PREFIX()) ? PREFIX() + hash.slice(2) : hash; };
@@ -195,7 +199,10 @@ function top() {
     </section>
     <section><div class="toolbar"><input type="search" placeholder="Filter this list" value="${esc(ui.q)}" aria-label="Filter this list"></div>
       ${table(list, "pos")}<p class="note">${ui.by === "current" ? "* Provisional rank: 50–80% of the artist's streams are on dated songs; hover for the range. " : ""}Royalties generated are what Spotify pays the rights holders for the artist's own tracks (label or distributor), not the artist's pay. See the artist page and Pay gap.${ui.by === "current" && unranked.length ? ` Not yet ranked, because release dates are missing for too much of their listening: ${unranked.map(a => esc(a.name)).join(", ")}.` : ""}</p></section>`;
-  if (d.below_floor?.length && N > 100) app.insertAdjacentHTML("beforeend", belowFloor(d.below_floor, all.length));
+  if (d.below_floor?.length && ui.size === 1000) {
+    app.insertAdjacentHTML("beforeend", belowFloor(d.below_floor, all.length));
+    app.querySelector("#floorall")?.addEventListener("click", () => { ui.floorAll = true; top(); });
+  }
   app.querySelectorAll("[data-by]").forEach(b => b.onclick = () => { ui.by = b.dataset.by; ui.sort = [ui.by === "current" ? "cl" : "ml", -1]; top(); });
   bindSize(top);
   const inp = app.querySelector("input");
@@ -208,7 +215,8 @@ function top() {
 function belowFloor(rows, measured) {
   return `<section class="panel" id="below"><h2>${measured + 1}–${rows[rows.length - 1].pos}: below the 500k line ${grade("C")}</h2>
     <p class="note">Spotify's public listener counts stop at about 500,000 monthly listeners, so these artists have no measured audience here. They are listed in the order of their songs' popularity on Deezer, a rough guide only: it can misplace artists of a similar size, and newer US acts are under-represented on Deezer. Only artists with a release in the last three years.</p>
-    <ol class="floorlist" start="${measured + 1}">${rows.map(r => `<li>${r.spotify ? `<a href="https://open.spotify.com/artist/${esc(r.spotify)}" target="_blank" rel="noopener">${esc(r.name)}</a>` : `<a href="https://www.deezer.com/artist/${esc(r.deezer)}" target="_blank" rel="noopener">${esc(r.name)}</a>`} <span class="note" title="latest release">${esc(r.year)}</span></li>`).join("")}</ol>
+    <ol class="floorlist" start="${measured + 1}">${rows.slice(0, ui.floorAll ? rows.length : 60).map(r => `<li>${r.spotify ? `<a href="https://open.spotify.com/artist/${esc(r.spotify)}" target="_blank" rel="noopener">${esc(r.name)}</a>` : `<a href="https://www.deezer.com/artist/${esc(r.deezer)}" target="_blank" rel="noopener">${esc(r.name)}</a>`} <span class="note" title="latest release">${esc(r.year)}</span></li>`).join("")}</ol>
+    ${!ui.floorAll && rows.length > 60 ? `<p class="more"><button type="button" class="btn" id="floorall">Show all ${rows.length}</button></p>` : ""}
     <p class="note">Found through Deezer's related-artists links from its country charts and Wikidata, kept when at least half of an artist's releases are filed under Country. Data: Deezer.</p></section>`;
 }
 
