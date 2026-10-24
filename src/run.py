@@ -115,13 +115,17 @@ def registry(mb_limit: int | None = None) -> None:
     from .collectors import deezer_genres
     top = {r["spotify_id"]: r for r in latest_listeners()}
     cands = wikidata.hip_hop_spotify_ids()
+    country_cands = wikidata.country_spotify_ids()
     known = load_artists()
     dz = deezer_genres.load()
     # candidates: in kworb's listener pages (about 25,000 artists), tagged hip-hop on Wikidata or with most releases
     # filed under Rap/Hip Hop on Deezer; plus every artist already in the registry
     dz_rap = {s for s, r in dz.items() if r.get("match") == "exact" and r.get("rap_share") not in ("", None)
               and float(r["rap_share"]) >= 0.5}
-    ids = sorted({s for s in cands if s in top} | {s for s in dz_rap if s in top} | set(known))
+    dz_country = {s for s, r in dz.items() if r.get("match") == "exact" and r.get("country_share") not in ("", None)
+                  and float(r["country_share"]) >= 0.3}
+    ids = sorted({s for s in cands if s in top} | {s for s in dz_rap if s in top} | set(known)
+                 | {s for s in country_cands if s in top} | {s for s in dz_country if s in top})
     CANDIDATES.write_text(json.dumps(ids))
     wd = wikidata.details(ids)
     WIKIDATA_CACHE.write_text(json.dumps({k: {**v, "majors": sorted(v["majors"])} for k, v in wd.items()},
@@ -134,6 +138,12 @@ def registry(mb_limit: int | None = None) -> None:
         votes = musicbrainz.genres_of(mb.get(s, {}))
         decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")),
                                        country=d.get("country", ""))
+        if decision in ("other", "review"):  # a second genre: country (owner, 2026-10-24)
+            c = genre.decide_country(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")))
+            if c and not (decision == "review" and c[0] == "review"):
+                decision, basis = c[0], f"{c[1]}; hip-hop rule: {decision}"
+            elif c:
+                basis = f"{basis}; also country? {c[1]}"
         reviewed = ""
         if s in over:
             decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
@@ -175,8 +185,12 @@ def write_review(rows, top, mb, wd) -> None:
 TOP_N = 1000  # artists the per-artist steps cover: the top 1,000 hip-hop artists by monthly listeners
 
 
-def tracked(genres=("hip_hop",), top_n: int | None = TOP_N) -> list[dict]:
+GENRE = "hip_hop"  # set with --genre=country: the per-artist steps then cover that genre's top artists
+
+
+def tracked(genres=None, top_n: int | None = TOP_N) -> list[dict]:
     """Artists of these genres, biggest first by today's monthly listeners; the per-artist steps take the top 1,000."""
+    genres = genres or (GENRE,)
     ml = {r["spotify_id"]: r["monthly_listeners"] or 0 for r in latest_listeners()}
     rows = sorted((a for a in load_artists().values() if a["genre"] in genres), key=lambda a: -ml.get(a["spotify_id"], 0))
     return rows[:top_n] if top_n else rows
@@ -296,12 +310,12 @@ def ytapi_step() -> None:
 
 
 def countries_reparse() -> None:
-    n = kworb_countries.reparse_archived({a["spotify_id"] for a in tracked(("hip_hop", "review"), top_n=None)})
+    n = kworb_countries.reparse_archived({a["spotify_id"] for a in tracked(("hip_hop", "review", "country"), top_n=None)})
     print(f"country charts rebuilt from the archived pages: {n} rows")
 
 
 def countries_step() -> None:
-    week, n = kworb_countries.update({a["spotify_id"] for a in tracked(("hip_hop", "review"), top_n=None)})
+    week, n = kworb_countries.update({a["spotify_id"] for a in tracked(("hip_hop", "review", "country"), top_n=None)})
     print(f"country charts, week ending {week}: {n} rows for tracked artists")
 
 
@@ -387,7 +401,8 @@ def pageviews_step() -> None:
 
 
 if __name__ == "__main__":
-    step, args = sys.argv[1], sys.argv[2:]
+    step, args = sys.argv[1], [a for a in sys.argv[2:] if not a.startswith("--genre=")]
+    GENRE = next((a.split("=", 1)[1] for a in sys.argv[2:] if a.startswith("--genre=")), GENRE)
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),

@@ -48,14 +48,15 @@ def _usd(n) -> str:
     return "$" + _count(n) if n is not None else "–"
 
 
-def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str) -> str:
+def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str, prefix: str = "") -> str:
+    depth = "../" * (2 + prefix.count("/"))
     img = f'<meta property="og:image" content="{esc(image)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{esc(image)}">' if image else '<meta name="twitter:card" content="summary">'
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<base href="../../">
+<base href="{depth}">
 <title>{esc(title)} · tventy music</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(url)}">
@@ -80,10 +81,11 @@ def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: s
 """
 
 
-def artist_page(a: dict, as_of: str) -> tuple[str, str]:
-    url = f"{BASE}a/{a['slug']}/"
+def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
+    url = f"{BASE}{prefix}a/{a['slug']}/"
+    gw = "country" if prefix.startswith("country") else "hip-hop"
     tier = (a.get("scout") or {}).get("tier")
-    rank = f"#{a['cl_rank']} in hip-hop by current listeners" if a.get("cl_rank") else f"#{a['rank']} in hip-hop by monthly listeners"
+    rank = f"#{a['cl_rank']} in {gw} by current listeners" if a.get("cl_rank") else f"#{a['rank']} in {gw} by monthly listeners"
     label = a.get("label_name") or ""
     keeps = a.get("rev_total") or {}
     desc = (f"{a['name']}: {_count(a['ml'])} monthly listeners on Spotify, {rank}"
@@ -102,26 +104,31 @@ def artist_page(a: dict, as_of: str) -> tuple[str, str]:
         facts.append(f"<li>Awards listed on Wikidata: {a['awards']['wins']} won</li>")
     body = f"""<article class="static"><h1>{esc(a['name'])}</h1><p class="sub">{esc(desc)}</p><ul>{''.join(facts)}</ul>
 <p><a href="#/a/{esc(a['id'])}">Open the full page</a></p></article>"""
-    ld = {"@context": "https://schema.org", "@type": "MusicGroup", "name": a["name"], "url": url, "genre": "Hip hop",
+    ld = {"@context": "https://schema.org", "@type": "MusicGroup", "name": a["name"], "url": url, "genre": "Country" if gw == "country" else "Hip hop",
           "sameAs": [f"https://open.spotify.com/artist/{a['id']}"]}
-    return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}cards/{a['slug']}.png", ld, f"#/a/{a['id']}", body)
+    boot = f"#/{prefix}a/{a['id']}"
+    body = body.replace(f'href="#/a/{a["id"]}"', f'href="{boot}"')
+    return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}{prefix}cards/{a['slug']}.png", ld, boot, body, prefix)
 
 
-def label_page(L: dict, as_of: str) -> tuple[str, str]:
-    url = f"{BASE}label/{L['slug']}/"
+def label_page(L: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
+    url = f"{BASE}{prefix}label/{L['slug']}/"
+    gw = "country" if prefix.startswith("country") else "hip-hop"
     n = len(L.get("artists", []))
     desc = (f"{L['name']}{', owned by ' + L['parent'] if L.get('parent') and L['parent'] != L['name'] else ''}: {n} artists in "
-            f"hip-hop's top 1,000 with {_count(L.get('ml'))} combined monthly listeners. Roster, momentum and finances, every "
+            f"{gw}'s top 1,000 with {_count(L.get('ml'))} combined monthly listeners. Roster, momentum and finances, every "
             f"figure sourced. Data as of {as_of}.")
     body = f"""<article class="static"><h1>{esc(L['name'])}</h1><p class="sub">{esc(desc)}</p>
 <p><a href="#/label/{esc(L['slug'])}">Open the full page</a></p></article>"""
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": L["name"], "url": url}
     if L.get("parent") and L["parent"] != L["name"]:
         ld["parentOrganization"] = {"@type": "Organization", "name": L["parent"]}
-    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, f"#/label/{L['slug']}", body)
+    boot = f"#/{prefix}label/{L['slug']}"
+    body = body.replace(f'href="#/label/{L["slug"]}"', f'href="{boot}"')
+    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, boot, body, prefix)
 
 
-def card(a: dict, as_of: str, path: Path) -> None:
+def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:
     from PIL import Image, ImageDraw, ImageFont
     W, H = 1200, 630
     im = Image.new("RGB", (W, H), "black")
@@ -135,7 +142,7 @@ def card(a: dict, as_of: str, path: Path) -> None:
     while size > 48 and d.textlength(name, font=f(bold, size)) > W - 128:
         size -= 6
     d.text((64, 170), name, font=f(bold, size), fill="white")
-    rank = f"#{a['cl_rank']} in hip-hop by current listeners" if a.get("cl_rank") else f"#{a['rank']} in hip-hop by monthly listeners"
+    rank = f"#{a['cl_rank']} in {gw} by current listeners" if a.get("cl_rank") else f"#{a['rank']} in {gw} by monthly listeners"
     d.text((64, 170 + size + 18), rank, font=f(reg, 34), fill=(163, 168, 177))
     tier = (a.get("scout") or {}).get("tier")
     keeps = (a.get("rev_total") or {}).get("mid")
@@ -167,25 +174,27 @@ def state_page(st: dict) -> tuple[str, str]:
     return url, _shell(f"State of hip-hop, {month}", desc, url, None, ld, f"#/state/{st['month']}", body)
 
 
-def build(data: dict, cards: bool = True, states: list[dict] | None = None) -> dict:
+def build(data: dict, cards: bool = True, states: list[dict] | None = None, prefix: str = "") -> list[str]:
+    """One genre's static pages (prefix "" for hip-hop, "country/" for country); returns their addresses."""
     as_of = data.get("as_of") or ""
-    urls = [BASE]
+    root = SITE / prefix if prefix else SITE
+    gw = "country" if prefix.startswith("country") else "hip-hop"
+    urls = [BASE + prefix]
     for sub in ("a", "label", "state"):
-        root = SITE / sub
-        if root.exists():
-            for old in root.glob("*/index.html"):
+        if (root / sub).exists():
+            for old in (root / sub).glob("*/index.html"):
                 old.unlink()
     for a in data["artists"]:
-        url, page = artist_page(a, as_of)
-        out = SITE / "a" / a["slug"] / "index.html"
+        url, page = artist_page(a, as_of, prefix)
+        out = root / "a" / a["slug"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page)
         urls.append(url)
         if cards:
-            card(a, as_of, SITE / "cards" / f"{a['slug']}.png")
+            card(a, as_of, root / "cards" / f"{a['slug']}.png", gw)
     for L in data.get("labels", []):
-        url, page = label_page(L, as_of)
-        out = SITE / "label" / L["slug"] / "index.html"
+        url, page = label_page(L, as_of, prefix)
+        out = root / "label" / L["slug"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page)
         urls.append(url)
@@ -195,7 +204,10 @@ def build(data: dict, cards: bool = True, states: list[dict] | None = None) -> d
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page)
         urls.append(url)
+    return urls
+
+
+def sitemap(urls: list[str]) -> None:
     (SITE / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                                      + "".join(f"<url><loc>{esc(u)}</loc><lastmod>{esc(as_of)}</lastmod></url>\n" for u in urls) + "</urlset>\n")
+                                      + "".join(f"<url><loc>{esc(u)}</loc></url>\n" for u in dict.fromkeys(urls)) + "</urlset>\n")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n")
-    return {"pages": len(urls), "cards": len(data["artists"]) if cards else 0}

@@ -53,7 +53,7 @@ def current_of(spotify_id: str, dates: dict, today: date) -> dict | None:
     return current.score(current.songs(latest), dates, today, current.songs(older[-1]) if older else None)
 
 
-def build() -> dict:
+def build(genre: str = "hip_hop") -> dict:
     artists = load_artists()
     top = latest_listeners()
     streams, pics = latest_streams(), _json(PHOTOS, {})
@@ -65,7 +65,7 @@ def build() -> dict:
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
     views, history = wikipedia.load(), wayback.load()
-    apple, apple_day = apple_charts.presence({s: a["name"] for s, a in artists.items() if a["genre"] == "hip_hop"})
+    apple, apple_day = apple_charts.presence({s: a["name"] for s, a in artists.items() if a["genre"] == genre})
     # recording codes of each artist's songs released in the last 2 years: a second check on the label status
     cutoff = date(today.year - 2, today.month, min(today.day, 28)).isoformat()
     lead, songs_of = {}, {}  # track IDs where the artist is the lead (not a guest), from the latest kworb page
@@ -96,12 +96,12 @@ def build() -> dict:
         if tr.get("isrc") and tr.get("deezer_date", "") >= cutoff and tid in lead.get(tr["artist_id"], ()):
             isrcs.setdefault(tr["artist_id"], []).append(tr["isrc"][:5])
     first = {a["spotify_id"]: labels.artist_status(rels.get(a.get("deezer_id", ""), []), a["name"], table)
-             for a in artists.values() if a["genre"] == "hip_hop" and a.get("deezer_match") == "exact"}
+             for a in artists.values() if a["genre"] == genre and a.get("deezer_match") == "exact"}
     registrants = labels.learn_registrants(first, isrcs)
     rows = []
     for t in top:
         a = artists.get(t["spotify_id"])
-        if not a or a["genre"] != "hip_hop":
+        if not a or a["genre"] != genre:
             continue
         s = streams.get(t["spotify_id"], {})
         majors = [m for m in a["major"].split("|") if m]
@@ -212,7 +212,8 @@ def build() -> dict:
                                        "songs": len(songs), "looked_up": sum(1 for x in songs if cred.get(x["isrc"], {}).get("recording")),
                                        "with_producer": sum(1 for x in songs if cred.get(x["isrc"], {}).get("producers"))})(
                 [h for r in rows for h in hits.get(r["id"], [])]),
-            "backtest": backtest.run({k: v for k, v in history.items() if artists.get(k, {}).get("genre") == "hip_hop"}, views),
+            "backtest": backtest.run({k: v for k, v in history.items() if artists.get(k, {}).get("genre") == genre}, views),
+            "genre": genre,
             "labels": insights.labels_index(rows, release_counts(rels, table)),
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
@@ -358,14 +359,14 @@ def tour_table(rows: list[dict]) -> list[dict]:
     return sorted(out, key=lambda x: -x["gross"])
 
 
-if __name__ == "__main__":
-    data = build()
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    # revenue detail per artist in its own file (site/data/a/<id>.json), loaded when the artist page opens; the index
-    # keeps the totals and each streaming line's mid estimate for the tables
-    # per-artist detail in 32 shard files, site/data/a/<n>.json with n = second character's code % 32 (app.js uses the
+def write(data: dict, genre: str = "hip_hop") -> list[str]:
+    """Writes one genre's site data: hip-hop to site/data/, another genre to site/data/<genre>/ (owner, 2026-10-24: a
+    second genre behind a header switch). Returns the static pages' addresses for the sitemap."""
+    out = OUT if genre == "hip_hop" else SITE / "data" / genre / "index.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # per-artist detail in 32 shard files, <data>/a/<n>.json with n = second character's code % 32 (app.js uses the
     # same rule): a few dozen files instead of one per artist
-    shard_dir = OUT.parent / "a"
+    shard_dir = out.parent / "a"
     shard_dir.mkdir(exist_ok=True)
     for old in shard_dir.glob("*.json"):
         old.unlink()
@@ -386,12 +387,22 @@ if __name__ == "__main__":
             r["photo"] = {"file": r["photo"]["file"]}
     for n, d in shards.items():
         (shard_dir / f"{n}.json").write_text(json.dumps(d, ensure_ascii=False, separators=(",", ":")))
-    # lighter first load (owner, 2026-10-24, D6): page-specific data in data/extra.json, fetched in the background
+    # lighter first load (owner, 2026-10-24, D6): page-specific data in extra.json, fetched in the background
     # after index.json; the start page and artist pages render without it
     extra = {k: data.pop(k) for k in EXTRA_KEYS if k in data}
     from . import state
-    extra["state"] = state.update(data, extra)
-    (OUT.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
-    OUT.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
-    print(f"{OUT.relative_to(SITE.parent)}: {len(data['artists'])} hip-hop artists, {OUT.stat().st_size // 1024} KB")
-    print("static pages and cards:", static_pages.build(data, states=extra["state"]))
+    extra["state"] = state.update(data, extra) if genre == "hip_hop" else []
+    (out.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
+    out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
+    print(f"{out.relative_to(SITE.parent)}: {len(data['artists'])} {genre} artists, {out.stat().st_size // 1024} KB")
+    urls = static_pages.build(data, states=extra["state"], prefix="" if genre == "hip_hop" else f"{genre}/")
+    print(f"static pages and cards ({genre}): {len(urls)} pages")
+    return urls
+
+
+if __name__ == "__main__":
+    from . import static_pages
+    urls = write(build())
+    if any(a["genre"] == "country" for a in load_artists().values()):
+        urls += write(build("country"), "country")
+    static_pages.sitemap(urls)

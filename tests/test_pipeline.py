@@ -499,3 +499,14 @@ def test_radio_parse_and_presence(monkeypatch, tmp_path):
             w.writerow({"date": "2026-10-24", **r})
     p = radio.presence({"mw": "Morgan Wallen", "jr": "Jelly Roll"})
     assert p["mw"]["aud"] == 45.1 and p["jr"]["best_pos"] == 2
+
+
+def test_country_rule():
+    from src.genre import decide_country, is_country
+    assert is_country("red dirt") and is_country("Country pop") and not is_country("country blues")
+    assert decide_country([("country", 8), ("pop", 2)], [])[0] == "country"
+    assert decide_country([("country", 4), ("hip hop", 6)], [])[0] == "review"
+    dz = {"match": "exact", "releases": "12", "country_share": "0.9"}
+    assert decide_country([], [], dz, wikidata=True)[0] == "country"
+    assert decide_country([], [], dz, wikidata=False)[0] == "review"  # name-only Deezer match never decides
+    assert decide_country([("pop", 5)], [("pop", False, False)]) is None

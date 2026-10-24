@@ -25,7 +25,8 @@ def family(label: str) -> str | None:
 
 
 def update(spotify_ids: list[str]) -> int:
-    out: dict[str, dict] = {}
+    """Re-reads these artists; other artists' stored entries (another genre's run) are kept."""
+    out: dict[str, dict] = {k: v for k, v in load().items() if k not in set(spotify_ids)}
     for chunk in [spotify_ids[i:i + 200] for i in range(0, len(spotify_ids), 200)]:
         v = " ".join(f'"{s}"' for s in chunk)
         rows = query(f"""
@@ -49,7 +50,7 @@ SELECT ?sp ?item ?kind ?award ?awardLabel ?date ?work ?workLabel WHERE {{
         for k in ("wins", "nominations"):
             d[k].sort(key=lambda e: (e["year"] or "0"), reverse=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0))
-    return len(out)
+    return sum(1 for k in out if k in set(spotify_ids))
 
 
 def load() -> dict:

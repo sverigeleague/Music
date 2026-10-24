@@ -16,8 +16,9 @@ from .deezer import _norm
 
 API = "https://api.deezer.com"
 CSV = DATA / "deezer_genres.csv"
-FIELDS = ["spotify_id", "name", "deezer_id", "fans", "match", "releases", "rap_share", "latin_share", "checked"]
-RAP, LATIN = {116}, {122, 197}
+FIELDS = ["spotify_id", "name", "deezer_id", "fans", "match", "releases", "rap_share", "latin_share", "checked",
+          "country_share"]
+RAP, LATIN, COUNTRY = {116}, {122, 197}, {84}  # Deezer genre IDs (api.deezer.com/genre): Country 84, added 2026-10-24
 
 
 def load() -> dict[str, dict]:
@@ -41,7 +42,40 @@ def lookup(spotify_id: str, name: str) -> dict:
     g = [a.get("genre_id") for a in rel if a.get("genre_id", -1) > 0]
     return {**row, "deezer_id": best["id"], "fans": best.get("nb_fan"), "match": match, "releases": len(g),
             "rap_share": round(sum(x in RAP for x in g) / len(g), 3) if g else "",
-            "latin_share": round(sum(x in LATIN for x in g) / len(g), 3) if g else ""}
+            "latin_share": round(sum(x in LATIN for x in g) / len(g), 3) if g else "",
+            "country_share": round(sum(x in COUNTRY for x in g) / len(g), 3) if g else ""}
+
+
+def refresh_country(workers: int = 4, limit: int | None = None) -> int:
+    """Rows read before country_share existed (2026-10-24): read the artist's releases again for the country share
+    (one request each) and rewrite the file. The rap and Latin shares are refreshed from the same read."""
+    rows = load()
+    todo = [r for r in rows.values() if r.get("deezer_id") and r.get("country_share") in (None, "")][:limit]
+
+    def work(r):
+        al = get(f"{API}/artist/{r['deezer_id']}/albums", params={"limit": 50})
+        if al.status_code != 200:
+            return
+        g = [a.get("genre_id") for a in al.json().get("data", []) if a.get("genre_id", -1) > 0]
+        if g:
+            r.update(releases=len(g), rap_share=round(sum(x in RAP for x in g) / len(g), 3),
+                     latin_share=round(sum(x in LATIN for x in g) / len(g), 3),
+                     country_share=round(sum(x in COUNTRY for x in g) / len(g), 3))
+        else:
+            r["country_share"] = ""
+    for i in range(0, len(todo), 500):  # save as it goes
+        with ThreadPoolExecutor(workers) as pool:
+            list(pool.map(work, todo[i:i + 500]))
+        _save(rows)
+    _save(rows)
+    return len(todo)
+
+
+def _save(rows: dict) -> None:
+    with CSV.open("w", newline="") as f:
+        w = csv.DictWriter(f, FIELDS)
+        w.writeheader()
+        w.writerows({k: r.get(k, "") for k in FIELDS} for r in rows.values())
 
 
 def update(todo: list[tuple[str, str]], workers: int = 4) -> int:

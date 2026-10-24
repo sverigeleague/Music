@@ -92,3 +92,43 @@ def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, boo
     if lat >= 0.5:
         return "latin", basis
     return ("hip_hop" if hh >= 0.67 and total else "review"), basis
+
+
+# Country (owner, 2026-10-24: a second genre). Checked only when the hip-hop rule says "other" or "review", so no
+# hip-hop decision changes; the owner settles crossovers (Jelly Roll: country).
+COUNTRY_WORDS = ("country", "americana", "bluegrass", "red dirt", "outlaw", "honky-tonk", "honky tonk", "western swing",
+                 "nashville sound", "bakersfield sound", "alt-country", "alternative country", "southern rock")
+NOT_COUNTRY = ("country house", "country blues", "uk garage")
+COUNTRY_IN, COUNTRY_REVIEW = 0.6, 0.3
+
+
+def is_country(genre: str) -> bool:
+    g = genre.casefold()
+    return any(w in g for w in COUNTRY_WORDS) and not any(w in g for w in NOT_COUNTRY)
+
+
+def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: dict | None = None,
+                   wikidata: bool = True) -> tuple[str, str] | None:
+    """("country" | "review", basis) when the artist looks country; None otherwise."""
+    total = sum(n for _, n in mb_votes)
+    if total >= 3:
+        share = sum(n for g, n in mb_votes if is_country(g)) / total
+        if share >= COUNTRY_IN:
+            return "country", f"MusicBrainz votes: country {share:.0%} of {total}"
+        if share >= COUNTRY_REVIEW:
+            return "review", f"MusicBrainz votes: country {share:.0%} of {total} (borderline)"
+    if dz and dz.get("match") == "exact" and int(dz.get("releases") or 0) >= 5 and dz.get("country_share") not in ("", None):
+        c = float(dz["country_share"])
+        basis = f"Deezer: {c:.0%} of {dz['releases']} releases Country"
+        if c >= COUNTRY_IN and wikidata:
+            return "country", basis
+        if c >= COUNTRY_REVIEW:
+            return "review", basis + ("" if wikidata else "; matched to Deezer by name only")
+    if wd_genres:
+        share = sum(1 for g in wd_genres if is_country(g[0])) / len(wd_genres)
+        if share >= 0.67 and total:
+            return "country", f"Wikidata genres: country {share:.0%} of {len(wd_genres)}"
+        if share >= 0.5:
+            return "review", f"Wikidata genres: country {share:.0%} of {len(wd_genres)}"
+    return None
+
