@@ -283,3 +283,22 @@ def test_musicbrainz_label_parts_and_owner_chain(monkeypatch):
     monkeypatch.setattr(labels, "_MB", {"Urban": {"chain": ["Motor Music GmbH", "Universal Music GmbH"], "distributors": []}})
     assert labels.classify_label("Urban", "Someone", table) == ("major", "Universal Music Group")
     assert labels.classify_label("Urban", "Someone", table, use_musicbrainz=False) == ("unknown", "")
+
+
+def test_provisional_rank_between_half_and_eighty_percent_dated():
+    from datetime import date
+    from src import current
+    rows = [{"track_id": "a", "title": "A", "daily": 60, "feature": False},
+            {"track_id": "b", "title": "B", "daily": 40, "feature": False}]
+    dates = {"a": {"first_release": "2026-09-01"}}  # 60% of streams dated, all new
+    s = current.score(rows, dates, date(2026, 10, 24))
+    assert not s["ok"] and s["provisional"] and s["share_range"] == (0.6, 1.0)
+    s = current.score(rows, {}, date(2026, 10, 24))
+    assert not s["provisional"]
+
+
+def test_label_display_names_follow_the_licensee():
+    from src import labels
+    assert labels.label_name("OVO/Republic") == "Republic Records"
+    assert labels.label_name("X LLC, under exclusive license to Atlantic Recording Corporation") == "Atlantic Records"
+    assert labels.label_name("Death Note Music, LLC") == "Death Note Music"
