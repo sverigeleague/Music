@@ -2,6 +2,15 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Artist page: the numbers first (product review, overnight)
+
+- The key figures (monthly and current listeners, peak, streams, YouTube, Deezer) now come straight after the name,
+  before the Level/Scout/Worth card; certifications, awards, credits and Shazam follow the Streams panel instead of
+  pushing the numbers below the first phone screen.
+- External profiles are one line of text links ("On Spotify · YouTube · ..."); the buttons are for actions only
+  (Compare, Worth on other deals, Share, Download card). The Level explainer is a hover.
+- Tiles fit one row on desktop (six tiles at 1280px) and no longer leave an empty slot when a page has fewer.
+
 ## 2026-10-24 Country: below-floor crawl, radio in Scout, Big Machine by date
 
 - **Below kworb's 500k floor (C1):** kworb has nothing usable below
