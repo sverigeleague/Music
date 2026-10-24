@@ -1,4 +1,4 @@
-// Rap Ledger front end: reads site/data/index.json (built by src/site_build.py), no server.
+// tventy music front end: reads site/data/index.json (built by src/site_build.py), no server.
 // Pages: top 100, rising, artist, pay gap, method. What they show is set in config.js; the look in styles.css.
 import { COLUMNS, RISING_LIMIT, DEALS, PLATFORM_COLUMNS } from "./config.js";
 
@@ -40,6 +40,45 @@ const SUBNAV = {
 let pageId = "top";
 const nav = id => (pageId = id, document.querySelectorAll("[id^=nav-]").forEach(a => a.id === "nav-" + SECTION[id] ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
 const subnav = (id = pageId) => { const sub = SUBNAV[SECTION[id]]; return sub ? `<nav class="subnav" aria-label="Pages">${sub.map(([k, h, l]) => `<a href="${h}"${k === id ? ' aria-current="page"' : ""}>${esc(l)}</a>`).join("")}</nav>` : ""; };
+
+// Breadcrumbs under the header, as on tventy sport: Home / section / page; empty on the start page.
+const crumbs = parts => { document.getElementById("crumbs").innerHTML = parts.length ? [["Home", "#/"], ...parts].map(([t, h]) => h ? `<a href="${h}">${esc(t)}</a>` : `<span>${esc(t)}</span>`).join(" &nbsp;/&nbsp; ") : ""; };
+
+// Search, in the header and on the start page: artists by name, then labels; arrows and Enter work, "/" focuses it.
+const fold = s => String(s || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+function searchFor(q) {
+  const t = fold(q).trim();
+  if (!t || !store.data) return [];
+  const score = n => { const f = fold(n); return f === t ? 0 : f.startsWith(t) ? 1 : f.includes(" " + t) ? 2 : f.includes(t) ? 3 : 9; };
+  const A = store.data.artists.map(a => [score(a.name), a]).filter(x => x[0] < 9).sort((x, y) => x[0] - y[0] || y[1].ml - x[1].ml).slice(0, 8)
+    .map(([, a]) => ({ href: `#/a/${a.id}`, icon: pic(a), t: a.name, sub: `#${a.rank} · ${count(a.ml)} monthly listeners${a.label_name ? " · " + a.label_name : ""}` }));
+  const L = (store.data.labels || []).map(x => [score(x.name), x]).filter(x => x[0] < 9).sort((x, y) => x[0] - y[0] || y[1].ml - x[1].ml).slice(0, 4)
+    .map(([, x]) => ({ href: `#/label/${x.slug}`, icon: logo(x.name), t: x.name, sub: `Label · ${x.artists.length} artists in the top 1,000` }));
+  return [...A, ...L];
+}
+function bindSearchBox(input, box, global) {
+  let hits = [], at = 0;
+  const close = () => { box.hidden = true; input.setAttribute("aria-expanded", "false"); };
+  const draw = () => {
+    hits = searchFor(input.value); at = 0;
+    if (!input.value.trim()) return close();
+    box.innerHTML = hits.length ? hits.map((x, i) => `<a role="option" href="${x.href}" aria-selected="${i === at}">${x.icon}<span>${esc(x.t)}<small>${esc(x.sub)}</small></span></a>`).join("")
+      : `<p class="note" style="padding:10px 12px;margin:0">No match. Try an artist or a label.</p>`;
+    box.hidden = false; input.setAttribute("aria-expanded", "true");
+  };
+  const mark = () => box.querySelectorAll("a").forEach((a, i) => a.setAttribute("aria-selected", i === at));
+  input.addEventListener("input", draw);
+  input.addEventListener("focus", () => input.value && draw());
+  input.addEventListener("keydown", ev => {
+    if (ev.key === "ArrowDown" || ev.key === "ArrowUp") { ev.preventDefault(); at = (at + (ev.key === "ArrowDown" ? 1 : -1) + hits.length) % Math.max(1, hits.length); mark(); }
+    else if (ev.key === "Enter" && hits[at]) { location.hash = hits[at].href; input.value = ""; close(); input.blur(); }
+    else if (ev.key === "Escape") { close(); input.blur(); }
+  });
+  box.addEventListener("click", ev => { if (ev.target.closest("a")) { input.value = ""; close(); } });
+  if (!global) return;
+  document.addEventListener("click", ev => { if (!ev.target.closest(".search")) { close(); app.querySelectorAll(".results").forEach(b => (b.hidden = true)); } });
+  document.addEventListener("keydown", ev => { if (ev.key === "/" && !/input|select|textarea/i.test(document.activeElement.tagName)) { ev.preventDefault(); input.focus(); } });
+}
 
 // Per-artist detail lives in 32 shard files (src/site_build.py): data/a/<second character's code % 32>.json.
 const shards = {};
@@ -99,12 +138,17 @@ function top() {
     ? `Ranked by current listeners: each artist's monthly listeners, counting the listening that comes from recent releases, so songs from years ago that are still streamed a lot do not decide the order. ${esc(d.as_of)}.`
     : `Ranked by Spotify monthly listeners, ${esc(d.as_of)}.`;
   const scoutTop = all.filter(x => x.scout?.tier === "Breaking").sort((x, y) => y.scout.score - x.scout.score).slice(0, 3);
-  app.innerHTML = `<section class="doors">
+  const labelsN = (d.labels || []).length, total = all.reduce((s, a) => s + a.ml, 0);
+  app.innerHTML = `<section class="hero"><h1>Global Hip-Hop</h1>
+      <div class="search big"><input id="q2" type="search" placeholder="Find an artist or a label, e.g. Drake, Interscope" autocomplete="off" aria-label="Search"><div class="results" id="q2-results" hidden></div></div>
+      <div class="stats"><div><b>${all.length.toLocaleString()}</b><span>hip-hop artists tracked, of Spotify's top ${d.universe.toLocaleString()}</span></div><div><b>${count(total)}</b><span>combined monthly listeners</span></div><div><b>${labelsN}</b><span>labels with artists in the top 1,000</span></div><div><b>${esc(d.as_of)}</b><span>listener data as of</span></div></div></section>
+    ${pulse()}
+    <section class="doors">
       <a class="door" href="#/worth"><span class="k">For artists</span><b>What is your music worth?</b><span>Royalties, what you keep under each deal, and what the catalog would sell for.</span></a>
       <a class="door" href="#/scout"><span class="k">For labels</span><b>Find who is rising</b><span>${scoutTop.length ? `Breaking now: ${scoutTop.map(x => esc(x.name)).join(", ")}.` : "Momentum scores for the top 1,000."} Filter to unsigned artists and export.</span></a>
       <a class="door" href="#/labels"><span class="k">Market</span><b>Who owns hip-hop</b><span>The majors' and independents' share of the top 1,000, by size.</span></a>
     </section>
-    ${pulse()}
+    
     ${subnav()}<section><h1>Top ${N} hip-hop artists on Spotify</h1>
     <p class="sub">${sub} ${all.length} of Spotify's top ${d.universe.toLocaleString()} artists are hip-hop or rap.</p>
     <div class="seg" role="group" aria-label="Ranking" style="margin-top:12px"><button type="button" data-by="current" aria-pressed="${ui.by === "current"}">Our ranking: current listeners</button><button type="button" data-by="monthly" aria-pressed="${ui.by === "monthly"}">Monthly listeners</button></div> ${sizeSwitch()}</section>
@@ -121,6 +165,7 @@ function top() {
   const inp = app.querySelector("input");
   inp.oninput = () => { ui.q = inp.value.toLowerCase(); const p = inp.selectionStart; top(); const i = app.querySelector("input"); i.focus(); i.setSelectionRange(p, p); };
   bindSort(top);
+  bindSearchBox(document.getElementById("q2"), document.getElementById("q2-results"));
 }
 
 function rising() {
@@ -285,7 +330,7 @@ async function artist(id) {
   if (!base) { app.innerHTML = `<p>Artist not found. <a href="#/">Back to the top 100</a></p>`; return; }
   if (!store.rev[id]) store.rev[id] = await detailOf(id);
   const a = { ...base, ...store.rev[id].artist, photo: base.photo && { ...base.photo, ...(store.rev[id].artist.photo || {}) } };
-  document.getElementById("crumbs").innerHTML = `<a href="#/">Top 100</a> / ${esc(a.name)}`;
+  crumbs([["Charts", "#/"], [a.name]]);
   const m = a.money, yr = r => ({ low: r.low * 12, mid: r.mid * 12, high: r.high * 12 });
   const links = Object.entries(a.links).filter(([, u]) => u).map(([k, u]) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(k[0].toUpperCase() + k.slice(1))}</a>`).join("");
   const leadShare = a.streams ? a.lead_streams / a.streams : null;
@@ -472,7 +517,7 @@ function scoutPage() {
   bindStars(scoutPage);
   app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
-  app.querySelector("#csv").onclick = () => download("rap-ledger-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
+  app.querySelector("#csv").onclick = () => download("tventy-music-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
     ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || "", a.label_status, a.label_owner || "", a.country || "", a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
 }
 
@@ -583,7 +628,7 @@ function worthTable() {
 
 // ---------- labels: who owns the hip-hop top 1,000
 const GROUP_ORDER = ["Universal Music Group", "Sony Music", "Warner Music Group", "Independent labels", "Self-released", "Not yet known"];
-const SHADE = ["#000", "#3b3f46", "#6b7079", "#a3a8b1", "#d3d6db", "repeating-linear-gradient(45deg,#d3d6db 0 3px,#fff 3px 6px)"];
+const SHADE = ["#fff", "#d3d6db", "#a3a8b1", "#6b7079", "#3b3f46", "repeating-linear-gradient(45deg,#3b3f46 0 3px,#000 3px 6px)"];  // light to dark on the black theme
 function stack(parts) {
   const tot = parts.reduce((s, [, v]) => s + v, 0) || 1;
   return `<div class="stack">${parts.map(([g, v], i) => `<i style="width:${v / tot * 100}%;background:${SHADE[i]}" title="${esc(g)}: ${Math.round(v / tot * 100)}%"></i>`).join("")}</div>`;
@@ -644,7 +689,7 @@ function pulse() {
   const riser = by(a => a.chg_pct, A.filter(a => a.ml >= 1e6));
   const reach = by(a => (a.geo?.countries || 0) + (a.apple?.countries.length || 0), A.filter(a => a.ml < 15e6));
   const item = (k, a, line) => a ? `<a class="pulse" href="#/a/${a.id}">${pic(a)}<span><span class="k">${k}</span><b>${esc(a.name)}</b><span class="note">${line}</span></span></a>` : "";
-  return `<section><h2>Right now</h2><div class="pulses">
+  return `<section class="band"><div class="bandhead"><h2>Right now</h2><a class="btn" href="#/scout">Open the scout list</a></div><div class="pulses">
     ${item("Hottest new song", song, song ? `${esc(song.top_fresh.title)}: ${count(song.top_fresh.daily)} streams a day` : "")}
     ${item("Top unsigned prospect", unsigned, unsigned ? `Scout ${unsigned.scout.score}, ${count(unsigned.ml)} monthly listeners` : "")}
     ${item("Biggest riser today", riser, riser ? `${pct(riser.chg_pct)} monthly listeners, now ${count(riser.ml)}` : "")}
@@ -736,7 +781,7 @@ function labelPage(s) {
   nav("labels");
   const L = labelBySlug(s);
   if (!L) { app.innerHTML = `<p>Label not found. <a href="#/labels">All labels</a></p>`; return; }
-  document.getElementById("crumbs").innerHTML = `<a href="#/labels">Labels</a> / ${esc(L.name)}`;
+  crumbs([["Labels", "#/labels"], [L.name]]);
   const byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
   const roster = L.artists.map(id => byId[id]).filter(Boolean);
   const total = store.data.artists.reduce((x, a) => x + a.ml, 0);
@@ -847,8 +892,12 @@ function summaryCard(a, rev) {
 // ---------- router
 async function route() {
   if (!store.data) store.data = await (await fetch("data/index.json")).json();
-  document.getElementById("crumbs").innerHTML = "";
   const h = location.hash.replace(/^#\/?/, "").split("/");
+  const NAMES = { rising: ["Charts", "Rising"], platforms: ["Charts", "Platforms"], tours: ["Charts", "Tours"], audience: ["Charts", "Audience"],
+    scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], compare: ["Scout", "Compare artists"], worth: ["Worth"], pay: ["Worth", "Pay gap by deal"],
+    labels: ["Labels"], method: ["Method"] };
+  const SEC = { Charts: "#/", Scout: "#/scout", Worth: "#/worth", Labels: "#/labels", Method: "#/method" };
+  crumbs((NAMES[h[0]] || []).map((t, i, xs) => [t, i < xs.length - 1 ? SEC[t] : ""]));
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
   else if (h[0] === "rising") rising();
   else if (h[0] === "month") monthPage();
@@ -864,8 +913,9 @@ async function route() {
   else if (h[0] === "label") labelPage(decodeURIComponent(h[1] || ""));
   else if (h[0] === "compare") compare(h.slice(1).map(decodeURIComponent));
   else top();
-  document.getElementById("foot").textContent = `Data as of ${store.data.as_of}; built ${store.data.built}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures.`;
+  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/method">Method</a> · <a href="mailto:swedenrocked@gmail.com?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
   window.scrollTo(0, 0);
 }
 addEventListener("hashchange", route);
+bindSearchBox(document.getElementById("q"), document.getElementById("q-results"), true);
 route().catch(e => { app.innerHTML = `<p class="note">Could not load the data: ${esc(e.message)}</p>`; });
