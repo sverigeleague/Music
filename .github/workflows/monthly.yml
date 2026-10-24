@@ -79,6 +79,10 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' pageviews ') }}
         continue-on-error: true
         timeout-minutes: 20
+      - run: python -m src.run awards
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' awards ') }}
+        continue-on-error: true
+        timeout-minutes: 20
       - run: python -m src.run financials
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' financials ') }}
         continue-on-error: true

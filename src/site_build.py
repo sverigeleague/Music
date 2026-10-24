@@ -11,7 +11,7 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
-DETAIL_ONLY = ("genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
+DETAIL_ONLY = ("award_list", "genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
                "peak_rank", "attention_series", "worth", "collabs")
@@ -59,6 +59,8 @@ def build() -> dict:
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
     videos = json.loads(kworb_youtube.VIDEOS.read_text()) if kworb_youtube.VIDEOS.exists() else {}
+    from .collectors import awards as awards_src
+    award = awards_src.load()
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
     views, history = wikipedia.load(), wayback.load()
@@ -125,6 +127,10 @@ def build() -> dict:
             "revivals": cur.get("revivals", []),
             "fresh_share": round(cur["fresh_share"], 4) if cur.get("fresh_share") is not None and cur.get("ok") else None,
             "fresh_daily": cur.get("fresh_daily"), "top_fresh": cur.get("top_fresh"),
+            "awards": ({"wins": len(award[t["spotify_id"]]["wins"]), "noms": len(award[t["spotify_id"]]["nominations"]),
+                        "grammys": sum(1 for e in award[t["spotify_id"]]["wins"] if e["family"] == "Grammy")}
+                       if t["spotify_id"] in award else None),
+            "award_list": award.get(t["spotify_id"]),
             "video": pick_video(videos.get(t["spotify_id"]), a["name"], (cur.get("top_fresh") or {}).get("title")),
             "latest_release": cur.get("latest_release"),
             "attention": insights.attention(views.get(t["spotify_id"], [])),

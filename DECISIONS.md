@@ -2,6 +2,24 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 New sources, step 1: awards from Wikidata
+
+- **Research:** 30+ candidate sources, ranked by value and feasibility, with live tests (the 12-hour research run).
+  - Free and open, buildable now: Wikidata awards, Wikipedia discographies (certifications and chart peaks), Discogs
+    label data (CC0), MusicBrainz producer credits, kworb radio, GDELT news.
+  - Need a key, or carry non-commercial terms: Ticketmaster, setlist.fm, Last.fm (public pages need written
+    approval), Genius, SeatGeek. These go to the owner.
+  - Grey (a public download with no reuse licence): Shazam charts. Goes to the owner.
+  - Rejected on terms: RIAA's site (no scraping), Billboard, Official Charts/BPI, Bandsintown, Songkick, Tunefind,
+    and Instagram/TikTok follower counts (no legitimate route).
+- **Built: awards** (`src/collectors/awards.py`, monthly step `awards`):
+  - Wins (P166) and nominations (P1411) with year and work, for the top 1,000, grouped into known families: Grammy,
+    BET, AMA, Billboard, MTV, BRIT, MOBO, Juno, ARIA, Victoires, Polaris, Mercury, Soul Train, NAACP, Pulitzer.
+  - Coverage: 102 artists, 378 wins, 367 nominations.
+  - Grade B, and the page says it is a floor, not a total. Wikidata lists 10 of Kendrick Lamar's Grammy wins; he
+    has more than twenty.
+  - Shown as an "Awards" panel on the artist page.
+
 ## 2026-10-24 Product review: quick wins (owner: "scrutinize design and structure ... simple and logical to use and navigate but very insightful")
 
 - **Review:** a product and marketing pass over all 16 pages on desktop and phone (64 screenshots).

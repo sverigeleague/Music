@@ -343,6 +343,7 @@ async function artist(id) {
       ${labelOf(a) ? `<div class="parentchip">${logo(labelOf(a).name, "logo")}<span>${labelLink(a)}${labelOf(a).parent && labelOf(a).parent !== labelOf(a).name ? ` · ${esc(labelOf(a).parent)}` : ""}</span></div>` : ""}
       <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a>${shareBtn(`${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in hip-hop by current listeners` : ""} (tventy music)`)}</div></div></section>
     ${summaryCard(a, store.rev[id])}
+    ${awardsPanel(a)}
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(a.ml)}</div><div class="s">${delta(a.chg)} today (${pct(a.chg_pct)})</div></div>
       <div class="tile"><div class="k">Current listeners</div><div class="v">${a.cl != null ? count(a.cl) + (a.cl_provisional ? `<span class="prov">*</span>` : "") : "–"}</div><div class="s">${a.cur_share != null ? Math.round(a.cur_share * 100) + "% of listening on recent releases" : "release dates missing"}${a.cl == null && a.cur_share != null ? " · not ranked yet" : ""}${a.cl_provisional ? ` · provisional: ${count(a.cl_range[0])}–${count(a.cl_range[1])} until more songs are dated` : ""}</div></div>
@@ -669,6 +670,21 @@ async function radioPlay() {
 function radioStep(d) {
   radio.i = Math.max(0, Math.min(radio.queue.length - 1, radio.i + d));
   radioPlay();
+}
+
+// ---------- awards and nominations (Wikidata, CC0)
+function awardsPanel(a) {
+  const L = a.award_list;
+  if (!L || !(L.wins.length + L.nominations.length)) return "";
+  const fams = {};
+  for (const e of L.wins) (fams[e.family] = fams[e.family] || { w: 0, n: 0 }).w++;
+  for (const e of L.nominations) (fams[e.family] = fams[e.family] || { w: 0, n: 0 }).n++;
+  const line = e => `<li>${esc(e.award)}${e.work ? `, for <i>${esc(e.work)}</i>` : ""}${e.year ? ` (${esc(e.year)})` : ""}</li>`;
+  return `<section class="panel"><h2>Awards ${grade("B")}</h2>
+    <div class="chips">${Object.entries(fams).sort((x, y) => y[1].w - x[1].w || y[1].n - x[1].n).map(([f, v]) => `<span class="chip">${esc(f)}: ${[v.w ? `${v.w} won` : "", v.n ? `${v.n} nomination${v.n > 1 ? "s" : ""}` : ""].filter(Boolean).join(", ")}</span>`).join(" ")}</div>
+    ${L.wins.length ? `<details${L.wins.length <= 6 ? " open" : ""}><summary>${L.wins.length} won</summary><ul>${L.wins.map(line).join("")}</ul></details>` : ""}
+    ${L.nominations.length ? `<details><summary>${L.nominations.length} more nominations</summary><ul>${L.nominations.map(line).join("")}</ul></details>` : ""}
+    <p class="note">As listed on <a href="https://www.wikidata.org/wiki/${esc(L.qid)}" target="_blank" rel="noopener">Wikidata</a> (open data, edited by volunteers). It is not complete: many wins and most nominations are not entered yet, so treat these as a floor, not a total.</p></section>`;
 }
 
 function backtestPanel() {
