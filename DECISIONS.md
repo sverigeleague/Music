@@ -2,6 +2,27 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Country list built (overnight; owner C1-C5)
+
+- **Who is in (above Spotify's public 500k floor): 386 artists.**
+  - The registry's country rule (src/genre.py: 60%+ of MusicBrainz votes, 60%+ of Deezer releases filed under Country
+    with the artist's identity confirmed, or two-thirds of Wikidata genres) placed 255, plus Jelly Roll by the owner.
+  - 71 more were held for review only because Deezer matched them by name alone (no Wikidata entry). Their identity
+    is now confirmed from the songs: at least two of the artist's five biggest songs on kworb are among the Deezer
+    artist's top tracks (`confirm-country`). A confirmed match counts like a Wikidata one.
+  - 68 more were never candidates: no Wikidata country tag and outside the hip-hop candidate set, so no Deezer genre
+    row (Luke Grimes, LOCASH, Ian Noe, Lukas Nelson, Hailey Whitters...). The Deezer crawl found them; a crawl name
+    that matches exactly one artist on kworb's listener pages is confirmed from the songs the same way
+    (`country-from-crawl`, 73 of 73) and then decided by the same rule.
+  - 88 borderline artists remain for the owner (review/country_review_batch1.csv has the 45 biggest with suggested
+    answers: Taylor Swift, John Denver, Darius Rucker...). Turkish acts that Deezer files under Country (Ibrahim
+    Tatlises, Ozcan Deniz...) stay out.
+- **Below the floor:** 598-666 artists from the crawl, in Deezer track-popularity order, shown as names only
+  (grade C); see the C1 entry. Presentation pending the owner (suggested: as now).
+- **Kept fresh:** the monthly workflow runs every per-artist step for country too, plus `countrycrawl`,
+  `country-from-crawl` and `confirm-country`; the daily Scout log records country scores.
+- **Copy:** on country pages "top 1,000" reads as the real list size and "hip-hop or rap" as "country".
+
 ## 2026-10-24 Country tours (overnight research)
 
 - registry/tours.csv gains 52 country rows: 22 reported grosses (grade A: Billboard year-end 2025 and midyear 2026,
