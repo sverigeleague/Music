@@ -2,6 +2,30 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 New sources, step 2: credits (MusicBrainz) and label parents (Discogs)
+
+- **Producer and songwriter credits** (`src/collectors/credits.py`, monthly step `credits`):
+  - Each artist's 3 biggest songs as lead artist: recording code → MusicBrainz recording → producers (on the
+    recording) and writers (on the work). Two requests per song at 1 a second; each code is looked up once.
+  - Site: a "Who makes the hits" panel on artist pages, and a new Scout › Producers page ranking producers and
+    songwriters by the daily streams of the songs they are credited on.
+  - Partial coverage (volunteer-entered credits), said on both pages. The first full lookup of 2,745 songs runs
+    about 1.5 hours.
+- **Label parents from Discogs** (`src/collectors/discogs_labels.py`, CC0 dump of 1 October 2026,
+  data/discogs_label_parents.csv for the 1,227 label names we need):
+  - Discogs would place 29 of the 286 unknown artists. It keeps one parent per label, sometimes a past owner, so its
+    chains are used as evidence, not applied blindly.
+  - **Added to the owner table** (current and clear): AllPoints and Believe (Believe), 10K Projects (Warner,
+    major-distributed), Rec. 118 in both spellings and Warner Music Spain (Warner), Affranchis Music (Universal,
+    major-distributed). Each row carries its Discogs link.
+  - **Result:** unknown fell from 286 to 269. Placed now include Franglish, RK, Bouss, Landy, Djadja & Dinaz and
+    Yamê (Believe); Gambi, Soprano and Bello&Dallas (Rec. 118, Warner France); Rich Amiri and Pressure 9X19 (10K
+    Projects); SFDK; and Sofiane.
+  - **To the owner (review):** "Urban" as Universal Music Germany's hip-hop label for 8 German rappers (Sido,
+    Capital Bra and others: the name is generic, so it needs a narrow rule). Also 50 Cent (G-Unit → Caroline/UMG),
+    Waka Flocka Flame (1017 Brick Squad → Warner) and Jaden (Three Six Zero → Warner), where Discogs may show a past
+    parent.
+
 ## 2026-10-24 New sources, step 1: awards from Wikidata
 
 - **Research:** 30+ candidate sources, ranked by value and feasibility, with live tests (the 12-hour research run).
