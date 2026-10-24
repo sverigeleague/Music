@@ -32,13 +32,20 @@ const cell = (a, [, key, f]) => {
 const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc(t)}</span>`;
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 // Five sections in the header; each page belongs to one, and sections with several pages show a sub-menu.
-const SECTION = { top: "charts", month: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
-  scout: "scout", unsigned: "scout", producers: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", label: "labels", method: "method" };
+// Four sections in the header (owner, 2026-10-24, D1); each page belongs to one, and sections with several pages
+// show a sub-menu. Method sits in the footer.
+const SECTION = { top: "artists", movers: "artists", month: "artists", rising: "artists", compare: "artists", artist: "artists",
+  scout: "scout", unsigned: "scout", producers: "scout",
+  worth: "money", pay: "money", platforms: "money", tours: "money",
+  labels: "labels", label: "labels", audience: "labels", method: "" };
 const SUBNAV = {
-  charts: [["top", "#/", "Top list"], ["month", "#/month", "This month"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
-  scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["producers", "#/producers", "Producers"], ["compare", "#/compare", "Compare artists"]],
-  worth: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"]],
+  artists: [["top", "#/", "Top list"], ["movers", "#/movers", "Movers"], ["compare", "#/compare", "Compare"]],
+  scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["producers", "#/producers", "Producers"]],
+  money: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"]],
+  labels: [["labels", "#/labels", "Labels and market share"], ["audience", "#/audience", "Where it is streamed"]],
 };
+// Movers: today (daily change, outside the top 100) and the last 30 days, one page with a switch
+const moversSwitch = on => `<div class="seg" role="group" aria-label="Period" style="margin:10px 0 4px"><a class="segbtn" href="#/movers/today"${on === "today" ? ' aria-current="page"' : ""}>Today</a><a class="segbtn" href="#/movers"${on === "month" ? ' aria-current="page"' : ""}>Last 30 days</a></div>`;
 let pageId = "top";
 const nav = id => (pageId = id, document.querySelectorAll("[id^=nav-]").forEach(a => a.id === "nav-" + SECTION[id] ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
 const subnav = (id = pageId) => { const sub = SUBNAV[SECTION[id]]; return sub ? `<nav class="subnav" aria-label="Pages">${sub.map(([k, h, l]) => `<a href="${h}"${k === id ? ' aria-current="page"' : ""}>${esc(l)}</a>`).join("")}</nav>` : ""; };
@@ -170,11 +177,11 @@ function top() {
 }
 
 function rising() {
-  nav("rising");
+  nav("movers");
   const inTop = new Set(top100().map(a => a.id)), rest = store.data.artists.filter(a => !inTop.has(a.id) && a.chg_pct != null);
   const list = [...rest].sort((a, b) => b.chg_pct - a.chg_pct).slice(0, RISING_LIMIT).map((a, i) => ({ ...a, rrank: i + 1 }));
-  app.innerHTML = `${subnav()}<section><h1>Rising: hip-hop outside the top 100</h1>
-    <p class="sub">Biggest daily gains in monthly listeners among the ${rest.length} hip-hop artists outside the top 100. For growth over a month, see <a href="#/month">This month</a>; for momentum scored against artists of the same size, see <a href="#/scout">Scout</a>.</p></section>
+  app.innerHTML = `${subnav()}<section><h1>Movers: today</h1>${moversSwitch("today")}
+    <p class="sub">Biggest daily gains in monthly listeners among the ${rest.length} hip-hop artists outside the top 100. Daily moves are noisy; for momentum scored against artists of the same size, see <a href="#/scout">Scout</a>.</p></section>
     <section>${tableRising(list)}</section>`;
 }
 function tableRising(list) {
@@ -239,7 +246,7 @@ function audience() {
   const markets = Object.entries(sum).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([cc, v]) => [cc, v / tot]);
   const geoBars = (top) => `<div class="bars">${top.map(([cc, sh]) => `<div class="barrow"><span>${esc(cname(cc))}</span><div class="track"><i style="left:0;width:${sh * 100}%"></i></div><span>${Math.round(sh * 100)}%</span></div>`).join("")}</div>`;
   const withGeo = hundred.filter(a => a.geo);
-  app.innerHTML = `${subnav()}<section><h1>Audience</h1>${sizeSwitch()}
+  app.innerHTML = `${subnav()}<section><h1>Where hip-hop is streamed</h1>${sizeSwitch()}
     <p class="sub">Who listens, and where. Some of it can be measured from public data; some of it cannot, and this page says which.</p></section>
     <section class="tablebox"><table><thead><tr><th class="l">Question</th><th class="l">What we have</th><th class="l">Status</th></tr></thead><tbody>
       <tr><td class="l"><b>Which countries</b></td><td class="l wrap">Each artist's streams in Spotify's weekly top 200 of 76 countries (kworb.net, ${weeksLabel()})</td><td class="l">${chip("measured")} for ${withGeo.length} of the top 100</td></tr>
@@ -333,7 +340,7 @@ async function artist(id) {
   if (!base) { app.innerHTML = `<p>Artist not found. <a href="#/">Back to the top 100</a></p>`; return; }
   if (!store.rev[id]) store.rev[id] = await detailOf(id);
   const a = { ...base, ...store.rev[id].artist, photo: base.photo && { ...base.photo, ...(store.rev[id].artist.photo || {}) } };
-  crumbs([["Charts", "#/"], [a.name]]);
+  crumbs([["Artists", "#/"], [a.name]]);
   setMeta(`${a.name}: listeners, earnings and label`, `${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} by current listeners` : ""}${a.label_name ? `, ${a.label_name}` : ""}. What the music earns and who owns it, sourced.`);
   const m = a.money, yr = r => ({ low: r.low * 12, mid: r.mid * 12, high: r.high * 12 });
   const links = Object.entries(a.links).filter(([, u]) => u).map(([k, u]) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(k[0].toUpperCase() + k.slice(1))}</a>`).join("");
@@ -534,14 +541,14 @@ function scoutPage() {
 
 // ---------- this month: movers, new on Scout's list, unsigned prospects, label shares (src/monthly.py)
 function monthPage() {
-  nav("month");
+  nav("movers");
   const M = store.data.month, byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
   const who = id => { const a = byId[id]; return a ? `<a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a>` : ""; };
   const moverTable = (list, title) => `<div><h3>${title}</h3><div class="tablebox"><table><thead><tr><th class="l">Artist</th><th>Then</th><th>Now</th><th>Change</th></tr></thead><tbody>
     ${list.map(m => `<tr><td class="l">${who(m.id)}</td><td>${count(m.then)}</td><td>${count(m.now)}</td><td>${pct(m.pct)}</td></tr>`).join("")}</tbody></table></div></div>`;
   const ready = new Date(Date.parse(M.log_from) + M.min_log * 864e5).toISOString().slice(0, 10);
   const label = s => ({ major: "Major label", major_distributed: "Distributed by a major", independent: "Independent label", self_released: "Self-released", catalog: "Catalog (no release in 2 years)", unknown: "Not yet known" })[s] || s;
-  app.innerHTML = `${subnav()}<section><h1>This month</h1>
+  app.innerHTML = `${subnav()}<section><h1>Movers: the last 30 days</h1>${moversSwitch("month")}
     <p class="sub">What changed in hip-hop's top 1,000 over the last 30 days: who gained and lost listeners, who joined Scout's list, the unsigned acts worth a look, and how listening splits between majors, indies and the self-released.</p></section>
     <section class="panel"><h2>Movers</h2>
       ${M.movers_n ? `<div class="grid2">${moverTable(M.up, "Biggest gains, %")}${moverTable(M.down, "Biggest falls, %")}</div>
@@ -813,7 +820,7 @@ function labelsPage() {
   const majBand = b => majors.reduce((s, g) => s + m.groups[g].bands[b], 0) / known(b);
   const indies = Object.entries(Object.assign({}, ...G.map(g => m.groups[g].labels))).sort((a, b) => b[1].ml - a[1].ml);
   const byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
-  app.innerHTML = `<section><h1>Labels: who owns hip-hop's top 1,000</h1>
+  app.innerHTML = `${subnav()}<section><h1>Labels: who owns hip-hop's top 1,000</h1>
     <p class="sub">The label behind each artist's recent releases, grouped by the company that owns it. The three majors hold most of the audience at the top; lower down, independent labels and self-released artists take a bigger share: where small labels can still sign talent.</p></section>
     <section class="tiles">
       <div class="tile"><div class="k">Majors' share of listeners</div><div class="v">${share(majShare("ml"))}</div><div class="s">of the top 1,000's monthly listeners (${share(majShare("artists"))} of artists)</div></div>
@@ -1062,18 +1069,20 @@ function summaryCard(a, rev) {
 async function route() {
   if (!store.data) store.data = await (await fetch("data/index.json")).json();
   const h = location.hash.replace(/^#\/?/, "").replace(/\?.*$/, "").split("/");
-  const NAMES = { month: ["Charts", "This month"], rising: ["Charts", "Rising"], platforms: ["Charts", "Platforms"], tours: ["Charts", "Tours"], audience: ["Charts", "Audience"],
-    scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], producers: ["Scout", "Producers"], compare: ["Scout", "Compare artists"], worth: ["Worth"], pay: ["Worth", "Pay gap by deal"],
-    labels: ["Labels"], method: ["Method"] };
-  const SEC = { Charts: "#/", Scout: "#/scout", Worth: "#/worth", Labels: "#/labels", Method: "#/method" };
+  const NAMES = { movers: ["Artists", "Movers"], month: ["Artists", "Movers"], rising: ["Artists", "Movers"], compare: ["Artists", "Compare"],
+    scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], producers: ["Scout", "Producers"],
+    worth: ["Money"], pay: ["Money", "Pay gap by deal"], platforms: ["Money", "Platforms"], tours: ["Money", "Tours"],
+    labels: ["Labels"], audience: ["Labels", "Where it is streamed"], method: ["Method"] };
+  const SEC = { Artists: "#/", Scout: "#/scout", Money: "#/worth", Labels: "#/labels", Method: "#/method" };
   crumbs((NAMES[h[0]] || []).map((t, i, xs) => [t, i < xs.length - 1 ? SEC[t] : ""]));
-  const TITLES = { rising: "Rising hip-hop artists today", month: "Hip-hop this month: movers and new names", pay: "Pay gap by record deal",
+  const TITLES = { rising: "Rising hip-hop artists today", month: "Hip-hop movers: the last 30 days", movers: h[1] === "today" ? "Hip-hop movers today" : "Hip-hop movers: the last 30 days", pay: "Pay gap by record deal",
     platforms: "Hip-hop royalties by streaming platform", tours: "Hip-hop tours: gross and revenue per fan", audience: "Where hip-hop is streamed",
     unsigned: "Unsigned hip-hop artists against signed peers", method: "Method and sources", scout: "Scout: rising hip-hop artists for A&R",
     worth: "What is your music worth?", producers: "The producers and songwriters behind hip-hop's biggest songs", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
   setMeta(TITLES[h[0]] || "Global hip-hop: listeners, earnings and labels of the top 1,000 artists");
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
   else if (h[0] === "rising") rising();
+  else if (h[0] === "movers") (h[1] === "today" ? rising() : monthPage());
   else if (h[0] === "month") monthPage();
   else if (h[0] === "producers") producersPage();
   else if (h[0] === "pay") pay();

@@ -2,6 +2,22 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Four sections (D1)
+
+- **Header:** Artists · Scout · Money · Labels. Method moved to the footer, which already links it. On a phone the four
+  fit on one row.
+  - **Artists:** Top list, **Movers** and Compare. Movers merges Rising and This month into one page with a switch:
+    Today (daily change outside the top 100) and Last 30 days (movers, new on Scout, unsigned prospects, listening
+    shares). Compare moved here from Scout.
+  - **Scout:** Scout list, Unsigned vs signed peers, Producers.
+  - **Money** (was Worth): What is it worth?, Pay gap by deal, Platforms and Tours. These are money explainers, not
+    charts.
+  - **Labels:** Labels and market share, and Where it is streamed (was Audience, under Charts).
+- **Old links keep working:** #/month, #/rising, #/audience and the rest. Breadcrumbs follow the new sections, and
+  artist pages sit under Artists.
+- **Kept, not merged:** Unsigned vs signed peers stays its own page, for its peer comparison. The Scout list already
+  has an "Unsigned" filter, which acts as the preset.
+
 ## 2026-10-24 Owner's answers on country, sources and structure (the 12-hour research run)
 
 - **Country:**
