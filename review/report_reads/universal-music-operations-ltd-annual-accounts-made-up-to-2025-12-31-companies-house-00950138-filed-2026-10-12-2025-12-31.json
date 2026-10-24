@@ -1,0 +1,349 @@
+{
+ "report": {
+  "company": "Universal Music Operations Ltd",
+  "document": "Annual accounts made up to 2025-12-31 (Companies House 00950138, filed 2026-10-12)",
+  "period_end": "2025-12-31",
+  "period_type": "FY",
+  "url": "https://find-and-update.company-information.service.gov.uk/company/00950138/filing-history/MzU1MDM5MjIzOWFkaXF6a2N4/document?format=pdf&download=1",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "",
+  "note": "Full accounts made up to 31 December 2025",
+  "basis": "company"
+ },
+ "read": {
+  "currency": "GBP",
+  "unit_multiplier": 1000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "IS",
+    "period_end": "2025-12-31",
+    "months": 12
+   },
+   {
+    "column": 2,
+    "statement": "IS",
+    "period_end": "2024-12-31",
+    "months": 12
+   },
+   {
+    "column": 3,
+    "statement": "BS",
+    "period_end": "2025-12-31",
+    "months": 0
+   },
+   {
+    "column": 4,
+    "statement": "BS",
+    "period_end": "2024-12-31",
+    "months": 0
+   }
+  ],
+  "lines": [
+   {
+    "item": "revenue",
+    "label": "TURNOVER",
+    "column": 1,
+    "value": 667655,
+    "page": 20
+   },
+   {
+    "item": "revenue",
+    "label": "TURNOVER",
+    "column": 2,
+    "value": 663360,
+    "page": 20
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 1,
+    "value": 440977,
+    "page": 20
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 2,
+    "value": 463102,
+    "page": 20
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 1,
+    "value": 152611,
+    "page": 20
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 2,
+    "value": 128927,
+    "page": 20
+   },
+   {
+    "item": "operating_income",
+    "label": "OPERATING PROFIT",
+    "column": 1,
+    "value": 54087,
+    "page": 20
+   },
+   {
+    "item": "operating_income",
+    "label": "OPERATING PROFIT",
+    "column": 2,
+    "value": 53188,
+    "page": 20
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar charges",
+    "column": 1,
+    "value": 171596,
+    "page": 20
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar charges",
+    "column": 2,
+    "value": 180682,
+    "page": 20
+   },
+   {
+    "item": "pretax_income",
+    "label": "LOSS BEFORE TAXATION",
+    "column": 1,
+    "value": -28372,
+    "page": 20
+   },
+   {
+    "item": "pretax_income",
+    "label": "LOSS BEFORE TAXATION",
+    "column": 2,
+    "value": -28589,
+    "page": 20
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax credit on loss",
+    "column": 1,
+    "value": -4927,
+    "page": 20
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax credit on loss",
+    "column": 2,
+    "value": -5866,
+    "page": 20
+   },
+   {
+    "item": "net_income",
+    "label": "LOSS FOR THE FINANCIAL YEAR",
+    "column": 1,
+    "value": -23445,
+    "page": 20
+   },
+   {
+    "item": "net_income",
+    "label": "LOSS FOR THE FINANCIAL YEAR",
+    "column": 2,
+    "value": -22723,
+    "page": 20
+   },
+   {
+    "item": "cash",
+    "label": "Cash at bank",
+    "column": 3,
+    "value": 0,
+    "page": 21
+   },
+   {
+    "item": "cash",
+    "label": "Cash at bank",
+    "column": 4,
+    "value": 7628,
+    "page": 21
+   },
+   {
+    "item": "current_assets",
+    "label": "Total current assets",
+    "column": 3,
+    "value": 3112972,
+    "page": 21
+   },
+   {
+    "item": "current_assets",
+    "label": "Total current assets",
+    "column": 4,
+    "value": 2954118,
+    "page": 21
+   },
+   {
+    "item": "current_liabilities",
+    "label": "CREDITORS: Amounts falling due within one year",
+    "column": 3,
+    "value": 3142331,
+    "page": 21
+   },
+   {
+    "item": "current_liabilities",
+    "label": "CREDITORS: Amounts falling due within one year",
+    "column": 4,
+    "value": 2960984,
+    "page": 21
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Bank loans and overdrafts",
+    "column": 3,
+    "value": 5793,
+    "page": 36
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Bank loans and overdrafts",
+    "column": 4,
+    "value": 0,
+    "page": 36
+   },
+   {
+    "item": "equity",
+    "label": "EQUITY SHAREHOLDERS' FUNDS",
+    "column": 3,
+    "value": 96304,
+    "page": 21
+   },
+   {
+    "item": "equity",
+    "label": "EQUITY SHAREHOLDERS' FUNDS",
+    "column": 4,
+    "value": 119749,
+    "page": 21
+   }
+  ],
+  "absent": [
+   {
+    "item": "total_assets",
+    "reason": "Balance sheet is in Companies Act format and prints no total assets line"
+   },
+   {
+    "item": "total_liabilities",
+    "reason": "Not printed as a total in the balance sheet"
+   },
+   {
+    "item": "long_term_debt",
+    "reason": "No long-term borrowings shown; company has no external long-term debt"
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "reason": "Not printed in the balance sheet"
+   },
+   {
+    "item": "da",
+    "reason": "Amortisation (5,134) and depreciation (4,811) are printed separately in note 5 and no combined figure is printed"
+   },
+   {
+    "item": "cfo",
+    "reason": "No cash flow statement; company takes FRS 102 exemption from preparing one"
+   },
+   {
+    "item": "capex",
+    "reason": "No cash flow statement presented"
+   },
+   {
+    "item": "catalog_purchases",
+    "reason": "No cash flow statement presented"
+   },
+   {
+    "item": "cfi",
+    "reason": "No cash flow statement presented"
+   },
+   {
+    "item": "dividends_paid",
+    "reason": "No cash flow statement presented; no dividend paid in either year"
+   },
+   {
+    "item": "cff",
+    "reason": "No cash flow statement presented"
+   }
+  ],
+  "labels_named": [
+   "Island-EMI",
+   "Polydor Label Group",
+   "Decca",
+   "Fontana",
+   "Naughty Records Limited",
+   "Vice Versa Limited",
+   "Stiff Records Limited",
+   "ZTT Records Limited",
+   "Hyperion Records Limited",
+   "Outdustry Records Limited",
+   "Real World Recordings Limited"
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 63198,
+  "output_tokens": 3984,
+  "output_tokens_details": {
+   "thinking_tokens": 2305
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}

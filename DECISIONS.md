@@ -2,6 +2,41 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 UK label companies' accounts (owner: "R2: yes")
+
+- **Companies:** the majors' UK record companies at Companies House (registry/uk_companies.csv), numbers looked up on
+  the register's own search:
+  - Universal Music Operations Ltd (00950138);
+  - Warner Music UK Ltd (00680511);
+  - Sony Music Entertainment UK Ltd (01471066);
+  - BMG Rights Management (UK) Ltd (06705101).
+- **Route:** Public-Registry's, using the public website, which needs no key or login. The filing history gives each
+  set of full accounts. The latest 5 years per company are kept, 20 documents in all; each also carries the year
+  before, so 6 years are covered.
+- **Scans:** all 20 are scanned paper with no text layer, so pages cannot be selected. Each goes to Claude whole, as
+  Public-Registry sends scans, with notes on UK terms: turnover, the Companies Act balance-sheet format, and no cash
+  flow statement under FRS 101. The checks and correction ladder are the same as for the groups.
+  - Cost: Haiku 5.5 at $0.10 per million input tokens. A 50-page scan is about 80,000 tokens, about 1 cent, so all
+    20 cost about $0.20, plus any corrections.
+- **Rejected: BMG's iXBRL.** BMG's UK company also files machine-readable iXBRL. A second parser (FRS 101/102
+  taxonomies) for one document a year saves about a cent, so its PDF goes the same way.
+- **Labels linked to a UK company:** nothing is linked by assumption; there are two sources, and only labels of the
+  company's own group count.
+  - The labels its accounts name (labels_named in the read). In practice the accounts mostly list subsidiary
+    companies ("Laurel Records Limited"), which are separate, often dormant, so names ending in Limited/Ltd are left
+    out. Warner Music UK's strategic report speaks only of "its constituent labels".
+  - The group's labels whose releases carry a UK name ("Atlantic Records UK", "Parlophone UK", "Epic Records UK",
+    "BMG Rights Management (UK) Ltd."). That is the group's UK arm, and each major has one UK record company.
+  - Result: UMO for Def Jam Recordings, EMI, Island Records, Polydor and Virgin Music Group; Warner Music UK for
+    Atlantic Records and Parlophone; Sony Music UK for Epic Records; BMG UK for BMG.
+  - The label page shows the UK company's health under the group's, marked as the UK business only.
+- **First reads (2026-10-24):** all 20 passed Haiku's first read, with no correction and no Opus call: about 1.4
+  million input and 70,000 output tokens, about $0.18. Spot checks against the scans match: Warner Music UK FY2025
+  turnover £309.3m, profit £40.9m and equity £127.0m; BMG UK 2025 net assets £483.0m (2024: £463.3m, after a £380m
+  share capital), creditors due within a year £127.4m.
+- **Not covered:** the US label companies (Atlantic, Interscope, Columbia and the rest) are subsidiaries that publish
+  no accounts. The UK is the one large market where label companies must file theirs.
+
 ## 2026-10-24 First report reads (owner added the API key: "R1 done ... Check company sites for PDFs if not found somewhere else")
 
 - **Sony's site:** sony.com refuses automated requests ("Access Denied"). Its results releases are read from the

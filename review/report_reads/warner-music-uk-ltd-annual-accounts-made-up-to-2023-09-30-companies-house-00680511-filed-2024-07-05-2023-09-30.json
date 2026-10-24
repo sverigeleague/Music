@@ -1,0 +1,338 @@
+{
+ "report": {
+  "company": "Warner Music UK Ltd",
+  "document": "Annual accounts made up to 2023-09-30 (Companies House 00680511, filed 2024-07-05)",
+  "period_end": "2023-09-30",
+  "period_type": "FY",
+  "url": "https://find-and-update.company-information.service.gov.uk/company/00680511/filing-history/MzQyNzI1MTI4NWFkaXF6a2N4/document?format=pdf&download=1",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "",
+  "note": "Full accounts made up to 30 September 2023",
+  "basis": "company"
+ },
+ "read": {
+  "currency": "GBP",
+  "unit_multiplier": 1000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "IS",
+    "period_end": "2023-09-30",
+    "months": 12
+   },
+   {
+    "column": 2,
+    "statement": "IS",
+    "period_end": "2022-09-30",
+    "months": 12
+   },
+   {
+    "column": 3,
+    "statement": "BS",
+    "period_end": "2023-09-30",
+    "months": 0
+   },
+   {
+    "column": 4,
+    "statement": "BS",
+    "period_end": "2022-09-30",
+    "months": 0
+   }
+  ],
+  "lines": [
+   {
+    "item": "revenue",
+    "label": "Turnover",
+    "column": 1,
+    "value": 276790,
+    "page": 14
+   },
+   {
+    "item": "revenue",
+    "label": "Turnover",
+    "column": 2,
+    "value": 247166,
+    "page": 14
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 1,
+    "value": 151675,
+    "page": 14
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 2,
+    "value": 137780,
+    "page": 14
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 1,
+    "value": 31440,
+    "page": 14
+   },
+   {
+    "item": "sga",
+    "label": "Administrative expenses",
+    "column": 2,
+    "value": 28956,
+    "page": 14
+   },
+   {
+    "item": "da",
+    "label": "Depreciation of tangible fixed assets (note 10)",
+    "column": 1,
+    "value": 68,
+    "page": 22
+   },
+   {
+    "item": "da",
+    "label": "Depreciation of tangible fixed assets (note 10)",
+    "column": 2,
+    "value": 2393,
+    "page": 22
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit",
+    "column": 1,
+    "value": 44784,
+    "page": 14
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit",
+    "column": 2,
+    "value": 30089,
+    "page": 14
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar expenses",
+    "column": 1,
+    "value": 2154,
+    "page": 14
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest payable and similar expenses",
+    "column": 2,
+    "value": 55651,
+    "page": 14
+   },
+   {
+    "item": "pretax_income",
+    "label": "(Loss) / profit before taxation",
+    "column": 1,
+    "value": 58359,
+    "page": 14
+   },
+   {
+    "item": "pretax_income",
+    "label": "(Loss) / profit before taxation",
+    "column": 2,
+    "value": -12784,
+    "page": 14
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax credit / (charge) on (loss) / profit",
+    "column": 1,
+    "value": 13297,
+    "page": 14
+   },
+   {
+    "item": "income_tax",
+    "label": "Tax credit / (charge) on (loss) / profit",
+    "column": 2,
+    "value": -2076,
+    "page": 14
+   },
+   {
+    "item": "net_income",
+    "label": "(Loss) / profit for the financial year",
+    "column": 1,
+    "value": 45062,
+    "page": 14
+   },
+   {
+    "item": "net_income",
+    "label": "(Loss) / profit for the financial year",
+    "column": 2,
+    "value": -10708,
+    "page": 14
+   },
+   {
+    "item": "cash",
+    "label": "Cash in bank and in hand",
+    "column": 3,
+    "value": 0,
+    "page": 15
+   },
+   {
+    "item": "cash",
+    "label": "Cash in bank and in hand",
+    "column": 4,
+    "value": 0,
+    "page": 15
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Creditors: Amounts falling due within one year",
+    "column": 3,
+    "value": 304493,
+    "page": 15
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Creditors: Amounts falling due within one year",
+    "column": 4,
+    "value": 241727,
+    "page": 15
+   },
+   {
+    "item": "equity",
+    "label": "Net assets / Shareholders' funds",
+    "column": 3,
+    "value": 169784,
+    "page": 15
+   },
+   {
+    "item": "equity",
+    "label": "Net assets / Shareholders' funds",
+    "column": 4,
+    "value": 124722,
+    "page": 15
+   }
+  ],
+  "absent": [
+   {
+    "item": "total_assets",
+    "reason": "Companies Act format balance sheet prints no total assets line"
+   },
+   {
+    "item": "current_assets",
+    "reason": "No total current assets line printed; only debtors and cash are shown"
+   },
+   {
+    "item": "total_liabilities",
+    "reason": "No total liabilities line printed"
+   },
+   {
+    "item": "long_term_debt",
+    "reason": "No borrowings; only creditors falling due after one year payable to group undertakings (3,721 / 6,180)"
+   },
+   {
+    "item": "short_term_debt",
+    "reason": "No borrowings printed; creditors due within one year are not split as debt"
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "reason": "No total liabilities and equity line printed"
+   },
+   {
+    "item": "cfo",
+    "reason": "No cash flow statement in the financial statements (FRS 102 exemption taken)"
+   },
+   {
+    "item": "capex",
+    "reason": "No cash flow statement in the financial statements"
+   },
+   {
+    "item": "catalog_purchases",
+    "reason": "No cash flow statement in the financial statements"
+   },
+   {
+    "item": "cfi",
+    "reason": "No cash flow statement in the financial statements"
+   },
+   {
+    "item": "dividends_paid",
+    "reason": "No cash flow statement; no dividend paid (directors do not recommend a dividend)"
+   },
+   {
+    "item": "cff",
+    "reason": "No cash flow statement in the financial statements"
+   }
+  ],
+  "labels_named": [
+   "1967 Limited",
+   "Elmlowe Limited",
+   "First Night Records Limited",
+   "Taffia International Limited",
+   "A+E Records Limited",
+   "B Unique Records Limited",
+   "Warner Music Ireland Limited",
+   "Warner Music (Northern Ireland) Limited",
+   "FFRR Records Limited",
+   "Magnet Records Limited",
+   "Infectious Records Limited",
+   "Laurel Records Limited",
+   "679 Recordings Limited",
+   "China Records Limited",
+   "Gingerbread Man Records Limited",
+   "Exallshow Limited"
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 53753,
+  "output_tokens": 3641,
+  "output_tokens_details": {
+   "thinking_tokens": 1933
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31,
+  32,
+  33
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}

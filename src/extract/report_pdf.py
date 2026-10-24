@@ -9,6 +9,9 @@ The setup of the Public-Registry project (its DECISIONS.md 2026-10-15 to 10-21 a
   pages goes as about 4-8 pages.
 - **HTML filings (Sony's results on SEC Form 6-K; sony.com refuses automated access):** split into tables as
   Public-Registry does; only the statement tables go, as text (about 2,500 tokens for Sony's quarter).
+- **Scanned PDFs (the majors' UK accounts at Companies House, src/collectors/companies_house.py):** no text to search,
+  so the whole document goes, with a note to find the statements itself, as Public-Registry sends scans. A 50-page
+  scan is about 80,000 tokens: about one cent with Haiku.
 - **PDF input, not the text layer:** the text layer saved nothing there and once produced an invented figure.
 - **First read:** FIRST_MODEL (Haiku 5.5) at medium effort, structured JSON output.
 - **Checks in code:** the period of every column; the core items given or declared absent; the balance sheet
@@ -62,7 +65,7 @@ OTHER_STATEMENTS = r"changes in (?:equity|net assets|shareholders|stockholders)|
                    r"stockholders.? (?:equity|deficit)|shareholders.? (?:equity|deficit)"
 
 ITEM_HELP = {k: f"{k} ({stmt})" for k, (stmt, _) in STANDARD.items()}
-PROMPT = """These pages are from {company}'s {document} (period ending {period_end}). Read the CONSOLIDATED income
+PROMPT = """These pages are from {company}'s {document} (period ending {period_end}). Read the {basis} income
 statement, balance sheet (statement of financial position) and cash flow statement, for every period column printed
 (current and comparative; quarter, half-year, nine months or full year).
 
@@ -72,7 +75,21 @@ on. Costs, capital expenditure, catalogue purchases, dividends and interest are 
 outflows of the cash-flow totals (cfo, cfi, cff) are negative. Never add up lines to make a total that is not printed;
 leave it out. If one of revenue, net_income, total_assets or cfo is not printed, list it under absent with a reason.
 
+Under labels_named, list the record labels or imprints the document says the company operates or owns, as printed
+(empty if it names none).
+
 Standard items: {items}"""
+BASIS = {"group": "CONSOLIDATED",
+         "company": "company's own (UK statutory accounts; the consolidated ones if it also prepares group accounts)"}
+UK_NOTE = ("\n\nUK statutory accounts: turnover is revenue; 'profit for the financial year' is net income; 'creditors: "
+           "amounts falling due within one year' are current liabilities; 'net assets' or 'total equity' is equity. A "
+           "balance sheet in the Companies Act format prints no total assets: then declare total_assets absent rather "
+           "than adding lines. A subsidiary reporting under FRS 101 presents no cash flow statement: then declare cfo "
+           "absent.")
+SCANNED_NOTE = ("\n\nThis document is a scan without a text layer: find the statements in it yourself. Page numbers are "
+                "pages of this document.")
+SCAN_MAX_PAGES = 120
+SCAN_MAX_BYTES = 22_000_000  # base64 grows a third; the request limit is 32 MB
 
 
 def _schema() -> dict:
@@ -87,6 +104,7 @@ def _schema() -> dict:
                                                  "label": {"type": "string"}, "column": {"type": "integer"},
                                                  "value": {"type": "number"}, "page": {"type": "integer"}})},
         "absent": {"type": "array", "items": obj({"item": {"type": "string"}, "reason": {"type": "string"}})},
+        "labels_named": {"type": "array", "items": {"type": "string"}},
     })
 
 
@@ -227,12 +245,20 @@ def call(content: list[dict], model: str, effort: str) -> dict:
 
 def read_report(row: dict, body: bytes) -> dict:
     """Select pages, read, check, correct. Returns {"read", "model", "fails", "pages", "status"}."""
+    scanned = False
     if body.startswith(b"%PDF"):
         from pypdf import PdfReader
         pages = [(p.extract_text() or "") for p in PdfReader(io.BytesIO(body)).pages]
-        keep = locate(pages) or list(range(min(len(pages), MAX_PAGES)))
+        scanned = sum(len(t.strip()) > 100 for t in pages) <= 0.1 * len(pages)
+        if scanned:  # no text to search: the whole scan goes
+            if len(pages) > SCAN_MAX_PAGES or len(body) > SCAN_MAX_BYTES:
+                raise RuntimeError(f"scan too large to send ({len(pages)} pages, {len(body)} bytes)")
+            keep, data = list(range(len(pages))), body
+        else:
+            keep = locate(pages) or list(range(min(len(pages), MAX_PAGES)))
+            data = subset(body, keep)
         doc = {"type": "document", "source": {"type": "base64", "media_type": "application/pdf",
-                                              "data": base64.b64encode(subset(body, keep)).decode()}}
+                                              "data": base64.b64encode(data).decode()}}
     else:  # an HTML filing: the statement tables go as text, as Public-Registry sends HTML filings
         pages = html_pages(body)
         keep = locate(pages)
@@ -240,8 +266,10 @@ def read_report(row: dict, body: bytes) -> dict:
             raise RuntimeError("no statement tables found in the HTML filing")
         text = "\n\n".join(f"--- page {n} ---\n{pages[i]}" for n, i in enumerate(keep, 1))
         doc = {"type": "document", "source": {"type": "text", "media_type": "text/plain", "data": text}}
+    basis = row.get("basis") or "group"
     prompt = PROMPT.format(company=row["company"], document=row["document"], period_end=row["period_end"],
-                           items="; ".join(ITEM_HELP.values()))
+                           basis=BASIS[basis], items="; ".join(ITEM_HELP.values()))
+    prompt += (UK_NOTE if basis == "company" else "") + (SCANNED_NOTE if body.startswith(b"%PDF") and scanned else "")
     first = call([doc, {"type": "text", "text": prompt}], FIRST_MODEL, "medium")
     result = {**first, "fails": checks(first["read"]), "pages": [i + 1 for i in keep], "status": "passed", "ladder": [first["model"]]}
     for model, effort in ((FIRST_MODEL, RETRY_EFFORT), FALLBACK):
@@ -300,7 +328,8 @@ def update(limit: int | None = None) -> dict:
     from ..collectors.financials import CONTACT_UA, FIELDS
     READS.mkdir(parents=True, exist_ok=True)
     done = {p.stem for p in READS.glob("*.json")}
-    todo = [r for r in csv.DictReader(LIST.open()) if r.get("url")] if LIST.exists() else []
+    from ..collectors.companies_house import OUT as UK_LIST
+    todo = [r for path in (LIST, UK_LIST) if path.exists() for r in csv.DictReader(path.open()) if r.get("url")]
     stats = {"read": 0, "passed": 0, "corrected": 0, "review": 0, "excluded": 0}
     new_rows = []
     for row in todo[:limit]:
@@ -310,7 +339,10 @@ def update(limit: int | None = None) -> dict:
         resp = get(row["url"], timeout=120, headers=CONTACT_UA if "sec.gov" in row["url"] else None)
         if resp.status_code != 200 or not (resp.content.startswith(b"%PDF") or b"<html" in resp.content[:2000].lower()):
             continue
-        result = read_report(row, resp.content)
+        try:
+            result = read_report(row, resp.content)
+        except Exception as exc:  # one unreadable document (a refusal, a scan too large) does not stop the others
+            result = {"status": "excluded", "fails": [f"not read: {exc}"]}
         (READS / f"{key}.json").write_text(json.dumps({"report": row, **result}, indent=1, ensure_ascii=False))
         stats["read"] += 1
         stats[result["status"]] += 1

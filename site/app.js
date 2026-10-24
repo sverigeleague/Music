@@ -578,7 +578,7 @@ function labelsPage() {
     <section class="panel"><h2>Independent labels and distributors in the top 1,000</h2>
       <div class="tablebox"><table><thead><tr><th class="l">Label</th><th>Artists</th><th>Monthly listeners</th></tr></thead><tbody>
       ${indies.map(([l, v]) => `<tr><td class="l">${esc(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div></section>
-    ${groupsCompare()}
+    ${groupsCompare()}${groupsCompare(true)}
     ${labelDirectory()}
     <section><h2>Rosters: the biggest artists in each group</h2>
       ${G.map(g => `<details class="panel"><summary><b>${esc(g)}</b>: ${gv(g, "artists")} artists</summary><div class="chips">${m.groups[g].top.map(id => byId[id]).filter(Boolean).map(a => `<a class="chip" href="#/a/${a.id}">${esc(a.name)} · ${count(a.ml)}</a>`).join(" ")}</div></details>`).join("")}</section>`;
@@ -718,6 +718,7 @@ function labelPage(s) {
     </tbody></table></div><p class="note">Hip-hop artists in the top 1,000 whose recent releases carry this label. Royalties are paid to the label before the artist's share (see each artist's page).</p></section>
     <section class="panel"><h2>${esc(L.name)}: finances</h2>${own ? `<p class="note">${esc(L.name)} is part of ${esc(L.parent)} and publishes no accounts of its own. The best public measure of its size is the roster's royalties above.</p>` : finTable(L.name)}</section>
     ${healthPanel((store.data.company_of || {})[own ? L.parent : L.name])}
+    ${Object.entries(store.data.group_finances || {}).filter(([, F]) => F.uk?.labels.includes(L.name)).map(([c]) => healthPanel(c)).join("")}
     ${own ? `<section class="panel"><h2>${esc(L.parent)}: key reported figures</h2>${finTable(L.parent)}</section>` : ""}
     ${sister.length ? `<section class="panel"><h2>Other ${esc(L.parent)} labels in the top 1,000</h2><div class="chips">${sister.map(x => `<a class="chip" href="#/label/${x.slug}">${esc(x.name)} · ${x.artists.length}</a>`).join(" ")}</div></section>` : ""}
     ${(store.data.label_logos || {})[L.name] ? `<p class="note">Logo: <a href="${esc(store.data.label_logos[L.name].page)}" target="_blank" rel="noopener">Wikimedia Commons</a> (${esc(store.data.label_logos[L.name].licence)}). Trademarks belong to their owners.</p>` : ""}`;
@@ -736,7 +737,7 @@ const STMT = { IS: ["revenue", "direct_costs", "sga", "da", "operating_income", 
 const RATIO = { revenue_growth: ["Revenue growth", "pct"], operating_margin: ["Operating margin", "pct"], fcf_margin: ["Free cash flow margin", "pct"],
   leverage: ["Net debt / EBITDA (proxy)", "x"], interest_cover: ["Interest cover", "x"], current_ratio: ["Current ratio", "x"], equity_ratio: ["Equity ratio", "pct"],
   net_debt: ["Net debt", "money"], fcf: ["Free cash flow", "money"] };
-const money2 = (v, cur) => v == null ? "–" : `${v < 0 ? "−" : ""}${({ EUR: "€", USD: "$", JPY: "¥" })[cur] || ""}${count(Math.abs(v))}`;
+const money2 = (v, cur) => v == null ? "–" : `${v < 0 ? "−" : ""}${({ EUR: "€", USD: "$", JPY: "¥", GBP: "£" })[cur] || ""}${count(Math.abs(v))}`;
 const fmtRatio = (v, kind, cur) => v == null ? "–" : kind === "pct" ? (v * 100).toFixed(1) + "%" : kind === "x" ? v.toFixed(1) + "×" : money2(v, cur);
 const readingChip = r => r ? `<span class="chip read-${r}">${({ good: "healthy", watch: "watch", weak: "weak" })[r]}</span>` : "";
 function healthPanel(company) {
@@ -746,22 +747,23 @@ function healthPanel(company) {
   const table = (st, title) => { const items = STMT[st].filter(i => cols.some(c => c.values[i] != null)); if (!items.length) return "";
     return `<h3>${title}</h3><div class="tablebox"><table><thead><tr><th class="l"></th>${cols.map(c => `<th${c.type !== "FY" ? ' class="q"' : ""}><a href="${esc(c.source)}" target="_blank" rel="noopener">${esc(c.label)}</a></th>`).join("")}</tr></thead><tbody>
       ${items.map(i => `<tr><td class="l">${esc(ITEM_LABEL[i])}</td>${cols.map(c => `<td${c.type !== "FY" ? ' class="q"' : ""}>${money2(c.values[i], cur)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`; };
+  const uk = F.uk ? `<p class="note">The UK company, not ${esc(F.uk.group)} worldwide: it runs ${F.uk.labels.length ? esc(F.uk.labels.join(", ")) : "the group's labels"} in the UK (labels named in its accounts, or whose releases carry a UK name). <a href="https://find-and-update.company-information.service.gov.uk/company/${esc(F.uk.number)}" target="_blank" rel="noopener">Companies House ${esc(F.uk.number)}</a>. UK accounts are annual; a blank line is one the accounts do not print (UK subsidiaries often file no cash flow statement).</p>` : "";
   return `<section class="panel"><h2>${esc(company)}: financial health ${grade("A")}</h2>
-    ${F.note ? `<p class="note">${esc(F.note)}.</p>` : ""}
+    ${F.note ? `<p class="note">${esc(F.note)}.</p>` : ""}${uk}
     <div class="healthgrid">${Object.entries(RATIO).filter(([k]) => F.health[k]).map(([k, [l, kind]]) => `<div class="hcell"><span class="k">${esc(l)}</span><b>${fmtRatio(F.health[k].value, kind, cur)}</b>${readingChip(F.health[k].reading)}</div>`).join("")}</div>
     <p class="note">Latest fiscal year (${esc(F.years.at(-1)?.period || "–")}), from the company's filed statements (${esc(F.source_kind)}). Readings are credit-analysis rules of thumb, not ratings; the current-ratio bands are set lower for music groups, whose royalties owed to artists and songwriters sit in current liabilities. Compare the groups with each other rather than with other industries.</p>
     ${table("IS", "Income statement")}${table("BS", "Balance sheet")}${table("CF", "Cash flow")}
     <p class="note">Figures as filed, in ${esc(cur)}. Column headings link to the filings. Shaded columns are interim periods: a quarter (three months) or a half-year (six months) to that date, with the balance sheet at that date. A blank means the company does not tag that line in its XBRL; the full statements are in the filing.</p></section>`;
 }
-function groupsCompare() {
+function groupsCompare(uk = false) {
   const G = store.data.group_finances || {};
-  const names = Object.keys(G);
+  const names = Object.keys(G).filter(n => !!G[n].uk === uk);
   if (!names.length) return "";
-  return `<section class="panel"><h2>Label groups' financial health, side by side ${grade("A")}</h2><div class="tablebox"><table><thead><tr><th class="l">Measure</th>${names.map(n => `<th>${esc(n)}</th>`).join("")}</tr></thead><tbody>
+  return `<section class="panel"><h2>${uk ? "The majors' UK record companies" : "Label groups'"} financial health, side by side ${grade("A")}</h2><div class="tablebox"><table><thead><tr><th class="l">Measure</th>${names.map(n => `<th>${esc(n)}</th>`).join("")}</tr></thead><tbody>
     <tr><td class="l">Latest fiscal year</td>${names.map(n => `<td>${esc(G[n].years.at(-1)?.period || "–")}</td>`).join("")}</tr>
     <tr><td class="l">Revenue</td>${names.map(n => `<td>${money2(G[n].years.at(-1)?.values.revenue, G[n].currency)}</td>`).join("")}</tr>
     ${Object.entries(RATIO).map(([k, [l, kind]]) => `<tr><td class="l">${esc(l)}</td>${names.map(n => { const h = G[n].health[k]; return `<td>${h ? fmtRatio(h.value, kind, G[n].currency) + " " + readingChip(h.reading) : "–"}</td>`; }).join("")}</tr>`).join("")}
-  </tbody></table></div><p class="note">Sony Group is the whole group (games, pictures, music, electronics). Bertelsmann (BMG's owner) files no machine-readable accounts, and private labels (EMPIRE, Concord before the BMG merger) publish none.</p></section>`;
+  </tbody></table></div><p class="note">${uk ? "Each company's statutory accounts at Companies House: the UK business only, where the groups' UK labels sign and market artists. A label page shows its UK company when the accounts name the label or its releases carry a UK name (\"Atlantic Records UK\")." : `Sony Group is the whole group (games, pictures, music, electronics). Bertelsmann (BMG's owner) files no machine-readable accounts, and private labels (EMPIRE, Concord before the BMG merger) publish none.`}</p></section>`;
 }
 
 // ---------- artist summary card: level, scout score, worth, attention

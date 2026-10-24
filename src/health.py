@@ -9,6 +9,8 @@ quarters in XBRL), and ratios, each with a plain reading:
 - liquidity and solvency: current ratio, equity ratio, interest cover (operating income / interest expense).
 Thresholds for the readings are rules of thumb used in credit analysis, not ratings (HEALTH_RULES).
 """
+import json
+
 from .collectors import financials
 
 YEARS, QUARTERS = 5, 4
@@ -64,10 +66,49 @@ def _ratios(p: dict, prev: dict | None) -> dict:
     return {k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items()}
 
 
+def uk_labels(company: str) -> list[str]:
+    """The site's labels of a UK company's group that the company runs, from two sources (owner, 2026-10-24: nothing
+    linked by assumption):
+    - the labels its accounts name (labels_named in any read), leaving out subsidiary companies ("... Limited"),
+      which are separate legal entities, often dormant;
+    - the group's labels whose releases carry a UK name ("Atlantic Records UK", "Parlophone UK",
+      "BMG Rights Management (UK) Ltd."): the group's UK arm, and each major has one UK record company."""
+    import csv
+    import re
+    from . import labels
+    from .collectors import companies_house
+    from .config import DATA
+    from .extract.report_pdf import READS
+    group = next((c["group"] for c in companies_house.companies() if c["company"] == company), "")
+    named = set()
+    for p in READS.glob("*.json"):
+        r = json.loads(p.read_text())
+        if r["report"]["company"] == company and r.get("read"):
+            named |= {x for x in r["read"].get("labels_named") or []
+                      if not re.search(r"\b(?:limited|ltd|gmbh|llc|inc)\b\.?$", x.strip(), re.I)}
+    path = DATA / "release_labels.csv"
+    if path.exists():
+        with path.open() as f:
+            named |= {r["label"] for r in csv.DictReader(f) if re.search(r"\bUK\b|\(UK\)", r["label"] or "")}
+    table = labels.owners()
+    owner = {r["label"]: r["owner"] for r in table}
+    short = {r["label"].lower().removesuffix(" records"): r["label"] for r in table}  # "Island" -> Island Records
+    out = set()
+    for x in named:
+        n = labels.label_name(x, table)
+        n = n if n in owner else short.get(x.strip().lower(), n)
+        if owner.get(n) == group:
+            out.add(n)
+    return sorted(out)
+
+
 def build() -> dict:
+    from .collectors import companies_house
     rows = financials.load()
     out = {}
-    for c in financials.COMPANIES:
+    uk = [{"company": c["company"], "source": "companies_house", "group": c["group"], "number": c["company_number"],
+           "note": c["note"]} for c in companies_house.companies()]
+    for c in financials.COMPANIES + uk:
         name = c["company"]
         mine = [r for r in rows if r["company"] == name]
         if not mine:
@@ -94,8 +135,10 @@ def build() -> dict:
         latest = years[-1] if years else None
         out[name] = {
             "currency": next((r["currency"] for r in mine if r["item"] == "revenue"), ""),
-            "note": c.get("note", ""), "source_kind": {"sec": "SEC XBRL", "esef": "ESEF annual report (XBRL)", "pdf": "report PDFs read by Claude, checked"}[c["source"]],
+            "note": c.get("note", ""), "source_kind": {"sec": "SEC XBRL", "esef": "ESEF annual report (XBRL)", "pdf": "report PDFs read by Claude, checked",
+                                                       "companies_house": "annual accounts filed at Companies House, scans read by Claude, checked"}[c["source"]],
             "years": years, "quarters": quarters,
+            **({"uk": {"group": c["group"], "number": c["number"], "labels": uk_labels(name)}} if c["source"] == "companies_house" else {}),
             "health": {k: {"value": v, "reading": _reading(k, v)} for k, v in (latest["ratios"].items() if latest else [])
                        if k in HEALTH_RULES or k in ("net_debt", "fcf", "revenue_growth")},
         }
