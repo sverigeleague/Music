@@ -293,3 +293,8 @@ table.brief .sig { display: none; }
 td.hit { min-width: 220px; }
 td.hit .note { display: block; }
 td.lab { max-width: 160px; }
+@media (max-width: 560px) {
+  th { white-space: normal; min-width: 64px; vertical-align: bottom; }
+  th, td { padding: 8px 8px; }
+  td .who span { white-space: normal; }
+}

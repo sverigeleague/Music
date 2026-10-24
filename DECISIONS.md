@@ -25,6 +25,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - **Scout list:** 13 columns made the table nearly twice the page width, with the newest hit and its ▶ player
   off-screen. Now: rank, artist, score, label, newest hit (with ▶ and 🎬), monthly listeners and new-release pull;
   the other five signals sit behind "Show all signals". The CSV still has every column.
+- **Top list:** the numbers come before the label group, and column headers wrap on phones, so the listener figure
+  is on the first phone screen (it was cut off at the right edge).
 - Tiles fit one row on desktop (six tiles at 1280px) and no longer leave an empty slot when a page has fewer.
 
 ## 2026-10-24 Country: below-floor crawl, radio in Scout, Big Machine by date
