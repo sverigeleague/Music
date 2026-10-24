@@ -190,3 +190,13 @@ h1 .star { font-size: 26px; vertical-align: middle; }
 #lab-q { font: inherit; padding: 6px 10px; border: 1px solid var(--line); min-width: 0; flex: 1 1 200px; max-width: 320px; }
 th[data-lsort] { cursor: pointer; user-select: none; }
 .prov { color: var(--muted); font-weight: 600; margin-left: 2px; cursor: help; }
+.healthgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(190px, 100%), 1fr)); gap: 8px; }
+.hcell { border: 1px solid var(--line); padding: 8px 10px; display: grid; gap: 2px; }
+.hcell .k { font-size: 12px; color: var(--muted); }
+.hcell b { font-size: 18px; }
+.chip.read-good { color: var(--good); border-color: currentColor; background: none; }
+.chip.read-watch { color: var(--fg); border-color: currentColor; background: none; }
+.chip.read-weak { color: var(--bad); border-color: currentColor; background: none; }
+.panel h3 { font-size: 14px; margin: 8px 0 0; }
+td.q, th.q { background: var(--soft); }
+.hcell .chip { justify-self: start; }

@@ -302,3 +302,33 @@ def test_label_display_names_follow_the_licensee():
     assert labels.label_name("OVO/Republic") == "Republic Records"
     assert labels.label_name("X LLC, under exclusive license to Atlantic Recording Corporation") == "Atlantic Records"
     assert labels.label_name("Death Note Music, LLC") == "Death Note Music"
+
+
+def test_report_pdf_checks_and_rows():
+    from src.extract import report_pdf as r
+    read = {"currency": "EUR", "unit_multiplier": 1000000,
+            "columns": [{"column": 1, "statement": "IS", "period_end": "2026-06-30", "months": 6},
+                        {"column": 2, "statement": "BS", "period_end": "2026-06-30", "months": 0}],
+            "lines": [{"item": "revenue", "label": "Revenue", "column": 1, "value": 6000, "page": 3},
+                      {"item": "net_income", "label": "Profit", "column": 1, "value": 800, "page": 3},
+                      {"item": "total_assets", "label": "Total assets", "column": 2, "value": 100, "page": 4},
+                      {"item": "total_liabilities", "label": "Total liabilities", "column": 2, "value": 70, "page": 4},
+                      {"item": "equity", "label": "Equity", "column": 2, "value": 30, "page": 4},
+                      {"item": "capex", "label": "Capex", "column": 1, "value": -5, "page": 5}],
+            "absent": [{"item": "cfo", "reason": "no cash flow statement in a trading update"}]}
+    fails = r.checks(read)
+    assert fails == ["column 1: capex should be a positive amount"]
+    rows = r.rows_of({"company": "UMG", "period_type": "H", "url": "https://x"}, {"read": read, "model": "m"})
+    rev = next(x for x in rows if x["item"] == "revenue")
+    assert rev["period_type"] == "H" and rev["value"] == 6000 * 1000000
+    assert next(x for x in rows if x["item"] == "total_assets")["period_type"] == "Q"
+
+
+def test_health_ratios():
+    from src import health
+    p = {"revenue": 1000, "operating_income": 150, "da": 50, "net_income": 100, "cash": 100, "long_term_debt": 500,
+         "short_term_debt": 0, "cfo": 200, "capex": 20, "current_assets": 400, "current_liabilities": 500,
+         "equity": 300, "total_assets": 1000, "interest_expense": 25}
+    r = health._ratios(p, {"revenue": 800})
+    assert r["revenue_growth"] == 0.25 and r["net_debt"] == 400 and r["leverage"] == 2.0 and r["fcf"] == 180
+    assert health._reading("leverage", 2.0) == "good" and health._reading("current_ratio", 0.8) == "watch"

@@ -2,6 +2,36 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label groups' financial statements and health (owner: "download and screen all their relevant quarterly and annual financial reports with all three statements ... learn from ... Hoop Ledger / Tventy ... cheap extraction of information from PDFs")
+
+- **Lesson from the Public-Registry project:** machine-readable filings first, at no Claude cost. A PDF goes to
+  Claude only where no XBRL exists, and then cheaply: page selection, a Haiku first read, checks in code, an Opus
+  correction, a 10% audit sample.
+  - **Measured there:** about $1.30 per 100 documents, against $8 with Opus alone. Haiku with checks made 3 wrong
+    figures in about 280.
+  - **Also learned there:** sending the text layer instead of the PDF saved nothing on short documents, so PDFs stay
+    PDFs.
+- **Free structured sources, built** (`src/collectors/financials.py`, `data/financials.csv`):
+  - **SEC companyfacts API:** Warner Music Group (10-K and 10-Q, so quarters too), Reservoir Media (10-K and 10-Q),
+    and Sony Group (20-F, annual, the whole group).
+  - **ESEF annual reports as xBRL-JSON from filings.xbrl.org:** Universal Music Group (2021-2025) and Believe
+    (2021-2024).
+  - **Three statements,** 24 standard items. The concept map is taken from Public-Registry, with debt, capex,
+    catalogue purchases, interest, tax and dividends added. UMG's catalogue investments and Believe's borrowings are
+    tagged under the companies' own concepts.
+  - **Checked against the published totals:** UMG revenue 2025 €12,507m, WMG FY2025 $6,707m, Believe 2024 €988.8m,
+    Reservoir FY2026 $175.7m. 110 of 113 balance sheets balance within 1%.
+- **Health ratios** (`src/health.py`): revenue growth, operating margin, free cash flow and FCF margin, FCF after
+  catalogue investment, net debt, net debt / EBITDA proxy, interest cover, current ratio, equity ratio.
+  - **Readings:** healthy / watch / weak, by credit-analysis rules of thumb.
+  - **Current ratio bands set for music:** good 0.9+, watch 0.6+. Royalties owed to artists sit in current
+    liabilities, so every group runs below 1.
+  - **UMG's EBITDA proxy:** operating income plus amortisation and impairment of intangibles, the only D&A it tags.
+- **PDF route, built and not yet run** (`src/extract/report_pdf.py`, `registry/report_pdfs.csv`): UMG's half-year
+  reports, Sony's quarterly results (music segment) and Bertelsmann/BMG. It needs the `ANTHROPIC_API_KEY` secret on
+  this repository and the owner's approval of the cost.
+- **Not available anywhere:** EMPIRE, Concord before the merger, and other private labels publish no accounts.
+
 ## 2026-10-24 Label research (owner: "Research to find out"), finances and logos
 
 - **25 artists researched:** the 5 the owner could not answer and the next 20 unknowns.

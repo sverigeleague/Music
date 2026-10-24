@@ -19,6 +19,9 @@
   mblabels  owners of the label names we cannot place, from MusicBrainz label relationships (monthly, new names only)
   scoutlog  today's Scout scores and monthly listeners for the top 1,000 -> data/scout_history.csv (daily; the
             back-test reads it after 90 days)
+  reports   report PDFs with no XBRL (registry/report_pdfs.csv) read by Claude: Haiku, checks, Opus fallback (needs
+            the ANTHROPIC_API_KEY secret)
+  financials label groups' income statement, balance sheet and cash flow from XBRL filings (SEC, ESEF; quarterly)
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
 """
 import csv
@@ -289,6 +292,16 @@ def scoutlog_step() -> None:
     print(f"Scout log: {n} artists for {day}")
 
 
+def reports_step(limit: int | None = None) -> None:
+    from .extract import report_pdf
+    print("report PDFs:", report_pdf.update(limit))
+
+
+def financials_step() -> None:
+    from .collectors import financials
+    print("financial statements:", financials.update())
+
+
 def apple_step() -> None:
     print(f"Apple Music charts: {apple_charts.update(today())} rows for {today()}")
 
@@ -303,7 +316,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
