@@ -8,7 +8,7 @@ What was chosen, what was considered and rejected, and why. Newest first.
   discography page (CC BY-SA, credited on the panel), which cites RIAA, BPI, ARIA, Music Canada and the other bodies.
   - Pages are read with `index.php?action=raw` because the action API answered 429 (rate limited) for this volume.
   - Top 1,000: 683 pages found, 503 artists with at least one certification, 18,874 certifications. Spot checks
-    against the RIAA database matched (Lil Baby, Drake, Polo G).
+    against the pages' wikitext matched (Drake, Kendrick Lamar, Lil Baby, GloRilla, Central Cee).
 - **On the artist page:** certified releases, RIAA platinum total (Diamond = 10x), US No. 1s and the 12
   most-certified releases. Wikipedia can lag the bodies by weeks; the panel says so.
 - **Rejected:** the RIAA's own search (no bulk access, terms against automated use).
