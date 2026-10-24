@@ -8,6 +8,11 @@ on:
   schedule:
     - cron: "41 10 2 * *"
   workflow_dispatch:
+    inputs:
+      only:
+        description: "run only these steps (space-separated, e.g. 'financials reports'); empty runs all"
+        required: false
+        default: ""
 permissions:
   contents: write
 concurrency:
@@ -25,47 +30,61 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: python -m src.run registry
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' registry ') }}
         continue-on-error: true
         timeout-minutes: 40
       - run: python -m src.run streams
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' streams ') }}
         continue-on-error: true
         timeout-minutes: 40
       - run: python -m src.run dates
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' dates ') }}
         continue-on-error: true
         timeout-minutes: 90
       - run: python -m src.run mbdates
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' mbdates ') }}
         continue-on-error: true
         timeout-minutes: 75
       - run: python -m src.run dates-retry
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' dates-retry ') }}
         continue-on-error: true
         timeout-minutes: 40
       - run: python -m src.run deezer
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' deezer ') }}
         continue-on-error: true
         timeout-minutes: 15
       - run: python -m src.run labels
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' labels ') }}
         continue-on-error: true
         timeout-minutes: 20
       - run: python -m src.run mblabels
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' mblabels ') }}
         continue-on-error: true
         timeout-minutes: 20
       - run: python -m src.run youtube
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' youtube ') }}
         continue-on-error: true
         timeout-minutes: 20
       - run: python -m src.run ytapi
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' ytapi ') }}
         continue-on-error: true
         timeout-minutes: 10
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       - run: python -m src.run photos
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' photos ') }}
         continue-on-error: true
         timeout-minutes: 15
       - run: python -m src.run pageviews
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' pageviews ') }}
         continue-on-error: true
         timeout-minutes: 20
       - run: python -m src.run financials
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' financials ') }}
         continue-on-error: true
         timeout-minutes: 10
       - run: python -m src.run reports
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' reports ') }}
         continue-on-error: true
         timeout-minutes: 20
         env:

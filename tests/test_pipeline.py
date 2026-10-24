@@ -347,3 +347,24 @@ def test_report_pdf_locates_interim_statement_headings():
              "Notes to the Condensed Consolidated Interim Financial Statements " + nums,
              "Main aggregates of the Statement of profit or loss " + nums]
     assert r.locate(pages) == [1, 3]
+
+
+def test_report_html_tables_become_pages():
+    from src.extract import report_pdf as r
+    nums = "".join(f"<tr><td>Line {i}</td><td>{i},{i:03d}</td><td>{i},{i + 1:03d}</td></tr>" for i in range(100, 115))
+    html = (f"<html><body><p>Overview of the quarter</p><p>Condensed Quarterly Consolidated Statements of Income</p>"
+            f"<table>{nums}</table><p>Notes to the Condensed Consolidated Financial Statements</p><table>{nums}</table>"
+            f"</body></html>").encode()
+    pages = r.html_pages(html)
+    assert len(pages) == 2 and r.locate(pages) == [0]
+
+
+def test_report_check_catches_a_wrong_unit():
+    from src.extract import report_pdf as r
+    read = {"currency": "EUR", "unit_multiplier": 1,
+            "columns": [{"column": 1, "statement": "BS", "period_end": "2025-12-31", "months": 0}],
+            "lines": [{"item": "total_assets", "label": "Total assets", "column": 1, "value": 31300, "page": 2}],
+            "absent": [{"item": i, "reason": "x"} for i in ("revenue", "net_income", "cfo")]}
+    assert any("under one million" in f for f in r.checks(read))
+    read["unit_multiplier"] = 1000000
+    assert r.checks(read) == []

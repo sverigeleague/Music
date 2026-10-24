@@ -1,0 +1,393 @@
+{
+ "report": {
+  "company": "Sony Group",
+  "document": "Consolidated Financial Results, fiscal year ended March 31, 2026 (Form 6-K, HTML)",
+  "period_end": "2026-03-31",
+  "period_type": "FY",
+  "url": "https://www.sec.gov/Archives/edgar/data/313838/000110465926057451/tm2613222d1_6k.htm",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "",
+  "note": "sony.com blocks automated access; the same release as filed with the SEC"
+ },
+ "read": {
+  "currency": "JPY",
+  "unit_multiplier": 1000000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "BS",
+    "period_end": "2025-03-31",
+    "months": 0
+   },
+   {
+    "column": 2,
+    "statement": "BS",
+    "period_end": "2026-03-31",
+    "months": 0
+   },
+   {
+    "column": 3,
+    "statement": "IS",
+    "period_end": "2025-03-31",
+    "months": 12
+   },
+   {
+    "column": 4,
+    "statement": "IS",
+    "period_end": "2026-03-31",
+    "months": 12
+   },
+   {
+    "column": 5,
+    "statement": "CF",
+    "period_end": "2025-03-31",
+    "months": 12
+   },
+   {
+    "column": 6,
+    "statement": "CF",
+    "period_end": "2026-03-31",
+    "months": 12
+   }
+  ],
+  "lines": [
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 1,
+    "value": 2980956,
+    "page": 1
+   },
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 2,
+    "value": 2208879,
+    "page": 1
+   },
+   {
+    "item": "current_assets",
+    "label": "Total current assets",
+    "column": 1,
+    "value": 7454988,
+    "page": 1
+   },
+   {
+    "item": "current_assets",
+    "label": "Total current assets",
+    "column": 2,
+    "value": 5949991,
+    "page": 1
+   },
+   {
+    "item": "total_assets",
+    "label": "Total assets",
+    "column": 1,
+    "value": 35293173,
+    "page": 1
+   },
+   {
+    "item": "total_assets",
+    "label": "Total assets",
+    "column": 2,
+    "value": 15683490,
+    "page": 1
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Total current liabilities",
+    "column": 1,
+    "value": 10688788,
+    "page": 2
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Total current liabilities",
+    "column": 2,
+    "value": 5032624,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities",
+    "label": "Total liabilities",
+    "column": 1,
+    "value": 26783022,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities",
+    "label": "Total liabilities",
+    "column": 2,
+    "value": 7169901,
+    "page": 2
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Long-term debt",
+    "column": 1,
+    "value": 1557867,
+    "page": 2
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Long-term debt",
+    "column": 2,
+    "value": 824393,
+    "page": 2
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Short-term borrowings",
+    "column": 1,
+    "value": 1843959,
+    "page": 2
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Short-term borrowings",
+    "column": 2,
+    "value": 51183,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "label": "Total liabilities and equity",
+    "column": 1,
+    "value": 35293173,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "label": "Total liabilities and equity",
+    "column": 2,
+    "value": 15683490,
+    "page": 2
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 1,
+    "value": 8510151,
+    "page": 2
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 2,
+    "value": 8513589,
+    "page": 2
+   },
+   {
+    "item": "revenue",
+    "label": "Sales",
+    "column": 3,
+    "value": 12034917,
+    "page": 3
+   },
+   {
+    "item": "revenue",
+    "label": "Sales",
+    "column": 4,
+    "value": 12479620,
+    "page": 3
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 3,
+    "value": 8504810,
+    "page": 3
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of sales",
+    "column": 4,
+    "value": 8635225,
+    "page": 3
+   },
+   {
+    "item": "sga",
+    "label": "Selling, general and administrative",
+    "column": 3,
+    "value": 2256829,
+    "page": 3
+   },
+   {
+    "item": "sga",
+    "label": "Selling, general and administrative",
+    "column": 4,
+    "value": 2298638,
+    "page": 3
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating income",
+    "column": 3,
+    "value": 1276635,
+    "page": 3
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating income",
+    "column": 4,
+    "value": 1447507,
+    "page": 3
+   },
+   {
+    "item": "pretax_income",
+    "label": "Income before income taxes",
+    "column": 3,
+    "value": 1343198,
+    "page": 3
+   },
+   {
+    "item": "pretax_income",
+    "label": "Income before income taxes",
+    "column": 4,
+    "value": 1422374,
+    "page": 3
+   },
+   {
+    "item": "income_tax",
+    "label": "Income taxes",
+    "column": 3,
+    "value": 257480,
+    "page": 3
+   },
+   {
+    "item": "income_tax",
+    "label": "Income taxes",
+    "column": 4,
+    "value": 367108,
+    "page": 3
+   },
+   {
+    "item": "net_income",
+    "label": "Net income (loss)",
+    "column": 3,
+    "value": 1159887,
+    "page": 3
+   },
+   {
+    "item": "net_income",
+    "label": "Net income (loss)",
+    "column": 4,
+    "value": -302492,
+    "page": 3
+   },
+   {
+    "item": "cfo",
+    "label": "Net cash provided by operating activities",
+    "column": 5,
+    "value": 2321675,
+    "page": 4
+   },
+   {
+    "item": "cfo",
+    "label": "Net cash provided by (used in) operating activities",
+    "column": 6,
+    "value": 1945617,
+    "page": 4
+   },
+   {
+    "item": "capex",
+    "label": "Payments for property, plant and equipment and other intangible assets",
+    "column": 5,
+    "value": 620985,
+    "page": 5
+   },
+   {
+    "item": "capex",
+    "label": "Payments for property, plant and equipment and other intangible assets",
+    "column": 6,
+    "value": 457681,
+    "page": 5
+   },
+   {
+    "item": "cfi",
+    "label": "Net cash used in investing activities",
+    "column": 5,
+    "value": -930120,
+    "page": 5
+   },
+   {
+    "item": "cfi",
+    "label": "Net cash used in investing activities",
+    "column": 6,
+    "value": -1970542,
+    "page": 5
+   },
+   {
+    "item": "dividends_paid",
+    "label": "Dividends paid",
+    "column": 5,
+    "value": 115253,
+    "page": 5
+   },
+   {
+    "item": "dividends_paid",
+    "label": "Dividends paid",
+    "column": 6,
+    "value": 135028,
+    "page": 5
+   },
+   {
+    "item": "cff",
+    "label": "Net cash used in financing activities",
+    "column": 5,
+    "value": -298243,
+    "page": 5
+   },
+   {
+    "item": "cff",
+    "label": "Net cash used in financing activities",
+    "column": 6,
+    "value": -842761,
+    "page": 5
+   }
+  ],
+  "absent": [
+   {
+    "item": "da",
+    "reason": "Depreciation and amortization is printed only in the cash flow statement adjustments (1,125,588 / 1,180,655), not as a line on the income statement."
+   },
+   {
+    "item": "interest_expense",
+    "reason": "No interest expense line is printed; only aggregate Financial expenses (72,461 / 101,174) appears on the income statement."
+   },
+   {
+    "item": "catalog_purchases",
+    "reason": "Catalogue purchases are not printed in the consolidated statements provided."
+   }
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 5187,
+  "output_tokens": 3683,
+  "output_tokens_details": {
+   "thinking_tokens": 1722
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  41,
+  42,
+  43,
+  51,
+  52
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}

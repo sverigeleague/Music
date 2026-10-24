@@ -7,7 +7,9 @@ The setup of the Public-Registry project (its DECISIONS.md 2026-10-15 to 10-21 a
 - **Page selection:** the page finder is its `locate`. Only the pages that open the consolidated income statement,
   balance sheet and cash flow statement go to Claude, with their continuation pages, at most 14. A report of 100+
   pages goes as about 4-8 pages.
-- **Input as PDF, not the text layer:** the text layer saved nothing there and once produced an invented figure.
+- **HTML filings (Sony's results on SEC Form 6-K; sony.com refuses automated access):** split into tables as
+  Public-Registry does; only the statement tables go, as text (about 2,500 tokens for Sony's quarter).
+- **PDF input, not the text layer:** the text layer saved nothing there and once produced an invented figure.
 - **First read:** FIRST_MODEL (Haiku 5.5) at medium effort, structured JSON output.
 - **Checks in code:** the period of every column; the core items given or declared absent; the balance sheet
   balances; positive costs; a sane unit multiplier.
@@ -134,6 +136,30 @@ def locate(pages: list[str]) -> list[int]:
     return sorted(keep)[:MAX_PAGES]
 
 
+def html_pages(body: bytes) -> list[str]:
+    """An HTML filing (Sony's results on SEC Form 6-K) as pseudo-pages: each table, rendered as `cell | cell` rows,
+    with the text before it. Public-Registry's html_pages."""
+    from lxml import html as lhtml
+    doc = lhtml.fromstring(body)
+    pages, before = [], []
+    for el in doc.iter("table", "p", "div"):
+        if el.tag == "table":
+            rows = []
+            for tr in el.iter("tr"):
+                cells = [" ".join(td.text_content().split()) for td in tr.iter("td", "th")]
+                cells = [c for c in cells if c not in ("", "$", ")", "%")]
+                if cells:
+                    rows.append(" | ".join(cells))
+            if rows:
+                pages.append(" ".join(before)[-HEAD:] + "\n" + "\n".join(rows))
+                before = []
+        elif not el.xpath("ancestor::table") and not el.xpath(".//table|.//p|.//div"):
+            text = " ".join(el.text_content().split())
+            if text:
+                before.append(text)
+    return pages
+
+
 def subset(body: bytes, keep: list[int]) -> bytes:
     from pypdf import PdfReader, PdfWriter
     reader, writer = PdfReader(io.BytesIO(body)), PdfWriter()
@@ -172,6 +198,15 @@ def checks(read: dict) -> list[str]:
                 fails.append(f"column {col}: {k} should be a positive amount")
     if read.get("unit_multiplier") not in (1, 1000, 1000000):
         fails.append("unit_multiplier must be 1, 1000 or 1000000")
+    # the groups read here are large: total assets below one million (after the multiplier) means a wrong unit
+    # (Bertelsmann's 2025 annual report, first read 2026-10-24: "EUR millions" read with a multiplier of 1)
+    mult = read.get("unit_multiplier") or 1
+    for col, v in by.items():
+        for k in ("total_assets", "revenue"):
+            if v.get(k) is not None and 0 < abs(v[k]) * mult < 1_000_000:
+                fails.append(f"column {col}: {k} {v[k]} x {mult} is under one million; the statements are probably "
+                             "in thousands or millions (check the unit printed in the heading, e.g. 'EUR millions')")
+                break
     return fails
 
 
@@ -192,11 +227,19 @@ def call(content: list[dict], model: str, effort: str) -> dict:
 
 def read_report(row: dict, body: bytes) -> dict:
     """Select pages, read, check, correct. Returns {"read", "model", "fails", "pages", "status"}."""
-    from pypdf import PdfReader
-    pages = [(p.extract_text() or "") for p in PdfReader(io.BytesIO(body)).pages]
-    keep = locate(pages) or list(range(min(len(pages), MAX_PAGES)))
-    doc = {"type": "document", "source": {"type": "base64", "media_type": "application/pdf",
-                                          "data": base64.b64encode(subset(body, keep)).decode()}}
+    if body.startswith(b"%PDF"):
+        from pypdf import PdfReader
+        pages = [(p.extract_text() or "") for p in PdfReader(io.BytesIO(body)).pages]
+        keep = locate(pages) or list(range(min(len(pages), MAX_PAGES)))
+        doc = {"type": "document", "source": {"type": "base64", "media_type": "application/pdf",
+                                              "data": base64.b64encode(subset(body, keep)).decode()}}
+    else:  # an HTML filing: the statement tables go as text, as Public-Registry sends HTML filings
+        pages = html_pages(body)
+        keep = locate(pages)
+        if not keep:
+            raise RuntimeError("no statement tables found in the HTML filing")
+        text = "\n\n".join(f"--- page {n} ---\n{pages[i]}" for n, i in enumerate(keep, 1))
+        doc = {"type": "document", "source": {"type": "text", "media_type": "text/plain", "data": text}}
     prompt = PROMPT.format(company=row["company"], document=row["document"], period_end=row["period_end"],
                            items="; ".join(ITEM_HELP.values()))
     first = call([doc, {"type": "text", "text": prompt}], FIRST_MODEL, "medium")
@@ -254,7 +297,7 @@ def update(limit: int | None = None) -> dict:
     if not os.environ.get("ANTHROPIC_API_KEY"):
         return {"skipped": "no ANTHROPIC_API_KEY"}
     from ..http import get
-    from ..collectors.financials import FIELDS
+    from ..collectors.financials import CONTACT_UA, FIELDS
     READS.mkdir(parents=True, exist_ok=True)
     done = {p.stem for p in READS.glob("*.json")}
     todo = [r for r in csv.DictReader(LIST.open()) if r.get("url")] if LIST.exists() else []
@@ -264,8 +307,8 @@ def update(limit: int | None = None) -> dict:
         key = re.sub(r"[^a-z0-9]+", "-", f"{row['company']}-{row['document']}-{row['period_end']}".lower()).strip("-")
         if key in done:
             continue
-        resp = get(row["url"], timeout=120)
-        if resp.status_code != 200 or not resp.content.startswith(b"%PDF"):
+        resp = get(row["url"], timeout=120, headers=CONTACT_UA if "sec.gov" in row["url"] else None)
+        if resp.status_code != 200 or not (resp.content.startswith(b"%PDF") or b"<html" in resp.content[:2000].lower()):
             continue
         result = read_report(row, resp.content)
         (READS / f"{key}.json").write_text(json.dumps({"report": row, **result}, indent=1, ensure_ascii=False))

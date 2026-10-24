@@ -79,13 +79,17 @@ def build() -> dict:
             per.setdefault(key, {})[r["item"]] = float(r["value"])
             src.setdefault(key, r["source"])
         fys = sorted(k for k in per if k[0] == "FY" and "revenue" in per[k])[-YEARS:]
-        qs = sorted(k for k in per if k[0] == "Q" and "revenue" in per[k])[-QUARTERS:]
+        # interim periods: quarters (SEC, Sony) and half-years (UMG, Bertelsmann), with the balance sheet at that date
+        bs = {k[1]: v for k, v in per.items() if k[0] == "Q" and "total_assets" in v}
+        qs = sorted((k for k in per if k[0] in ("Q", "H") and "revenue" in per[k]), key=lambda k: k[1])[-QUARTERS:]
+        for k in qs:
+            per[k] = {**bs.get(k[1], {}), **per[k]}
         years = []
         for i, k in enumerate(fys):
             prev = per[fys[i - 1]] if i else None
             years.append({"period": k[1], "type": "FY", "values": per[k], "ratios": _ratios(per[k], prev),
                           "source": src[k]})
-        quarters = [{"period": k[1], "type": "Q", "values": per[k], "ratios": _ratios(per[k], None), "source": src[k]}
+        quarters = [{"period": k[1], "type": k[0], "values": per[k], "ratios": _ratios(per[k], None), "source": src[k]}
                     for k in qs]
         latest = years[-1] if years else None
         out[name] = {
