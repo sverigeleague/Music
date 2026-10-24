@@ -33,10 +33,10 @@ const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 // Five sections in the header; each page belongs to one, and sections with several pages show a sub-menu.
 const SECTION = { top: "charts", month: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
-  scout: "scout", unsigned: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", label: "labels", method: "method" };
+  scout: "scout", unsigned: "scout", producers: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", label: "labels", method: "method" };
 const SUBNAV = {
   charts: [["top", "#/", "Top list"], ["month", "#/month", "This month"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
-  scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["compare", "#/compare", "Compare artists"]],
+  scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["producers", "#/producers", "Producers"], ["compare", "#/compare", "Compare artists"]],
   worth: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"]],
 };
 let pageId = "top";
@@ -344,6 +344,7 @@ async function artist(id) {
       <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a>${shareBtn(`${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in hip-hop by current listeners` : ""} (tventy music)`)}</div></div></section>
     ${summaryCard(a, store.rev[id])}
     ${awardsPanel(a)}
+    ${creditsPanel(a)}
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(a.ml)}</div><div class="s">${delta(a.chg)} today (${pct(a.chg_pct)})</div></div>
       <div class="tile"><div class="k">Current listeners</div><div class="v">${a.cl != null ? count(a.cl) + (a.cl_provisional ? `<span class="prov">*</span>` : "") : "–"}</div><div class="s">${a.cur_share != null ? Math.round(a.cur_share * 100) + "% of listening on recent releases" : "release dates missing"}${a.cl == null && a.cur_share != null ? " · not ranked yet" : ""}${a.cl_provisional ? ` · provisional: ${count(a.cl_range[0])}–${count(a.cl_range[1])} until more songs are dated` : ""}</div></div>
@@ -670,6 +671,33 @@ async function radioPlay() {
 function radioStep(d) {
   radio.i = Math.max(0, Math.min(radio.queue.length - 1, radio.i + d));
   radioPlay();
+}
+
+// ---------- producer and songwriter credits (MusicBrainz, CC0)
+const mbRec = id => `https://musicbrainz.org/recording/${encodeURIComponent(id)}`;
+function creditsPanel(a) {
+  const C = a.song_credits;
+  if (!C?.length) return "";
+  return `<section class="panel"><h2>Who makes the hits ${grade("B")}</h2><div class="tablebox"><table><thead><tr><th class="l">Song</th><th>Streams / day</th><th class="l">Produced by</th><th class="l">Written by</th></tr></thead><tbody>
+    ${C.map(c => `<tr><td class="l"><a href="${mbRec(c.recording)}" target="_blank" rel="noopener">${esc(c.title)}</a></td><td>${count(c.daily)}</td><td class="l wrap">${c.producers.map(n => `<a href="#/producers?q=${encodeURIComponent(n)}">${esc(n)}</a>`).join(", ") || "–"}</td><td class="l wrap">${c.writers.map(esc).join(", ") || "–"}</td></tr>`).join("")}
+  </tbody></table></div><p class="note">The artist's biggest songs as lead artist, with the credits entered on MusicBrainz (open data). Credits are partial: a blank means none entered yet.</p></section>`;
+}
+function producersPage() {
+  nav("producers");
+  const C = store.data.credits || { producers: [], writers: [] }, q = (location.hash.split("?q=")[1] || "");
+  const want = decodeURIComponent(q).toLowerCase();
+  const tbl = (list, who) => `<div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">${who}</th><th>Streams / day on credited songs</th><th>Artists</th><th class="l">Biggest songs</th></tr></thead><tbody>
+    ${list.map((p, i) => `<tr${want && p.name.toLowerCase() === want ? ' class="hl"' : ""}><td class="l">${i + 1}</td><td class="l"><a href="https://musicbrainz.org/artist/${esc(p.mbid)}" target="_blank" rel="noopener">${esc(p.name)}</a></td><td>${count(p.daily)}</td><td>${p.artists}</td>
+      <td class="l wrap">${p.songs.map(s => `${esc(s.title)} <span class="note">(<a href="#/a/${s.artist_id}">${esc(s.artist)}</a>)</span>`).join(", ")}</td></tr>`).join("")}</tbody></table></div>`;
+  app.innerHTML = `${subnav()}<section><h1>Producers and songwriters</h1>
+    <p class="sub">Who is behind hip-hop's biggest songs right now: each person ranked by the daily Spotify streams of the songs they are credited on, among the three biggest songs of every artist in the top 1,000.</p></section>
+    <section class="tiles"><div class="tile"><div class="k">Songs covered</div><div class="v">${C.songs || 0}</div><div class="s">3 biggest per artist</div></div>
+      <div class="tile"><div class="k">Found on MusicBrainz</div><div class="v">${C.looked_up || 0}</div><div class="s">by recording code (ISRC)</div></div>
+      <div class="tile"><div class="k">With a producer credit</div><div class="v">${C.with_producer || 0}</div><div class="s">credits are entered by volunteers</div></div></section>
+    <section><h2>Producers</h2>${tbl(C.producers, "Producer")}</section>
+    <section><h2>Songwriters</h2>${tbl(C.writers, "Songwriter")}
+    <p class="note">Credits from <a href="https://musicbrainz.org" target="_blank" rel="noopener">MusicBrainz</a> (open data, CC0). They are partial, so the ranking favours people whose credits are entered: read it as "credited on", not as a complete count. ${grade("B")}</p></section>`;
+  if (want) app.querySelector("tr.hl")?.scrollIntoView({ block: "center" });
 }
 
 // ---------- awards and nominations (Wikidata, CC0)
@@ -1033,20 +1061,21 @@ function summaryCard(a, rev) {
 // ---------- router
 async function route() {
   if (!store.data) store.data = await (await fetch("data/index.json")).json();
-  const h = location.hash.replace(/^#\/?/, "").split("/");
+  const h = location.hash.replace(/^#\/?/, "").replace(/\?.*$/, "").split("/");
   const NAMES = { month: ["Charts", "This month"], rising: ["Charts", "Rising"], platforms: ["Charts", "Platforms"], tours: ["Charts", "Tours"], audience: ["Charts", "Audience"],
-    scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], compare: ["Scout", "Compare artists"], worth: ["Worth"], pay: ["Worth", "Pay gap by deal"],
+    scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], producers: ["Scout", "Producers"], compare: ["Scout", "Compare artists"], worth: ["Worth"], pay: ["Worth", "Pay gap by deal"],
     labels: ["Labels"], method: ["Method"] };
   const SEC = { Charts: "#/", Scout: "#/scout", Worth: "#/worth", Labels: "#/labels", Method: "#/method" };
   crumbs((NAMES[h[0]] || []).map((t, i, xs) => [t, i < xs.length - 1 ? SEC[t] : ""]));
   const TITLES = { rising: "Rising hip-hop artists today", month: "Hip-hop this month: movers and new names", pay: "Pay gap by record deal",
     platforms: "Hip-hop royalties by streaming platform", tours: "Hip-hop tours: gross and revenue per fan", audience: "Where hip-hop is streamed",
     unsigned: "Unsigned hip-hop artists against signed peers", method: "Method and sources", scout: "Scout: rising hip-hop artists for A&R",
-    worth: "What is your music worth?", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
+    worth: "What is your music worth?", producers: "The producers and songwriters behind hip-hop's biggest songs", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
   setMeta(TITLES[h[0]] || "Global hip-hop: listeners, earnings and labels of the top 1,000 artists");
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
   else if (h[0] === "rising") rising();
   else if (h[0] === "month") monthPage();
+  else if (h[0] === "producers") producersPage();
   else if (h[0] === "pay") pay();
   else if (h[0] === "platforms") platforms();
   else if (h[0] === "tours") tours();

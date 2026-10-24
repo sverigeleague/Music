@@ -11,7 +11,7 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
-DETAIL_ONLY = ("award_list", "genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
+DETAIL_ONLY = ("award_list", "song_credits", "genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
                "peak_rank", "attention_series", "worth", "collabs")
@@ -74,6 +74,22 @@ def build() -> dict:
             songs_of[sid] = current.songs(pg[-1][1])
             lead[sid] = {x["track_id"] for x in songs_of[sid] if not x["feature"]}
     network = insights.collabs(songs_of, {s: a["name"] for s, a in artists.items()}, apple_charts.fold)
+    # producer and songwriter credits (MusicBrainz) of each artist's 3 biggest songs as lead
+    from .collectors import credits as credits_src
+    cred = credits_src.load()
+    hits = {sid: [{"isrc": dates.get(x["track_id"], {}).get("isrc", ""), "title": x["title"], "daily": x["daily"],
+                   "artist_id": sid, "artist": artists[sid]["name"]}
+                  for x in sorted((x for x in ss if not x["feature"]), key=lambda x: -x["daily"])[:credits_src.PER_ARTIST]]
+            for sid, ss in songs_of.items()}
+    def song_credits(sid):
+        out = []
+        for h in hits.get(sid, []):
+            c = cred.get(h["isrc"])
+            if c and (c["producers"] or c["writers"]):
+                out.append({"title": h["title"], "daily": h["daily"], "recording": c["recording"],
+                            "producers": [n for n, _ in credits_src.split(c["producers"])],
+                            "writers": [n for n, _ in credits_src.split(c["writers"])]})
+        return out
     isrcs: dict[str, list[str]] = {}
     for tid, tr in dates.items():
         if tr.get("isrc") and tr.get("deezer_date", "") >= cutoff and tid in lead.get(tr["artist_id"], ()):
@@ -136,6 +152,7 @@ def build() -> dict:
             "attention": insights.attention(views.get(t["spotify_id"], [])),
             "apple": apple.get(t["spotify_id"]),
             "collabs": network.get(t["spotify_id"], [])[:12],
+            "song_credits": song_credits(t["spotify_id"]),
             "growth90": insights.growth(history.get(t["spotify_id"], []), today.isoformat()),
             "yt_total": num(yt.get(t["spotify_id"], {}).get("total_views")),
             "yt_daily": num(yt.get(t["spotify_id"], {}).get("daily_views")),
@@ -187,6 +204,11 @@ def build() -> dict:
             "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),
             "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in insights.FACTORS.items()},
             "month": monthly.build(rows, history, day or today.isoformat()),
+            "credits": (lambda songs: {"producers": credits_src.leaderboard(songs, "producers"),
+                                       "writers": credits_src.leaderboard(songs, "writers"),
+                                       "songs": len(songs), "looked_up": sum(1 for x in songs if cred.get(x["isrc"], {}).get("recording")),
+                                       "with_producer": sum(1 for x in songs if cred.get(x["isrc"], {}).get("producers"))})(
+                [h for r in rows for h in hits.get(r["id"], [])]),
             "backtest": backtest.run({k: v for k, v in history.items() if artists.get(k, {}).get("genre") == "hip_hop"}, views),
             "labels": insights.labels_index(rows, release_counts(rels, table)),
             "label_logos": logos.load(), "label_financials": label_financials(),

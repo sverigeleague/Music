@@ -25,6 +25,7 @@
             and the list of the majors' UK accounts at Companies House (data/uk_accounts.csv, read by `reports`)
             and Sony's Music segment from its results releases on EDGAR (data/sony_music.csv)
   videos    the busiest YouTube videos of Scout's risers from kworb's YouTube pages -> data/videos.json (weekly)
+  credits   producer and songwriter credits of each artist's 3 biggest songs from MusicBrainz -> data/credits.csv
   awards    award wins and nominations from Wikidata (Grammy, BET, AMA, MTV, BRIT...) -> data/awards.json (monthly)
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
 """
@@ -248,6 +249,27 @@ def videos_step(limit: int | None = None) -> None:
     print(f"YouTube videos: {n} more risers from their channel's feed")
 
 
+def top_songs(per_artist: int = 3) -> list[dict]:
+    """Each tracked artist's biggest songs as lead artist on their latest kworb page, with recording codes."""
+    from . import current
+    from .collectors import release_dates
+    dates, out = release_dates.load(), []
+    for a in tracked():
+        pg = current.pages(a["spotify_id"])
+        if not pg:
+            continue
+        lead = sorted((x for x in current.songs(pg[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:per_artist]
+        out += [{"isrc": dates.get(x["track_id"], {}).get("isrc", ""), "title": x["title"], "daily": x["daily"],
+                 "artist_id": a["spotify_id"], "artist": a["name"]} for x in lead]
+    return out
+
+
+def credits_step(limit: int | None = None) -> None:
+    from .collectors import credits
+    songs = top_songs()
+    print(f"credits (MusicBrainz): {credits.update([s['isrc'] for s in songs], limit)} recordings looked up")
+
+
 def awards_step() -> None:
     from .collectors import awards
     print(f"awards and nominations (Wikidata): {awards.update([a['spotify_id'] for a in tracked()])} artists with at least one")
@@ -354,7 +376,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

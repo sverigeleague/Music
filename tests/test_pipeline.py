@@ -468,3 +468,16 @@ def test_risers_video_pick_and_parsers(monkeypatch):
             '<media:statistics views="42"/></entry>')
     monkeypatch.setattr(youtube_feed, "get", lambda url, params=None: type("R", (), {"status_code": 200, "text": feed}))
     assert youtube_feed.latest("x") == [{"id": "DDDDDDDDDDD", "title": "New & video", "published": "2026-10-18", "views": 42}]
+
+
+def test_credits_leaderboard(monkeypatch):
+    from src.collectors import credits
+    monkeypatch.setattr(credits, "load", lambda: {
+        "A1": {"isrc": "A1", "recording": "r1", "producers": "Mustard~m1;Sounwave~m2", "writers": "K~w1"},
+        "B1": {"isrc": "B1", "recording": "r2", "producers": "Mustard~m1", "writers": ""}})
+    songs = [{"isrc": "A1", "title": "Not Like Us", "daily": 100, "artist_id": "k", "artist": "Kendrick"},
+             {"isrc": "B1", "title": "Other", "daily": 50, "artist_id": "y", "artist": "YG"},
+             {"isrc": "", "title": "No code", "daily": 999, "artist_id": "z", "artist": "Z"}]
+    top = credits.leaderboard(songs)
+    assert [(p["name"], p["daily"], p["artists"]) for p in top] == [("Mustard", 150, 2), ("Sounwave", 100, 1)]
+    assert credits.split("Mustard~m1;Sounwave~m2") == [("Mustard", "m1"), ("Sounwave", "m2")]

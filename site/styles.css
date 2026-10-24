@@ -274,3 +274,4 @@ button.play.vid { font-size: 13px; }
 .links .linkbtn:hover { border-color: var(--fg); }
 .more { margin: 10px 0 0; }
 .def { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+tr.hl td { background: var(--soft); outline: 1px solid var(--fg); }
