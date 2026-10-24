@@ -30,7 +30,7 @@ const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
 // Five sections in the header; each page belongs to one, and sections with several pages show a sub-menu.
 const SECTION = { top: "charts", rising: "charts", platforms: "charts", tours: "charts", audience: "charts",
-  scout: "scout", unsigned: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", method: "method" };
+  scout: "scout", unsigned: "scout", compare: "scout", worth: "worth", pay: "worth", labels: "labels", label: "labels", method: "method" };
 const SUBNAV = {
   charts: [["top", "#/", "Top list"], ["rising", "#/rising", "Rising"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"], ["audience", "#/audience", "Audience"]],
   scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["compare", "#/compare", "Compare artists"]],
@@ -308,7 +308,7 @@ async function artist(id) {
         <dt>Share from features</dt><dd>${leadShare != null ? ((1 - leadShare) * 100).toFixed(0) + "%" : "–"}</dd>
         <dt>Tracks credited</dt><dd>${a.tracks ?? "–"}</dd>
         <dt>Top track</dt><dd>${esc(a.top_track || "–")}${a.top_track_streams ? " · " + count(a.top_track_streams) : ""}</dd>
-        <dt>Label status</dt><dd>${esc(STATUS[a.label_status] || "–")}${a.label_owner && a.label_owner !== "the artist's own name" ? " · " + esc(a.label_owner) : ""}${a.label_basis ? `<br><span class="note">latest: ${esc(a.label_basis.label)} (${esc(a.label_basis.date)})</span>` : ""}</dd>
+        <dt>Label status</dt><dd>${esc(STATUS[a.label_status] || "–")}${labelOf(a) ? ` · ${labelLink(a)}` : ""}${a.label_owner && a.label_owner !== "the artist's own name" ? " · " + esc(a.label_owner) : ""}${a.label_basis ? `<br><span class="note">latest: ${esc(a.label_basis.label)} (${esc(a.label_basis.date)})</span>` : ""}</dd>
         <dt>Labels on record</dt><dd>${esc(a.labels.slice(0, 3).join(", ") || "–")}${a.labels.length > 3 ? ` +${a.labels.length - 3}` : ""}</dd>
       </dl><p class="note">Stream totals as of ${esc(a.streams_date || "–")} (kworb.net, from Spotify's public play counts).</p></div>
     </section>
@@ -395,7 +395,7 @@ const streamingMid = a => STREAM_KEYS.reduce((s, k) => s + (a.rev_lines?.[k] || 
 const share = v => v == null ? "–" : Math.round(v * 100) + "%";
 const trend = v => v == null ? "–" : `<span class="${v >= 1.1 ? "up" : v <= 0.9 ? "down" : ""}">${v >= 1 ? "+" : ""}${Math.round((v - 1) * 100)}%</span>`;
 const tierChip = t => t ? `<span class="chip tier t-${t.toLowerCase()}">${esc(t)}</span>` : "";
-const statusShort = a => a.label_status === "major" || a.label_status === "major_distributed" ? esc(a.label_owner || "Major")
+const statusShort = a => labelOf(a) ? `<a href="#/label/${labelOf(a).slug}">${esc(a.label_name)}</a>` : a.label_status === "major" || a.label_status === "major_distributed" ? esc(a.label_owner || "Major")
   : a.label_status === "independent" ? `Indie · ${esc(a.label_owner || "")}` : a.label_status === "self_released" ? "Unsigned" : a.label_status === "catalog" ? `<span class="note">catalog</span>` : `<span class="note">not yet known</span>`;
 function sparkline(vals, w = 160, h = 36) {
   if (!vals || vals.length < 2) return "";
@@ -577,8 +577,10 @@ function labelsPage() {
     <section class="panel"><h2>Independent labels and distributors in the top 1,000</h2>
       <div class="tablebox"><table><thead><tr><th class="l">Label</th><th>Artists</th><th>Monthly listeners</th></tr></thead><tbody>
       ${indies.map(([l, v]) => `<tr><td class="l">${esc(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div></section>
+    ${labelDirectory()}
     <section><h2>Rosters: the biggest artists in each group</h2>
       ${G.map(g => `<details class="panel"><summary><b>${esc(g)}</b>: ${gv(g, "artists")} artists</summary><div class="chips">${m.groups[g].top.map(id => byId[id]).filter(Boolean).map(a => `<a class="chip" href="#/a/${a.id}">${esc(a.name)} · ${count(a.ml)}</a>`).join(" ")}</div></details>`).join("")}</section>`;
+  bindDirectory();
 }
 
 function collabPanel(a) {
@@ -640,6 +642,73 @@ function compare(ids) {
   });
 }
 
+// ---------- label directory and label snapshot pages
+const labelBySlug = s => (store.data.labels || []).find(L => L.slug === s);
+const labelOf = a => a.label_name ? (store.data.labels || []).find(L => L.name === a.label_name) : null;
+const logo = (name, cls = "logo") => { const l = (store.data.label_logos || {})[name];
+  return l ? `<img class="${cls}" src="${esc(l.file)}" alt="${esc(name)} logo" loading="lazy">` : `<span class="${cls} none" aria-hidden="true">${esc(initials(name))}</span>`; };
+const labelLink = a => { const L = labelOf(a); return L ? `<a href="#/label/${L.slug}">${esc(L.name)}</a>` : ""; };
+function finTable(company) {
+  const rows = (store.data.label_financials || []).filter(r => r.company && company && (r.company.toLowerCase().includes(company.toLowerCase()) || company.toLowerCase().includes(r.company.toLowerCase())));
+  if (!rows.length) return `<p class="note">No published accounts for ${esc(company)}${company && ["Universal Music Group", "Sony Music", "Warner Music Group"].includes(company) ? "" : ": a private company or a division that does not report on its own"}.</p>`;
+  const fmt = r => { const v = +r.value; return isNaN(v) ? esc(r.value) : `${({ EUR: "€", USD: "$", JPY: "¥" })[r.currency] || ""}${v.toLocaleString("en", { maximumFractionDigits: 1 })}${r.unit === "millions" ? "m" : r.unit === "billions" ? "bn" : r.unit === "percent" ? "%" : r.unit ? " " + esc(r.unit) : ""}`; };
+  return `<div class="tablebox"><table><thead><tr><th class="l">Measure</th><th class="l">Period</th><th>Value</th><th class="l">Basis</th></tr></thead><tbody>
+    ${rows.map(r => `<tr><td class="l">${esc(r.metric)}</td><td class="l">${esc(r.period)}</td><td>${fmt(r)}</td><td class="l">${r.basis === "reported" ? grade("A") + " company report" : grade("B") + " press"} ${r.source_url ? `<a href="${esc(r.source_url)}" target="_blank" rel="noopener">source</a>` : ""}${r.note ? ` <span class="note">${esc(r.note)}</span>` : ""}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+function labelDirectory() {
+  const f = ui.labf = ui.labf || { q: "", group: "all", sort: ["ml", -1] };
+  const L = (store.data.labels || []).filter(x => (f.group === "all" || x.parent === f.group) && x.name.toLowerCase().includes(f.q));
+  const [sk, sd] = f.sort;
+  L.sort((a, b) => ((a[sk] ?? -1) > (b[sk] ?? -1) ? 1 : -1) * sd);
+  const parents = [...new Set((store.data.labels || []).map(x => x.parent).filter(Boolean))].sort();
+  const cols = [["Artists", "n"], ["Monthly listeners", "ml"], ["Current listeners", "cl"], ["Royalties / yr", "royalties"], ["Rising + Breaking", "rb"], ["Avg scout", "scout_avg"], ["Releases, 2 yrs", "releases_2y"]];
+  L.forEach(x => { x.n = x.artists.length; x.rb = x.rising + x.breaking; });
+  return `<section class="panel" id="labeldir"><h2>Every label in the top 1,000</h2>
+    <div class="filters"><input type="search" id="lab-q" placeholder="Find a label" value="${esc(f.q)}" aria-label="Find a label">
+      <label class="sel">Owner <select id="lab-g"><option value="all">all owners</option>${parents.map(p => `<option${f.group === p ? " selected" : ""}>${esc(p)}</option>`).join("")}</select></label></div>
+    <div class="tablebox"><table><thead><tr><th class="l">Label</th><th class="l">Owner</th>${cols.map(([l, k]) => `<th data-lsort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${l}</th>`).join("")}</tr></thead><tbody>
+    ${L.map(x => `<tr><td class="l"><a class="who" href="#/label/${x.slug}">${logo(x.name)}<span>${esc(x.name)}</span></a></td><td class="l">${esc(x.parent || "–")}</td><td>${x.n}</td><td>${count(x.ml)}</td><td>${count(x.cl)}</td><td>${usd(x.royalties)}</td><td>${x.rb || "–"}</td><td>${x.scout_avg ?? "–"}</td><td>${x.releases_2y || "–"}</td></tr>`).join("") || `<tr><td class="l" colspan="9">No label matches.</td></tr>`}
+    </tbody></table></div><p class="note">Labels as printed on the artists' releases of the last two years. Royalties: what the roster's recordings generate a year across streaming services (mid estimate ${grade("C")}), paid to the label before the artists' share.</p></section>`;
+}
+function bindDirectory() {
+  const f = ui.labf, q = app.querySelector("#lab-q");
+  if (!q) return;
+  q.oninput = () => { f.q = q.value.toLowerCase(); const p = q.selectionStart; labelsPage(); const i = app.querySelector("#lab-q"); i.focus(); i.setSelectionRange(p, p); document.getElementById("labeldir").scrollIntoView(); };
+  app.querySelector("#lab-g").onchange = e => { f.group = e.target.value; labelsPage(); document.getElementById("labeldir").scrollIntoView(); };
+  app.querySelectorAll("th[data-lsort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.lsort, f.sort[0] === th.dataset.lsort ? -f.sort[1] : -1]; labelsPage(); document.getElementById("labeldir").scrollIntoView(); });
+}
+function labelPage(s) {
+  nav("labels");
+  const L = labelBySlug(s);
+  if (!L) { app.innerHTML = `<p>Label not found. <a href="#/labels">All labels</a></p>`; return; }
+  document.getElementById("crumbs").innerHTML = `<a href="#/labels">Labels</a> / ${esc(L.name)}`;
+  const byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
+  const roster = L.artists.map(id => byId[id]).filter(Boolean);
+  const total = store.data.artists.reduce((x, a) => x + a.ml, 0);
+  const sister = (store.data.labels || []).filter(x => x.parent === L.parent && x.slug !== L.slug).slice(0, 8);
+  const top = [...roster].sort((a, b) => (b.scout?.score ?? -1) - (a.scout?.score ?? -1))[0];
+  const own = L.parent && L.parent !== L.name;
+  app.innerHTML = `<section class="head labelhead">${logo(L.name, "logo big")}<div><h1>${esc(L.name)}</h1>
+      <p class="sub">${L.status === "independent" ? "Independent label" : L.status === "major_distributed" ? "Distributed by a major" : "Major-label imprint"}${own ? ` · owned by <b>${esc(L.parent)}</b>` : ""} · ${roster.length} of hip-hop's top 1,000</p>
+      ${own ? `<div class="parentchip">${logo(L.parent, "logo")}<span>Parent company: ${esc(L.parent)}</span></div>` : ""}</div></section>
+    <section class="tiles">
+      <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(L.ml)}</div><div class="s">${share(L.ml / total)} of the top 1,000, added per artist</div></div>
+      <div class="tile"><div class="k">Current listeners</div><div class="v">${count(L.cl)}</div><div class="s">on recent releases</div></div>
+      <div class="tile"><div class="k">Roster royalties / year</div><div class="v">${usd(L.royalties)}</div><div class="s">recordings, all streaming, mid ${grade("C")}</div></div>
+      <div class="tile"><div class="k">Momentum</div><div class="v">${L.breaking + L.rising}</div><div class="s">${L.breaking} Breaking, ${L.rising} Rising · avg Scout ${L.scout_avg ?? "–"}</div></div>
+      <div class="tile"><div class="k">Releases, last 2 years</div><div class="v">${L.releases_2y || "–"}</div><div class="s">across artists we track (Deezer)</div></div>
+    </section>
+    ${top?.scout ? `<section class="panel"><h2>The one to watch</h2><p><a href="#/a/${top.id}"><b>${esc(top.name)}</b></a>: Scout ${top.scout.score} ${tierChip(top.scout.tier)}, ${count(top.ml)} monthly listeners${top.top_fresh ? `, newest hit "${esc(top.top_fresh.title)}" at ${count(top.top_fresh.daily)} streams a day` : ""}.</p></section>` : ""}
+    <section><h2>Roster</h2><div class="tablebox"><table><thead><tr><th class="l">Artist</th><th>Monthly listeners</th><th>Current listeners</th><th>Scout</th><th>New-release pull</th><th>Today</th><th>Royalties / yr</th><th class="l">Newest hit</th></tr></thead><tbody>
+      ${roster.map(a => `<tr><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td>${count(a.ml)}</td><td>${count(a.cl)}</td><td>${a.scout ? `${a.scout.score} ${tierChip(a.scout.tier)}` : "–"}</td><td>${share(a.fresh_share)}</td><td>${pct(a.chg_pct)}</td><td>${usd(a.streaming_mid)}</td><td class="l wrap">${a.top_fresh ? esc(a.top_fresh.title) : `<span class="note">none in 90 days</span>`}</td></tr>`).join("")}
+    </tbody></table></div><p class="note">Hip-hop artists in the top 1,000 whose recent releases carry this label. Royalties are paid to the label before the artist's share (see each artist's page).</p></section>
+    <section class="panel"><h2>${esc(L.name)}: finances</h2>${own ? `<p class="note">${esc(L.name)} is part of ${esc(L.parent)} and publishes no accounts of its own. The best public measure of its size is the roster's royalties above.</p>` : finTable(L.name)}</section>
+    ${own ? `<section class="panel"><h2>${esc(L.parent)}: finances</h2>${finTable(L.parent)}</section>` : ""}
+    ${sister.length ? `<section class="panel"><h2>Other ${esc(L.parent)} labels in the top 1,000</h2><div class="chips">${sister.map(x => `<a class="chip" href="#/label/${x.slug}">${esc(x.name)} · ${x.artists.length}</a>`).join(" ")}</div></section>` : ""}
+    ${(store.data.label_logos || {})[L.name] ? `<p class="note">Logo: <a href="${esc(store.data.label_logos[L.name].page)}" target="_blank" rel="noopener">Wikimedia Commons</a> (${esc(store.data.label_logos[L.name].licence)}). Trademarks belong to their owners.</p>` : ""}`;
+}
+
 // ---------- artist summary card: level, scout score, worth, attention
 const midRange = r => `about ${usd(r.mid)}<br><span class="note">${range(r)}</span>`;
 function summaryCard(a, rev) {
@@ -674,6 +743,7 @@ async function route() {
   else if (h[0] === "scout") scoutPage();
   else if (h[0] === "worth") { if (h[1]) { const a = store.data.artists.find(x => x.id === h[1]); ui.worth = { ...(ui.worth || { ml: 1000000, vintage: "auto" }), pick: h[1], deal: a && ["diy", "services", "independent", "major"].includes(a.deal_type) ? a.deal_type : "diy" }; } worthPage(); }
   else if (h[0] === "labels") labelsPage();
+  else if (h[0] === "label") labelPage(decodeURIComponent(h[1] || ""));
   else if (h[0] === "compare") compare(h.slice(1).map(decodeURIComponent));
   else top();
   document.getElementById("foot").textContent = `Data as of ${store.data.as_of}; built ${store.data.built}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures.`;

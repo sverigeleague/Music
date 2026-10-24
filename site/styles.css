@@ -180,3 +180,12 @@ a.chip:hover { border-color: var(--fg); }
 .star { border: 0; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: var(--fg); padding: 0 4px 0 0; }
 h1 .star { font-size: 26px; vertical-align: middle; }
 .cmp th { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--fg); }
+
+/* label logos and pages */
+.logo { width: 32px; height: 32px; object-fit: contain; flex: none; background: #fff; border: 1px solid var(--line); padding: 2px; }
+.logo.none { display: inline-grid; place-items: center; color: var(--muted); font-size: 11px; font-weight: 600; background: var(--soft); }
+.logo.big { width: 120px; height: 120px; padding: 10px; font-size: 32px; }
+.labelhead h1 { margin-bottom: 2px; }
+.parentchip { display: inline-flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 14px; border: 1px solid var(--line); padding: 4px 10px 4px 4px; }
+#lab-q { font: inherit; padding: 6px 10px; border: 1px solid var(--line); min-width: 0; flex: 1 1 200px; max-width: 320px; }
+th[data-lsort] { cursor: pointer; user-select: none; }

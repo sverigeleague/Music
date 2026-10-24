@@ -1,64 +1,64 @@
-pattern,owner,status,note,wikidata_check
-interscope,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-republic,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-def jam,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-idj,Universal Music Group,major,Island Def Jam,not verified on Wikidata (no entry or no parent)
-capitol,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-motown,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-island records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-polydor,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-geffen,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-mercury,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
-aftermath,Universal Music Group,major,with Interscope,parent confirmed on Wikidata 2026-10-23
-mass appeal,Universal Music Group,major,Nas; partnership with Def Jam,parent confirmed on Wikidata 2026-10-23
-universal music,Universal Music Group,major,,not verified on Wikidata (no entry or no parent)
-ume,Universal Music Group,major,Universal Music Enterprises,not verified on Wikidata (no entry or no parent)
-emi,Universal Music Group,major,,not verified on Wikidata (no entry or no parent)
-virgin music,Universal Music Group,major_distributed,Virgin Music Group: UMG's distribution and label-services arm,parent confirmed on Wikidata 2026-10-23
-caroline,Universal Music Group,major_distributed,,not verified on Wikidata (no entry or no parent)
-ingrooves,Universal Music Group,major_distributed,,parent confirmed on Wikidata 2026-10-23
-columbia,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
-rca,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
-epic,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
-sony music,Sony Music,major,,not verified on Wikidata (no entry or no parent)
-arista,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
-legacy recordings,Sony Music,major,,not verified on Wikidata (no entry or no parent)
-alamo,Sony Music,major,,not verified on Wikidata (no entry or no parent)
-kemosabe,Sony Music,major,with RCA,parent confirmed on Wikidata 2026-10-23
-the orchard,Sony Music,major_distributed,,parent confirmed on Wikidata 2026-10-23
-awal,Sony Music,major_distributed,,parent confirmed on Wikidata 2026-10-23
-atlantic,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
-warner,Warner Music Group,major,,not verified on Wikidata (no entry or no parent)
-elektra,Warner Music Group,major,,not verified on Wikidata (no entry or no parent)
-asylum,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
-300 entertainment,Warner Music Group,major,owned by WMG since 2021,parent confirmed on Wikidata 2026-10-23
-300 /,Warner Music Group,major,300 Entertainment,parent confirmed on Wikidata 2026-10-23
-parlophone,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
-artist partner group,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
-ada,Warner Music Group,major_distributed,ADA: WMG's distribution arm,parent confirmed on Wikidata 2026-10-23
-empire,EMPIRE,independent,independent label and distributor,not a major: no check needed
-gamma.,gamma.,independent,independent label (Larry Jackson),not a major: no check needed
-bmg,BMG,independent,,not a major: no check needed
-bbr music group,BMG,independent,"BBR Music Group (Nashville), owned by BMG",parent confirmed on Wikidata 2026-10-23
-roc nation,Roc Nation,independent,,not a major: no check needed
-death row,Death Row Records,independent,,not a major: no check needed
-unitedmasters,UnitedMasters,self_released,distributor: the artist keeps the masters,not a major: no check needed
-distrokid,DistroKid,self_released,distributor,not a major: no check needed
-tunecore,TuneCore,self_released,distributor,not a major: no check needed
-cd baby,CD Baby,self_released,distributor,not a major: no check needed
-amuse,Amuse,self_released,distributor,not a major: no check needed
-too lost,Too Lost,self_released,distributor,not a major: no check needed
-independent,,self_released,label field says Independent,not a major: no check needed
-self-released,,self_released,,not a major: no check needed
-wea latina,Warner Music Group,major,Warner Music Latina,parent confirmed on Wikidata 2026-10-23
-wm poland,Warner Music Group,major,Warner Music Poland,not verified on Wikidata (no entry or no parent)
-vertigo,Universal Music Group,major,Vertigo (incl. Vertigo Berlin),not verified on Wikidata (no entry or no parent)
-loma vista,Concord,independent,Concord's label,not verified on Wikidata (no entry or no parent)
-88rising,88rising,independent,,Wikidata item has no parent
-reach records,Reach Records,independent,,Wikidata item has no parent
-universal records,Universal Music Group,major,,not verified on Wikidata (no entry or no parent)
-sony bmg,Sony Music,major,Sony BMG (2004-2008 joint venture; Sony since),not verified on Wikidata (no entry or no parent)
-zomba,Sony Music,major,,not verified on Wikidata (no entry or no parent)
-jive records,Sony Music,major,,not verified on Wikidata (no entry or no parent)
-wm brazil,Warner Music Group,major,Warner Music Brazil,not verified on Wikidata (no entry or no parent)
-som livre,Sony Music,major,Som Livre (bought by Sony Music in 2022),not verified on Wikidata (no entry or no parent)
+pattern,label,owner,status,note,wikidata_check
+interscope,Interscope Records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+republic,Republic Records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+def jam,Def Jam Recordings,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+idj,Island Def Jam,Universal Music Group,major,Island Def Jam,not verified on Wikidata (no entry or no parent)
+capitol,Capitol Records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+motown,Motown Records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+island records,Island Records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+polydor,Polydor,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+geffen,Geffen Records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+mercury,Mercury Records,Universal Music Group,major,,parent confirmed on Wikidata 2026-10-23
+aftermath,Aftermath Entertainment,Universal Music Group,major,with Interscope,parent confirmed on Wikidata 2026-10-23
+mass appeal,Mass Appeal,Universal Music Group,major,Nas; partnership with Def Jam,parent confirmed on Wikidata 2026-10-23
+universal music,Universal Music (local),Universal Music Group,major,,not verified on Wikidata (no entry or no parent)
+ume,Universal Music Enterprises,Universal Music Group,major,Universal Music Enterprises,not verified on Wikidata (no entry or no parent)
+emi,EMI,Universal Music Group,major,,not verified on Wikidata (no entry or no parent)
+virgin music,Virgin Music Group,Universal Music Group,major_distributed,Virgin Music Group: UMG's distribution and label-services arm,parent confirmed on Wikidata 2026-10-23
+caroline,Caroline,Universal Music Group,major_distributed,,not verified on Wikidata (no entry or no parent)
+ingrooves,Ingrooves,Universal Music Group,major_distributed,,parent confirmed on Wikidata 2026-10-23
+columbia,Columbia Records,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
+rca,RCA Records,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
+epic,Epic Records,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
+sony music,Sony Music (local),Sony Music,major,,not verified on Wikidata (no entry or no parent)
+arista,Arista Records,Sony Music,major,,parent confirmed on Wikidata 2026-10-23
+legacy recordings,Legacy Recordings,Sony Music,major,,not verified on Wikidata (no entry or no parent)
+alamo,Alamo Records,Sony Music,major,,not verified on Wikidata (no entry or no parent)
+kemosabe,Kemosabe Records,Sony Music,major,with RCA,parent confirmed on Wikidata 2026-10-23
+the orchard,The Orchard,Sony Music,major_distributed,,parent confirmed on Wikidata 2026-10-23
+awal,AWAL,Sony Music,major_distributed,,parent confirmed on Wikidata 2026-10-23
+atlantic,Atlantic Records,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
+warner,Warner Records,Warner Music Group,major,,not verified on Wikidata (no entry or no parent)
+elektra,Elektra Records,Warner Music Group,major,,not verified on Wikidata (no entry or no parent)
+asylum,Asylum Records,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
+300 entertainment,300 Entertainment,Warner Music Group,major,owned by WMG since 2021,parent confirmed on Wikidata 2026-10-23
+300 /,300 Entertainment,Warner Music Group,major,300 Entertainment,parent confirmed on Wikidata 2026-10-23
+parlophone,Parlophone,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
+artist partner group,Artist Partner Group,Warner Music Group,major,,parent confirmed on Wikidata 2026-10-23
+ada,ADA,Warner Music Group,major_distributed,ADA: WMG's distribution arm,parent confirmed on Wikidata 2026-10-23
+empire,EMPIRE,EMPIRE,independent,independent label and distributor,not a major: no check needed
+gamma.,gamma.,gamma.,independent,independent label (Larry Jackson),not a major: no check needed
+bmg,BMG,BMG,independent,,not a major: no check needed
+bbr music group,BBR Music Group,BMG,independent,"BBR Music Group (Nashville), owned by BMG",parent confirmed on Wikidata 2026-10-23
+roc nation,Roc Nation,Roc Nation,independent,,not a major: no check needed
+death row,Death Row Records,Death Row Records,independent,,not a major: no check needed
+unitedmasters,UnitedMasters,UnitedMasters,self_released,distributor: the artist keeps the masters,not a major: no check needed
+distrokid,DistroKid,DistroKid,self_released,distributor,not a major: no check needed
+tunecore,TuneCore,TuneCore,self_released,distributor,not a major: no check needed
+cd baby,CD Baby,CD Baby,self_released,distributor,not a major: no check needed
+amuse,Amuse,Amuse,self_released,distributor,not a major: no check needed
+too lost,Too Lost,Too Lost,self_released,distributor,not a major: no check needed
+independent,,,self_released,label field says Independent,not a major: no check needed
+self-released,,,self_released,,not a major: no check needed
+wea latina,Warner Music Latina,Warner Music Group,major,Warner Music Latina,parent confirmed on Wikidata 2026-10-23
+wm poland,Warner Music Poland,Warner Music Group,major,Warner Music Poland,not verified on Wikidata (no entry or no parent)
+vertigo,Vertigo,Universal Music Group,major,Vertigo (incl. Vertigo Berlin),not verified on Wikidata (no entry or no parent)
+loma vista,Loma Vista Recordings,Concord,independent,Concord's label,not verified on Wikidata (no entry or no parent)
+88rising,88rising,88rising,independent,,Wikidata item has no parent
+reach records,Reach Records,Reach Records,independent,,Wikidata item has no parent
+universal records,Universal Records,Universal Music Group,major,,not verified on Wikidata (no entry or no parent)
+sony bmg,Sony BMG,Sony Music,major,Sony BMG (2004-2008 joint venture; Sony since),not verified on Wikidata (no entry or no parent)
+zomba,Zomba,Sony Music,major,,not verified on Wikidata (no entry or no parent)
+jive records,Jive Records,Sony Music,major,,not verified on Wikidata (no entry or no parent)
+wm brazil,Warner Music Brazil,Warner Music Group,major,Warner Music Brazil,not verified on Wikidata (no entry or no parent)
+som livre,Som Livre,Sony Music,major,Som Livre (bought by Sony Music in 2022),not verified on Wikidata (no entry or no parent)

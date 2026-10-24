@@ -4,7 +4,7 @@ import json
 from datetime import date, datetime, timedelta, timezone
 
 from . import current, insights, labels, money, revenue
-from .collectors import apple_charts, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
+from .collectors import apple_charts, logos, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
 from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
@@ -92,7 +92,8 @@ def build() -> dict:
             status = {**status, "status": "catalog", "owner": ""}
         if t["spotify_id"] in lab_over:
             o = lab_over[t["spotify_id"]]
-            status = {**status, "status": o["status"], "owner": o.get("owner", ""), "override": o.get("note") or "owner"}
+            status = {**status, "status": o["status"], "owner": o.get("owner", ""), "override": o.get("note") or "owner",
+                      "label": o.get("label") or ""}
         # deal type: the current label status when known, else Wikidata's career-long label list
         deal = labels.DEAL_OF_STATUS.get(status["status"]) or money.deal_type(majors, wd_labels)
         ml, chg = t["monthly_listeners"], t["daily_change"]
@@ -110,6 +111,7 @@ def build() -> dict:
             "country": a["country"] or None, "born": a["born"] or None, "since": a["active_since"][:4] or None,
             "labels": wd_labels, "major": majors[0] if len(majors) == 1 else ("several majors" if majors else None),
             "deal_type": deal, "label_status": status["status"], "label_owner": status["owner"] or None,
+            "label_name": label_display(status, table),
             "label_basis": status["basis"], "label_override": status.get("override"),
             "label_isrc_note": status.get("isrc_note") or None, "label_confidence": status.get("confidence"),
             "money": money.estimate(num(s.get("lead_daily")), deal),
@@ -140,6 +142,8 @@ def build() -> dict:
         sh = shares[r["deal_type"]]
         r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")})
     rows = rows[:TOP_N]  # the site covers the top 1,000 hip-hop artists by monthly listeners
+    for r in rows:
+        r["streaming_mid"] = round(sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming"))
     insights.scout(rows)
     mult = insights.multiples()
     ml_of = {t["spotify_id"]: t["monthly_listeners"] or 0 for t in top}
@@ -171,10 +175,47 @@ def build() -> dict:
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
             "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),
             "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in insights.FACTORS.items()},
+            "labels": insights.labels_index(rows, release_counts(rels, table)),
+            "label_logos": logos.load(), "label_financials": label_financials(),
             "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES)}
 
 
 SIGNED = ("major", "major_distributed", "independent")
+
+
+def release_counts(rels: dict, table: list[dict]) -> dict[str, int]:
+    """Releases of the last two years per label (as shown on the site), over every artist we read releases for."""
+    out: dict[str, int] = {}
+    seen = set()
+    for rs in rels.values():
+        for r in rs:
+            if r["album_id"] in seen or not r["label"]:
+                continue
+            seen.add(r["album_id"])
+            n = labels.label_name(r["label"], table)
+            out[n] = out.get(n, 0) + 1
+    return out
+
+
+def label_financials() -> list[dict]:
+    """Reported results of label groups (registry/label_financials.csv: one row per company, period and metric)."""
+    p = REGISTRY / "label_financials.csv"
+    if not p.exists():
+        return []
+    with p.open() as f:
+        return list(csv.DictReader(f))
+
+
+def label_display(status: dict, table: list[dict]) -> str | None:
+    """The label shown and linked on the site: signed artists only (the self-released and catalog acts have none)."""
+    if status["status"] not in SIGNED:
+        return None
+    if status.get("label"):
+        return status["label"]
+    if status.get("override") and status.get("owner"):
+        return status["owner"]
+    basis = status.get("basis") or {}
+    return labels.label_name(basis["label"], table) if basis.get("label") else status.get("owner") or None
 
 
 def benchmark(rows: list[dict], shares: dict) -> list[dict]:
