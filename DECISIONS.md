@@ -2,6 +2,28 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Country labels (overnight research)
+
+- 69 sourced rows in registry/label_owners.csv, mostly from the ℗ lines of 2025-26 releases on Deezer's public album
+  pages, checked against press and Wikipedia. Each pattern was tested against every label string we hold and matches
+  only its own label.
+  - UMG: Lost Highway (revived 2025), UMG Nashville, Capitol Nashville codes, Keith Urban's and Miranda Lambert's
+    imprints and Reba's Rockin' R (all licensed to UMG), Wyatt Flores's OEG/Island string, Dot.
+  - Distributed by a major: Sun Records (Primary Wave via Virgin), 5&2 (Capitol CMG), Music Soup and Darkroom
+    (Interscope), Back Blocks (UMG Nashville), Walk Off, Gaither and ATO (Virgin/Caroline); Triple Tigers, Black
+    River, Fugitive, Quartz Hill, Riser House and Reviver (The Orchard / Sony RED); HEY NOW (Kenny Chesney's new
+    label), Bigger Picture and Curb (Warner).
+  - Independent: Thirty Tigers labels (Big & Rich, Bossier City, Southeastern, Velvet Rose...), Rounder and PULSE
+    (Concord), New West, Firebird, Stem, Average Joes, Dualtone, Leo33, StarVista, Many Hats, catalog labels.
+  - Self-released: DistroKid's numbered names ("12496410 Records DK", "...DK2"), which also places some hip-hop
+    artists.
+- Tucker Wetmore: label override (his releases name only himself; he signed with UMG Nashville through Back Blocks
+  in May 2024, sourced).
+- **For the owner:** Curb is Mike Curb's own label but Warner distributes it, so it reads "distributed by a major";
+  say if ownership should decide instead (independent).
+- Still unknown: imprints whose ℗ line names only the artist (Treaty Oak Revival's TOR, Zac Brown Band's Master of
+  None, Kip Moore, Tenille Townes...). Two Turkish labels Deezer files under Country are not country.
+
 ## 2026-10-24 Country list built (overnight; owner C1-C5)
 
 - **Who is in (above Spotify's public 500k floor): 386 artists.**
