@@ -140,7 +140,7 @@ function top() {
   const scoutTop = all.filter(x => x.scout?.tier === "Breaking").sort((x, y) => y.scout.score - x.scout.score).slice(0, 3);
   const labelsN = (d.labels || []).length, total = all.reduce((s, a) => s + a.ml, 0);
   app.innerHTML = `<section class="hero"><h1>Global Hip-Hop</h1>
-      <div class="search big"><input id="q2" type="search" placeholder="Find an artist or a label, e.g. Drake, Interscope" autocomplete="off" aria-label="Search"><div class="results" id="q2-results" hidden></div></div>
+      <p class="lede">Who is really drawing an audience in hip-hop right now, what their music earns, who owns it, and who is about to break. ${all.length.toLocaleString()} artists, updated daily, every figure sourced.</p>
       <div class="stats"><div><b>${all.length.toLocaleString()}</b><span>hip-hop artists tracked, of Spotify's top ${d.universe.toLocaleString()}</span></div><div><b>${count(total)}</b><span>combined monthly listeners</span></div><div><b>${labelsN}</b><span>labels with artists in the top 1,000</span></div><div><b>${esc(d.as_of)}</b><span>listener data as of</span></div></div></section>
     ${pulse()}
     <section class="doors">
@@ -155,17 +155,16 @@ function top() {
     <section class="tiles">
       <div class="tile"><div class="k">Combined monthly listeners</div><div class="v">${count(ml)}</div><div class="s">these ${N}, people counted once per artist</div></div>
       <div class="tile"><div class="k">Royalties generated / month</div><div class="v">${usd(gen)}</div><div class="s">Spotify recordings, top ${N}, mid estimate ${grade("C")}</div></div>
-      <div class="tile"><div class="k">Biggest riser today</div><div class="v">${up ? esc(up.name) : "–"}</div><div class="s">${up ? pct(up.chg_pct) + " listeners" : ""}</div></div>
+      <div class="tile"><div class="k">Biggest riser today in this top ${N}</div><div class="v">${up ? esc(up.name) : "–"}</div><div class="s">${up ? pct(up.chg_pct) + " listeners" : ""}</div></div>
       <div class="tile"><div class="k">On a major label</div><div class="v">${majors} of ${hundred.length}</div><div class="s">from the labels on their recent releases</div></div>
     </section>
-    <section><div class="toolbar"><input type="search" placeholder="Find an artist" value="${esc(ui.q)}" aria-label="Find an artist"></div>
+    <section><div class="toolbar"><input type="search" placeholder="Filter this list" value="${esc(ui.q)}" aria-label="Filter this list"></div>
       ${table(list, "pos")}<p class="note">${ui.by === "current" ? "* Provisional rank: 50–80% of the artist's streams are on dated songs; hover for the range. " : ""}Royalties generated are what Spotify pays the rights holders for the artist's own tracks (label or distributor), not the artist's pay. See the artist page and Pay gap.${ui.by === "current" && unranked.length ? ` Not yet ranked, because release dates are missing for too much of their listening: ${unranked.map(a => esc(a.name)).join(", ")}.` : ""}</p></section>`;
   app.querySelectorAll("[data-by]").forEach(b => b.onclick = () => { ui.by = b.dataset.by; ui.sort = [ui.by === "current" ? "cl" : "ml", -1]; top(); });
   bindSize(top);
   const inp = app.querySelector("input");
   inp.oninput = () => { ui.q = inp.value.toLowerCase(); const p = inp.selectionStart; top(); const i = app.querySelector("input"); i.focus(); i.setSelectionRange(p, p); };
   bindSort(top);
-  bindSearchBox(document.getElementById("q2"), document.getElementById("q2-results"));
 }
 
 function rising() {
@@ -173,7 +172,7 @@ function rising() {
   const inTop = new Set(top100().map(a => a.id)), rest = store.data.artists.filter(a => !inTop.has(a.id) && a.chg_pct != null);
   const list = [...rest].sort((a, b) => b.chg_pct - a.chg_pct).slice(0, RISING_LIMIT).map((a, i) => ({ ...a, rrank: i + 1 }));
   app.innerHTML = `${subnav()}<section><h1>Rising: hip-hop outside the top 100</h1>
-    <p class="sub">Biggest daily gains in monthly listeners among the ${rest.length} hip-hop artists outside the top 100. From the first full month, this page ranks month-on-month growth confirmed on a second platform (Breakout Watch, roadmap step 1.3).</p></section>
+    <p class="sub">Biggest daily gains in monthly listeners among the ${rest.length} hip-hop artists outside the top 100. For growth over a month, see <a href="#/month">This month</a>; for momentum scored against artists of the same size, see <a href="#/scout">Scout</a>.</p></section>
     <section>${tableRising(list)}</section>`;
 }
 function tableRising(list) {
@@ -197,13 +196,14 @@ function unsignedPage() {
       <div class="tile"><div class="k">Independent label / label services</div><div class="v">${pct("independent")} / ${pct("services")}</div><div class="s">break even at ${be.independent}× / ${be.services}× the streams</div></div>
     </section>
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Release label</th><th>Monthly listeners</th><th>Current listeners</th><th>Generates / yr</th><th>Keeps now</th><th>Signed peers generate</th><th>On a major deal would keep</th><th>Scout</th></tr></thead><tbody>
-      ${U.map((u, i) => `<tr><td class="l">${i + 1}</td><td class="l"><a class="who" href="#/a/${u.id}">${pic(store.data.artists.find(a => a.id === u.id) || u)}<span>${esc(u.name)}</span></a></td>
+      ${U.slice(0, ui.unsAll ? U.length : 50).map((u, i) => `<tr><td class="l">${i + 1}</td><td class="l"><a class="who" href="#/a/${u.id}">${pic(store.data.artists.find(a => a.id === u.id) || u)}<span>${esc(u.name)}</span></a></td>
         <td class="l wrap">${esc(u.label || "–")} ${u.confidence === "confirmed" ? chip("confirmed") : `<span class="chip warn" title="Own-name label with no other evidence: could be a small label or an imprint licensed to one">label name only</span>`}</td>
-        <td>${count(u.ml)}</td><td>${count(u.cl)}</td><td>${usd(u.generated)}</td><td>${usd(u.keeps_now)}</td><td>${usd(u.peer_generated)}</td><td>${usd(u.if_signed.major)}</td><td>${(s => s ? `${s.score} ${tierChip(s.tier)}` : "–")(store.data.artists.find(a => a.id === u.id)?.scout)}</td></tr>`).join("")}
+        <td>${count(u.ml)}</td><td>${count(u.cl)}</td><td>${usd(u.generated)}${u.feat > 0.9 ? ` <span class="chip warn" title="${Math.round(u.feat * 100)}% of their streams come as a featured guest on other artists' songs; the money shown counts their own songs only. Featured artists are usually paid a fee or a share agreed with the lead artist.">own songs only</span>` : ""}</td><td>${usd(u.keeps_now)}</td><td>${usd(u.peer_generated)}</td><td>${usd(u.if_signed.major)}</td><td>${(s => s ? `${s.score} ${tierChip(s.tier)}` : "–")(store.data.artists.find(a => a.id === u.id)?.scout)}</td></tr>`).join("")}
     </tbody></table></div>
+    ${!ui.unsAll && U.length > 50 ? `<p class="more"><button type="button" class="btn" id="unsall">Show all ${U.length}</button></p>` : ""}
     <p class="note">Yearly at today's pace, mid estimates, streaming only (all platforms). <b>Generates</b>: royalties paid for the recordings. <b>Keeps now</b>: ${pct("diy")} of that after a distributor's fee. <b>Signed peers generate</b>: the median of the five closest growing signed artists. <b>On a major deal</b>: ${pct("major")} of today's royalties, before any advance is recouped.</p></section>
     <section><h2>Each artist against their signed peers</h2>
-      ${U.map(u => `<details class="panel"><summary><b>${esc(u.name)}</b>: ${count(u.ml)} monthly listeners, ${u.spl ? u.spl.toFixed(2) : "–"} streams a day per listener against ${u.peer_spl ? u.peer_spl.toFixed(2) : "–"} for the peers</summary>
+      ${U.slice(0, ui.unsAll ? U.length : 50).map(u => `<details class="panel"><summary><b>${esc(u.name)}</b>: ${count(u.ml)} monthly listeners, ${u.spl ? u.spl.toFixed(2) : "–"} streams a day per listener against ${u.peer_spl ? u.peer_spl.toFixed(2) : "–"} for the peers</summary>
         <div class="tablebox"><table><thead><tr><th class="l">Peer</th><th class="l">Label</th><th>Monthly listeners</th><th>Streams / day per listener</th><th>Generates / yr</th><th>Artist's slice</th></tr></thead><tbody>
         ${u.peers.map(p => `<tr><td class="l"><a href="#/a/${p.id}">${esc(p.name)}</a></td><td class="l">${esc(STATUS[p.status])}${p.owner ? " · " + esc(p.owner) : ""}</td><td>${count(p.ml)}</td><td>${p.spl ? p.spl.toFixed(2) : "–"}</td><td>${usd(p.generated)}</td><td>${usd(p.artist_slice)}</td></tr>`).join("")}
         <tr class="tot"><td class="l">${esc(u.name)} (unsigned)</td><td class="l">${esc(u.label || "")}</td><td>${count(u.ml)}</td><td>${u.spl ? u.spl.toFixed(2) : "–"}</td><td>${usd(u.generated)}</td><td>${usd(u.keeps_now)}</td></tr>
@@ -211,6 +211,7 @@ function unsignedPage() {
         <p class="note">${u.at_peer_engagement ? `With the peers' streams per listener, ${esc(u.name)} would generate about ${usd(u.at_peer_engagement)} a year. ` : ""}Signed today, ${esc(u.name)} would keep about ${usd(u.if_signed.major)} on a major deal, ${usd(u.if_signed.independent)} with an independent label or ${usd(u.if_signed.services)} on label services, against ${usd(u.keeps_now)} now. Label money on signing (advances, marketing) is not public and not included.</p></details>`).join("")}
     </section>
     <p class="note">Peers: signed artists (major, major-distributed or independent label) with 0.6–1.67× the monthly listeners and at least 20% of their listening on recent releases, closest first. Statuses come from the labels printed on each artist's last two years of releases (Deezer) and the recording codes (ISRCs) of their recent songs; artists that cannot be placed are on the review list for the owner.</p>`;
+  app.querySelector("#unsall")?.addEventListener("click", () => { ui.unsAll = true; unsignedPage(); });
 }
 
 // ---------- audience
@@ -241,7 +242,7 @@ function audience() {
     <section class="tablebox"><table><thead><tr><th class="l">Question</th><th class="l">What we have</th><th class="l">Status</th></tr></thead><tbody>
       <tr><td class="l"><b>Which countries</b></td><td class="l wrap">Each artist's streams in Spotify's weekly top 200 of 76 countries (kworb.net, ${weeksLabel()})</td><td class="l">${chip("measured")} for ${withGeo.length} of the top 100</td></tr>
       <tr><td class="l"><b>Which cities</b></td><td class="l wrap">Spotify shows each artist's top 5 cities on its own site, but its terms bar collecting them</td><td class="l">not collected</td></tr>
-      <tr><td class="l"><b>Age and gender, per artist</b></td><td class="l wrap">Not public for any platform. Licensed providers (Soundcharts from $50 a month, Chartmetric) model it from Instagram, YouTube and TikTok followers</td><td class="l">needs a licence (roadmap 2.3)</td></tr>
+      <tr><td class="l"><b>Age and gender, per artist</b></td><td class="l wrap">Not public for any platform. Licensed providers (Soundcharts from $50 a month, Chartmetric) model it from Instagram, YouTube and TikTok followers</td><td class="l">needs a licence</td></tr>
       <tr><td class="l"><b>Hip-hop's audience as a whole</b></td><td class="l wrap">Surveys and industry reports, below</td><td class="l">${chip("reported")} genre level only</td></tr>
     </tbody></table></section>
     <section class="panel"><h2>Where the top 100's hits are streamed</h2>${markets.length ? geoBars(markets) : `<p class="note">No chart data yet.</p>`}
@@ -331,12 +332,14 @@ async function artist(id) {
   if (!store.rev[id]) store.rev[id] = await detailOf(id);
   const a = { ...base, ...store.rev[id].artist, photo: base.photo && { ...base.photo, ...(store.rev[id].artist.photo || {}) } };
   crumbs([["Charts", "#/"], [a.name]]);
+  setMeta(`${a.name}: listeners, earnings and label`, `${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} by current listeners` : ""}${a.label_name ? `, ${a.label_name}` : ""}. What the music earns and who owns it, sourced.`);
   const m = a.money, yr = r => ({ low: r.low * 12, mid: r.mid * 12, high: r.high * 12 });
   const links = Object.entries(a.links).filter(([, u]) => u).map(([k, u]) => `<a href="${esc(u)}" rel="noopener" target="_blank">${esc(k[0].toUpperCase() + k.slice(1))}</a>`).join("");
   const leadShare = a.streams ? a.lead_streams / a.streams : null;
   app.innerHTML = `<section class="head">${pic(a, true)}<div><h1>${esc(a.name)} ${star(a.id)}</h1>
       <p class="sub">${a.cl_rank ? `#${a.cl_rank} in our ranking · ` : ""}#${a.rank} in hip-hop by listeners · #${a.rank_all} on Spotify overall${a.country ? " · " + esc(a.country) : ""}${a.since ? " · active since " + esc(a.since) : ""}</p>
-      <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a></div></div></section>
+      ${labelOf(a) ? `<div class="parentchip">${logo(labelOf(a).name, "logo")}<span>${labelLink(a)}${labelOf(a).parent && labelOf(a).parent !== labelOf(a).name ? ` · ${esc(labelOf(a).parent)}` : ""}</span></div>` : ""}
+      <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a>${shareBtn(`${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in hip-hop by current listeners` : ""} (tventy music)`)}</div></div></section>
     ${summaryCard(a, store.rev[id])}
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(a.ml)}</div><div class="s">${delta(a.chg)} today (${pct(a.chg_pct)})</div></div>
@@ -414,11 +417,11 @@ function pay() {
 function method() {
   nav("method");
   app.innerHTML = `<section class="prose"><h1>Method and sources</h1>
-  <p>Prototype, private. Every number has a source and a grade: <b>A</b> primary (company filings, regulators, court records, the platform's own disclosure), <b>B</b> reputable secondary, <b>C</b> our estimate, always shown as a range.</p>
+  <p>Every number has a source and a grade: <b>A</b> primary (company filings, regulators, court records, the platform's own disclosure), <b>B</b> reputable secondary, <b>C</b> our estimate, always shown as a range.</p>
   <h2>Who is in the list</h2><ul>
    <li>Spotify's top ${store.data.universe.toLocaleString()} artists by monthly listeners (kworb.net, which compiles Spotify's public pages; updated daily).</li>
    <li>Hip-hop or rap if most of the artist's genre votes are hip-hop (MusicBrainz community votes), with Wikidata genres where votes are thin. Borderline cases are decided by hand. Latin trap and reggaeton are a separate list for now.</li></ul>
-  <h2>Our ranking</h2><p>The top 100 is ranked by <b>current listeners</b>: each artist's monthly listeners, counting the listening that comes from recent releases. Songs that came out years ago but are still streamed a lot add little, so the ranking shows who is drawing an audience with new music now. Release dates come from Deezer and MusicBrainz; an artist is ranked only when the dates cover most of their listening. Older songs that suddenly rise again are marked "Revival" and stay out of the ranking. The full method will be published here.</p>
+  <h2>Our ranking</h2><p>The top 100 is ranked by <b>current listeners</b>: each artist's monthly listeners, counting the listening that comes from recent releases. Songs that came out years ago but are still streamed a lot add little, so the ranking shows who is drawing an audience with new music now. Release dates come from Deezer and MusicBrainz; an artist is ranked only when the dates cover most of their listening. Older songs that suddenly rise again are marked "Revival" and stay out of the ranking. Method version 1.2, 24 October 2026; changes are listed in the decision log.</p>
   <h2>Numbers</h2><ul>
    <li><b>Monthly listeners:</b> unique listeners over the last 28 days, as Spotify shows them. Measured.</li>
    <li><b>Streams:</b> Spotify's public play counts summed over every track the artist is credited on (kworb.net); lead and featured credits apart. Measured.</li>
@@ -505,10 +508,11 @@ function scoutPage() {
       <button type="button" class="btn" id="radio" title="30-second previews of each artist's newest hit, in the order shown">📻 Scout radio (${rows.filter(a => a.top_fresh?.dz).length})</button>
     </section>
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th>${cols.slice(0, 1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Label</th>${cols.slice(1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Newest hit</th></tr></thead><tbody>
-      ${rows.map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td><b>${a.scout.score}</b> ${tierChip(a.scout.tier)}</td><td class="l">${statusShort(a)}</td><td>${count(a.ml)}</td><td>${share(a.fresh_share)}</td><td>${share(a.cur_share)}</td><td>${trend(a.attention?.trend)}</td>
+      ${rows.slice(0, f.all ? rows.length : 50).map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td><b>${a.scout.score}</b> ${tierChip(a.scout.tier)}</td><td class="l">${statusShort(a)}</td><td>${count(a.ml)}</td><td>${share(a.fresh_share)}</td><td>${share(a.cur_share)}</td><td>${trend(a.attention?.trend)}</td>
         <td>${val(a, "spl") ? val(a, "spl").toFixed(2) : "–"}</td><td title="Spotify weekly top 200 + Apple Music daily top 100">${val(a, "geo") || "–"}</td><td>${pct(a.chg_pct)}</td>
         <td class="l wrap">${a.top_fresh ? `${a.scout.tier ? playBtn(a) + videoBtn(a) : ""}${esc(a.top_fresh.title)} <span class="note">${count(a.top_fresh.daily)}/day, out ${esc(a.top_fresh.released)}</span>` : `<span class="note">none in 90 days</span>`}</td></tr>`).join("") || `<tr><td class="l" colspan="12">No artist matches these filters.</td></tr>`}
     </tbody></table></div>
+    ${!f.all && rows.length > 50 ? `<p class="more"><button type="button" class="btn" id="showall">Show all ${rows.length}</button></p>` : ""}
     <p class="note">${rows.length} artists. Click a column to sort. ☆ adds an artist to your watchlist (kept in this browser). Percentiles are within the artist's size band (monthly listeners ${BANDS.join(", ")}).</p></section>
     <section class="panel"><h2>How the score works</h2>
       <ul>${Object.values(store.data.scout_factors).map(x => `<li><b>${Math.round(x.weight * 100)}%</b> ${esc(x.label)}</li>`).join("")}</ul>
@@ -518,6 +522,7 @@ function scoutPage() {
   bindStars(scoutPage);
   app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
+  app.querySelector("#showall")?.addEventListener("click", () => { f.all = true; scoutPage(); });
   app.querySelector("#radio").onclick = () => startRadio(rows.filter(a => a.top_fresh?.dz));
   app.querySelector("#csv").onclick = () => download("tventy-music-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
     ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || "", a.label_status, a.label_owner || "", a.country || "", a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
@@ -553,6 +558,16 @@ function monthPage() {
 // code or cookies load before a listener asks for them. Spotify plays full songs for listeners signed in, 30-second
 // previews for everyone else. Where Spotify's control script cannot load, a plain embed is used.
 let spotifyCtl = null, spotifyApi = null;
+// share: the device's share sheet where there is one, else the link is copied
+const shareBtn = text => `<button type="button" class="linkbtn" data-share="${esc(text)}">Share</button>`;
+document.addEventListener("click", async e => {
+  const b = e.target.closest("[data-share]");
+  if (!b) return;
+  const url = location.href, text = b.dataset.share;
+  try { if (navigator.share) { await navigator.share({ title: document.title, text, url }); return; } } catch { return; }
+  try { await navigator.clipboard.writeText(`${text} ${url}`); b.textContent = "Link copied"; } catch { b.textContent = "Copy the address bar"; }
+  setTimeout(() => (b.textContent = "Share"), 2500);
+});
 const playBtn = a => a?.top_fresh?.id ? `<button type="button" class="play" data-track="${esc(a.top_fresh.id)}" data-label="${esc(a.name + " · " + a.top_fresh.title)}" aria-label="Play ${esc(a.top_fresh.title)} by ${esc(a.name)}" title="Play on Spotify">▶</button>` : "";
 const videoBtn = a => a?.video?.id ? `<button type="button" class="play vid" data-video="${esc(a.video.id)}" data-label="${esc(a.name + " · " + a.video.title)}" aria-label="Watch ${esc(a.video.title)}" title="Watch on YouTube (${esc(a.video.why)})">🎬</button>` : "";
 const loadSpotify = () => spotifyApi = spotifyApi || new Promise(res => {
@@ -829,7 +844,7 @@ function compare(ids) {
     ${A.length === 2 ? `<section><div class="tablebox"><table class="cmp"><thead><tr><th class="l"></th>${A.map(a => `<th class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></th>`).join("")}</tr></thead><tbody>
       ${rows.map(([l, f, fmt]) => { const v = A.map(f), num = v.every(x => typeof x === "number"), hi = num && v[0] !== v[1] ? (v[0] > v[1] ? 0 : 1) : -1;
         return `<tr><td class="l">${esc(l)}</td>${A.map((a, i) => `<td class="l">${v[i] == null ? "–" : `<span${i === hi ? ' class="hi"' : ""}>${fmt ? fmt(v[i], a) : esc(v[i])}</span>`}</td>`).join("")}</tr>`; }).join("")}
-    </tbody></table></div><p class="note">Money lines are estimates (grade C); see each artist's page for the ranges and sources.</p></section>` : `<p class="note">Pick two artists.</p>`}`;
+    </tbody></table></div><p class="note">Money lines are estimates (grade C); see each artist's page for the ranges and sources.</p></section>` : `<p class="note">Pick two artists, or start from one of these: ${(() => { const b = store.data.artists.filter(x => x.scout?.tier === "Breaking").sort((x, y) => y.scout.score - x.scout.score); const t = [...store.data.artists].sort((x, y) => y.ml - x.ml); const pairs = [[t[0], t[1]], b.length > 1 ? [b[0], b[1]] : null, t[2] && b[0] ? [t[2], b[0]] : null].filter(Boolean); return pairs.map(([x, y]) => `<a href="#/compare/${x.id}/${y.id}">${esc(x.name)} vs ${esc(y.name)}</a>`).join(" · "); })()}.</p>`}`;
   app.querySelectorAll("input[data-i]").forEach(inp => inp.onchange = () => {
     const a = d.artists.find(x => x.name.toLowerCase() === inp.value.trim().toLowerCase());
     if (!a) return;
@@ -1001,11 +1016,16 @@ function summaryCard(a, rev) {
 async function route() {
   if (!store.data) store.data = await (await fetch("data/index.json")).json();
   const h = location.hash.replace(/^#\/?/, "").split("/");
-  const NAMES = { rising: ["Charts", "Rising"], platforms: ["Charts", "Platforms"], tours: ["Charts", "Tours"], audience: ["Charts", "Audience"],
+  const NAMES = { month: ["Charts", "This month"], rising: ["Charts", "Rising"], platforms: ["Charts", "Platforms"], tours: ["Charts", "Tours"], audience: ["Charts", "Audience"],
     scout: ["Scout"], unsigned: ["Scout", "Unsigned vs signed peers"], compare: ["Scout", "Compare artists"], worth: ["Worth"], pay: ["Worth", "Pay gap by deal"],
     labels: ["Labels"], method: ["Method"] };
   const SEC = { Charts: "#/", Scout: "#/scout", Worth: "#/worth", Labels: "#/labels", Method: "#/method" };
   crumbs((NAMES[h[0]] || []).map((t, i, xs) => [t, i < xs.length - 1 ? SEC[t] : ""]));
+  const TITLES = { rising: "Rising hip-hop artists today", month: "Hip-hop this month: movers and new names", pay: "Pay gap by record deal",
+    platforms: "Hip-hop royalties by streaming platform", tours: "Hip-hop tours: gross and revenue per fan", audience: "Where hip-hop is streamed",
+    unsigned: "Unsigned hip-hop artists against signed peers", method: "Method and sources", scout: "Scout: rising hip-hop artists for A&R",
+    worth: "What is your music worth?", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
+  setMeta(TITLES[h[0]] || "Global hip-hop: listeners, earnings and labels of the top 1,000 artists");
   if (h[0] === "a") artist(decodeURIComponent(h[1]));
   else if (h[0] === "rising") rising();
   else if (h[0] === "month") monthPage();
@@ -1023,6 +1043,11 @@ async function route() {
   else top();
   document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/method">Method</a> · <a href="mailto:swedenrocked@gmail.com?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
   window.scrollTo(0, 0);
+}
+function setMeta(title, desc) {
+  document.title = `${title} · tventy music`;
+  const m = document.querySelector('meta[name="description"]');
+  if (m) m.content = desc || "Who is drawing an audience in hip-hop, what the music earns, who owns it and who is about to break: the top 1,000 artists, updated daily, every figure sourced.";
 }
 addEventListener("hashchange", route);
 bindSearchBox(document.getElementById("q"), document.getElementById("q-results"), true);

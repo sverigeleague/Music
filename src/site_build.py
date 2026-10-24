@@ -280,6 +280,7 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
             "id": u["id"], "name": u["name"], "ml": u["ml"], "cl": u.get("cl"), "cur_share": u.get("cur_share"),
             "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label"),
             "generated": round(g_u), "keeps_now": round(g_u * diy), "spl": u_spl,
+            "feat": round(u["feature_daily"] / u["daily"], 3) if u.get("daily") and u.get("feature_daily") is not None else None,
             "peers": [{"id": p["id"], "name": p["name"], "ml": p["ml"], "status": p["label_status"],
                        "owner": p.get("label_owner"), "generated": round(gen(p)),
                        "artist_slice": round(gen(p) * float(shares[p["deal_type"]]["mid"])), "spl": spl(p)} for p in peers],
@@ -340,6 +341,8 @@ if __name__ == "__main__":
     shards: dict[int, dict] = {}
     for r in data["artists"]:
         rev = r.pop("revenue")
+        # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
+        r["feat"] = round(r["feature_daily"] / r["daily"], 3) if r.get("daily") and r.get("feature_daily") is not None else None
         detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, "photo": r.get("photo")}  # full photo credit
         shards.setdefault(ord(r["id"][1]) % 32, {})[r["id"]] = {**rev, "artist": detail}
         r["rev_total"] = {k: round(v) for k, v in rev["artist_total"].items()} if rev["artist_total"] else None

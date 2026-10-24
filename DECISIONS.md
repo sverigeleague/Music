@@ -2,6 +2,36 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Product review: quick wins (owner: "scrutinize design and structure ... simple and logical to use and navigate but very insightful")
+
+- **Review:** a product and marketing pass over all 16 pages on desktop and phone (64 screenshots).
+  - Top problems found: no page can be found or shared on its own (one title for every page, no description or
+    share); a start page that says nothing about what the site is for; two "biggest riser" tiles that disagree; a
+    misleading money figure; prototype wording in public; four pages that answer "who is rising?"; jargon; buried
+    labels on artist pages; phone overflow; very long pages.
+- **Built now (no change of direction):**
+  - **Titles and description per page,** including each artist's name ("Drake: listeners, earnings and label").
+    Default share tags (Open Graph) in index.html.
+  - **Start page:** a one-sentence value line replaces the second search box (the header search stays). The top-list
+    tile reads "Biggest riser today in this top 100", so it no longer contradicts "Right now", which covers all 1,000.
+    The table's box is labelled "Filter this list".
+  - **Prototype wording removed:** "Prototype, private", the roadmap step numbers, and "the full method will be
+    published here" (now: method version and date).
+  - **Wayfinding:** "This month" now has a breadcrumb. Compare's empty page suggests three pairs.
+  - **Artist header:** the label and its owner, with logo, under the name, plus a Share button (the phone's share
+    sheet, or the link copied).
+  - **Money honesty:** where more than 90% of an artist's streams come as a featured guest, the money figure is marked
+    "own songs only", with the reason. Danny Chung shows $164 a year against 8.7m listeners because 99.99% of his
+    streams are features on "Soda Pop".
+  - **Long pages:** Scout and Unsigned show 50 rows, then "Show all": Scout falls from 18,000 to 5,500 px, Unsigned
+    from 18,700 to 7,300.
+  - **Phones:** This month no longer overflows sideways. Buttons are at least 44 px tall. Wide tables and sub-menus
+    fade at the right edge to show they scroll.
+- **Kept as decided:** the "music" word under the wordmark links to tventy sport (owner, earlier the same day), though
+  the review suggested pointing it home.
+- **For the owner (bigger changes):** a simpler structure in four sections, pages that search engines can index,
+  shareable artist cards, alerts, and a lighter first load. These are put as decisions, not built.
+
 ## 2026-10-24 Label research batch 3, videos for the risers, Scout radio (owner: "Go with a, b and c in that order")
 
 - **a) Label research on the 14 that moved from major to unknown:**

@@ -261,3 +261,15 @@ button.play.vid { font-size: 13px; }
 .radio { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 0 10px; }
 .radio button { border: 1px solid var(--fg); background: none; color: var(--fg); padding: 4px 10px; cursor: pointer; font: inherit; }
 .radio button:hover, .radio button:focus-visible { background: var(--fg); color: var(--bg); }
+/* product review 2026-10-24: start-page value line, share button, phone overflow and tap targets */
+.lede { font-size: 18px; line-height: 1.45; max-width: 760px; color: var(--fg); margin: 0; }
+.linkbtn { border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+.grid2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.grid2 .tablebox { max-width: 100%; }
+@media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .segbtn, .seg button { min-height: 44px; } }
+.subnav, .tablebox { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent); }
+.tablebox { padding-right: 24px; }
+.links .linkbtn { font-size: 13px; border: 1px solid var(--line); padding: 4px 10px; text-decoration: none; }
+.links .linkbtn:hover { border-color: var(--fg); }
+.more { margin: 10px 0 0; }
