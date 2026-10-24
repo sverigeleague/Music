@@ -1,0 +1,309 @@
+"""Pipeline steps. python -m src.run <step>
+
+  snapshot  kworb top 2,500 by monthly listeners: raw page archived; rows for tracked artists kept (daily)
+  registry  candidates (Wikidata hip-hop genre + Spotify ID) in the top 2,500 -> details, MusicBrainz votes, genre
+            decision -> registry/artists.csv and review/genre_review.csv
+  streams   kworb artist pages (total and daily streams, lead vs feature) for hip-hop and review artists
+  deezer    Deezer fans for hip-hop artists not yet matched
+  photos    Wikimedia Commons photos for hip-hop artists not yet tried
+  youtube   YouTube total and daily views (kworb.net), for hip-hop artists not yet fetched this month
+  ytapi     YouTube channel subscribers and views (YouTube Data API; needs the secret YOUTUBE_API_KEY)
+  countries kworb's weekly Spotify top 200 in 76 countries: where each hip-hop artist's songs are streamed
+  labels    the label on each hip-hop artist's releases of the last 2 years (Deezer), for the signed/unsigned status
+  dates     first release dates from Deezer for the songs behind 90% of each hip-hop artist's daily streams
+  dates-retry  the same, and looks up again the songs that found no date
+  mbdates   MusicBrainz first release dates for the ISRCs Deezer found, and a title search for songs it did not
+            match (can run alongside `dates`)
+  apple     Apple Music's daily top 100 songs in 25 countries (public RSS feed)
+  backfill  weekly listener history since 2023 from the Internet Archive's copies of kworb's page (one-off; Actions)
+  mblabels  owners of the label names we cannot place, from MusicBrainz label relationships (monthly, new names only)
+  scoutlog  today's Scout scores and monthly listeners for the top 1,000 -> data/scout_history.csv (daily; the
+            back-test reads it after 90 days)
+  pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
+"""
+import csv
+import json
+import sys
+from datetime import datetime, timezone
+
+from . import current, genre, photos
+from .collectors import apple_charts, deezer, musicbrainz_labels, wayback, deezer_releases, kworb, kworb_countries, kworb_youtube, musicbrainz, release_dates, wikidata, wikipedia, youtube_api
+from .config import DATA, REGISTRY, REVIEW
+
+ARTISTS = REGISTRY / "artists.csv"
+ARTIST_FIELDS = ["spotify_id", "name", "genre", "genre_basis", "reviewed", "wikidata_id", "musicbrainz_id",
+                 "country", "born", "active_since", "labels", "major", "youtube_channel", "instagram", "tiktok", "x",
+                 "deezer_id", "deezer_fans", "deezer_match", "image"]
+WIKIDATA_CACHE = DATA / "wikidata.json"
+CANDIDATES = DATA / "wikidata_candidates.json"
+PHOTOS = DATA / "photos.json"
+GENRE_REVIEW = REVIEW / "genre_review.csv"
+
+
+def today() -> str:
+    return datetime.now(timezone.utc).date().isoformat()
+
+
+def load_artists() -> dict[str, dict]:
+    if not ARTISTS.exists():
+        return {}
+    with ARTISTS.open() as f:
+        return {r["spotify_id"]: r for r in csv.DictReader(f)}
+
+
+def save_artists(rows: dict[str, dict]) -> None:
+    with ARTISTS.open("w", newline="") as f:
+        w = csv.DictWriter(f, ARTIST_FIELDS, extrasaction="ignore")
+        w.writeheader()
+        for r in sorted(rows.values(), key=lambda r: r["name"].casefold()):
+            w.writerow(r)
+
+
+def _json(path, default):
+    return json.loads(path.read_text()) if path.exists() else default
+
+
+def latest_listeners() -> list[dict]:
+    """The newest archived listener pages, parsed: page 1 from the latest day, pages 2-11 from the latest weekly
+    archive (all rows, not only the tracked ones; an artist appears once, on its newest page)."""
+    import gzip
+    import re as _re
+    from .config import RAW
+    files = sorted((RAW / "kworb" / "listeners").glob("*.html.gz"))
+    if not files:
+        raise SystemExit("no listeners snapshot yet: run `python -m src.run snapshot` first")
+    newest: dict[int, object] = {}
+    for f in files:  # sorted by name: date first, so later files win
+        m = _re.match(r"(\d{4}-\d{2}-\d{2})(?:-p(\d+))?\.html\.gz$", f.name)
+        if m:
+            newest[int(m[2] or 1)] = f
+    rows: dict[str, dict] = {}
+    for n in sorted(newest, reverse=True):  # page 1 last, so today's top 2,500 overrides last week's pages
+        with gzip.open(newest[n], "rt") as fh:
+            for r in kworb.parse_listeners(fh.read()):
+                rows[r["spotify_id"]] = r
+    return sorted(rows.values(), key=lambda r: r["monthly_listeners"] or 0, reverse=True)
+
+
+def snapshot(archive_all: bool | None = None) -> None:
+    """Daily: all listener pages (about 25,000 artists); rows kept for tracked artists. The raw pages 2-11 are archived
+    on Mondays and whenever none is newer than 7 days."""
+    from .config import RAW
+    if archive_all is None:
+        from datetime import timedelta
+        now = datetime.now(timezone.utc).date()
+        recent = sorted((RAW / "kworb" / "listeners").glob("*-p2.html.gz"))
+        archive_all = now.weekday() == 0 or not recent or recent[-1].name[:10] < (now - timedelta(days=7)).isoformat()
+    day, rows = kworb.fetch_listeners(today(), archive_all=archive_all)
+    tracked = {s for s, a in load_artists().items() if a["genre"] != "other"} | set(_json(CANDIDATES, []))
+    kept = [r for r in rows if r["spotify_id"] in tracked or not tracked]
+    print(f"{day}: {len(rows)} artists on the pages, {kworb.save_listeners(day, kept)} rows stored"
+          f"{' (all pages archived)' if archive_all else ''}")
+
+
+def registry(mb_limit: int | None = None) -> None:
+    from .collectors import deezer_genres
+    top = {r["spotify_id"]: r for r in latest_listeners()}
+    cands = wikidata.hip_hop_spotify_ids()
+    known = load_artists()
+    dz = deezer_genres.load()
+    # candidates: in kworb's listener pages (about 25,000 artists), tagged hip-hop on Wikidata or with most releases
+    # filed under Rap/Hip Hop on Deezer; plus every artist already in the registry
+    dz_rap = {s for s, r in dz.items() if r.get("match") == "exact" and r.get("rap_share") not in ("", None)
+              and float(r["rap_share"]) >= 0.5}
+    ids = sorted({s for s in cands if s in top} | {s for s in dz_rap if s in top} | set(known))
+    CANDIDATES.write_text(json.dumps(ids))
+    wd = wikidata.details(ids)
+    WIKIDATA_CACHE.write_text(json.dumps({k: {**v, "majors": sorted(v["majors"])} for k, v in wd.items()},
+                                         ensure_ascii=False, indent=0))
+    mb = musicbrainz.update({s: wd.get(s, {}).get("musicbrainz_id") for s in ids}, limit=mb_limit)
+    over = genre.overrides()
+    out = {}
+    for s in ids:
+        d, prev = wd.get(s, {}), known.get(s, {})
+        votes = musicbrainz.genres_of(mb.get(s, {}))
+        decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")),
+                                       country=d.get("country", ""))
+        reviewed = ""
+        if s in over:
+            decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
+        out[s] = {**prev, "spotify_id": s, "name": (top.get(s) or prev).get("name", ""), "genre": decision,
+                  "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid", ""),
+                  "musicbrainz_id": d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""),
+                  "country": "" if "people" in d.get("country", "") else d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
+                  "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
+                  "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
+                  "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image", "")}
+        if not out[s].get("deezer_match") and s in dz and dz[s].get("deezer_id"):
+            out[s].update(deezer_id=dz[s]["deezer_id"], deezer_fans=dz[s]["fans"], deezer_match=dz[s]["match"])
+    save_artists(out)
+    write_review(out, top, mb, wd)
+    counts = {}
+    for r in out.values():
+        counts[r["genre"]] = counts.get(r["genre"], 0) + 1
+    print(f"{len(out)} artists: {counts}")
+
+
+def write_review(rows, top, mb, wd) -> None:
+    """Borderline and Latin artists for the owner, biggest first. Approving: a row in registry/genre_overrides.csv."""
+    REVIEW.mkdir(exist_ok=True)
+    items = [r for r in rows.values() if r["genre"] in ("review", "latin") and not r["reviewed"]]
+    items.sort(key=lambda r: -(top.get(r["spotify_id"], {}).get("monthly_listeners") or 0))
+    with GENRE_REVIEW.open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["spotify_id", "name", "monthly_listeners", "suggested", "basis", "musicbrainz_top_genres",
+                    "wikidata_genres", "spotify_url"])
+        for r in items:
+            s = r["spotify_id"]
+            w.writerow([s, r["name"], top.get(s, {}).get("monthly_listeners", ""), r["genre"], r["genre_basis"],
+                        ", ".join(f"{g} ({n})" for g, n in musicbrainz.genres_of(mb.get(s, {}))[:5]),
+                        ", ".join(g for g, _h, _l in wd.get(s, {}).get("genres", [])),
+                        f"https://open.spotify.com/artist/{s}"])
+    print(f"{len(items)} artists in {GENRE_REVIEW.relative_to(REVIEW.parent)}")
+
+
+TOP_N = 1000  # artists the per-artist steps cover: the top 1,000 hip-hop artists by monthly listeners
+
+
+def tracked(genres=("hip_hop",), top_n: int | None = TOP_N) -> list[dict]:
+    """Artists of these genres, biggest first by today's monthly listeners; the per-artist steps take the top 1,000."""
+    ml = {r["spotify_id"]: r["monthly_listeners"] or 0 for r in latest_listeners()}
+    rows = sorted((a for a in load_artists().values() if a["genre"] in genres), key=lambda a: -ml.get(a["spotify_id"], 0))
+    return rows[:top_n] if top_n else rows
+
+
+def streams(limit: int | None = None) -> None:
+    have = set()
+    if kworb.STREAMS_CSV.exists():
+        with kworb.STREAMS_CSV.open() as f:
+            have = {r["spotify_id"] for r in csv.DictReader(f) if r["date"][:7] == today()[:7]}
+    todo = [a["spotify_id"] for a in tracked() if a["spotify_id"] not in have][:limit]  # the top 1,000 hip-hop
+    rows = []
+    for s in todo:
+        rows.append(kworb.fetch_artist(s))
+        if len(rows) % 25 == 0:
+            kworb.save_streams(rows)
+            rows = []
+    kworb.save_streams(rows)
+    print(f"stream totals fetched for {len(todo)} artists")
+
+
+def deezer_step() -> None:
+    rows = load_artists()
+    n = 0
+    for a in rows.values():
+        if a["genre"] == "hip_hop" and not a.get("deezer_match"):
+            a.update({k: v for k, v in deezer.match(a["name"]).items()})
+            n += 1
+    save_artists(rows)
+    print(f"Deezer: {n} artists matched")
+
+
+def photos_step(limit: int | None = None) -> None:
+    done = _json(PHOTOS, {})
+    todo = [a for a in tracked() if a.get("image") and a["spotify_id"] not in done][:limit]
+    for a in todo:
+        done[a["spotify_id"]] = photos.fetch(a["spotify_id"], a["image"]) or {}
+        PHOTOS.write_text(json.dumps(done, ensure_ascii=False, indent=0))
+    print(f"photos: {sum(1 for v in done.values() if v)} of {len(done)} tried have a free-licence photo")
+
+
+def youtube_step(limit: int | None = None) -> None:
+    have = {s for s, r in kworb_youtube.load_latest().items() if r["date"][:7] == today()[:7]}
+    todo = [a for a in tracked() if a["spotify_id"] not in have][:limit]
+    rows = [r for r in (kworb_youtube.fetch(a["spotify_id"], a["name"], today()) for a in todo) if r]
+    kworb_youtube.save(rows)
+    print(f"YouTube: {len(rows)} of {len(todo)} artists found")
+
+
+def ytapi_step() -> None:
+    n = youtube_api.update({a["spotify_id"]: a["youtube_channel"] for a in tracked() if a["youtube_channel"]})
+    print("YouTube API: no YOUTUBE_API_KEY, skipped" if n is None else f"YouTube API: {n} channels")
+
+
+def countries_reparse() -> None:
+    n = kworb_countries.reparse_archived({a["spotify_id"] for a in tracked(("hip_hop", "review"), top_n=None)})
+    print(f"country charts rebuilt from the archived pages: {n} rows")
+
+
+def countries_step() -> None:
+    week, n = kworb_countries.update({a["spotify_id"] for a in tracked(("hip_hop", "review"), top_n=None)})
+    print(f"country charts, week ending {week}: {n} rows for tracked artists")
+
+
+def labels_step() -> None:
+    ids = [a["deezer_id"] for a in tracked() if a.get("deezer_id") and a.get("deezer_match") == "exact"]
+    print(f"release labels: {deezer_releases.update(ids)} new releases read for {len(ids)} artists")
+
+
+def dates_step(limit: int | None = None, retry: bool = False) -> None:
+    order = {r["spotify_id"]: r["rank"] for r in latest_listeners()}
+    todo = []
+    for a in sorted(tracked(), key=lambda a: order.get(a["spotify_id"], 1e9)):
+        p = current.pages(a["spotify_id"])
+        if p:
+            todo += [(a["spotify_id"], a["name"], s["track_id"], s["title"]) for s in current.to_date(current.songs(p[-1][1]))]
+    cache = release_dates.update(todo, limit=limit, retry=retry)
+    have = sum(1 for _a, _n, t, _ in todo if cache.get(t, {}).get("first_release"))
+    print(f"release dates: {have} of {len(todo)} songs dated")
+
+
+def backfill_step(limit: int | None = None) -> None:
+    keep = {a["spotify_id"] for a in load_artists().values() if a["genre"] in ("hip_hop", "review")}
+    done, bad = wayback.update(keep, limit=limit)
+    print(f"Wayback: {done} weekly snapshots read, {bad} unreadable")
+
+
+def mblabels_step(limit: int | None = None, refresh: bool = False) -> None:
+    from . import labels
+    table, rels = labels.owners(), deezer_releases.load()
+    names = {}
+    for a in tracked():
+        for r in rels.get(a.get("deezer_id", ""), []):
+            if labels.classify_label(r["label"], a["name"], table, use_musicbrainz=False)[0] == "unknown":
+                names[r["label"]] = names.get(r["label"], 0) + 1
+    todo = sorted(names, key=lambda n: -names[n])[:limit]
+    print(f"MusicBrainz labels: {musicbrainz_labels.update(todo, refresh)} label names looked up ({len(todo)} unplaced)")
+
+
+def scoutlog_step() -> None:
+    from .site_build import build
+    path = DATA / "scout_history.csv"
+    data = build()
+    day = data["as_of"]
+    new = not path.exists()
+    if not new:
+        with path.open() as f:
+            if any(r["date"] == day for r in csv.DictReader(f)):
+                print(f"Scout log: {day} already stored")
+                return
+    with path.open("a", newline="") as f:
+        w = csv.writer(f)
+        if new:
+            w.writerow(["date", "spotify_id", "score", "tier", "monthly_listeners", "label_status"])
+        n = 0
+        for a in data["artists"]:
+            if a.get("scout"):
+                w.writerow([day, a["id"], a["scout"]["score"], a["scout"]["tier"] or "", a["ml"], a["label_status"]])
+                n += 1
+    print(f"Scout log: {n} artists for {day}")
+
+
+def apple_step() -> None:
+    print(f"Apple Music charts: {apple_charts.update(today())} rows for {today()}")
+
+
+def pageviews_step() -> None:
+    n = wikipedia.update({a["spotify_id"]: a["wikidata_id"] for a in tracked() if a.get("wikidata_id")})
+    print(f"Wikipedia page views: {n} artists have an English article")
+
+
+if __name__ == "__main__":
+    step, args = sys.argv[1], sys.argv[2:]
+    lim = int(args[0]) if args else None
+    {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
+     "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
+     "ytapi": ytapi_step, "pageviews": pageviews_step, "apple": apple_step, "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     # the title search first: it adds coverage; the ISRC lookups then correct dates already found
+     "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
+                              f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
