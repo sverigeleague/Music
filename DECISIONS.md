@@ -2,6 +2,26 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Label research (owner: "Research to find out"), finances and logos
+
+- **25 artists researched:** the 5 the owner could not answer and the next 20 unknowns.
+  - **Evidence:** release ℗ lines (Apple's iTunes lookup), press and Wikipedia; one source per artist.
+  - **Applied:** 22 rows of high or medium confidence, to `registry/label_overrides.csv` with the source in the note.
+  - **Not applied (low confidence):** 50 Cent and Soulja Boy (only their own label names on 2025-26 releases; the
+    last documented major deals date from 2014 and 2021) and Eve (no new releases found). They stay unknown.
+  - **Finding:** some Deezer label strings belong to the other artist on a collaboration. Examples: Childish
+    Gambino's "ALTER Music" and Mustard's "CactusJack". The research corrected these.
+- **Finances** (`registry/label_financials.csv`): 126 rows, each with period, currency, source and basis.
+  - **Reported (A):** UMG FY2025, WMG FY2025, Sony's music segment FY2025, BMG 2025, Believe FY2024, Reservoir FY2026.
+  - **Press-reported (B):** Concord.
+  - **None found:** EMPIRE (no reputable figure). The page says so.
+  - **Checked against the sources:** UMG revenue €12,507m and adjusted EBITDA €2,810m (2025 results release), and
+    BMG and Concord's merger, completed on 1 September 2026 with Bertelsmann holding 67%.
+- **Logos** (`registry/label_logos.csv`, `site/logos/`): 25 Wikimedia Commons files, mostly PD-textlogo.
+  - **Left out:** Atlantic (a "CC0" file sourced from a fan site) and Death Row (a picture logo under a doubtful
+    licence).
+  - **No logo on Wikidata:** Capitol and gamma.
+
 ## 2026-10-24 Label pages, monthly run now, robust ranking (method 1.2)
 
 - **Label pages** (owner: "an option to select on each label ... logo ... parent company ... a snapshot ... artists

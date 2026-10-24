@@ -650,12 +650,23 @@ const logo = (name, cls = "logo") => { const l = (store.data.label_logos || {})[
   return l ? `<img class="${cls}" src="${esc(l.file)}" alt="${esc(name)} logo" loading="lazy">` : `<span class="${cls} none" aria-hidden="true">${esc(initials(name))}</span>`; };
 const labelLink = a => { const L = labelOf(a); return L ? `<a href="#/label/${L.slug}">${esc(L.name)}</a>` : ""; };
 function finTable(company) {
-  const rows = (store.data.label_financials || []).filter(r => r.company && company && (r.company.toLowerCase().includes(company.toLowerCase()) || company.toLowerCase().includes(r.company.toLowerCase())));
-  if (!rows.length) return `<p class="note">No published accounts for ${esc(company)}${company && ["Universal Music Group", "Sony Music", "Warner Music Group"].includes(company) ? "" : ": a private company or a division that does not report on its own"}.</p>`;
-  const fmt = r => { const v = +r.value; return isNaN(v) ? esc(r.value) : `${({ EUR: "€", USD: "$", JPY: "¥" })[r.currency] || ""}${v.toLocaleString("en", { maximumFractionDigits: 1 })}${r.unit === "millions" ? "m" : r.unit === "billions" ? "bn" : r.unit === "percent" ? "%" : r.unit ? " " + esc(r.unit) : ""}`; };
-  return `<div class="tablebox"><table><thead><tr><th class="l">Measure</th><th class="l">Period</th><th>Value</th><th class="l">Basis</th></tr></thead><tbody>
-    ${rows.map(r => `<tr><td class="l">${esc(r.metric)}</td><td class="l">${esc(r.period)}</td><td>${fmt(r)}</td><td class="l">${r.basis === "reported" ? grade("A") + " company report" : grade("B") + " press"} ${r.source_url ? `<a href="${esc(r.source_url)}" target="_blank" rel="noopener">source</a>` : ""}${r.note ? ` <span class="note">${esc(r.note)}</span>` : ""}</td></tr>`).join("")}
-  </tbody></table></div>`;
+  const lc = (company || "").toLowerCase();
+  const rows = (store.data.label_financials || []).filter(r => r.company && lc && (r.company.toLowerCase().includes(lc) || lc.includes(r.company.toLowerCase())));
+  if (!rows.length) return `<p class="note">No published accounts for ${esc(company)}: a private company or a division that does not report on its own.</p>`;
+  const nice = m => m.replace(/_/g, " ").replace(/\bebitda\b/i, "EBITDA").replace(/\boibda\b/i, "OIBDA").replace(/^./, c => c.toUpperCase());
+  const money = (v, r) => { const n = +v; if (isNaN(n)) return esc(v); if (r.unit === "percent") return n.toFixed(1) + "%";
+    const sym = ({ EUR: "€", USD: "$", JPY: "¥" })[r.currency] || ""; return `${sym}${n.toLocaleString("en", { maximumFractionDigits: 1 })}${r.unit === "millions" ? "m" : r.unit === "billions" ? "bn" : ""}`; };
+  const facts = rows.filter(r => r.unit === "text");
+  const by = {};
+  for (const r of rows.filter(r => r.unit !== "text" && !isNaN(+r.value))) (by[r.metric] = by[r.metric] || []).push(r);
+  const lines = Object.entries(by).map(([m, rs]) => { rs.sort((x, y) => y.period.localeCompare(x.period)); const [cur, prev] = rs;
+    const chg = prev && cur.unit !== "percent" && +prev.value ? (+cur.value / +prev.value - 1) * 100 : null;
+    return `<tr><td class="l">${esc(nice(m))}</td><td>${money(cur.value, cur)}</td><td>${prev ? money(prev.value, prev) : "–"}</td><td>${chg == null ? "–" : pct(chg)}</td><td class="l">${cur.basis === "reported" ? grade("A") : grade("B")} <a href="${esc(cur.source_url)}" target="_blank" rel="noopener" title="${esc(cur.period)}${cur.note ? ": " + esc(cur.note) : ""}">source</a></td></tr>`; });
+  const periods = Object.values(by).map(rs => rs[0].period);
+  const latest = periods.sort().reverse()[0] || "";
+  return `${facts.length ? `<dl class="kv">${facts.map(f => `<dt>${esc(nice(f.metric))}</dt><dd>${esc(f.value)}</dd>`).join("")}</dl>` : ""}
+    ${lines.length ? `<div class="tablebox"><table><thead><tr><th class="l">Measure</th><th>Latest</th><th>Year before</th><th>Change</th><th class="l">Basis</th></tr></thead><tbody>${lines.join("")}</tbody></table></div>
+    <p class="note">Latest period: ${esc(latest)}. A = the company's own report, B = press-reported. Hover "source" for the exact period and notes.</p>` : ""}`;
 }
 function labelDirectory() {
   const f = ui.labf = ui.labf || { q: "", group: "all", sort: ["ml", -1] };
