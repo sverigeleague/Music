@@ -390,26 +390,30 @@ def mblabels_step(limit: int | None = None, refresh: bool = False) -> None:
 
 
 def scoutlog_step() -> None:
+    """Today's Scout scores for each genre (hip-hop, and country since 2026-10-24), one row per artist and day."""
     from .site_build import build
     path = DATA / "scout_history.csv"
-    data = build()
-    day = data["as_of"]
     new = not path.exists()
+    logged = set()
     if not new:
         with path.open() as f:
-            if any(r["date"] == day for r in csv.DictReader(f)):
-                print(f"Scout log: {day} already stored")
-                return
-    with path.open("a", newline="") as f:
-        w = csv.writer(f)
-        if new:
-            w.writerow(["date", "spotify_id", "score", "tier", "monthly_listeners", "label_status"])
-        n = 0
-        for a in data["artists"]:
-            if a.get("scout"):
-                w.writerow([day, a["id"], a["scout"]["score"], a["scout"]["tier"] or "", a["ml"], a["label_status"]])
-                n += 1
-    print(f"Scout log: {n} artists for {day}")
+            logged = {(r["date"], r["spotify_id"]) for r in csv.DictReader(f)}
+    for g in ("hip_hop", "country"):
+        if g != "hip_hop" and not any(a["genre"] == g for a in load_artists().values()):
+            continue
+        data = build(g)
+        day = data["as_of"]
+        with path.open("a", newline="") as f:
+            w = csv.writer(f)
+            if new:
+                w.writerow(["date", "spotify_id", "score", "tier", "monthly_listeners", "label_status"])
+                new = False
+            n = 0
+            for a in data["artists"]:
+                if a.get("scout") and (day, a["id"]) not in logged:
+                    w.writerow([day, a["id"], a["scout"]["score"], a["scout"]["tier"] or "", a["ml"], a["label_status"]])
+                    n += 1
+        print(f"Scout log ({g}): {n} artists for {day}")
 
 
 def reports_step(limit: int | None = None) -> None:
