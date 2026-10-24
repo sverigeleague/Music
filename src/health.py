@@ -9,6 +9,8 @@ quarters in XBRL), and ratios, each with a plain reading:
 - liquidity and solvency: current ratio, equity ratio, interest cover (operating income / interest expense).
 Thresholds for the readings are rules of thumb used in credit analysis, not ratings (HEALTH_RULES).
 """
+import json
+
 from .collectors import financials
 
 YEARS, QUARTERS = 5, 4
@@ -64,10 +66,28 @@ def _ratios(p: dict, prev: dict | None) -> dict:
     return {k: (round(v, 4) if isinstance(v, float) else v) for k, v in r.items()}
 
 
+def uk_labels(company: str) -> list[str]:
+    """The site's labels that a UK company's latest accounts name as its own (labels_named in the read), mapped to the
+    site's label names; only labels of the company's own group."""
+    from . import labels
+    from .collectors import companies_house
+    from .extract.report_pdf import READS
+    group = next((c["group"] for c in companies_house.companies() if c["company"] == company), "")
+    reads = sorted((json.loads(p.read_text()) for p in READS.glob("*.json")), key=lambda r: r["report"]["period_end"])
+    named = next((r["read"].get("labels_named") or [] for r in reversed(reads)
+                  if r["report"]["company"] == company and r.get("read")), [])
+    table = labels.owners()
+    owner = {r["label"]: r["owner"] for r in table}
+    return sorted({n for n in (labels.label_name(x, table) for x in named) if owner.get(n) == group})
+
+
 def build() -> dict:
+    from .collectors import companies_house
     rows = financials.load()
     out = {}
-    for c in financials.COMPANIES:
+    uk = [{"company": c["company"], "source": "companies_house", "group": c["group"], "number": c["company_number"],
+           "note": c["note"]} for c in companies_house.companies()]
+    for c in financials.COMPANIES + uk:
         name = c["company"]
         mine = [r for r in rows if r["company"] == name]
         if not mine:
@@ -94,8 +114,10 @@ def build() -> dict:
         latest = years[-1] if years else None
         out[name] = {
             "currency": next((r["currency"] for r in mine if r["item"] == "revenue"), ""),
-            "note": c.get("note", ""), "source_kind": {"sec": "SEC XBRL", "esef": "ESEF annual report (XBRL)", "pdf": "report PDFs read by Claude, checked"}[c["source"]],
+            "note": c.get("note", ""), "source_kind": {"sec": "SEC XBRL", "esef": "ESEF annual report (XBRL)", "pdf": "report PDFs read by Claude, checked",
+                                                       "companies_house": "annual accounts filed at Companies House, scans read by Claude, checked"}[c["source"]],
             "years": years, "quarters": quarters,
+            **({"uk": {"group": c["group"], "number": c["number"], "labels": uk_labels(name)}} if c["source"] == "companies_house" else {}),
             "health": {k: {"value": v, "reading": _reading(k, v)} for k, v in (latest["ratios"].items() if latest else [])
                        if k in HEALTH_RULES or k in ("net_debt", "fcf", "revenue_growth")},
         }

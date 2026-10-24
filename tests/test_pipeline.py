@@ -368,3 +368,46 @@ def test_report_check_catches_a_wrong_unit():
     assert any("under one million" in f for f in r.checks(read))
     read["unit_multiplier"] = 1000000
     assert r.checks(read) == []
+
+
+def test_scanned_uk_accounts_go_whole_with_the_uk_notes(monkeypatch):
+    import io
+    from pypdf import PdfWriter
+    from src.extract import report_pdf as r
+    w = PdfWriter()
+    for _ in range(30):
+        w.add_blank_page(595, 842)  # a scan: pages without a text layer
+    buf = io.BytesIO()
+    w.write(buf)
+    sent = {}
+    ok = {"currency": "GBP", "unit_multiplier": 1000, "columns": [{"column": 1, "statement": "IS", "period_end": "2025-12-31", "months": 12}],
+          "lines": [{"item": "revenue", "label": "Turnover", "column": 1, "value": 900000, "page": 20}],
+          "absent": [{"item": i, "reason": "x"} for i in ("net_income", "total_assets", "cfo")], "labels_named": ["Polydor"]}
+
+    def call(content, model, effort):
+        sent["pages"] = len(__import__("pypdf").PdfReader(io.BytesIO(__import__("base64").b64decode(content[0]["source"]["data"]))).pages)
+        sent["prompt"] = content[1]["text"]
+        return {"read": ok, "model": model, "usage": {}}
+    monkeypatch.setattr(r, "call", call)
+    row = {"company": "Universal Music Operations Ltd", "document": "Annual accounts", "period_end": "2025-12-31",
+           "url": "https://example.org/x", "basis": "company"}
+    res = r.read_report(row, buf.getvalue())
+    assert sent["pages"] == 30 and res["status"] == "passed"
+    assert "company's own" in sent["prompt"] and "turnover is revenue" in sent["prompt"] and "scan without a text layer" in sent["prompt"]
+
+
+def test_companies_house_filing_history_keeps_full_accounts(monkeypatch):
+    from src.collectors import companies_house as ch
+    page = ('<table><tr><th>Date</th></tr>'
+            '<tr><td>12 Oct 2026</td><td>AA</td><td>Full accounts made up to 31 December 2025</td>'
+            '<td><a href="/company/00950138/filing-history/AbC/document?format=pdf&amp;download=0">View PDF</a></td></tr>'
+            '<tr><td>22 Dec 2025</td><td>CS01</td><td>Confirmation statement</td><td><a href="/x/document?format=pdf&amp;download=0">PDF</a></td></tr>'
+            '<tr><td>01 Jan 2025</td><td>AA</td><td>Dormant company accounts made up to 31 March 2024</td><td><a href="/y/document?format=pdf">PDF</a></td></tr></table>')
+    calls = []
+
+    class R:
+        status_code, text = 200, page
+    monkeypatch.setattr(ch, "get", lambda url, params=None: calls.append(params) or (R if params["page"] == 1 else type("E", (), {"status_code": 404})))
+    got = ch.accounts("00950138")
+    assert [a["made_up"] for a in got] == ["2025-12-31"]
+    assert got[0]["url"].endswith("/company/00950138/filing-history/AbC/document?format=pdf&download=1")
