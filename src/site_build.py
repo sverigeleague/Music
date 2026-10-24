@@ -230,7 +230,7 @@ def build(genre: str = "hip_hop") -> dict:
     day = max((r["date"] for r in csv.DictReader(kworb.LISTENERS_CSV.open())), default=None)
     return {"built": datetime.now(timezone.utc).isoformat(timespec="minutes"), "as_of": day,
             "universe": len(top), "artists": rows, "rates": rates, "deals": deals,
-            "platforms": revenue.platforms(), "multipliers": revenue.multipliers(genre), "tours": tour_table(rows),
+            "platforms": revenue.platforms(genre), "multipliers": revenue.multipliers(genre), "tours": tour_table(rows),
             "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
             "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),

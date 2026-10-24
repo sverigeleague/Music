@@ -46,8 +46,11 @@ def _csv(name):
         return list(csv.DictReader(f))
 
 
-def platforms() -> dict[str, dict]:
-    return {r["platform"]: r for r in _csv("platforms.csv")}
+def platforms(genre: str = "hip_hop") -> dict[str, dict]:
+    pf = {r["platform"]: r for r in _csv("platforms.csv")}
+    if genre == "country" and "others" in pf:  # Pandora is its own line for country
+        pf["others"] = {**pf["others"], "name": COUNTRY_NAMES["others"]}
+    return pf
 
 
 def multipliers(genre: str = "hip_hop") -> list[dict]:
