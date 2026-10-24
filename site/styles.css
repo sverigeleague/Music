@@ -289,3 +289,7 @@ tr.hl td { background: var(--soft); outline: 1px solid var(--fg); }
 @media (max-width: 560px) { .genres a { padding: 10px 12px; } }
 .profiles { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
 .profiles a { color: var(--fg); }
+table.brief .sig { display: none; }
+td.hit { min-width: 220px; }
+td.hit .note { display: block; }
+td.lab { max-width: 160px; }
