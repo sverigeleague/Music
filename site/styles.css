@@ -25,8 +25,25 @@ header { position: sticky; top: 0; background: var(--bg); border-bottom: 1px sol
 .bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 12px; }
 .brand { font: 700 22px var(--font-ui); text-decoration: none; letter-spacing: -.02em; }
 .brand b { font-weight: 500; }
-.crumbs { color: var(--muted); font-size: 14px; flex: 1; min-width: 0; }
-.crumbs a { text-decoration: none; }
+.crumbs { color: var(--muted); font-size: 13px; padding-top: 14px; overflow-wrap: anywhere; }
+.crumbs:empty { display: none; }
+.crumbs a { text-decoration: none; } .crumbs a:hover { color: var(--fg); }
+/* header search and the phone header, as on tventy sport */
+.search { position: relative; flex: 1; min-width: 200px; max-width: 420px; }
+.search input { width: 100%; padding: 8px 12px; font: inherit; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+.results { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--bg); border: 1px solid var(--fg); z-index: 10; max-height: 70vh; overflow-y: auto; }
+.results a { display: flex; gap: 10px; align-items: center; padding: 8px 12px; text-decoration: none; border-bottom: 1px solid var(--line); }
+.results a span { display: grid; min-width: 0; } .results small { color: var(--muted); font-size: 12px; }
+.results a[aria-selected="true"], .results a:hover { background: var(--soft); }
+.results .pic, .results .logo { width: 28px; height: 28px; }
+.mainnav { margin-left: auto; }
+@media (max-width: 720px) {
+  .bar { gap: 8px 10px; padding-block: 10px; }
+  .brand { font-size: 19px; }
+  .bar .search { order: 3; flex-basis: 100%; max-width: none; }
+  .bar .mainnav { order: 4; margin-left: 0; flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; }
+  .mainnav .segbtn { white-space: nowrap; }
+}
 .seg { display: inline-flex; flex-wrap: wrap; max-width: 100%; }
 .seg button, .segbtn { border: 1px solid var(--line); margin: 0 -1px -1px 0; background: var(--bg); font: 600 13px var(--font-ui); color: var(--muted); padding: 6px 14px; cursor: pointer; text-decoration: none; }
 .seg button:hover, .segbtn:hover { color: var(--fg); border-color: var(--fg); position: relative; }
@@ -43,9 +60,9 @@ h2 { font: 600 13px var(--font-ui); text-transform: uppercase; letter-spacing: .
 
 /* tiles */
 .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: var(--gap); }
-.tile { border: 1px solid var(--line); padding: 14px 16px; background: var(--soft); min-width: 0; }
-.tile .k { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.tile .v { font: 650 26px/1.2 var(--font-ui); letter-spacing: -.01em; margin-top: 4px; overflow-wrap: anywhere; }
+.tile { border: 1px solid var(--line); padding: 14px 16px; min-width: 0; display: grid; gap: 2px; align-content: start; }
+.tile .k { font-size: 13px; color: var(--muted); }
+.tile .v { font: 600 22px/1.25 var(--font-ui); overflow-wrap: anywhere; }
 .tile .s { font-size: 13px; color: var(--muted); }
 
 /* tables */
@@ -118,7 +135,7 @@ details.panel[open] summary { margin-bottom: 8px; }
 .filters { display: flex; gap: 10px 16px; flex-wrap: wrap; align-items: center; }
 .sel { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
 .sel select { font: inherit; color: var(--fg); padding: 5px 8px; border: 1px solid var(--line); background: var(--bg); max-width: 200px; }
-.btn { font: 600 13px var(--font-ui); padding: 6px 14px; border: 1px solid var(--fg); background: var(--bg); color: var(--fg); cursor: pointer; }
+.btn { font: 600 13px var(--font-ui); padding: 6px 14px; border: 1px solid var(--fg); background: var(--bg); color: var(--fg); cursor: pointer; text-decoration: none; }
 .btn:hover { background: var(--fg); color: var(--bg); }
 th[data-ssort] { cursor: pointer; user-select: none; }
 
@@ -155,8 +172,6 @@ a.chip:hover { border-color: var(--fg); }
   .tablebox td:nth-child(2), .tablebox th:nth-child(2) { position: sticky; left: 0; background: var(--bg); z-index: 1; }
   .tablebox thead th:nth-child(2) { background: var(--soft); }
   .who span { max-width: 110px; overflow: hidden; text-overflow: ellipsis; }
-  header .seg.main { width: 100%; }
-  header .seg.main .segbtn { flex: 1; text-align: center; padding-inline: 6px; }
 }
 
 /* home: right now */
@@ -204,3 +219,23 @@ td.q, th.q { background: var(--soft); }
 .brandbox { display: inline-flex; flex-direction: column; line-height: 1; }
 .brandbox .section { align-self: flex-end; margin-top: 1px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: lowercase; text-decoration: none; color: var(--muted); }
 .brandbox .section:hover, .brandbox .section:focus { color: var(--fg); text-decoration: underline; }
+/* start page, as on tventy sport: title, search, headline figures, then a band of what moved */
+.hero { padding: 12px 0 8px; display: grid; gap: 14px; }
+.hero h1 { font-size: clamp(30px, 4.6vw, 44px); line-height: 1.05; letter-spacing: -.03em; }
+.search.big { max-width: 640px; }
+.search.big input { font-size: 17px; padding: 14px 16px; border: 1px solid var(--fg); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr)); border: 1px solid var(--line); margin-top: 6px; }
+.stats > div { padding: 14px 16px; border-right: 1px solid var(--line); margin-right: -1px; display: grid; }
+.stats b { font: 650 28px var(--font-ui); letter-spacing: -.02em; } .stats span { font-size: 13px; color: var(--muted); }
+.band { border: 1px solid var(--fg); padding: 18px; }
+.bandhead { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.bandhead h2 { margin: 0; }
+@media (max-width: 560px) { .stats { grid-template-columns: 1fr 1fr; } .stats b { font-size: 22px; } .band { padding: 14px; } }
+@media (max-width: 560px) { .pulses { grid-template-columns: 1fr 1fr; gap: 8px; } .pulse { flex-direction: column; align-items: start; padding: 10px; } .pulse .note { font-size: 12px; } }
+/* phones: the photo or logo sits beside the name, as the club logo does on tventy sport */
+@media (max-width: 560px) {
+  .head { flex-wrap: nowrap; gap: 12px; align-items: flex-start; }
+  .head > :last-child { min-width: 0; }
+  .pic.big, .logo.big { width: 64px; height: 64px; font-size: 20px; padding: 4px; }
+}
+@media (max-width: 560px) { .subnav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .subnav a { white-space: nowrap; } }

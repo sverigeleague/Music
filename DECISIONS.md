@@ -2,6 +2,20 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 · Design and usability in line with tventy sport
+- **Owner:** "Revamp the tventy music site so its design is more in line with tventy sport ... consistency in usability when switching from sport to music on desktop and mobile."
+- **Chosen,** each taken from the sport site:
+  - **Header:** the wordmark with the section switcher, a search box, and the section buttons on the right.
+  - **Phone header:** the search takes a full row, and the section buttons scroll in one row below it.
+  - **Search:** artists by name, then labels. Arrow keys and Enter work, and "/" focuses the box. There is a second, larger search on the start page.
+  - **Breadcrumbs under the header:** Home / section / page.
+  - **Start page:** "Global Hip-Hop", the big search, four headline figures, then "Right now" as a framed band with a button, then the three doors, then the top list.
+  - **Key-figure tiles:** outlined, no fill, the value at 22px, as sport's key figures.
+  - **Phones:** the artist photo and label logo sit beside the name, the "Right now" cards are two per row, and the sub-menus scroll sideways.
+  - **Footer:** links to Method, Report a correction and tventy sport.
+- **Unchanged:** every page's content, figures, tables and sources.
+- **Rejected:** copying the sport site's code wholesale. The two sites have different pages; only the shared shell and patterns were brought over.
+
 ## 2026-10-24 · The site becomes tventy music at tventy.se/music, public
 - **Owner:** "tventy.se/sport for the basketball site and then tventy.se/music for the rap ledger ... no mention of rap ledger just that site there. The theme should be inverse with a black background and white text ... Public. Go."
 - **Chosen:**
