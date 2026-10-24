@@ -502,6 +502,7 @@ function scoutPage() {
       <label class="sel">Size <select data-f="band"><option value="all">all sizes</option>${BANDS.map(b => `<option${f.band === b ? " selected" : ""}>${b}</option>`).join("")}</select></label>
       <label class="sel">Country <select data-f="country"><option value="all">all countries</option>${countries.map(c => `<option${f.country === c ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></label>
       <button type="button" class="btn" id="csv">Download CSV</button>
+      <button type="button" class="btn" id="radio" title="30-second previews of each artist's newest hit, in the order shown">📻 Scout radio (${rows.filter(a => a.top_fresh?.dz).length})</button>
     </section>
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th>${cols.slice(0, 1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Label</th>${cols.slice(1).map(([l, k]) => `<th data-ssort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${esc(l)}</th>`).join("")}<th class="l">Newest hit</th></tr></thead><tbody>
       ${rows.map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td><b>${a.scout.score}</b> ${tierChip(a.scout.tier)}</td><td class="l">${statusShort(a)}</td><td>${count(a.ml)}</td><td>${share(a.fresh_share)}</td><td>${share(a.cur_share)}</td><td>${trend(a.attention?.trend)}</td>
@@ -517,6 +518,7 @@ function scoutPage() {
   bindStars(scoutPage);
   app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
+  app.querySelector("#radio").onclick = () => startRadio(rows.filter(a => a.top_fresh?.dz));
   app.querySelector("#csv").onclick = () => download("tventy-music-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
     ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || "", a.label_status, a.label_owner || "", a.country || "", a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
 }
@@ -567,13 +569,13 @@ function dock(label, mode) {
     d.innerHTML = `<div class="wrap dockbar"><span class="docklabel"></span><a class="note" href="#/scout">Scout list</a><button type="button" class="dockclose" aria-label="Close the player">×</button></div><div class="wrap dockbody"></div>`;
     document.body.appendChild(d);
     document.body.classList.add("has-dock");
-    d.querySelector(".dockclose").onclick = () => { spotifyCtl?.destroy?.(); spotifyCtl = null; d.remove(); document.body.classList.remove("has-dock"); };
+    d.querySelector(".dockclose").onclick = () => { spotifyCtl?.destroy?.(); spotifyCtl = null; radio.audio?.pause(); radio.queue = []; d.remove(); document.body.classList.remove("has-dock"); };
   }
   d.querySelector(".docklabel").textContent = label;
   d.dataset.mode = mode;
   return d.querySelector(".dockbody");
 }
-function fresh(body) { spotifyCtl?.destroy?.(); spotifyCtl = null; body.innerHTML = `<div id="dockframe"></div>`; return body.firstChild; }
+function fresh(body) { spotifyCtl?.destroy?.(); spotifyCtl = null; radio.audio?.pause(); body.innerHTML = `<div id="dockframe"></div>`; return body.firstChild; }
 async function play(id, label) {
   const body = dock(label, "audio"), uri = "spotify:track:" + id;
   if (spotifyCtl) { spotifyCtl.loadUri(uri); spotifyCtl.play(); return; }
@@ -592,6 +594,65 @@ document.addEventListener("click", e => {
   e.preventDefault();
   b.dataset.video ? playVideo(b.dataset.video, b.dataset.label) : play(b.dataset.track, b.dataset.label);
 });
+
+// ---------- Scout radio (owner, 2026-10-24): 30-second Deezer previews of the risers' newest hits, one after another,
+// in the order of the Scout list as filtered. Deezer's preview links expire within the hour, so each one is fetched
+// when it is about to play, through Deezer's API in its documented JSONP form (the API sends no CORS headers); nothing
+// is fetched before the radio is started. Previews by Deezer, credited with a link to each track.
+const radio = { queue: [], i: 0, audio: null };
+const jsonp = url => new Promise((res, rej) => {
+  const cb = "dzcb" + Math.random().toString(36).slice(2), s = document.createElement("script");
+  const done = () => { delete window[cb]; s.remove(); };
+  window[cb] = d => { done(); res(d); };
+  s.onerror = () => { done(); rej(new Error("Deezer did not answer")); };
+  s.src = `${url}${url.includes("?") ? "&" : "?"}output=jsonp&callback=${cb}`;
+  document.body.appendChild(s);
+  setTimeout(() => { if (window[cb]) { done(); rej(new Error("Deezer timed out")); } }, 8000);
+});
+function startRadio(list) {
+  if (!list.length) return;
+  radio.queue = list; radio.i = 0;
+  radioPlay();
+}
+async function radioPlay() {
+  const a = radio.queue[radio.i];
+  if (!a) return;
+  const body = fresh(dock(`📻 ${a.name} · ${a.top_fresh.title}`, "radio"));
+  body.innerHTML = `<div class="radio">
+      <button type="button" data-r="prev" aria-label="Previous">⏮</button><button type="button" data-r="toggle" aria-label="Pause">⏸</button><button type="button" data-r="next" aria-label="Next">⏭</button>
+      <span class="note">${radio.i + 1} / ${radio.queue.length}</span>
+      <a href="#/a/${a.id}">${esc(a.name)}</a> ${a.scout ? `${a.scout.score} ${tierChip(a.scout.tier)}` : ""}
+      <button type="button" data-r="star" aria-pressed="${watch.has(a.id)}">${watch.has(a.id) ? "★ On watchlist" : "☆ Watchlist"}</button>
+      <a class="note" href="https://www.deezer.com/track/${encodeURIComponent(a.top_fresh.dz)}" target="_blank" rel="noopener">Preview: Deezer</a>
+      <span class="note" data-r="msg"></span></div>`;
+  radio.audio?.pause();
+  radio.audio = new Audio();
+  radio.audio.onended = () => radioStep(1);
+  body.onclick = e => {
+    const b = e.target.closest("[data-r]");
+    if (!b) return;
+    const r = b.dataset.r;
+    if (r === "prev") radioStep(-1);
+    else if (r === "next") radioStep(1);
+    else if (r === "toggle") { radio.audio.paused ? radio.audio.play() : radio.audio.pause(); b.textContent = radio.audio.paused ? "▶" : "⏸"; }
+    else if (r === "star") { watch.has(a.id) ? watch.delete(a.id) : watch.add(a.id); saveWatch(); b.textContent = watch.has(a.id) ? "★ On watchlist" : "☆ Watchlist"; b.setAttribute("aria-pressed", watch.has(a.id)); }
+  };
+  try {
+    const t = await jsonp(`https://api.deezer.com/track/${encodeURIComponent(a.top_fresh.dz)}`);
+    if (radio.queue[radio.i] !== a) return;  // skipped while loading
+    if (!t?.preview) throw new Error("no preview");
+    radio.audio.src = t.preview;
+    await radio.audio.play();
+  } catch (err) {
+    const m = body.querySelector('[data-r="msg"]');
+    if (m) m.textContent = "No preview for this song; next in 2 seconds";
+    setTimeout(() => radio.queue[radio.i] === a && radioStep(1), 2000);
+  }
+}
+function radioStep(d) {
+  radio.i = Math.max(0, Math.min(radio.queue.length - 1, radio.i + d));
+  radioPlay();
+}
 
 function backtestPanel() {
   const B = store.data.backtest;

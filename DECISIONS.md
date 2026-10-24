@@ -26,6 +26,21 @@ What was chosen, what was considered and rejected, and why. Newest first.
   - **Schedule:** weekly on Fridays in the daily workflow (`python -m src.run videos`, about 4 minutes).
   - **Rejected:** the YouTube Data API. It needs a key and quota, and the free sources cover what kworb and the
     feeds can.
+- **c) Scout radio:**
+  - **What:** a "📻 Scout radio" button on the Scout list plays a 30-second Deezer preview of each artist's newest hit,
+    one after another, in the order shown. It follows the list's filters, so "Unsigned" plus radio plays the unsigned
+    risers only.
+  - **Controls:** previous, pause, next, ☆ watchlist, and a link to the track on Deezer ("Preview: Deezer").
+  - **Coverage:** 406 of the 1,000 have a newest hit with a Deezer track ID; 208 are on the default Breaking + Rising
+    list.
+  - **How:** Deezer's preview links expire within the hour, so each is fetched just before it plays, through Deezer's
+    API in its documented JSONP form (the API sends no CORS headers). Nothing loads before the radio is started; a
+    song without a preview is skipped after 2 seconds.
+  - **Tested** in headless Chromium: Deezer answered and the previews streamed (HTTP 206), skipping works and the
+    watchlist star toggles.
+  - **Rejected:** Deezer's widget (no queue we can drive) and Apple's previews (found only by searching for the song
+    by name, so less exact).
+
 
 ## 2026-10-24 Scout weights after the back-test, labels from lead releases, and a player for the risers
 
