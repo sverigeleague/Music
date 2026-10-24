@@ -450,3 +450,21 @@ def test_sony_music_segment_tables():
     rows = {(r["period_end"], r["item"]): r["value"] for r in s.parse(pages, "u")}
     assert rows[("2026-06-30", "operating_income")] == 105_882e6 and rows[("2025-06-30", "sales")] == 458_952e6
     assert rows[("2026-06-30", "recorded_streaming")] == 237_066e6 and ("2026-06-30", "Motion Pictures") not in rows
+
+
+def test_risers_video_pick_and_parsers(monkeypatch):
+    from src.site_build import pick_video
+    from src.collectors import kworb_youtube, youtube_feed
+    html = ('<tr><td class="text"><div><a href="../video/AAAAAAAAAAA.html">Post Malone - rockstar ft. 21 Savage</a></div></td>'
+            '<td>1,000</td> <td>900</td> <td>2017/11</td></tr><tr><td class="text"><div><a href="../video/BBBBBBBBBBB.html">'
+            '21 Savage - a lot</a></div></td><td>500</td> <td>100</td> <td>2019/02</td></tr>')
+    vids = kworb_youtube.videos(html)
+    assert [v["id"] for v in vids] == ["AAAAAAAAAAA", "BBBBBBBBBBB"] and vids[0]["yesterday"] == 900
+    assert pick_video({"source": "kworb", "videos": vids}, "21 Savage", None)["id"] == "BBBBBBBBBBB"  # own video first
+    assert pick_video({"source": "kworb", "videos": vids}, "21 Savage", "rockstar")["why"] == "newest hit"
+    feed = ('<entry><yt:videoId>CCCCCCCCCCC</yt:videoId><title>Short</title><link rel="alternate" href="https://www.youtube.com/shorts/CCCCCCCCCCC"/>'
+            '<published>2026-10-20T00:00:00+00:00</published></entry><entry><yt:videoId>DDDDDDDDDDD</yt:videoId><title>New &amp; video</title>'
+            '<link rel="alternate" href="https://www.youtube.com/watch?v=DDDDDDDDDDD"/><published>2026-10-18T00:00:00+00:00</published>'
+            '<media:statistics views="42"/></entry>')
+    monkeypatch.setattr(youtube_feed, "get", lambda url, params=None: type("R", (), {"status_code": 200, "text": feed}))
+    assert youtube_feed.latest("x") == [{"id": "DDDDDDDDDDD", "title": "New & video", "published": "2026-10-18", "views": 42}]

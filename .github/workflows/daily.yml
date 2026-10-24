@@ -1,6 +1,7 @@
 # Daily: kworb's top 2,500 by monthly listeners (raw page archived, tracked artists' rows kept). About 1 minute.
 # Also Apple Music's daily top 100 in 25 countries (a few seconds).
-# Fridays also: the weekly Spotify top 200 of 76 countries (where each artist's songs are streamed), about 2 minutes.
+# Fridays also: the weekly Spotify top 200 of 76 countries (where each artist's songs are streamed), about 2 minutes,
+# and the YouTube videos of Scout's risers (data/videos.json), about 4 minutes.
 # Scheduled workflows run only from the default branch (main).
 name: daily
 on:
@@ -15,7 +16,7 @@ concurrency:
 jobs:
   snapshot:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -28,6 +29,9 @@ jobs:
       - run: python -m src.run scoutlog
       - name: Country charts (Fridays, when kworb has the new week)
         run: if [ "$(date -u +%u)" = "5" ]; then python -m src.run countries; fi
+      - name: Risers' YouTube videos (Fridays; kworb's YouTube pages and channel feeds, about 4 minutes)
+        run: if [ "$(date -u +%u)" = "5" ]; then python -m src.run videos; fi
+        continue-on-error: true
       - name: Commit
         run: |
           git config user.name "music-bot"
