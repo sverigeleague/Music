@@ -37,11 +37,11 @@ def apply() -> tuple[int, int]:
         if sid in artists:
             artists[sid].update({"genre": x["decision"], "genre_basis": "owner: Review desk", "reviewed": x.get("at", "")})
     for sid, x in d.get("label", {}).items():
-        if x.get("status") in ("major", "independent", "self_released"):
+        if x.get("status") in ("major", "major_distributed", "independent", "self_released", "catalog"):
             label[sid] = {"spotify_id": sid, "name": x.get("name", ""), "status": x["status"], "owner": x.get("owner", ""),
-                          "note": "owner: Review desk", "date": x.get("at", "")}
+                          "label": x.get("label", ""), "note": x.get("note") or "owner: Review desk", "date": x.get("at", "")}
     _write(gpath, ["spotify_id", "name", "decision", "note", "decided_by", "date"], genre)
-    _write(lpath, ["spotify_id", "name", "status", "owner", "note", "date"], label)
+    _write(lpath, ["spotify_id", "name", "status", "owner", "label", "note", "date"], label)
     save_artists(artists)
     return len(d.get("genre", {})), len(d.get("label", {}))
 

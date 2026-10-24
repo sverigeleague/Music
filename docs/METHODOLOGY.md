@@ -1,6 +1,6 @@
 # Current listeners: how our top 100 is ranked
 
-Version 1.1, 23 October 2026. Code: `src/current.py` (weights), `src/collectors/release_dates.py` (dates). A change to
+Version 1.2, 24 October 2026. Code: `src/current.py` (weights), `src/collectors/release_dates.py` (dates). A change to
 any number below is a new version, logged in `DECISIONS.md`.
 
 ## The idea
@@ -69,8 +69,11 @@ Current share = 950,000 / 2,000,000 = 47.5%. Current listeners = 20m × 47.5% = 
 
 ## When an artist is ranked
 
-- Only when dated songs cover **at least 80%** of the artist's weighted daily streams.
-- Below that, the artist is listed as "not yet ranked".
+- **Ranked:** dated songs cover at least 80% of the artist's weighted daily streams.
+- **Provisional rank:** coverage is 50-80%. The dated songs' current share stands in for the whole catalogue, and the
+  site marks the rank provisional and shows the range the undated songs could move it. The low end treats every
+  undated song as old (weight 0); the high end treats it as new (weight 1).
+- **Below 50%:** the artist is listed as "not yet ranked".
 
 ## Revival
 
@@ -88,6 +91,9 @@ Current share = 950,000 / 2,000,000 = 47.5%. Current listeners = 20m × 47.5% = 
 
 ## Change log
 
+- 1.2 (2026-10-24): no weights changed. Artists with 50-80% of their streams dated get a provisional rank with a
+  range, instead of no rank. Owner: "make the current listener ranking robust". The monthly run also dates songs in
+  a second Deezer pass after MusicBrainz.
 - 1.1 (2026-10-23): no ranking weights changed. Up to 300 songs dated per artist instead of 40, because the cap
   kept large catalogues under the 80% rule (Drake 50%, Kendrick Lamar 64%). Better title matching, and a
   MusicBrainz search for songs Deezer cannot match.
