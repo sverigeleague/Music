@@ -52,6 +52,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - Billboard's year-end 2025 figures end 2025-09-30, so they fall outside the last 12 months; what counts now:
   Luke Combs $86.5m (three reported runs), Chris Stapleton $73.5m (summer 2026 leg), George Strait $28.4m (Lubbock),
   Treaty Oak Revival $26.7m, Tim McGraw $13.5m, Lainey Wilson $12.4m, Zach Bryan $10.2m (one reported show), HARDY.
+- Hip-hop, Oct 2025 to now: Billboard's midyear 2026 rap top five (Travis Scott, Cardi B, YoungBoy, Kendrick Lamar,
+  Wu-Tang Clan) are already in existing rows except Wu-Tang ($16.9m, added). Billboard's monthly reports for
+  April-August 2026 name no other rap tour; J. Cole, Post Malone, Don Toliver, A$AP Rocky and Playboi Carti have no
+  reported 2026 gross yet (Pollstar per-city averages are not used).
 - Not estimated: Morgan Wallen's 2025 and 2026 stadium tours and most of Zach Bryan's 2026 tour have no reported
   gross anywhere (projections and per-night averages are not reports). Billboard's year-end 2026 (about December)
   should fill most gaps.
