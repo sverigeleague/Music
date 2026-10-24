@@ -1,6 +1,6 @@
-"""US radio airplay audience per song, from kworb.net/radio (its daily estimate of each song's US AM/FM audience in
-millions, from airplay across formats). Owner, 2026-10-24 (C4): an internal scoring signal for country (radio is the
-genre's biggest audience outside streaming); our own derived ranks may be shown, kworb's figures are not reproduced
+"""US radio airplay audience per song, from kworb.net/radio: each song's US AM/FM audience in millions over the last
+7 days (it matches Luminate's weekly Radio Songs impressions; docs/research/research_country_rates.md), updated daily.
+Owner, 2026-10-24 (C4): an internal scoring signal for country (radio is the genre's biggest audience outside streaming); our own derived ranks may be shown, kworb's figures are not reproduced
 until the owner has asked. Daily page and the archived days (kworb.net/radio/archives/YYYYMMDD.html) are stored raw.
 Saved to data/radio.csv: date, pos, artist_raw, title, days, peak, aud (millions), aud_change, formats.
 """
