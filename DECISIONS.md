@@ -29,8 +29,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
       Orochi (Believe Artist Services) are set to independent through review/decisions.json.
     - B4: 14 artists stay unknown and lead the next research batch: Mauvais djo, Waka Flocka Flame, L7NNON,
       DYSTINCT, MC Cabelinho, MF DOOM, Millonario, Vacra, Eypio, Djonga, Teto, Vegedream, Caio Luccas and Chris MC.
-  - **Net, across the 1,000:** major 430 to 316, major-distributed 16 to 20, independent 86 to 87, self-released 138
-    to 144, catalog 88 to 144, unknown 242 to 289. The old major count included artists counted only through labels
+  - **Net, across the 1,000:** major 430 to 316, major-distributed 16 to 20, independent 86 to 88, self-released 138
+    to 143, catalog 88 to 144, unknown 242 to 289. The old major count included artists counted only through labels
     of songs they featured on.
 - **Player for the risers (owner: "links to the songs and be able to play audio ... only for the risers/scout";
   "Go with suggested"):**
