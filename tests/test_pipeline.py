@@ -524,3 +524,17 @@ def test_label_rows_by_release_date():
     assert labels.classify_label("Big Machine Records, LLC", "", t, False, "2023-05-01") == ("major_distributed", "HYBE America")
     assert labels.classify_label("Big Machine Records", "", t, False, "2026-06-01") == ("independent", "Big Machine Records (Scott Borchetta)")
     assert labels.classify_label("Blue Highway Records", "", t, False, "2026-06-01")[1] == "HYBE America"
+
+
+def test_country_revenue_has_pandora_and_radio_songwriting():
+    from datetime import date
+    from src import revenue
+    a = {"name": "X", "lead_daily": 1_000_000, "yt_daily": 0, "radio_week": 48.65}
+    share = {"low": 0.2, "mid": 0.2, "high": 0.2}
+    hh = {l["key"]: l for l in revenue.estimate(a, date(2026, 10, 24), share)["lines"]}
+    cy = {l["key"]: l for l in revenue.estimate(a, date(2026, 10, 24), share, "country")["lines"]}
+    assert "pandora" not in hh and "pandora" in cy
+    assert cy["amazon"]["generated"]["mid"] > hh["amazon"]["generated"]["mid"]
+    r = cy["radio"]
+    assert r["artist"] is None and r["group"] == "Publishing"
+    assert round(r["generated"]["mid"]) == round(48.65e6 * 52 * 0.25 / 1000)  # about $632k

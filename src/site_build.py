@@ -189,21 +189,21 @@ def build(genre: str = "hip_hop") -> dict:
                       "tiktok": a["tiktok"] and f"https://www.tiktok.com/@{a['tiktok']}",
                       "x": a["x"] and f"https://x.com/{a['x']}"},
         })
-    for r in rows:
-        sh = shares[r["deal_type"]]
-        r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")})
-    rows = rows[:TOP_N]  # the site covers the top 1,000 hip-hop artists by monthly listeners
-    for r in rows:
-        r["streaming_mid"] = round(sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming"))
     factors = insights.FACTORS_BY_GENRE.get(genre, insights.FACTORS)
-    if "radio" in factors:  # internal signal (C4): only the percentile reaches the site
+    if genre == "country":  # US radio (C4, C5): an internal Scout signal and the songwriters' radio money
         from .collectors import radio as radio_src
         on_air = radio_src.presence({r["id"]: r["name"] for r in rows})
         for r in rows:
-            r["radio_aud"] = on_air.get(r["id"], {}).get("aud", 0.0)
+            r["radio_week"] = on_air.get(r["id"], {}).get("aud", 0.0)
+    for r in rows:
+        sh = shares[r["deal_type"]]
+        r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")}, genre)
+    rows = rows[:TOP_N]  # the site covers the top 1,000 hip-hop artists by monthly listeners
+    for r in rows:
+        r["streaming_mid"] = round(sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming"))
     insights.scout(rows, factors)
     for r in rows:
-        r.pop("radio_aud", None)
+        r.pop("radio_week", None)  # kworb's audience figure stays internal (C4): only our percentile and estimate show
     mult = insights.multiples()
     ml_of = {t["spotify_id"]: t["monthly_listeners"] or 0 for t in top}
     for r in rows:
@@ -230,7 +230,7 @@ def build(genre: str = "hip_hop") -> dict:
     day = max((r["date"] for r in csv.DictReader(kworb.LISTENERS_CSV.open())), default=None)
     return {"built": datetime.now(timezone.utc).isoformat(timespec="minutes"), "as_of": day,
             "universe": len(top), "artists": rows, "rates": rates, "deals": deals,
-            "platforms": revenue.platforms(), "multipliers": revenue.multipliers(), "tours": tour_table(rows),
+            "platforms": revenue.platforms(), "multipliers": revenue.multipliers(genre), "tours": tour_table(rows),
             "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
             "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),

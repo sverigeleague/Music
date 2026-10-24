@@ -29,6 +29,12 @@ MERCH_VENUE_CUT = (0.25, 0.20, 0.0)          # low artist case = highest cut
 MERCH_COSTS = (0.60, 0.50, 0.40)             # cost of goods and merch company
 TOUR_ARTIST_NET = (0.15, 0.20, 0.35)         # artist's net share of tour gross (C)
 PUBLISHING_TO_MASTER = (0.20, 0.25, 0.25)    # Spotify royalties guide: about 4/5 recordings, 1/5 publishing (A)
+# US AM/FM pays songwriters and publishers (ASCAP, BMI, SESAC, GMR), not recordings: dollars per 1,000 audience
+# impressions (C; docs/research/research_country_rates.md). kworb's radio audience is a 7-day figure.
+RADIO_PER_1000 = (0.15, 0.25, 0.40)
+WEEKS = 52
+NAMES = {"pandora": "Pandora"}
+COUNTRY_NAMES = {"others": "Other services (Tencent, NetEase, regional)"}  # Pandora has its own line for country
 K = ("low", "mid", "high")
 
 
@@ -44,9 +50,10 @@ def platforms() -> dict[str, dict]:
     return {r["platform"]: r for r in _csv("platforms.csv")}
 
 
-def multipliers() -> list[dict]:
-    """Other services as a ratio of Spotify recording royalties: platform, low, mid, high, grade, source."""
-    return _csv("platform_multipliers.csv")
+def multipliers(genre: str = "hip_hop") -> list[dict]:
+    """Other services as a ratio of Spotify recording royalties: platform, low, mid, high, grade, source. Country has
+    its own set (owner C5: more Amazon and Pandora, docs/research/research_country_rates.md)."""
+    return _csv("platform_multipliers_country.csv" if genre == "country" else "platform_multipliers.csv")
 
 
 def tours() -> list[dict]:
@@ -116,8 +123,9 @@ def tour_last_12_months(artist: str, today: date) -> dict | None:
             "grade": max(grades) if grades else None}
 
 
-def estimate(a: dict, today: date, deal_share: dict) -> dict:
-    """a: an artist row from the site build (lead_daily, yt_daily, name). deal_share: artist's share of recordings."""
+def estimate(a: dict, today: date, deal_share: dict, genre: str = "hip_hop") -> dict:
+    """a: an artist row from the site build (lead_daily, yt_daily, name; radio_week for country: the US AM/FM
+    audience of the artist's songs over 7 days, millions). deal_share: artist's share of recordings."""
     pf, lines = platforms(), []
     sp = _rate(pf["spotify"])
     spotify = None
@@ -131,8 +139,8 @@ def estimate(a: dict, today: date, deal_share: dict) -> dict:
                       "generated": _rng(*(a["yt_daily"] * DAYS * r / 1000 for r in yt)),
                       "grade": "C", "basis": "measured views × $1.00–6.00 per 1,000"})
     if spotify:
-        for m in multipliers():
-            lines.append({"key": m["platform"], "label": pf.get(m["platform"], {}).get("name", m["platform"]),
+        for m in multipliers(genre):
+            lines.append({"key": m["platform"], "label": (genre == "country" and COUNTRY_NAMES.get(m["platform"])) or pf.get(m["platform"], {}).get("name") or NAMES.get(m["platform"], m["platform"]),
                           "group": "Streaming",
                           "generated": {k: spotify[k] * float(m[k]) for k in K}, "grade": "C",
                           "basis": f"Spotify × {float(m['mid']):.2f} (market share, {m['grade']}-grade source)"})
@@ -144,6 +152,13 @@ def estimate(a: dict, today: date, deal_share: dict) -> dict:
                       "generated": {k: streaming[k] * PUBLISHING_TO_MASTER[i] for i, k in enumerate(K)},
                       "artist": None, "grade": "C",
                       "basis": "about a quarter of recording royalties, shared among the writers"})
+    if a.get("radio_week"):
+        imp = a["radio_week"] * 1e6 * WEEKS
+        lines.append({"key": "radio", "label": "Radio airplay (songwriters)", "group": "Publishing",
+                      "generated": {k: imp * RADIO_PER_1000[i] / 1000 for i, k in enumerate(K)}, "artist": None,
+                      "grade": "C", "basis": "US AM/FM audience × $0.15–0.40 per 1,000 listeners reached (PRO "
+                      "estimate). Paid to the songs' writers and publishers; the artist's share depends on their "
+                      "writing credits. US radio pays recordings nothing."})
     tour = tour_last_12_months(a["name"], today)
     tour_context = tour["context"] if tour else []
     if tour and tour["tours"]:

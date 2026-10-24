@@ -92,7 +92,7 @@ def raw_factors(r: dict) -> dict:
         "engagement": r["daily"] / r["ml"] if r.get("daily") and r.get("ml") else None,
         "breadth": (r.get("geo") or {}).get("countries", 0) + len((r.get("apple") or {}).get("countries", [])),
         "momentum": r.get("chg_pct"),
-        "radio": r.get("radio_aud"),
+        "radio": r.get("radio_week"),
     }
 
 

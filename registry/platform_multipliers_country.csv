@@ -1,0 +1,11 @@
+platform,low,mid,high,grade,source,note
+apple_music,0.35,0.45,0.60,C,docs/research/research_country_rates.md,No sign country over-indexes on Apple; slightly under the all-genre ratio
+amazon,0.40,0.55,0.85,C,docs/research/research_country_rates.md,"Country over-indexes on Amazon about 1.5-2.2x (Hits Daily Double 2017, Music Week 2020)"
+pandora,0.30,0.50,0.80,C,docs/research/research_country_rates.md,Pandora pays about 0.29 of Spotify across genres (SiriusXM and Spotify filings); country about 1.8x its Spotify share there (Chartmetric 2022)
+deezer,0.01,0.02,0.03,C,docs/research/research_country_rates.md,Small for US country
+tidal,0.005,0.01,0.02,C,docs/research/research_country_rates.md,As for hip-hop
+soundcloud,0.005,0.01,0.02,C,docs/research/research_country_rates.md,Small for country
+audiomack,0.001,0.002,0.005,C,docs/research/research_country_rates.md,Small for country
+tiktok,0.02,0.04,0.08,C,docs/research/research_country_rates.md,"Licence, not per view"
+meta,0.02,0.04,0.06,C,docs/research/research_country_rates.md,As for hip-hop
+others,0.05,0.10,0.20,C,docs/research/research_country_rates.md,"Tencent/NetEase and regional services, without Pandora (its own line)"

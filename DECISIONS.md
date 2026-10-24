@@ -2,6 +2,19 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Country money (owner C5): platform weights and radio songwriting
+
+- Research in docs/research/research_country_rates.md (every figure sourced and graded).
+- **Platform weights** (registry/platform_multipliers_country.csv, as a ratio of Spotify recording royalties):
+  Amazon 0.55 mid (hip-hop 0.30), Apple 0.45 (0.55), a new Pandora line 0.50, "others" 0.10 without Pandora
+  (0.30 with it). All C: platform-by-genre data are thin and from 2017-2022.
+- **Radio airplay (songwriters):** US AM/FM audience x $0.15 / $0.25 / $0.40 per 1,000 listeners reached, from US
+  radio revenue x the PROs' rates divided by music impressions; cross-checked against a 2014 per-spin study. Shown
+  as money generated for the writers and publishers, with no artist slice (country hits are often staff-written).
+  US radio pays recordings nothing.
+- kworb's radio audience turned out to be a 7-day figure (it matches Luminate's weekly impressions), so a year is
+  52 weeks of it. The audience figure itself stays internal (C4).
+
 ## 2026-10-24 Artist page: the numbers first (product review, overnight)
 
 - The key figures (monthly and current listeners, peak, streams, YouTube, Deezer) now come straight after the name,
