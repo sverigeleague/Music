@@ -195,11 +195,21 @@ function top() {
     </section>
     <section><div class="toolbar"><input type="search" placeholder="Filter this list" value="${esc(ui.q)}" aria-label="Filter this list"></div>
       ${table(list, "pos")}<p class="note">${ui.by === "current" ? "* Provisional rank: 50–80% of the artist's streams are on dated songs; hover for the range. " : ""}Royalties generated are what Spotify pays the rights holders for the artist's own tracks (label or distributor), not the artist's pay. See the artist page and Pay gap.${ui.by === "current" && unranked.length ? ` Not yet ranked, because release dates are missing for too much of their listening: ${unranked.map(a => esc(a.name)).join(", ")}.` : ""}</p></section>`;
+  if (d.below_floor?.length && N > 100) app.insertAdjacentHTML("beforeend", belowFloor(d.below_floor, all.length));
   app.querySelectorAll("[data-by]").forEach(b => b.onclick = () => { ui.by = b.dataset.by; ui.sort = [ui.by === "current" ? "cl" : "ml", -1]; top(); });
   bindSize(top);
   const inp = app.querySelector("input");
   inp.oninput = () => { ui.q = inp.value.toLowerCase(); const p = inp.selectionStart; top(); const i = app.querySelector("input"); i.focus(); i.setSelectionRange(p, p); };
   bindSort(top);
+}
+
+// Country ranks past the measured list (owner C1): artists under kworb's 500k-listener floor, in Deezer's track
+// popularity order. An order, not a size: no listener figure exists for them.
+function belowFloor(rows, measured) {
+  return `<section class="panel" id="below"><h2>${measured + 1}–${rows[rows.length - 1].pos}: below the 500k line ${grade("C")}</h2>
+    <p class="note">Spotify's public listener counts stop at about 500,000 monthly listeners, so these artists have no measured audience here. They are listed in the order of their songs' popularity on Deezer, a rough guide only: it can misplace artists of a similar size, and newer US acts are under-represented on Deezer. Only artists with a release in the last three years.</p>
+    <ol class="floorlist" start="${measured + 1}">${rows.map(r => `<li>${r.spotify ? `<a href="https://open.spotify.com/artist/${esc(r.spotify)}" target="_blank" rel="noopener">${esc(r.name)}</a>` : `<a href="https://www.deezer.com/artist/${esc(r.deezer)}" target="_blank" rel="noopener">${esc(r.name)}</a>`} <span class="note" title="latest release">${esc(r.year)}</span></li>`).join("")}</ol>
+    <p class="note">Found through Deezer's related-artists links from its country charts and Wikidata, kept when at least half of an artist's releases are filed under Country. Data: Deezer.</p></section>`;
 }
 
 function rising() {
@@ -891,6 +901,8 @@ function labelsPage() {
   const majShare = k => majors.reduce((s, g) => s + gv(g, k), 0) / tot(k);
   const known = b => G.filter(g => g !== "Not yet known").reduce((s, g) => s + m.groups[g].bands[b], 0) || 1;
   const majBand = b => majors.reduce((s, g) => s + m.groups[g].bands[b], 0) / known(b);
+  // the smallest bands together (under 3m): the top 1,000 starts near 1.5m, so the lowest band alone holds few artists
+  const majLow = () => majors.reduce((s, g) => s + m.groups[g].bands[0] + m.groups[g].bands[1], 0) / (known(0) + known(1));
   const indies = Object.entries(Object.assign({}, ...G.map(g => m.groups[g].labels))).sort((a, b) => b[1].ml - a[1].ml);
   const byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
   app.innerHTML = `${subnav()}<section><h1>Labels: who owns hip-hop's top 1,000</h1>
@@ -898,7 +910,7 @@ function labelsPage() {
     <section class="tiles">
       <div class="tile"><div class="k">Majors' share of listeners</div><div class="v">${share(majShare("ml"))}</div><div class="s">of the top 1,000's monthly listeners (${share(majShare("artists"))} of artists)</div></div>
       <div class="tile"><div class="k">Majors, artists 15m+</div><div class="v">${share(majBand(4))}</div><div class="s">of those whose label is known</div></div>
-      <div class="tile"><div class="k">Majors, under 1.5m</div><div class="v">${share(majBand(0))}</div><div class="s">of those whose label is known</div></div>
+      <div class="tile"><div class="k">Majors, under 3m</div><div class="v">${share(majLow())}</div><div class="s">of those whose label is known</div></div>
       <div class="tile"><div class="k">Self-released</div><div class="v">${m.groups["Self-released"]?.artists || 0}</div><div class="s">artists, ${share((m.groups["Self-released"]?.ml || 0) / tot("ml"))} of listeners</div></div>
     </section>
     <section class="panel"><h2>Share of the top 1,000</h2>
@@ -909,7 +921,7 @@ function labelsPage() {
       <div class="tablebox"><table><thead><tr><th class="l">Group</th><th>Artists</th><th>Share of artists</th><th>Monthly listeners</th><th>Share</th><th>Current listeners</th><th>Share</th></tr></thead><tbody>
         ${G.map(g => `<tr><td class="l"><b>${esc(g)}</b></td><td>${gv(g, "artists")}</td><td>${share(gv(g, "artists") / tot("artists"))}</td><td>${count(gv(g, "ml"))}</td><td>${share(gv(g, "ml") / tot("ml"))}</td><td>${count(gv(g, "cl"))}</td><td>${share(gv(g, "cl") / tot("cl"))}</td></tr>`).join("")}
       </tbody></table></div>
-      <p class="note">Among artists whose label is known, the majors hold ${share(majBand(4))} of those with 15m+ monthly listeners and ${share(majBand(0))} of those under 1.5m. ${m.catalog ? `${m.catalog} catalog acts (no release in two years) are left out. ` : ""}Monthly listeners are added up per artist, so a fan of two artists counts twice. "Not yet known": no label read from recent releases yet (owner's review list). Groups follow the label printed on the last two years of releases (Deezer), checked against recording codes; distribution deals with a major count under that major.</p></section>
+      <p class="note">Among artists whose label is known, the majors hold ${share(majBand(4))} of those with 15m+ monthly listeners and ${share(majLow())} of those under 3m. ${m.catalog ? `${m.catalog} catalog acts (no release in two years) are left out. ` : ""}Monthly listeners are added up per artist, so a fan of two artists counts twice. "Not yet known": no label read from recent releases yet (owner's review list). Groups follow the label printed on the last two years of releases (Deezer), checked against recording codes; distribution deals with a major count under that major.</p></section>
     <section class="panel"><h2>Independent labels and distributors in the top 1,000</h2>
       <div class="tablebox"><table><thead><tr><th class="l">Label</th><th>Artists</th><th>Monthly listeners</th></tr></thead><tbody>
       ${indies.map(([l, v]) => `<tr><td class="l">${esc(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div></section>

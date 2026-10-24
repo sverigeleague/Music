@@ -298,3 +298,5 @@ td.lab { max-width: 160px; }
   th, td { padding: 8px 8px; }
   td .who span { white-space: normal; }
 }
+.floorlist { columns: 3 220px; column-gap: 24px; padding-left: 3.2em; margin: 12px 0; }
+.floorlist li { break-inside: avoid; padding: 2px 0; font-size: 14px; }

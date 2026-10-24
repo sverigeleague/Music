@@ -243,6 +243,7 @@ def build(genre: str = "hip_hop") -> dict:
                 [h for r in rows for h in hits.get(r["id"], [])]),
             "backtest": backtest.run({k: v for k, v in history.items() if artists.get(k, {}).get("genre") == genre}, views),
             "genre": genre,
+            "below_floor": below_floor(len(rows), {t["spotify_id"] for t in top}, today) if genre == "country" else None,
             "labels": insights.labels_index(rows, release_counts(rels, table)),
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
@@ -386,6 +387,23 @@ def tour_table(rows: list[dict]) -> list[dict]:
                     "merch": {kk: k * share * v for kk, v in zip(("low", "mid", "high"), revenue.MERCH_PER_FAN)} if k else None,
                     "source": t["source_url"], "note": t["source_note"], "partial": bool(t.get("gross_through"))})
     return sorted(out, key=lambda x: -x["gross"])
+
+
+def below_floor(measured: int, listed: set[str], today: date, years: int = 3) -> list[dict]:
+    """Country ranks after the measured list, up to TOP_N (owner C1, 2026-10-24; presentation pending the owner):
+    artists below kworb's 500k-listener floor, in the order of Deezer's top-10 track ranks (data/country_deezer.csv).
+    Grade C: an order, not a size; no Deezer figure is shown (Deezer's data is used internally). Left out: anyone on
+    kworb's listener pages (above the floor, so measured or not country by our rule), anyone matched to Deezer from
+    those pages, and artists with no release in `years` years (reissues of past acts)."""
+    from .collectors import deezer_country, deezer_genres
+    above = {str(r.get("deezer_id")) for r in deezer_genres.load().values() if r.get("deezer_id")}
+    cutoff = date(today.year - years, today.month, min(today.day, 28)).isoformat()
+    rows = [r for r in deezer_country.load().values()
+            if r["deezer_id"] not in above and r.get("spotify_id", "") not in listed and (r.get("latest") or "") >= cutoff]
+    rows.sort(key=lambda r: -int(r.get("top10_rank_sum") or 0))
+    return [{"pos": measured + i + 1, "name": r["name"], "spotify": r.get("spotify_id") or None,
+             "deezer": r["deezer_id"], "year": (r.get("latest") or "")[:4]}
+            for i, r in enumerate(rows[:max(0, TOP_N - measured)])]
 
 
 def write(data: dict, genre: str = "hip_hop") -> list[str]:
