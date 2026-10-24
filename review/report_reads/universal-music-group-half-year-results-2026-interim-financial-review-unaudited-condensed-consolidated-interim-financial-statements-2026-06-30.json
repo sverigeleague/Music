@@ -1,0 +1,411 @@
+{
+ "report": {
+  "company": "Universal Music Group",
+  "document": "Half Year Results 2026 (Interim Financial Review + unaudited condensed consolidated interim financial statements)",
+  "period_end": "2026-06-30",
+  "period_type": "H",
+  "url": "https://assets.ctfassets.net/e66ejtqbaazg/28XlANhOkocrrvfg9RwMd2/6bc5080380a37c8f3d0d9843ee5a084a/UMG_Half_Year_Results_2026.pdf",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "IS p18; OCI p19; BS p20; CF p21; equity p22; segment note p25",
+  "note": "Verified 200 application/pdf (37 pp). Hosted on UMG's Contentful asset CDN used by investors.universalmusic.com (IR site itself is bot-protected, could not load the page)"
+ },
+ "read": {
+  "currency": "EUR",
+  "unit_multiplier": 1000000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "IS",
+    "period_end": "2026-06-30",
+    "months": 6
+   },
+   {
+    "column": 2,
+    "statement": "IS",
+    "period_end": "2025-06-30",
+    "months": 6
+   },
+   {
+    "column": 3,
+    "statement": "BS",
+    "period_end": "2026-06-30",
+    "months": 0
+   },
+   {
+    "column": 4,
+    "statement": "BS",
+    "period_end": "2025-12-31",
+    "months": 0
+   },
+   {
+    "column": 5,
+    "statement": "CF",
+    "period_end": "2026-06-30",
+    "months": 6
+   },
+   {
+    "column": 6,
+    "statement": "CF",
+    "period_end": "2025-06-30",
+    "months": 6
+   }
+  ],
+  "lines": [
+   {
+    "item": "revenue",
+    "label": "Revenues",
+    "column": 1,
+    "value": 6194,
+    "page": 1
+   },
+   {
+    "item": "revenue",
+    "label": "Revenues",
+    "column": 2,
+    "value": 5881,
+    "page": 1
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of revenues",
+    "column": 1,
+    "value": 3622,
+    "page": 1
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of revenues",
+    "column": 2,
+    "value": 3341,
+    "page": 1
+   },
+   {
+    "item": "sga",
+    "label": "Selling, general and administrative expenses",
+    "column": 1,
+    "value": 1487,
+    "page": 1
+   },
+   {
+    "item": "sga",
+    "label": "Selling, general and administrative expenses",
+    "column": 2,
+    "value": 1429,
+    "page": 1
+   },
+   {
+    "item": "da",
+    "label": "Amortisation and impairment losses on intangible assets",
+    "column": 1,
+    "value": 184,
+    "page": 1
+   },
+   {
+    "item": "da",
+    "label": "Amortisation and impairment losses on intangible assets",
+    "column": 2,
+    "value": 164,
+    "page": 1
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit",
+    "column": 1,
+    "value": 901,
+    "page": 1
+   },
+   {
+    "item": "operating_income",
+    "label": "Operating profit",
+    "column": 2,
+    "value": 947,
+    "page": 1
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit before income taxes",
+    "column": 1,
+    "value": 340,
+    "page": 1
+   },
+   {
+    "item": "pretax_income",
+    "label": "Profit before income taxes",
+    "column": 2,
+    "value": 1944,
+    "page": 1
+   },
+   {
+    "item": "income_tax",
+    "label": "Income taxes",
+    "column": 1,
+    "value": 117,
+    "page": 1
+   },
+   {
+    "item": "income_tax",
+    "label": "Income taxes",
+    "column": 2,
+    "value": 509,
+    "page": 1
+   },
+   {
+    "item": "net_income",
+    "label": "Net profit",
+    "column": 1,
+    "value": 223,
+    "page": 1
+   },
+   {
+    "item": "net_income",
+    "label": "Net profit",
+    "column": 2,
+    "value": 1435,
+    "page": 1
+   },
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 3,
+    "value": 485,
+    "page": 2
+   },
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 4,
+    "value": 451,
+    "page": 2
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets",
+    "column": 3,
+    "value": 5351,
+    "page": 2
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets",
+    "column": 4,
+    "value": 4575,
+    "page": 2
+   },
+   {
+    "item": "total_assets",
+    "label": "TOTAL ASSETS",
+    "column": 3,
+    "value": 18378,
+    "page": 2
+   },
+   {
+    "item": "total_assets",
+    "label": "TOTAL ASSETS",
+    "column": 4,
+    "value": 17456,
+    "page": 2
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Current liabilities",
+    "column": 3,
+    "value": 8819,
+    "page": 2
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Current liabilities",
+    "column": 4,
+    "value": 7206,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities",
+    "label": "Total liabilities",
+    "column": 3,
+    "value": 14730,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities",
+    "label": "Total liabilities",
+    "column": 4,
+    "value": 12888,
+    "page": 2
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Long-term borrowings and other financial liabilities",
+    "column": 3,
+    "value": 2804,
+    "page": 2
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Long-term borrowings and other financial liabilities",
+    "column": 4,
+    "value": 2297,
+    "page": 2
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Short-term borrowings and other financial liabilities",
+    "column": 3,
+    "value": 1814,
+    "page": 2
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Short-term borrowings and other financial liabilities",
+    "column": 4,
+    "value": 549,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "label": "TOTAL EQUITY AND LIABILITIES",
+    "column": 3,
+    "value": 18378,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "label": "TOTAL EQUITY AND LIABILITIES",
+    "column": 4,
+    "value": 17456,
+    "page": 2
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 3,
+    "value": 3648,
+    "page": 2
+   },
+   {
+    "item": "equity",
+    "label": "Total equity",
+    "column": 4,
+    "value": 4568,
+    "page": 2
+   },
+   {
+    "item": "cfo",
+    "label": "Net cash provided by/(used for) operating activities",
+    "column": 5,
+    "value": 171,
+    "page": 3
+   },
+   {
+    "item": "cfo",
+    "label": "Net cash provided by/(used for) operating activities",
+    "column": 6,
+    "value": 252,
+    "page": 3
+   },
+   {
+    "item": "capex",
+    "label": "Capital expenditures",
+    "column": 5,
+    "value": 44,
+    "page": 3
+   },
+   {
+    "item": "capex",
+    "label": "Capital expenditures",
+    "column": 6,
+    "value": 23,
+    "page": 3
+   },
+   {
+    "item": "catalog_purchases",
+    "label": "Catalogue investments",
+    "column": 5,
+    "value": 46,
+    "page": 3
+   },
+   {
+    "item": "catalog_purchases",
+    "label": "Catalogue investments",
+    "column": 6,
+    "value": 149,
+    "page": 3
+   },
+   {
+    "item": "cfi",
+    "label": "Net cash provided by/(used for) investing activities",
+    "column": 5,
+    "value": -398,
+    "page": 3
+   },
+   {
+    "item": "cfi",
+    "label": "Net cash provided by/(used for) investing activities",
+    "column": 6,
+    "value": -322,
+    "page": 3
+   },
+   {
+    "item": "dividends_paid",
+    "label": "Distributions to shareowners",
+    "column": 5,
+    "value": 514,
+    "page": 3
+   },
+   {
+    "item": "dividends_paid",
+    "label": "Distributions to shareowners",
+    "column": 6,
+    "value": 458,
+    "page": 3
+   },
+   {
+    "item": "cff",
+    "label": "Net cash provided by/(used for) financing activities",
+    "column": 5,
+    "value": 305,
+    "page": 3
+   },
+   {
+    "item": "cff",
+    "label": "Net cash provided by/(used for) financing activities",
+    "column": 6,
+    "value": 23,
+    "page": 3
+   }
+  ],
+  "absent": [
+   {
+    "item": "interest_expense",
+    "reason": "The income statement prints only a combined 'Financial expenses' line (627 and 93) with no separate interest expense line; the cash flow 'Interest, net' figure is not an income statement item."
+   }
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 8349,
+  "output_tokens": 3287,
+  "output_tokens_details": {
+   "thinking_tokens": 1217
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  18,
+  20,
+  21
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}

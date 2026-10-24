@@ -1,0 +1,391 @@
+{
+ "report": {
+  "company": "Bertelsmann",
+  "document": "Interim Report 2026 (January-June)",
+  "period_end": "2026-06-30",
+  "period_type": "H",
+  "url": "https://bcc-cdn.bertelsmann.com/asset/908027409915/document_vspkn17f9h3ul5io3981u5ki2e/Bertelsmann-Interim-Report-2026.pdf?content-disposition=inline",
+  "statements_included": "IS,BS,CF",
+  "pages_hint": "IS p25; BS p27; CF p28; BMG revenue/op. EBITDA adj. p19; segment tables p30, p37",
+  "note": "Verified 200 application/pdf (50 pp), linked from bertelsmann.com financial-reports page. BMG H1 2026 revenue EUR 444m, op. EBITDA adj. EUR 127m"
+ },
+ "read": {
+  "currency": "EUR",
+  "unit_multiplier": 1000000,
+  "columns": [
+   {
+    "column": 1,
+    "statement": "IS",
+    "period_end": "2026-06-30",
+    "months": 6
+   },
+   {
+    "column": 2,
+    "statement": "IS",
+    "period_end": "2025-06-30",
+    "months": 6
+   },
+   {
+    "column": 3,
+    "statement": "BS",
+    "period_end": "2026-06-30",
+    "months": 0
+   },
+   {
+    "column": 4,
+    "statement": "BS",
+    "period_end": "2025-12-31",
+    "months": 0
+   },
+   {
+    "column": 5,
+    "statement": "CF",
+    "period_end": "2026-06-30",
+    "months": 6
+   },
+   {
+    "column": 6,
+    "statement": "CF",
+    "period_end": "2025-06-30",
+    "months": 6
+   }
+  ],
+  "lines": [
+   {
+    "item": "revenue",
+    "label": "Revenues",
+    "column": 1,
+    "value": 9297,
+    "page": 1
+   },
+   {
+    "item": "revenue",
+    "label": "Revenues",
+    "column": 2,
+    "value": 9084,
+    "page": 1
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of materials",
+    "column": 1,
+    "value": 3183,
+    "page": 1
+   },
+   {
+    "item": "direct_costs",
+    "label": "Cost of materials",
+    "column": 2,
+    "value": 3030,
+    "page": 1
+   },
+   {
+    "item": "da",
+    "label": "Amortization/depreciation, impairment, and reversals of impairment losses on intangible assets, property, plant, and equipment, and right-of-use assets",
+    "column": 1,
+    "value": 577,
+    "page": 1
+   },
+   {
+    "item": "da",
+    "label": "Amortization/depreciation, impairment, and reversals of impairment losses on intangible assets, property, plant, and equipment, and right-of-use assets",
+    "column": 2,
+    "value": 574,
+    "page": 1
+   },
+   {
+    "item": "operating_income",
+    "label": "EBIT (earnings before interest and taxes)",
+    "column": 1,
+    "value": 587,
+    "page": 1
+   },
+   {
+    "item": "operating_income",
+    "label": "EBIT (earnings before interest and taxes)",
+    "column": 2,
+    "value": 463,
+    "page": 1
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest expenses",
+    "column": 1,
+    "value": 96,
+    "page": 1
+   },
+   {
+    "item": "interest_expense",
+    "label": "Interest expenses",
+    "column": 2,
+    "value": 90,
+    "page": 1
+   },
+   {
+    "item": "pretax_income",
+    "label": "Earnings before taxes",
+    "column": 1,
+    "value": 419,
+    "page": 1
+   },
+   {
+    "item": "pretax_income",
+    "label": "Earnings before taxes",
+    "column": 2,
+    "value": 310,
+    "page": 1
+   },
+   {
+    "item": "income_tax",
+    "label": "Income tax expense",
+    "column": 1,
+    "value": 126,
+    "page": 1
+   },
+   {
+    "item": "income_tax",
+    "label": "Income tax expense",
+    "column": 2,
+    "value": 109,
+    "page": 1
+   },
+   {
+    "item": "net_income",
+    "label": "Group profit or loss",
+    "column": 1,
+    "value": 292,
+    "page": 1
+   },
+   {
+    "item": "net_income",
+    "label": "Group profit or loss",
+    "column": 2,
+    "value": 201,
+    "page": 1
+   },
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 3,
+    "value": 1421,
+    "page": 2
+   },
+   {
+    "item": "cash",
+    "label": "Cash and cash equivalents",
+    "column": 4,
+    "value": 1809,
+    "page": 2
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets (subtotal)",
+    "column": 3,
+    "value": 11787,
+    "page": 2
+   },
+   {
+    "item": "current_assets",
+    "label": "Current assets (subtotal)",
+    "column": 4,
+    "value": 11406,
+    "page": 2
+   },
+   {
+    "item": "total_assets",
+    "label": "Total assets",
+    "column": 3,
+    "value": 32793,
+    "page": 2
+   },
+   {
+    "item": "total_assets",
+    "label": "Total assets",
+    "column": 4,
+    "value": 31300,
+    "page": 2
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Current liabilities (subtotal)",
+    "column": 3,
+    "value": 9618,
+    "page": 2
+   },
+   {
+    "item": "current_liabilities",
+    "label": "Current liabilities (subtotal)",
+    "column": 4,
+    "value": 8801,
+    "page": 2
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Financial debt (non-current)",
+    "column": 3,
+    "value": 4180,
+    "page": 2
+   },
+   {
+    "item": "long_term_debt",
+    "label": "Financial debt (non-current)",
+    "column": 4,
+    "value": 3777,
+    "page": 2
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Financial debt (current)",
+    "column": 3,
+    "value": 1009,
+    "page": 2
+   },
+   {
+    "item": "short_term_debt",
+    "label": "Financial debt (current)",
+    "column": 4,
+    "value": 686,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "label": "Equity and liabilities (total)",
+    "column": 3,
+    "value": 32793,
+    "page": 2
+   },
+   {
+    "item": "total_liabilities_and_equity",
+    "label": "Equity and liabilities (total)",
+    "column": 4,
+    "value": 31300,
+    "page": 2
+   },
+   {
+    "item": "equity",
+    "label": "Equity (total)",
+    "column": 3,
+    "value": 15369,
+    "page": 2
+   },
+   {
+    "item": "equity",
+    "label": "Equity (total)",
+    "column": 4,
+    "value": 15291,
+    "page": 2
+   },
+   {
+    "item": "cfo",
+    "label": "Cash flow from operating activities",
+    "column": 5,
+    "value": 563,
+    "page": 3
+   },
+   {
+    "item": "cfo",
+    "label": "Cash flow from operating activities",
+    "column": 6,
+    "value": 456,
+    "page": 3
+   },
+   {
+    "item": "capex",
+    "label": "Investments in property, plant, and equipment",
+    "column": 5,
+    "value": 189,
+    "page": 3
+   },
+   {
+    "item": "capex",
+    "label": "Investments in property, plant, and equipment",
+    "column": 6,
+    "value": 226,
+    "page": 3
+   },
+   {
+    "item": "cfi",
+    "label": "Cash flow from investing activities",
+    "column": 5,
+    "value": -800,
+    "page": 3
+   },
+   {
+    "item": "cfi",
+    "label": "Cash flow from investing activities",
+    "column": 6,
+    "value": -811,
+    "page": 3
+   },
+   {
+    "item": "dividends_paid",
+    "label": "Dividend to Bertelsmann shareholders",
+    "column": 5,
+    "value": 220,
+    "page": 3
+   },
+   {
+    "item": "dividends_paid",
+    "label": "Dividend to Bertelsmann shareholders",
+    "column": 6,
+    "value": 220,
+    "page": 3
+   },
+   {
+    "item": "cff",
+    "label": "Cash flow from financing activities",
+    "column": 5,
+    "value": -189,
+    "page": 3
+   },
+   {
+    "item": "cff",
+    "label": "Cash flow from financing activities",
+    "column": 6,
+    "value": -793,
+    "page": 3
+   }
+  ],
+  "absent": [
+   {
+    "item": "sga",
+    "reason": "No selling, general and administrative expense line is printed in the consolidated income statement; costs are shown by nature (personnel costs, other operating expenses, etc.)."
+   },
+   {
+    "item": "catalog_purchases",
+    "reason": "No catalogue purchases line is printed in the consolidated cash flow statement."
+   },
+   {
+    "item": "total_liabilities",
+    "reason": "No total liabilities subtotal is printed on the consolidated balance sheet."
+   }
+  ]
+ },
+ "model": "claude-haiku-5-5",
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 8351,
+  "output_tokens": 3524,
+  "output_tokens_details": {
+   "thinking_tokens": 1482
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "fails": [],
+ "pages": [
+  25,
+  27,
+  28
+ ],
+ "status": "passed",
+ "ladder": [
+  "claude-haiku-5-5"
+ ]
+}

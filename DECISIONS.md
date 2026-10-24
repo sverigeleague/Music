@@ -2,6 +2,26 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 First report reads (owner added the API key: "R1 done ... Check company sites for PDFs if not found somewhere else")
+
+- **Sony's site:** sony.com refuses automated requests ("Access Denied"). Its results releases are read from the
+  same documents filed with the SEC as Form 6-K (HTML). Their statement tables are selected as Public-Registry does
+  with HTML filings and sent as text, about 2,500 tokens each.
+- **7 documents read** (UMG half-year 2025 and 2026; Bertelsmann annual 2025 and half-year 2025 and 2026; Sony year
+  to March 2026 and quarter to June 2026). All passed Haiku's first read: no correction, no Opus call.
+  - About 52,000 input and 25,000 output tokens in all.
+  - **Checked against the documents and press:** UMG H1 2026 revenue €6,194m; Sony FY to March 2026 sales ¥12.48tn
+    and operating income ¥1,447.5bn. Sony's net loss of ¥302bn is the group total, including the loss on the Sony
+    Financial Group spin-off (Form 20-F).
+- **One error the checks missed:** Bertelsmann's annual report was read with the right figures but a unit
+  multiplier of 1 instead of millions, so its values were stored a million times too small.
+  - **Fix:** a new check fails any read where total assets or revenue comes to under one million. The read was
+    removed and is read again through the correction ladder.
+  - The same check would have sent this read to Haiku's high-effort retry.
+- **Interim periods:** half-years (UMG, Bertelsmann) are now shown with quarters on the health pages.
+- **Still open:** Companies House accounts of the majors' UK label companies, for label-level health (R2, owner to
+  decide).
+
 ## 2026-10-24 Label groups' financial statements and health (owner: "download and screen all their relevant quarterly and annual financial reports with all three statements ... learn from ... Hoop Ledger / Tventy ... cheap extraction of information from PDFs")
 
 - **Lesson from the Public-Registry project:** machine-readable filings first, at no Claude cost. A PDF goes to
