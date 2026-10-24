@@ -437,3 +437,16 @@ def test_this_month_movers_and_short_log(monkeypatch, tmp_path):
     assert [x["id"] for x in m["up"]] == ["a"] and m["up"][0]["pct"] == 50.0  # b has no value near 30 days ago
     assert m["log_start"] is None and m["new_breaking"] == [] and m["prospects"] == ["b"]
     assert all(x["then"] is None for x in m["shares"])
+
+
+def test_sony_music_segment_tables():
+    from src.collectors import sony_music as s
+    pages = ["Segment profit\nYen in millions\nThree months ended June 30\n2025 | 2026 | Change\nOperating income (loss):\n"
+             "Game & Network Services | 147,957 | 202,014 | 54,057\nMusic | 92,807 | 105,882 | 13,075\nTotal | 1 | 2 | 1",
+             "Sales by product category\nYen in millions\nThree months ended June 30\nSales: | 2025 | 2026 | Change\nMusic\n"
+             "Recorded Music - Streaming | 196,016 | 237,066 | 41,050\nRecorded Music - Others | 105,473 | 143,885 | 38,412\n"
+             "Music Publishing | 98,685 | 116,002 | 17,317\nVisual Media and Platform | 58,778 | 60,913 | 2,135\n"
+             "Total | 458,952 | 557,866 | 98,914\nPictures\nMotion Pictures | 107,133 | 102,718 | (4,415"]
+    rows = {(r["period_end"], r["item"]): r["value"] for r in s.parse(pages, "u")}
+    assert rows[("2026-06-30", "operating_income")] == 105_882e6 and rows[("2025-06-30", "sales")] == 458_952e6
+    assert rows[("2026-06-30", "recorded_streaming")] == 237_066e6 and ("2026-06-30", "Motion Pictures") not in rows

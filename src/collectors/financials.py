@@ -26,7 +26,7 @@ COMPANIES = [
     {"company": "Warner Music Group", "source": "sec", "cik": "0001319161"},
     {"company": "Reservoir Media", "source": "sec", "cik": "0001824403"},
     {"company": "Sony Group", "source": "sec", "cik": "0000313838",
-     "note": "the whole Sony group (games, pictures, music, electronics); its music segment is not split out here"},
+     "note": "the whole Sony group (games, pictures, music, electronics); its music segment is split out in the Sony Music panel (src/collectors/sony_music.py)"},
     {"company": "Universal Music Group", "source": "esef", "lei": "724500GJBUL3D9TW9Y18"},
     {"company": "Believe", "source": "esef", "lei": "969500WGEAZ8YE4UAI86"},
     {"company": "Bertelsmann", "source": "pdf",

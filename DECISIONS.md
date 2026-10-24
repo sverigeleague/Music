@@ -2,6 +2,25 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Sony's music business split out (step d)
+
+- **Source:** Sony Group's results releases as filed on EDGAR (Form 6-K, HTML), since sony.com refuses automated
+  access.
+  - Each release has a table of sales by product category, with Music split into Recorded Music (streaming and
+    other), Music Publishing, and Visual Media and Platform.
+  - A segment profit table gives Music's operating income.
+- **Read by rule, not by Claude** (`src/collectors/sony_music.py`): plain tables with fixed row names, at no cost.
+  - Every 6-K since 2023 is checked once for the music table (data/sony_6k_checked.csv): 16 results releases out of
+    about 150 filings.
+  - Each release carries the year before; a later release's figure replaces an earlier one.
+  - In every period the four parts add up exactly to the Music total (checked).
+- **Coverage:** the sales split from FY to March 2024 through the June 2026 quarter. Operating income from FY to
+  March 2022 (older releases lay out the sales table differently and are not parsed).
+- **Site:** Sony Music label pages (Columbia, RCA, Epic and the rest) show a "Sony Music: the music business on its
+  own" panel above Sony Group's health panel: 3 fiscal years and the latest 4 quarters, with margin and growth.
+  Latest year: FY to March 2026, music sales ¥2,091bn (+15%), operating income ¥447bn (21.4%).
+- **Rejected:** Claude reads of the releases. The tables are regular, so a rule is exact and free.
+
 ## 2026-10-24 "This month" page (ROADMAP 8.5)
 
 - **Where:** Charts > This month (`#/month`), built by `src/monthly.py`.

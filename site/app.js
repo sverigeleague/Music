@@ -758,6 +758,7 @@ function labelPage(s) {
       ${roster.map(a => `<tr><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></td><td>${count(a.ml)}</td><td>${count(a.cl)}</td><td>${a.scout ? `${a.scout.score} ${tierChip(a.scout.tier)}` : "–"}</td><td>${share(a.fresh_share)}</td><td>${pct(a.chg_pct)}</td><td>${usd(a.streaming_mid)}</td><td class="l wrap">${a.top_fresh ? esc(a.top_fresh.title) : `<span class="note">none in 90 days</span>`}</td></tr>`).join("")}
     </tbody></table></div><p class="note">Hip-hop artists in the top 1,000 whose recent releases carry this label. Royalties are paid to the label before the artist's share (see each artist's page).</p></section>
     <section class="panel"><h2>${esc(L.name)}: finances</h2>${own ? `<p class="note">${esc(L.name)} is part of ${esc(L.parent)} and publishes no accounts of its own. The best public measure of its size is the roster's royalties above.</p>` : finTable(L.name)}</section>
+    ${(own ? L.parent : L.name) === "Sony Music" ? sonyMusicPanel() : ""}
     ${healthPanel((store.data.company_of || {})[own ? L.parent : L.name])}
     ${Object.entries(store.data.group_finances || {}).filter(([, F]) => F.uk?.labels.includes(L.name)).map(([c]) => healthPanel(c)).join("")}
     ${own ? `<section class="panel"><h2>${esc(L.parent)}: key reported figures</h2>${finTable(L.parent)}</section>` : ""}
@@ -795,6 +796,24 @@ function healthPanel(company) {
     <p class="note">Latest fiscal year (${esc(F.years.at(-1)?.period || "–")}), from the company's filed statements (${esc(F.source_kind)}). Readings are credit-analysis rules of thumb, not ratings; the current-ratio bands are set lower for music groups, whose royalties owed to artists and songwriters sit in current liabilities. Compare the groups with each other rather than with other industries.</p>
     ${table("IS", "Income statement")}${table("BS", "Balance sheet")}${table("CF", "Cash flow")}
     <p class="note">Figures as filed, in ${esc(cur)}. Column headings link to the filings. Shaded columns are interim periods: a quarter (three months) or a half-year (six months) to that date, with the balance sheet at that date. A blank means the company does not tag that line in its XBRL; the full statements are in the filing.</p></section>`;
+}
+function sonyMusicPanel() {
+  const S = store.data.sony_music;
+  if (!S?.periods?.length) return "";
+  const fy = S.periods.filter(p => p.period_type === "FY" && p.values.sales).slice(-3), q = S.periods.filter(p => p.period_type === "Q" && p.values.sales).slice(-4);
+  const cols = [...fy.map(p => ({ ...p, label: "FY to " + p.period_end.slice(0, 7) })), ...q.map(p => ({ ...p, label: "Q to " + p.period_end.slice(0, 7) }))];
+  const prev = p => S.periods.find(x => x.period_type === p.period_type && x.period_end === `${+p.period_end.slice(0, 4) - 1}${p.period_end.slice(4)}`);
+  const rows = [["recorded_streaming", "Recorded music: streaming"], ["recorded_other", "Recorded music: other"], ["publishing", "Music publishing"], ["visual_media", "Visual media and platform"], ["sales", "Music sales"], ["operating_income", "Operating income"]];
+  const yen = v => v == null ? "–" : "¥" + Math.round(v / 1e9).toLocaleString("en") + "bn";
+  const growth = p => { const b = prev(p); return b?.values.sales ? pct((p.values.sales / b.values.sales - 1) * 100) : "–"; };
+  return `<section class="panel"><h2>Sony Music: the music business on its own ${grade("A")}</h2>
+    <p class="note">Sony Group reports Music as one segment. Its results releases split music sales by type; operating income is the segment's.</p>
+    <div class="tablebox"><table><thead><tr><th class="l"></th>${cols.map(c => `<th${c.period_type !== "FY" ? ' class="q"' : ""}><a href="${esc(c.source)}" target="_blank" rel="noopener">${esc(c.label)}</a></th>`).join("")}</tr></thead><tbody>
+    ${rows.map(([k, l]) => `<tr><td class="l">${k === "sales" || k === "operating_income" ? `<b>${l}</b>` : l}</td>${cols.map(c => `<td${c.period_type !== "FY" ? ' class="q"' : ""}>${yen(c.values[k])}</td>`).join("")}</tr>`).join("")}
+    <tr><td class="l">Operating margin</td>${cols.map(c => `<td${c.period_type !== "FY" ? ' class="q"' : ""}>${c.values.sales && c.values.operating_income != null ? (c.values.operating_income / c.values.sales * 100).toFixed(1) + "%" : "–"}</td>`).join("")}</tr>
+    <tr><td class="l">Sales growth, year on year</td>${cols.map(c => `<td${c.period_type !== "FY" ? ' class="q"' : ""}>${growth(c)}</td>`).join("")}</tr>
+    </tbody></table></div>
+    <p class="note">Sony's fiscal year ends on 31 March. Sales are to external customers by product category, as filed with the SEC (Form 6-K); shaded columns are quarters. Column headings link to the releases.</p></section>`;
 }
 function groupsCompare(uk = false) {
   const G = store.data.group_finances || {};
