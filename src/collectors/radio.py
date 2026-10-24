@@ -71,7 +71,8 @@ def presence(names: dict[str, str], day: str | None = None) -> dict[str, dict]:
     for r in rows:
         if r["date"] != day:
             continue
-        credited = split_names(r["artist_raw"]) + re.findall(r"\((?:feat\.|ft\.|with) ([^)]+)\)", r["title"], re.I)
+        credited = split_names(r["artist_raw"]) + [a or b for a, b in re.findall(
+            r"\((?:feat\.|ft\.|with) ([^)]+)\)|\bf/\s*(.+)$", r["title"], re.I)]  # "Move On f/Shaboozey"
         for name in credited:
             sids = by_fold.get(fold(name), [])
             if len(sids) != 1:

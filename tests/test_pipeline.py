@@ -510,3 +510,9 @@ def test_country_rule():
     assert decide_country([], [], dz, wikidata=True)[0] == "country"
     assert decide_country([], [], dz, wikidata=False)[0] == "review"  # name-only Deezer match never decides
     assert decide_country([("pop", 5)], [("pop", False, False)]) is None
+
+
+def test_scout_weights_sum_to_one_per_genre():
+    from src import insights
+    for factors in insights.FACTORS_BY_GENRE.values():
+        assert abs(sum(w for w, _ in factors.values()) - 1) < 1e-9

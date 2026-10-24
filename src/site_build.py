@@ -195,7 +195,15 @@ def build(genre: str = "hip_hop") -> dict:
     rows = rows[:TOP_N]  # the site covers the top 1,000 hip-hop artists by monthly listeners
     for r in rows:
         r["streaming_mid"] = round(sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming"))
-    insights.scout(rows)
+    factors = insights.FACTORS_BY_GENRE.get(genre, insights.FACTORS)
+    if "radio" in factors:  # internal signal (C4): only the percentile reaches the site
+        from .collectors import radio as radio_src
+        on_air = radio_src.presence({r["id"]: r["name"] for r in rows})
+        for r in rows:
+            r["radio_aud"] = on_air.get(r["id"], {}).get("aud", 0.0)
+    insights.scout(rows, factors)
+    for r in rows:
+        r.pop("radio_aud", None)
     mult = insights.multiples()
     ml_of = {t["spotify_id"]: t["monthly_listeners"] or 0 for t in top}
     for r in rows:
@@ -226,7 +234,7 @@ def build(genre: str = "hip_hop") -> dict:
             "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
             "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),
-            "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in insights.FACTORS.items()},
+            "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in factors.items()},
             "month": monthly.build(rows, history, day or today.isoformat()),
             "credits": (lambda songs: {"producers": credits_src.leaderboard(songs, "producers"),
                                        "writers": credits_src.leaderboard(songs, "writers"),

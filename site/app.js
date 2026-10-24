@@ -467,7 +467,7 @@ function method() {
    <li><b>Royalties generated:</b> lead-artist streams × $2.50–4.40 per 1,000 (Duetti 2024 data; mid $3.00). Paid to the label or distributor. Estimate (C).</li>
    <li><b>Artist's share:</b> royalties generated × the share for the deal type (UK CMA, court filings, published distributor terms). The deal type is assumed from Wikidata's record-label list, which covers the whole career. Before recoupment. Estimate (C).</li>
    <li>Spotify's own figures for scale: it paid out more than $11bn in 2025; about 1,500 artists generated at least $1m and 80 at least $10m (recordings and publishing, before any split). <a href="https://newsroom.spotify.com/?p=39435" target="_blank" rel="noopener">Loud &amp; Clear</a> ${grade("A")}</li></ul>
-  <h2>Scout score</h2><p>Six signals, each turned into a percentile among artists of a similar size (monthly listeners under 1.5m, 1.5–3m, 3–6m, 6–15m, 15m+), then averaged with these weights: ${Object.values(store.data.scout_factors).map(x => `${esc(x.label)} ${Math.round(x.weight * 100)}%`).join("; ")}. Tiers: Breaking 80+ (with a measured absolute signal), Rising 65+, Watch 50+; artists with 15m+ listeners get no tier. It is a pointer, not a prediction; the hit rate will be published once 90 days of history exist.</p>
+  <h2>Scout score</h2><p>${cap(nSignals())} signals, each turned into a percentile among artists of a similar size (monthly listeners under 1.5m, 1.5–3m, 3–6m, 6–15m, 15m+), then averaged with these weights: ${Object.values(store.data.scout_factors).map(x => `${esc(x.label)} ${Math.round(x.weight * 100)}%`).join("; ")}. Tiers: Breaking 80+ (with a measured absolute signal), Rising 65+, Watch 50+; artists with 15m+ listeners get no tier. It is a pointer, not a prediction; the hit rate will be published once 90 days of history exist.</p>
   <h2>Worth</h2><p>Yearly royalties at today's pace (above) and what each income stream would sell for: a year's income × a multiple that depends on how new the music is. Buyers pay fewer years for new music because its streams fall faster. ${store.data.multiples.map(m => `${esc(m.vintage)} ${m.multiple_low}–${m.multiple_high}× (<a href="${esc(m.source_url)}" target="_blank" rel="noopener">source</a>)`).join("; ")}. Estimate (C), shown as a range.</p>
   <h2>Labels</h2><p>The label printed on each artist's releases of the last two years (Deezer), mapped to its owner (Universal, Sony, Warner, or independent), and checked against the registrant codes of the recordings (ISRCs). Artists that cannot be placed are listed as not yet known and go to the owner's review list.</p>
   <h2>Other sources</h2><ul>
@@ -491,6 +491,8 @@ function sparkline(vals, w = 160, h = 36) {
   const pts = vals.map((v, i) => `${(i * step).toFixed(1)},${(h - 2 - (v / max) * (h - 4)).toFixed(1)}`).join(" ");
   return `<svg class="spark" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`;
 }
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const nSignals = () => ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"][Object.keys(store.data.scout_factors || {}).length] || "several";
 function factorBars(sc) {
   const F = store.data.scout_factors;
   return `<div class="bars">${Object.entries(F).map(([k, f]) => { const v = sc.factors[k];
@@ -531,7 +533,7 @@ function scoutPage() {
   const seg = (key, opts) => `<div class="seg" role="group">${opts.map(([v, l]) => `<button type="button" data-f="${key}" data-v="${v}" aria-pressed="${f[key] === v}">${esc(l)}</button>`).join("")}</div>`;
   const cols = [["Scout score", "score"], ["Monthly listeners", "ml"], ["New-release pull", "fresh"], ["Current share", "cur"], ["Wikipedia, 3 mo", "att"], ["Streams / listener", "spl"], ["Chart countries", "geo"], ["Shazam", "shz"], ["Today", "chg"]];
   app.innerHTML = `${subnav()}<section><h1>Scout: who is rising</h1>
-    <p class="sub">Every hip-hop artist in the top 1,000, scored 0–100 on six signals of momentum. Each artist is compared only with artists of a similar size, so a 1m-listener act that is taking off scores as high as a superstar. The score points at who to look at; it does not predict a hit.</p></section>
+    <p class="sub">Every hip-hop artist in the top 1,000, scored 0–100 on ${nSignals()} signals of momentum. Each artist is compared only with artists of a similar size, so a 1m-listener act that is taking off scores as high as a superstar. The score points at who to look at; it does not predict a hit.</p></section>
     <section class="tiles">
       <div class="tile"><div class="k">Breaking</div><div class="v">${n("Breaking")}</div><div class="s">score 80+</div></div>
       <div class="tile"><div class="k">Rising</div><div class="v">${n("Rising")}</div><div class="s">score 65–79</div></div>
