@@ -2,6 +2,29 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Scout back-test (ROADMAP 8.2; owner: "Follow steps a to d ... in order")
+
+- **What can be tested:** only listener growth (the Wayback Machine's weekly copies of kworb's listeners page since
+  2023) and Wikipedia attention (24 months of page views, so testable from late 2025). Together they carry 35% of
+  the score.
+  - New-release pull, current share, engagement and chart reach have no archived history; they are tested from our
+    daily log (data/scout_history.csv) once it is 90 days old, in January 2027.
+- **Method (`src/backtest.py`):** one test date a month. On each date: hip-hop artists under 15m listeners in the
+  archived page, with a copy 90 days before and 90 days after.
+  - Scoring is as on the site: percentiles within the size band, weighted mean.
+  - Picks are the top fifth of each band. A hit is a pick that outgrew its band's median over the next 90 days;
+    chance is 50%.
+  - A synthetic test checks that the method finds a signal that persists.
+- **Result:** 39 dates, 2023-05 to 2026-06, 1,448 picks: **45% hit rate**.
+  - With attention (9 dates since late 2025): 49%.
+  - Each factor alone: growth 44%, attention 43% (fewer picks).
+  - Fast 90-day listener growth tends to cool off over the next 90 days. The signals with history do not pick next
+    quarter's risers; if anything, they lean the wrong way.
+- **Published as is** on the Scout page ("Does it work?"), with the bias: the artists are today's registry, so acts
+  that rose and fell away are missing.
+- **Not changed without the owner:** the weights. The question goes to the owner in chat: lower listener growth
+  from 20% (or drop it) until the full back-test in January 2027.
+
 ## 2026-10-24 UK label companies' accounts (owner: "R2: yes")
 
 - **Companies:** the majors' UK record companies at Companies House (registry/uk_companies.csv), numbers looked up on

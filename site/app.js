@@ -466,13 +466,29 @@ function scoutPage() {
     <p class="note">${rows.length} artists. Click a column to sort. ☆ adds an artist to your watchlist (kept in this browser). Percentiles are within the artist's size band (monthly listeners ${BANDS.join(", ")}).</p></section>
     <section class="panel"><h2>How the score works</h2>
       <ul>${Object.values(store.data.scout_factors).map(x => `<li><b>${Math.round(x.weight * 100)}%</b> ${esc(x.label)}</li>`).join("")}</ul>
-      <p class="note">Each signal becomes a percentile (0–100) among artists in the same size band; the score is their weighted average over the signals the artist has (at least three). Tiers: Breaking 80+ (and either new songs pulling 25%+ of streams or Wikipedia attention up 30%+), Rising 65+, Watch 50+; artists with 15m+ monthly listeners are established and get no tier. Wikipedia views count only artists with an English article. Our own listener history started on 2026-10-23: once 90 days exist, listener growth joins the score and every month's picks are checked against what happened next, and that hit rate is published. ${grade("C")}</p></section>`;
+      <p class="note">Each signal becomes a percentile (0–100) among artists in the same size band; the score is their weighted average over the signals the artist has (at least three). Tiers: Breaking 80+ (and either new songs pulling 25%+ of streams or Wikipedia attention up 30%+), Rising 65+, Watch 50+; artists with 15m+ monthly listeners are established and get no tier. Wikipedia views count only artists with an English article. Listener growth uses the Internet Archive's weekly copies of kworb's listener page, so it exists only for artists that page lists. ${grade("C")}</p></section>
+    ${backtestPanel()}`;
   app.querySelectorAll("button[data-f]").forEach(b => b.onclick = () => { f[b.dataset.f] = b.dataset.v; scoutPage(); });
   bindStars(scoutPage);
   app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
   app.querySelector("#csv").onclick = () => download("rap-ledger-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
     ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || "", a.label_status, a.label_owner || "", a.country || "", a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
+}
+
+function backtestPanel() {
+  const B = store.data.backtest;
+  if (!B || !B.picks) return "";
+  const years = {};
+  for (const t of B.tests) { const y = (years[t.date.slice(0, 4)] = years[t.date.slice(0, 4)] || { n: 0, hr: 0, pg: [], rg: [] }); y.n++; y.hr += t.hit_rate; y.pg.push(t.pick_growth); y.rg.push(t.rest_growth); }
+  const avg = xs => xs.reduce((a, b) => a + b, 0) / xs.length;
+  return `<section class="panel"><h2>Does it work? The back-test</h2>
+    <p>Of the artists that would have been Scout's picks (the top fifth of their size band) on ${B.tests.length} dates from ${esc(B.from)} to ${esc(B.to)}, <b>${Math.round(B.hit_rate * 100)}%</b> outgrew the typical artist of their size over the next 90 days (${B.hits} of ${B.picks} picks). Chance is 50%. With Wikipedia attention added (dates since late 2025): <b>${B.hit_rate_with_attention == null ? "–" : Math.round(B.hit_rate_with_attention * 100) + "%"}</b>.</p>
+    <p>So far, the signals with an archived history do <b>not</b> pick next quarter's risers: fast listener growth tends to cool off again over the next 90 days. Only listener growth and Wikipedia attention (35% of the weight) have history before our own daily log; the other signals (new-release pull, current share, engagement, chart reach) are back-tested from that log once it is 90 days old, from January 2027.</p>
+    <div class="tablebox"><table><thead><tr><th class="l">Year</th><th>Test dates</th><th>Hit rate</th><th>Picks' growth, next 90 days</th><th>Everyone else's</th></tr></thead><tbody>
+    ${Object.entries(years).map(([y, v]) => `<tr><td class="l">${y}</td><td>${v.n}</td><td>${Math.round(v.hr / v.n * 100)}%</td><td>${pct(avg(v.pg) * 100)}</td><td>${pct(avg(v.rg) * 100)}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="note">Each date: hip-hop artists under 15m monthly listeners in the archived page then, 90 days before and 90 days after. Growth is the median within each group, averaged over the year's dates. The artists are today's registry, so acts that rose and fell away are missing. ${grade("B")}</p></section>`;
 }
 
 // ---------- worth: what the music earns and what it would sell for, for artists

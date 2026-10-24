@@ -411,3 +411,16 @@ def test_companies_house_filing_history_keeps_full_accounts(monkeypatch):
     got = ch.accounts("00950138")
     assert [a["made_up"] for a in got] == ["2025-12-31"]
     assert got[0]["url"].endswith("/company/00950138/filing-history/AbC/document?format=pdf&download=1")
+
+
+def test_backtest_finds_a_signal_that_persists():
+    from datetime import date, timedelta
+    from src import backtest
+    hist = {}
+    start = date(2024, 1, 1)
+    for i in range(120):  # each artist keeps its own weekly growth rate: past growth predicts future growth
+        rate = 1 + (i % 20 - 9.5) / 1000
+        ml = 2_000_000 + i * 1000
+        hist[f"a{i}"] = [((start + timedelta(weeks=w)).isoformat(), int(ml * rate ** w)) for w in range(60)]
+    r = backtest.run(hist, {})
+    assert r["picks"] > 0 and r["hit_rate"] > 0.9
