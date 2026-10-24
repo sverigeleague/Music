@@ -52,8 +52,18 @@ BODIES = {
     "TONLIST": ("FHF", "Iceland"), "FHF": ("FHF", "Iceland"), "UNIMPRO": ("UNIMPRO", "Peru"),
     "CHL": ("IFPI Chile", "Chile"), "PROFOVI": ("PROFOVI", "Chile"), "RIM": ("RIM", "Malaysia"),
     "PARI": ("PARI", "Philippines"), "TMF": ("TMF", "Thailand"), "MÜ-YAP": ("MÜ-YAP", "Turkey"),
-    "SNEP/IFPI": ("SNEP", "France"), "IFPI ICE": ("FHF", "Iceland"),
+    "SNEP/IFPI": ("SNEP", "France"), "IFPI ICE": ("FHF", "Iceland"), "IFPI DAN": ("IFPI Danmark", "Denmark"),
+    "IPFI DEN": ("IFPI Danmark", "Denmark"), "IFPI DENMARK": ("IFPI Danmark", "Denmark"),
+    "IFPI GR": ("IFPI Greece", "Greece"), "IFPI AUS": ("IFPI Austria", "Austria"), "IFPI CH": ("IFPI Switzerland",
+    "Switzerland"), "IPFI CH": ("IFPI Switzerland", "Switzerland"),
 }
+# some tables write the country code instead of the body ("FRA: Diamond")
+for _code, _abbr in {"US": "RIAA", "USA": "RIAA", "UK": "BPI", "CAN": "MC", "AUS": "ARIA", "FRA": "SNEP",
+                     "GER": "BVMI", "ITA": "FIMI", "SPA": "PROMUSICAE", "NZ": "RMNZ", "NLD": "NVPI", "BEL": "BEA",
+                     "IRE": "IRMA", "SWE": "GLF", "DEN": "IFPI DEN", "NOR": "IFPI NOR", "SWI": "IFPI SWI",
+                     "AUT": "IFPI AUT", "POL": "ZPAV", "POR": "AFP", "BRA": "PMB", "MEX": "AMPROFON",
+                     "AUSTRIA": "IFPI AUT", "GERMANY": "BVMI", "FRANCE": "SNEP", "CANADA": "MC"}.items():
+    BODIES.setdefault(_code, BODIES[_abbr])
 # {{cite certification}} / {{Certification Table Entry}} region -> body abbreviation
 REGIONS = {"united states": "RIAA", "us": "RIAA", "united kingdom": "BPI", "uk": "BPI", "canada": "MC",
            "australia": "ARIA", "france": "SNEP", "germany": "BVMI", "italy": "FIMI", "spain": "PROMUSICAE",
@@ -99,7 +109,7 @@ def _drop_templates(text: str, names: tuple[str, ...]) -> str:
 def prepare(wikitext: str) -> str:
     """Comments, refs and footnote templates out; line breaks inside templates joined, so table lines stay whole."""
     t = re.sub(r"<!--.*?-->", "", wikitext, flags=re.S)
-    t = re.sub(r"<ref[^>/]*/>", "", t, flags=re.I)
+    t = re.sub(r"<ref\b[^>]*?/\s*>", "", t, flags=re.I)  # self-closing, a slash in the name included
     t = re.sub(r"<ref[^>]*>.*?</ref\s*>", "", t, flags=re.I | re.S)
     t = _drop_templates(t, ("efn", "efn-ua", "efn-la", "efn-lr", "notetag", "refn", "sfn", "r", "#tag:ref",
                             "citation needed", "cn"))
@@ -516,6 +526,13 @@ def find_pages(artists: dict[str, tuple[str, str]], refresh: bool = False) -> di
                     break
         if not pages and art and page(art, refresh):
             pages = [_norm(art)]
+        for p in list(pages):  # a set index or an article pointing at split pages ("X albums discography")
+            stems = {re.sub(r" discography$", "", p, flags=re.I), name, re.sub(r" \(.*\)$", "", p)}
+            text = (page(p, refresh) or ("", ""))[1]
+            for stem in stems:
+                for m in re.finditer(re.escape(stem) + r" (?:albums|singles) discography", text, re.I):
+                    if (sp := page(m.group(0), refresh)) and sp[0] not in pages:
+                        pages.append(sp[0])
         if pages:
             out[s] = pages
     return out
@@ -531,7 +548,7 @@ def update(ids_and_names, refresh: bool = False) -> int:
     pages = find_pages(artists, refresh)
     texts = {p: (page(p) or ("", ""))[1] for ps in pages.values() for p in ps}
     today = date.today().isoformat()
-    out = {}
+    out = {k: v for k, v in load().items() if k not in names}  # other genres' entries are kept
     for s, ps in pages.items():
         works: list[dict] = []
         for p in ps:
@@ -542,7 +559,7 @@ def update(ids_and_names, refresh: bool = False) -> int:
         if len(ps) > 1:
             out[s]["pages"] = ps
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0))
-    return sum(1 for e in out.values() if any(w["certs"] for w in e["works"]))
+    return sum(1 for k, e in out.items() if k in names and any(w["certs"] for w in e["works"]))
 
 
 def load() -> dict:

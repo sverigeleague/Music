@@ -2,6 +2,18 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-24 Certifications from Wikipedia discographies
+
+- **Source** (`src/collectors/certifications.py`, monthly step `certifications`): the artist's English Wikipedia
+  discography page (CC BY-SA, credited on the panel), which cites RIAA, BPI, ARIA, Music Canada and the other bodies.
+  - Pages are read with `index.php?action=raw` because the action API answered 429 (rate limited) for this volume.
+  - Top 1,000: 683 pages found, 503 artists with at least one certification, 18,874 certifications. Spot checks
+    against the RIAA database matched (Lil Baby, Drake, Polo G).
+- **On the artist page:** certified releases, RIAA platinum total (Diamond = 10x), US No. 1s and the 12
+  most-certified releases. Wikipedia can lag the bodies by weeks; the panel says so.
+- **Rejected:** the RIAA's own search (no bulk access, terms against automated use).
+- The country site build no longer rewrites review/label_review.csv (it emptied the hip-hop queue).
+
 ## 2026-10-24 Country groundwork (before the C1 research returns)
 
 - **Nashville label map** (registry/label_owners.csv, each row sourced):

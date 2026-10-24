@@ -12,7 +12,7 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
 EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market")
-DETAIL_ONLY = ("award_list", "song_credits", "genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
+DETAIL_ONLY = ("cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
                "peak_rank", "attention_series", "worth", "collabs")
@@ -62,6 +62,25 @@ def build(genre: str = "hip_hop") -> dict:
     videos = json.loads(kworb_youtube.VIDEOS.read_text()) if kworb_youtube.VIDEOS.exists() else {}
     from .collectors import awards as awards_src, shazam as shazam_src
     award, shaz = awards_src.load(), shazam_src.presence()
+    from .collectors import certifications as cert_src
+    certs = cert_src.load()
+
+    def cert_view(sid):
+        """Index: totals; detail: the most-certified works (RIAA multiples first), with the Wikipedia page."""
+        e = certs.get(sid)
+        if not e or not any(w["certs"] for w in e["works"]):
+            return None, None
+        sm = cert_src.summary(e)
+        riaa = lambda w: sum((c["multiplier"] or 1) * (10 if c["level"] == "Diamond" else 1) for c in w["certs"]
+                             if c["body"] == "RIAA" and c["level"] in ("Platinum", "Diamond"))
+        works = sorted((w for w in e["works"] if w["certs"]), key=lambda w: (-riaa(w), -len(w["certs"])))
+        short = lambda c: f"{c['body']} {(str(c['multiplier']) + '× ') if (c['multiplier'] or 1) > 1 else ''}{c['level']}"
+        idx = {"works": sm["certified_works"], "riaa_plat": sm["riaa_platinum_units"],
+               "no1": sum(1 for w in e["works"] if w.get("us_peak") == 1), "countries": len(sm["by_country"])}
+        det = {"url": e["url"], "page": e["page"], "by_country": sm["by_country"],
+               "top": [{"title": w["title"], "type": w["type"], "year": w.get("year"), "us_peak": w.get("us_peak"),
+                        "certs": [short(c) for c in w["certs"]]} for w in works[:12]]}
+        return idx, det
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
     views, history = wikipedia.load(), wayback.load()
@@ -148,6 +167,7 @@ def build(genre: str = "hip_hop") -> dict:
                         "grammys": sum(1 for e in award[t["spotify_id"]]["wins"] if e["family"] == "Grammy")}
                        if t["spotify_id"] in award else None),
             "award_list": award.get(t["spotify_id"]),
+            "certs": cert_view(t["spotify_id"])[0], "cert_detail": cert_view(t["spotify_id"])[1],
             "shazam": (lambda z: {"charts": z["charts"], "best": z["best"], "cities": len(z.get("cities") or []),
                                   "url": z.get("url")} if z else None)(shaz.get(t["spotify_id"])),
             "video": pick_video(videos.get(t["spotify_id"]), a["name"], (cur.get("top_fresh") or {}).get("title")),
@@ -193,7 +213,8 @@ def build(genre: str = "hip_hop") -> dict:
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
         r["cl_rank"] = i  # our ranking: current listeners
     unsigned = benchmark(rows, shares)
-    write_label_review(rows)
+    if genre == "hip_hop":  # the review file covers hip-hop; country gets its own once its universe is built
+        write_label_review(rows)
     with (REGISTRY / "rates.csv").open() as f:
         rates = list(csv.DictReader(f))
     with (REGISTRY / "deal_shares.csv").open() as f:

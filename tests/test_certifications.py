@@ -12,7 +12,7 @@ DISCOGRAPHY = """The discography of American rapper [[Test Rapper]].
 |-
 ! scope="col" | [[Billboard 200|US]]<br /><ref name="US">{{cite web|url=https://example.org
 |title=Chart history}}</ref>
-! scope="col" | [[UK Albums Chart|UK]]<br /><ref name="UK"/>
+! scope="col" | [[UK Albums Chart|UK]]<br /><ref name="UK R&B/Hip-Hop"/>
 ! scope="col" | [[Canadian Albums Chart|CAN]]
 |-
 ! scope="row" | ''[[First Album]]''
@@ -113,6 +113,7 @@ def test_level_forms():
     assert lv("RIAA: Platinum ×2") == [("RIAA", "Platinum", 2)]
     assert lv("[[RMNZ]]: 2&times; Platinum") == [("RMNZ", "Platinum", 2)]
     assert lv("BPI: Silver") == [("BPI", "Silver", 1)]
+    assert lv("FRA: Diamond") == [("SNEP", "Diamond", 1)]  # a country code in place of the body
     assert lv("UK: 100,000") == []  # a sales figure, not a certification
 
 

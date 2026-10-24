@@ -377,6 +377,7 @@ async function artist(id) {
       <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a>${shareBtn(`${a.name}: ${count(a.ml)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in hip-hop by current listeners` : ""} (tventy music)`, a.slug ? `${SITE_URL}a/${a.slug}/` : "")}${a.slug ? `<a href="cards/${esc(a.slug)}.png" download="${esc(a.slug)}-tventy-music.png">Download card</a>` : ""}</div></div></section>
     ${summaryCard(a, store.rev[id])}
     ${a.shazam ? `<section class="panel"><h2>Discovery</h2><p>${shazamBadge(a)}</p><p class="note">People looking the song up on Shazam: often an early sign, before streams follow. From Shazam's public charts (world, 15 countries and 31 cities, the last 7 days).</p></section>` : ""}
+    ${certsPanel(a)}
     ${awardsPanel(a)}
     ${creditsPanel(a)}
     <section class="tiles">
@@ -754,6 +755,20 @@ function statePage(ym) {
 const shazamBadge = (a, short = false) => { const z = a.shazam; if (!z) return short ? "–" : "";
   const best = `#${z.best.rank} ${z.best.kind === "genre" ? "hip-hop" : ""} in ${z.best.place.replace(/-/g, " ")}`.replace(/\s+/g, " ");
   return `<a class="chip" href="${esc(z.url)}" target="_blank" rel="noopener" title="On ${z.charts} Shazam chart${z.charts > 1 ? "s" : ""} (7 days)${z.cities ? `, ${z.cities} cities` : ""}; best ${esc(best)}">${short ? z.charts : `Shazam: ${z.charts} chart${z.charts > 1 ? "s" : ""}, best ${esc(best)}`}</a>`; };
+
+// ---------- certifications and chart peaks (English Wikipedia discographies, CC BY-SA)
+function certsPanel(a) {
+  const C = a.cert_detail, S = a.certs;
+  if (!C || !S) return "";
+  return `<section class="panel"><h2>Certifications ${grade("B")}</h2>
+    <section class="tiles"><div class="tile"><div class="k">Certified releases</div><div class="v">${S.works}</div><div class="s">in ${S.countries} countr${S.countries === 1 ? "y" : "ies"}</div></div>
+      <div class="tile"><div class="k">RIAA Platinum, all releases</div><div class="v">${S.riaa_plat}×</div><div class="s">Diamond counts as 10× (US)</div></div>
+      <div class="tile"><div class="k">US No. 1s</div><div class="v">${S.no1}</div><div class="s">Billboard 200 or Hot 100, as listed</div></div></section>
+    <div class="tablebox"><table><thead><tr><th class="l">Release</th><th>Year</th><th>US peak</th><th class="l">Certifications</th></tr></thead><tbody>
+    ${C.top.map(w => `<tr><td class="l">${esc(w.title)} <span class="note">${esc(w.type)}</span></td><td>${esc(w.year || "–")}</td><td>${w.us_peak ? "#" + w.us_peak : "–"}</td><td class="l wrap">${w.certs.map(esc).join(", ")}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p class="note">Most-certified releases first (RIAA multiples). From the artist's discography on <a href="${esc(C.url)}" target="_blank" rel="noopener">English Wikipedia</a> (CC BY-SA), which cites the certifying bodies (RIAA, BPI, ARIA, Music Canada and others). Wikipedia can lag the bodies' own databases by weeks.</p></section>`;
+}
 
 // ---------- awards and nominations (Wikidata, CC0)
 function awardsPanel(a) {
