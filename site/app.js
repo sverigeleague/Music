@@ -249,6 +249,7 @@ function top() {
   const gen = hundred.reduce((s, a) => s + (a.money?.generated.mid || 0), 0);
   const up = [...hundred].sort((a, b) => (b.chg_pct ?? -1e9) - (a.chg_pct ?? -1e9))[0];
   const majors = hundred.filter(a => a.label_status === "major" || a.label_status === "major_distributed").length;
+  const nFloor = all.filter(a => a.floor).length;
   const unranked = all.filter(a => a.cl == null && !a.floor);  // missing release dates; below the floor is another case
   const sub = ui.by === "current"
     ? `Ranked by current listeners: each artist's monthly listeners, counting the listening that comes from recent releases, so songs from years ago that are still streamed a lot do not decide the order. ${esc(d.as_of)}.`
@@ -257,7 +258,7 @@ function top() {
   const labelsN = (d.labels || []).length, total = all.reduce((s, a) => s + (a.ml || 0), 0);
   app.innerHTML = `<section class="hero"><h1>Global Hip-Hop</h1>
       <p class="lede">Who is really drawing an audience in hip-hop right now, what their music earns, who owns it, and who is about to break. ${all.length.toLocaleString()} artists, updated daily, every figure sourced. <a href="#/state">This month in numbers →</a></p>
-      <div class="stats"><div><b>${all.length.toLocaleString()}</b><span>hip-hop artists tracked, of Spotify's top ${d.universe.toLocaleString()}</span></div><div><b>${count(total)}</b><span>combined monthly listeners</span></div><div><b>${labelsN}</b><span>labels with artists in the top 1,000</span></div><div><b>${esc(d.as_of)}</b><span>listener data as of</span></div></div></section>
+      <div class="stats"><div><b>${all.length.toLocaleString()}</b><span>hip-hop artists tracked${nFloor ? `: ${(all.length - nFloor).toLocaleString()} of Spotify's top ${d.universe.toLocaleString()}, ${nFloor.toLocaleString()} below its 500k floor` : `, of Spotify's top ${d.universe.toLocaleString()}`}</span></div><div><b>${count(total)}</b><span>combined monthly listeners</span></div><div><b>${labelsN}</b><span>labels with artists in the top 1,000</span></div><div><b>${esc(d.as_of)}</b><span>listener data as of</span></div></div></section>
     ${pulse()}
     <section class="doors">
       <a class="door" href="#/worth"><span class="k">For artists</span><b>What is your music worth?</b><span>Royalties, what you keep under each deal, and what the catalog would sell for.</span></a>
@@ -266,7 +267,7 @@ function top() {
     </section>
     
     ${subnav()}<section><h1>Top ${N} hip-hop artists on Spotify</h1>
-    <p class="sub">${sub} ${all.length.toLocaleString()} of Spotify's top ${d.universe.toLocaleString()} artists are hip-hop or rap.</p>
+    <p class="sub">${sub} ${(all.length - nFloor).toLocaleString()} of Spotify's top ${d.universe.toLocaleString()} artists are hip-hop or rap${nFloor ? `; ${nFloor.toLocaleString()} more below its 500k-listener floor follow` : ""}.</p>
     <div class="seg" role="group" aria-label="Ranking" style="margin-top:12px"><button type="button" data-by="current" aria-pressed="${ui.by === "current"}">Our ranking: current listeners</button><button type="button" data-by="monthly" aria-pressed="${ui.by === "monthly"}">Monthly listeners</button></div> ${sizeSwitch()}</section>
     <section class="tiles">
       <div class="tile"><div class="k">Combined monthly listeners</div><div class="v">${count(ml)}</div><div class="s">these ${N}, people counted once per artist</div></div>
