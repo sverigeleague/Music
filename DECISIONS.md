@@ -179,6 +179,8 @@ An independent read of the branch found, and these were fixed:
   covers everyone under 3m (about 380): 56% against 75% at 15m+.
 - **Producers:** a song on several artists' pages (a duo and its members: Macklemore, Ryan Lewis, "Macklemore & Ryan
   Lewis") counted once per page; it now counts once per person (by ISRC).
+- **Labels, across genres:** the majors' share tile adds the other genre's figure (hip-hop 59%, country 67% of
+  listening); "rap" stands in for "hip-hop" there so the country pages' word swap leaves it alone.
 - **Compare across genres:** Compare takes artists from either list ("Drake vs Morgan Wallen" is offered as a
   start); each links to their own genre's page, and a note says Scout scores and levels are within each genre.
 - **Search across genres:** the header search also lists the other genre's artists (its list loads on the first

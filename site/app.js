@@ -970,7 +970,8 @@ function labelsPage() {
   app.innerHTML = `${subnav()}<section><h1>Labels: who owns hip-hop's top 1,000</h1>
     <p class="sub">The label behind each artist's recent releases, grouped by the company that owns it. The three majors hold most of the audience at the top; lower down, independent labels and self-released artists take a bigger share: where small labels can still sign talent.</p></section>
     <section class="tiles">
-      <div class="tile"><div class="k">Majors' share of listeners</div><div class="v">${share(majShare("ml"))}</div><div class="s">of the top 1,000's monthly listeners (${share(majShare("artists"))} of artists)</div></div>
+      <div class="tile"><div class="k">Majors' share of listeners</div><div class="v">${share(majShare("ml"))}</div><div class="s">of the top 1,000's monthly listeners (${share(majShare("artists"))} of artists)${(() => { const og = GENRE === "hip_hop" ? "country" : "hip_hop", od = otherGenre(og); if (!od && !labelsPage.waiting) { labelsPage.waiting = true; loadGenre(og).then(() => { if (/labels$/.test(location.hash)) labelsPage(); }); }
+          return od?.majors_share != null ? `; ${share(od.majors_share)} in ${og === "hip_hop" ? "rap" : "country"}` : ""; })()}</div></div>
       <div class="tile"><div class="k">Majors, artists 15m+</div><div class="v">${share(majBand(4))}</div><div class="s">of those whose label is known</div></div>
       <div class="tile"><div class="k">Majors, under 3m</div><div class="v">${share(majLow())}</div><div class="s">of those whose label is known</div></div>
       <div class="tile"><div class="k">Self-released</div><div class="v">${m.groups["Self-released"]?.artists || 0}</div><div class="s">artists, ${share((m.groups["Self-released"]?.ml || 0) / tot("ml"))} of listeners</div></div>

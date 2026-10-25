@@ -246,6 +246,10 @@ def build(genre: str = "hip_hop") -> dict:
             "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
             "registrants": registrants, "unsigned": unsigned, "market": insights.market(rows),
+            # the majors' share of listening, kept in the index so the other genre's pages can compare with it
+            "majors_share": (lambda m: round(sum(g["ml"] for k, g in m["groups"].items()
+                                                 if k in ("Universal Music Group", "Sony Music", "Warner Music Group"))
+                                             / (m["total_ml"] or 1), 3))(insights.market(rows)),
             "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in factors.items()},
             "month": monthly.build(rows, history, day or today.isoformat()),
             "credits": (lambda songs: {"producers": credits_src.leaderboard(songs, "producers"),
