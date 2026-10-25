@@ -2,6 +2,18 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 RIAA Latin certifications kept apart; label batch 8
+
+- Wikipedia's "RIAA: 96× Platinum (Latin)" was read as 96 main Platinum awards. Latin Platinum is 60,000 units, not
+  1 million, so Bad Bunny's "Mía" (feat. Drake) topped Drake's list and his RIAA Platinum total read 705 instead of
+  575. Latin awards are now marked `latin`, carry no units, are left out of the RIAA Platinum total, weigh 0.06 of a
+  Platinum in the ordering, and show as "RIAA 96× Platinum (Latin)". 31 awards across 10 artists.
+- Label batch 8 (40 of the biggest unknowns): added jungeratze (Ski Aggu; UMG partnership, medium) and Ollywoo
+  (Oliver Anthony, self-released via DistroKid, medium). Not applied, low confidence, for the owner if wanted:
+  G-Unit Records (Caroline/Capitol deal of 2014, nothing newer), SODMG (Virgin 2021, nothing newer), Zac Brown
+  Band's Master of None (one 2025 mention of Warner Music Nashville), Clint Black's Blacktop (Thirty Tigers since
+  2015). The rest name only the artist's own company on the ℗ line, with no distributor found.
+
 ## 2026-10-25 Newest release shown beside the label basis
 
 - The artist page's "latest:" line showed the release the label status rests on, not the newest one (Charley

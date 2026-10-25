@@ -287,6 +287,9 @@ def parse_certs(cell: str, kind: str = "other", year: str = "") -> list[dict]:
             continue
         mult = int(m.group("pre") or m.group("post") or 1)
         c = cert(m.group("body"), m.group("level"), mult, kind, year)
+        if c and re.match(r"\s*\(?\s*latin\b", line[m.end():], re.I):
+            # RIAA's Latin awards (Platinum = 60,000 units since 2013): not comparable with the main awards
+            c.update(latin=True, units=None)
         if c and c not in out:
             out.append(c)
     return out
@@ -439,7 +442,7 @@ def summary(entry: dict) -> dict:
     riaa, by_country = 0, {}
     for w in works:
         for c in w["certs"]:
-            if c["body"] == "RIAA":
+            if c["body"] == "RIAA" and not c.get("latin"):
                 riaa += c["multiplier"] * {"Platinum": 1, "Diamond": 10}.get(c["level"], 0)
             k = c["country"] or c["body"]
             by_country[k] = by_country.get(k, 0) + 1

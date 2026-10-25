@@ -72,12 +72,14 @@ def build(genre: str = "hip_hop") -> dict:
             return None, None
         sm = cert_src.summary(e)
         riaa = lambda w: sum((c["multiplier"] or 1) * (10 if c["level"] == "Diamond" else 1) for c in w["certs"]
-                             if c["body"] == "RIAA" and c["level"] in ("Platinum", "Diamond"))
+                             if c["body"] == "RIAA" and c["level"] in ("Platinum", "Diamond") and not c.get("latin"))
         level = {"Diamond": 10, "Platinum": 1, "Gold": 0.5, "Silver": 0.25}
-        weight = lambda w: sum((c["multiplier"] or 1) * level.get(c["level"], 0.1) if c["level"] != "Diamond" else 10
+        weight = lambda w: sum(((c["multiplier"] or 1) * level.get(c["level"], 0.1) if c["level"] != "Diamond" else 10)
+                               * (0.06 if c.get("latin") else 1)  # RIAA Latin Platinum: 60,000 units, not 1m
                                for c in w["certs"])  # any body: a Diamond outranks a Platinum
         works = sorted((w for w in e["works"] if w["certs"]), key=lambda w: (-riaa(w), -weight(w), -len(w["certs"])))
-        short = lambda c: f"{c['body']} {(str(c['multiplier']) + '× ') if (c['multiplier'] or 1) > 1 else ''}{c['level']}"
+        short = lambda c: f"{c['body']} {(str(c['multiplier']) + '× ') if (c['multiplier'] or 1) > 1 else ''}{c['level']}" \
+            + (" (Latin)" if c.get("latin") else "")
         bodies: dict[str, int] = {}
         for w in e["works"]:
             for c in w["certs"]:

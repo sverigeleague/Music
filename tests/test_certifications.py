@@ -295,3 +295,14 @@ def test_entries_pick_the_wiki_and_record_it(monkeypatch):
     pages["fr", "Ninho"] = FR_TEMPLATES + FR_TABLE  # now more on the French page
     e = f.entries({"sp1": "Q1"}, "2026-10-25")["sp1"]
     assert e["lang"] == "fr" and e["url"] == "https://fr.wikipedia.org/wiki/Ninho" and e["fetched"] == "2026-10-25"
+
+
+def test_riaa_latin_awards_are_kept_apart():
+    from src.collectors import certifications as c
+    latin = c.parse_certs("* RIAA: 96× Platinum {{small|(Latin)}}", "single", "2018")[0]
+    linked = c.parse_certs("RIAA: 34× Platinum ([[RIAA certification#Singles|Latin]])", "single", "2014")[0]
+    assert latin["latin"] and linked["latin"] and latin["units"] is None
+    main = c.parse_certs("RIAA: 3× Platinum", "single", "2014")[0]
+    assert "latin" not in main and main["units"] == 3_000_000
+    entry = {"works": [{"certs": [latin]}, {"certs": [main]}]}
+    assert c.summary(entry)["riaa_platinum_units"] == 3

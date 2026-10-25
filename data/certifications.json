@@ -126,6 +126,323 @@
 }
 ]
 },
+"3CIRif6ZAedT7kZSPvj2A4": {
+"page": "She & Him discography",
+"url": "https://en.wikipedia.org/wiki/She_%26_Him_discography",
+"lang": "en",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Volume One",
+"type": "album",
+"year": "2008",
+"certs": [],
+"us_peak": 71
+},
+{
+"title": "Volume Two",
+"type": "album",
+"year": "2010",
+"certs": [],
+"us_peak": 6
+},
+{
+"title": "A Very She & Him Christmas",
+"type": "album",
+"year": "2011",
+"certs": [],
+"us_peak": 12
+},
+{
+"title": "Volume 3",
+"type": "album",
+"year": "2013",
+"certs": [],
+"us_peak": 15
+},
+{
+"title": "Classics",
+"type": "album",
+"year": "2014",
+"certs": [],
+"us_peak": 41
+},
+{
+"title": "I Thought I Saw Your Face Today",
+"type": "single",
+"year": "2008",
+"certs": [],
+"us_peak": 40
+}
+]
+},
+"2M3vnW1p5w4uPRkLYTbvdB": {
+"page": "Rusted Root",
+"url": "https://en.wikipedia.org/wiki/Rusted_Root",
+"lang": "en",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "When I Woke",
+"type": "album",
+"year": "1994",
+"certs": [
+{
+"body": "RIAA",
+"country": "US",
+"level": "Platinum",
+"multiplier": 1,
+"units": 1000000
+}
+],
+"us_peak": null
+},
+{
+"title": "Remember",
+"type": "album",
+"year": "1996",
+"certs": [
+{
+"body": "RIAA",
+"country": "US",
+"level": "Gold",
+"multiplier": 1,
+"units": 500000
+}
+],
+"us_peak": null
+},
+{
+"title": "Send Me on My Way",
+"type": "single",
+"year": "1994",
+"certs": [
+{
+"body": "BPI",
+"country": "UK",
+"level": "Platinum",
+"multiplier": 1,
+"units": 600000
+}
+],
+"us_peak": null
+}
+]
+},
+"72PnPUc1qv9UjRPaGVZ1jq": {
+"page": "The Handsome Family",
+"url": "https://en.wikipedia.org/wiki/The_Handsome_Family",
+"lang": "en",
+"fetched": "2026-10-25",
+"works": []
+},
+"2QoU3awHVdcHS8LrZEKvSM": {
+"page": "Wilco discography",
+"url": "https://en.wikipedia.org/wiki/Wilco_discography",
+"lang": "en",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Being There",
+"type": "album",
+"year": "1996",
+"certs": [
+{
+"body": "MC",
+"country": "Canada",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": 73
+},
+{
+"title": "Summerteeth",
+"type": "album",
+"year": "1999",
+"certs": [],
+"us_peak": 78
+},
+{
+"title": "Yankee Hotel Foxtrot",
+"type": "album",
+"year": "2001",
+"certs": [
+{
+"body": "RIAA",
+"country": "US",
+"level": "Gold",
+"multiplier": 1,
+"units": 500000
+}
+],
+"us_peak": 13
+},
+{
+"title": "A Ghost Is Born",
+"type": "album",
+"year": "2004",
+"certs": [],
+"us_peak": 8
+},
+{
+"title": "Sky Blue Sky",
+"type": "album",
+"year": "2007",
+"certs": [],
+"us_peak": 4
+},
+{
+"title": "Wilco (The Album)",
+"type": "album",
+"year": "2009",
+"certs": [],
+"us_peak": 4
+},
+{
+"title": "The Whole Love",
+"type": "album",
+"year": "2011",
+"certs": [],
+"us_peak": 5
+},
+{
+"title": "Star Wars",
+"type": "album",
+"year": "2015",
+"certs": [],
+"us_peak": 105
+},
+{
+"title": "Schmilco",
+"type": "album",
+"year": "2016",
+"certs": [],
+"us_peak": 11
+},
+{
+"title": "Ode to Joy",
+"type": "album",
+"year": "2019",
+"certs": [],
+"us_peak": 21
+},
+{
+"title": "Cruel Country",
+"type": "album",
+"year": "2022",
+"certs": [],
+"us_peak": 190
+},
+{
+"title": "Cousin",
+"type": "album",
+"year": "2023",
+"certs": [],
+"us_peak": 65
+},
+{
+"title": "Kicking Television: Live in Chicago",
+"type": "album",
+"year": "2005",
+"certs": [],
+"us_peak": 47
+},
+{
+"title": "Mermaid Avenue (with Billy Bragg)",
+"type": "album",
+"year": "1998",
+"certs": [],
+"us_peak": 90
+},
+{
+"title": "Mermaid Avenue Vol. II (with Billy Bragg)",
+"type": "album",
+"year": "2000",
+"certs": [],
+"us_peak": 88
+}
+]
+},
+"196lKsA13K3keVXMDFK66q": {
+"page": "The Avett Brothers discography",
+"url": "https://en.wikipedia.org/wiki/The_Avett_Brothers_discography",
+"lang": "en",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Emotionalism",
+"type": "album",
+"year": "2007",
+"certs": [],
+"us_peak": 134
+},
+{
+"title": "I and Love and You",
+"type": "album",
+"year": "2009",
+"certs": [],
+"us_peak": 16
+},
+{
+"title": "The Carpenter",
+"type": "album",
+"year": "2012",
+"certs": [],
+"us_peak": 4
+},
+{
+"title": "Magpie and the Dandelion",
+"type": "album",
+"year": "2013",
+"certs": [],
+"us_peak": 5
+},
+{
+"title": "True Sadness",
+"type": "album",
+"year": "2016",
+"certs": [],
+"us_peak": 3
+},
+{
+"title": "Closer Than Together",
+"type": "album",
+"year": "2019",
+"certs": [],
+"us_peak": 28
+},
+{
+"title": "The Avett Brothers",
+"type": "album",
+"year": "2024",
+"certs": [],
+"us_peak": 134
+},
+{
+"title": "The Gleam",
+"type": "album",
+"year": "2006",
+"certs": [],
+"us_peak": 149
+},
+{
+"title": "The Second Gleam",
+"type": "album",
+"year": "2008",
+"certs": [],
+"us_peak": 82
+},
+{
+"title": "The Third Gleam",
+"type": "album",
+"year": "2020",
+"certs": [],
+"us_peak": 67
+}
+]
+},
 "3TVXtAsR1Inumwj472S9r4": {
 "page": "Drake albums discography",
 "url": "https://en.wikipedia.org/wiki/Drake_albums_discography",
@@ -4024,7 +4341,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 34,
-"units": 34000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": 45
@@ -4811,7 +5129,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 96,
-"units": 96000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": 5
@@ -27393,7 +27712,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -27551,7 +27871,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -48597,7 +48918,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 41,
-"units": 41000000
+"units": null,
+"latin": true
 },
 {
 "body": "BPI",
@@ -69110,7 +69432,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 9,
-"units": 9000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -76265,7 +76588,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 3,
-"units": 3000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": 72
@@ -77248,7 +77572,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -82013,7 +82338,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -98660,7 +98986,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -138790,7 +139117,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -138805,7 +139133,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -138820,7 +139149,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -138850,7 +139180,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 19,
-"units": 19000000
+"units": null,
+"latin": true
 },
 {
 "body": "FIMI",
@@ -138879,7 +139210,8 @@
 "country": "US",
 "level": "Diamond",
 "multiplier": 1,
-"units": 10000000
+"units": null,
+"latin": true
 },
 {
 "body": "PROMUSICAE",
@@ -138901,7 +139233,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 15,
-"units": 15000000
+"units": null,
+"latin": true
 },
 {
 "body": "PROMUSICAE",
@@ -138923,7 +139256,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 7,
-"units": 7000000
+"units": null,
+"latin": true
 },
 {
 "body": "PROMUSICAE",
@@ -138945,7 +139279,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 2,
-"units": 2000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -138960,7 +139295,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 8,
-"units": 8000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -138975,7 +139311,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 5,
-"units": 5000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -138990,7 +139327,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 },
 {
 "body": "PROMUSICAE",
@@ -139026,7 +139364,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 3,
-"units": 3000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -152510,7 +152849,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 2,
-"units": 2000000
+"units": null,
+"latin": true
 },
 {
 "body": "FIMI",
@@ -152539,7 +152879,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 },
 {
 "body": "PROMUSICAE",
@@ -156617,7 +156958,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": 189
@@ -201141,7 +201483,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -239515,7 +239858,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -239530,7 +239874,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -261818,7 +262163,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -270144,7 +270490,8 @@
 "country": "US",
 "level": "Platinum",
 "multiplier": 1,
-"units": 1000000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -284481,3396 +284828,6 @@
 }
 ]
 },
-"78iJ2FMbYAFY3djO4PbWZi": {
-"page": "La Mano 1.9",
-"url": "https://de.wikipedia.org/wiki/La_Mano_1.9",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "R.A.T.",
-"type": "album",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Canon",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "BEA",
-"country": "Belgium",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "I’m Sorry",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Sexy Woman",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "BEA",
-"country": "Belgium",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Businessman",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "BEA",
-"country": "Belgium",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Crime Ensoleillé",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "BEA",
-"country": "Belgium",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Swat",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "BEA",
-"country": "Belgium",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Chanel",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "ATL",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "El gemano",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "G.A.N.G.",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Pop",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "No Stress",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Jerrican",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "BEA",
-"country": "Belgium",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Jump",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "BEA",
-"country": "Belgium",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Parisienne",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Un monde à l’autre",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"5OLkn5GT6EcMuJzjwgvQnu": {
-"page": "Vacra",
-"url": "https://fr.wikipedia.org/wiki/Vacra",
-"lang": "fr",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Tiki Taka",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"4hYxvgmTzS29XAXlo5adgM": {
-"page": "L2B",
-"url": "https://fr.wikipedia.org/wiki/L2B",
-"lang": "fr",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Nés pour briller",
-"type": "album",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 2,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Amis d'enfance (feat. Rsko)",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Bitume (feat. SDM)",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Dans la chambre / Money (feat. Franglish)",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Movie",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Pélican",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Tout pour l'équipe",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Only",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "La zone",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Seleçao (La Fouine & L2B)",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Tendance (KLN feat. Niska)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Overbooking (solo KLN)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "C'est quoi ton délire (D2 feat. Genezio & KeBlack)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Jump (IDS feat. La Mano 1.9)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "David Douillet (IDS feat. SDM)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Tour du monde (Soolking feat. L2B)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Congolaise (Gradur & L2B)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Mode avion (DJ Kawest & L2B)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "French Riviera (Rim'k & L2B)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Flying Blue (La Fouine & L2B)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Bloqué (Gims & L2B)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"4P2HohWBtvSxxwabNDdYXN": {
-"page": "Nono La Grinta",
-"url": "https://fr.wikipedia.org/wiki/Nono_La_Grinta",
-"lang": "fr",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "The Cat",
-"type": "album",
-"year": "2026",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Restart",
-"type": "album",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "La Quoi ? (feat. La Mano 1.9)",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Paris",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Terrain",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Love You",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "BMW (sous le pseudonyme Black Cat)",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Na Za Désolé (sous le pseudonyme Black Cat)",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "J'tavais dit",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Avec moi (de RnBoi feat. Nono La Grinta)",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"2D8Vb8JwQhndC6H6heA1kD": {
-"page": "R2 (rappeur)",
-"url": "https://fr.wikipedia.org/wiki/R2_%28rappeur%29",
-"lang": "fr",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "C'est relou",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ruinart",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Jamais toi",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Pas le choix",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"0PcU18DNfkn3pmbjy5yMFz": {
-"page": "Genezio",
-"url": "https://fr.wikipedia.org/wiki/Genezio",
-"lang": "fr",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "ENFANT DU GHETTO (feat. Landy)",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "EL GEMANO (feat. La Mano 1.9)",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "LA MELO EST DANS LA BOUNCE (feat. Tiakola)",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "OG (feat. Niska)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "PONA NINI (Tiakola feat. Genezio et Prototype)",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "C'est quoi ton délire (L2B feat. D2, Genezio et KeBlack)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Mbife (Tiakola feat. Genezio)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Catimini (Tiakola feat. Genezio et Landy)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Viano (RK feat. Genezio)",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"1nRbtbdYK51y71nVOxu332": {
-"page": "Kerchak",
-"url": "https://fr.wikipedia.org/wiki/Kerchak",
-"lang": "fr",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Tarzan",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Blue",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Calme toi",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Peur (avec Ziak)",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "T'aimerais (avec Ziak)",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"3bRGJQd7b4lE3ZAEMfOXJp": {
-"page": "Luidji",
-"url": "https://de.wikipedia.org/wiki/Luidji",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Tristesse Business: Saison 1",
-"type": "album",
-"year": "2019",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Saison 00",
-"type": "album",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Pour deux âmes solitaires (Part. 1)",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Reste en Vie",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Alexis",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Monde",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"1A6HQzOvtGaCYihOuIKjE6": {
-"page": "Mr. Polska",
-"url": "https://de.wikipedia.org/wiki/Mr._Polska",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Move Up (Lost Gravity)",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Samen",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "ABC",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Niemand",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"6ARKr2ZoLf9TDoQiZarJMt": {
-"page": "Makko",
-"url": "https://de.wikipedia.org/wiki/Makko",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Nachts wach",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"7rBed6Ya7Hwa2fXbh5btJE": {
-"page": "Lacazette (Rapper)/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Lacazette_%28Rapper%29/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "LID",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"4lDiJcOJ2GLCK6p9q5BgfK": {
-"page": "Kontra K/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Kontra_K/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Aus dem Schatten ins Licht",
-"type": "album",
-"year": "2015",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Labyrinth",
-"type": "album",
-"year": "2016",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Gute Nacht",
-"type": "album",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Erde & Knochen",
-"type": "album",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Sie wollten Wasser doch kriegen Benzin",
-"type": "album",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Vollmond",
-"type": "album",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Für den Himmel durch die Hölle",
-"type": "album",
-"year": "2022",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Die Hoffnung klaut mir niemand",
-"type": "album",
-"year": "2023",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ikarus",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Diamanten",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Mehr als ein Job",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Soldaten 2.0",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Oder nicht",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Fame",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Farben",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Warnung",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Kampfgeist 4",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Blei",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Letzte Träne",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Puste sie weg",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Tiefschwarz",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Follow",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Summertime",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Die Sonne",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Geboren um zu leben",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Erfolg ist kein Glück",
-"type": "single",
-"year": "2015",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 3,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Nur für dich",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"1ul8iLt2WnFe2UIyovjg7q": {
-"page": "Reezy/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Reezy/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Mr. Misunderstood",
-"type": "album",
-"year": "2023",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Phantom",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Sandmann",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Manchester",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Itachi Flow",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Doctor",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Shoot",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Expensive Shit",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Sabía que no",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "1+1",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "One Night In Paris / Deep Down",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "14 Passenger",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Vintage",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"28TqrmNSPiKo5w3WVb3A3N": {
-"page": "Aymen (Rapper)/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Aymen_%28Rapper%29/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Egal",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Substanzen",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"4VuARVJiWGsH2msKTdsKdQ": {
-"page": "Veysel (Rapper)/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Veysel_%28Rapper%29/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Kleiner Cabrón",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ti amo",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Habibo",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Uff",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ohne dich",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Swervin",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Blei",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Viele",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"2Z9KL8Zmqx5Sg3cd7Fldhl": {
-"page": "Olexesh/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Olexesh/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Magisch",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Barrio",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Pistoleta",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Rhythm N’ Flouz",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"6DAQjwwMGZ9QgqHhIkU7H0": {
-"page": "Sentino",
-"url": "https://de.wikipedia.org/wiki/Sentino",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "King Sento 2",
-"type": "album",
-"year": "2025",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Skandal",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Casablanca",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Platinum",
-"multiplier": 2,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Dylemat",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Frisbee",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Vitalyi",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Marbella",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Lato",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Platinum",
-"multiplier": 3,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ostatni Raz",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Mallorca",
-"type": "single",
-"year": "2026",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Świattomójplaczabaw",
-"type": "single",
-"year": "2025",
-"certs": [
-{
-"body": "ZPAV",
-"country": "Poland",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"2NJWI8byqTSqDaJRnqJY2z": {
-"page": "Kalim",
-"url": "https://de.wikipedia.org/wiki/Kalim",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Skrr",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"60uPSVM3svOL8kZ3Wkb3Zw": {
-"page": "Monet192",
-"url": "https://de.wikipedia.org/wiki/Monet192",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Hotel",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Platinum",
-"multiplier": 3,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Gar kein Bock",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"10XY9PZCJKzUFzZOdtlQLU": {
-"page": "LX (Rapper)/Diskografie",
-"url": "https://de.wikipedia.org/wiki/LX_%28Rapper%29/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Obststand",
-"type": "album",
-"year": "2015",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Mit den Jungz",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "HaifischNikez Allstars",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "10 Jahre",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Drück drück",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Optimal",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"1XKjtpH5P81gpOXDB91IEB": {
-"page": "Miami Yacine",
-"url": "https://de.wikipedia.org/wiki/Miami_Yacine",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Kokaina",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Bon Voyage",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"3mmI5HKArDwgggj4j0aJyC": {
-"page": "BHZ (Band)/Diskografie",
-"url": "https://de.wikipedia.org/wiki/BHZ_%28Band%29/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Flasche Luft",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Powerade",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"5adKMaYrGOMyOfnbiLPuHg": {
-"page": "Jonna Fraser",
-"url": "https://de.wikipedia.org/wiki/Jonna_Fraser",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Jonathan",
-"type": "album",
-"year": "2017",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Blessed II",
-"type": "album",
-"year": "2017",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Lion",
-"type": "album",
-"year": "2018",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Calma",
-"type": "album",
-"year": "2020",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Championships",
-"type": "album",
-"year": "2021",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Blessed for Life",
-"type": "album",
-"year": "2023",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Do or Die",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 3,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "My Love",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ik kom bij je",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Party",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Spijt",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ik heb je nodig",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Louboutin",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 2,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Drup",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 2,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Vakantie",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Tuesday",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "NVPI",
-"country": "Netherlands",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"2yJ6lsLqG06r9bckSTQRt4": {
-"page": "Zkr",
-"url": "https://de.wikipedia.org/wiki/Zkr",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Dans les mains",
-"type": "album",
-"year": "2021",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Caméléon",
-"type": "album",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Mode opératoire – Volume 1",
-"type": "album",
-"year": "2024",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Freestyle 5 min #8",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Diamond",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Romance criminelle",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Poursuite",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Freestyle 5 min #10",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Freestyle 5 min #11",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Les gentils bandits",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Focus",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Philly",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Tu vois comment?",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Sourire de millionaire",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Bah oé",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Temps perdu",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"48Fq6GV3S6on56TxSBu5NO": {
-"page": "Celo & Abdi/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Celo_%26_Abdi/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Rhythm N’ Flouz",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"3KQylwDxYE7Vxli0BSuwaf": {
-"page": "Soho Bani",
-"url": "https://de.wikipedia.org/wiki/Soho_Bani",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Zeit, dass sich was dreht",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"7oWrEQO1d3klp0Qrfh7a5h": {
-"page": "Badmómzjay/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Badm%C3%B3mzjay/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Auf die Party",
-"type": "single",
-"year": "2023",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Papi",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Ohne Dich",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"78TTCmh2koperK5NBn7DgR": {
-"page": "102 Boyz",
-"url": "https://de.wikipedia.org/wiki/102_Boyz",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Ich hass dich",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 3,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"1SnSPHBs8l5iAvoWF0aO05": {
-"page": "Fourty/Diskografie",
-"url": "https://de.wikipedia.org/wiki/Fourty/Diskografie",
-"lang": "de",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Weißer Rauch",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Wenn du mich vermisst",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Vempa",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
 "4oUHIQIBe0LHzYfvXNW4QM": {
 "page": "Morgan Wallen discography",
 "url": "https://en.wikipedia.org/wiki/Morgan_Wallen_discography",
@@ -301428,56 +298385,6 @@
 "year": "2025",
 "certs": [],
 "us_peak": 61
-}
-]
-},
-"3CIRif6ZAedT7kZSPvj2A4": {
-"page": "She & Him discography",
-"url": "https://en.wikipedia.org/wiki/She_%26_Him_discography",
-"lang": "en",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Volume One",
-"type": "album",
-"year": "2008",
-"certs": [],
-"us_peak": 71
-},
-{
-"title": "Volume Two",
-"type": "album",
-"year": "2010",
-"certs": [],
-"us_peak": 6
-},
-{
-"title": "A Very She & Him Christmas",
-"type": "album",
-"year": "2011",
-"certs": [],
-"us_peak": 12
-},
-{
-"title": "Volume 3",
-"type": "album",
-"year": "2013",
-"certs": [],
-"us_peak": 15
-},
-{
-"title": "Classics",
-"type": "album",
-"year": "2014",
-"certs": [],
-"us_peak": 41
-},
-{
-"title": "I Thought I Saw Your Face Today",
-"type": "single",
-"year": "2008",
-"certs": [],
-"us_peak": 40
 }
 ]
 },
@@ -316512,7 +313419,8 @@
 "country": "US",
 "level": "Gold",
 "multiplier": 1,
-"units": 500000
+"units": null,
+"latin": true
 }
 ],
 "us_peak": null
@@ -337976,59 +334884,6 @@
 }
 ]
 },
-"2M3vnW1p5w4uPRkLYTbvdB": {
-"page": "Rusted Root",
-"url": "https://en.wikipedia.org/wiki/Rusted_Root",
-"lang": "en",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "When I Woke",
-"type": "album",
-"year": "1994",
-"certs": [
-{
-"body": "RIAA",
-"country": "US",
-"level": "Platinum",
-"multiplier": 1,
-"units": 1000000
-}
-],
-"us_peak": null
-},
-{
-"title": "Remember",
-"type": "album",
-"year": "1996",
-"certs": [
-{
-"body": "RIAA",
-"country": "US",
-"level": "Gold",
-"multiplier": 1,
-"units": 500000
-}
-],
-"us_peak": null
-},
-{
-"title": "Send Me on My Way",
-"type": "single",
-"year": "1994",
-"certs": [
-{
-"body": "BPI",
-"country": "UK",
-"level": "Platinum",
-"multiplier": 1,
-"units": 600000
-}
-],
-"us_peak": null
-}
-]
-},
 "3sUpZrkehiGBaMzs2h9Mmc": {
 "page": "Corey Kent",
 "url": "https://en.wikipedia.org/wiki/Corey_Kent",
@@ -343601,13 +340456,6 @@
 "us_peak": 78
 }
 ]
-},
-"72PnPUc1qv9UjRPaGVZ1jq": {
-"page": "The Handsome Family",
-"url": "https://en.wikipedia.org/wiki/The_Handsome_Family",
-"lang": "en",
-"fetched": "2026-10-25",
-"works": []
 },
 "7mPcfx7PhnBh6n4HMCd61A": {
 "page": "John Michael Montgomery discography",
@@ -350937,135 +347785,6 @@
 "year": "2014",
 "certs": [],
 "us_peak": 86
-}
-]
-},
-"2QoU3awHVdcHS8LrZEKvSM": {
-"page": "Wilco discography",
-"url": "https://en.wikipedia.org/wiki/Wilco_discography",
-"lang": "en",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Being There",
-"type": "album",
-"year": "1996",
-"certs": [
-{
-"body": "MC",
-"country": "Canada",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": 73
-},
-{
-"title": "Summerteeth",
-"type": "album",
-"year": "1999",
-"certs": [],
-"us_peak": 78
-},
-{
-"title": "Yankee Hotel Foxtrot",
-"type": "album",
-"year": "2001",
-"certs": [
-{
-"body": "RIAA",
-"country": "US",
-"level": "Gold",
-"multiplier": 1,
-"units": 500000
-}
-],
-"us_peak": 13
-},
-{
-"title": "A Ghost Is Born",
-"type": "album",
-"year": "2004",
-"certs": [],
-"us_peak": 8
-},
-{
-"title": "Sky Blue Sky",
-"type": "album",
-"year": "2007",
-"certs": [],
-"us_peak": 4
-},
-{
-"title": "Wilco (The Album)",
-"type": "album",
-"year": "2009",
-"certs": [],
-"us_peak": 4
-},
-{
-"title": "The Whole Love",
-"type": "album",
-"year": "2011",
-"certs": [],
-"us_peak": 5
-},
-{
-"title": "Star Wars",
-"type": "album",
-"year": "2015",
-"certs": [],
-"us_peak": 105
-},
-{
-"title": "Schmilco",
-"type": "album",
-"year": "2016",
-"certs": [],
-"us_peak": 11
-},
-{
-"title": "Ode to Joy",
-"type": "album",
-"year": "2019",
-"certs": [],
-"us_peak": 21
-},
-{
-"title": "Cruel Country",
-"type": "album",
-"year": "2022",
-"certs": [],
-"us_peak": 190
-},
-{
-"title": "Cousin",
-"type": "album",
-"year": "2023",
-"certs": [],
-"us_peak": 65
-},
-{
-"title": "Kicking Television: Live in Chicago",
-"type": "album",
-"year": "2005",
-"certs": [],
-"us_peak": 47
-},
-{
-"title": "Mermaid Avenue (with Billy Bragg)",
-"type": "album",
-"year": "1998",
-"certs": [],
-"us_peak": 90
-},
-{
-"title": "Mermaid Avenue Vol. II (with Billy Bragg)",
-"type": "album",
-"year": "2000",
-"certs": [],
-"us_peak": 88
 }
 ]
 },
@@ -358510,84 +355229,6 @@
 "year": "1999",
 "certs": [],
 "us_peak": 86
-}
-]
-},
-"196lKsA13K3keVXMDFK66q": {
-"page": "The Avett Brothers discography",
-"url": "https://en.wikipedia.org/wiki/The_Avett_Brothers_discography",
-"lang": "en",
-"fetched": "2026-10-25",
-"works": [
-{
-"title": "Emotionalism",
-"type": "album",
-"year": "2007",
-"certs": [],
-"us_peak": 134
-},
-{
-"title": "I and Love and You",
-"type": "album",
-"year": "2009",
-"certs": [],
-"us_peak": 16
-},
-{
-"title": "The Carpenter",
-"type": "album",
-"year": "2012",
-"certs": [],
-"us_peak": 4
-},
-{
-"title": "Magpie and the Dandelion",
-"type": "album",
-"year": "2013",
-"certs": [],
-"us_peak": 5
-},
-{
-"title": "True Sadness",
-"type": "album",
-"year": "2016",
-"certs": [],
-"us_peak": 3
-},
-{
-"title": "Closer Than Together",
-"type": "album",
-"year": "2019",
-"certs": [],
-"us_peak": 28
-},
-{
-"title": "The Avett Brothers",
-"type": "album",
-"year": "2024",
-"certs": [],
-"us_peak": 134
-},
-{
-"title": "The Gleam",
-"type": "album",
-"year": "2006",
-"certs": [],
-"us_peak": 149
-},
-{
-"title": "The Second Gleam",
-"type": "album",
-"year": "2008",
-"certs": [],
-"us_peak": 82
-},
-{
-"title": "The Third Gleam",
-"type": "album",
-"year": "2020",
-"certs": [],
-"us_peak": 67
 }
 ]
 },
@@ -368216,6 +364857,3396 @@
 "year": "1975",
 "certs": [],
 "us_peak": 93
+}
+]
+},
+"78iJ2FMbYAFY3djO4PbWZi": {
+"page": "La Mano 1.9",
+"url": "https://de.wikipedia.org/wiki/La_Mano_1.9",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "R.A.T.",
+"type": "album",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Canon",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "BEA",
+"country": "Belgium",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "I’m Sorry",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Sexy Woman",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "BEA",
+"country": "Belgium",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Businessman",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "BEA",
+"country": "Belgium",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Crime Ensoleillé",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "BEA",
+"country": "Belgium",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Swat",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "BEA",
+"country": "Belgium",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Chanel",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "ATL",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "El gemano",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "G.A.N.G.",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Pop",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "No Stress",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Jerrican",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "BEA",
+"country": "Belgium",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Jump",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "BEA",
+"country": "Belgium",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Parisienne",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Un monde à l’autre",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"5OLkn5GT6EcMuJzjwgvQnu": {
+"page": "Vacra",
+"url": "https://fr.wikipedia.org/wiki/Vacra",
+"lang": "fr",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Tiki Taka",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"4hYxvgmTzS29XAXlo5adgM": {
+"page": "L2B",
+"url": "https://fr.wikipedia.org/wiki/L2B",
+"lang": "fr",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Nés pour briller",
+"type": "album",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 2,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Amis d'enfance (feat. Rsko)",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Bitume (feat. SDM)",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Dans la chambre / Money (feat. Franglish)",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Movie",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Pélican",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Tout pour l'équipe",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Only",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "La zone",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Seleçao (La Fouine & L2B)",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Tendance (KLN feat. Niska)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Overbooking (solo KLN)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "C'est quoi ton délire (D2 feat. Genezio & KeBlack)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Jump (IDS feat. La Mano 1.9)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "David Douillet (IDS feat. SDM)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Tour du monde (Soolking feat. L2B)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Congolaise (Gradur & L2B)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mode avion (DJ Kawest & L2B)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "French Riviera (Rim'k & L2B)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Flying Blue (La Fouine & L2B)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Bloqué (Gims & L2B)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"4P2HohWBtvSxxwabNDdYXN": {
+"page": "Nono La Grinta",
+"url": "https://fr.wikipedia.org/wiki/Nono_La_Grinta",
+"lang": "fr",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "The Cat",
+"type": "album",
+"year": "2026",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Restart",
+"type": "album",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "La Quoi ? (feat. La Mano 1.9)",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Paris",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Terrain",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Love You",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "BMW (sous le pseudonyme Black Cat)",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Na Za Désolé (sous le pseudonyme Black Cat)",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "J'tavais dit",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Avec moi (de RnBoi feat. Nono La Grinta)",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"2D8Vb8JwQhndC6H6heA1kD": {
+"page": "R2 (rappeur)",
+"url": "https://fr.wikipedia.org/wiki/R2_%28rappeur%29",
+"lang": "fr",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "C'est relou",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ruinart",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Jamais toi",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Pas le choix",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"0PcU18DNfkn3pmbjy5yMFz": {
+"page": "Genezio",
+"url": "https://fr.wikipedia.org/wiki/Genezio",
+"lang": "fr",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "ENFANT DU GHETTO (feat. Landy)",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "EL GEMANO (feat. La Mano 1.9)",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "LA MELO EST DANS LA BOUNCE (feat. Tiakola)",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "OG (feat. Niska)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "PONA NINI (Tiakola feat. Genezio et Prototype)",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "C'est quoi ton délire (L2B feat. D2, Genezio et KeBlack)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mbife (Tiakola feat. Genezio)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Catimini (Tiakola feat. Genezio et Landy)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Viano (RK feat. Genezio)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"1nRbtbdYK51y71nVOxu332": {
+"page": "Kerchak",
+"url": "https://fr.wikipedia.org/wiki/Kerchak",
+"lang": "fr",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Tarzan",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Blue",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Calme toi",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Peur (avec Ziak)",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "T'aimerais (avec Ziak)",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"3bRGJQd7b4lE3ZAEMfOXJp": {
+"page": "Luidji",
+"url": "https://de.wikipedia.org/wiki/Luidji",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Tristesse Business: Saison 1",
+"type": "album",
+"year": "2019",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Saison 00",
+"type": "album",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Pour deux âmes solitaires (Part. 1)",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Reste en Vie",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Alexis",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Monde",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"1A6HQzOvtGaCYihOuIKjE6": {
+"page": "Mr. Polska",
+"url": "https://de.wikipedia.org/wiki/Mr._Polska",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Move Up (Lost Gravity)",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Samen",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "ABC",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Niemand",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"6ARKr2ZoLf9TDoQiZarJMt": {
+"page": "Makko",
+"url": "https://de.wikipedia.org/wiki/Makko",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Nachts wach",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"7rBed6Ya7Hwa2fXbh5btJE": {
+"page": "Lacazette (Rapper)/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Lacazette_%28Rapper%29/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "LID",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"4lDiJcOJ2GLCK6p9q5BgfK": {
+"page": "Kontra K/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Kontra_K/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Aus dem Schatten ins Licht",
+"type": "album",
+"year": "2015",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Labyrinth",
+"type": "album",
+"year": "2016",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Gute Nacht",
+"type": "album",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Erde & Knochen",
+"type": "album",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Sie wollten Wasser doch kriegen Benzin",
+"type": "album",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Vollmond",
+"type": "album",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Für den Himmel durch die Hölle",
+"type": "album",
+"year": "2022",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Die Hoffnung klaut mir niemand",
+"type": "album",
+"year": "2023",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ikarus",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Diamanten",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mehr als ein Job",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Soldaten 2.0",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Oder nicht",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Fame",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Farben",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Warnung",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Kampfgeist 4",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Blei",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Letzte Träne",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Puste sie weg",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Tiefschwarz",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Follow",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Summertime",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Die Sonne",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Geboren um zu leben",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Erfolg ist kein Glück",
+"type": "single",
+"year": "2015",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 3,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Nur für dich",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"1ul8iLt2WnFe2UIyovjg7q": {
+"page": "Reezy/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Reezy/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Mr. Misunderstood",
+"type": "album",
+"year": "2023",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Phantom",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Sandmann",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Manchester",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Itachi Flow",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Doctor",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Shoot",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Expensive Shit",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Sabía que no",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "1+1",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "One Night In Paris / Deep Down",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "14 Passenger",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Vintage",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"28TqrmNSPiKo5w3WVb3A3N": {
+"page": "Aymen (Rapper)/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Aymen_%28Rapper%29/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Egal",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Substanzen",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"4VuARVJiWGsH2msKTdsKdQ": {
+"page": "Veysel (Rapper)/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Veysel_%28Rapper%29/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Kleiner Cabrón",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ti amo",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Habibo",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Uff",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ohne dich",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Swervin",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Blei",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Viele",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"2Z9KL8Zmqx5Sg3cd7Fldhl": {
+"page": "Olexesh/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Olexesh/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Magisch",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Barrio",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Pistoleta",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Rhythm N’ Flouz",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"6DAQjwwMGZ9QgqHhIkU7H0": {
+"page": "Sentino",
+"url": "https://de.wikipedia.org/wiki/Sentino",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "King Sento 2",
+"type": "album",
+"year": "2025",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Skandal",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Casablanca",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Platinum",
+"multiplier": 2,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Dylemat",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Frisbee",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Vitalyi",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Marbella",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Lato",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Platinum",
+"multiplier": 3,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ostatni Raz",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mallorca",
+"type": "single",
+"year": "2026",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Świattomójplaczabaw",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "ZPAV",
+"country": "Poland",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"2NJWI8byqTSqDaJRnqJY2z": {
+"page": "Kalim",
+"url": "https://de.wikipedia.org/wiki/Kalim",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Skrr",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"60uPSVM3svOL8kZ3Wkb3Zw": {
+"page": "Monet192",
+"url": "https://de.wikipedia.org/wiki/Monet192",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Hotel",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Platinum",
+"multiplier": 3,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Gar kein Bock",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"10XY9PZCJKzUFzZOdtlQLU": {
+"page": "LX (Rapper)/Diskografie",
+"url": "https://de.wikipedia.org/wiki/LX_%28Rapper%29/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Obststand",
+"type": "album",
+"year": "2015",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mit den Jungz",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "HaifischNikez Allstars",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "10 Jahre",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Drück drück",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Optimal",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"1XKjtpH5P81gpOXDB91IEB": {
+"page": "Miami Yacine",
+"url": "https://de.wikipedia.org/wiki/Miami_Yacine",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Kokaina",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Bon Voyage",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"3mmI5HKArDwgggj4j0aJyC": {
+"page": "BHZ (Band)/Diskografie",
+"url": "https://de.wikipedia.org/wiki/BHZ_%28Band%29/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Flasche Luft",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Powerade",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"5adKMaYrGOMyOfnbiLPuHg": {
+"page": "Jonna Fraser",
+"url": "https://de.wikipedia.org/wiki/Jonna_Fraser",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Jonathan",
+"type": "album",
+"year": "2017",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Blessed II",
+"type": "album",
+"year": "2017",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Lion",
+"type": "album",
+"year": "2018",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Calma",
+"type": "album",
+"year": "2020",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Championships",
+"type": "album",
+"year": "2021",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Blessed for Life",
+"type": "album",
+"year": "2023",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Do or Die",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 3,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "My Love",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ik kom bij je",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Party",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Spijt",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ik heb je nodig",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Louboutin",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 2,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Drup",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 2,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Vakantie",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Tuesday",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "NVPI",
+"country": "Netherlands",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"2yJ6lsLqG06r9bckSTQRt4": {
+"page": "Zkr",
+"url": "https://de.wikipedia.org/wiki/Zkr",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Dans les mains",
+"type": "album",
+"year": "2021",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Caméléon",
+"type": "album",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mode opératoire – Volume 1",
+"type": "album",
+"year": "2024",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Freestyle 5 min #8",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Romance criminelle",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Poursuite",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Freestyle 5 min #10",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Freestyle 5 min #11",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Les gentils bandits",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Focus",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Philly",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Tu vois comment?",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Sourire de millionaire",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Bah oé",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Temps perdu",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"48Fq6GV3S6on56TxSBu5NO": {
+"page": "Celo & Abdi/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Celo_%26_Abdi/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Rhythm N’ Flouz",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"3KQylwDxYE7Vxli0BSuwaf": {
+"page": "Soho Bani",
+"url": "https://de.wikipedia.org/wiki/Soho_Bani",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Zeit, dass sich was dreht",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"7oWrEQO1d3klp0Qrfh7a5h": {
+"page": "Badmómzjay/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Badm%C3%B3mzjay/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Auf die Party",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Papi",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Ohne Dich",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"78TTCmh2koperK5NBn7DgR": {
+"page": "102 Boyz",
+"url": "https://de.wikipedia.org/wiki/102_Boyz",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Ich hass dich",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 3,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"1SnSPHBs8l5iAvoWF0aO05": {
+"page": "Fourty/Diskografie",
+"url": "https://de.wikipedia.org/wiki/Fourty/Diskografie",
+"lang": "de",
+"fetched": "2026-10-25",
+"works": [
+{
+"title": "Weißer Rauch",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Wenn du mich vermisst",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Vempa",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
 }
 ]
 },
