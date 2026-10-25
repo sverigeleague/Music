@@ -115,7 +115,9 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
     if a.get("scout"):
         facts.append(f"<li>Scout score: {a['scout']['score']}{' (' + esc(tier) + ')' if tier else ''}</li>")
     if keeps.get("mid"):
-        facts.append(f"<li>Keeps from streaming: about {_usd(keeps['mid'])} a year ({_usd(keeps.get('low'))}–{_usd(keeps.get('high'))}, estimate)</li>")
+        # rev_total is every income line the artist page lists (as its "Artist keeps, total"), so touring where reported
+        what = "streaming, songwriting and reported touring" if (a.get("rev_lines") or {}).get("touring") else "streaming and songwriting"
+        facts.append(f"<li>Artist keeps: about {_usd(keeps['mid'])} a year ({_usd(keeps.get('low'))}–{_usd(keeps.get('high'))}, estimate; {what})</li>")
     if (a.get("top_fresh") or {}).get("title"):
         facts.append(f"<li>Newest hit: {esc(a['top_fresh']['title'])}</li>")
     if a.get("awards"):
