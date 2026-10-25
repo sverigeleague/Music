@@ -98,7 +98,8 @@ function otherGenre(g) {
   if (!otherLoading) {
     otherLoading = true;
     fetch(g === "hip_hop" ? "data/index.json" : `data/${g}/index.json`).then(r => r.ok ? r.json() : null)
-      .then(d => { if (d) genreStore[g] = { data: d }; document.querySelectorAll("input[type=search]").forEach(i => i === document.activeElement && i.dispatchEvent(new Event("input"))); })
+      .then(d => { if (d) genreStore[g] = { data: d }; document.querySelectorAll("input[type=search]").forEach(i => i === document.activeElement && i.dispatchEvent(new Event("input")));
+        if (d && pageId === "labels" && !app.contains(document.activeElement)) labelsPage(); })  // its tile compares with the other genre: drawn the same on a slow connection
       .catch(() => {}).finally(() => { otherLoading = false; });
   }
   return null;
@@ -255,8 +256,9 @@ const shards = {};
 async function detailOf(id) {
   const n = id.charCodeAt(1) % 32;  // the second character: Spotify IDs all start with 0-7
   const key = GENRE + n;
-  try { shards[key] = shards[key] || await getJSON(`${DATA_DIR()}a/${n}.json`); } catch { /* not kept: the retry fetches it again */ }
-  return shards[key]?.[id] || { lines: [], deals: [], artist: {}, artist_total: null };
+  // a failed shard is not kept and is thrown, so the page shows the load error and its retry (not an artist with no money)
+  shards[key] = shards[key] || await getJSON(`${DATA_DIR()}a/${n}.json`);
+  return shards[key][id] || { lines: [], deals: [], artist: {}, artist_total: null };
 }
 
 // A photo that fails to load (a copy of the site without every photo) falls back to the artist's initials.
@@ -726,7 +728,7 @@ function method() {
    <li><b>Licensed out ("under exclusive license to X"):</b> the company the recordings are licensed to decides the status, not the artist's own imprint named first. Licensed to a record label (for example Atlantic or Ministry of Sound), the artist counts as signed to that label. Licensed to a distribution service that leaves the masters with the artist (UnitedMasters, Stem, DistroKid, TuneCore, CD Baby, Amuse, Too Lost), the artist stays self-released. ONErpm offers both plain distribution and label-services deals with advances, so a licence to it is flagged "licensed out" rather than decided.</li>
    <li><b>"Label Deal" in a label name</b> (for example "D-Block Europe Label Deal" on Deezer): not a company. We found no published definition of the phrase. Our reading: it names the artist's own imprint as set up in a distributor's or partner's system, which signals a deal behind the release without saying with whom. We treat it as not unsigned and check the recording codes: D-Block Europe's 2026 recordings carry a registrant code (US-A2P) that also appears on other companies' releases (Rostrum Records, BIGHIT MUSIC), so a third party registered them. Their earlier recordings were registered by Universal, and their 2023 single "Prada" was licensed to Ministry of Sound. So they are an established independent with a partner deal, not an unsigned prospect.</li>
    <li><b>Unsigned prospects and established independents:</b> self-released artists are split. An established independent has a record label on Wikidata's career-long list, or own recordings registered by a major (ISRC), or ${ESTABLISHED_YEARS}+ years of releases (Wikidata's "active since" or the earliest dated song as lead), or 10m+ monthly listeners. Jeezy, Lil Pump and KYLE are examples. Of the rest, an unsigned prospect also needs current listeners above zero and a song of their own released in the last two years; those without are shown as "catalog only" or "no recent release". Only prospects count on the Unsigned page, in Scout's "Unsigned" filter and in the prospect picks; the picks (start page, State, Scout's "Unsigned and rising", This month) also leave out artists with 90%+ of their streams as a featured guest. Market shares still count every self-released artist, because they measure who owns the listening.</li>
-   <li><b>Second Spotify profiles:</b> two profiles in the list that share a Wikidata item, a confirmed Deezer page or a name (B.o.B and Bob, 2Pac and Makaveli, Ye and Kanye West) are one artist. The smaller is marked "(second Spotify profile)", takes the main profile's label status and level, and is left out of summed listeners, market shares and label totals (a listener of both mostly counts once already). Each pair is checked by our editors.</li></ul>
+   <li><b>Second Spotify profiles:</b> two profiles in the list that share a Wikidata item, a confirmed Deezer page or a name (2Pac and Makaveli, Ye and Kanye West, Miyagi & Andy Panda and MiyaGi & Endspiel) are one artist. The smaller is marked "(second Spotify profile)", takes the main profile's label status and level, and is left out of summed listeners, market shares and label totals (a listener of both mostly counts once already). Each pair is checked by our editors.</li></ul>
   <h2>Other sources</h2><ul>
    <li><b>Wikipedia attention:</b> monthly page views of the artist's English Wikipedia article, people only, from the Wikimedia API; the article is the one linked on the artist's Wikidata item.</li>
    <li><b>Apple Music charts:</b> the daily top 100 most-played songs in ${store.data.apple_countries} countries (Apple's public feed). Artists are matched by exact name; names shared by two artists are skipped.</li></ul>
@@ -1101,7 +1103,8 @@ async function worthPage() {
   deals.unknown = deals.unknown || { label: "Deal unknown", low: Math.min(...K4.map(k => deals[k].low)), mid: median(K4.map(k => deals[k].mid)), high: Math.max(...K4.map(k => deals[k].high)) };
   const w = ui.worth = ui.worth || { ml: 1000000, deal: "diy", vintage: "auto", pick: "" };
   const picked = w.pick && d.artists.find(a => a.id === w.pick && (a.ml || a.daily));  // no stream figure: nothing to value
-  const allL = picked ? (store.rev[picked.id] = store.rev[picked.id] || await detailOf(picked.id)).lines : null;
+  const allL = picked ? (store.rev[picked.id] = store.rev[picked.id] || await detailOf(picked.id).catch(loadFailed))?.lines : null;
+  if (picked && !allL) return;  // the artist's file did not load: the error and its retry are shown
   const lines = allL && allL.filter(l => l.group === "Streaming"), pubL = allL && allL.filter(l => l.group === "Publishing");
   const sumL = (k, ls = lines) => ls.reduce((s, l) => s + l.generated[k], 0);
   // below the 500k floor: no listener figure; similar artists are found by daily streams / 0.10 (as the site build's

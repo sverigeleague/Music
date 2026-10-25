@@ -37,6 +37,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
   screener country filters count "East Germany" under Germany (display only; the artist page keeps Wikidata's name).
   DistroKid's "<number> Records DK" (its name for releases without a label) shows as "DistroKid (numbered label)" on
   the artist page's label basis and the Unsigned page (`lname`); the data keep the printed string.
+- **Method example of second profiles**: "B.o.B and Bob" (a pairing found wrong and removed) replaced by confirmed
+  pairs: 2Pac and Makaveli, Ye and Kanye West, Miyagi & Andy Panda and MiyaGi & Endspiel (also a code comment in
+  `src/insights.py`).
 
 ## 2026-10-26 Data quality: merged MusicBrainz IDs, recent releases from Deezer, second profiles checked, review queues
 

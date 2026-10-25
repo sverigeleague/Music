@@ -264,7 +264,7 @@ def market(rows: list[dict]) -> dict:
     Independent labels are also listed one by one."""
     groups: dict[str, dict] = {}
     catalog = [r for r in rows if r.get("label_status") == "catalog" and not r.get("second_of")]  # no new releases: left out of the shares
-    # a second Spotify profile of an artist (Bob / B.o.B) is left out: its listeners are mostly the main profile's
+    # a second Spotify profile of an artist (Makaveli / 2Pac) is left out: its listeners are mostly the main profile's
     for r in (r for r in rows if r.get("label_status") != "catalog" and not r.get("second_of")):
         g = groups.setdefault(group_of(r), {"artists": 0, "ml": 0, "cl": 0, "bands": [0] * len(BAND_LABELS),
                                             "top": [], "labels": {}})
