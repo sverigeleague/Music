@@ -163,6 +163,9 @@ def test_label_classification():
     assert c("Canada Dry Music", "x")[0] == "unknown"      # "ada" (ADA) is matched as a word only
     assert c("Volume Records", "x")[0] == "unknown"        # nor "ume" (UME)
     assert c("BBR Music Group/Jelly Roll", "Jelly Roll") == ("independent", "BMG")
+    # a longer pattern containing a shorter one wins; separate labels in one string still rank by status
+    assert c("Universal Music Distribution Deal", "x")[0] == "major_distributed"
+    assert c("10K Projects/Capitol Records", "x")[0] == "major"
 
 
 def test_label_status_and_codes():

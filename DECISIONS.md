@@ -2,6 +2,17 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Distribution-deal strings and nested label patterns
+
+- "Universal Music Distribution Deal", "Universal Music Distributed Deals", "Universal Music Division Virgin Records
+  Distribution Deal" and "Universal Music MENA Distributed Labels" counted as UMG labels (major) because the generic
+  `universal music` row matched first. The strings themselves say distribution deal, so they are now
+  major_distributed (structural rows, no outside source needed). 87 releases change; no tracked artist's status or the majors' shares move.
+- Rule change in `classify_label`: when one matching pattern contains another ("universal music distribution" contains
+  "universal music"), the longer one wins. Different labels in one string ("10K Projects/Capitol Records") still
+  rank by status as before; a full check of every label string we hold changed only the strings above.
+- "Sony Music Nashville" gets its own row (it showed as "Sony Music (local)").
+
 ## 2026-10-25 Page fixes from a phone-width pass (overnight)
 
 - Tours: the page listed both genres' tours (the country page led with Kendrick Lamar); now only artists in the

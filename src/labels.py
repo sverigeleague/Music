@@ -77,6 +77,8 @@ def classify_label(label: str, artist: str, table: list[dict] | None = None, use
     parts = [m[1], text] if m else [text]  # the licensee decides
     for part in parts:
         hits = [r for r in table if _matches(r["pattern"], part)]
+        pats = [r["pattern"].lstrip("=") for r in hits]  # a longer pattern that contains a shorter one is more specific
+        hits = [r for r in hits if not any(q != r["pattern"].lstrip("=") and r["pattern"].lstrip("=") in q for q in pats)]
         if hits:
             best = min(hits, key=lambda r: RANK[r["status"]])
             return best["status"], best["owner"]
@@ -97,6 +99,8 @@ def label_name(label: str, table: list[dict] | None = None, released: str = "") 
     m = re.search(r"under (?:exclusive )?licen[cs]e to (.+)$", text)
     for part in ([m[1], text] if m else [text]):
         hits = [r for r in table if _matches(r["pattern"], part)]
+        pats = [r["pattern"].lstrip("=") for r in hits]  # a longer pattern that contains a shorter one is more specific
+        hits = [r for r in hits if not any(q != r["pattern"].lstrip("=") and r["pattern"].lstrip("=") in q for q in pats)]
         if hits:
             best = min(hits, key=lambda r: RANK[r["status"]])
             return best.get("label") or best["pattern"].title()
