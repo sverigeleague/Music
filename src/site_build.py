@@ -366,7 +366,7 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
         diy, keep = float(shares["diy"]["mid"]), {k: float(shares[k]["mid"]) for k in ("major", "services", "independent")}
         out.append({
             "id": u["id"], "name": u["name"], "ml": u["ml"], "cl": u.get("cl"), "cur_share": u.get("cur_share"),
-            "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label"),
+            "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label") or u.get("label_name") or u.get("label_owner"),
             "generated": round(g_u), "keeps_now": round(g_u * diy), "spl": u_spl,
             "feat": round(u["feature_daily"] / u["daily"], 3) if u.get("daily") and u.get("feature_daily") is not None else None,
             "peers": [{"id": p["id"], "name": p["name"], "ml": p["ml"], "status": p["label_status"],
