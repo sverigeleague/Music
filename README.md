@@ -1,6 +1,6 @@
 # Rap Ledger (working name)
 
-Monthly tracker of hip-hop artists' audiences and the economics behind them: who is listened to, who is rising, and
+Tracker of hip-hop and country artists' audiences and the economics behind them: who is listened to, who is rising, and
 what that is worth to the artist under each kind of deal. Plan and phases: [ROADMAP.md](ROADMAP.md). Why each choice
 was made: [DECISIONS.md](DECISIONS.md). Research with sources: `docs/research/`.
 
@@ -22,6 +22,12 @@ python -m src.run dates         # first release dates of the songs behind each a
 python -m src.run mbdates       # MusicBrainz first release dates for those songs (can run alongside)
 python -m src.site_build && python -m http.server -d site 8000   # then open http://localhost:8000
 ```
+
+Country (the second genre, behind the header switch): the per-artist steps take `--genre=country`
+(`python -m src.run streams --genre=country`, and so on). Country-only steps: `countrycrawl` (Deezer related-artists
+crawl for the list below the 500k floor), `country-from-crawl` and `confirm-country` (confirm Deezer matches from the
+songs). Both genres: `deezer-isrc`, `deezer-audit`, `wikidata-from-mb`. The monthly workflow runs all of them; every
+step is listed at the top of `src/run.py`.
 
 ## Files
 
