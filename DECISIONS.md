@@ -12,6 +12,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - Dylan Gossett (was a pending owner question): the Mercury deal is now sourced (Big Loud Texas / Mercury Records,
   Nov 2023; UMPG's 2025 release names the label), so he gets an override like Tucker Wetmore's: major-distributed,
   UMG. He leaves the country Unsigned list.
+- Same check on the rest of the country Unsigned list's own-name strings: Kip Moore (Virgin Music Group global deal,
+  2024: major-distributed) and Cole Phillips (RECORDS Nashville / Columbia, 2024: major) get sourced overrides. Hayden
+  Blount's reported Santa Anna distribution deal rests on venue bios only: for the owner. Will Dempsey is described
+  as independent; Treaty Oak Revival stays self-released.
 - Deals notes starting with a quote mark are capitalised.
 - Reproducible builds: ties between owners (`max(set(...))`) depended on Python's per-run string hashing; they now go
   to the first seen. Two builds with different hash seeds now differ only in the build time.
