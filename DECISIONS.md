@@ -2,6 +2,16 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 White page, black text, as tventy sport (owner)
+
+- The owner asked for the same font and style as tventy.se/sport, with the white background and black text. The site
+  already shared sport's font (Bricolage Grotesque), layout and square boxes; the tokens in `site/styles.css` now take
+  sport's values (white page, black text, #5a5f68 secondary text, #e7e9ee lines, #f6f7f9 fills, green #15803d and red
+  #b91c1c for up and down), and the page asks the browser for the light colour scheme. This replaces the inverse
+  (black) theme of 2026-10-24.
+- The labels share bars run dark to light on the white page; groups outside the fixed order (HYBE America in
+  country) now get striped shades instead of a missing one. Share cards (PNG) are white with black text too.
+
 ## 2026-10-25 Country top 1,000 at the same depth as hip-hop (owner: "a list of top 1,000 country artists robust with all information possible")
 
 - **Places 1 to ~395:** monthly listeners from kworb's public list, as before.

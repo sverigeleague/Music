@@ -950,7 +950,9 @@ function worthTable() {
 
 // ---------- labels: who owns the hip-hop top 1,000
 const GROUP_ORDER = ["Universal Music Group", "Sony Music", "Warner Music Group", "Independent labels", "Self-released", "Not yet known"];
-const SHADE = ["#fff", "#d3d6db", "#a3a8b1", "#6b7079", "#3b3f46", "repeating-linear-gradient(45deg,#3b3f46 0 3px,#000 3px 6px)"];  // light to dark on the black theme
+// dark to light on the white page; groups outside the order above (HYBE America in country) get the striped shades
+const SHADE = ["#000", "#3b3f46", "#6b7079", "#a3a8b1", "#d3d6db", "repeating-linear-gradient(45deg,#d3d6db 0 3px,#fff 3px 6px)",
+  "repeating-linear-gradient(-45deg,#000 0 2px,#fff 2px 5px)", "radial-gradient(#000 1px,#fff 1.5px) 0 0/5px 5px"];
 function stack(parts) {
   const tot = parts.reduce((s, [, v]) => s + v, 0) || 1;
   return `<div class="stack">${parts.map(([g, v], i) => `<i style="width:${v / tot * 100}%;background:${SHADE[i]}" title="${esc(g)}: ${Math.round(v / tot * 100)}%"></i>`).join("")}</div>`;

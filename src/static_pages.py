@@ -143,19 +143,19 @@ def label_page(L: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
 def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:
     from PIL import Image, ImageDraw, ImageFont
     W, H = 1200, 630
-    im = Image.new("RGB", (W, H), "black")
+    im = Image.new("RGB", (W, H), "white")  # as the site: white page, black text (owner, 2026-10-25)
     d = ImageDraw.Draw(im)
     bold, reg = str(FONTS / "Bricolage-Bold.ttf"), str(FONTS / "Bricolage-Regular.ttf")
     f = lambda path, size: ImageFont.truetype(path, size)
-    d.text((64, 52), "tventy", font=f(bold, 40), fill="white")
-    d.text((64, 96), "music", font=f(reg, 22), fill=(163, 168, 177))
+    d.text((64, 52), "tventy", font=f(bold, 40), fill="black")
+    d.text((64, 96), "music", font=f(reg, 22), fill=(90, 95, 104))
     name = a["name"]
     size = 104
     while size > 48 and d.textlength(name, font=f(bold, size)) > W - 128:
         size -= 6
-    d.text((64, 170), name, font=f(bold, size), fill="white")
+    d.text((64, 170), name, font=f(bold, size), fill="black")
     rank = f"#{a['cl_rank']} in {gw} by current listeners" if a.get("cl_rank") else f"#{a['rank']} in {gw} by {_by(a)}"
-    d.text((64, 170 + size + 18), rank, font=f(reg, 34), fill=(163, 168, 177))
+    d.text((64, 170 + size + 18), rank, font=f(reg, 34), fill=(90, 95, 104))
     tier = (a.get("scout") or {}).get("tier")
     keeps = (a.get("rev_total") or {}).get("mid")
     stats = [("Monthly listeners", _ml(a)), ("Scout", f"{a['scout']['score']}{' ' + tier if tier else ''}" if a.get("scout") else "–"),
@@ -163,13 +163,13 @@ def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:
     x, y, colw = 64, 430, (W - 128) // 4
     for i, (k, v) in enumerate(stats):
         cx = x + i * colw
-        d.rectangle([cx, y, cx + colw - 16, y + 120], outline=(42, 45, 51), width=2)
-        d.text((cx + 18, y + 16), k.upper(), font=f(reg, 18), fill=(163, 168, 177))
+        d.rectangle([cx, y, cx + colw - 16, y + 120], outline=(231, 233, 238), width=2)
+        d.text((cx + 18, y + 16), k.upper(), font=f(reg, 18), fill=(90, 95, 104))
         vs = 40
         while vs > 20 and d.textlength(v, font=f(bold, vs)) > colw - 52:
             vs -= 2
-        d.text((cx + 18, y + 54), v, font=f(bold, vs), fill="white")
-    d.text((64, H - 52), f"Data as of {as_of} · estimates are ranges · tventy.se/music", font=f(reg, 20), fill=(163, 168, 177))
+        d.text((cx + 18, y + 54), v, font=f(bold, vs), fill="black")
+    d.text((64, H - 52), f"Data as of {as_of} · estimates are ranges · tventy.se/music", font=f(reg, 20), fill=(90, 95, 104))
     path.parent.mkdir(parents=True, exist_ok=True)
     im.save(path, "PNG", optimize=True)
 
