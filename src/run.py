@@ -28,6 +28,7 @@
   credits   producer and songwriter credits of each artist's 3 biggest songs from MusicBrainz -> data/credits.csv
   radio     US radio airplay audience per song (kworb.net/radio; today and the last 30 archived days) -> data/radio.csv
   shazam    Shazam's charts (world, 15 countries, 10 hip-hop, 31 cities) -> data/shazam.csv; an internal Scout signal (daily)
+  wikidata-from-mb  Wikidata items linked from MusicBrainz for artists Wikidata has no Spotify ID for (monthly)
   deezer-audit re-check name-only Deezer matches by song titles, then ISRC; corrects wrong ones (monthly)
   deezer-isrc  confirm Deezer IDs of shared or unmatched names from the artist's own songs' ISRCs
   countrycrawl    country artists below the 500k floor from Deezer's related-artists graph -> data/country_deezer.csv (monthly)
@@ -155,7 +156,7 @@ def registry(mb_limit: int | None = None) -> None:
         if s in over:
             decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
         out[s] = {**prev, "spotify_id": s, "name": (top.get(s) or prev).get("name", ""), "genre": decision,
-                  "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid", ""),
+                  "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid") or prev.get("wikidata_id", ""),
                   "musicbrainz_id": d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""),
                   "country": "" if "people" in d.get("country", "") else d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
                   "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
@@ -325,6 +326,21 @@ def deezer_audit_step() -> None:
     print(f"Deezer audit: {len(fixed)} matches corrected by ISRC ({n} releases read)")
 
 
+def wikidata_from_mb_step(limit: int | None = None) -> None:
+    """Artists with no Wikidata item found by their Spotify ID (P1902 missing on Wikidata) but with a MusicBrainz ID:
+    take the Wikidata item MusicBrainz links (a curated relation). Kept by later registry runs; awards,
+    certifications, page views and photos then reach these artists."""
+    rows, n = load_artists(), 0
+    todo = [a for a in tracked(("hip_hop",)) + tracked(("country",)) if not a["wikidata_id"] and a["musicbrainz_id"]]
+    for a in todo[:limit]:
+        q = musicbrainz.wikidata_of(a["musicbrainz_id"])
+        if q:
+            rows[a["spotify_id"]]["wikidata_id"] = q
+            n += 1
+    save_artists(rows)
+    print(f"Wikidata items from MusicBrainz: {n} of {len(todo[:limit])}")
+
+
 def photos_step(limit: int | None = None) -> None:
     done = _json(PHOTOS, {})
     todo = [a for a in tracked() if a.get("image") and a["spotify_id"] not in done][:limit]
@@ -414,7 +430,7 @@ def countrycrawl_step(limit: int | None = None) -> None:
 
 def awards_step() -> None:
     from .collectors import awards
-    print(f"awards and nominations (Wikidata): {awards.update([a['spotify_id'] for a in tracked()])} artists with at least one")
+    print(f"awards and nominations (Wikidata): {awards.update({a['spotify_id']: a.get('wikidata_id', '') for a in tracked()})} artists with at least one")
 
 
 def ytapi_step() -> None:
@@ -523,7 +539,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

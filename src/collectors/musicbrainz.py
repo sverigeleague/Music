@@ -68,3 +68,15 @@ def update(wanted: dict[str, str | None], limit: int | None = None) -> dict[str,
             f.flush()
             cache[s] = row
     return cache
+
+
+def wikidata_of(mbid: str) -> str | None:
+    """The Wikidata item MusicBrainz links from the artist (a curated url relation), e.g. 'Q123'; None if none."""
+    r = get(f"{API}/artist/{mbid}", params={"inc": "url-rels", "fmt": "json"})
+    if r.status_code != 200:
+        return None
+    for rel in r.json().get("relations", []):
+        url = (rel.get("url") or {}).get("resource", "")
+        if rel.get("type") == "wikidata" and "/wiki/Q" in url:
+            return url.rsplit("/", 1)[-1]
+    return None

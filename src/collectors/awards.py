@@ -24,14 +24,20 @@ def family(label: str) -> str | None:
     return next((f for f, pat in FAMILIES if re.search(pat, low)), None)
 
 
-def update(spotify_ids: list[str]) -> int:
-    """Re-reads these artists; other artists' stored entries (another genre's run) are kept."""
+def update(spotify_ids: list[str] | dict[str, str]) -> int:
+    """Re-reads these artists; other artists' stored entries (another genre's run) are kept. Given {spotify_id: qid},
+    the stored Wikidata item is used (it may come from MusicBrainz when Wikidata lacks the Spotify ID); otherwise
+    the item is found by its Spotify ID (P1902)."""
+    qids = spotify_ids if isinstance(spotify_ids, dict) else {}
+    spotify_ids = list(spotify_ids)
     out: dict[str, dict] = {k: v for k, v in load().items() if k not in set(spotify_ids)}
     for chunk in [spotify_ids[i:i + 200] for i in range(0, len(spotify_ids), 200)]:
-        v = " ".join(f'"{s}"' for s in chunk)
+        by_q = {qids[s]: s for s in chunk if qids.get(s)}
+        v = " ".join(f'"{s}"' for s in chunk if not qids.get(s))
+        known = " ".join(f'(wd:{q} "{s}")' for q, s in by_q.items())
         rows = query(f"""
 SELECT ?sp ?item ?kind ?award ?awardLabel ?date ?work ?workLabel WHERE {{
-  VALUES ?sp {{ {v} }} ?item wdt:P1902 ?sp .
+  {{ VALUES (?item ?sp) {{ {known} }} }} UNION {{ VALUES ?sp {{ {v} }} ?item wdt:P1902 ?sp . }}
   {{ ?item p:P166 ?st . ?st ps:P166 ?award . BIND("win" AS ?kind) }} UNION
   {{ ?item p:P1411 ?st . ?st ps:P1411 ?award . BIND("nomination" AS ?kind) }}
   OPTIONAL {{ ?st pq:P585 ?date }} OPTIONAL {{ ?st pq:P1686 ?work }}
