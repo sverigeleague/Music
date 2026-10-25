@@ -161,7 +161,7 @@ def registry(mb_limit: int | None = None) -> None:
                   "country": "" if "people" in d.get("country", "") else d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
                   "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
                   "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
-                  "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image", "")}
+                  "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image") or prev.get("image", "")}
         if not out[s].get("deezer_match") and s in dz and dz[s].get("deezer_id"):
             out[s].update(deezer_id=dz[s]["deezer_id"], deezer_fans=dz[s]["fans"], deezer_match=dz[s]["match"])
     save_artists(out)
@@ -342,6 +342,12 @@ def wikidata_from_mb_step(limit: int | None = None) -> None:
 
 
 def photos_step(limit: int | None = None) -> None:
+    rows = load_artists()
+    # artists whose Wikidata item came from MusicBrainz have no image read yet: take the item's P18
+    missing = {a["wikidata_id"]: a["spotify_id"] for a in tracked() if a.get("wikidata_id") and not a.get("image")}
+    for q, img in wikidata.images(sorted(missing)).items():
+        rows[missing[q]]["image"] = img
+    save_artists(rows)
     done = _json(PHOTOS, {})
     todo = [a for a in tracked() if a.get("image") and a["spotify_id"] not in done][:limit]
     for a in todo:

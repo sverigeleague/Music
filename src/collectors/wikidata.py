@@ -89,3 +89,12 @@ SELECT ?sp ?lab ?labLabel ?major WHERE {{
             if r.get("major"):
                 d["majors"].add(MAJORS[qid(r["major"])])
     return out
+
+
+def images(qids: list[str]) -> dict[str, str]:
+    """QID -> its image (P18, a Wikimedia Commons file URL)."""
+    out: dict[str, str] = {}
+    for chunk in [qids[i:i + 300] for i in range(0, len(qids), 300)]:
+        for r in query(f"""SELECT ?item ?img WHERE {{ VALUES ?item {{ {' '.join('wd:' + q for q in chunk)} }} ?item wdt:P18 ?img . }}"""):
+            out.setdefault(qid(r["item"]), r["img"])
+    return out
