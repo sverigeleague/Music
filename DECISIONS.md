@@ -96,7 +96,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
   sort Diamond over Platinum over Gold for any body; the US peak column shows only when there are US peaks.
 - **Wikidata items from MusicBrainz** (`wikidata-from-mb`, monthly): 296 artists in the two lists had no Wikidata item
   carrying their Spotify ID but had a MusicBrainz ID; MusicBrainz's curated Wikidata link gave 135 of them. The
-  registry keeps these, and awards now read the stored item. Artists with certifications: hip-hop 599 -> 646,
+  registry keeps these, and awards and photos now read the stored item (photos: hip-hop 615 -> 672, country
+  206 -> 235). Artists with certifications: hip-hop 599 -> 646,
   country 195 -> 238; awards: hip-hop 102 -> 110.
 - Kanye West's lookup followed Wikidata to his production discography (records he produced for others); production
   discographies and videographies are now skipped, and his entry reads his own albums discography (488
