@@ -2,6 +2,45 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Data quality: merged MusicBrainz IDs, recent releases from Deezer, second profiles checked, review queues
+
+- **Merged MusicBrainz IDs:** 17 registry rows (16 IDs; Drake, Pusha T, Booba, KRS-One, Tinie Tempah...) carried an
+  ID MusicBrainz has merged into another; Wikidata, where the registry reads it, still holds the old one. All 16
+  redirects in `data/musicbrainz_redirects.json` were checked at the MusicBrainz API (each old ID answers with the
+  new `id`; 16 of 16 agree) and the registry, `data/musicbrainz.csv` and the YouTube-channel cache now use the
+  current IDs. In future: `musicbrainz.fetch` stores the ID MusicBrainz answers with and records old -> current in the
+  same redirect file the ListenBrainz step fills; `run.registry` follows it (`musicbrainz.current_id`). An ID
+  MusicBrainz no longer knows ("") is kept as it is, not blanked. Rejected: asking MusicBrainz for all 3,800 IDs at
+  every registry run (an hour at 1 request/s for 16 hits).
+- **Recent release for unsigned prospects** (`labels.deezer_dated_songs`, `independent_kind(deezer_dated=)`): a lead
+  song on the artist's latest kworb page that has no date yet takes the date of a Deezer lead release of the same
+  title, on the artist's confirmed Deezer page. Not counted: Deezer record type "compile"; titles marking a reissue,
+  compilation, live or alternate version (remaster, deluxe, edition, anniversary, greatest hits, live, remix, sped
+  up, instrumental...); a song whose ISRC is older than the year before the release (an old recording put out
+  again); a Deezer title with no lead song of that name on Spotify. The last rule is the one that matters for
+  Makaveli: his "2026 Deezer entries" are not reissues but another artist of the same name (a Deezer page with 30
+  fans and two Portuguese singles, Storm and Tanto Faz), and none of its titles is a Makaveli song on Spotify.
+  Jrldm, Cupidon, N.I.N.A and Slipmami now have recent songs of their own (2025-26 singles such as SHAGANSSS,
+  Introvert, No Campo, GODZILLA). NADAMAL stays "no recent release": his 2025 Deezer EP (Jam #2) is not on his
+  Spotify page as lead, and his 2026 songs on Spotify (Só Lazer, FDR, 2TELEFONE) list him as a guest. Rejected: the
+  whole Deezer release list (it would date Makaveli by a stranger's singles), and label names as the reissue test
+  (an estate's label and a new label look alike).
+- **Second Spotify profiles checked at the source** (`registry/profile_pairs.csv`, new; verdict, evidence with URL;
+  the build copies them into `review/second_profiles.csv` as `confirmed`/`evidence`):
+  - Confirmed: Ye / Kanye West (one MusicBrainz artist links both Spotify IDs), Makaveli / 2Pac (MusicBrainz:
+    Makaveli "is person" Tupac Shakur), Macklemore & Ryan Lewis (same name and the same songs on both profiles), and
+    **Miyagi & Andy Panda / MiyaGi & Endspiel**: one duo, Endspiel (Эндшпиль, Soslan Burnatsev) now records as Andy
+    Panda. MusicBrainz has one group, "Miyagi & Эндшпиль", with the alias "Miyagi & Andy Panda", both Spotify links
+    and both members; the Wikidata item Q52686724 lists both Spotify IDs. It also explains their MusicBrainz ID:
+    the Andy Panda entry was merged into the duo's.
+  - **Removed: Bob / B.o.B.** The pairing rested only on a Deezer name match ("Bob" normalises to "bob", like B.o.B).
+    Spotify's "Bob" profile is Bollywood songs (Bhool Bhulaiyaa 2 Title Track, Make Some Noise For The Desi Boyz)
+    and Harlem Shuffle; MusicBrainz links it to a German band; Wikidata's B.o.B lists only his own profile.
+    `second_profiles` never joins a pair marked "different". Left for the owner: Bob's Deezer ID in the registry is
+    still B.o.B's (name match), which is where its Deezer genre share came from; its genre is the owner's Review-desk
+    decision, so it was not changed. The Method text in app.js still names "B.o.B and Bob" as an example (not edited
+    here: app.js belongs to another agent tonight).
+
 ## 2026-10-26 Product ideas 4–7 (ROADMAP 11.1–11.4): deal comparison, label one-pager, saved screens, catalog age
 
 - **Deal comparison and advance recoupment** (`app.js dealPanel`, `bindDeal`, `recoupMonths`, `paidBy`; on
