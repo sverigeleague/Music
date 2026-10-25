@@ -106,7 +106,7 @@ function swapWords(root) {
 }
 // the country list's size: artists with a measured audience (above Spotify's public 500k floor)
 const measured = () => (store.data?.artists?.length || 1000).toLocaleString();
-new MutationObserver(() => { swapWords(document.getElementById("app")); swapWords(document.getElementById("crumbs")); })
+new MutationObserver(() => { swapWords(document.getElementById("app")); swapWords(document.getElementById("crumbs")); stackify(document.getElementById("app")); })
   .observe(document.getElementById("app"), { childList: true, subtree: true });
 const go = hash => { location.hash = GENRE !== "hip_hop" && hash.startsWith("#/") && !hash.startsWith(PREFIX()) ? PREFIX() + hash.slice(2) : hash; };
 document.addEventListener("click", e => {
@@ -336,7 +336,7 @@ function tours() {
     <section class="panel"><h2>Where a ticket's money goes, roughly ${grade("C")}</h2>
       <div class="bars">${steps.map(([l, v, n]) => `<div class="barrow"><span>${esc(l)}</span><div class="track"><i style="left:0;width:${v * 100}%"></i></div><span>about ${Math.round(v * 100)}%</span></div><p class="note" style="margin:-4px 0 4px">${esc(n)}</p>`).join("")}</div>
       <p class="note">Industry rules of thumb, not reported figures: the split differs by deal (guarantee or door split) and by how big the production is. Stadium headliners keep more of the gross; a support act may keep little after costs.</p></section>
-    <section><div class="tablebox"><table><thead><tr><th class="l">Artist</th><th class="l">Tour</th><th class="l">Dates</th>${cols.map(([l, k]) => `<th data-tsort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${l}</th>`).join("")}<th>Grade</th></tr></thead><tbody>
+    <section><div class="tablebox"><table class="stack"><thead><tr><th class="l">Artist</th><th class="l">Tour</th><th class="l">Dates</th>${cols.map(([l, k]) => `<th data-tsort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${l}</th>`).join("")}<th>Grade</th></tr></thead><tbody>
       ${rows.map(t => `<tr><td class="l">${t.id ? `<a href="#/a/${t.id}">${esc(t.artist)}</a>` : esc(t.artist)}</td><td class="l wrap">${esc(t.tour)}${t.co ? ` <span class="note">with ${esc(t.co)}${t.share < 1 ? ", half counted" : ""}</span>` : ""}${t.partial ? ` <span class="note" title="${esc(t.note)}">(part of the tour: Billboard's year to 30 Sep)</span>` : ""}</td><td class="l">${esc(t.start)}${t.end && t.end !== t.start ? " to " + esc(t.end) : ""}</td>
         <td>${t.shows ?? "–"}</td><td>${count(t.tickets)}</td><td>${usd(t.gross)}</td><td>${usd(t.per_show)}</td><td>${usd(t.per_fan)}</td><td>${range(t.artist_net)}</td><td>${grade(t.grade)} <a href="${esc(t.source)}" target="_blank" rel="noopener" title="${esc(t.note)}">source</a></td></tr>`).join("")}
     </tbody></table></div>
@@ -436,7 +436,7 @@ async function artist(id) {
 function stackify(root) {
   root.querySelectorAll("table.stack").forEach(t => {
     const heads = [...t.querySelectorAll("thead th")].map(th => th.innerText.trim());
-    t.querySelectorAll("tbody tr").forEach(tr => [...tr.children].forEach((td, i) => { if (i && heads[i]) td.dataset.k = heads[i]; }));
+    t.querySelectorAll("tbody tr").forEach(tr => [...tr.children].forEach((td, i) => { if (i && heads[i] && td.dataset.k !== heads[i]) td.dataset.k = heads[i]; }));
   });
 }
 
@@ -1066,7 +1066,7 @@ function labelDirectory() {
   return `<section class="panel" id="labeldir"><h2>Every label in the top 1,000</h2>
     <div class="filters"><input type="search" id="lab-q" placeholder="Find a label" value="${esc(f.q)}" aria-label="Find a label">
       <label class="sel">Owner <select id="lab-g"><option value="all">all owners</option>${parents.map(p => `<option${f.group === p ? " selected" : ""}>${esc(p)}</option>`).join("")}</select></label></div>
-    <div class="tablebox"><table><thead><tr><th class="l">Label</th><th class="l">Owner</th>${cols.map(([l, k]) => `<th data-lsort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${l}</th>`).join("")}</tr></thead><tbody>
+    <div class="tablebox"><table class="stack"><thead><tr><th class="l">Label</th><th class="l">Owner</th>${cols.map(([l, k]) => `<th data-lsort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${l}</th>`).join("")}</tr></thead><tbody>
     ${L.map(x => `<tr><td class="l"><a class="who" href="#/label/${x.slug}">${logo(x.name)}<span>${esc(x.name)}</span></a></td><td class="l">${esc(x.parent || "–")}</td><td>${x.n}</td><td>${count(x.ml)}</td><td>${count(x.cl)}</td><td>${usd(x.royalties)}</td><td>${x.rb || "–"}</td><td>${x.scout_avg ?? "–"}</td><td>${x.releases_2y || "–"}</td></tr>`).join("") || `<tr><td class="l" colspan="9">No label matches.</td></tr>`}
     </tbody></table></div><p class="note">Labels as printed on the artists' releases of the last two years. Royalties: what the roster's recordings generate a year across streaming services (mid estimate ${grade("C")}), paid to the label before the artists' share.</p></section>`;
 }
