@@ -2,10 +2,12 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
-## 2026-10-25 Tab icon: the t of tventy
+## 2026-10-25 Logo and tab icon: the circled t of tventy
 
-- **The browser tab icon is the first "t" of the wordmark** (owner, 2026-10-25), drawn from the site's own font
-  (Bricolage Grotesque, bold) as a shape. It is white on a near-black rounded square, so it reads on light and dark
+- **The logo: the wordmark with its first "t" white in a filled circle** (owner, 2026-10-25), drawn from the site's
+  own font (Bricolage Grotesque, bold). The header shows it at the old wordmark's size and baseline, and the circled t
+  takes the page colour.
+- **The browser tab icon is that circled t.** It is a white t in a near-black circle, so it reads on light and dark
   tabs. Files: `site/favicon.svg`, `site/favicon.png` (32 px, for Safari) and `site/apple-touch-icon.png` (180 px, for
   phone home screens). They are the same files as the sport site's.
 
