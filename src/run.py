@@ -28,6 +28,7 @@
   credits   producer and songwriter credits of each artist's 3 biggest songs from MusicBrainz -> data/credits.csv
   radio     US radio airplay audience per song (kworb.net/radio; today and the last 30 archived days) -> data/radio.csv
   shazam    Shazam's charts (world, 15 countries, 10 hip-hop, 31 cities) -> data/shazam.csv; an internal Scout signal (daily)
+  deezer-audit re-check name-only Deezer matches by song titles, then ISRC; corrects wrong ones (monthly)
   deezer-isrc  confirm Deezer IDs of shared or unmatched names from the artist's own songs' ISRCs
   countrycrawl    country artists below the 500k floor from Deezer's related-artists graph -> data/country_deezer.csv (monthly)
   certifications  RIAA, BPI and other certifications and US chart peaks from English Wikipedia discographies -> data/certifications.json (monthly)
@@ -233,7 +234,7 @@ def deezer_isrc_step(limit: int | None = None) -> None:
     """Artists whose name several Deezer artists share (or none matched): confirm the Deezer ID from their own songs'
     ISRCs (the 5 biggest songs as lead with a known ISRC)."""
     rows, dates, n, todo = load_artists(), release_dates.load(), 0, []
-    for a in tracked(("hip_hop", "country")):
+    for a in tracked(("hip_hop",)) + tracked(("country",)):
         if a.get("deezer_match") in deezer.CONFIRMED:
             continue
         p = current.pages(a["spotify_id"])
@@ -300,6 +301,28 @@ def country_from_crawl_step(limit: int | None = None) -> None:
             deezer_genres.add_confirmed(k["spotify_id"], k["name"], c["deezer_id"], c.get("fans"))
             n += 1
     print(f"country artists from the Deezer crawl confirmed on kworb's listener pages: {n} of {len(todo[:limit])}")
+
+
+def deezer_audit_step() -> None:
+    """Name-only Deezer matches (match "exact") whose biggest songs are not among the Deezer artist's top tracks are
+    re-checked by ISRC; when the songs' ISRCs name a different Deezer artist, that one replaces the match (match
+    "isrc") and its release labels are read. Nothing changes when the ISRCs agree or say nothing."""
+    rows, dates, fixed = load_artists(), release_dates.load(), []
+    for a in tracked(("hip_hop",)) + tracked(("country",)):
+        if a.get("deezer_match") != "exact" or not a.get("deezer_id"):
+            continue
+        p = current.pages(a["spotify_id"])
+        songs = sorted((x for x in current.songs(p[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:5] if p else []
+        if not songs or deezer.by_titles(a["deezer_id"], [x["title"] for x in songs]):
+            continue
+        isrcs = [c for x in songs if (c := dates.get(x["track_id"], {}).get("isrc"))]
+        found = deezer.by_isrc(a["name"], isrcs) if isrcs else None
+        if found and str(found["deezer_id"]) != str(a["deezer_id"]):
+            rows[a["spotify_id"]].update(found)
+            fixed.append(str(found["deezer_id"]))
+    save_artists(rows)
+    n = deezer_releases.update(fixed, workers=1) if fixed else 0
+    print(f"Deezer audit: {len(fixed)} matches corrected by ISRC ({n} releases read)")
 
 
 def photos_step(limit: int | None = None) -> None:
@@ -500,7 +523,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
