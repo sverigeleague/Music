@@ -70,6 +70,11 @@ function searchFor(q) {
       sub: `${og === "hip_hop" ? "Hip-hop" : "Country"} · #${a.rank} · ${count(a.ml)} monthly listeners` })) : [];
   return [...A, ...O, ...L];
 }
+function loadGenre(g) {
+  if (genreStore[g]) return Promise.resolve(genreStore[g].data);
+  return fetch(g === "hip_hop" ? "data/index.json" : `data/${g}/index.json`).then(r => r.ok ? r.json() : null)
+    .then(d => { if (d && !genreStore[g]) genreStore[g] = { data: d }; return genreStore[g]?.data || null; }).catch(() => null);
+}
 let otherLoading = false;
 function otherGenre(g) {
   if (genreStore[g]) return genreStore[g].data;
@@ -1018,7 +1023,11 @@ function pulse() {
 // ---------- compare: two artists side by side
 function compare(ids) {
   nav("compare");
-  const d = store.data, byId = Object.fromEntries(d.artists.map(a => [a.id, a]));
+  // either genre's artists can be compared ("Morgan Wallen vs Drake"); the other genre's list loads on demand
+  const og = GENRE === "hip_hop" ? "country" : "hip_hop", od = otherGenre(og);
+  if (!od && !compare.waiting) { compare.waiting = true; loadGenre(og).then(() => { compare.waiting = false; if (location.hash.includes("compare")) compare(ids); }); }
+  const d = { ...store.data, artists: [...store.data.artists, ...(od ? od.artists.map(a => ({ ...a, other: og })) : [])] };
+  const byId = Object.fromEntries(d.artists.map(a => [a.id, a]));
   const A = ids.map(id => byId[id]).filter(Boolean).slice(0, 2);
   const spl = a => a.daily && a.ml ? a.daily / a.ml : null;
   const charts = a => (a.geo?.countries || 0) + (a.apple?.countries.length || 0);
@@ -1036,10 +1045,10 @@ function compare(ids) {
   const pickBox = i => `<label>Artist ${i + 1}<input data-i="${i}" list="c-names" placeholder="Type a name" value="${A[i] ? esc(A[i].name) : ""}"></label>`;
   app.innerHTML = `${subnav()}<section><h1>Compare artists</h1><p class="sub">Two artists side by side: audience, momentum, label and money. The higher number of each pair is in bold.</p></section>
     <section class="panel"><div class="calc">${pickBox(0)}${pickBox(1)}<datalist id="c-names">${d.artists.map(a => `<option value="${esc(a.name)}">`).join("")}</datalist></div></section>
-    ${A.length === 2 ? `<section><div class="tablebox"><table class="cmp"><thead><tr><th class="l"></th>${A.map(a => `<th class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span></a></th>`).join("")}</tr></thead><tbody>
+    ${A.length === 2 ? `<section><div class="tablebox"><table class="cmp"><thead><tr><th class="l"></th>${A.map(a => `<th class="l"><a class="who" href="${a.other ? (a.other === "hip_hop" ? "#/" : "#/" + a.other + "/") : PREFIX()}a/${a.id}"${a.other ? ` data-genre-link="${a.other}"` : ""}>${pic(a)}<span>${esc(a.name)}</span></a></th>`).join("")}</tr></thead><tbody>
       ${rows.map(([l, f, fmt]) => { const v = A.map(f), num = v.every(x => typeof x === "number"), hi = num && v[0] !== v[1] ? (v[0] > v[1] ? 0 : 1) : -1;
         return `<tr><td class="l">${esc(l)}</td>${A.map((a, i) => `<td class="l">${v[i] == null ? "–" : `<span${i === hi ? ' class="hi"' : ""}>${fmt ? fmt(v[i], a) : esc(v[i])}</span>`}</td>`).join("")}</tr>`; }).join("")}
-    </tbody></table></div><p class="note">Money lines are estimates (grade C); see each artist's page for the ranges and sources.</p></section>` : `<p class="note">Pick two artists, or start from one of these: ${(() => { const b = store.data.artists.filter(x => x.scout?.tier === "Breaking").sort((x, y) => y.scout.score - x.scout.score); const t = [...store.data.artists].sort((x, y) => y.ml - x.ml); const pairs = [[t[0], t[1]], b.length > 1 ? [b[0], b[1]] : null, t[2] && b[0] ? [t[2], b[0]] : null].filter(Boolean); return pairs.map(([x, y]) => `<a href="#/compare/${x.id}/${y.id}">${esc(x.name)} vs ${esc(y.name)}</a>`).join(" · "); })()}.</p>`}`;
+    </tbody></table></div><p class="note">Money lines are estimates (grade C); see each artist's page for the ranges and sources.${A.some(a => a.other) && !A.every(a => a.other) ? " The two are in different genres: the Scout score and level compare each artist with their own genre's list." : ""}</p></section>` : `<p class="note">Pick two artists, or start from one of these: ${(() => { const b = store.data.artists.filter(x => x.scout?.tier === "Breaking").sort((x, y) => y.scout.score - x.scout.score); const t = [...store.data.artists].sort((x, y) => y.ml - x.ml); const top2 = od ? [...od.artists].sort((x, y) => y.ml - x.ml)[0] : null; const pairs = [[t[0], t[1]], b.length > 1 ? [b[0], b[1]] : null, t[2] && b[0] ? [t[2], b[0]] : null, top2 ? [t[0], top2] : null].filter(Boolean); return pairs.map(([x, y]) => `<a href="#/compare/${x.id}/${y.id}">${esc(x.name)} vs ${esc(y.name)}</a>`).join(" · "); })()}.</p>`}`;
   app.querySelectorAll("input[data-i]").forEach(inp => inp.onchange = () => {
     const a = d.artists.find(x => x.name.toLowerCase() === inp.value.trim().toLowerCase());
     if (!a) return;
