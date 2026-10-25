@@ -2,6 +2,12 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 A change to requirements.txt redeploys the site
+
+- **Asked:** "Yes add to package list" (owner). Merging the Pillow fix did not start a deploy, because the site
+  workflow ran on pushes to site/, src/ and registry/ only.
+- **Chosen:** `requirements.txt` is now one of the paths that start the site workflow.
+
 ## 2026-10-25 Pillow in requirements: the site deploy failed since this morning
 
 - **What failed:** the site workflow, every run since 09:54 UTC. `src/static_pages.py` draws the share cards with
