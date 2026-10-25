@@ -133,7 +133,6 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 4fR3W8XFXsqHB8f8IqEr1y,No.1,2827006,unknown,talentino*,,https://open.spotify.com/artist/4fR3W8XFXsqHB8f8IqEr1y
 5M0lbkGluOPXLeFjApw8r8,DRAM,2812795,unknown,WAVER,,https://open.spotify.com/artist/5M0lbkGluOPXLeFjApw8r8
 68DWke2VjdDmA75aJX5C57,Yelawolf,2799336,unknown,Slumerican,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/68DWke2VjdDmA75aJX5C57
-0QSrUuv6y5Woazd3LAjbSH,İzel,2798639,self_released (label name only),IZEL,,https://open.spotify.com/artist/0QSrUuv6y5Woazd3LAjbSH
 3rbtPd0NcvhO2AzMfzx90z,Fredo,2793334,unknown,BIORDI,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/3rbtPd0NcvhO2AzMfzx90z
 31eYHfjltzC2VyNsoVHHR9,Flame 火炎,2791033,unknown,Salazar récords SAS,,https://open.spotify.com/artist/31eYHfjltzC2VyNsoVHHR9
 645xd9cHiiLqqehoLzLMDR,Adán Cruz,2762775,unknown,Nuevos Lanzamientos Adán,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/645xd9cHiiLqqehoLzLMDR
@@ -177,7 +176,6 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 1fxbULcd6ryMNc1usHoP0R,Quebonafide,2257267,unknown,Magnetowid,,https://open.spotify.com/artist/1fxbULcd6ryMNc1usHoP0R
 18hpynG63scJYxOSDYHUVN,Burak King,2244680,self_released (label name only),Burak King Serdar Ortaç & DMC,,https://open.spotify.com/artist/18hpynG63scJYxOSDYHUVN
 7rdiGVXL2fFyONexHzfKFS,SoulChef,2230739,self_released (label name only),SoulChef Music,,https://open.spotify.com/artist/7rdiGVXL2fFyONexHzfKFS
-5qvphJwi72TG198xn5VVYH,CJota,2224107,unknown,LYONS PRODUÇÕES OFICIAL,1 of 19 recent songs on newer US registrant codes,https://open.spotify.com/artist/5qvphJwi72TG198xn5VVYH
 6aIm51fHkokqlJn2vzNTH8,Webbie,2214279,unknown,Trill 4 Life,,https://open.spotify.com/artist/6aIm51fHkokqlJn2vzNTH8
 3S0tlB4fE7ChxI2pWz8Xip,Giggs,2202941,unknown,NO BS MUSIC LIMITED,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/3S0tlB4fE7ChxI2pWz8Xip
 69TcMkhvenAeokIhBGIUCQ,Bob,2199728,self_released (label name only),B.o.B,,https://open.spotify.com/artist/69TcMkhvenAeokIhBGIUCQ
@@ -187,8 +185,6 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 0r0R5nIjDY04TfxRM10Bcb,Alligatoah,2160384,self_released (label name only),Alligatoah,,https://open.spotify.com/artist/0r0R5nIjDY04TfxRM10Bcb
 4CflzQprp6nZxKiv0t78tH,Mohamed Ramadan,2156468,unknown,MR1,,https://open.spotify.com/artist/4CflzQprp6nZxKiv0t78tH
 1oxn6cQ37twQ7yGnlE3ETd,OKI,2151060,unknown,2020,,https://open.spotify.com/artist/1oxn6cQ37twQ7yGnlE3ETd
-5BozIJTTNCufaZpjhy2der,Dahi,2149049,unknown,ALTER Music LLC,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/5BozIJTTNCufaZpjhy2der
-54kCbQZaZWHnwwj9VP2hn4,Zola,2148292,unknown,AWA,,https://open.spotify.com/artist/54kCbQZaZWHnwwj9VP2hn4
 71jSVPQ6yskfyvWeiwvT5s,S1mba,2146943,unknown,RAX,,https://open.spotify.com/artist/71jSVPQ6yskfyvWeiwvT5s
 53iGNetIf91uZx4Jb54cgb,Haikaiss,2139057,self_released (label name only),Haikaiss,,https://open.spotify.com/artist/53iGNetIf91uZx4Jb54cgb
 2SJhf6rTOU53g8yBdAjPby,SoFaygo,2124339,unknown,Cactus Jack,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/2SJhf6rTOU53g8yBdAjPby
@@ -197,18 +193,14 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 44IvvHRk2XF243QLA2VOa8,Stunna 4 Vegas,2088326,unknown,WT4V MUSIC,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/44IvvHRk2XF243QLA2VOa8
 0Cm90jv892OeEegB3ELmvN,Eldzhey,2085760,unknown,143,,https://open.spotify.com/artist/0Cm90jv892OeEegB3ELmvN
 4nZmMrwH6LxHnCzQv4IFUE,BIG30,2079242,self_released (label name only),BIG30,,https://open.spotify.com/artist/4nZmMrwH6LxHnCzQv4IFUE
-4upwdFMlZBmQ68jP9jPzjK,Gemitaiz,2068917,unknown,Tanta Roba,,https://open.spotify.com/artist/4upwdFMlZBmQ68jP9jPzjK
 56IPf5d631ccKOTmo8RFHK,Felp 22,2059002,self_released (label name only),Felp 22 Oficial,,https://open.spotify.com/artist/56IPf5d631ccKOTmo8RFHK
 6DAQjwwMGZ9QgqHhIkU7H0,Sentino,2056697,self_released (label name only),Sentino,9 of 32 recent songs on newer US registrant codes,https://open.spotify.com/artist/6DAQjwwMGZ9QgqHhIkU7H0
-1vEN3d3dJbmdHQpXD6AIkL,Marcelo D2,2042541,unknown,Pupila Dilatada / Elemess,,https://open.spotify.com/artist/1vEN3d3dJbmdHQpXD6AIkL
 4kqedTxyE5EDJWLLplYXpu,Choice,2024003,self_released (label name only),Choice,,https://open.spotify.com/artist/4kqedTxyE5EDJWLLplYXpu
 6W4vm8P3JFQboO4cvHeqaa,Knucks,2018378,self_released (label name only),Knucks,,https://open.spotify.com/artist/6W4vm8P3JFQboO4cvHeqaa
-57n1OF36WvtOeATY6WQ6iw,Digga,2008581,unknown,Black Money Records,,https://open.spotify.com/artist/57n1OF36WvtOeATY6WQ6iw
 0FOWNUFHPnMy0vOw1siGqi,Belly,1996499,self_released (label name only),BELLY,,https://open.spotify.com/artist/0FOWNUFHPnMy0vOw1siGqi
 6VpdTQWCRE01WVoEuby2a6,Mc Luanna,1995866,unknown,AF!RMA,1 of 6 recent songs on newer US registrant codes,https://open.spotify.com/artist/6VpdTQWCRE01WVoEuby2a6
 3lFMRWaEWZlfXdBig97kks,Nik Makino,1994211,unknown,Kino Sound,,https://open.spotify.com/artist/3lFMRWaEWZlfXdBig97kks
 6USMTwO0MNDnKte5a5h0xx,Y2K,1990431,self_released (label name only),Y2K,,https://open.spotify.com/artist/6USMTwO0MNDnKte5a5h0xx
-7lMgpN1tEBQKpRoUMKB8iw,Black M,1990377,unknown,PEERMUSIC FRANCE,,https://open.spotify.com/artist/7lMgpN1tEBQKpRoUMKB8iw
 774od4b04zDMQMGxrJDeuB,Xcho,1954509,unknown,Glass Cage,,https://open.spotify.com/artist/774od4b04zDMQMGxrJDeuB
 5SyGEPymt1G2uto47tVWvZ,MadeinTYO,1948066,unknown,Madeinsounds.,,https://open.spotify.com/artist/5SyGEPymt1G2uto47tVWvZ
 2r8r62VGJKGi463aH1HJUZ,Kirko Bangz,1944691,self_released (label name only),Independent,,https://open.spotify.com/artist/2r8r62VGJKGi463aH1HJUZ
@@ -218,19 +210,14 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 1GLnyPuL45vOsZPs5iANcC,Sematary,1905303,unknown,Haunted Mound,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/1GLnyPuL45vOsZPs5iANcC
 6yZKPB8eRoJesHjtxPxSLs,MD Chefe,1892710,unknown,Nine Four,,https://open.spotify.com/artist/6yZKPB8eRoJesHjtxPxSLs
 4h52MPCFvx56uhmH254Uqz,LEALL,1876278,self_released (label name only),LEALL,,https://open.spotify.com/artist/4h52MPCFvx56uhmH254Uqz
-0bMt8SJlp0gFRUufzifS05,K.I.Z,1863614,unknown,Eklat Tonträger GmbH,,https://open.spotify.com/artist/0bMt8SJlp0gFRUufzifS05
 32NfHH4nSmu97Z4RQjPyET,N.I.N.A,1854234,self_released (label name only),N.I.N.A.,,https://open.spotify.com/artist/32NfHH4nSmu97Z4RQjPyET
-0hk4xVujcyOr6USD95wcWb,Sick Luke,1848407,unknown,Carosello Records,,https://open.spotify.com/artist/0hk4xVujcyOr6USD95wcWb
 3PyWEKLWI0vHPmoNrIX0QE,Rakim,1842393,self_released (label name only),Rakim x Kurupt x Masta Killa,,https://open.spotify.com/artist/3PyWEKLWI0vHPmoNrIX0QE
 1NB6QyaNXhrDd82y0WyG3I,Bilouki,1841480,unknown,MK9,,https://open.spotify.com/artist/1NB6QyaNXhrDd82y0WyG3I
 4Dokdwa3WB7ilQ2c2qvIBL,Bugzy Malone,1833659,unknown,BSomebody,1 of 11 recent songs on newer US registrant codes,https://open.spotify.com/artist/4Dokdwa3WB7ilQ2c2qvIBL
 4TEJudQY2pXxVHPE3gD2EU,BlocBoy JB,1828491,self_released (label name only),BlocBoy JB,,https://open.spotify.com/artist/4TEJudQY2pXxVHPE3gD2EU
-3lMQtpA4i6FrIe6DmDfDVa,Predella,1825666,unknown,GR6 Music,,https://open.spotify.com/artist/3lMQtpA4i6FrIe6DmDfDVa
-4tujQJicOnuZRLiBFdp3Ou,Xzibit,1796117,unknown,Ineffable Records,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/4tujQJicOnuZRLiBFdp3Ou
 3e8V8NqZf6jsUjDEI6rwst,Majki,1792980,unknown,CoolM,,https://open.spotify.com/artist/3e8V8NqZf6jsUjDEI6rwst
 45Yz90pqjzEdJzpEQg1eII,Froid,1773922,self_released (label name only),Froid,,https://open.spotify.com/artist/45Yz90pqjzEdJzpEQg1eII
 462yq5vpZnO172v3nK9ibv,Paluch,1771997,unknown,Biuro Ochrony Rapu,,https://open.spotify.com/artist/462yq5vpZnO172v3nK9ibv
-27w1NoOLMX7tJMYqcetPyG,VIC MENSA,1764491,unknown,OranJ,,https://open.spotify.com/artist/27w1NoOLMX7tJMYqcetPyG
 5IR3SxDdtCCw6KD1aoF6w9,Kidwild,1762983,self_released (label name only),Kidwild,1 of 11 recent songs on newer US registrant codes,https://open.spotify.com/artist/5IR3SxDdtCCw6KD1aoF6w9
 3vvLuXEEf7sl3izJcw0GIn,Skryptonite,1758289,unknown,,,https://open.spotify.com/artist/3vvLuXEEf7sl3izJcw0GIn
 0g9vAlRPK9Gt3FKCekk4TW,Ab-Soul,1748394,unknown,Top Dawg Entertainment,,https://open.spotify.com/artist/0g9vAlRPK9Gt3FKCekk4TW
