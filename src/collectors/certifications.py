@@ -529,6 +529,8 @@ def find_pages(artists: dict[str, tuple[str, str]], refresh: bool = False) -> di
         art = article.get(q)
         pages = []
         for t in disco.get(q, []):
+            if re.search(r"production discography|videography", t, re.I):
+                continue  # records the artist produced for others, or videos: not their own releases
             if (p := page(t, refresh)) and p[0] != art and p[0] not in pages:
                 pages.append(p[0])
         if not pages and art:
