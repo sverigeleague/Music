@@ -59,8 +59,8 @@ def _usd(n) -> str:
 
 
 def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str, prefix: str = "",
-           og_type: str = "profile") -> str:
-    depth = "../" * (2 + prefix.count("/"))
+           og_type: str = "profile", levels: int = 2) -> str:
+    depth = "../" * (levels + prefix.count("/"))
     data = f"data/{prefix}index.json"  # fetched by app.js once it loads; preloaded so the two downloads overlap
     img = f'<meta property="og:image" content="{esc(image)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{esc(image)}">' if image else '<meta name="twitter:card" content="summary">'
     return f"""<!doctype html>
@@ -209,12 +209,32 @@ def state_page(st: dict, prefix: str = "") -> tuple[str, str]:
     return url, _shell(f"State of {word}, {month}", desc, url, None, ld, f"#/{prefix}state/{st['month']}", body, prefix)
 
 
+def genre_home(data: dict, prefix: str) -> str:
+    """site/<genre>/index.html (country): the genre's start page at its own address, so the sitemap's /music/country/
+    is a real page (title, description, the top ten with links) rather than a missing one; the app opens #/<genre>/."""
+    word = prefix.strip("/")
+    url, n = f"{BASE}{prefix}", len(data["artists"])
+    desc = (f"Who is drawing an audience in {word}, what the music earns, who owns it and who is about to break: the top "
+            f"{n:,} artists, updated daily, every figure sourced. Data as of {data.get('as_of') or ''}.")
+    top = sorted((a for a in data["artists"] if a.get("cl_rank")), key=lambda a: a["cl_rank"])[:10]
+    body = (f'<article class="static"><h1>Global {esc(word.title())}</h1><p class="sub">{esc(desc)}</p><ol>'
+            + "".join(f'<li><a href="{prefix}a/{esc(a["slug"])}/">{esc(a["name"])}</a>: {_ml(a)} monthly listeners</li>' for a in top)
+            + f'</ol><p><a href="#/{prefix}">Open the full list</a></p></article>')
+    ld = {"@context": "https://schema.org", "@type": "WebPage", "name": f"Global {word}: listeners, earnings and labels", "url": url,
+          "isPartOf": {"@type": "WebSite", "name": "tventy music", "url": BASE}}
+    return _shell(f"Global {word}: listeners, earnings and labels of the top {n:,} artists", desc, url, None, ld, f"#/{prefix}",
+                  body, prefix, og_type="website", levels=0)
+
+
 def build(data: dict, cards: bool = True, states: list[dict] | None = None, prefix: str = "") -> list[str]:
     """One genre's static pages (prefix "" for hip-hop, "country/" for country); returns their addresses."""
     as_of = data.get("as_of") or ""
     root = SITE / prefix if prefix else SITE
     gw = "country" if prefix.startswith("country") else "hip-hop"
     urls = [BASE + prefix]
+    if prefix:
+        root.mkdir(parents=True, exist_ok=True)
+        (root / "index.html").write_text(genre_home(data, prefix))
     for sub in ("a", "label", "state"):
         if (root / sub).exists():
             for old in (root / sub).glob("*/index.html"):
@@ -248,6 +268,9 @@ def build(data: dict, cards: bool = True, states: list[dict] | None = None, pref
 
 
 def sitemap(urls: list[str]) -> None:
+    """Every static page of both genres; lastmod is the build date (each page is rewritten with the day's data)."""
+    from datetime import date
+    day = date.today().isoformat()
     (SITE / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                                      + "".join(f"<url><loc>{esc(u)}</loc></url>\n" for u in dict.fromkeys(urls)) + "</urlset>\n")
+                                      + "".join(f"<url><loc>{esc(u)}</loc><lastmod>{day}</lastmod></url>\n" for u in dict.fromkeys(urls)) + "</urlset>\n")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n")

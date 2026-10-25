@@ -2,6 +2,43 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Site engineering: speed, accessibility, SEO, robustness (task: "engineering quality of the music site")
+
+- **Measured** with Playwright + CDP (Chromium, 390px phone, Lighthouse "slow 4G": 150 ms RTT, 1.6 Mbps, 4x CPU),
+  served with brotli as Cloudflare does. Biggest costs: `data/index.json` (~300 KB after brotli) before any list
+  shows; the country start page also downloading the hip-hop index (the preload in index.html ignored the route);
+  the Top 1,000 table (1.7 s of layout on the phone profile); 205 photos over 40 KB (up to 390 KB for a 250 px image,
+  some PNGs named .jpg); seven flag SVGs of 35-184 KB shown at 16x12 px. Before/after numbers: __NUMBERS__
+- **Index split** (`src/site_build.py`): artist fields that only the pages waiting for extra.json read (Scout, Money,
+  Labels, Compare, Screener, Method...) moved to `extra.json` as `artist_more`, merged back into the artist rows by
+  app.js when it arrives (`LATER`); those the artist page also shows are copied into its shard (`ALSO_SHARD`). The
+  start page gets a precomputed `reach` (chart countries) instead of the per-country chart lists. Every use in app.js
+  was grepped and mapped to its page before moving (re-checked just before the rebuild, as other sessions were adding
+  pages). Rejected: dropping the fields no page read (age_profile, coverage, latest_release): new pages started
+  reading them during this session, so they moved to `LATER` instead; one file per artist instead of 32 shards (more
+  requests, little gain).
+- **Top 1,000**: the first 200 rows render, a button shows the rest (sorting and the filter still use the full list).
+  Rejected: content-visibility (does not apply to table rows) and drip-feeding rows (the table re-lays out each time).
+- **Photos**: re-encoded in place when over 40 KB and at least a fifth smaller (JPEG q82; WebP with alpha when truly
+  transparent): 43 MB to 26 MB; `src/photos.py optimise()` now runs on each new download. Commons licences allow it.
+  The big artist photo loads eagerly at high priority; all photos carry width/height.
+- **Flags**: svgo saved under 3%, so the seven largest (rs, mx, es, me, do, hr, gt) are now a 96x72 PNG inside an SVG
+  of the same name (6x the display size; identical at 16x12): 557 KB to 23 KB. Other flags unchanged.
+- **Caching**: `site/_headers` keeps fonts a week and flags, logos, photos a day in the browser; data, app.js and
+  pages keep Pages' re-check on every visit (they change with each build).
+- **Accessibility** (axe-core 4.10 on 13 routes at 1280 and 390): search box is now a combobox (aria-expanded was
+  invalid on a search box); wide tables that scroll get focus and a name; empty table headings got hidden text;
+  sortable headings take Tab and Enter/Space with focus kept; skip link; colour contrast passed.
+- **SEO**: artist JSON-LD adds Wikidata/YouTube/Instagram/TikTok/X profiles we looked up, the Commons photo with
+  credit and licence, the Wikipedia summary; label JSON-LD adds the Commons logo and its Wikidata item; labels are
+  og:type website; static pages preload their data; sitemap has lastmod; `/country/` is now a real page (it was in
+  the sitemap but had no file); `site/404.html` so Cloudflare Pages answers unknown addresses with a 404 instead of
+  the start page with a 200. index.html: canonical and og:url.
+- **Robustness**: a failed or broken data file shows "The data did not load" with a retry (it showed a raw JSON
+  parse error, or nothing on in-site navigation); a failed extra.json is retried on the next page; unknown routes show
+  "Page not found" (they showed the start page); an artist id from the other genre opens there; "Loading…" while a
+  page waits for extra.json.
+
 ## 2026-10-26 New data sources: ListenBrainz built, MLC publishers built behind a login (task: "deep research on NEW data sources")
 
 - **Research:** `docs/research/2026-10-26-new-data-sources.md`, about 25 candidates with terms quoted and live calls
