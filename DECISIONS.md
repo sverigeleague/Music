@@ -15,6 +15,20 @@ What was chosen, what was considered and rejected, and why. Newest first.
   "Cina", an Indonesian subdistrict entered for Simba La Rue (an Italian rapper born in Tunis), is dropped rather
   than guessed.
 
+## 2026-10-25 Who counts as unsigned (owner: "count stem and independent as unsigned. I take your guidance on the licensed out deals")
+
+- **Stem and "Independent":** releases distributed by Stem (Jeezy), and those whose label field says "Independent" or
+  "Independent Co." (Himra, Lil Pump, KYLE), count as self-released (unsigned). This was already the build's
+  classification; it is now the owner's rule.
+- **Licensed out, chosen:** the licensee decides, as `labels.classify_label` already does.
+  - A licence to a distribution service (UnitedMasters, Stem, DistroKid, TuneCore, CD Baby, Amuse, Too Lost) keeps
+    the masters with the artist. It stays self-released, with no warning (BigXthaPlug, Veigh, Ro$ama).
+  - A licence to a record label is classed by that label, so the artist is signed.
+  - Only an ambiguous line such as "Label Deal" (D-Block Europe, Paul Wall) keeps the "licensed out" chip on the
+    Unsigned page.
+- **Rejected:** treating every licence as a label-services deal. That would move artists with distributor deals,
+  who own their masters, out of the unsigned list.
+
 ## 2026-10-25 Lists, start page and compare: the rest of the client review
 
 - **Search:** results say "#205 by monthly listeners" (or "by streams" below the floor), not a bare "#205". Label

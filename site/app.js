@@ -329,6 +329,9 @@ function tableRising(list) {
 
 // ---------- unsigned
 const LICENSED = /under (exclusive )?licen[cs]e to|\blabel deal\b/i;  // "X under exclusive license to UnitedMasters LLC"
+// owner, 2026-10-25: a licence to a distribution service leaves the masters with the artist, so it stays self-released
+// without a warning; a licence to a record label is already classed by that label (labels.classify_label)
+const SERVICES = /licen[cs]e to (unitedmasters|stem|distrokid|tunecore|cd baby|amuse|too lost)\b/i;
 const STATUS = { major: "Major label", major_distributed: "Major's distribution", independent: "Independent label", self_released: "Self-released (unsigned)", catalog: "Catalog (no release in 2 years)", unknown: "Not yet classified" };
 function unsignedPage() {
   nav("unsigned");
@@ -345,7 +348,7 @@ function unsignedPage() {
     </section>
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Release label</th><th>Monthly listeners</th><th>Current listeners</th><th>Generates / yr</th><th>Keeps now</th><th>Signed peers generate</th><th>On a major deal would keep</th><th>Scout</th></tr></thead><tbody>
       ${U.slice(0, ui.unsAll ? U.length : 50).map((u, i) => `<tr${u.feat > 0.9 ? ' class="dim"' : ""}><td class="l">${i + 1}</td><td class="l"><a class="who" href="#/a/${u.id}">${pic(store.data.artists.find(a => a.id === u.id) || u)}<span>${esc(u.name)}</span>${flag(store.data.artists.find(a => a.id === u.id) || u)}</a></td>
-        <td class="l wrap">${esc(u.label || "–")} ${LICENSED.test(u.label || "") ? `<span class="chip warn" title="The release line says the recordings are licensed to another company: this may be a licence or label-services deal rather than unsigned, so Keeps now may be too high">licensed out</span>` : u.confidence === "confirmed" ? chip("confirmed") : `<span class="chip warn" title="Own-name label with no other evidence: could be a small label or an imprint licensed to one">label name only</span>`}</td>
+        <td class="l wrap">${esc(u.label || "–")} ${LICENSED.test(u.label || "") && !SERVICES.test(u.label || "") ? `<span class="chip warn" title="The release line says the recordings are licensed to another company: this may be a licence or label-services deal rather than unsigned, so Keeps now may be too high">licensed out</span>` : u.confidence === "confirmed" ? chip("confirmed") : `<span class="chip warn" title="Own-name label with no other evidence: could be a small label or an imprint licensed to one">label name only</span>`}</td>
         <td>${mlx(u)}</td><td>${count(u.cl)}</td><td>${usd(u.generated)}${u.feat > 0.9 ? ` <span class="chip warn" title="${Math.round(u.feat * 100)}% of their streams come as a featured guest on other artists' songs; the money shown counts their own songs only. Featured artists are usually paid a fee or a share agreed with the lead artist.">own songs only</span>` : ""}</td><td>${usd(u.keeps_now)}</td>${u.feat > 0.9 ? `<td colspan="2"><span class="note" title="Nearly all of this artist's streams come as a featured guest, so their own songs are not comparable with signed lead artists">not compared</span></td>` : `<td>${usd(u.peer_generated)}</td><td>${usd(u.if_signed.major)}</td>`}<td>${(s => s ? `${s.score} ${tierChip(s.tier)}` : "–")(store.data.artists.find(a => a.id === u.id)?.scout)}</td></tr>`).join("")}
     </tbody></table></div>
     ${!ui.unsAll && U.length > 50 ? `<p class="more"><button type="button" class="btn" id="unsall">Show all ${U.length}</button></p>` : ""}
