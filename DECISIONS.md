@@ -2,6 +2,40 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Press page, method changelog, correction emails, glossary (ROADMAP 11.6, 11.7, 11.13, 11.17)
+
+- **Press (`#/press`, `app.js pressPage`):** quotable figures in four groups (labels and market share, top artists,
+  rising and unsigned, money), each a sentence to quote, its method chip (measured / measured + classified / our
+  measure / estimate), the data date and a line `Source: tventy music, <date>, <url>` with a Copy button (sentence +
+  line). Only figures other pages show, computed the same way: majors', independent labels' and self-released shares
+  among artists whose label is known (Labels page), No. 1 by current and by monthly listeners, the month's biggest
+  riser, top unsigned prospect (State page items), Breaking count, unsigned prospects (the Unsigned page's count, so
+  the page loads unsigned.json), Spotify royalties of the top 100 and the highest catalog value, both as a range with
+  grade C and "estimate" in the quoted sentence, and the list's size against Spotify's universe. A "How to cite" box
+  (date matters; call an estimate an estimate; grades; State page for month-end figures). Artist figures cite the
+  static artist page. Rejected: new figures for the press (only what the site already shows and explains), and
+  quoting a mid alone (the ideas pass's risk: quotes travel without caveats).
+- **Method changelog (`#/changelog`, `changelogPage`):** `registry/method_changes.csv` (area money / scout /
+  unsigned / other, version, date, genre, change, effect, correction, source), read by `quality.method_changes` into
+  `extra.json` quality.changes. 16 rows from DECISIONS.md: money 1.0–1.5 (first model, catalog multiples, deal by
+  recent releases, country platform weights, the Spotify rate, multiples by song age), Scout 1.0–1.5 (first score,
+  back-test weights, country radio, chart countries once, absent signals 0, 60% weight for a tier), Unsigned 1.0–1.2,
+  and the "label owner known" definition. Kept in sync: a row naming a correction carries that corrections.csv row's
+  field / was / now (the build fails on a name with no match), and a test requires every method row of
+  corrections.csv to be named in the changelog and every source to be a DECISIONS.md heading. One-genre rows carry a
+  "country list only" chip; the top-list ranking versions (docs/METHODOLOGY.md) are shown below. Rejected: a section
+  on #/quality (that page is long already; it links here) and hard-coding the versions in app.js.
+- **Correction request (`corrLink`):** "Report a correction" on every artist and label page: a mailto to
+  hello@tventy.se, subject "Correction: <name> (<page url>)", body asking what is wrong, what it should be, a source
+  and (optionally) the sender's role. Nothing is sent or stored by the site. Rejected: a form (it would store
+  personal data, ROADMAP 10.5).
+- **Glossary (`#/glossary`, `glossaryPage`):** config.js GLOSSARY plus every metric row of the How boxes (HOW, with
+  SCOUT_INFO and the tier rule), alphabetical, each with the pages that use it. GLOSSARY gains 11 terms no column
+  heading uses (grades, measured, estimate, range, streaming royalties / yr, catalog value, the status words,
+  second profile, provisional Scout). Linked from the footer and from each How box ("every term defined").
+- **Navigation:** the footer pages (Method, Method changelog, Data quality, Glossary, Press) share a sub-menu; the
+  footer lists all five. NEEDS: press `extra` + `unsigned`, changelog `extra`, glossary none.
+
 ## 2026-10-26 Engineering follow-ups to the speed pass: extra.json split by page, site smoke tests, load failures
 
 - **extra.json split by page** (`src/site_build.py PARTS`, app.js `PARTS`/`NEEDS` in the router, index.html and

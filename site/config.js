@@ -71,4 +71,16 @@ export const GLOSSARY = {
   "Chart countries": "Countries where a song is in Spotify's weekly top 200 or Apple Music's daily top 100.",
   "By listeners": "Rank among hip-hop artists by Spotify monthly listeners.",
   "Shazam": "Number of Shazam charts (world, 15 countries, 31 cities; last 7 days) the artist is on: people looking their songs up, often before streams follow. Not part of the score yet.",
+  // terms of the glossary page (#/glossary, 2026-10-26) that no column heading uses
+  "Grade A / B / C": "How far a figure can be relied on. A: primary (company filings, regulators, court records, the platform's own disclosure). B: reputable secondary (trade press, industry reports). C: our estimate, always shown as a range.",
+  "Measured": "A figure read from a public count (Spotify via kworb.net, YouTube, Deezer, the charts), not worked out by us.",
+  "Estimate": "A figure we work out from measured data and published rates or multiples. Always a range with grade C; never a reported figure.",
+  "Range (low–high)": "The span an estimate can reasonably fall in: the low ends of each input multiplied together, and the high ends. The mid is the figure in between, not a forecast.",
+  "Streaming royalties / yr": "What all streaming services pay the rights holders (label or distributor) a year for the artist's own recordings at today's pace, mid estimate. Before the artist's share under their deal.",
+  "Catalog value": "What the artist's recordings and songs might sell for: a year's royalties × the sale multiples buyers have paid for music of that age (new, mixed, evergreen). Indicative, not a valuation.",
+  "Unsigned prospect": "An artist releasing without a label and with no label deal on record, under 8 years of releases and 10m monthly listeners, with current listeners and a song of their own in the last two years.",
+  "Independent (established)": "An artist releasing on their own after a label deal, after 8+ years of releases or with 10m+ monthly listeners.",
+  "Catalog act": "An artist with almost no listening on recent releases: the audience is for older songs.",
+  "Second Spotify profile": "A second Spotify page of an artist already in the list (the same Wikidata item, Deezer page or name). Listed, but left out of summed totals and market shares.",
+  "Provisional (Scout)": "A Scout score resting on under 60% of the signal weight: shown, but given no tier.",
 };

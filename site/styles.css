@@ -411,3 +411,14 @@ table.screener td.wrap { min-width: 110px; max-width: 160px; }
 }
 /* the Worth card: labels wrap, figures keep their width, nothing spills past the card */
 .cardcol .kv { grid-template-columns: minmax(0, 1fr) auto; }
+/* press figures and glossary (2026-10-26, ROADMAP 11.6, 11.17) */
+.pressgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 12px; }
+.pressfig { border: 1px solid var(--line); padding: 14px 16px; min-width: 0; display: grid; gap: 6px; align-content: start; }
+.pressfig .k { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.pressfig .v { font: 650 24px/1.2 var(--font-ui); overflow-wrap: anywhere; }
+.pressfig p { margin: 0; }
+.pressfig .cite code { font-size: 12px; }
+.gloss { margin: 0; }
+.gloss dt { font-weight: 650; margin-top: 12px; }
+.gloss dt:first-child { margin-top: 0; }
+.gloss dd { margin: 2px 0 0; overflow-wrap: anywhere; }

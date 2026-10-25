@@ -50,12 +50,14 @@ const grade = g => `<span class="chip c" title="A primary, B reputable secondary
 const SECTION = { top: "artists", movers: "artists", month: "artists", rising: "artists", compare: "artists", artist: "artists",
   scout: "scout", unsigned: "scout", producers: "scout",
   worth: "money", pay: "money", platforms: "money", tours: "money",
-  labels: "labels", label: "labels", audience: "labels", method: "" };
+  labels: "labels", label: "labels", audience: "labels",
+  method: "about", changelog: "about", quality: "about", glossary: "about", press: "about" };  // the footer's pages
 const SUBNAV = {
   artists: [["top", "#/", "Top list"], ["movers", "#/movers", "Movers"], ["compare", "#/compare", "Compare"]],
   scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["producers", "#/producers", "Producers"]],
   money: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"]],
   labels: [["labels", "#/labels", "Labels and market share"], ["audience", "#/audience", "Where it is streamed"]],
+  about: [["method", "#/method", "Method"], ["changelog", "#/changelog", "Method changelog"], ["quality", "#/quality", "Data quality"], ["glossary", "#/glossary", "Glossary"], ["press", "#/press", "Press"]],
 };
 // Movers: today (daily change, outside the top 100) and the last 30 days, one page with a switch
 const moversSwitch = on => `<div class="seg" role="group" aria-label="Period" style="margin:10px 0 4px"><a class="segbtn" href="#/movers/today"${on === "today" ? ' aria-current="page"' : ""}>Today</a><a class="segbtn" href="#/movers"${on === "month" ? ' aria-current="page"' : ""}>Past month</a></div>`;
@@ -189,7 +191,7 @@ function addHow() {
   const at = [...sec.querySelectorAll(":scope > p.sub")].pop() || sec.querySelector(":scope > h1");
   // open on wide screens; on phones it starts closed so the tiles and the table come first
   const wide = matchMedia("(min-width: 721px)").matches, role = rows.some(r => /%$/.test(r[2])) ? "Weight" : "Role";
-  at.insertAdjacentHTML("afterend", `<details class="how"${wide ? " open" : ""}><summary>How this ranking works</summary><table class="stack"><thead><tr><th class="l">Metric</th><th class="l">What it measures</th><th>${role}</th></tr></thead><tbody>${rows.map(([m, d, w]) => `<tr><td class="l"><b>${esc(m)}</b></td><td class="l wrap">${esc(d)}</td><td>${esc(w)}</td></tr>`).join("")}</tbody></table><p class="note">Full detail and sources: <a href="${PREFIX()}method">Method</a>.</p></details>`);
+  at.insertAdjacentHTML("afterend", `<details class="how"${wide ? " open" : ""}><summary>How this ranking works</summary><table class="stack"><thead><tr><th class="l">Metric</th><th class="l">What it measures</th><th>${role}</th></tr></thead><tbody>${rows.map(([m, d, w]) => `<tr><td class="l"><b>${esc(m)}</b></td><td class="l wrap">${esc(d)}</td><td>${esc(w)}</td></tr>`).join("")}</tbody></table><p class="note">Full detail and sources: <a href="${PREFIX()}method">Method</a> · every term defined: <a href="${PREFIX()}glossary">Glossary</a>.</p></details>`);
 }
 
 // the country list's size: artists with full data (above Spotify's public 500k floor, and below it those identified
@@ -411,6 +413,7 @@ function unsignedPage() {
       <div class="tile"><div class="k">Keeps on a major deal</div><div class="v">${pct("major")}</div><div class="s">so a deal must grow streams ${be.major}× to pay the same ${grade("A")}</div></div>
       <div class="tile"><div class="k">Independent label / label services</div><div class="v">${pct("independent")} / ${pct("services")}</div><div class="s">break even at ${be.independent}× / ${be.services}× the streams</div></div>
     </section>
+    <div class="links" style="margin:8px 0"><button type="button" class="btn" id="uns-csv">Download prospects CSV (${U.length})</button><span class="note">official public profiles (Spotify, YouTube, Instagram, Wikidata) only; no personal contact data</span></div>
     <section><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th class="l">Release label</th><th>Monthly listeners</th><th>Current listeners</th><th>Generates / yr</th><th>Keeps now</th><th>Signed peers generate</th><th>On a major deal would keep</th><th>Scout</th></tr></thead><tbody>
       ${U.slice(0, ui.unsAll ? U.length : 50).map((u, i) => `<tr${u.feat > 0.9 ? ' class="dim"' : ""}><td class="l">${i + 1}</td><td class="l"><a class="who" href="#/a/${u.id}">${pic(store.data.artists.find(a => a.id === u.id) || u)}<span>${esc(u.name)}</span>${flag(store.data.artists.find(a => a.id === u.id) || u)}</a></td>
         <td class="l wrap">${lname(u.label || "–")} ${LICENSED.test(u.label || "") && !SERVICES.test(u.label || "") ? `<span class="chip warn" title="The release line says the recordings are licensed to another company: this may be a licence or label-services deal rather than unsigned, so Keeps now may be too high">licensed out</span>` : u.confidence === "confirmed" ? chip("confirmed") : `<span class="chip warn" title="Own-name label with no other evidence: could be a small label or an imprint licensed to one">label name only</span>`}</td>
@@ -436,6 +439,7 @@ function unsignedPage() {
       </tbody></table></div></details>` : ""}
     <p class="note">Peers: signed artists (major, major-distributed or independent label) with 0.6–1.67× the monthly listeners (0.4–2.5× when fewer than three qualify) and at least 20% of their listening on recent releases, closest first. Statuses come from the labels printed on each artist's last two years of releases (Deezer) and the recording codes (ISRCs) of their recent songs; artists that cannot be placed are checked by our editors.</p>`;
   app.querySelector("#unsall")?.addEventListener("click", () => { ui.unsAll = true; unsignedPage(); });
+  app.querySelector("#uns-csv").onclick = () => unsignedCsv(U);
   syncScreen("unsigned");
 }
 
@@ -520,6 +524,7 @@ function tours() {
     <section class="panel"><h2>Where a ticket's money goes, roughly ${grade("C")}</h2>
       <div class="bars">${steps.map(([l, v, n]) => `<div class="barrow"><span>${esc(l)}</span><div class="track"><i style="left:0;width:${v * 100}%"></i></div><span>about ${Math.round(v * 100)}%</span></div><p class="note" style="margin:-4px 0 4px">${esc(n)}</p>`).join("")}</div>
       <p class="note">Industry rules of thumb, not reported figures: the split differs by deal (guarantee or door split) and by how big the production is. Stadium headliners keep more of the gross; a support act may keep little after costs.</p></section>
+    ${toursByBand(T)}
     <section><div class="tablebox"><table class="stack"><thead><tr><th class="l">Artist</th><th class="l">Tour</th><th class="l">Dates</th>${cols.map(([l, k]) => `<th data-tsort="${k}"${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}>${l}</th>`).join("")}<th>Grade</th></tr></thead><tbody>
       ${rows.map(t => `<tr><td class="l">${t.id ? `<a href="#/a/${t.id}">${esc(t.artist)}</a>` : esc(t.artist)}</td><td class="l wrap">${esc(t.tour)}${t.co ? ` <span class="note">with ${esc(t.co)}${t.share < 1 ? ", half counted" : ""}</span>` : ""}${t.partial ? ` <span class="note" title="${esc(t.note)}">(part of the tour: ${t.gross_through ? `gross for shows to ${ym(t.gross_through)}` : "the gross covers one Billboard reporting window"})</span>` : ""}</td><td class="l">${tourSpan(t)}</td>
         <td>${t.shows ?? "–"}</td><td>${count(t.tickets)}</td><td>${usd(t.gross)}</td><td>${usd(t.per_show)}</td><td>${usd(t.per_fan)}</td><td>${range(t.artist_net)}</td><td>${grade(t.grade)} <a href="${esc(t.source)}" target="_blank" rel="noopener" title="${esc(t.note)}">source</a></td></tr>`).join("")}
@@ -587,7 +592,7 @@ async function artist(id) {
         return g ? ` · ${esc(g)}${L.parent && L.parent !== g ? ` (owned by ${esc(L.parent)})` : ""}` : L.parent && L.parent !== L.name ? ` · ${esc(L.parent)}` : ""; })()}</span></div>` : ""}
       ${profiles ? `<p class="profiles">On ${profiles}</p>` : ""}
       ${a.second_of ? `<p class="note">A second Spotify profile of <a href="#/a/${a.second_of}">${esc(a.second_of_name || "another artist")}</a> (the same Wikidata item, Deezer page or name). Label status and level are the main profile's; these listeners are left out of the summed totals and market shares.</p>` : ""}
-      <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a>${a.ml || a.daily ? `<a href="#/worth/${a.id}">Worth on other deals</a>` : ""}<a href="#/sheet/${a.id}">One-pager (print / PDF)</a>${shareBtn(`${a.name}: ${mlx(a)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in ${GENRE === "country" ? "country" : "hip-hop"} by current listeners` : ""} (tventy music)`, a.slug ? `${SITE_URL}${GDIR()}a/${a.slug}/` : "")}${a.slug ? `<a href="${GDIR()}cards/${esc(a.slug)}.png" download="${esc(a.slug)}-tventy-music.png">Download card</a>` : ""}</div></div></section>
+      <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a>${a.ml || a.daily ? `<a href="#/worth/${a.id}">Worth on other deals</a>` : ""}<a href="#/sheet/${a.id}">One-pager (print / PDF)</a>${corrLink(a.name, artistUrl(a))}${shareBtn(`${a.name}: ${mlx(a)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in ${GENRE === "country" ? "country" : "hip-hop"} by current listeners` : ""} (tventy music)`, a.slug ? `${SITE_URL}${GDIR()}a/${a.slug}/` : "")}${a.slug ? `<a href="${GDIR()}cards/${esc(a.slug)}.png" download="${esc(a.slug)}-tventy-music.png">Download card</a>` : ""}</div></div></section>
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${mlx(a)}</div><div class="s">${a.floor === "streams" ? "below the public list; ranked by streams a day" : a.floor ? "below the public list; placed in Deezer's order (grade C)" : `${delta(a.chg)} today (${pct(a.chg_pct)})`}</div></div>
       <div class="tile"><div class="k">Current listeners</div><div class="v">${a.cl != null ? count(a.cl) + (a.cl_provisional ? `<span class="prov">*</span>` : "") : "–"}</div><div class="s">${a.floor ? "no listener count below 500k on Spotify" + (a.cur_share != null ? `; ${a.cur_share > 0 && a.cur_share < 0.01 ? "<1" : Math.round(a.cur_share * 100)}% of streams on recent releases` : "") : a.cl === 0 ? "catalog act: almost no listening on recent releases (the last 18–36 months)" : a.cur_share != null ? (a.cur_share > 0 && a.cur_share < 0.01 ? "<1" : Math.round(a.cur_share * 100)) + "% of listening on recent releases" : "release dates missing"}${a.cl == null && a.cur_share != null && !a.floor ? " · not ranked yet" : ""}${a.cl_provisional ? ` · provisional: ${count(a.cl_range[0])}–${count(a.cl_range[1])} until more songs are dated` : ""}</div></div>
@@ -599,6 +604,7 @@ async function artist(id) {
     ${summaryCard(a, store.rev[id])}
     <section class="panel" id="revenue"><h2>Revenue streams, per year at today's pace</h2><p class="note">Loading…</p></section>
     ${agePanel(a)}
+    ${peerCard(a)}
     <section>
       <div class="panel"><h2>Streams</h2><dl class="kv">
         <dt>As lead artist</dt><dd>${count(a.lead_streams)}</dd>
@@ -706,7 +712,7 @@ function coverageTable() {
 
 function method() {
   nav("method");
-  app.innerHTML = `<section class="prose"><h1>Method and sources</h1>
+  app.innerHTML = `${subnav()}<section class="prose"><h1>Method and sources</h1>
   <p>Every number has a source and a grade: <b>A</b> primary (company filings, regulators, court records, the platform's own disclosure), <b>B</b> reputable secondary, <b>C</b> our estimate, always shown as a range.</p>
   <h2>Who is in the list</h2><ul>
    <li>Spotify's top ${store.data.universe.toLocaleString()} artists by monthly listeners (kworb.net, which compiles Spotify's public pages; updated daily).</li>
@@ -1222,7 +1228,7 @@ function labelsPage() {
       <div class="tablebox"><table><thead><tr><th class="l">Label</th><th>Artists</th><th>Monthly listeners</th></tr></thead><tbody>
       ${indies.map(([l, v]) => `<tr><td class="l">${esc(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div>
       <p class="note">By the company behind the label: an imprint counts under its owner here, so these rows can be larger than the same name's row in the label list below.</p></section>
-    ${groupsCompare()}${groupsCompare(true)}
+    ${alignedFinancials()}${groupsCompare()}${groupsCompare(true)}
     ${labelDirectory()}
     <section><h2>Rosters: the biggest artists in each group</h2>
       ${G.map(g => `<details class="panel"><summary><b>${esc(g)}</b>: ${gv(g, "artists")} artist${gv(g, "artists") === 1 ? "" : "s"}</summary><div class="chips">${m.groups[g].top.map(id => byId[id]).filter(Boolean).map(a => `<a class="chip" href="#/a/${a.id}">${esc(a.name)}${flag(a)} · ${mlx(a)}</a>`).join(" ")}</div></details>`).join("")}</section>`;
@@ -1362,7 +1368,7 @@ function labelPage(s) {
   app.innerHTML = `<section class="head labelhead">${logo(L.name, "logo big")}<div><h1>${esc(L.name)}</h1>
       <p class="sub">${L.status === "independent" ? "Independent label" : L.status === "major_distributed" ? "Distributed by a major" : "Major-label imprint"}${own ? ` · owned by <b>${esc(L.parent)}</b>` : ""} · ${roster.length} of hip-hop's top 1,000</p>
       ${own ? `<div class="parentchip">${logo(L.parent, "logo")}<span>Parent company: ${esc(L.parent)}</span></div>` : ""}
-      <div class="links" style="margin-top:10px"><a href="#/label/${L.slug}/sheet">One-pager (print / PDF)</a><button type="button" class="linkbtn" id="lab-csv">Roster CSV (${roster.length})</button></div></div></section>
+      <div class="links" style="margin-top:10px"><a href="#/label/${L.slug}/sheet">One-pager (print / PDF)</a><button type="button" class="linkbtn" id="lab-csv">Roster CSV (${roster.length})</button>${corrLink(L.name, `${SITE_URL}${GDIR()}label/${L.slug}/`)}</div></div></section>
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(L.ml)}</div><div class="s">${share(L.ml / total)} of the top 1,000, added per artist</div></div>
       <div class="tile"><div class="k">Current listeners</div><div class="v">${count(L.cl)}</div><div class="s">on recent releases</div></div>
@@ -1472,7 +1478,7 @@ function summaryCard(a, rev) {
 
 // ---------- catalog screener (investors, 2026-10-26): filter catalogs by sale value, age of the music, royalties and
 // owner; CSV with the ranges, multiples and grade. Everything comes from index.json (worth_range from src/site_build.py).
-SECTION.screener = "money"; SECTION.sheet = "artists"; SECTION.quality = "";
+SECTION.screener = "money"; SECTION.sheet = "artists"; SECTION.quality = "about";
 SUBNAV.money.splice(1, 0, ["screener", "#/screener", "Catalog screener"]);
 const VALUE_BANDS = [["any", "any value", 0, Infinity], ["u10", "under $10m", 0, 1e7], ["10-50", "$10m–50m", 1e7, 5e7], ["50-250", "$50m–250m", 5e7, 2.5e8], ["250+", "$250m and more", 2.5e8, Infinity]];
 const AGE_MIX = { any: ["any age mix", () => true], evergreen: ["mostly evergreen (50%+ of streams on songs 10+ years old)", a => (a.age_profile?.evergreen ?? 0) >= 0.5],
@@ -1635,7 +1641,7 @@ function qualityPage() {
   const open = Q.queues.reduce((s, q) => s + q.open, 0);
   const old = s => (Date.parse(store.data.as_of) - Date.parse(s.latest.length === 7 ? s.latest + "-01" : s.latest)) / 864e5;
   const stale = s => s.cadence.startsWith("daily") ? old(s) > 3 : s.cadence === "weekly" ? old(s) > 14 : s.cadence === "monthly" ? old(s) > 45 : old(s) > 200;
-  app.innerHTML = `<section><h1>Data quality and corrections</h1>
+  app.innerHTML = `${subnav()}<section><h1>Data quality and corrections</h1>
     <p class="sub">How complete the data is, what is waiting for a decision, how fresh each source is, and every correction made so far. A missing figure is left out, never filled in with a guess; an uncertain match goes to a review queue, not into the data.</p></section>
     <section class="tiles">
       <div class="tile"><div class="k">Artists tracked</div><div class="v">${n.toLocaleString()}</div><div class="s">data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}</div></div>
@@ -1657,7 +1663,109 @@ function qualityPage() {
       <div class="tablebox"><table class="stack"><thead><tr><th class="l">Date</th><th class="l">What</th><th class="l">Field</th><th class="l">Was</th><th class="l">Now</th><th class="l">Why</th></tr></thead><tbody>
       ${Q.corrections.map(c => `<tr><td class="l">${esc(c.date)}</td><td class="l wrap"><b>${esc(c.subject)}</b>${c.kind === "method" ? ` ${chip("method", "A change to how a number is worked out; it moves every artist's figure")}` : ""}</td><td class="l wrap">${esc(c.field)}</td><td class="l wrap">${esc(c.was)}</td><td class="l wrap">${esc(c.now)}</td><td class="l wrap note">${esc(c.basis)}. <a href="https://github.com/sverigeleague/Music/blob/main/DECISIONS.md" target="_blank" rel="noopener" title="${esc(c.source)}">Decision log</a></td></tr>`).join("") || `<tr><td class="l" colspan="6">No corrections yet.</td></tr>`}</tbody></table></div></section>
     <section class="panel"><h2>Ranking method versions</h2><ul>${Q.method.map(m => `<li><b>${esc(m.version)}</b> (${esc(m.date)}): ${esc(m.change)}</li>`).join("")}</ul>
-      <p class="note">A change to any number in the current-listeners ranking is a new version. Money and Scout method changes are in the corrections log above (marked "method"). Full detail: <a href="#/method">Method</a>.</p></section>`;
+      <p class="note">A change to any number in the current-listeners ranking is a new version. Money and Scout method changes are in the corrections log above (marked "method") and, version by version, in the <a href="#/changelog">method changelog</a>. Full detail: <a href="#/method">Method</a>.</p></section>`;
+}
+
+// ---------- press, method changelog, glossary, correction requests (ROADMAP 11.6, 11.7, 11.13, 11.17; 2026-10-26).
+// Press (#/press): only figures other pages already show, each dated with its method and a citation line; an estimate
+// always as a range with its grade. Changelog (#/changelog): registry/method_changes.csv, read by src/quality.py
+// (store.data.quality.changes, joined to corrections.csv). Glossary (#/glossary): config.js GLOSSARY + the How rows.
+const hashUrl = p => `${SITE_URL}${PREFIX()}${p}`;
+const artistUrl = a => a.slug ? `${SITE_URL}${GDIR()}a/${a.slug}/` : hashUrl(`a/${a.id}`);
+// a prefilled email; nothing is sent or stored by the site
+const corrLink = (name, url) => `<a href="mailto:hello@tventy.se?subject=${encodeURIComponent(`Correction: ${name} (${url})`)}&body=${encodeURIComponent(`Page: ${url}\r\n\r\nWhat is wrong (the figure, label or fact as shown on the page):\r\n\r\n\r\nWhat it should be:\r\n\r\n\r\nSource we can check (a link, a release, a filing):\r\n\r\n\r\nYour role, if you wish (artist, manager, label, other):\r\n`)}" title="Opens an email to hello@tventy.se with the page filled in; nothing is stored on this site">Report a correction</a>`;
+const copyBtns = root => root.querySelectorAll("[data-copy]").forEach(b => b.onclick = async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Copied"; } catch { b.textContent = "Select the text to copy"; }
+  setTimeout(() => (b.textContent = "Copy"), 2500); });
+function pressPage() {
+  nav("press");
+  crumbs([["Press"]]);
+  const d = store.data, A = d.artists, w = GENRE === "country" ? "country" : "hip-hop", W = w[0].toUpperCase() + w.slice(1), on = d.as_of, n = A.length.toLocaleString();
+  setMeta(`${W} in numbers: figures for the press`, `Quotable, dated figures on ${w}'s top artists, labels and money on Spotify, each with its method and a citation line.`);
+  const m = d.market || { groups: {} }, g = k => m.groups[k] || { artists: 0, ml: 0 }, keys = Object.keys(m.groups).filter(k => k !== "Not yet known");
+  const sum = (ks, f) => ks.reduce((s, k) => s + g(k)[f], 0), knownMl = sum(keys, "ml"), knownN = sum(keys, "artists"), MAJ = GROUP_ORDER.slice(0, 3);
+  const st = Object.fromEntries(((d.state || [])[0]?.items || []).map(i => [i.key, i]));
+  const ranked = A.filter(a => a.cl_rank).sort((a, b) => a.cl_rank - b.cl_rank), first = ranked[0], byMl = A.find(a => a.rank === 1 && a.ml);
+  const M = { measured: ["measured", "Spotify's public counts via kworb.net, read daily"], classed: ["measured + classified", "measured listeners; each artist's label from the ℗ lines of their recent releases (Deezer), checked against recording codes"],
+    ours: ["our measure", "tventy's Scout score: momentum against artists of a similar size, from public signals"], est: ["estimate", "our estimate from measured streams × published per-stream rates; always a range"] };
+  const F = [];  // [section, label, value html, quote, method key, page path, extra note]
+  const add = (...x) => F.push(x);
+  if (knownMl) {
+    const mj = sum(MAJ, "ml") / knownMl, sr = g("Self-released").ml / knownMl, il = g("Independent labels").ml / knownMl;
+    add("Labels and market share", "Majors' share of listeners", share(mj), `Universal, Sony and Warner hold ${share(mj)} of the Spotify monthly listeners of ${w}'s top ${n} artists whose label is known (${knownN.toLocaleString()} artists).`, "classed", "labels", `${share(sum(MAJ, "artists") / (knownN || 1))} of those artists`);
+    add("Labels and market share", "Independent labels' share", share(il), `Independent labels hold ${share(il)} of the Spotify monthly listeners of ${w}'s top ${n} artists whose label is known.`, "classed", "labels", `${g("Independent labels").artists.toLocaleString()} artists`);
+    add("Labels and market share", "Self-released artists' share", share(sr), `Self-released artists hold ${share(sr)} of the Spotify monthly listeners of ${w}'s top ${n} artists whose label is known.`, "classed", "labels", `${g("Self-released").artists.toLocaleString()} artists`);
+  }
+  if (first) add("Top artists", "No. 1 by current listeners", esc(first.name), `${first.name} is No. 1 in ${w} by current listeners on Spotify: ${count(first.cl)} (monthly listeners counting only the listening to recent releases; ${count(first.ml)} monthly listeners in all).`, "measured", `a/${first.id}`, `${count(first.cl)} current, ${count(first.ml)} monthly`, first);
+  if (byMl) add("Top artists", "Most monthly listeners", esc(byMl.name), `${byMl.name} has the most Spotify monthly listeners in ${w}: ${count(byMl.ml)}.`, "measured", `a/${byMl.id}`, `${count(byMl.ml)} monthly listeners`, byMl);
+  if (st.mover) add("Top artists", "Biggest riser, about a month", esc(st.mover.value), `${st.mover.value} is ${w}'s biggest riser over about a month on Spotify: ${st.mover.detail}.`, "measured", st.mover.link.slice(2), esc(st.mover.detail));
+  const brk = A.filter(a => a.scout?.tier === "Breaking"), best = [...brk].sort((a, b) => b.scout.score - a.scout.score)[0];
+  if (brk.length) add("Rising and unsigned", "Rated Breaking", brk.length.toLocaleString(), `${brk.length} ${w} artists rate Breaking on tventy's Scout score, which measures momentum against artists of a similar size (top: ${best.name}, ${best.scout.score} out of 100).`, "ours", "scout", `top: ${esc(best.name)} (${best.scout.score})`);
+  const U = (d.unsigned || []).filter(u => u.indie_kind === "prospect");
+  if (d.unsigned) add("Rising and unsigned", "Unsigned prospects", U.length.toLocaleString(), `tventy counts ${U.length} unsigned prospects among ${w}'s top ${n} artists on Spotify: no label deal on record, under ${ESTABLISHED_YEARS} years of releases and 10m monthly listeners, and a recent song of their own.`, "classed", "unsigned", "labels from recent releases; established independents counted apart");
+  if (st.unsigned) add("Rising and unsigned", "Top unsigned prospect", esc(st.unsigned.value), `${st.unsigned.value} is the top unsigned prospect in ${w} on tventy's Scout score: ${st.unsigned.detail}.`, "ours", st.unsigned.link.slice(2), esc(st.unsigned.detail));
+  // as the State page adds it up: the top 100 by current listeners, an artist with no measured streams adding nothing
+  const t100 = ranked.slice(0, 100), yr = k => t100.reduce((s, a) => s + (k === "mid" && a.rev_lines?.spotify || (a.money?.generated?.[k] || 0) * 12), 0);
+  if (t100.some(a => a.money?.generated)) { const r = { low: yr("low"), mid: yr("mid"), high: yr("high") };
+    add("Money (estimates)", `Spotify royalties, top ${t100.length} a year`, `${range(r)} ${grade("C")}`, `${w[0].toUpperCase() + w.slice(1)}'s top ${t100.length} artists by current listeners generate an estimated ${range(r)} a year in Spotify recording royalties (mid ${usd(r.mid)}), paid to the rights holders before the artist's share; a tventy estimate, grade C.`, "est", "worth", `mid ${usd(r.mid)}; paid to labels or distributors, not the artists' pay`); }
+  const cat = A.filter(a => a.worth_mid && a.worth_range).sort((a, b) => b.worth_mid - a.worth_mid)[0];
+  if (cat) add("Money (estimates)", "Highest catalog value", `${esc(cat.name)}<br><span class="note">${range({ low: cat.worth_range[0], high: cat.worth_range[1] })}</span> ${grade("C")}`, `${cat.name}'s recordings and songs would sell for an estimated ${range({ low: cat.worth_range[0], high: cat.worth_range[1] })} (mid ${usd(cat.worth_mid)}) at published catalog-sale multiples: a tventy estimate, grade C, indicative and not a valuation.`, "est", `a/${cat.id}`, `mid ${usd(cat.worth_mid)}; a year's royalties × sourced sale multiples by song age`, cat);
+  const tot = A.reduce((s, a) => s + (a.second_of ? 0 : a.ml || 0), 0);
+  add("The list", `${W} artists tracked`, n, `tventy tracks ${n} ${w} artists from Spotify's top ${d.universe.toLocaleString()} by monthly listeners, with ${count(tot)} monthly listeners combined (a fan of two artists counts twice).`, "measured", "", `${count(tot)} monthly listeners combined; of Spotify's top ${d.universe.toLocaleString()}`);
+  const card = ([, k, v, q, how, path, note]) => { const a = path.startsWith("a/") && A.find(x => x.id === path.slice(2)), url = a ? artistUrl(a) : hashUrl(path), src = `Source: tventy music, ${on}, ${url}`;
+    return `<div class="pressfig"><div class="k">${esc(k)}</div><div class="v">${v}</div><p>${esc(q)}</p>
+      <p class="note">${chip(M[how][0], M[how][1])} ${note} · <a href="#/${path}">on the site</a></p>
+      <p class="cite"><code>${esc(src)}</code> <button type="button" class="linkbtn" data-copy="${esc(q + " " + src)}">Copy</button></p></div>`; };
+  const secs = [...new Set(F.map(f => f[0]))];
+  app.innerHTML = `${subnav()}<section><h1>${esc(W)} in numbers: for the press</h1>
+    <p class="sub">Figures you can quote, each from a page of this site, with the date of the data, how it is worked out and a citation line. Listener counts are measured; money figures are our estimates and are always given as a range with grade C, never as reported earnings. Data as of ${esc(on)}; the page updates daily.</p></section>
+    <section class="panel" id="cite"><h2>How to cite</h2><ul>
+      <li>Quote the sentence with the line under it: <code>Source: tventy music, &lt;date of the data&gt;, &lt;page address&gt;</code>. The date matters: listener counts change daily.</li>
+      <li>Call an estimate an estimate and give the range. Royalties and catalog values are worked out from measured streams and published rates (grade C); labels' and artists' actual earnings are not public.</li>
+      <li>Grades: <b>A</b> primary (filings, the platform's own disclosure), <b>B</b> reputable secondary, <b>C</b> our estimate. Terms are defined in the <a href="#/glossary">Glossary</a>; methods and their changes in <a href="#/method">Method</a> and the <a href="#/changelog">method changelog</a>.</li>
+      <li>For figures fixed at a month's end, cite <a href="#/state">State of ${esc(w)}</a> for that month. Questions or a correction: <a href="mailto:hello@tventy.se?subject=${encodeURIComponent("Press: tventy music")}">hello@tventy.se</a>.</li></ul></section>
+    ${secs.map(s => `<section class="panel"><h2>${esc(s)}</h2><div class="pressgrid">${F.filter(f => f[0] === s).map(card).join("")}</div></section>`).join("")}`;
+  copyBtns(app);
+}
+const AREA = { money: ["Money estimates", "Royalties, the artist's share by deal and catalog sale values"], scout: ["Scout score", "How momentum is scored and when a tier is given"],
+  unsigned: ["Unsigned prospects", "Who counts as an unsigned prospect"], other: ["Other figures", "Changes to how a summary figure is counted"] };
+function changelogPage() {
+  nav("changelog");
+  crumbs([["Method changelog"]]);
+  setMeta("Method changelog: money and Scout", "Every change to how the money estimates, the Scout score and the Unsigned list are worked out: the date, what changed and its effect.");
+  const Q = store.data.quality || {}, C = Q.changes || [], R = Q.method || [], cur = k => C.find(c => c.area === k && c.version);
+  const DL = "https://github.com/sverigeleague/Music/blob/main/DECISIONS.md";
+  const only = r => r.genre === "all" ? "" : ` <span data-noswap>${chip(r.genre === "country" ? "country list only" : "hip-hop list only", "This change applies to one genre's list")}</span>`;
+  app.innerHTML = `${subnav()}<section><h1>Method changelog</h1>
+    <p class="sub">Every change to how our money estimates, the Scout score and the Unsigned list are worked out, newest first: the date, what changed and what it did to the figures. A change that moved published figures is also in the <a href="#/quality">corrections log</a>; the full reasoning is in our public <a href="${DL}" target="_blank" rel="noopener">decision log</a>, filed by date.</p></section>
+    <section class="tiles">${["money", "scout", "unsigned"].map(k => cur(k) ? `<div class="tile"><div class="k">${esc(AREA[k][0])}</div><div class="v">v${esc(cur(k).version)}</div><div class="s">since ${esc(cur(k).date)}</div></div>` : "").join("")}
+      ${R[0] ? `<div class="tile"><div class="k">Top-list ranking</div><div class="v">v${esc(R[0].version)}</div><div class="s">since ${esc(R[0].date)}</div></div>` : ""}</section>
+    ${Object.keys(AREA).filter(k => C.some(c => c.area === k)).map(k => `<section class="panel" id="ch-${k}"><h2>${esc(AREA[k][0])}</h2><p class="note">${esc(AREA[k][1])}.</p>
+      <div class="tablebox"><table class="stack"><thead><tr><th class="l">Version</th><th class="l">Date</th><th class="l">What changed</th><th class="l">Effect</th></tr></thead><tbody>
+      ${C.filter(c => c.area === k).map(c => `<tr><td class="l"><b>${c.version ? "v" + esc(c.version) : "–"}</b></td><td class="l">${esc(c.date)}</td><td class="l wrap">${esc(c.change)}${only(c)}</td>
+        <td class="l wrap">${esc(c.effect)}${c.now ? `<br><span class="note">${esc(c.field)}: was ${esc(c.was)}; now ${esc(c.now)}</span>` : ""} <span class="note"><a href="${DL}" target="_blank" rel="noopener" title="${esc(c.source)}">Decision log</a></span></td></tr>`).join("")}</tbody></table></div></section>`).join("")
+      || `<section class="panel"><p class="note">No method changes logged yet.</p></section>`}
+    ${R.length ? `<section class="panel" id="ch-ranking"><h2>Top-list ranking (current listeners)</h2><ul>${R.map(m => `<li><b>v${esc(m.version)}</b> (${esc(m.date)}): ${esc(m.change)}</li>`).join("")}</ul></section>` : ""}
+    <p class="note">A new version is any change that can move a published figure; a wording or layout change is not one. Spotted an error? Write to <a href="mailto:hello@tventy.se?subject=Correction">hello@tventy.se</a>.</p>`;
+}
+function glossaryPage() {
+  nav("glossary");
+  crumbs([["Glossary"]]);
+  setMeta("Glossary", "What each figure on tventy music means: listeners, current share, Scout signals, royalty and catalog estimates, grades.");
+  const T = new Map(), add = (t, def, at) => { if (!T.has(t)) T.set(t, { def, at: new Map() }); if (at) T.get(t).at.set(at[0], at[1]); };
+  Object.entries(GLOSSARY).forEach(([t, def]) => add(t, def));
+  const PAGES = [["top", "Top list", "#/"], ["movers", "Movers", "#/movers"], ["scout", "Scout", "#/scout"], ["unsigned", "Unsigned", "#/unsigned"], ["producers", "Producers", "#/producers"], ["labels", "Labels", "#/labels"], ["tours", "Tours", "#/tours"]];
+  const by = ui.by;
+  for (const [k, l, h] of PAGES) for (const v of k === "top" ? ["monthly", "current"] : [by]) {
+    ui.by = v;
+    try { (HOW[k]?.() || []).forEach(([t, def]) => add(t, def[0].toUpperCase() + def.slice(1) + (/\.$/.test(def) ? "" : "."), [l, h])); } catch { /* a page's data not loaded yet */ }
+  }
+  ui.by = by;
+  const rows = [...T].sort((a, b) => a[0].localeCompare(b[0], "en", { sensitivity: "base" }));
+  const slug = t => "g-" + fold(t).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  app.innerHTML = `${subnav()}<section><h1>Glossary</h1>
+    <p class="sub">What each figure on the site means, in plain words. The same definitions appear when you hold the pointer over a column heading, and in each page's "How this ranking works" box. Sources and grades for every figure: <a href="#/method">Method</a>.</p></section>
+    <section class="panel"><dl class="gloss">${rows.map(([t, x]) => `<dt id="${slug(t)}">${esc(t)}</dt><dd>${esc(x.def)}${x.at.size ? ` <span class="note">Used on: ${[...x.at].map(([l, h]) => `<a href="${h}">${esc(l)}</a>`).join(", ")}</span>` : ""}</dd>`).join("")}</dl></section>`;
 }
 
 // ---------- deal comparison and advance recoupment (artists and managers, 2026-10-26): on #/worth/<id> (or a typed
@@ -1829,12 +1937,191 @@ document.addEventListener("click", async e => {
   setTimeout(() => (b.textContent = "Copy link to this view"), 2500);
 });
 
+// ---------- hip-hop and country side by side (analysts and press, 2026-10-26, ROADMAP 11.11): #/genres (and
+// #/country/genres) loads both genres' index and extra.json and works out each figure as that genre's own page does
+// (Labels tiles, catalog screener, label one-pager, Platforms, Scout). The two lists are different universes: said on the page.
+SECTION.genres = "artists"; SUBNAV.artists.push(["genres", "#/genres", "Genres compared"]);
+// another genre's page files, merged as route's loadPart merges the genre in view (artist_more in index order)
+function loadGenreParts(g, ps) {
+  return loadGenre(g).then(d => { if (!d) throw new Error(`the ${g === "hip_hop" ? "hip-hop" : g} data did not load`);
+    const s = genreStore[g], parts = s.parts = s.parts || {}, have = s.have = s.have || {}, dir = g === "hip_hop" ? "data/" : `data/${g}/`;
+    return Promise.all(ps.map(p => parts[p] || (parts[p] = getJSON(`${dir}${p}.json`).then(x => { const more = x.artist_more || {}; delete x.artist_more;
+      for (const k in more) if (more[k].length === s.data.artists.length) s.data.artists.forEach((a, i) => { a[k] = more[k][i]; });
+      have[p] = true; return Object.assign(s.data, x); }).catch(e => { delete parts[p]; throw e; })))).then(() => s.data); });
+}
+function genreFigures(d) {
+  const A = d.artists, counted = A.filter(a => !a.second_of), m = d.market;
+  // Labels page tiles: majors = the first three groups, shares of the listeners of artists whose label is known
+  const G = GROUP_ORDER.filter(g => m.groups[g]).concat(Object.keys(m.groups).filter(g => !GROUP_ORDER.includes(g))), gv = (g, k) => m.groups[g][k];
+  const known = k => G.filter(g => g !== "Not yet known").reduce((s, g) => s + gv(g, k), 0) || 1, tot = k => G.reduce((s, g) => s + gv(g, k), 0) || 1;
+  const maj = k => G.slice(0, 3).reduce((s, g) => s + gv(g, k), 0) / known(k);
+  const valued = A.filter(a => a.worth_mid), add = f => valued.reduce((s, a) => s + (f(a) || 0), 0);  // catalog screener, no filter
+  const aged = counted.filter(a => ageOf(a) && a.streaming_mid), wt = aged.reduce((x, a) => x + a.streaming_mid, 0);  // label one-pager
+  const plat = Object.fromEntries(STREAMING.map(k => [k, A.reduce((s, a) => s + (a.rev_lines?.[k] || 0), 0)]));  // Platforms, whole list
+  const listed = counted.filter(a => a.ml && !a.floor), ml = listed.reduce((s, a) => s + a.ml, 0);
+  return { n: A.length, floor: A.filter(a => a.floor).length, ml, majMl: maj("ml"), majN: maj("artists"),
+    self: (m.groups["Self-released"]?.ml || 0) / (tot("ml") - (m.groups["Not yet known"]?.ml || 0) || 1), selfN: m.groups["Self-released"]?.artists || 0,
+    roy: A.reduce((s, a) => s + (streamingMid(a) || 0), 0), perL: ml ? listed.reduce((s, a) => s + (streamingMid(a) || 0), 0) / ml : null,
+    value: { low: add(a => a.worth_range?.[0]), mid: add(a => a.worth_mid), high: add(a => a.worth_range?.[1]) }, valued: valued.length,
+    mult: median(valued.filter(a => a.wmult).map(a => (a.wmult[0] + a.wmult[1]) / 2)),
+    mix: wt ? Object.fromEntries(["new", "mixed", "evergreen"].map(k => [k, aged.reduce((x, a) => x + ageOf(a)[k] * a.streaming_mid, 0) / wt])) : null,
+    plat, platSum: Object.values(plat).reduce((s, v) => s + v, 0), radio: A.reduce((s, a) => s + (a.rev_lines?.radio || 0), 0),
+    tiers: Object.fromEntries(["Breaking", "Rising", "Watch"].map(t => [t, A.filter(a => a.scout?.tier === t).length])),
+    top: [...listed].sort((x, y) => y.ml - x.ml).slice(0, 10), as_of: d.as_of };
+}
+async function genresPage() {
+  nav("genres");
+  crumbs([["Artists", "#/"], ["Genres compared"]]);
+  const title = "Hip-hop and country compared: ownership, pay and catalog value";
+  app.innerHTML = `${subnav()}<p class="note">Loading both genres…</p>`;
+  const [H, C] = await Promise.all([loadGenreParts("hip_hop", ["extra"]), loadGenreParts("country", ["extra"])]);
+  if (pageId !== "genres") return;  // the visitor moved on
+  document.title = `${title} · tventy music`;  // set here: setMeta would turn "hip-hop" into "country" on the country side
+  const dm = document.querySelector('meta[name="description"]'); if (dm) dm.content = "Hip-hop's top 1,000 and country's list side by side: majors' share, self-released share, royalties, catalog values, the age of the music, platforms and Scout tiers, every figure sourced.";
+  const h = genreFigures(H), c = genreFigures(C);
+  const row = (k, note, f) => `<tr><td class="l">${k}${note ? `<br><span class="note">${note}</span>` : ""}</td><td>${f(h)}</td><td>${f(c)}</td></tr>`;
+  const head = l => `<thead><tr><th class="l">${l}</th><th>Hip-hop</th><th>Country</th></tr></thead>`;
+  const mixOf = x => x.mix ? `${share(x.mix.new)} / ${share(x.mix.mixed)} / ${share(x.mix.evergreen)}` : "–";
+  const P = C.platforms, keys = STREAMING.filter(k => h.plat[k] / (h.platSum || 1) >= 0.005 || c.plat[k] / (c.platSum || 1) >= 0.005)
+    .sort((x, y) => (c.plat[y] / (c.platSum || 1) + h.plat[y] / (h.platSum || 1)) - (c.plat[x] / (c.platSum || 1) + h.plat[x] / (h.platSum || 1)));
+  const pname = k => k === "others" ? "Other services (Tencent, NetEase, regional)" : P[k]?.name || k;
+  const topList = (x, g) => `<div><h3>${g === "hip_hop" ? "Hip-hop" : "Country"}</h3><div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th><th>Monthly listeners</th></tr></thead><tbody>
+    ${x.top.map((a, i) => `<tr><td class="l">${i + 1}</td><td class="l"><a class="who" href="${g === "hip_hop" ? "#/" : "#/country/"}a/${a.id}" data-genre-link="${g}">${pic(a)}<span>${esc(a.name)}</span>${flag(a)}</a></td><td>${count(a.ml)}</td></tr>`).join("")}</tbody></table></div></div>`;
+  app.innerHTML = `${subnav()}<div data-noswap><section><h1>Hip-hop and country, side by side</h1>
+    <p class="sub">Who owns each genre's biggest artists, what the music earns, what the catalogs would sell for and how old the music earning it is. Each figure is worked out as on that genre's own pages, from the same data.</p>
+    <p class="note"><b>Two different lists.</b> Hip-hop: the ${h.n.toLocaleString()} hip-hop artists with the most Spotify monthly listeners. Country: ${c.n.toLocaleString()} country artists, ${(c.n - c.floor).toLocaleString()} above Spotify's public 500k-listener floor and ${c.floor.toLocaleString()} below it, ranked by streams a day or Deezer's order (no listener count). The hip-hop list stops at about 1.5m listeners, so it holds fewer small artists: shares and sums compare the lists as published, not the two genres as a whole. Data as of ${esc(h.as_of)} (hip-hop) and ${esc(c.as_of)} (country).</p></section>
+    <section class="panel"><h2>Size and ownership</h2><div class="tablebox"><table class="cmp">${head("Measure")}<tbody>
+      ${row("Artists in the list", "", x => x.n.toLocaleString() + (x.floor ? `<br><span class="note">${x.floor} below 500k</span>` : ""))}
+      ${row(`Monthly listeners, added ${chip("measured")}`, "a sum over the artists with a listener count: a fan of two artists counts twice; second Spotify profiles left out", x => count(x.ml))}
+      ${row(`Majors' share of listeners ${grade("B")}`, "Universal, Sony and Warner, of the listeners of artists whose label is known (as on Labels)", x => `${share(x.majMl)}<br><span class="note">${share(x.majN)} of those artists</span>`)}
+      ${row(`Self-released share of listeners ${grade("B")}`, "of the listeners of artists whose label is known", x => `${share(x.self)}<br><span class="note">${x.selfN} artists</span>`)}
+    </tbody></table></div><p class="note">Labels: the label printed on each artist's releases of the last two years (Deezer), placed with its owner and checked against the recordings' registrant codes; catalog acts (no release in two years) are left out of the shares. Listeners: Spotify's public counts via kworb.net.</p></section>
+    <section class="panel"><h2>Money ${grade("C")}</h2><div class="tablebox"><table class="cmp">${head("Measure")}<tbody>
+      ${row("Streaming royalties a year, added", "generated on all services before anyone's cut, mid estimates at today's pace", x => usd(x.roy))}
+      ${row("Per monthly listener a year", "the royalties of artists with a listener count ÷ their listeners", x => x.perL ? "$" + x.perL.toFixed(2) : "–")}
+      ${row("Recordings + songs value, added", "a year's streaming and songwriting royalties × sale multiples by song age (as the catalog screener)", x => `about ${usd(x.value.mid)}<br><span class="note">${range(x.value)}; ${x.valued.toLocaleString()} catalogs</span>`)}
+      ${row("Median sale multiple", "years of royalties a buyer pays, mid of each artist's range", x => x.mult ? xm(x.mult) + "×" : "–")}
+      ${row("Streams by song age", "under 3 / 3–10 / 10+ years, weighted by each artist's royalties", mixOf)}
+    </tbody></table></div><p class="note">Sums of per-artist estimates: the low ends added together and the high ends together, so the ranges are wide. Indicative, not valuations. Method: royalties from measured Spotify streams and YouTube views, other services estimated from them with each genre's own platform ratios (registry/platform_multipliers.csv and platform_multipliers_country.csv); values with the sale multiples in registry/catalog_multiples.csv.</p></section>
+    <section class="panel"><h2>Where the recording royalties come from ${grade("C")}</h2><div class="tablebox"><table class="cmp">${head("Service, share of streaming royalties")}<tbody>
+      ${keys.map(k => row(esc(pname(k)) + (["spotify", "youtube"].includes(k) ? " " + chip("measured") : ""), "", x => share(x.plat[k] / (x.platSum || 1)))).join("")}
+      ${row("US radio airplay, a year", "paid to the songs' writers and publishers, not the recordings; not in the shares above", x => usd(x.radio))}
+    </tbody></table></div><p class="note">Mid estimates over each whole list. Only Spotify and YouTube are measured; the other services are estimated from each artist's Spotify royalties with ratios from label filings and genre research: country over-indexes on Amazon Music (about 1.5–2.2× its all-genre share) and Pandora, so those ratios are set higher for country. In hip-hop's estimates Pandora sits inside "Other services". Radio is estimated from the US airplay audience where an artist is on the airplay chart; a dash means no radio line in that list's estimates.</p></section>
+    <section class="panel"><h2>Scout tiers</h2><div class="tablebox"><table class="cmp">${head("Tier")}<tbody>
+      ${row(tierChip("Breaking"), "score 80+ with new songs or attention clearly up", x => x.tiers.Breaking)}
+      ${row(tierChip("Rising"), "score 65+", x => x.tiers.Rising)}
+      ${row(tierChip("Watch"), "score 50–64", x => x.tiers.Watch)}
+    </tbody></table></div><p class="note">Scout scores each artist against artists of similar size in their own genre's list, with each genre's own signals (country adds US radio), so a tier count compares how much momentum each list holds, not one scale. A pointer, not a prediction. <a href="#/scout">Scout</a></p></section>
+    <section class="panel"><h2>The ten biggest by monthly listeners ${chip("measured")}</h2><div class="grid2">${topList(h, "hip_hop")}${topList(c, "country")}</div></section>
+    <section class="panel"><h2>Sources and grades</h2><p class="note"><b>Measured</b>: Spotify's public monthly listeners and play counts (kworb.net), YouTube views, Deezer releases. <b>B</b>: label ownership, from release labels and registrant codes. <b>C</b>: our estimates, always shown as a range on each artist's page. Each genre's own pages hold the detail: <a href="#/labels" data-genre-link="hip_hop">hip-hop labels</a>, <a href="#/country/labels" data-genre-link="country">country labels</a>, <a href="#/screener" data-genre-link="hip_hop">hip-hop catalogs</a>, <a href="#/country/screener" data-genre-link="country">country catalogs</a>, <a href="#/method">Method</a>.</p></section></div>`;
+}
+
+// ---------- label groups' results with periods aligned (investors, 2026-10-26, ROADMAP 11.14): on Labels, each
+// company's latest fiscal year in its own column, labelled with the months it covers and its currency, on one
+// calendar strip; a year well behind the newest is marked. From label_financials (registry/label_financials.csv).
+const FIN_COS = [["Universal Music Group", "Universal Music Group"], ["Sony Music (Sony Group Music segment)", "Sony Music (music segment)"], ["Warner Music Group", "Warner Music Group"], ["BMG", "BMG"], ["Believe", "Believe"], ["Reservoir Media", "Reservoir Media"]];
+// each line: the first metric (or set of metrics, added) the company reports; profit carries its own name
+const FIN_LINES = [["Revenue", ["total_revenue", "revenue", "music_segment_sales"]], ["Recorded music", ["recorded_music_revenue", ["recorded_music_streaming_sales", "recorded_music_other_sales"]]],
+  ["Recorded music streaming", ["recorded_music_streaming_revenue", "recorded_music_streaming_sales", ["subscription_streaming_revenue", "ad_supported_streaming_revenue"]]],
+  ["Music publishing", ["music_publishing_revenue", "music_publishing_sales"]], ["Profit", ["adjusted_ebitda", "adjusted_oibda", "operating_ebitda_adjusted", "music_segment_operating_income"]]];
+const PROFIT_NAME = { adjusted_ebitda: "adjusted EBITDA", adjusted_oibda: "adjusted OIBDA", operating_ebitda_adjusted: "operating EBITDA, adjusted", music_segment_operating_income: "segment operating income" };
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function alignedFinancials() {
+  const R = (store.data.label_financials || []).filter(r => r.unit === "millions" && r.value !== "" && !isNaN(+r.value));
+  const endOf = r => (/year ended (\d{4}-\d{2}-\d{2})/.exec(r.period || "") || [])[1];
+  const cols = FIN_COS.map(([co, name]) => {
+    const rs = R.filter(r => r.company === co && endOf(r)), ends = [...new Set(rs.map(endOf))].sort();
+    if (!ends.length) return null;
+    const end = ends.at(-1), prevEnd = `${+end.slice(0, 4) - 1}${end.slice(4)}`;
+    const get = (e, ms) => { for (const m of ms) { const ks = Array.isArray(m) ? m : [m], xs = ks.map(k => rs.find(r => endOf(r) === e && r.metric === k));
+      if (xs.every(Boolean)) return { v: xs.reduce((s, r) => s + +r.value, 0), r: xs[0], k: ks[0], sum: ks.length > 1 }; } return null; };
+    const v = Object.fromEntries(FIN_LINES.map(([l, ms]) => [l, get(end, ms)])), rev0 = get(prevEnd, FIN_LINES[0][1]);
+    const y = +end.slice(0, 4), mo = +end.slice(5, 7), sy = mo === 12 ? y : y - 1, sm = mo % 12;  // the 12 months to the period end
+    return { co, name, end, cur: v.Revenue?.r.currency || rs[0].currency, v, rev0, fy: (/^(Sony )?FY\d{4}/.exec(v.Revenue?.r.period || "") || [""])[0],
+      span: `${MON[sm]} ${sy} – ${MON[mo - 1]} ${y}`, t0: sy + sm / 12, t1: y + mo / 12 };
+  }).filter(Boolean);
+  if (!cols.length) return "";
+  const newest = cols.map(c => c.end).sort().at(-1), lo = Math.min(...cols.map(c => c.t0)), hi = Math.max(...cols.map(c => c.t1));
+  const behind = c => Math.round((Date.parse(newest) - Date.parse(c.end)) / (864e5 * 30.44)), stale = c => behind(c) >= 9;  // as groupsCompare: 270 days
+  const money = (x, c) => x ? `${money2(x.v * 1e6, c.cur)}${x.sum ? `<span class="note">*</span>` : ""}` : "–";
+  const td = (c, s) => `<td${stale(c) ? ' class="q"' : ""}>${s}</td>`;
+  return `<section class="panel" id="fin-aligned"><h2>Label groups' music results, periods aligned ${grade("A")}</h2>
+    <p class="note">Each company's latest reported fiscal year, in its own currency. The years end in different months, so the columns cover different twelve months: the strip shows which.</p>
+    <div class="bars">${cols.map(c => `<div class="barrow"><span>${esc(c.name)}</span><div class="track"><i style="left:${(c.t0 - lo) / (hi - lo) * 100}%;width:${(c.t1 - c.t0) / (hi - lo) * 100}%"></i></div><span>${esc(c.span)}${stale(c) ? " · older" : ""}</span></div>`).join("")}</div>
+    <div class="tablebox"><table><thead><tr><th class="l">Measure</th>${cols.map(c => `<th${stale(c) ? ' class="q"' : ""}>${esc(c.name)}</th>`).join("")}</tr></thead><tbody>
+      <tr><td class="l">Fiscal year</td>${cols.map(c => td(c, `${esc(c.fy || "FY")}<br><span class="note">${esc(c.span)}</span>${stale(c) ? `<br><span class="note"><b>${behind(c)} months older</b> than the newest column</span>` : ""}`)).join("")}</tr>
+      <tr><td class="l">Currency</td>${cols.map(c => td(c, `<b>${esc(c.cur)}</b>`)).join("")}</tr>
+      ${FIN_LINES.map(([l]) => `<tr><td class="l">${l === "Profit" ? "Profit measure" : esc(l)}</td>${cols.map(c => td(c, `${money(c.v[l], c)}${l === "Profit" && c.v[l] ? `<br><span class="note">${esc(PROFIT_NAME[c.v[l].k] || c.v[l].k)}</span>` : ""}`)).join("")}</tr>`).join("")}
+      <tr><td class="l">Profit margin</td>${cols.map(c => td(c, c.v.Profit && c.v.Revenue ? (c.v.Profit.v / c.v.Revenue.v * 100).toFixed(1) + "%" : "–")).join("")}</tr>
+      <tr><td class="l">Revenue growth, own currency</td>${cols.map(c => td(c, c.rev0 && c.v.Revenue ? pct((c.v.Revenue.v / c.rev0.v - 1) * 100) : "–")).join("")}</tr>
+      <tr><td class="l">Basis</td>${cols.map(c => td(c, c.v.Revenue ? `${c.v.Revenue.r.basis === "reported" ? grade("A") : grade("B")} <a href="${esc(c.v.Revenue.r.source_url)}" target="_blank" rel="noopener" title="${esc(c.v.Revenue.r.period)}${c.v.Revenue.r.note ? ": " + esc(c.v.Revenue.r.note) : ""}">source</a>` : "–")).join("")}</tr>
+    </tbody></table></div>
+    <p class="note"><b>Why there is no total:</b> the columns are in euros, yen and dollars and cover different twelve-month periods. Adding them needs an exchange rate for each company's own year (an average rate for revenue, not today's), and even then the sum would mix, for example, Warner's year to September with Sony's year to March. Compare growth rates and margins, which need no conversion. Shaded columns are a fiscal year nine months or more older than the newest. * the sum of two reported lines (Sony: streaming and other recorded music sales; Universal: subscription and ad-supported streaming). Sony Music is Sony Group's music segment, not the whole group; BMG is Bertelsmann's music business. The profit measures are each company's own and are not defined the same way: compare them with care. Margin and growth are our arithmetic on the reported figures.</p></section>`;
+}
+
+// ---------- peer benchmark (artists, 2026-10-26, ROADMAP 11.15): on the artist page, the artist's percentile among the
+// 10 artists of the same genre's list nearest in monthly listeners, on five measures from the index (no extra download)
+const ord = n => n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th");
+function peerCard(a) {
+  if (!a.ml || a.floor || a.second_of) return "";
+  const near = store.data.artists.filter(p => p.id !== a.id && p.ml && !p.floor && !p.second_of)
+    .sort((x, y) => Math.abs(Math.log(x.ml / a.ml)) - Math.abs(Math.log(y.ml / a.ml))).slice(0, 10);
+  if (near.length < 5) return "";
+  const M = [["Current share", "share of listening on recent releases", x => x.cur_share, v => share(v), "measured"],
+    ["Streams a day per listener", "Spotify streams a day ÷ monthly listeners", x => x.daily && x.ml ? x.daily / x.ml : null, v => v.toFixed(2), "measured"],
+    ["Scout score", "0–100, against artists of similar size", x => x.scout?.score, v => String(v), ""],
+    ["Spotify royalties per listener / yr", "own songs' Spotify recording royalties (mid estimate) ÷ monthly listeners", x => x.money?.generated?.mid && x.ml ? x.money.generated.mid * 12 / x.ml : null, v => "$" + v.toFixed(2), "C"],
+    ["Chart countries", "Spotify weekly top 200 or Apple Music daily top 100", x => x.reach, v => String(v), "measured"]];
+  const rows = M.map(([l, d, f, fmt, g]) => { const me = f(a), vs = near.map(f).filter(v => v != null && isFinite(v)).sort((x, y) => x - y);
+    if (me == null || !isFinite(me) || vs.length < 5) return `<tr><td class="l">${esc(l)}</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>`;
+    const below = vs.filter(v => v < me).length, same = vs.filter(v => v === me).length, p = Math.round((below + same / 2) / vs.length * 100);
+    return `<tr><td class="l">${esc(l)} ${g === "measured" ? chip("measured") : g ? grade(g) : ""}<br><span class="note">${esc(d)}</span></td><td><b>${fmt(me)}</b></td><td>${fmt(median(vs))}</td><td>${fmt(vs[0])}–${fmt(vs.at(-1))}</td><td><b>${ord(p)}</b><br><span class="note">above ${below} of ${vs.length}${same ? `, level with ${same}` : ""}</span></td></tr>`; });
+  const lo = Math.min(...near.map(p => p.ml)), hi = Math.max(...near.map(p => p.ml));
+  return `<section class="panel" id="peers"><h2>Against the 10 nearest artists</h2>
+    <div class="tablebox"><table class="stack"><thead><tr><th class="l">Measure</th><th>${esc(a.name)}</th><th>Peers' median</th><th>Peers' range</th><th>Percentile</th></tr></thead><tbody>${rows.join("")}</tbody></table></div>
+    <p class="note"><b>Nearest</b>: the 10 artists in this hip-hop list closest to ${esc(a.name)} in Spotify monthly listeners, measured as a ratio (2m and 8m are equally far from 4m): ${count(lo)} to ${count(hi)}. Second Spotify profiles and artists below 500k (no listener count) are left out. Percentile: the share of those peers below ${esc(a.name)}, ties counted half. Royalties are our estimate (grade C) of Spotify only, the one service measured for every artist; the Scout score is ours. Peers: ${near.map(p => `<a href="#/a/${p.id}">${esc(p.name)}</a>`).join(", ")}.</p></section>`;
+}
+
+// ---------- unsigned prospects export (A&R, 2026-10-26, ROADMAP 11.12): the Unsigned page's prospects as CSV, with
+// the official public profiles we hold (src/site_build.py public_links) and never personal contact data
+function unsignedCsv(U) {
+  const byId = Object.fromEntries(store.data.artists.map(a => [a.id, a])), g = GENRE === "country" ? "country" : "hip-hop";
+  const page = a => a?.slug ? `${SITE_URL}${GDIR()}a/${a.slug}/` : `${SITE_URL}${PREFIX()}a/${a?.id || ""}`;
+  const ev = u => LICENSED.test(u.label || "") && !SERVICES.test(u.label || "") ? "licensed out (may be a licence or services deal)" : u.confidence === "confirmed" ? "confirmed (release label and recording codes)" : "label name only";
+  download(`tventy-music-${g}-unsigned-prospects.csv`, [["name", "spotify_url", "youtube_channel_url", "instagram_url", "wikidata_url", "tventy_page", "country", "release_label", "unsigned_evidence", "why_a_prospect",
+    "monthly_listeners", "current_listeners", "share_on_recent_releases", "streams_a_day_per_listener", "share_of_streams_as_featured_guest", "royalties_generated_mid_usd_year", "artist_keeps_now_mid_usd_year", "signed_peers_generate_median_usd_year",
+    "scout_score", "scout_tier", "links_source", "listeners_source", "money_grade", "data_as_of", "note"],
+    ...U.map(u => { const a = byId[u.id], L = u.links || {};
+      return [u.name, L.spotify || `https://open.spotify.com/artist/${u.id}`, L.youtube || "", L.instagram || "", L.wikidata || "", page(a || u), a?.country || "", u.label || "", ev(u), (u.indie_basis || []).join("; "),
+        u.floor ? "under 500k" : u.ml ?? "", u.floor ? "" : u.cl ?? "", u.cur_share ?? "", u.spl != null ? +u.spl.toFixed(3) : "", u.feat ?? "", u.generated ?? "", u.keeps_now ?? "", u.feat > 0.9 ? "" : u.peer_generated ?? "",
+        a?.scout?.score ?? "", a?.scout?.tier || "", "Spotify: kworb.net; YouTube channel: Wikidata P2397, else MusicBrainz; Instagram: Wikidata P2003", "Spotify public counts via kworb.net (measured)",
+        "C (estimate)", store.data.as_of, "official public profiles only, no personal contact data; unsigned = no label deal on record, from release labels and recording codes; tventy music"]; })]);
+}
+
+// ---------- tours by size band (investors and managers, 2026-10-26, ROADMAP 11.18): on Tours, the counted tours
+// grouped by the artist's monthly listeners today, with median gross per show and per ticket in each band
+function toursByBand(T) {
+  const byId = Object.fromEntries(store.data.artists.map(a => [a.id, a]));
+  const bandOf = a => !a ? null : a.floor || !a.ml ? "under 500k (by streams)" : BANDS[[1.5e6, 3e6, 6e6, 15e6].filter(x => a.ml >= x).length];
+  const order = ["15m+", "6-15m", "3-6m", "1.5-3m", "under 1.5m", "under 500k (by streams)"];
+  const by = {}; T.forEach(t => { const b = bandOf(byId[t.id]); if (b) (by[b] = by[b] || []).push(t); });
+  const bs = order.filter(b => by[b]);
+  if (!bs.length) return "";
+  const nm = b => b === "under 1.5m" && GENRE === "country" ? "500k–1.5m" : b.replace(/(\d)-(\d)/, "$1–$2");
+  return `<section class="panel"><h2>By the artist's size</h2><div class="tablebox"><table class="stack"><thead><tr><th class="l">Monthly listeners today</th><th>Tours</th><th>Artists</th><th>Median gross per show</th><th>Median gross per ticket</th><th>Median tickets per show</th></tr></thead><tbody>
+    ${bs.map(b => { const ts = by[b], few = ts.length < 3;
+      return `<tr><td class="l"><b>${esc(nm(b))}</b>${few ? `<br><span class="note">few tours: read with care</span>` : ""}</td><td>${ts.length}</td><td>${new Set(ts.map(t => t.id)).size}</td><td>${usd(median(ts.map(t => t.per_show)))}</td><td>${usd(median(ts.map(t => t.per_fan)))}</td><td>${count(median(ts.filter(t => t.tickets && t.shows).map(t => Math.round(t.tickets / t.shows))))}</td></tr>`; }).join("")}
+  </tbody></table></div>
+  <p class="note">Bands by each artist's Spotify monthly listeners today, not at the time of the tour. Medians over the tours with that figure; a co-headlined tour counts whole here. Coverage: only tours whose box office was reported to Billboard Boxscore or Pollstar (grades A and B) are counted. Reporting is voluntary and comes from promoters and venues, so the biggest arena and stadium tours are well covered and smaller club and theatre tours, festival fees and most dates outside North America and Europe are not: the smaller bands rest on few tours and lean towards the artists who report. Where a gross covers only part of a tour, its shows and tickets are those of the same window.</p></section>`;
+}
+
 // ---------- router
 // extra.json split by page (src/site_build.py PARTS, 2026-10-26): scout.json holds all Scout reads beyond the index,
 // unsigned.json only the Unsigned page's. NEEDS: the files a page reads; a page not listed loads them all. Before
 // listing a page, grep its store.data.* and artist-field uses against PARTS.
 const PARTS = ["extra", "scout", "unsigned"];
-const NEEDS = { scout: ["scout"], ...Object.fromEntries("movers month rising compare producers state pay platforms tours audience method worth labels label screener sheet quality".split(" ").map(p => [p, ["extra", "scout"]])) };
+const NEEDS = { scout: ["scout"], ...Object.fromEntries("movers month rising compare producers state pay platforms tours audience method worth labels label screener sheet quality genres".split(" ").map(p => [p, ["extra", "scout"]])),
+  press: ["extra", "unsigned"], changelog: ["extra"], glossary: [] };  // glossary: the index's scout_factors only
 let routeSeq = 0;
 async function route() {
   const seq = ++routeSeq;
@@ -1897,9 +2184,13 @@ async function route() {
   else if (h[0] === "screener") { readScreen("screener"); screenerPage(); }
   else if (h[0] === "sheet") await sheetPage(decodeURIComponent(h[1] || ""));
   else if (h[0] === "quality") qualityPage();
+  else if (h[0] === "genres") await genresPage();
+  else if (h[0] === "press") pressPage();
+  else if (h[0] === "changelog") changelogPage();
+  else if (h[0] === "glossary") glossaryPage();
   else if (h[0] === "") top();
   else notFound();
-  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of ${GENRE === "country" ? "country" : "hip-hop"}</a> · <a href="#/method">Method</a> · <a href="#/quality">Data quality and corrections</a> · <a href="mailto:hello@tventy.se?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
+  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of ${GENRE === "country" ? "country" : "hip-hop"}</a> · <a href="#/press">Press</a> · <a href="#/method">Method</a> · <a href="#/changelog">Method changelog</a> · <a href="#/quality">Data quality and corrections</a> · <a href="#/glossary">Glossary</a> · <a href="mailto:hello@tventy.se?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
   prefixLinks(document.getElementById("foot"));  // country: footer links keep the genre (new tab, copied link)
   window.scrollTo(0, 0);
   if (!PARTS.every(p => parts[p])) setTimeout(() => loadExtra().catch(() => {}), 0);  // in the background, for the next page
