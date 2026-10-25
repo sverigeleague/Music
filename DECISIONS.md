@@ -5,8 +5,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
 ## 2026-10-25 Country flags in every list (owner: "show the country flag each artist is from in all list formats / rankings")
 
 - **Chosen:** a small flag after the artist's name in every list, ranking, search result, card and on the artist page.
-  The country name shows on hover and is read out by screen readers. Up to two flags for two citizenships (Drake:
-  Canada and the US).
+  The country name shows on hover and is read out by screen readers. Up to two flags when an artist has two citizenships and
+  neither matches the birthplace (Sleepy Hallow: Jamaica and the US).
 - **Flags:** self-hosted SVGs from flag-icons 7.2.3 (MIT; licence in `site/flags/LICENSE`), 109 countries, 1.1 MB in
   all, loaded lazily. Emoji flags were rejected because Windows shows them as two letters.
 - **Source:** the registry's country (Wikidata citizenship; with several, the one matching the birthplace). Names map
@@ -14,6 +14,52 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - **Fixed in the data:** two citizenships entered on Wikidata as places. "Karachi" becomes Pakistan (Talha Anjum).
   "Cina", an Indonesian subdistrict entered for Simba La Rue (an Italian rapper born in Tunis), is dropped rather
   than guessed.
+
+## 2026-10-25 Money, artist, Scout and labels pages: the rest of the client review
+
+Three parallel passes, one per section, on the reviewers' remaining findings.
+
+- **Money:**
+  - Sale-value tiles lead with the mid and name their base: recordings, songs, and recordings + songs. The last one
+    ties to the tables (Drake $1.94bn on both).
+  - The Pay page draws the same deal table, grades and sources as the calculator and artist pages. The joint-venture
+    row is shown as a note, not a percentage.
+  - The tours waterfall is defined before agent, manager and tax, as on the artist pages. Tour dates use one format;
+    partial tours and co-headliners are named.
+  - Platforms flags services whose totals are identical because they share a ratio to Spotify, and notes that
+    YouTube is likely understated.
+  - Label financials:
+    - one money format;
+    - outflows in brackets;
+    - stale years flagged;
+    - the latest period is picked by date, not by string sort.
+- **Artist pages:**
+  - Thousands separators in ranks.
+  - YouTube says "not measured" rather than "no data".
+  - Scout band wording.
+  - Shazam places title-cased and the note built from the data.
+  - Stale stream dates flagged.
+  - A "Labels on record" fallback.
+  - Phone layout: ranges on one line, each row's basis visible.
+  - The Worth card says whether "Artist keeps" covers streaming only (no tour reported in 12 months) or streaming and
+    touring.
+- **Scout, unsigned and labels:**
+  - One tier rule everywhere.
+  - Blanks sort last.
+  - "Signed" filter renamed "Any label deal".
+  - The 15m+ band explains why it is empty under a tier filter.
+  - The CSV export uses readable label statuses and names.
+  - Unsigned peers are described as "active" rather than "growing".
+  - Feature-only artists are greyed.
+  - Month and labels shares are among artists whose label is known, as on the tiles. The State page uses the same
+    basis (`src/state.py`).
+  - Producers coverage is stated: 473 of 2,967 songs have a producer credit.
+  - The "How this ranking works" box starts closed on phones.
+- **Left for the owner (model or data changes):**
+  - Valuing catalogues by release year instead of current share.
+  - Re-grading the Spotify rate's high end ($4.40, unverified).
+  - Better YouTube channel matching.
+  - The catalog rule for acts with new hits only as features (Boef, Honaiser, Sidhu Moose Wala).
 
 ## 2026-10-25 Who counts as unsigned (owner: "count stem and independent as unsigned. I take your guidance on the licensed out deals")
 
@@ -60,7 +106,7 @@ Four reviews read every page as an investment-banking client would. Fixes:
   - **Grammys:** an award won in several years for several works no longer multiplies into every year × work pair.
     Awards are grouped per Wikidata statement.
   - **Country of origin:** an artist with several citizenships shows the one matching their birthplace, else all of
-    them (Drake: "Canada / United States"). Names are normalised ("Kingdom of the Netherlands" -> "Netherlands").
+    them. Drake shows Canada, his birthplace; Sleepy Hallow shows "Jamaica / United States". Names are normalised ("Kingdom of the Netherlands" -> "Netherlands").
   - **Duplicates:** a below-the-floor name matching an artist already listed is left out.
   - **Deals:** entries that are not the artist's own income (another artist's contract, a lawsuit) move to a
     "context" list under the artist's deals; legal filings are labelled as such.
