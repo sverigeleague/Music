@@ -994,7 +994,7 @@ async function worthPage() {
   nav("worth");
   const d = store.data, deals = Object.fromEntries(d.deals.map(x => [x.deal_type, x]));
   const K4 = ["diy", "services", "independent", "major"];  // deal not on record: the range spans all four deal types
-  deals.unknown = { label: "Deal unknown", low: Math.min(...K4.map(k => deals[k].low)), mid: median(K4.map(k => deals[k].mid)), high: Math.max(...K4.map(k => deals[k].high)) };
+  deals.unknown = deals.unknown || { label: "Deal unknown", low: Math.min(...K4.map(k => deals[k].low)), mid: median(K4.map(k => deals[k].mid)), high: Math.max(...K4.map(k => deals[k].high)) };
   const w = ui.worth = ui.worth || { ml: 1000000, deal: "diy", vintage: "auto", pick: "" };
   const picked = w.pick && d.artists.find(a => a.id === w.pick && (a.ml || a.daily));  // no stream figure: nothing to value
   const allL = picked ? (store.rev[picked.id] = store.rev[picked.id] || await detailOf(picked.id)).lines : null;
