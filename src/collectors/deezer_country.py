@@ -146,16 +146,19 @@ def spotify_ids(limit: int | None = None, recheck_days: int = 90) -> int:
     rows = load()
     since = (date.today() - timedelta(days=recheck_days)).isoformat()
     todo = [r for r in rows.values() if not r.get("spotify_id") and (r.get("id_checked") or "") < since][:limit]
+    from concurrent.futures import ThreadPoolExecutor
     found = 0
-    for i, r in enumerate(todo, 1):
-        ids = musicbrainz.ids_for_deezer(r["deezer_id"])
-        r["id_checked"] = date.today().isoformat()
-        r["mbid"] = ids["mbid"] or r.get("mbid", "")
-        if ids["spotify_id"]:
-            r.update(spotify_id=ids["spotify_id"], id_source="musicbrainz", qid=r.get("qid") or ids["qid"])
-            found += 1
-        if i % 50 == 0 or i == len(todo):
-            _write(rows.values())
+    # three requests in flight: http.get still spaces MusicBrainz requests 1.1 s apart across threads, but its
+    # answers take 2-3 s, so one at a time would leave the allowed rate mostly unused
+    with ThreadPoolExecutor(3) as pool:
+        for i, (r, ids) in enumerate(zip(todo, pool.map(lambda r: musicbrainz.ids_for_deezer(r["deezer_id"]), todo)), 1):
+            r["id_checked"] = date.today().isoformat()
+            r["mbid"] = ids["mbid"] or r.get("mbid", "")
+            if ids["spotify_id"]:
+                r.update(spotify_id=ids["spotify_id"], id_source="musicbrainz", qid=r.get("qid") or ids["qid"])
+                found += 1
+            if i % 50 == 0 or i == len(todo):
+                _write(rows.values())
     return found
 
 
