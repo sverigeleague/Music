@@ -437,6 +437,7 @@ def youtube_matches(todo: list[dict], idx: dict[str, dict], day: str) -> tuple[d
     from . import storage
     from .collectors import youtube_feed
     back = {r["spotify_id"]: r["slug"] for r in idx.values() if r["spotify_id"]}
+    linked = {r["slug"] for r in idx.values() if r["spotify_id"]}
     pages = {s: kworb_youtube.own_videos(storage.read(kworb_youtube.page_path(r)).decode("utf-8", "replace")) for s, r in idx.items()}
     names = {kworb_youtube.slug_guess(r["name"]): s for s, r in idx.items()}
     mb = musicbrainz.youtube_channels([a["musicbrainz_id"] for a in todo if a["spotify_id"] not in back and not a["youtube_channel"]])
@@ -453,16 +454,11 @@ def youtube_matches(todo: list[dict], idx: dict[str, dict], day: str) -> tuple[d
         if link in idx and idx[link]["spotify_id"]:
             note(a, link, "kworb's Spotify page links this YouTube page, which links back to another Spotify ID")
         chans = [a["youtube_channel"]] if a["youtube_channel"] else mb.get(a["musicbrainz_id"], [])
-        hits = {}
-        for c in chans:
-            vids = youtube_feed.video_ids(c, day)
-            for slug, own in pages.items():
-                if vids & own:
-                    hits.setdefault(slug, f"channel {c} video {sorted(vids & own)[0]}")
-        if len(hits) == 1 and not idx[next(iter(hits))]["spotify_id"]:
-            known[sid] = next(iter(hits.items()))
-        for slug, ev in ({} if sid in known else hits).items():
-            note(a, slug, "the channel's video is on a page that links back to another Spotify ID" if idx[slug]["spotify_id"]
+        match, hits = kworb_youtube.channel_match({c: youtube_feed.video_ids(c, day) for c in chans}, pages, linked)
+        if match:
+            known[sid] = match
+        for slug, ev in ({} if match else hits).items():
+            note(a, slug, "the channel's video is on a page that links back to another Spotify ID" if slug in linked
                  else "the channel's videos are on several kworb pages", ev)
         guess = names.get(kworb_youtube.slug_guess(a["name"]))
         if not hits and guess and not idx[guess]["spotify_id"] and guess != link:

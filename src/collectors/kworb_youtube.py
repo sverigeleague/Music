@@ -110,15 +110,26 @@ def update_index(day: str, limit: int | None = None) -> dict[str, dict]:
     return idx
 
 
-def match_by_channel(channel_videos: dict[str, set[str]], pages: dict[str, set[str]]) -> dict[str, list[str]]:
-    """spotify_id -> the kworb pages that list one of the videos uploaded to the artist's own channel (channel ID
-    from Wikidata or MusicBrainz, video IDs from the channel's public feed) as the artist's own video."""
-    out = {}
-    for sid, vids in channel_videos.items():
-        hits = [slug for slug, own in pages.items() if vids & own]
-        if hits:
-            out[sid] = hits
-    return out
+def channel_match(channel_videos: dict[str, set[str]], pages: dict[str, set[str]], linked: set[str]):
+    """channel_videos: the artist's own channels (ID from Wikidata or MusicBrainz) -> video IDs from each channel's
+    feed; pages: kworb page -> the videos it lists as the artist's own; linked: pages that link back to a Spotify ID.
+    Returns (slug, evidence) when exactly one page lists one of the videos and that page links to no Spotify ID
+    (else None), and every page hit with its evidence (for review)."""
+    hits = {}
+    for c, vids in channel_videos.items():
+        for slug, own in pages.items():
+            if vids & own:
+                hits.setdefault(slug, f"channel {c} video {sorted(vids & own)[0]}")
+    one = len(hits) == 1 and next(iter(hits)) not in linked
+    return (next(iter(hits.items())) if one else None), hits
+
+
+def accept(page_spotify_id: str | None, spotify_id: str, how: str) -> str | None:
+    """How a kworb page is matched to the artist, or None: its link back to Spotify must be this ID, or, when it has
+    none, an identifier must tie it (how: kworb's Spotify page link or a channel video). A name alone never does."""
+    if page_spotify_id:
+        return "backlink" if page_spotify_id == spotify_id else None
+    return how or None
 
 
 def fetch(spotify_id: str, name: str, day: str, known: tuple[str, str] | None = None) -> dict | None:
@@ -136,11 +147,12 @@ def fetch(spotify_id: str, name: str, day: str, known: tuple[str, str] | None = 
         if r.status_code != 200:
             continue
         p = parse(r.text)
-        if p["total_views"] is None or (p["spotify_id"] or "") not in (spotify_id, "") or not (p["spotify_id"] or how):
+        match = accept(p["spotify_id"], spotify_id, how)
+        if p["total_views"] is None or not match:
             continue  # not this artist's page, or nothing but the name ties it to the artist
         storage.archive(f"kworb/youtube/{day}/{spotify_id}.html", URL.format(slug=slug), r.content)
         return {"date": day, "spotify_id": spotify_id, "slug": slug, **{k: p[k] for k in ("total_views", "daily_views", "videos")},
-                "match": "backlink" if p["spotify_id"] == spotify_id else how}
+                "match": match}
     return None
 
 
