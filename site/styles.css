@@ -25,6 +25,9 @@ a { color: inherit; }
 header { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid var(--line); z-index: 5; }
 .bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 12px; }
 .brand { font: 700 22px var(--font-ui); text-decoration: none; letter-spacing: -.02em; }
+/* the tventy logo (as the sport site): letters at the size and baseline of the text, the circled t in the page colour */
+.brand { --logo-on: var(--bg); color: var(--fg); line-height: 1; }
+.brand svg { display: inline-block; height: .983em; width: auto; vertical-align: -.181em; }
 .brand b { font-weight: 500; }
 .crumbs { color: var(--muted); font-size: 13px; padding-top: 14px; overflow-wrap: anywhere; }
 .crumbs:empty { display: none; }
@@ -221,7 +224,6 @@ td.q, th.q { background: var(--soft); }
 /* tventy.se: the small section word under the wordmark switches between /music and /sport (Public-Registry worker) */
 .brandbox { display: inline-flex; flex-direction: column; line-height: 1; }
 .brandbox .section { align-self: flex-end; margin-top: 1px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: lowercase; text-decoration: none; color: var(--muted); }
-.brandbox .section:hover, .brandbox .section:focus { color: var(--fg); text-decoration: underline; }
 /* start page, as on tventy sport: title, search, headline figures, then a band of what moved */
 .hero { padding: 12px 0 8px; display: grid; gap: 14px; }
 .hero h1 { font-size: clamp(30px, 4.6vw, 44px); line-height: 1.05; letter-spacing: -.03em; }
