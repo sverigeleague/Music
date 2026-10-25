@@ -12,7 +12,7 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
 EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market")
-DETAIL_ONLY = ("cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_newest", "label_isrc_note", "label_confidence", "label_override",
+DETAIL_ONLY = ("about", "cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_newest", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
                "peak_rank", "attention_series", "worth", "collabs")
@@ -66,8 +66,10 @@ def build(genre: str = "hip_hop") -> dict:
         listed = {t["spotify_id"] for t in top}
         fresh = (date.today() - timedelta(days=FLOOR_FRESH_DAYS)).isoformat()  # kworb refreshes small artists rarely
         from .collectors import deezer_country
-        crawl_order = {c["spotify_id"]: int(c.get("top10_rank_sum") or 0)
-                       for c in deezer_country.load().values() if c.get("spotify_id")}
+        crawl_order: dict[str, int] = {}  # an artist with two Deezer pages (Hank 3 / Hank Williams III) takes the bigger
+        for c in deezer_country.load().values():
+            if c.get("spotify_id"):
+                crawl_order[c["spotify_id"]] = max(crawl_order.get(c["spotify_id"], 0), int(c.get("top10_rank_sum") or 0))
         measured = lambda a: (num(streams.get(a["spotify_id"], {}).get("total_daily"))
                               and streams[a["spotify_id"]].get("date", "") >= fresh)
         below = [a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed]
@@ -253,6 +255,10 @@ def build(genre: str = "hip_hop") -> dict:
         att = r.pop("attention")
         r["attention"] = {"trend": round(att["trend"], 3) if att["trend"] else None, "last3": att["last3"]} if att else None
         r["attention_series"] = att and {"start": att["start"], "views": att["series"]}
+    from .collectors import descriptions as desc_src
+    about = desc_src.load()
+    for r in rows:
+        r["about"] = about_of(r, about.get(r["id"]), genre)
     for i, r in enumerate(rows, 1):
         r["rank"] = i  # by monthly listeners
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
@@ -289,6 +295,33 @@ def build(genre: str = "hip_hop") -> dict:
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
             "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES)}
+
+
+STATUS_WORDS = {"major": "signed to", "major_distributed": "released through", "independent": "on the independent label",
+                "self_released": "releasing on their own"}
+
+
+def about_of(r: dict, wiki: dict | None, genre: str) -> dict | None:
+    """The artist page's one- or two-sentence description: the opening of the English Wikipedia article (CC BY-SA),
+    else one sentence from our own sourced fields (Wikidata country and start year, the label on recent releases)."""
+    if wiki:
+        return {"text": wiki["text"], "source": "wikipedia", "url": wiki["url"]}
+    word = "country" if genre == "country" else "hip-hop"
+    parts = [f"{r['name']} is a {word} artist"]
+    if r.get("country"):
+        c = r["country"]
+        the = c.startswith(("United ", "Republic of ", "Czech Republic", "Dominican Republic")) or c in (
+            "Netherlands", "Philippines", "Bahamas", "Gambia", "Ivory Coast", "Democratic Republic of the Congo")
+        parts.append(f" from {'the ' if the else ''}{c}")
+    if r.get("since"):
+        parts.append(f", active since {r['since']}")
+    st, lab = r.get("label_status"), r.get("label_name")
+    if st == "self_released":
+        parts.append(", releasing without a label")
+    elif st in STATUS_WORDS and lab:
+        owner = r.get("label_owner")
+        parts.append(f", {STATUS_WORDS[st]} {lab}" + (f" ({owner})" if owner and owner not in (lab, "the artist's own name") else ""))
+    return {"text": "".join(parts) + ".", "source": "ours"}
 
 
 SIGNED = ("major", "major_distributed", "independent")
@@ -393,11 +426,11 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
         peer_spl, u_spl = med([spl(p) for p in peers if spl(p)]), spl(u)
         diy, keep = float(shares["diy"]["mid"]), {k: float(shares[k]["mid"]) for k in ("major", "services", "independent")}
         out.append({
-            "id": u["id"], "name": u["name"], "ml": u["ml"], "cl": u.get("cl"), "cur_share": u.get("cur_share"),
+            "id": u["id"], "name": u["name"], "ml": u["ml"], "floor": u.get("floor"), "cl": u.get("cl"), "cur_share": u.get("cur_share"),
             "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label") or u.get("label_name") or u.get("label_owner"),
             "generated": round(g_u), "keeps_now": round(g_u * diy), "spl": u_spl,
             "feat": round(u["feature_daily"] / u["daily"], 3) if u.get("daily") and u.get("feature_daily") is not None else None,
-            "peers": [{"id": p["id"], "name": p["name"], "ml": p["ml"], "status": p["label_status"],
+            "peers": [{"id": p["id"], "name": p["name"], "ml": p["ml"], "floor": p.get("floor"), "status": p["label_status"],
                        "owner": p.get("label_owner"), "generated": round(gen(p)),
                        "artist_slice": round(gen(p) * float(shares[p["deal_type"]]["mid"])), "spl": spl(p)} for p in peers],
             "peer_generated": round(peer_gen), "peer_spl": peer_spl,
@@ -452,7 +485,9 @@ def below_floor(measured: int, listed: set[str], today: date, years: int = 3) ->
     from .collectors import deezer_country, deezer_genres
     from .collectors.deezer import _norm
     above = {str(r.get("deezer_id")) for r in deezer_genres.load().values() if r.get("deezer_id")}
-    above |= {str(a["deezer_id"]) for a in load_artists().values() if a.get("deezer_id")}  # matched or ISRC-confirmed
+    reg = load_artists()
+    above |= {str(a["deezer_id"]) for a in reg.values() if a.get("deezer_id")}  # matched or ISRC-confirmed
+    listed = set(listed) | set(reg)  # a second Deezer page of an artist the registry holds (Bellamy Brothers)
     listed_names = {_norm(t["name"]) for t in latest_listeners()}  # a second Deezer profile of a listed artist
     cutoff = date(today.year - years, today.month, min(today.day, 28)).isoformat()
     rows = [r for r in deezer_country.load().values()
@@ -478,6 +513,7 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     shards: dict[int, dict] = {}
     from . import static_pages
     static_pages.assign_slugs(data["artists"])
+    about = {r["id"]: r.get("about") for r in data["artists"]}  # detail-only, but the static artist pages show it
     for r in data["artists"]:
         rev = r.pop("revenue")
         # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
@@ -500,7 +536,8 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     (out.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
     out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{out.relative_to(SITE.parent)}: {len(data['artists'])} {genre} artists, {out.stat().st_size // 1024} KB")
-    urls = static_pages.build(data, states=extra["state"], prefix="" if genre == "hip_hop" else f"{genre}/")
+    urls = static_pages.build({**data, "artists": [{**r, "about": about.get(r["id"])} for r in data["artists"]]},
+                              states=extra["state"], prefix="" if genre == "hip_hop" else f"{genre}/")
     print(f"static pages and cards ({genre}): {len(urls)} pages")
     return urls
 

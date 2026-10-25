@@ -52,7 +52,7 @@ def build(data: dict, extra: dict) -> dict:
     if unsigned:
         u = unsigned[0]
         items.append({"key": "unsigned", "label": "Top unsigned prospect", "value": u["name"],
-                      "detail": f"Scout {u['scout']['score']}, {_count(u['ml'])} monthly listeners, releasing without a label", "link": f"#/a/{u['id']}"})
+                      "detail": f"Scout {u['scout']['score']}, {'under 500k' if u.get('floor') else _count(u['ml'])} monthly listeners, releasing without a label", "link": f"#/a/{u['id']}"})
     top100 = ranked[:100]
     gen = sum((a.get("money") or {}).get("generated", {}).get("mid", 0) for a in top100)
     if gen:
@@ -67,7 +67,7 @@ def build(data: dict, extra: dict) -> dict:
         items.append({"key": "shazam", "label": f"Most Shazamed {word} artist", "value": shz["name"],
                       "detail": f"on {shz['shazam']['charts']} Shazam charts in the last 7 days", "link": f"#/a/{shz['id']}"})
     items.append({"key": "size", "label": f"{word.capitalize()} artists tracked", "value": f"{len(A):,}",
-                  "detail": f"{_count(sum(a['ml'] for a in A))} combined monthly listeners, from Spotify's top {data.get('universe', 0):,}", "link": "#/"})
+                  "detail": f"{_count(sum(a['ml'] or 0 for a in A))} combined monthly listeners, from Spotify's top {data.get('universe', 0):,}", "link": "#/"})
     return {"month": as_of[:7], "as_of": as_of, "items": items}
 
 

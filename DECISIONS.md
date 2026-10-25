@@ -23,6 +23,50 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - **hello@tventy.se replaces swedenrocked@gmail.com** in the User-Agent of every collector, the site footer and the
   working agreement (owner set up tventy.se mail, 2026-10-25; the same change in the sport repository).
 
+## 2026-10-25 Fixes from a second independent review
+
+- **Wikipedia quotes:** the country pages' word swap ("hip-hop" -> "country") no longer touches the quoted
+  descriptions. Shaboozey's "country, Americana, and hip-hop" had read "country, Americana, and country".
+- **Sentence cutting:** "2010s.", "R&B." and "D.C. He ..." now end sentences; "the U.S. Army" does not; nested
+  brackets are removed. The full opening paragraph is stored, so the cut is redone at every build without
+  refetching.
+- **Country top list, our ranking:** below-floor artists follow the ranked ones at their place (399 onwards),
+  instead of being missing and listed as "missing release dates". The sentence under the title now counts only the
+  398 artists on Spotify's public list, and names the 359 below it separately.
+- **Worth calculator:** a below-floor artist is compared with artists of a similar size by daily streams / 0.10, the
+  build's internal measure; the box shows "under 500k". Artists with no stream figure can't be picked.
+- **Scout:** a size filter for "under 500k (by streams)".
+- **Unsigned and compare pages:** below-floor artists show "under 500k" rather than "–".
+- **Two Deezer pages, one Spotify artist** (Hank 3 / Hank Williams III, Bellamy Brothers, Charlie Daniels): the
+  artist ranks by the bigger page, and the second page no longer shows in the names list.
+- **Country links:** in-site links carry the genre prefix, so a link opened in a new tab or followed by a search
+  engine reaches the country page. Found by a page crawl: 24 country label pages opened empty that way.
+- Composed descriptions say "from the United States".
+
+## 2026-10-25 Artist descriptions and "How this ranking works" (owner)
+
+- **Descriptions:** each artist page opens with one or two sentences. Source: the opening of the artist's English
+  Wikipedia article (page summary API; the article is the one Wikidata links, no name matching), cut at the second
+  sentence or 320 characters, birth-date asides removed, credited "Wikipedia, CC BY-SA" with a link
+  (`src/collectors/descriptions.py`, step `descriptions`, monthly). Artists without an article get one sentence
+  composed from our own sourced fields (genre, Wikidata country and start year, the label on recent releases),
+  marked by having no Wikipedia credit. Also on the static artist pages.
+- **How this ranking works:** a box under the introduction of every ranked page (top list, movers, Scout, unsigned,
+  producers, labels, tours) lists the metrics, what each measures and its weight; Method keeps the full detail.
+  The current-listeners age cut-offs stay described in general terms ("older songs fade out as they age"), as
+  decided on 2026-10-23; Scout's weights come from the data, so the box follows any change to them.
+- **Later (ROADMAP 10.5):** accounts to star and track artists across devices; planned with the owner first.
+
+## 2026-10-25 White page, black text, as tventy sport (owner)
+
+- The owner asked for the same font and style as tventy.se/sport, with the white background and black text. The site
+  already shared sport's font (Bricolage Grotesque), layout and square boxes; the tokens in `site/styles.css` now take
+  sport's values (white page, black text, #5a5f68 secondary text, #e7e9ee lines, #f6f7f9 fills, green #15803d and red
+  #b91c1c for up and down), and the page asks the browser for the light colour scheme. This replaces the inverse
+  (black) theme of 2026-10-24.
+- The labels share bars run dark to light on the white page; groups outside the fixed order (HYBE America in
+  country) now get striped shades instead of a missing one. Share cards (PNG) are white with black text too.
+
 ## 2026-10-25 Country top 1,000 at the same depth as hip-hop (owner: "a list of top 1,000 country artists robust with all information possible")
 
 - **Places 1 to ~395:** monthly listeners from kworb's public list, as before.
@@ -52,6 +96,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
   order (grade C, as before) but with the same data as everyone else apart from the stream-based figures (no money
   lines, no listener-based Scout signals). The 1,000 is complete only as far as crawl artists have a Spotify ID linked
   at the source; the remainder stays in the Deezer-ordered name list.
+- Genre review of the new below-floor artists (owner: "carry on as suggested with the uncertainties"): 50 of 53
+  decided as suggested, country except The Wild Feathers (Americana rock: other); country covers Americana,
+  bluegrass, alt-country and country rap (Savannah Dexter) as before. Beauxmont (no genre data), Ceol and LEW stay in
+  review.
 - What would measure everyone: the Spotify Web API (followers, popularity) or Last.fm (listeners), both waiting on
   keys (K1).
 

@@ -12,7 +12,7 @@ _session.headers["User-Agent"] = USER_AGENT
 _last: dict[str, float] = {}
 _lock = threading.Lock()  # pacing is shared by threads, so a worker pool still keeps each site's limit
 # Seconds between requests per host: each site's published limit or a polite default.
-PAUSE = {"musicbrainz.org": 1.1, "query.wikidata.org": 2.0, "kworb.net": 1.0, "api.deezer.com": 0.11, "wikimedia.org": 0.2, "web.archive.org": 3.0, "data.sec.gov": 0.2, "filings.xbrl.org": 0.5}
+PAUSE = {"musicbrainz.org": 1.1, "query.wikidata.org": 2.0, "kworb.net": 1.0, "api.deezer.com": 0.11, "wikimedia.org": 0.2, "en.wikipedia.org": 0.5, "web.archive.org": 3.0, "data.sec.gov": 0.2, "filings.xbrl.org": 0.5}
 
 
 def get(url, params=None, headers=None, tries=4, timeout=60, data=None):
