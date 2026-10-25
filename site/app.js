@@ -803,7 +803,7 @@ function statePage(ym) {
 
 // ---------- Shazam (owner, 2026-10-24, K3): an internal Scout signal, shown only as a badge with a link to Shazam's chart
 const shazamBadge = (a, short = false) => { const z = a.shazam; if (!z) return short ? "–" : "";
-  const best = `#${z.best.rank} ${z.best.kind === "genre" ? "hip-hop" : ""} in ${z.best.place.replace(/-/g, " ")}`.replace(/\s+/g, " ");
+  const best = `#${z.best.rank} ${z.best.kind === "hiphop" ? "hip-hop" : z.best.kind === "country" ? "country" : ""} in ${z.best.place.replace(/-/g, " ")}`.replace(/\s+/g, " ");
   return `<a class="chip" href="${esc(z.url)}" target="_blank" rel="noopener" title="On ${z.charts} Shazam chart${z.charts > 1 ? "s" : ""} (7 days)${z.cities ? `, ${z.cities} cities` : ""}; best ${esc(best)}">${short ? z.charts : `Shazam: ${z.charts} chart${z.charts > 1 ? "s" : ""}, best ${esc(best)}`}</a>`; };
 
 // ---------- certifications and chart peaks (English Wikipedia discographies, CC BY-SA)

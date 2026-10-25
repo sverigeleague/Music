@@ -54,6 +54,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - **Listener history for country:** the Wayback backfill now keeps country artists and stores only artist-weeks it
   does not hold yet; `backfill-refetch` (workflow "backfill", input refetch) re-reads every archived week once so the
   country artists get the same 90-day growth history as hip-hop.
+- **Shazam country charts:** the world and US country charts join the daily Shazam read (Canada, Australia and the UK
+  have none). Country artists on a Shazam chart: 1% -> 19%. The badge now names the genre chart ("#1 country in
+  world"); it never did for hip-hop because of a wrong key, fixed.
 - **Kept fresh:** the monthly workflow runs every per-artist step for country too, plus `countrycrawl`,
   `country-from-crawl` and `confirm-country`; the daily Scout log records country scores.
 - **MusicBrainz dates** were stopped for country tonight: the step works through every unlooked-up ISRC in the shared

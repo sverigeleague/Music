@@ -1,4 +1,4 @@
-"""Shazam: the daily chart CSVs (world, countries, hip-hop genre, cities) as an INTERNAL Scout signal.
+"""Shazam: the daily chart CSVs (world, countries, hip-hop and country genre, cities) as an INTERNAL Scout signal.
 
 Owner decision K3 (2026-10-24): the site shows only a badge linking to Shazam's chart page, never Shazam's chart
 tables. Shazam publishes no reuse licence for these CSVs; they are a public download (robots allow /services/charts).
@@ -31,6 +31,7 @@ COUNTRIES = ("united-states", "united-kingdom", "france", "germany", "canada", "
              "netherlands", "sweden", "australia", "spain", "italy", "japan", "ghana")
 HIPHOP_COUNTRIES = ("united-states", "united-kingdom", "france", "germany", "canada", "south-africa", "brazil",
                     "australia", "spain", "italy")  # the countries Shazam has a hip-hop-rap chart for
+COUNTRY_GENRE = ("world", "united-states")  # Shazam's country-music charts (Canada, Australia, UK: 404, 2026-10-25)
 CITIES = (("united-states", c) for c in ("atlanta", "new-york-city", "los-angeles", "chicago", "houston", "miami",
                                          "detroit", "memphis", "philadelphia", "new-orleans", "dallas",
                                          "washington-d.c.", "baltimore", "st.-louis", "charlotte", "san-francisco"))
@@ -47,6 +48,8 @@ def _path(kind: str, place: str) -> str:
         return f"top-200/{quote(place)}"
     if kind == "hiphop":
         return f"genre/{quote(place)}/hip-hop-rap"
+    if kind == "country":
+        return f"genre/{quote(place)}/country"
     return f"top-50/{quote(place)}"  # city: place is "<country>/<city>"
 
 
@@ -59,6 +62,7 @@ CHARTS: list[tuple[str, str, str]] = (
     [("top", "world", BASE + _path("top", "world")), ("hiphop", "world", BASE + _path("hiphop", "world"))]
     + [("top", c, BASE + _path("top", c)) for c in COUNTRIES]
     + [("hiphop", c, BASE + _path("hiphop", c)) for c in HIPHOP_COUNTRIES]
+    + [("country", c, BASE + _path("country", c)) for c in COUNTRY_GENRE]
     + [("city", f"{c}/{t}", BASE + _path("city", f"{c}/{t}")) for c, t in CITIES])
 
 
@@ -185,7 +189,7 @@ def update(day: str) -> tuple[int, int, list[tuple[str, str, int]]]:
     return len(texts), n, failed
 
 
-_KIND_ORDER = {"top": 0, "hiphop": 1, "city": 2}
+_KIND_ORDER = {"top": 0, "hiphop": 1, "country": 1, "city": 2}
 
 
 def presence(day: str | None = None, days: int = 1) -> dict[str, dict]:
