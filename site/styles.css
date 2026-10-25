@@ -76,6 +76,13 @@ th, td { padding: 9px 12px; text-align: right; white-space: nowrap; border-botto
 th.l, td.l { text-align: left; }
 th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; background: var(--soft); }
 th[data-sort] { cursor: pointer; user-select: none; }
+th[tabindex] { cursor: pointer; user-select: none; }
+th[tabindex]:focus-visible, .tablebox[tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+main:focus { outline: none; }
+/* skip link and screen-reader-only text (2026-10-25, accessibility) */
+.vh { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: 8px; top: -60px; z-index: 100; background: var(--fg); color: var(--bg); padding: 8px 14px; font: 600 14px var(--font-ui); text-decoration: none; }
+.skip:focus { top: 8px; }
 th[aria-sort] { color: var(--fg); }
 tbody tr:last-child td { border-bottom: 0; }
 tbody tr:hover td { background: var(--soft); }
