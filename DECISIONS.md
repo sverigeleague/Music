@@ -99,6 +99,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
   Magic, Carré Bleu (Sony France), Maison Baron Rouge (Warner France), Strange Music (Virgin), Verdansk, Indipendenza
   and Futura (Believe), Toreshi (Stem, from 2025-11-24), Twenty Nine (Tully), MORE VISION (Kakao), KOZ (HYBE). Left
   out though placeable as companies: LAIKA, COLORSxSTUDIOS, Big Noise (no distributor named). 32 stay unknown.
+- **Batch 6** (60 more strings): 16 rows: Milan (Sony), Ambition Music, 3TR6AP2, 7th Magnitude, Boogie Naipe,
+  G59 (Sony-distributed; Virgin until 2020), Psychopathic (ADA from 2019); Thaurus (Believe), MNRK, X-Ray (Cleopatra),
+  Zef and Glizzy Gang (Stem), Stones Throw, Netflix Music, Rich Vagos (ONErpm). About 45 stay own-imprint only.
 
 ## 2026-10-24 Country money (owner C5): platform weights and radio songwriting
 
