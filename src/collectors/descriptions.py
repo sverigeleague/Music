@@ -57,13 +57,15 @@ def summary(title: str) -> dict | None:
             "source": "wikipedia", "fetched": date.today().isoformat()}
 
 
-def update(articles: dict[str, str], refresh: bool = False, workers: int = 4) -> int:
+def update(articles: dict[str, str], refresh: bool = False, workers: int = 2) -> int:
     """articles: spotify_id -> English Wikipedia title. Fetches the ones not stored yet. Returns the count stored."""
     out = load()
     todo = [(s, t) for s, t in articles.items() if refresh or s not in out]
     with ThreadPoolExecutor(workers) as pool:
-        for (s, _), d in zip(todo, pool.map(lambda st: summary(st[1]), todo)):
+        for i, ((s, _), d) in enumerate(zip(todo, pool.map(lambda st: summary(st[1]), todo)), 1):
             if d and d["text"]:
                 out[s] = d
+            if i % 100 == 0:  # progress survives an interrupted run
+                OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0))
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0))
     return sum(1 for s in articles if s in out)
