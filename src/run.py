@@ -35,6 +35,7 @@
   country-ids     Spotify IDs for those artists from MusicBrainz (Deezer and Spotify pages linked on one artist; monthly)
   country-floor   kworb pages for those artists, identity confirmed from their songs -> Deezer genre rows (monthly)
   certifications  RIAA, BPI and other certifications and US chart peaks from English Wikipedia discographies -> data/certifications.json (monthly)
+  descriptions  one- or two-sentence artist descriptions from English Wikipedia -> data/descriptions.json (monthly)
   awards    award wins and nominations from Wikidata (Grammy, BET, AMA, MTV, BRIT...) -> data/awards.json (monthly)
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
 """
@@ -213,7 +214,10 @@ def tracked(genres=None, top_n: int | None = TOP_N) -> list[dict]:
             for r in csv.DictReader(f):
                 daily[r["spotify_id"]] = int(r["total_daily"] or 0) if r["date"] >= fresh else 0
     from .collectors import deezer_country  # then the rest of the crawl in Deezer's order
-    crawl = {c["spotify_id"]: int(c.get("top10_rank_sum") or 0) for c in deezer_country.load().values() if c.get("spotify_id")}
+    crawl: dict[str, int] = {}  # an artist with two Deezer pages takes the bigger
+    for c in deezer_country.load().values():
+        if c.get("spotify_id"):
+            crawl[c["spotify_id"]] = max(crawl.get(c["spotify_id"], 0), int(c.get("top10_rank_sum") or 0))
     rows = sorted((a for a in load_artists().values() if a["genre"] in genres),
                   key=lambda a: (-ml.get(a["spotify_id"], 0), -daily.get(a["spotify_id"], 0), -crawl.get(a["spotify_id"], 0)))
     return rows[:top_n] if top_n else rows
@@ -508,6 +512,15 @@ def countrycrawl_step(limit: int | None = None) -> None:
     print(f"country artists on Deezer's related graph: {deezer_country.crawl(limit)}")
 
 
+def descriptions_step() -> None:
+    """One- or two-sentence descriptions from each artist's English Wikipedia article (both genres' top 1,000)."""
+    from .collectors import descriptions
+    arts = tracked(("hip_hop",)) + tracked(("country",))
+    titles = wikipedia.articles({a["spotify_id"]: a.get("wikidata_id", "") for a in arts})
+    n = descriptions.update(titles)
+    print(f"descriptions: {n} of {len(arts)} artists have one from Wikipedia ({len(titles)} articles)")
+
+
 def awards_step() -> None:
     from .collectors import awards
     print(f"awards and nominations (Wikidata): {awards.update({a['spotify_id']: a.get('wikidata_id', '') for a in tracked()})} artists with at least one")
@@ -619,7 +632,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "descriptions": descriptions_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

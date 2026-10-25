@@ -11327,5 +11327,1308 @@
 "chain": [],
 "distributors": [],
 "current_only": true
+},
+"Telamo": {
+"looked_up": [
+"Telamo"
+],
+"mbid": "0c2a9129-9cbe-44e8-b425-858027b66cd1",
+"chain": [
+"Telamo Musik & Unterhaltung GmbH"
+],
+"distributors": [
+"Warner Music Group Germany Holding GmbH"
+],
+"current_only": true
+},
+"Big Machine": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Big Star Recordings": {
+"looked_up": [
+"Big Star Recordings"
+],
+"mbid": "7ef3f6db-7713-4895-8576-5b7f9e5a64a9",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"La Honda Records": {
+"looked_up": [
+"La Honda Records"
+],
+"mbid": "d3e57c29-e8f1-4063-a2e6-ba7962560238",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Hummin'Bird Records LLC": {
+"looked_up": [
+"Hummin'Bird Records"
+],
+"mbid": "5ff2d45f-ede3-47c2-8429-e73f2a7f9429",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"The Bingham Recording Co.": {
+"looked_up": [
+"The Bingham Recording Co"
+],
+"mbid": "4107928a-c5ac-48ba-8c20-801af4cfd610",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"RAHHH Records": {
+"looked_up": [
+"RAHHH Records"
+],
+"mbid": "102ef091-77e4-420c-b7ab-f4ffc2003949",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Vista Music Group": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Starlight Music Productions": {
+"looked_up": [
+"Starlight Music Productions"
+],
+"mbid": "5e81a57b-1907-41ba-9b76-935356f77dd5",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Ranch": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"199 Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Rural Route Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Outlaw Roughneck, LLC": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Open Road Music": {
+"looked_up": [
+"Open Road Music"
+],
+"mbid": "e40d21a1-5238-467b-9871-9aba4ca404c5",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"GOOSE CREEK INN RECORDS": {
+"looked_up": [
+"GOOSE CREEK INN RECORDS"
+],
+"mbid": "4c87dfb2-3902-4fe2-b080-e2d1d28a35bf",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"snafu records": {
+"looked_up": [
+"snafu records"
+],
+"mbid": "ce60493a-54d4-4cce-aafa-b4d729c2e5a3",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Sharpe Music": {
+"looked_up": [
+"Sharpe Music"
+],
+"mbid": "8983dd83-293d-4c05-be59-ffb593d10760",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Mountain Home Music Company": {
+"looked_up": [
+"Mountain Home Music Company"
+],
+"mbid": "efdf970c-3021-4d25-b9cc-02a26975fa6d",
+"chain": [
+"Crossroads Entertainment & Marketing, Inc."
+],
+"distributors": [],
+"current_only": true
+},
+"Monument Entertainment": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"tiny horse music": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Highway Sound Records": {
+"looked_up": [
+"Highway Sound Records"
+],
+"mbid": "8d350cb4-21b0-48aa-a0a9-46fa1040b696",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Red Street Records": {
+"looked_up": [
+"Red Street Records"
+],
+"mbid": "9fbb908f-25d1-4c11-b31f-df826c0eea33",
+"chain": [
+"Red Street Records, LLC"
+],
+"distributors": [],
+"current_only": true
+},
+"Soul Arch Surf Club": {
+"looked_up": [
+"Soul Arch Surf Club"
+],
+"mbid": "ad9f8d25-21fc-4c74-9452-e0839e2cf54b",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"American Soul": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"East Dallas Records": {
+"looked_up": [
+"East Dallas Records"
+],
+"mbid": "2e8dcee6-937c-47fe-b682-f00bcbe7fef7",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Casual Records | Carnival Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Prairie Rose Records": {
+"looked_up": [
+"Prairie Rose Records"
+],
+"mbid": "a6c4a34c-5681-41c7-9e71-ad592a90717f",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Aleu Records": {
+"looked_up": [
+"Aleu Records"
+],
+"mbid": "7d8d3ea6-7aeb-4cca-9e4c-103ccd8d1600",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Losing Side Records": {
+"looked_up": [
+"Losing Side Records"
+],
+"mbid": "391bc20c-58af-4c81-9acc-85ff23e75de6",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"CMH Records": {
+"looked_up": [
+"CMH Records"
+],
+"mbid": "9311b139-862e-476b-95e9-f46de04953de",
+"chain": [
+"CMH Records, Inc."
+],
+"distributors": [],
+"current_only": true
+},
+"Moro Bay Music": {
+"looked_up": [
+"Moro Bay Music"
+],
+"mbid": "4ab11190-6790-4dda-a1f5-aae5bfbe0e4c",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"BFD": {
+"looked_up": [
+"BFD"
+],
+"mbid": "5b22b76a-b335-4aac-8e4b-93a810c18b49",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"White Dove Music": {
+"looked_up": [
+"White Dove Music"
+],
+"mbid": "5786b01b-b83e-45f8-a3bf-b4ab64556244",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"SofaBurn Records": {
+"looked_up": [
+"SofaBurn Records"
+],
+"mbid": "61dc9e1c-3c6a-448a-8f88-764b8060376c",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Loose Music": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Write On Records": {
+"looked_up": [
+"Write On Records"
+],
+"mbid": "762a20b4-c161-49ca-a2e5-98c727fc36bf",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Angry Duck Records": {
+"looked_up": [
+"Angry Duck Records"
+],
+"mbid": "dce17475-f335-4353-b3dc-5015cef25bf1",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Musicor": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Golden Goat Records": {
+"looked_up": [
+"Golden Goat Records"
+],
+"mbid": "6e20762a-6acc-430a-abea-6d6c9850472d",
+"chain": [
+"Big Mamas House Records"
+],
+"distributors": [],
+"current_only": true
+},
+"War and Treaty/ATL Outpost": {
+"looked_up": [
+"ATL Outpost"
+],
+"mbid": "725125dc-3cdb-4a74-a495-aa50a8b087c3",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Honey Jar Records": {
+"looked_up": [
+"Honey Jar Records"
+],
+"mbid": "bb00d705-2c3b-41d8-8f8d-5f19a680f510",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Cage Free Music": {
+"looked_up": [
+"Cage Free Music"
+],
+"mbid": "0608e8e4-d754-46f3-a2dc-52b96acec85e",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Kruse Brothers Music": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"19 Recordings, Inc.": {
+"looked_up": [
+"19 Recordings"
+],
+"mbid": "dc435fb5-3c06-4e97-b1f6-f814f37703a3",
+"chain": [
+"19 Recordings Ltd.",
+"19 Recordings, Inc.",
+"19 Entertainment Ltd."
+],
+"distributors": [
+"BMG Rights Management"
+],
+"current_only": true
+},
+"Hwy 87 Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Lightning Rod Records": {
+"looked_up": [
+"Lightning Rod Records"
+],
+"mbid": "6e1b64a7-edb4-48ee-a586-bb898f4f7e61",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Aunt Daddy Records": {
+"looked_up": [
+"Aunt Daddy Records"
+],
+"mbid": "5c488572-7d03-45c6-b602-5a08ada5ee3b",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Bismeaux Records": {
+"looked_up": [
+"Bismeaux Records"
+],
+"mbid": "ce98ced5-99ed-4b90-bf75-4be08bf59cab",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Triple Seven": {
+"looked_up": [
+"Triple Seven"
+],
+"mbid": "e8a73f8a-7738-4bee-93c8-0ef3ccdef67b",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Jimajomo Land AB": {
+"looked_up": [
+"Jimajomo Land AB"
+],
+"mbid": "6fbde6ed-8708-4499-a491-7d7ca1225a70",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Vortex Muse Recordings": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Rack 'Em Records": {
+"looked_up": [
+"Rack 'Em Records"
+],
+"mbid": "c925c393-1e33-4ef5-8391-e6c53d50a3d8",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Yep Roc Records": {
+"looked_up": [
+"Yep Roc Records"
+],
+"mbid": "1edc2ff4-e80d-4539-8c6a-749474f7db3a",
+"chain": [],
+"distributors": [
+"Border Music",
+"Cargo Records",
+"Discmedi Blau",
+"I.R.D.",
+"Irascible",
+"Kick Music",
+"Outside Music",
+"Redeye",
+"RMG Chart Entertainment Ltd.",
+"Rockers Publishing",
+"Shellshock",
+"Socadisc",
+"Trost Records",
+"Tuba Records"
+],
+"current_only": true
+},
+"Piraya Music": {
+"looked_up": [
+"Piraya Music"
+],
+"mbid": "312bcfde-2e9e-4b7b-b70e-a513d9d651cd",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Sky Crunch Records": {
+"looked_up": [
+"Sky Crunch Records"
+],
+"mbid": "cbf9aae7-b246-49b9-bfd8-f88b7e16253e",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Dusty Range Recordings": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Wiggy Thump Records, LLC": {
+"looked_up": [
+"Wiggy Thump Records"
+],
+"mbid": "3eed7a2c-90c2-480b-953f-db96e66c899b",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Reverend White, LLC.": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Fishdog Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Jackie Java": {
+"looked_up": [
+"Jackie Java"
+],
+"mbid": "c1c9580e-ca90-461f-8b2a-ffc2a60b5792",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"TJM Music": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Frog Pad Records": {
+"looked_up": [
+"Frog Pad Records"
+],
+"mbid": "918d4ff9-5844-478c-9cac-d5a55791327a",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"WylieWorld Music": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Big Yellow Dog Music, a division of Big Yellow Dog, LLC. All rights reserved.": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Farley Entertainment LLC.": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Orange Wall Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"All Blue Recordings": {
+"looked_up": [
+"All Blue Recordings"
+],
+"mbid": "5ec878f0-42e6-431a-8b3f-c214ff8d689c",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Gawdz Beatz": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Bolo Records, LLC": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Electrola": {
+"looked_up": [
+"Electrola"
+],
+"mbid": "a5c0753c-08d4-4b3e-8a7d-3eb59d2937c9",
+"chain": [
+"Universal Music GmbH",
+"EMI Recorded Music International",
+"Universal Music Group"
+],
+"distributors": [
+"Electrola Gesellschaft m.b.H."
+],
+"current_only": true
+},
+"BDMG": {
+"looked_up": [
+"BDMG"
+],
+"mbid": "8b3e6434-2c5e-4502-bed0-462f7bc3946a",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Nudie Records": {
+"looked_up": [
+"Nudie Records"
+],
+"mbid": "436f72db-a801-4f4f-af07-3782e7337241",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Forty Below Records": {
+"looked_up": [
+"Forty Below Records"
+],
+"mbid": "9d6c1671-9a1a-4292-8ccd-8d323febd75b",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Productions Michèle C. Pinette": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Productions Véronique Labbé": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Metronica": {
+"looked_up": [
+"Metronica"
+],
+"mbid": "7bca5331-b78c-4427-9e19-e691e5d01cc0",
+"chain": [
+"Metronica AB"
+],
+"distributors": [],
+"current_only": true
+},
+"Babaganoush Records": {
+"looked_up": [
+"Babaganoush Records"
+],
+"mbid": "d575f268-f503-4be3-9c2c-20493a05f179",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Delmore Recording Society": {
+"looked_up": [
+"Delmore Recording Society"
+],
+"mbid": "978ed49c-4034-445f-9e12-f58c7632615a",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"RUN": {
+"looked_up": [
+"RUN"
+],
+"mbid": "ae585123-0d43-4ae9-ac68-be6ac0cab29e",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Maple Creek Records": {
+"looked_up": [
+"Maple Creek Records"
+],
+"mbid": "40005b45-43a2-4f63-8db4-1a6dde26767f",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Gusto Gospel - White Dove Series": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"THEWEBENGINE": {
+"looked_up": [
+"THEWEBENGINE"
+],
+"mbid": "f53b57e5-7b03-4fe5-993d-ff3be3602938",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Howdy Skies Music": {
+"looked_up": [
+"Howdy Skies Music"
+],
+"mbid": "fabd5fd0-e494-4cff-a9ea-ad905f0a811f",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Fossil Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Skysong Records": {
+"looked_up": [
+"Skysong Records"
+],
+"mbid": "83dbd3de-dcc8-4eb8-89f9-1fe9d2e0515d",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Oh Boy Records": {
+"looked_up": [
+"Oh Boy Records"
+],
+"mbid": "479ff113-194d-4606-83cd-ab3386907c87",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Sago Music Group": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Greenhorse Records, Inc": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Ride High Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Harpeth River Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Hardcharger Records": {
+"looked_up": [
+"Hardcharger Records"
+],
+"mbid": "e7cc5d87-8a07-430c-bf94-92ff1fa1b880",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Hillbilly Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Fiesta Records": {
+"looked_up": [
+"Fiesta Records"
+],
+"mbid": "3abe1e1f-922c-48d1-9108-8b3008bf26a9",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Balder": {
+"looked_up": [
+"Balder"
+],
+"mbid": "a93b091e-ce8e-4b01-919f-00da7d70acc6",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"CMG / Killphonic Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Woods Music": {
+"looked_up": [
+"Woods Music"
+],
+"mbid": "52e03eca-20f2-4bf3-8bef-7b34b1f81de9",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Lost Dog Street Band": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Fat Cheeks Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Get it Done LLC": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Nashville South Records": {
+"looked_up": [
+"Nashville South Records"
+],
+"mbid": "ad2e4489-6c85-4556-abe7-a43b8d20ce0a",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Farley Entertainment": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Mom+Pop Music": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Arts & Crafts": {
+"looked_up": [
+"Arts & Crafts"
+],
+"mbid": "43f1132f-9796-4a96-b898-b71ea7ad9b9b",
+"chain": [
+"Arts & Crafts International"
+],
+"distributors": [],
+"current_only": true
+},
+"Arts & Crafts Country": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"WM Australia": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Rich Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Country Classics": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Primadonna Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Pinecastle Records": {
+"looked_up": [
+"Pinecastle Records"
+],
+"mbid": "d35aca8b-3759-415b-af2c-e5ce51a2bc6a",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Propeller Sound Recordings": {
+"looked_up": [
+"Propeller Sound Recordings"
+],
+"mbid": "5f7852ac-f906-4455-ac71-8c4ada4baea2",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"MCG Recordings": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Justin Miller": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Ambition Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Nakatomi Productions": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"InPerpetuity Entertainment": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Tasty Goody Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Mailboat Records": {
+"looked_up": [
+"Mailboat Records"
+],
+"mbid": "84a86a43-07bb-4fdc-8687-ebde00869d9b",
+"chain": [
+"Mailboat Records Inc."
+],
+"distributors": [],
+"current_only": true
+},
+"Wolf Tree": {
+"looked_up": [
+"Wolf Tree"
+],
+"mbid": "18b72818-8c0e-41a7-9bc3-bf8adf3eab6a",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Freefall": {
+"looked_up": [
+"Freefall"
+],
+"mbid": "0b0398c1-7843-45ed-b919-d72484ed7d2b",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Virgin Catalog": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Sunset Blvd Records": {
+"looked_up": [
+"Sunset Blvd Records"
+],
+"mbid": "4c78ddeb-a8a1-4bb4-9e73-1c2d2514278c",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"HBM Records x BT MUSIC": {
+"looked_up": [
+"BT MUSIC"
+],
+"mbid": "af126167-9156-4549-ace9-2edc48b3c64b",
+"chain": [
+"B.T.M. GmbH Musikproduktion, Verlag & Vertrieb"
+],
+"distributors": [],
+"current_only": true
+},
+"Sophie Dog Records": {
+"looked_up": [
+"Sophie Dog Records"
+],
+"mbid": "ea81d5cd-67ae-4f6f-a4c7-ca062f988927",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"ThisisFractal": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"AMB": {
+"looked_up": [
+"AMB"
+],
+"mbid": "131cca80-f1dc-4068-8978-0549632273f4",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Essential Classics": {
+"looked_up": [
+"Essential Classics"
+],
+"mbid": "cd5abd32-0c7a-434a-ac28-ac0f1bd7b9bb",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Warehouse West Entertainment Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Tribulation Recording Company": {
+"looked_up": [
+"Tribulation Recording Company"
+],
+"mbid": "573c1021-17e5-4bcf-af8c-46057519dcb5",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Get It Done LLC": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Truth or Dare Records": {
+"looked_up": [
+"Truth or Dare Records"
+],
+"mbid": "357f07bc-1a99-478c-87ce-369229df6e15",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Wendell World Records": {
+"looked_up": [
+"Wendell World Records"
+],
+"mbid": "63f011fa-f9c3-4992-ab08-353d28854fdf",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Howdy Skies/Snake River Records": {
+"looked_up": [
+"Snake River Records"
+],
+"mbid": "9c7422e2-4b6d-481e-b694-e81300255650",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"NFL": {
+"looked_up": [
+"NFL"
+],
+"mbid": "5243ddd7-3900-4adf-a34a-597f8dd8af5d",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Horsecamp Music": {
+"looked_up": [
+"Horsecamp Music"
+],
+"mbid": "3b98796d-7c0e-426d-978a-df8ac0b7ef03",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Western Pleasure Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Mom+Pop": {
+"looked_up": [
+"Mom+Pop"
+],
+"mbid": "e30c6170-fcd5-4c30-9b89-bd1bdcbcaa5f",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Reprobate Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Preston James": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"ABC Country": {
+"looked_up": [
+"ABC Country"
+],
+"mbid": "4f582f7b-a4a2-457f-ad34-d798dd32650a",
+"chain": [
+"ABC Music",
+"Australian Broadcasting Corporation",
+"Double J",
+"Australian Government"
+],
+"distributors": [],
+"current_only": true
+},
+"Morning Bell Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Bidan & Velletranelle LLP": {
+"looked_up": [
+"Bidan & Velletranelle LLP"
+],
+"mbid": "51caa3b1-9849-4e06-8d36-129ce5922db1",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Mountain Dew Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Greenhorse LLC": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Bolo Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Bolo Recrods, LLC": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Sugar Hill Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Country Road Management": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"The Hidden Chamber": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Clover Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Prime Entertainment": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"SSM Nashville": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Havanna Songs": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Delta Music / Laserlight Digital": {
+"looked_up": [
+"Delta Music"
+],
+"mbid": "8307df44-cd4d-4bf9-b543-12a581a78c65",
+"chain": [
+"Delta Music GmbH",
+"Delta Music Holding AG"
+],
+"distributors": [],
+"current_only": true
+},
+"Ride Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Rubygg": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"White Mustang-Nashville": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Skypierce Entertainment": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Fortibus": {
+"looked_up": [
+"Fortibus"
+],
+"mbid": "0517c1bf-380e-4225-9d00-23419c7ed293",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Sky Crunch": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Blue Lantern Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"tanaka cook halim": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Nova Sound Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"IK Records": {
+"looked_up": [
+"IK Records"
+],
+"mbid": "042465a4-873e-454d-b3c1-9349e61c9b30",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Champs Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Congressman Davy Project": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Compass Records": {
+"looked_up": [
+"Compass Records"
+],
+"mbid": "0f2029a4-9361-447b-967f-0693d70acf0d",
+"chain": [
+"Compass Records Group"
+],
+"distributors": [],
+"current_only": true
+},
+"Unknown Artist": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"2025 Truly Handmade Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Sol Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Raptor Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Raptor Records (A Division of Attic Entertainment)": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"True Lonesome Records": {
+"looked_up": [
+"True Lonesome Records"
+],
+"mbid": "375a2a6b-c1e4-417c-8f49-d2c699cb9683",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"CBrockmusic,LLC": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"PCG Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Outlaw Country Records": {
+"looked_up": [
+"Outlaw Country Records"
+],
+"mbid": "997172c2-9c3d-4ceb-af02-2c706d50ea08",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Outlaw Christian Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Fjorden Music": {
+"looked_up": [
+"Fjorden Music"
+],
+"mbid": "9dc13b0e-aed2-4a17-ad5a-4c025a25a000",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"SiXx Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
 }
 }

@@ -206,6 +206,24 @@ Further out:
 Next candidates: Last.fm listeners as a second below-floor measure (needs a key, K1); YouTube Data API for views
 (K1); the country back-test once 90 days of daily scores exist (January 2027).
 
+## Phase 10: Depth and accounts (owner, 2026-10-25)
+
+| # | Step | Status |
+| --- | --- | --- |
+| 10.1 | Country top 1,000 at hip-hop depth: Spotify IDs from MusicBrainz, kworb pages confirmed from songs, ranked by listeners, then streams a day, then Deezer's order | building |
+| 10.2 | White page and black text, as tventy sport | built |
+| 10.3 | Artist descriptions: one or two sentences from English Wikipedia (CC BY-SA), else from our own data | built |
+| 10.4 | "How this ranking works" on each ranked page: metrics, what each measures, weights (Method kept) | built |
+| 10.5 | **Later:** accounts, so a person can star and track artists across devices | queued |
+
+10.5, to plan with the owner first (it adds personal data, so privacy terms and a deletion route come with it):
+- Today the star list lives in the browser only (localStorage), so it is lost on another device.
+- Sign-in without passwords: an emailed one-time link (or Google), on the same Cloudflare setup as the site (Pages
+  Functions with D1 or KV for the lists); nothing stored but the email and the starred artist IDs.
+- Tracking: a weekly email with what moved for the starred artists (listeners, Scout tier, new releases, label
+  changes), off by default, unsubscribe in one click.
+- Costs: Cloudflare's free tier covers the storage; email needs a sending service (cost to confirm first).
+
 ## My own additions (beyond the brief)
 
 - **Pay-gap explainer:** the same 100m streams under a DIY, distribution, joint-venture and major deal, side by side.

@@ -640,3 +640,25 @@ def test_ids_for_deezer_needs_one_artist_and_one_spotify_link(monkeypatch):
     assert mb.ids_for_deezer("1") == {"mbid": "mb1", "spotify_id": "SP1", "qid": "Q1"}
     pages["url"] = {"relations": [{"artist": {"id": "mb1"}}, {"artist": {"id": "mb2"}}]}  # shared URL: no match
     assert mb.ids_for_deezer("1")["spotify_id"] == ""
+
+
+def test_description_sentences_and_fallback():
+    from src.collectors.descriptions import first_sentences
+    from src.site_build import about_of
+    t = "J. Cole (born 1985) is an American rapper. He grew up in St. Louis. He founded Dreamville."
+    assert first_sentences(t) == "J. Cole is an American rapper. He grew up in St. Louis."
+    assert first_sentences("One sentence only") == "One sentence only"
+    r = {"name": "X", "country": "United States", "since": "2019", "label_status": "major",
+         "label_name": "Capitol Records", "label_owner": "Universal Music Group"}
+    assert about_of(r, None, "country")["text"] == (
+        "X is a country artist from the United States, active since 2019, signed to Capitol Records (Universal Music Group).")
+    assert about_of(r, {"text": "W.", "url": "u"}, "country") == {"text": "W.", "source": "wikipedia", "url": "u"}
+
+
+def test_description_sentence_edge_cases():
+    from src.collectors.descriptions import first_sentences as f
+    assert f("S is a rapper from Washington, D.C. He is known for his mixtapes. Third.") == \
+        "S is a rapper from Washington, D.C. He is known for his mixtapes."
+    assert f("M rose in the 2010s. He founded a label. Third.") == "M rose in the 2010s. He founded a label."
+    assert f("She served in the U.S. Army. She sings. Third.") == "She served in the U.S. Army. She sings."
+    assert f("Mac Miller (born Malcolm (Mac) McCormick) was a rapper.") == "Mac Miller was a rapper."

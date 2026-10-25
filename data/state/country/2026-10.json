@@ -4,9 +4,9 @@
  "items": [
   {
    "key": "majors",
-   "label": "Majors' share of the top 395's listeners",
-   "value": "66%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 358 of 395 artists are known",
+   "label": "Majors' share of the top 757's listeners",
+   "value": "67%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 603 of 757 artists are known",
    "link": "#/labels"
   },
   {
@@ -26,21 +26,21 @@
   {
    "key": "breaking",
    "label": "Breaking now",
-   "value": "1",
+   "value": "2",
    "detail": "artists Scout rates Breaking; top: Zach John King (88)",
    "link": "#/scout"
   },
   {
    "key": "unsigned",
    "label": "Top unsigned prospect",
-   "value": "CHASE WRIGHT",
-   "detail": "Scout 79, 660k monthly listeners, releasing without a label",
-   "link": "#/a/4P70LmF7PJwBGS9BV5dk2c"
+   "value": "Sam Donald",
+   "detail": "Scout 84, 555k monthly listeners, releasing without a label",
+   "link": "#/a/33HvGTT4l89zxUyt5VTFJs"
   },
   {
    "key": "royalties",
    "label": "What the top 100 earn on Spotify",
-   "value": "$143.5m a year",
+   "value": "$148.0m a year",
    "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
    "link": "#/worth"
   },
@@ -61,8 +61,8 @@
   {
    "key": "size",
    "label": "Country artists tracked",
-   "value": "395",
-   "detail": "1.40bn combined monthly listeners, from Spotify's top 25,225",
+   "value": "757",
+   "detail": "1.43bn combined monthly listeners, from Spotify's top 25,584",
    "link": "#/"
   }
  ]

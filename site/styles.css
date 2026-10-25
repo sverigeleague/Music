@@ -1,24 +1,24 @@
 [hidden] { display: none !important; }
-/* Rap Ledger styles: the same tokens and look as Hoop Ledger (black and white, square boxes, colour only where it
-   means something). The font is Bricolage Grotesque (SIL Open Font License), served from site/fonts. */
+/* tventy music styles: the same tokens and look as tventy sport (white page, black text, square boxes, colour only
+   where it means something). The font is Bricolage Grotesque (SIL Open Font License), served from site/fonts. */
 @font-face { font-family: "Bricolage Grotesque"; src: url("fonts/bricolage.woff2") format("woff2"); font-weight: 200 800;
              font-display: swap; }
 :root {
-  --bg: #000000;          /* page (inverse theme: tventy music, owner 2026-10-24) */
-  --fg: #ffffff;          /* text */
-  --muted: #a3a8b1;       /* secondary text */
-  --line: #2a2d33;        /* borders and dividers */
-  --soft: #111317;        /* table heads, tiles, fills */
-  --accent: #ffffff;      /* active states, bars */
-  --good: #4ade80;        /* up (green) */
-  --bad: #f87171;         /* down (red) */
+  --bg: #ffffff;          /* page: white with black text, as tventy sport (owner, 2026-10-25) */
+  --fg: #000000;          /* text */
+  --muted: #5a5f68;       /* secondary text */
+  --line: #e7e9ee;        /* borders and dividers */
+  --soft: #f6f7f9;        /* table heads, tiles, fills */
+  --accent: #000000;      /* active states, bars: black; colour only where it means something */
+  --good: #15803d;        /* up (green) */
+  --bad: #b91c1c;         /* down (red) */
   --font-ui: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   --radius: 0;
   --gap: 12px;
   --page-width: 1180px;
 }
 * { box-sizing: border-box; }
-html { color-scheme: dark; }
+html { color-scheme: light; }
 body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--font-ui); font-variant-numeric: tabular-nums; }
 a { color: inherit; }
 .wrap { max-width: var(--page-width); margin: 0 auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
@@ -317,5 +317,12 @@ td.lab { max-width: 160px; }
   table.stack td { border: 0; padding: 0 8px; white-space: normal; text-align: left; }
   table.stack td:first-child { flex-basis: 100%; font-weight: 600; }
   table.stack td.wrap { flex-basis: 100%; }
+  table.stack td:empty { display: none; }
   table.stack td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
 }
+/* artist description: one or two sentences under the name (Wikipedia, or our own data) */
+.about { margin: 8px 0 0; max-width: 68ch; }
+/* "How this ranking works" box under each ranked page's introduction */
+.how { border: 1px solid var(--line); padding: 10px 14px; margin-top: 14px; }
+.how summary { cursor: pointer; font: 600 13px var(--font-ui); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.how table { margin-top: 8px; } .how td.wrap { max-width: none; } .how .note { margin: 8px 0 0; }
