@@ -2,6 +2,13 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 The logo leads to tventy.se; the section word is a label
+
+- **Asked:** "Don't make the music and sport words clickable anymore … Pressing tventy should bring you back to the
+  sport or music choice page" (owner).
+- **The logo** links to https://tventy.se/, the choice page; "music" under it is plain text. Charts, the first tab,
+  is this site's home. The sport site has the same change.
+
 ## 2026-10-25 Logo and tab icon: the circled t of tventy
 
 - **The logo: the wordmark with its first "t" white in a filled circle** (owner, 2026-10-25), drawn from the site's
