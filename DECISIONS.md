@@ -145,7 +145,7 @@ An independent read of the branch found, and these were fixed:
 - **Batch 6** (60 more strings): 16 rows: Milan (Sony), Ambition Music, 3TR6AP2, 7th Magnitude, Boogie Naipe,
   G59 (Sony-distributed; Virgin until 2020), Psychopathic (ADA from 2019); Thaurus (Believe), MNRK, X-Ray (Cleopatra),
   Zef and Glizzy Gang (Stem), Stones Throw, Netflix Music, Rich Vagos (ONErpm). About 45 stay own-imprint only.
-- **Batch 7:** 14 rows: AWA (Sony France bought it 2025-03-10: major from then, Sony-distributed before), Tanta Roba
+- **Batch 7:** 13 rows: AWA (Sony France bought it 2025-03-10: major from then, Sony-distributed before), Tanta Roba
   (Sony Italy from 2025-12-12), Pupila Dilatada (Altafonte), Black Money Records (EGA Distro, Virgin), Eklat (Warner
   Central Europe), GR6 (Virgin), Lyons Produções (ONErpm), Oranj (UnitedMasters, read as self-released like the
   existing UnitedMasters row), ALTER Music (Firebird), Ineffable, Carosello, Peermusic. About 32 stay unknown.
