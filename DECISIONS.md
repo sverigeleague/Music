@@ -16,6 +16,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
   2024: major-distributed) and Cole Phillips (RECORDS Nashville / Columbia, 2024: major) get sourced overrides. Hayden
   Blount's reported Santa Anna distribution deal rests on venue bios only: for the owner. Will Dempsey is described
   as independent; Treaty Oak Revival stays self-released.
+- Hip-hop Unsigned list, same check: Key Glock signed with Republic in March 2025 (Glockaveli via Paper Route Empire /
+  Republic), so he gets a sourced override (major, UMG). Token stays: Atlantic distribution from 2020, but his recent
+  releases credit his own imprint and a 2026 one Fenix Music; for the owner if wanted.
 - Deals notes starting with a quote mark are capitalised.
 - Reproducible builds: ties between owners (`max(set(...))`) depended on Python's per-run string hashing; they now go
   to the first seen. Two builds with different hash seeds now differ only in the build time.
