@@ -10,6 +10,7 @@ Latin trap and reggaeton are a separate bucket ("latin") until the owner decides
 """
 import csv
 
+from .collectors.deezer import CONFIRMED
 from .config import REGISTRY
 
 HIP_HOP_WORDS = ("hip hop", "hip-hop", "rap", "trap", "drill", "grime", "boom bap", "g-funk", "crunk", "plugg",
@@ -44,7 +45,7 @@ def overrides() -> dict[str, dict]:
 
 
 def _deezer(dz: dict | None) -> tuple[float, float] | None:
-    if not dz or dz.get("match") not in ("exact", "titles", "isrc") or int(dz.get("releases") or 0) < 5 or dz.get("rap_share") in ("", None):
+    if not dz or dz.get("match") not in CONFIRMED or int(dz.get("releases") or 0) < 5 or dz.get("rap_share") in ("", None):
         return None
     return float(dz["rap_share"]), float(dz["latin_share"] or 0)
 
@@ -117,7 +118,7 @@ def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: 
             return "country", f"MusicBrainz votes: country {share:.0%} of {total}"
         if share >= COUNTRY_REVIEW:
             return "review", f"MusicBrainz votes: country {share:.0%} of {total} (borderline)"
-    if dz and dz.get("match") in ("exact", "titles", "isrc") and int(dz.get("releases") or 0) >= 5 and dz.get("country_share") not in ("", None):
+    if dz and dz.get("match") in CONFIRMED and int(dz.get("releases") or 0) >= 5 and dz.get("country_share") not in ("", None):
         c = float(dz["country_share"])
         basis = f"Deezer: {c:.0%} of {dz['releases']} releases Country"
         if c >= COUNTRY_REVIEW and wd_genres and not any(is_country(g[0]) for g in wd_genres):
@@ -130,7 +131,7 @@ def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: 
     if wd_genres:
         share = sum(1 for g in wd_genres if is_country(g[0])) / len(wd_genres)
         basis = f"Wikidata genres: country {share:.0%} of {len(wd_genres)}"
-        if share >= 0.5 and dz and dz.get("match") in ("exact", "titles", "isrc") and int(dz.get("releases") or 0) >= 5 \
+        if share >= 0.5 and dz and dz.get("match") in CONFIRMED and int(dz.get("releases") or 0) >= 5 \
                 and dz.get("country_share") not in ("", None) and float(dz["country_share"]) < COUNTRY_REVIEW:
             # Wikidata's genre list can be one entry ("alternative country" for Wilco); Deezer's releases say otherwise
             return "review", basis + f"; Deezer files {float(dz['country_share']):.0%} of {dz['releases']} releases under Country"

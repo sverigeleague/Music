@@ -65,12 +65,19 @@ def build(genre: str = "hip_hop") -> dict:
     if genre == "country":  # below kworb's 500k-listener floor: ranked by measured daily streams, no listener figure
         listed = {t["spotify_id"] for t in top}
         fresh = (date.today() - timedelta(days=FLOOR_FRESH_DAYS)).isoformat()  # kworb refreshes small artists rarely
-        floor = sorted((a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed
-                        and num(streams.get(a["spotify_id"], {}).get("total_daily"))
-                        and streams[a["spotify_id"]].get("date", "") >= fresh),
-                       key=lambda a: -num(streams[a["spotify_id"]]["total_daily"]))
+        from .collectors import deezer_country
+        crawl_order = {c["spotify_id"]: int(c.get("top10_rank_sum") or 0)
+                       for c in deezer_country.load().values() if c.get("spotify_id")}
+        measured = lambda a: (num(streams.get(a["spotify_id"], {}).get("total_daily"))
+                              and streams[a["spotify_id"]].get("date", "") >= fresh)
+        below = [a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed]
+        # first those kworb measures (daily streams), then the rest in the Deezer crawl's order (grade C, no figure)
+        floor = sorted((a for a in below if measured(a)), key=lambda a: -num(streams[a["spotify_id"]]["total_daily"])) \
+            + sorted((a for a in below if not measured(a) and a["spotify_id"] in crawl_order),
+                     key=lambda a: -crawl_order[a["spotify_id"]])
         top = top + [{"spotify_id": a["spotify_id"], "name": a["name"], "rank": None, "monthly_listeners": None,
-                      "daily_change": None, "peak_rank": None, "peak_listeners": None, "floor": True} for a in floor]
+                      "daily_change": None, "peak_rank": None, "peak_listeners": None,
+                      "floor": "streams" if measured(a) else "deezer"} for a in floor]
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
     videos = json.loads(kworb_youtube.VIDEOS.read_text()) if kworb_youtube.VIDEOS.exists() else {}

@@ -9,8 +9,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
   pipeline instead of being a Deezer-ordered name list (grade C):
   1. Spotify ID looked up at the source: Wikidata (P2722 -> P1902) or MusicBrainz, where one MusicBrainz artist links
      both the Deezer and the Spotify page (`country-ids`; `musicbrainz.ids_for_deezer`). Never guessed from a name.
-  2. Identity confirmed a second way: the artist's biggest songs on kworb must be among the Deezer artist's top tracks
-     (`country-floor`), the same check `country-from-crawl` uses.
+  2. Identity confirmed a second way where possible: the artist's biggest songs on kworb must be among the Deezer
+     artist's top tracks (`country-floor`), the same check `country-from-crawl` uses. kworb has no page for most of
+     these artists (125 of the first 153), so there the link at the source confirms the identity alone (Deezer match
+     type "links"); songs that contradict the link reject it.
   3. The registry decides the genre by the usual rules (Deezer release genres, Wikidata, MusicBrainz votes, owner
      overrides); nothing is let in on the crawl's word alone.
   4. Ranked by measured daily Spotify streams (kworb artist pages, the same figure behind the money estimates). kworb
@@ -25,8 +27,12 @@ What was chosen, what was considered and rejected, and why. Newest first.
   500k and 1.5m (167 artists; quartiles 0.087-0.123). That figure is internal and never shown.
 - **Supersedes** this morning's answer 3 ("no money below the floor"): the money lines rest on measured streams, like
   everyone else's, so they are shown, as ranges.
-- Crawl artists with no Spotify ID or no kworb page stay in the Deezer-ordered name list, after the measured 1,000 or
-  filling it if fewer than 1,000 are measured.
+- Order below the floor: first the artists kworb measures (daily streams), then the rest in the Deezer crawl's
+  order (grade C, as before) but with the same data as everyone else apart from the stream-based figures (no money
+  lines, no listener-based Scout signals). The 1,000 is complete only as far as crawl artists have a Spotify ID linked
+  at the source; the remainder stays in the Deezer-ordered name list.
+- What would measure everyone: the Spotify Web API (followers, popularity) or Last.fm (listeners), both waiting on
+  keys (K1).
 
 ## 2026-10-25 Owner's answers to the overnight questions ("go with suggested for all")
 

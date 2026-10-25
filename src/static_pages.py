@@ -43,7 +43,8 @@ def _ml(a: dict) -> str:
 
 
 def _by(a: dict) -> str:
-    return "streams a day (below the 500k-listener list)" if a.get("floor") else "monthly listeners"
+    return {"streams": "streams a day (below the 500k-listener list)",
+            "deezer": "Deezer's order (below the 500k-listener list; grade C)"}.get(a.get("floor"), "monthly listeners")
 
 
 def _count(n) -> str:

@@ -27,7 +27,10 @@ def match(name: str) -> dict:
             "deezer_match": "ambiguous" if ambiguous else "exact"}
 
 
-CONFIRMED = ("exact", "isrc", "titles")  # trusted Deezer IDs: one artist of that name, or confirmed by ISRC or song titles
+CONFIRMED = ("exact", "isrc", "titles", "links")  # trusted Deezer IDs: one artist of that name, or confirmed by ISRC,
+# song titles, or links: one MusicBrainz or Wikidata entry linking both the Deezer and the Spotify artist (below kworb's
+# listener floor, where kworb often has no page whose songs could confirm it)
+SURE = ("isrc", "titles", "links")  # confirmed beyond the name
 
 
 def by_isrc(name: str, isrcs: list[str], need: int = 2) -> dict | None:

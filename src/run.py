@@ -127,9 +127,9 @@ def registry(mb_limit: int | None = None) -> None:
     dz = deezer_genres.load()
     # candidates: in kworb's listener pages (about 25,000 artists), tagged hip-hop on Wikidata or with most releases
     # filed under Rap/Hip Hop on Deezer; plus every artist already in the registry
-    dz_rap = {s for s, r in dz.items() if r.get("match") in ("exact", "titles", "isrc") and r.get("rap_share") not in ("", None)
+    dz_rap = {s for s, r in dz.items() if r.get("match") in deezer.CONFIRMED and r.get("rap_share") not in ("", None)
               and float(r["rap_share"]) >= 0.5}
-    dz_country = {s for s, r in dz.items() if r.get("match") in ("exact", "titles", "isrc") and r.get("country_share") not in ("", None)
+    dz_country = {s for s, r in dz.items() if r.get("match") in deezer.CONFIRMED and r.get("country_share") not in ("", None)
                   and float(r["country_share"]) >= 0.3}
     # below kworb's listener floor: country artists from the Deezer crawl, confirmed from their songs (country-floor)
     from .collectors import deezer_country
@@ -143,8 +143,8 @@ def registry(mb_limit: int | None = None) -> None:
     mb = musicbrainz.update({s: wd.get(s, {}).get("musicbrainz_id") for s in ids}, limit=mb_limit)
     over = genre.overrides()
     # Deezer matches confirmed from the artist's own songs (ISRCs or titles) count like a Wikidata identity
-    sure = {s for s, a in known.items() if a.get("deezer_match") in ("isrc", "titles")
-            and str(a.get("deezer_id")) == str(dz.get(s, {}).get("deezer_id"))} | {s for s, r in dz.items() if r.get("match") in ("titles", "isrc")}
+    sure = {s for s, a in known.items() if a.get("deezer_match") in deezer.SURE
+            and str(a.get("deezer_id")) == str(dz.get(s, {}).get("deezer_id"))} | {s for s, r in dz.items() if r.get("match") in deezer.SURE}
     out = {}
     for s in ids:
         d, prev = wd.get(s, {}), known.get(s, {})
@@ -212,8 +212,10 @@ def tracked(genres=None, top_n: int | None = TOP_N) -> list[dict]:
             fresh = (date.today() - timedelta(days=60)).isoformat()  # as site_build.FLOOR_FRESH_DAYS
             for r in csv.DictReader(f):
                 daily[r["spotify_id"]] = int(r["total_daily"] or 0) if r["date"] >= fresh else 0
+    from .collectors import deezer_country  # then the rest of the crawl in Deezer's order
+    crawl = {c["spotify_id"]: int(c.get("top10_rank_sum") or 0) for c in deezer_country.load().values() if c.get("spotify_id")}
     rows = sorted((a for a in load_artists().values() if a["genre"] in genres),
-                  key=lambda a: (-ml.get(a["spotify_id"], 0), -daily.get(a["spotify_id"], 0)))
+                  key=lambda a: (-ml.get(a["spotify_id"], 0), -daily.get(a["spotify_id"], 0), -crawl.get(a["spotify_id"], 0)))
     return rows[:top_n] if top_n else rows
 
 
@@ -279,7 +281,7 @@ def confirm_country_step(limit: int | None = None) -> None:
         d = dz.get(a["spotify_id"], {})
         if (a["genre"] == "review" and "name only" in a["genre_basis"] and d.get("deezer_id")
                 and d.get("country_share") not in ("", None) and float(d["country_share"]) >= genre.COUNTRY_REVIEW
-                and a.get("deezer_match") not in ("isrc", "titles")):
+                and a.get("deezer_match") not in deezer.SURE):
             todo.append((a, d["deezer_id"]))
     for i, (a, did) in enumerate(todo[:limit], 1):
         p = current.pages(a["spotify_id"])
@@ -333,9 +335,10 @@ def country_floor_step(limit: int | None = None) -> None:
     """Country artists below kworb's 500k-listener floor (owner, 2026-10-25: "top 1,000 country ... same depth as the
     1,000 for hip hop"): for each crawled artist with a Spotify ID looked up at the source (Wikidata or MusicBrainz;
     `country-ids`) that the registry does not hold yet, read kworb's artist page (stream totals and songs) and confirm
-    the identity a second way, by its biggest songs among the Deezer artist's top tracks. Confirmed artists get a
-    Deezer genre row, so the next registry run decides on them by the usual rules; their daily streams then rank them
-    after the measured list."""
+    the identity a second way, by its biggest songs among the Deezer artist's top tracks; where kworb has no page, the
+    link at the source confirms it alone (match "links"), and songs that contradict it reject it. Confirmed artists
+    get a Deezer genre row, so the next registry run decides on them by the usual rules; daily streams, where kworb
+    has them, rank them after the measured list."""
     from .collectors import deezer_country, deezer_genres
     known, dz = load_artists(), deezer_genres.load()
     todo = [c for c in deezer_country.load().values() if c.get("spotify_id") and c["spotify_id"] not in known
@@ -347,20 +350,22 @@ def country_floor_step(limit: int | None = None) -> None:
         except Exception as e:
             print(f"  kworb page for {c['name']} failed: {e}")
             continue
-        if not row:
+        if not row:  # kworb has no page (it does not track most small artists): the link alone confirms it
             failed.append(c["name"])
+            deezer_genres.add_confirmed(c["spotify_id"], c["name"], c["deezer_id"], c.get("fans"), match="links")
+            n += 1
             continue
         rows.append(row)
         p = current.pages(c["spotify_id"])
         songs = sorted((x for x in current.songs(p[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:5] if p else []
-        if songs and deezer.by_titles(c["deezer_id"], [x["title"] for x in songs]):
+        if songs and deezer.by_titles(c["deezer_id"], [x["title"] for x in songs]):  # else the songs contradict the link
             deezer_genres.add_confirmed(c["spotify_id"], c["name"], c["deezer_id"], c.get("fans"))
             n += 1
         if len(rows) % 25 == 0:
             kworb.save_streams(rows)
             rows = []
     kworb.save_streams(rows)
-    print(f"below-floor country artists confirmed from their songs: {n} of {len(todo)} (no kworb page: {len(failed)})")
+    print(f"below-floor country artists confirmed: {n} of {len(todo)} ({len(failed)} on the link alone, no kworb page)")
 
 
 def deezer_audit_step() -> None:
