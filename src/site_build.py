@@ -125,6 +125,7 @@ def build(genre: str = "hip_hop") -> dict:
         return idx, det
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
     rels, table, lab_over = deezer_releases.load(), labels.owners(), labels.overrides()
+    guests = deezer_releases.guest_releases()
     views, history = wikipedia.load(), wayback.load()
     apple, apple_day = apple_charts.presence({s: a["name"] for s, a in artists.items() if a["genre"] == genre})
     # recording codes of each artist's songs released in the last 2 years: a second check on the label status
@@ -173,9 +174,15 @@ def build(genre: str = "hip_hop") -> dict:
         wd_labels = [l for l in a["labels"].split("|") if l]
         status = first.get(t["spotify_id"]) or {"status": "unknown", "owner": "", "basis": None, "releases": []}
         status = labels.check_with_isrcs(status, isrcs.get(t["spotify_id"], []), registrants)
-        # catalog act (owner, 2026-10-24): no release in the last 2 years on Deezer, so nothing tells the current label
+        # catalog act (owner, 2026-10-24): no release in the last 2 years on Deezer, so nothing tells the current label.
+        # An artist whose recent releases are all collaborations or features on others' records is active, not
+        # catalog (owner, 2026-10-25: Boef, Honaiser): the label stays not yet known, with the reason
         if status["status"] == "unknown" and a.get("deezer_id", "") in rels and not rels[a["deezer_id"]]:
-            status = {**status, "status": "catalog", "owner": ""}
+            g = guests.get(a["deezer_id"], [])
+            status = {**status, "status": "unknown", "owner": "", "isrc_note": f"recent releases are {len(g)} "
+                      f"collaborations or features on other artists' records (newest: {g[0]['title']}, {g[0]['label']}, "
+                      f"{g[0]['release_date']}); no release of their own to read the label from"} if g \
+                else {**status, "status": "catalog", "owner": ""}
         if t["spotify_id"] in lab_over:
             o = lab_over[t["spotify_id"]]
             status = {**status, "status": o["status"], "owner": o.get("owner", ""), "override": o.get("note") or "owner",
@@ -222,7 +229,7 @@ def build(genre: str = "hip_hop") -> dict:
             "shazam": (lambda z: {"charts": z["charts"], "best": z["best"], "cities": len(z.get("cities") or []),
                                   "url": z.get("url")} if z else None)(shaz.get(t["spotify_id"])),
             "video": pick_video(videos.get(t["spotify_id"]), a["name"], (cur.get("top_fresh") or {}).get("title")),
-            "latest_release": cur.get("latest_release"),
+            "latest_release": cur.get("latest_release"), "age_profile": cur.get("age_profile"),
             "attention": insights.attention(views.get(t["spotify_id"], [])),
             "apple": apple.get(t["spotify_id"]),
             "collabs": network.get(t["spotify_id"], [])[:12],
@@ -263,6 +270,8 @@ def build(genre: str = "hip_hop") -> dict:
     for r in rows:
         r["worth"] = insights.worth(r, r["revenue"], mult)
         r["worth_mid"] = round(r["worth"]["recordings"]["mid"] + r["worth"]["publishing"]["mid"])
+        # the multiple used, for the worth calculator: [low, high, main age band, method, age mix]
+        r["wmult"] = [*r["worth"]["multiple"], r["worth"]["vintage"], r["worth"]["method"], r["worth"]["age_mix"]]
         r["level"] = insights.level(r)
         # co-signed: an artist under 3m listeners with a song (50k+ streams a day) together with a 20m+ listener artist
         if (r["ml"] or 0) < 3_000_000 and any(ml_of.get(c["id"], 0) >= 20_000_000 and c["daily"] >= 50_000 for c in r["collabs"]):

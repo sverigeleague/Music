@@ -61,6 +61,37 @@ Three parallel passes, one per section, on the reviewers' remaining findings.
   - Better YouTube channel matching.
   - The catalog rule for acts with new hits only as features (Boef, Honaiser, Sidhu Moose Wala).
 
+## 2026-10-25 Catalogue age, the Spotify rate, and the catalog rule (owner: "do all of the following")
+
+- **Catalogue value by release age:**
+  - **Before:** one multiple chosen from the artist's current share of listening.
+  - **Now:** each of the artist's songs as lead is placed in an age band by its release date: new (under 3 years),
+    mixed (3–10) or evergreen (10+). The multiple is the bands' sourced multiples (registry/catalog_multiples.csv),
+    weighted by the songs' streams a day (`current.score` age_profile, `insights.blended`).
+  - **Fallback:** under half the lead streams on dated songs uses the old current-share band (42 of 1,000 hip-hop
+    artists).
+  - **Effect:**
+    - Drake: 28% new, 36% mixed, 36% evergreen gives 7.9–13.8×, was 10–17×. Recordings + songs mid $1.56bn, was $1.94bn.
+    - Eminem: 87% evergreen, 9.6–16.4×.
+    - Don Toliver: 65% new, 6.1–11.3×.
+  - The worth calculator's "auto" uses the same blended multiple and shows the age mix. The band edges (3 and 10
+    years) are our split; the multiples per band stay sourced. Method explains it.
+- **Spotify rate:**
+  - The high end drops from $4.40 to $3.60 per 1,000 streams. $4.40 was a US-only January 2026 blog figure and was
+    not verified.
+  - The middle stays at Duetti's 2024 figure for independent masters, $3.00, graded B; Spotify disputes per-stream
+    figures. The source is now Duetti's own release, which says Amazon $8.80, Apple $6.20, YouTube $4.80, Spotify
+    $3.00 per 1,000.
+  - The $2.50–3.60 band around it is our estimate (C): lower for ad-supported-heavy listening, higher for US-heavy.
+  - Every royalty high end falls about 18%, because the other services are set as ratios to Spotify. Method now reads
+    the rate from the registry instead of hard-coding it.
+- **Catalog rule:**
+  - An artist with no release of their own in two years, but with collaborations or features on others' records in
+    that window, is active. They are "not yet classified", with the reason, not "catalog". Boef and Honaiser: Deezer
+    files all their recent releases as collaborations.
+  - Sidhu Moose Wala's override goes from catalog to self-released (family/estate). Deezer lists posthumous singles
+    on his own label: Kaali Hoodie 2026-10-16, Ghostface Killah 2026-09-21, Barota 2025-11-28.
+
 ## 2026-10-25 Who counts as unsigned: prospects and established independents (owner)
 
 - **Owner's note:** "not sure if stem and independent should count as unsigned as it seems they are established

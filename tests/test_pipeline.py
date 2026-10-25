@@ -677,3 +677,17 @@ def test_independent_kind_established_or_prospect():
     assert labels.independent_kind("X", [], [{"isrc": "QZAAA1800001", "deezer_date": "2016-01-01"}], reg, "", 2026, t)[0] == "established"
     # none of these: an unsigned prospect (a distributor on Wikidata is not a label deal)
     assert labels.independent_kind("X", ["UnitedMasters"], [{"isrc": "QZAAA2400001", "deezer_date": "2023-03-01"}], reg, "", 2026, t) == ("prospect", [])
+
+
+def test_worth_multiple_blends_by_release_age():
+    from src import insights
+    t = insights.multiples()
+    m = {x["vintage"]: (float(x["multiple_low"]), float(x["multiple_high"])) for x in t}
+    # all streams on songs 10+ years old: the evergreen multiple
+    lo, hi, band, mix = insights.blended({"evergreen": 1.0, "coverage": 0.9}, t)
+    assert (lo, hi, band) == (*m["evergreen"], "evergreen")
+    # half new, half evergreen: the average of the two bands
+    lo, hi, band, _ = insights.blended({"new": 0.5, "evergreen": 0.5, "coverage": 0.8}, t)
+    assert lo == round((m["new"][0] + m["evergreen"][0]) / 2, 2) and hi == round((m["new"][1] + m["evergreen"][1]) / 2, 2)
+    # too few streams dated: no age-based multiple (the current-share vintage is used instead)
+    assert insights.blended({"new": 1.0, "coverage": 0.3}, t) is None

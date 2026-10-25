@@ -426,12 +426,67 @@ def photos_step(limit: int | None = None) -> None:
     print(f"photos: {sum(1 for v in done.values() if v)} of {len(done)} tried have a free-licence photo")
 
 
+YOUTUBE_REVIEW = REVIEW / "youtube_review.csv"
+YOUTUBE_REVIEW_FIELDS = ["date", "genre", "spotify_id", "name", "slug", "kworb_name", "page_spotify_id", "reason", "evidence"]
+
+
+def youtube_matches(todo: list[dict], idx: dict[str, dict], day: str) -> tuple[dict, list[dict]]:
+    """kworb pages matched by identifiers before the per-artist fetch: the page's link back to the Spotify ID, or a
+    video from the artist's own channel (Wikidata P2397, else MusicBrainz url relations) that the page lists as the
+    artist's own. Returns (spotify_id -> (slug, match)) and the conflicts and name-only candidates for review."""
+    from . import storage
+    from .collectors import youtube_feed
+    back = {r["spotify_id"]: r["slug"] for r in idx.values() if r["spotify_id"]}
+    pages = {s: kworb_youtube.own_videos(storage.read(kworb_youtube.page_path(r)).decode("utf-8", "replace")) for s, r in idx.items()}
+    names = {kworb_youtube.slug_guess(r["name"]): s for s, r in idx.items()}
+    mb = musicbrainz.youtube_channels([a["musicbrainz_id"] for a in todo if a["spotify_id"] not in back and not a["youtube_channel"]])
+    known, review = {}, []
+    note = lambda a, slug, reason, evidence="": review.append({
+        "date": day, "genre": a["genre"], "spotify_id": a["spotify_id"], "name": a["name"], "slug": slug,
+        "kworb_name": idx[slug]["name"], "page_spotify_id": idx[slug]["spotify_id"], "reason": reason, "evidence": evidence})
+    for a in todo:
+        sid = a["spotify_id"]
+        if sid in back:
+            known[sid] = (back[sid], "backlink")
+            continue
+        link = kworb_youtube.slug_from_spotify_page(sid)
+        if link in idx and idx[link]["spotify_id"]:
+            note(a, link, "kworb's Spotify page links this YouTube page, which links back to another Spotify ID")
+        chans = [a["youtube_channel"]] if a["youtube_channel"] else mb.get(a["musicbrainz_id"], [])
+        hits = {}
+        for c in chans:
+            vids = youtube_feed.video_ids(c, day)
+            for slug, own in pages.items():
+                if vids & own:
+                    hits.setdefault(slug, f"channel {c} video {sorted(vids & own)[0]}")
+        if len(hits) == 1 and not idx[next(iter(hits))]["spotify_id"]:
+            known[sid] = next(iter(hits.items()))
+        for slug, ev in ({} if sid in known else hits).items():
+            note(a, slug, "the channel's video is on a page that links back to another Spotify ID" if idx[slug]["spotify_id"]
+                 else "the channel's videos are on several kworb pages", ev)
+        guess = names.get(kworb_youtube.slug_guess(a["name"]))
+        if not hits and guess and not idx[guess]["spotify_id"] and guess != link:
+            note(a, guess, "same name only: the page has no link back to Spotify and no video from a known channel")
+    return known, review
+
+
 def youtube_step(limit: int | None = None) -> None:
+    from collections import Counter
     have = {s for s, r in kworb_youtube.load_latest().items() if r["date"][:7] == today()[:7]}
     todo = [a for a in tracked() if a["spotify_id"] not in have][:limit]
-    rows = [r for r in (kworb_youtube.fetch(a["spotify_id"], a["name"], today()) for a in todo) if r]
+    known, review = youtube_matches(todo, kworb_youtube.update_index(today()), today())
+    rows = [r for r in (kworb_youtube.fetch(a["spotify_id"], a["name"], today(), known.get(a["spotify_id"])) for a in todo) if r]
     kworb_youtube.save(rows)
-    print(f"YouTube: {len(rows)} of {len(todo)} artists found")
+    found = {r["spotify_id"] for r in rows} | have
+    old = list(csv.DictReader(YOUTUBE_REVIEW.open())) if YOUTUBE_REVIEW.exists() else []
+    tried = {a["spotify_id"] for a in todo}  # their rows are replaced by this run's
+    keep = [r for r in old if r["spotify_id"] not in tried | found] + [r for r in review if r["spotify_id"] not in found]
+    with YOUTUBE_REVIEW.open("w", newline="") as f:
+        w = csv.DictWriter(f, YOUTUBE_REVIEW_FIELDS)
+        w.writeheader()
+        w.writerows(sorted(keep, key=lambda r: (r["genre"], r["name"].casefold())))
+    print(f"YouTube: {len(rows)} of {len(todo)} artists found ({', '.join(f'{m}: {n}' for m, n in sorted(Counter(r['match'].split(' ')[0] for r in rows).items()))}); "
+          f"{len(keep)} in {YOUTUBE_REVIEW.relative_to(REVIEW.parent)}")
 
 
 def videos_step(limit: int | None = None) -> None:

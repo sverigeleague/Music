@@ -169,17 +169,35 @@ def vintage(cur_share: float | None, table: list[dict]) -> dict:
     return next(m for m in table if float(m["current_share_min"]) <= s < float(m["current_share_max"]))
 
 
+AGE_MIN_COVERAGE = 0.5  # share of lead streams on dated songs needed to value by release age
+
+
+def blended(profile: dict | None, table: list[dict]) -> tuple[float, float, str, dict] | None:
+    """Multiples by release age (owner, 2026-10-25): each age band's sourced multiple (new under 3 years, mixed 3-10,
+    evergreen 10+), weighted by the share of the artist's dated lead streams on songs of that age. None when too few
+    streams are dated; the caller then falls back to the current-share vintage."""
+    if not profile or profile.get("coverage", 0) < AGE_MIN_COVERAGE:
+        return None
+    w = {m["vintage"]: profile.get(m["vintage"], 0.0) for m in table}
+    tot = sum(w.values()) or 1
+    lo = sum(w[m["vintage"]] * float(m["multiple_low"]) for m in table) / tot
+    hi = sum(w[m["vintage"]] * float(m["multiple_high"]) for m in table) / tot
+    return round(lo, 2), round(hi, 2), max(w, key=w.get), {k: round(v / tot, 3) for k, v in w.items()}
+
+
 def worth(r: dict, rev: dict, table: list[dict]) -> dict:
     """Yearly income and what each income stream would sell for. rev: revenue.estimate() output."""
     streaming = [l for l in rev["lines"] if l["group"] == "Streaming"]
     pub = [l for l in rev["lines"] if l["group"] == "Publishing"]
     tot = lambda ls, part, k: sum((l.get(part) or {}).get(k, 0) or 0 for l in ls)
-    m = vintage(r.get("cur_share"), table)
-    lo, hi = float(m["multiple_low"]), float(m["multiple_high"])
+    b = blended(r.get("age_profile"), table)
+    m = vintage(r.get("cur_share"), table) if not b else next(x for x in table if x["vintage"] == b[2])
+    lo, hi = (b[0], b[1]) if b else (float(m["multiple_low"]), float(m["multiple_high"]))
     mid = (lo + hi) / 2
     val = lambda ls, part: {"low": tot(ls, part, "low") * lo, "mid": tot(ls, part, "mid") * mid,
                             "high": tot(ls, part, "high") * hi}
     return {"vintage": m["vintage"], "multiple": [lo, hi], "multiple_source": m["source_url"],
+            "method": "release age" if b else "current share", "age_mix": b[3] if b else None,
             "multiple_note": m["source_note"], "grade": "C",
             "recordings": val(streaming, "generated"), "artist_royalties": val(streaming, "artist"),
             "publishing": val(pub, "generated")}
