@@ -58,7 +58,9 @@ def by_isrc(name: str, isrcs: list[str], need: int = 2) -> dict | None:
 def _title(t: str) -> str:
     """A song title without its featured artists or version note, for matching across services."""
     import re
-    return _norm(re.split(r"\s[\(\[-]|\s(?:feat|ft|with)\.?\s", t, maxsplit=1, flags=re.I)[0])
+    head = re.split(r"\s[\(\[-]|\s(?:feat|ft|with)\.?\s", t, maxsplit=1, flags=re.I)[0]
+    # letters of any script (Cyrillic, Turkish, CJK titles); accents folded where they fold
+    return "".join(c for c in unicodedata.normalize("NFKD", head).casefold() if c.isalnum())
 
 
 def by_titles(deezer_id, titles: list[str]) -> bool:

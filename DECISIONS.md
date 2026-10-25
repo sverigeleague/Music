@@ -80,6 +80,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
   Teamwrk (Universal-distributed), Hall Access, Altafonte and A Quadrilha (Sony-distributed), WM Mexico (Warner),
   Viva Records and Cleopatra (independent). Just Woke Up was with Warner's ADA until 2025-06-19. Altafonte's
   start date (2024-01-01) is assumed: Sony's purchase was notified in November 2023 and done by August 2024.
+- **Audit of name-only Deezer matches** (both genres): the 42 whose biggest songs were not among the Deezer artist's
+  top tracks were re-checked by ISRC. Six were the wrong Deezer artist and now carry the ISRC-confirmed one, with
+  their labels re-read: JACKBOYS, Run-D.M.C., FAVE, Flame, JADE, Garth Brooks. Most others were false alarms from
+  title matching, which dropped non-Latin letters; titles now keep letters of any script.
 - 34 stay unknown: the ℗ line names only the artist's own imprint, with no distributor (G-Unit, SODMG, Brick Squad
   Monopoly, Pineapple Storm and others). Not guessed.
 - Unknown in the top 1,000: 262 -> 236.
