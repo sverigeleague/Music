@@ -135,6 +135,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
   covers everyone under 3m (about 380): 56% against 75% at 15m+.
 - **Producers:** a song on several artists' pages (a duo and its members: Macklemore, Ryan Lewis, "Macklemore & Ryan
   Lewis") counted once per page; it now counts once per person (by ISRC).
+- **Revenue table on phones:** the figures were scrolled off the right edge; each line now stacks the source over
+  its generated amount, the artist's slice and the grade.
 - Tiles fit one row on desktop (six tiles at 1280px) and no longer leave an empty slot when a page has fewer.
 
 ## 2026-10-24 Country: below-floor crawl, radio in Scout, Big Machine by date
