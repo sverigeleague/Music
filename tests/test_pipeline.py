@@ -710,3 +710,11 @@ def test_youtube_api_daily_rate_within_30_days():
     prev = {"date": "2026-12-01", "views": "1650000", "prev_date": "2026-11-01", "prev_views": "1000000", "views_per_day": "21000"}
     out = daily_rate(now, prev, date(2026, 12, 2))
     assert out["prev_date"] == "2026-12-01" and out["views_per_day"] == 21000
+
+
+def test_spotify_rate_one_source():
+    # the revenue lines (platforms.csv) and the list figure (rates.csv) must use the same Spotify rate
+    from src import money, revenue
+    r = money.rates()["master_per_1000"]
+    p = revenue.platforms()["spotify"]
+    assert [p[f"per_1000_{k}"] for k in ("low", "mid", "high")] == [r["low"], r["mid"], r["high"]]

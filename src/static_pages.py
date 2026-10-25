@@ -59,7 +59,10 @@ def _usd(n) -> str:
 
 
 def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str, prefix: str = "",
-           og_type: str = "profile", levels: int = 2) -> str:
+           og_type: str = "profile", levels: int = 2, crumbs: list | None = None) -> str:
+    # the breadcrumb the app will draw (app.js crumbs()), written in now so the page does not jump when it loads
+    trail = " &nbsp;/&nbsp; ".join(f'<a href="{h}">{esc(t)}</a>' if h else f"<span>{esc(t)}</span>"
+                                   for t, h in [("Home", "#/"), *crumbs]) if crumbs else ""
     depth = "../" * (levels + prefix.count("/"))
     data = f"data/{prefix}index.json"  # fetched by app.js once it loads; preloaded so the two downloads overlap
     img = f'<meta property="og:image" content="{esc(image)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{esc(image)}">' if image else '<meta name="twitter:card" content="summary">'
@@ -88,7 +91,7 @@ def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: s
   <div class="search" role="search"><input id="q" type="search" role="combobox" aria-autocomplete="list" placeholder="Search artists and labels" autocomplete="off" aria-label="Search" aria-controls="q-results" aria-expanded="false"><div class="results" id="q-results" role="listbox" hidden></div></div>
   <nav class="seg main mainnav" aria-label="Section"><a class="segbtn" href="#/" id="nav-artists">Artists</a><a class="segbtn" href="#/scout" id="nav-scout">Scout</a><a class="segbtn" href="#/worth" id="nav-money">Money</a><a class="segbtn" href="#/labels" id="nav-labels">Labels</a></nav>
 </div></header>
-<div class="wrap"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav><main id="app" tabindex="-1">{body}</main></div>
+<div class="wrap"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb">{trail}</nav><main id="app" tabindex="-1">{body}</main></div>
 <footer class="wrap note" id="foot"></footer>
 <script type="module" src="app.js"></script>
 </body>
@@ -137,7 +140,8 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
                        **({"license": ph["license_url"]} if ph.get("license_url") else {}), **({"acquireLicensePage": ph["page"]} if ph.get("page") else {})}
     boot = f"#/{prefix}a/{a['id']}"
     body = body.replace(f'href="#/a/{a["id"]}"', f'href="{boot}"')
-    return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}{prefix}cards/{a['slug']}.png", ld, boot, body, prefix)
+    return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}{prefix}cards/{a['slug']}.png", ld, boot, body, prefix,
+                       crumbs=[("Artists", "#/"), (a["name"], "")])
 
 
 def label_page(L: dict, as_of: str, prefix: str = "", logo: dict | None = None) -> tuple[str, str]:
@@ -159,7 +163,8 @@ def label_page(L: dict, as_of: str, prefix: str = "", logo: dict | None = None) 
             ld["sameAs"] = [f"https://www.wikidata.org/wiki/{logo['qid']}"]
     boot = f"#/{prefix}label/{L['slug']}"
     body = body.replace(f'href="#/label/{L["slug"]}"', f'href="{boot}"')
-    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, boot, body, prefix, og_type="website")
+    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, boot, body, prefix, og_type="website",
+                       crumbs=[("Labels", "#/labels"), (L["name"], "")])
 
 
 def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:

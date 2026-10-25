@@ -597,7 +597,13 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     from . import state
     extra["state"] = state.update(data, extra)
     full = [dict(r) for r in data["artists"]]  # the static pages and cards read some of the LATER fields
-    extra["artist_more"] = {r["id"]: {k: r.pop(k) for k in LATER if k in r} for r in data["artists"]}
+    # by column, in index.json's artist order (a third smaller compressed than by artist); the per-platform royalty
+    # mids to 3 significant figures, as the pages show them ($48.9m), not to the dollar
+    sig3 = lambda v: round(v, 2 - len(str(int(abs(v))))) if isinstance(v, (int, float)) and v else v
+    for r in data["artists"]:
+        if r.get("rev_lines"):
+            r["rev_lines"] = {k: sig3(v) for k, v in r["rev_lines"].items()}
+    extra["artist_more"] = {k: [r.pop(k, None) for r in data["artists"]] for k in LATER}
     (out.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
     out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{out.relative_to(SITE.parent)}: {len(data['artists'])} {genre} artists, {out.stat().st_size // 1024} KB")

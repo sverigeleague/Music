@@ -1613,14 +1613,18 @@ async function route() {
   document.documentElement.dataset.genre = GENRE;
   document.querySelectorAll("[data-genre]").forEach(a => a.dataset.genre === GENRE ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
   document.querySelectorAll(".mainnav a").forEach(a => { const base = a.dataset.href || a.getAttribute("href"); a.dataset.href = base; a.setAttribute("href", GENRE === "hip_hop" ? base : PREFIX() + base.slice(2)); });
+  // a page that needs extra.json starts it alongside the index rather than after it
+  const early = h[0] !== "" && h[0] !== "a" && !genreStore[GENRE]?.extra ? getJSON(`${DATA_DIR()}extra.json`) : null;
+  early?.catch(() => {});  // a failure is reported where it is awaited
   if (!genreStore[GENRE]) genreStore[GENRE] = { data: await getJSON(`${DATA_DIR()}index.json`) };
   const g = genreStore[GENRE];
   // page-specific data loads in the background (D6); pages other than the start page and artist pages wait for it.
   // (A genre first loaded by a cross-genre search has its index but not this yet.)
-  // artist_more: per-artist fields only those pages read (src/site_build.py LATER), merged back into the artist rows.
-  // A failed load is forgotten, so the next page tries again.
-  if (!g.extra) g.extra = getJSON(`${DATA_DIR()}extra.json`).then(x => { const more = x.artist_more || {}; delete x.artist_more;
-    g.data.artists.forEach(a => more[a.id] && Object.assign(a, more[a.id])); g.ready = true; return Object.assign(g.data, x); }).catch(e => { g.extra = null; throw e; });
+  // artist_more: per-artist fields only those pages read (src/site_build.py LATER), one array per field in the
+  // index's artist order, merged back into the artist rows. A failed load is forgotten, so the next page tries again.
+  if (!g.extra) g.extra = (early || getJSON(`${DATA_DIR()}extra.json`)).then(x => { const more = x.artist_more || {}; delete x.artist_more;
+    for (const k in more) if (more[k].length === g.data.artists.length) g.data.artists.forEach((a, i) => { a[k] = more[k][i]; });
+    g.ready = true; return Object.assign(g.data, x); }).catch(e => { g.extra = null; throw e; });
   store.data = genreStore[GENRE].data;
   store.extra = genreStore[GENRE].extra;
   const NAMES = { movers: ["Artists", "Movers"], month: ["Artists", "Movers"], rising: ["Artists", "Movers"], compare: ["Artists", "Compare"],
@@ -1635,7 +1639,7 @@ async function route() {
     worth: "What is your music worth?", state: "State of hip-hop: the month in numbers", producers: "The producers and songwriters behind hip-hop's biggest songs", labels: "Who owns hip-hop: labels and market share", compare: "Compare hip-hop artists" };
   if (h[0] !== "" && h[0] !== "a") { if (!g.ready) app.innerHTML = `<p class="note">Loading…</p>`; await store.extra; }
   setMeta(TITLES[h[0]] || "Global hip-hop: listeners, earnings and labels of the top 1,000 artists");
-  if (h[0] === "a") artist(decodeURIComponent(h[1]));
+  if (h[0] === "a") await artist(decodeURIComponent(h[1]));  // awaited: the footer below must not show (and then jump) before the page
   else if (h[0] === "rising") rising();
   else if (h[0] === "movers") (h[1] === "today" ? rising() : monthPage());
   else if (h[0] === "month") monthPage();
