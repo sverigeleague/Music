@@ -17,8 +17,10 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="canonical" href="https://tventy.se/music/">
 <meta property="og:url" content="https://tventy.se/music/">
-<!-- the start page's data, fetched while app.js loads: the country file for #/country/ addresses, else hip-hop -->
-<script>(function(){var l=document.createElement("link");l.rel="preload";l.as="fetch";l.crossOrigin="anonymous";l.href=/^#\/country(\/|$)/.test(location.hash)?"data/country/index.json":"data/index.json";document.head.appendChild(l);})();</script>
+<!-- the page's data, fetched while app.js loads: the country files for #/country/ addresses, else hip-hop; extra.json
+     too for pages that wait for it (all but the start page and artist pages; app.js route()) -->
+<script>(function(){var h=location.hash,c=/^#\/country(\/|$)/.test(h),d=c?"data/country/":"data/",r=h.replace(/^#\/?(country\/?)?/,"");
+[d+"index.json"].concat(r&&!/^a\//.test(r)?[d+"extra.json"]:[]).forEach(function(u){var l=document.createElement("link");l.rel="preload";l.as="fetch";l.crossOrigin="anonymous";l.href=u;document.head.appendChild(l);});})();</script>
 </head>
 <body>
 <a class="skip" href="#app">Skip to content</a>
