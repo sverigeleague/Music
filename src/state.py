@@ -27,11 +27,14 @@ def build(data: dict, extra: dict) -> dict:
     by = {a["id"]: a for a in A}
     as_of = data.get("as_of") or ""
     m = extra.get("market") or {}
-    groups, total = m.get("groups", {}), m.get("total_ml") or 1
+    groups = m.get("groups", {})
+    # among artists whose label is known, as on the Labels page (catalog acts are already left out of the market)
+    known = {g: v for g, v in groups.items() if g != "Not yet known"}
+    total = sum(v.get("ml", 0) for v in known.values()) or 1
     major_ml = sum(groups.get(g, {}).get("ml", 0) for g in MAJORS)
     items = [{"key": "majors", "label": f"Majors' share of the top {len(A):,}'s listeners",
               "value": _pct(major_ml / total),
-              "detail": f"Universal, Sony and Warner, by monthly listeners added per artist; labels on {sum(1 for a in A if a.get('label_status') != 'unknown')} of {len(A)} artists are known",
+              "detail": f"Universal, Sony and Warner, by monthly listeners added per artist, among the {sum(v.get('artists', 0) for v in known.values()):,} of {len(A):,} artists whose label is known (catalog acts left out)",
               "link": "#/labels"}]
     ranked = sorted((a for a in A if a.get("cl_rank")), key=lambda a: a["cl_rank"])
     if ranked:

@@ -30,7 +30,7 @@ def slugify(name: str) -> str:
 def assign_slugs(artists: list[dict]) -> None:
     seen: dict[str, int] = {}
     for a in sorted(artists, key=lambda a: -(a.get("ml") or 0)):  # the bigger artist keeps the plain name
-        s = slugify(a["name"])
+        s = slugify(a["name"].removesuffix(" (second Spotify profile)"))  # the page address stays as it was
         if s in seen:
             s = f"{s}-{a['id'][:6].lower()}"
         seen[s] = 1

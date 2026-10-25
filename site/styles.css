@@ -313,6 +313,14 @@ td.lab { max-width: 160px; }
   table.rev td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
   table.rev tr.sec td.l, table.rev tr.sec { font-weight: 600; }
 }
+.cardcol .kv dt { white-space: normal; } .cardcol .kv dd { overflow-wrap: normal; white-space: nowrap; }  /* summary card: the label wraps, never a figure */
+/* artist page on phones: ranges never break mid-figure; rows fill the panel; the hover-only basis and definitions shown as text (no hover on touch) */
+@media (max-width: 560px) {
+  table.rev, table.rev tbody { display: block; width: 100%; }
+  table.rev td[data-k] { white-space: nowrap; }
+  table.rev tr[title]::after { content: attr(title); grid-column: 1 / -1; padding: 0 8px 8px; font-size: 12px; color: var(--muted); }
+  .cardcol .def[title]::after { content: attr(title); display: inline-block; margin-top: 4px; cursor: auto; }
+}
 @media (max-width: 560px) {
   table.stack thead { display: none; }
   table.stack tr { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 8px 0; border-bottom: 1px solid var(--line); }
@@ -321,6 +329,9 @@ td.lab { max-width: 160px; }
   table.stack td.wrap { flex-basis: 100%; }
   table.stack td:empty { display: none; }
   table.stack td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  table.stack td.rk { flex-basis: auto; padding-right: 0; }  /* rank and name on one line */
+  table.stack td.rk + td { flex: 1 1 0; font-weight: 600; }
+  table.stack td.rk + td::before { display: none; }
 }
 /* artist description: one or two sentences under the name (Wikipedia, or our own data) */
 .about { margin: 8px 0 0; max-width: 68ch; }
@@ -334,3 +345,14 @@ td.lab { max-width: 160px; }
 .flags img { width: 16px; height: 12px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .14); display: block; }
 .sub .flags { margin: 0 5px 0 0; }
 .who .flags { margin-left: -4px; }
+/* compare: three columns fit a phone, so the artist names never scroll out of view */
+@media (max-width: 700px) {
+  table.cmp { width: 100%; table-layout: fixed; }
+  table.cmp td, table.cmp th { white-space: normal; overflow-wrap: anywhere; position: static; }
+  table.cmp th:first-child, table.cmp td:first-child { width: 34%; }
+  table.cmp .who .pic { display: none; }
+}
+/* Unsigned: feature-only artists, not compared with signed peers */
+tr.dim > td { color: var(--muted); }
+/* State: the citation is one long line with a URL; let it wrap on phones */
+.panel code { overflow-wrap: anywhere; word-break: break-word; }

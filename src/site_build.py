@@ -267,8 +267,13 @@ def build(genre: str = "hip_hop") -> dict:
     about = desc_src.load()
     for r in rows:
         r["about"] = about_of(r, about.get(r["id"]), genre)
+    seen_names = set()
     for i, r in enumerate(rows, 1):
         r["rank"] = i  # by monthly listeners
+        # two Spotify profiles under one name (Macklemore & Ryan Lewis): the smaller one is marked, not merged
+        if r["name"].lower() in seen_names:
+            r["name"] += " (second Spotify profile)"
+        seen_names.add(r["name"].lower())
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
         r["cl_rank"] = i  # our ranking: current listeners
     unsigned = benchmark(rows, shares)
@@ -490,7 +495,8 @@ def tour_table(rows: list[dict]) -> list[dict]:
                     "co": t.get("co_headliner") or None, "share": share, "grade": t["grade"],
                     "artist_net": {kk: g * share * v for kk, v in zip(("low", "mid", "high"), revenue.TOUR_ARTIST_NET)},
                     "merch": {kk: k * share * v for kk, v in zip(("low", "mid", "high"), revenue.MERCH_PER_FAN)} if k else None,
-                    "source": t["source_url"], "note": t["source_note"], "partial": bool(t.get("gross_through"))})
+                    "source": t["source_url"], "note": t["source_note"], "partial": bool(t.get("gross_through")),
+                    "gross_through": t.get("gross_through") or None})  # the page says "gross for shows to <month>"
     return sorted(out, key=lambda x: -x["gross"])
 
 

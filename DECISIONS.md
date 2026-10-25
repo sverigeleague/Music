@@ -2,6 +2,42 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Country flags in every list (owner: "show the country flag each artist is from in all list formats / rankings")
+
+- **Chosen:** a small flag after the artist's name in every list, ranking, search result, card and on the artist page.
+  The country name shows on hover and is read out by screen readers. Up to two flags for two citizenships (Drake:
+  Canada and the US).
+- **Flags:** self-hosted SVGs from flag-icons 7.2.3 (MIT; licence in `site/flags/LICENSE`), 109 countries, 1.1 MB in
+  all, loaded lazily. Emoji flags were rejected because Windows shows them as two letters.
+- **Source:** the registry's country (Wikidata citizenship; with several, the one matching the birthplace). Names map
+  to ISO codes in `src/countries.py`. Artists without a country on Wikidata get no flag, never a guess.
+- **Fixed in the data:** two citizenships entered on Wikidata as places. "Karachi" becomes Pakistan (Talha Anjum).
+  "Cina", an Indonesian subdistrict entered for Simba La Rue (an Italian rapper born in Tunis), is dropped rather
+  than guessed.
+
+## 2026-10-25 Lists, start page and compare: the rest of the client review
+
+- **Search:** results say "#205 by monthly listeners" (or "by streams" below the floor), not a bare "#205". Label
+  results say "in our list", which fits the 754-artist country list.
+- **Start page:**
+  - The "Right now" riser card names its scope: "1m+ listeners".
+  - "387 of 1,000" has a thousands separator.
+  - The list intro reads "We track the 1,000 biggest hip-hop and rap artists among Spotify's top 25,219" instead of
+    implying exactly 1,000 qualify.
+- **Status words:** "Self-released" everywhere (it was "Unsigned" in one list and "Self-released" in another). An
+  unknown label reads "not yet classified" instead of "–". "Catalog" explains itself on hover.
+- **Scout tier chips:** hovering a tier explains it, so "93 Rising" next to "90 Breaking" makes sense.
+- **Movers, 30 days:**
+  - Says it covers the 260 artists with a month-ago figure, not the whole 1,000.
+  - Each row shows its own window in days.
+  - The "30 days ago" share column is hidden until it has values.
+- **Compare:** the same artist can't be picked twice. On phones the table fits the screen, so the names stay
+  visible.
+- **Two Spotify profiles named "Macklemore & Ryan Lewis":** the smaller one is labelled "(second Spotify profile)".
+  Its page address is unchanged.
+- **Country floor list:** the heading reads "Places 755–1,000: further artists below the 500k line, in Deezer's
+  order".
+
 ## 2026-10-25 Review through a client's eyes: numbers that read right (owner: "scrutinize the entire site ... so all is clean and user friendly")
 
 Four reviews read every page as an investment-banking client would. Fixes:

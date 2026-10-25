@@ -24,6 +24,8 @@ export const COLUMNS = {
 // How many artists outside the top 100 the Rising page lists.
 export const RISING_LIMIT = 50;
 
+// Not used by the pages any more: the Pay gap page now draws registry/deal_shares.csv (store.data.deals), the same
+// table as the worth calculator and the artist pages. Kept for reference only.
 // Pay gap: what an artist keeps of the recording royalties under each deal type (low, mid, high share).
 // Each row has its source; grade A = primary, B = reputable secondary, C = estimate.
 export const DEALS = [
