@@ -35,7 +35,7 @@ from ..http import get
 API = "https://api.listenbrainz.org/1"
 MB = "https://musicbrainz.org/ws/2/artist/"
 CSV = DATA / "listenbrainz.csv"
-REDIRECTS = DATA / "musicbrainz_redirects.json"  # registry MBID -> current MBID ("" when MusicBrainz has none)
+from .musicbrainz import REDIRECTS  # registry MBID -> current MBID ("" when MusicBrainz has none), shared
 FIELDS = ["month", "spotify_id", "mbid", "users_all", "listens_all", "users_month", "listens_month", "from", "to",
           "fetched"]
 BATCH = 500

@@ -788,3 +788,76 @@ def test_picks_leave_out_featured_guests_and_non_prospects():
     assert not insights.is_prospect({**base, "indie_kind": "inactive"})  # Knust: catalog only
     assert not insights.is_prospect({**base, "indie_kind": "established"})
     assert not insights.is_prospect({**base, "second_of": "x"})
+
+
+def test_labels_index_sums_royalty_and_value_ranges():
+    from src import insights
+    line = lambda lo, hi: {"group": "Streaming", "generated": {"low": lo, "mid": (lo + hi) / 2, "high": hi}}
+    rows = [{"id": "a", "label_name": "L", "label_status": "independent", "label_owner": "L", "ml": 10, "cl": 5,
+             "streaming_mid": 150, "revenue": {"lines": [line(100, 200), {"group": "Publishing", "generated": {"low": 9, "mid": 9, "high": 9}}]},
+             "worth_range": [1000, 3000], "worth_mid": 1800, "scout": {"tier": "Rising", "score": 70}},
+            {"id": "b", "label_name": "L", "label_status": "independent", "label_owner": "L", "ml": 5, "cl": 1,
+             "streaming_mid": 15, "revenue": {"lines": [line(10, 20)]}, "worth_range": [100, 300], "worth_mid": 180},
+            {"id": "c", "label_name": "L", "label_status": "independent", "label_owner": "L", "ml": 99, "second_of": "a",
+             "revenue": {"lines": [line(1e6, 2e6)]}, "worth_range": [1e6, 2e6], "worth_mid": 1.5e6}]
+    L = insights.labels_index(rows, {"L": 4})[0]
+    assert L["artists"] == ["a", "b", "c"] and L["ml"] == 15  # a second profile is listed, not summed
+    assert (L["roy_low"], L["roy_high"]) == (110, 220)  # streaming lines only, low ends and high ends added
+    assert (L["value_low"], L["value_mid"], L["value_high"]) == (1100, 1980, 3300)
+    assert L["rising"] == 1 and L["scout_avg"] == 70 and L["releases_2y"] == 4
+
+
+def test_second_profiles_checked_different_never_joined(monkeypatch):
+    from src import site_build
+    rows = [{"id": "bob", "name": "B.o.B", "ml": 27_000_000}, {"id": "b2", "name": "Bob", "ml": 2_200_000}]
+    artists = {k: {"deezer_id": "280294", "deezer_match": "exact"} for k in ("bob", "b2")}
+    assert site_build.second_profiles(rows, artists) == {"b2": "bob"}
+    monkeypatch.setattr(site_build, "profile_pairs", lambda: {frozenset(("b2", "bob")): {
+        "second_id": "b2", "main_id": "bob", "verdict": "different"}})
+    assert site_build.second_profiles(rows, artists) == {}
+
+
+def test_musicbrainz_follows_merged_ids(monkeypatch):
+    from src.collectors import musicbrainz as mb
+    old, new = "9a1e8681-e3da-4fa7-aadf-f6a05b567fd5", "9fff2f8a-21e6-47de-a2b8-7f449929d43f"
+    assert mb.current_id(old, {old: new}) == new
+    assert mb.current_id(old, {old: "a", "a": new}) == new  # two merges
+    assert mb.current_id(old, {old: ""}) == old  # MusicBrainz no longer knows it: kept for the owner
+    assert mb.current_id("", {}) == "" and mb.current_id(new, {}) == new
+
+    class R:
+        status_code = 200
+
+        def json(self):
+            return {"id": new, "genres": [{"name": "hip hop", "count": 3}], "country": "CA"}
+    monkeypatch.setattr(mb, "get", lambda *a, **k: R())
+    table = {}
+    row = mb.fetch("3TVXtAsR1Inumwj472S9r4", old, table)
+    assert row["musicbrainz_id"] == new and table == {old: new} and row["genres"] == "hip hop:3"
+
+
+def test_deezer_dates_undated_own_songs_but_not_reissues():
+    from src import labels
+    songs = [{"track_id": "t1", "title": "SHAGANSSS", "feature": False},
+             {"track_id": "t2", "title": "Hail Mary", "feature": False},
+             {"track_id": "t3", "title": "Guest Spot", "feature": True},
+             {"track_id": "t4", "title": "Old Song", "feature": False},
+             {"track_id": "t5", "title": "Dated", "feature": False},
+             {"track_id": "t6", "title": "Para Sa Sarili - Live at the Hills Studio", "feature": False},
+             {"track_id": "t7", "title": "New One (feat. Someone)", "feature": False}]
+    dates = {"t4": {"isrc": "USUM70100001"}, "t5": {"first_release": "2020-01-01", "deezer_date": "2020-01-01"}}
+    rel = lambda t, d, k="single": {"title": t, "release_date": d, "record_type": k}
+    releases = [rel("SHAGANSSS", "2026-03-25"), rel("Hail Mary (Remastered 2026)", "2026-05-01"),
+                rel("Guest Spot", "2026-01-01"), rel("Old Song", "2026-02-01"), rel("Dated", "2026-02-01"),
+                rel("Para Sa Sarili (Live at the Hills Studio)", "2026-02-01"), rel("New One", "2025-11-01"),
+                rel("Storm", "2026-05-26"), rel("Greatest Hits", "2026-01-01", "compile")]
+    got = labels.deezer_dated_songs(releases, songs, dates)
+    # a new single dated; a remaster, a guest song, an old recording (ISRC 2001), an already dated song, a live
+    # version and a release with no song of that title on Spotify (another artist of the name) are not
+    assert [(g["title"], g["deezer_date"]) for g in got] == [("SHAGANSSS", "2026-03-25"), ("New One (feat. Someone)", "2025-11-01")]
+    from datetime import date
+    t = [{"name": "Def Jam", "pattern": "Def Jam", "status": "major", "owner": "UMG"}]
+    old = [{"isrc": "QZAAA2200001", "deezer_date": "2022-05-01", "first_release": "2022-05-01"}]
+    kw = dict(ml=2_000_000, cl=300_000, today=date(2026, 10, 25))
+    assert labels.independent_kind("X", [], old, {}, "", 2026, t, **kw)[0] == "inactive"
+    assert labels.independent_kind("X", [], old, {}, "", 2026, t, deezer_dated=got, **kw) == ("prospect", [])

@@ -146,6 +146,7 @@ def registry(mb_limit: int | None = None) -> None:
     WIKIDATA_CACHE.write_text(json.dumps({k: {**v, "majors": sorted(v["majors"])} for k, v in wd.items()},
                                          ensure_ascii=False, indent=0))
     mb = musicbrainz.update({s: wd.get(s, {}).get("musicbrainz_id") for s in ids}, limit=mb_limit)
+    moved = musicbrainz.redirects()  # merged MusicBrainz IDs (Wikidata often keeps the old one): stored as the current
     over = genre.overrides()
     # Deezer matches confirmed from the artist's own songs (ISRCs or titles) count like a Wikidata identity
     sure = {s for s, a in known.items() if a.get("deezer_match") in deezer.SURE
@@ -167,7 +168,7 @@ def registry(mb_limit: int | None = None) -> None:
             decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
         out[s] = {**prev, "spotify_id": s, "name": (top.get(s) or prev or dz.get(s) or {}).get("name", ""), "genre": decision,
                   "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid") or prev.get("wikidata_id", ""),
-                  "musicbrainz_id": d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""),
+                  "musicbrainz_id": musicbrainz.current_id(d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""), moved),
                   "country": d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
                   "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
                   "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),

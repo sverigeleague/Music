@@ -2,8 +2,13 @@
 
 The votes are licensed CC BY-NC-SA: used here only as one input to our own genre decision, never shown on the
 site (DECISIONS.md, 2026-10-23). One request per second, as MusicBrainz asks.
+
+Merged IDs: when MusicBrainz merges two artists, the old ID still answers, with the current ID in the reply's `id`
+(Wikidata often keeps the old one: Drake's). The registry stores the current ID: REDIRECTS (old -> current, found by
+fetch() here and by the ListenBrainz step) is followed by `current_id`.
 """
 import csv
+import json
 from datetime import date
 from urllib.parse import quote
 
@@ -13,6 +18,26 @@ from ..http import get
 API = "https://musicbrainz.org/ws/2"
 CACHE = DATA / "musicbrainz.csv"
 FIELDS = ["spotify_id", "musicbrainz_id", "genres", "country", "fetched"]
+REDIRECTS = DATA / "musicbrainz_redirects.json"  # old (merged) MBID -> current MBID ("" when MusicBrainz has none)
+
+
+def redirects() -> dict[str, str]:
+    return json.loads(REDIRECTS.read_text()) if REDIRECTS.exists() else {}
+
+
+def save_redirects(table: dict[str, str]) -> None:
+    REDIRECTS.write_text(json.dumps(table, indent=0, sort_keys=True))
+
+
+def current_id(mbid: str, table: dict[str, str]) -> str:
+    """The ID MusicBrainz now uses for `mbid` (merges followed, a few hops at most); `mbid` itself when no redirect is
+    known or MusicBrainz has none ("": an ID it no longer knows is kept as it is, for the owner to look at)."""
+    for _ in range(5):
+        new = table.get(mbid)
+        if not new or new == mbid:
+            break
+        mbid = new
+    return mbid
 
 
 def load() -> dict[str, dict]:
@@ -40,7 +65,9 @@ def mbid_for_spotify(spotify_id: str) -> str | None:
     return rels[0]["artist"]["id"] if len(rels) == 1 else None  # several artists on one URL: leave unmatched
 
 
-def fetch(spotify_id: str, mbid: str | None) -> dict:
+def fetch(spotify_id: str, mbid: str | None, table: dict[str, str] | None = None) -> dict:
+    """The artist's genre votes. A merged ID answers with the current one: that is stored, and old -> current is
+    added to `table` (the redirects)."""
     mbid = mbid or mbid_for_spotify(spotify_id)
     row = {"spotify_id": spotify_id, "musicbrainz_id": mbid or "", "genres": "", "country": "",
            "fetched": date.today().isoformat()}
@@ -48,6 +75,10 @@ def fetch(spotify_id: str, mbid: str | None) -> dict:
         r = get(f"{API}/artist/{quote(mbid)}", params={"fmt": "json", "inc": "genres"})
         if r.status_code == 200:
             a = r.json()
+            if a.get("id") and a["id"] != mbid:
+                if table is not None:
+                    table[mbid] = a["id"]
+                row["musicbrainz_id"] = a["id"]
             g = sorted(((x["name"], x["count"]) for x in a.get("genres", []) if x["count"] > 0), key=lambda x: -x[1])
             row.update(genres="|".join(f"{n}:{c}" for n, c in g), country=a.get("country") or "")
     return row
@@ -58,15 +89,18 @@ def update(wanted: dict[str, str | None], limit: int | None = None) -> dict[str,
     cache = load()
     todo = [s for s in wanted if s not in cache][:limit]
     new = not CACHE.exists()
+    table = redirects()
     with CACHE.open("a", newline="") as f:
         w = csv.DictWriter(f, FIELDS)
         if new:
             w.writeheader()
         for s in todo:
-            row = fetch(s, wanted[s])
+            row = fetch(s, wanted[s], table)
             w.writerow(row)
             f.flush()
             cache[s] = row
+    if todo:
+        save_redirects(table)
     return cache
 
 

@@ -2,6 +2,45 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Product ideas 4–7 (ROADMAP 11.1–11.4): deal comparison, label one-pager, saved screens, catalog age
+
+- **Deal comparison and advance recoupment** (`app.js dealPanel`, `bindDeal`, `recoupMonths`, `paidBy`; on
+  `#/worth/<id>` and for a typed audience): the same recording royalties through each deal type in
+  `store.data.deals` (DIY, label services, independent, major; "unknown" left out), the artist's share per year, when
+  an advance is paid back, cumulative cash to the artist by years 1–5 and what is still owed after 5. Cash by a year =
+  the larger of the advance and the share earned (an unrecouped advance is not repaid). Mid in the cells, low×low and
+  high×high ranges under them; recoupment from the high case (fastest) to the low case (slowest). Chosen: one
+  advance input (default about 18 months of the artist's share on a major deal, rounded) and a "streams over five
+  years" choice (−30% to +30% a year, default today's pace, labelled as the user's assumption). DIY is shown with no
+  advance (distributors rarely pay one). Songwriting is left out (usually not recoupable under a record deal).
+  Rejected: a sourced decay curve per artist (no sourced decay rate; the catalog-age panel covers decay through
+  multiples), modelling recoupable recording/marketing costs and cross-collateralisation (deal-specific; named as
+  "not modelled"). Labelled illustrative, before costs, grade C, "not a statement about any artist's contract".
+- **Label one-pager and roster CSV** (`app.js labelSheet`, `labelCsv`, `labelRoster`; route `#/label/<slug>/sheet`;
+  links "One-pager (print / PDF)" and "Roster CSV" on each label page): roster size, summed listeners and share,
+  streaming royalties and recordings + songs value as ranges, roster streams by song age (weighted by each artist's
+  royalties), Scout tiers, biggest 10 artists, and the label's (or its owner's) published accounts, with a sources and
+  grades footer and the data date. `src/insights.py labels_index` now adds `roy_low/roy_high` (streaming lines'
+  generated low/high) and `value_low/value_mid/value_high` (artists' `worth_range`/`worth_mid`), second profiles left
+  out of the sums as before; test `test_labels_index_sums_royalty_and_value_ranges`. The CSV has readable statuses,
+  the tventy page, value ranges, multiples, age shares, a source column, the grade, the data date and a note.
+  Rejected: printing the full roster (the CSV carries it; the page stays near two A4 pages, longer when the owner has
+  long published accounts such as UMG).
+- **Saved screens** (`app.js SCREENS`, `readScreen`, `syncScreen`, `linkBtn`): Scout, the catalog screener and
+  Unsigned write their filters, sort and "show all" into the address (`#/scout?tier=all&band=1.5-3m`) with
+  `history.replaceState` (no redraw); `route()` reads them back before drawing. Only values that differ from the
+  defaults are written; a hand-edited unknown value falls back to the default (the screener would otherwise fail on
+  an unknown age or owner key). "Copy link to this view" on Scout and the screener. Unsigned has no filters beyond
+  "show all", so it has no copy button. A link with the "★ My watchlist" tier shows the recipient's own watchlist
+  (browser-only by design, no accounts).
+- **Catalog age explorer** (`app.js agePanel`, artist page under the revenue table): share of the artist's dated lead
+  streams on songs under 3, 3–10 and 10+ years old, each band's sourced multiple with grade and source, the dated
+  coverage, the blended multiple written out as the weighted sum, and the recordings value range it gives.
+  `age_profile` moved into `ALSO_SHARD` (`src/site_build.py`) so the artist page has it before extra.json loads (it
+  stays in LATER for the screener); `worth` was already in the shard. Notes the known limit: a reissue date makes a
+  catalog look newer. Rejected for now: per-song rows by release year (per-song dates and streams are in `data/` but
+  not in the site data; it would add size to every shard: a follow-up if investors ask).
+
 ## 2026-10-25 Review 5 fixes: country links, one figure per measure, client wording (items 3, 11, 12, 15 and the SHOULD/NICE list)
 
 - **Country artist pages** (`app.js artist()`): Share text says "#n in country", the shared URL and the Download card

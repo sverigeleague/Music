@@ -232,10 +232,10 @@ corrections page (`#/quality`); see DECISIONS.md 2026-10-26. The rest, in ranked
 
 | # | Idea | For | Effort | Value | Status |
 | --- | --- | --- | --- | --- | --- |
-| 11.1 | Deal comparison and advance recoupment for one artist (months to recoup at today's streams, per deal type) | artists, managers | S-M | 4 | idea |
-| 11.2 | Label one-pager and roster export (roster size, listeners, roster value range, age mix) | investors, analysts | S-M | 4 | idea |
-| 11.3 | Saved screens in the address (Scout and screener filters in the URL, to send a colleague) | investors, A&R | S | 3 | idea |
-| 11.4 | Catalog age explorer per artist (streams by release year, implied decay) | investors | M | 4 | idea |
+| 11.1 | Deal comparison and advance recoupment for one artist (months to recoup at today's streams, per deal type) | artists, managers | S-M | 4 | built (2026-10-26: `#/worth/<id>`, "Deal comparison" panel) |
+| 11.2 | Label one-pager and roster export (roster size, listeners, roster value range, age mix) | investors, analysts | S-M | 4 | built (2026-10-26: `#/label/<slug>/sheet`, roster CSV on the label page) |
+| 11.3 | Saved screens in the address (Scout and screener filters in the URL, to send a colleague) | investors, A&R | S | 3 | built (2026-10-26: Scout, screener, Unsigned; "Copy link to this view") |
+| 11.4 | Catalog age explorer per artist (streams by release year, implied decay) | investors | M | 4 | built (2026-10-26: artist page "Catalog age" panel, three age bands; per-song table not yet) |
 | 11.5 | Watchlist digest: what moved for starred artists since the last visit (browser only) | A&R | M | 4 | idea (needs 7+ days of daily log) |
 | 11.6 | Press page with quotable, dated figures and a citation line | press | S | 3 | idea |
 | 11.7 | Method versions and changelog page for money and Scout (ranking versions are on #/quality) | analysts | S | 3 | idea |

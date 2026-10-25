@@ -17,3 +17,5 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt
       - run: python -m pytest -q
+      # the site's scripts parse (ES modules; node is on the runner). The site-data tests skip here: no build in this job
+      - run: for f in site/app.js site/config.js; do node --input-type=module --check < "$f" || exit 1; done

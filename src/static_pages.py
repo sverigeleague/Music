@@ -80,7 +80,7 @@ def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: s
 {img}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <link rel="stylesheet" href="styles.css">
-<link rel="preload" href="{data}" as="fetch" crossorigin>{"" if re.match(r"#/(country/)?(a/|$)", boot) else f'<link rel="preload" href="data/{prefix}extra.json" as="fetch" crossorigin>'}
+<link rel="preload" href="{data}" as="fetch" crossorigin>{"" if re.match(r"#/(country/)?(a/|$)", boot) else "".join(f'<link rel="preload" href="data/{prefix}{p}.json" as="fetch" crossorigin>' for p in ("extra", "scout"))}
 <script>window.BOOT = {json.dumps(boot)};</script>
 </head>
 <body>

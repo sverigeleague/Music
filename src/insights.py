@@ -346,6 +346,7 @@ def labels_index(rows: list[dict], release_counts: dict[str, int]) -> list[dict]
         L = by.setdefault(name, {"name": name, "slug": slug(name), "status": r["label_status"], "group": group,
                                  "parent": group if r["label_status"] != "independent" else PARENT_OF.get(group, group),
                                  "artists": [], "ml": 0, "cl": 0, "royalties": 0, "breaking": 0, "rising": 0,
+                                 "roy_low": 0, "roy_high": 0, "value_low": 0, "value_mid": 0, "value_high": 0,
                                  "scores": []})
         L["artists"].append(r["id"])
         if r.get("second_of"):  # listed on the roster, left out of the sums (the main profile counts)
@@ -353,6 +354,15 @@ def labels_index(rows: list[dict], release_counts: dict[str, int]) -> list[dict]
         L["ml"] += r["ml"] or 0
         L["cl"] += r.get("cl") or 0
         L["royalties"] += r.get("streaming_mid") or 0
+        # label one-pager (2026-10-26): the roster's streaming royalties and recordings + songs value as ranges, the
+        # low ends added together and the high ends together (summed grade C estimates)
+        st = [l for l in (r.get("revenue") or {}).get("lines", []) if l.get("group") == "Streaming"]
+        L["roy_low"] += sum(l["generated"]["low"] for l in st)
+        L["roy_high"] += sum(l["generated"]["high"] for l in st)
+        if r.get("worth_range"):
+            L["value_low"] += r["worth_range"][0]
+            L["value_high"] += r["worth_range"][1]
+            L["value_mid"] += r.get("worth_mid") or 0
         tier = (r.get("scout") or {}).get("tier")
         L["breaking"] += tier == "Breaking"
         L["rising"] += tier == "Rising"
@@ -363,5 +373,7 @@ def labels_index(rows: list[dict], release_counts: dict[str, int]) -> list[dict]
         sc = L.pop("scores")
         L["scout_avg"] = round(sum(sc) / len(sc)) if sc else None
         L["releases_2y"] = release_counts.get(L["name"], 0)
+        for k in ("roy_low", "roy_high", "value_low", "value_mid", "value_high"):
+            L[k] = round(L[k])
         out.append(L)
     return sorted(out, key=lambda L: -L["ml"])

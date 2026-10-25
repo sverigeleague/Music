@@ -201,10 +201,49 @@ ESTABLISHED_LISTENERS = 10_000_000  # this big already: established, not up-and-
 PROSPECT_RECENT_YEARS = 2  # a prospect's newest song as lead is at most this old
 
 
+# a release that repackages or re-cuts existing recordings, not a new song (reissue, compilation, live, version)
+REISSUE = re.compile(r"remaster|deluxe|expanded|anniversary|re-?issue|edition|greatest hits|best of|collection|"
+                     r"anthology|essentials|re-?record|\blive\b|ao vivo|en vivo|unplugged|remix|\bmix\b|sped up|slowed|"
+                     r"instrumental|acapella|a cappella|acoustic|radio edit|extended|stripped|\bclean\b|\bdemo\b", re.I)
+
+
+def _title(s: str) -> str:
+    """A song title for matching across Spotify (kworb) and Deezer: guest credits dropped, letters and digits only."""
+    s = re.sub(r"[(\[](?:feat|ft|with|prod)\b[^)\]]*[)\]]|\s-\s(?:feat|ft)\b.*$", "", s, flags=re.I)
+    return re.sub(r"\W", "", s.casefold())
+
+
+def deezer_dated_songs(releases: list[dict], songs: list[dict], dates: dict[str, dict]) -> list[dict]:
+    """Undated songs of the artist's own (lead on the latest kworb page) that Deezer dates: a lead release on the
+    artist's confirmed Deezer page with the same title. A release counts only when it is no reissue, compilation, live
+    or alternate version (record type 'compile', or REISSUE in its title) and, when the song's recording code (ISRC)
+    is known, that code is no older than the year before the release (an older code is an old recording put out
+    again). The title must match a lead song on Spotify, so a Deezer page of the same name that is another artist
+    (Makaveli's Deezer page: two Portuguese singles) dates nothing. Returns [{title, deezer_date, album}]."""
+    by_title: dict[str, dict] = {}
+    for r in sorted(releases, key=lambda r: r.get("release_date") or ""):  # the earliest release of a title
+        if r.get("record_type") == "compile" or REISSUE.search(r.get("title") or "") or not (r.get("release_date") or "")[:4].isdigit():
+            continue
+        by_title.setdefault(_title(r["title"]), r)
+    out = []
+    for s in songs:
+        d = dates.get(s["track_id"], {})
+        if s.get("feature") or d.get("first_release") or d.get("deezer_date") or REISSUE.search(s["title"]):
+            continue
+        r = by_title.get(_title(s["title"]))
+        isrc_year = (d.get("isrc") or "")[5:7]
+        recorded = (1900 if isrc_year > "50" else 2000) + int(isrc_year) if isrc_year.isdigit() else None
+        if not r or (recorded and recorded < int(r["release_date"][:4]) - 1):
+            continue
+        out.append({"title": s["title"], "deezer_date": r["release_date"], "album": r["title"]})
+    return out
+
+
 def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], registrants: dict[str, str],
                      since: str, year: int, table: list[dict] | None = None, ml: int | None = None,
                      cl: int | None = None, latest_lead: str | None = None,
-                     today: date | None = None, floor: bool = False) -> tuple[str, list[str]]:
+                     today: date | None = None, floor: bool = False,
+                     deezer_dated: list[dict] | None = None) -> tuple[str, list[str]]:
     """A self-released artist: an unsigned "prospect", or "established" (independent now, but with a past label deal
     or a long career). Owner, 2026-10-25: Jeezy, Lil Pump or KYLE releasing on their own say nothing about whether
     rising artists are unsigned. Evidence, any one enough: a record label on Wikidata's career-long list (a label or a
@@ -213,7 +252,8 @@ def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], regi
     listeners. tracks: the artist's dated songs. With `today`, the rest need a current audience (current listeners
     above 0) and a song of their own released in the last PROSPECT_RECENT_YEARS years (the newer of `latest_lead` and
     the tracks' first release), else they are "inactive": self-released, but not a prospect (owner, 2026-10-25:
-    Knust, Makaveli). The reasons come back in the list."""
+    Knust, Makaveli). deezer_dated: undated own songs Deezer dates (deezer_dated_songs), so a new single kworb's
+    pages carry no date for yet still counts. The reasons come back in the list."""
     table = table or owners()
     why = []
     for lab in wd_labels:
@@ -234,6 +274,7 @@ def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], regi
     if why or today is None:
         return ("established" if why else "prospect"), why
     newest = max([d for d in [latest_lead or ""] + [t.get("first_release") or t.get("deezer_date") or "" for t in tracks]
+                  + [t["deezer_date"] for t in deezer_dated or []]
                   if d[:4].isdigit() and d[:10] <= today.isoformat()], default="")
     cutoff = date(today.year - PROSPECT_RECENT_YEARS, today.month, min(today.day, 28)).isoformat()
     if not cl:
