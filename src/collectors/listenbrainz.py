@@ -17,7 +17,8 @@ Method, per artist (registry musicbrainz_id, looked up at the source, never by n
 2. An MBID ListenBrainz does not know (null counts) is often a merged MusicBrainz ID (the registry's Drake ID is one):
    MusicBrainz' lookup answers with the current ID, which is asked again. Redirects are cached in REDIRECTS.
 3. GET /1/stats/artist/<mbid>/listeners?range=month for artists with any all-time users: listeners and listens in
-   the last full calendar month. The response also lists the top users by name; those names are personal data and
+   the last full calendar month. HTTP 204 means ListenBrainz has no listener stats computed for the artist (it
+   answers 204 for every range, even all_time): left blank, never read as zero. The response also lists the top users by name; those names are personal data and
    are removed before the raw response is archived (raw/listenbrainz/<month>/...).
 Saved to data/listenbrainz.csv, one row per artist and month (history builds up month by month).
 """
@@ -77,12 +78,6 @@ def popularity(mbids: list[str], month: str) -> dict[str, tuple[int, int] | None
     return out
 
 
-def last_month(month: str) -> str:
-    """The calendar month before YYYY-MM (the stats window of a fetch in `month`)."""
-    y, m = int(month[:4]), int(month[5:7]) - 1
-    return f"{y - 1}-12" if m == 0 else f"{y}-{m:02d}"
-
-
 def current_mbid(mbid: str, cache: dict[str, str]) -> str:
     """The MBID MusicBrainz now uses for `mbid` (merged IDs redirect), "" when it has none."""
     if mbid not in cache:
@@ -128,8 +123,8 @@ def update(mbids: dict[str, str], limit: int | None = None) -> dict[str, int]:
                 row.update(parse_listeners(body["payload"]))
                 row["month"] = row["from"][:7]
                 n_month += 1
-            elif r.status_code == 204:  # no listens in the month
-                row.update({"month": last_month(month), "users_month": 0, "listens_month": 0})
+            # 204: ListenBrainz has not computed this artist's listener stats (it answers 204 for every range, even
+            # all_time, for artists its popularity table counts, e.g. will.i.am): unknown, not zero, so left blank
         rows.append(row)
         if len(rows) % 100 == 0:
             _write(have, rows)

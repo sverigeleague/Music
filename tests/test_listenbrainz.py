@@ -25,10 +25,6 @@ def test_strip_users_drops_names_only():
     assert "listeners" in LISTENERS["payload"]  # the original is untouched
 
 
-def test_last_month():
-    assert lb.last_month("2026-10") == "2026-09" and lb.last_month("2027-01") == "2026-12"
-
-
 def test_load_history(tmp_path, monkeypatch):
     p = tmp_path / "lb.csv"
     p.write_text(",".join(lb.FIELDS) + "\n"

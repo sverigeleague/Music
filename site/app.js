@@ -14,7 +14,7 @@ const initials = n => String(n || "").split(/[\s\-–]+/).filter(w => /^[\p{L}\d
 // where the artist is from, as small flags after the name (up to two); the country name on hover and for screen readers
 const flag = a => a?.cc?.length ? `<span class="flags" role="img" aria-label="${esc(a.country || "")}" title="${esc(a.country || "")}">${a.cc.slice(0, 2).map(c => `<img src="flags/${c}.svg" alt="" width="16" height="12" loading="lazy">`).join("")}</span>` : "";
 const pic = (a, big) => a.photo
-  ? `<img class="pic${big ? " big" : ""}" src="${esc(a.photo.file)}" alt="" loading="lazy" decoding="async" data-initials="${esc(initials(a.name))}">`
+  ? `<img class="pic${big ? " big" : ""}" src="${esc(a.photo.file)}" alt="" width="${big ? 120 : 32}" height="${big ? 120 : 32}" ${big ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" data-initials="${esc(initials(a.name))}">`
   : `<span class="pic none${big ? " big" : ""}" aria-hidden="true">${esc(initials(a.name))}</span>`;
 function count(v) {
   if (v == null) return "–";
@@ -266,9 +266,11 @@ function table(rows, rankKey = "rank") {
   const val = a => k === "gen_mid" ? a.money?.generated.mid : k === "scout" ? a.scout?.score : a[k];
   const sorted = [...rows].sort((a, b) => ((val(a) ?? -Infinity) > (val(b) ?? -Infinity) ? 1 : -1) * dir);
   const head = COLS.map(c => `<th data-sort="${c[1]}"${c[1] === k ? ` aria-sort="${dir < 0 ? "descending" : "ascending"}"` : ""}><span${defn(c[0])}>${esc(c[0])}</span></th>`).join("");
-  const body = sorted.map(a => `<tr><td class="l">${a[rankKey]}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span>${flag(a)}</a></td>${COLS.map(c => `<td>${cell(a, c)}</td>`).join("")}
+  // a 1,000-row table takes 1–2 s to lay out on a mid-range phone: the first 200 rows, the rest on request
+  const cut = !ui.allRows && sorted.length > 250, more = cut ? `<p class="more"><button type="button" class="btn" data-allrows>Show all ${sorted.length.toLocaleString()} rows</button></p>` : "";
+  const body = (cut ? sorted.slice(0, 200) : sorted).map(a => `<tr><td class="l">${a[rankKey]}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span>${flag(a)}</a></td>${COLS.map(c => `<td>${cell(a, c)}</td>`).join("")}
     <td class="l">${a.label_status === "major" || a.label_status === "major_distributed" ? esc(a.label_owner || "Major") : a.label_status === "independent" ? "Independent label" : a.label_status === "self_released" ? (a.indie_kind === "established" ? `<span title="${esc((a.indie_basis || []).join("; "))}">Independent (established)</span>` : "Unsigned") : a.label_status === "catalog" ? `<span title="No release in the last two years">Catalog</span>` : (a.major ? esc(a.major) : `<span class="note">not yet classified</span>`)}${a.revivals?.length ? " " + chip("Revival", a.revivals.map(r => `${r.title} (${r.year})`).join(", ")) : ""}</td></tr>`).join("");
-  return `<div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th>${head}<th class="l">Label group</th></tr></thead><tbody>${body}</tbody></table></div>`;
+  return `<div class="tablebox"><table><thead><tr><th class="l">#</th><th class="l">Artist</th>${head}<th class="l">Label group</th></tr></thead><tbody>${body}</tbody></table></div>${more}`;
 }
 function bindSort(rerender) {
   app.querySelectorAll("th[data-sort]").forEach(th => th.onclick = () => {
@@ -333,6 +335,7 @@ function top() {
   const inp = app.querySelector("input");
   inp.oninput = () => { ui.q = inp.value.toLowerCase(); const p = inp.selectionStart; top(); const i = app.querySelector("input"); i.focus(); i.setSelectionRange(p, p); };
   bindSort(top);
+  app.querySelector("[data-allrows]")?.addEventListener("click", () => { ui.allRows = true; const y = scrollY; top(); scrollTo(0, y); });
 }
 
 // Country ranks past the measured list (owner C1): artists under kworb's 500k-listener floor, in Deezer's track
