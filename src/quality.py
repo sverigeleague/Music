@@ -28,7 +28,7 @@ SOURCES = [
 
 # [file in review/, genre, what it holds, how a row is settled: "genre" or "label" override, or None (all open)]
 QUEUES = [
-    ("genre_review.csv", "hip_hop", "Borderline genre: is the artist hip-hop?", "genre"),
+    ("genre_review.csv", "hip_hop", "Borderline genre: is the artist hip-hop? Outside the list until decided", "genre"),
     ("hiphop_deezer_disagree.csv", "hip_hop", "Hip-hop by our rule, not by Deezer's release genres", "genre"),
     ("label_review.csv", "hip_hop", "Label owner unknown, or resting on the label name only", "label"),
     ("country_review_batch1.csv", "country", "Borderline genre: is the artist country? (batch 1)", "genre"),

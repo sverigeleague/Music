@@ -268,6 +268,8 @@ def build(genre: str = "hip_hop") -> dict:
                       "x": a["x"] and f"https://x.com/{a['x']}"},
         })
         r = rows[-1]
+        # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
+        r["feat"] = round(r["feature_daily"] / r["daily"], 3) if r.get("daily") and r.get("feature_daily") is not None else None
         if status["status"] == "self_released":  # unsigned prospect, established independent, or neither (inactive)
             # below the floor (no listener figure) the current audience is read from the daily streams
             seen = r["cl"] if ml else (round(r["daily"] * r["cur_share"]) if r["daily"] and r["cur_share"] is not None else None)
@@ -275,9 +277,7 @@ def build(genre: str = "hip_hop") -> dict:
                 a["name"], wd_labels, dated_of.get(t["spotify_id"], []), registrants, a["active_since"], today.year, table,
                 ml=ml, cl=seen, latest_lead=r["latest_release"], today=today, floor=bool(r["floor"]),
                 deezer_dated=labels.deezer_dated_songs(rels.get(str(a.get("deezer_id") or ""), []), songs_of.get(t["spotify_id"], []), dates)
-                if a.get("deezer_match") in deezer.CONFIRMED else None)
-        # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
-        r["feat"] = round(r["feature_daily"] / r["daily"], 3) if r.get("daily") and r.get("feature_daily") is not None else None
+                if a.get("deezer_match") in deezer.CONFIRMED else None, feat=r["feat"])
     second = second_profiles(rows[:TOP_N], artists)  # within the list the site shows (rows are in its final order)
     by_id = {r["id"]: r for r in rows}
     for sid, mid in second.items():  # one artist on two Spotify profiles: the smaller takes the main one's label

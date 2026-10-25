@@ -861,3 +861,14 @@ def test_deezer_dates_undated_own_songs_but_not_reissues():
     kw = dict(ml=2_000_000, cl=300_000, today=date(2026, 10, 25))
     assert labels.independent_kind("X", [], old, {}, "", 2026, t, **kw)[0] == "inactive"
     assert labels.independent_kind("X", [], old, {}, "", 2026, t, deezer_dated=got, **kw) == ("prospect", [])
+
+
+def test_independent_kind_featured_guest_not_prospect():
+    """Danny Chung (100% of streams as a guest) and SRNO (97%): not prospects, even with a recent song."""
+    from datetime import date
+    from src import labels
+    t, kw = labels.owners(), dict(ml=2_000_000, cl=300_000, today=date(2026, 10, 25))
+    new = [{"isrc": "QZAAA2500001", "first_release": "2025-06-01"}]
+    assert labels.independent_kind("X", [], new, {}, "", 2026, t, feat=0.89, **kw) == ("prospect", [])
+    k, why = labels.independent_kind("X", [], new, {}, "", 2026, t, feat=0.97, **kw)
+    assert k == "inactive" and why == ["mostly a featured guest on others' songs"]

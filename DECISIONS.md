@@ -2,6 +2,42 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Review by an investment-banking MD: awards, provisional Scout, corrections log, wording (items 2-8 and NICE)
+
+- **Awards as a floor** (`app.js sheetPage` Recognition row, `awardsPanel`): Wikidata lists wins far more often than
+  nominations (61 of 108 hip-hop and 34 of 69 country artists with awards have fewer nominations than wins), so a
+  count read as fact was wrong (Drake "11 wins, 1 nominations · 4 Grammys"). The one-pager says "at least N wins,
+  incl. N Grammys", source "as listed on Wikidata, incomplete: a floor, not a total"; plurals fixed. The nominations
+  count is hidden whenever it is below the wins (one-pager and the artist page's chips; the artist page keeps the
+  listed nominations under "Nominations listed (fewer than the wins: Wikidata is incomplete)"). Rejected: dropping
+  awards (the listed wins are sourced, only the total is not).
+- **Provisional Scout on the one-pager**: the provisional chip as on the artist page and label roster, and "on N% of
+  the signals by weight, so no tier" (MiyaGi & Endspiel 90/100 on 33%).
+- **Corrections log** (`registry/corrections.csv`): six rows added from the two Review 5 entries of 2026-10-25 (Scout
+  absent signals score 0; tier needs 60% of the weight; 10m+ monthly listeners = established, moving BigXthaPlug,
+  Morad, Shubh, Veigh; second Spotify profiles, Ye, Makaveli, Macklemore & Ryan Lewis, Miyagi & Andy Panda, with the
+  Bob / B.o.B pairing dropped; "label owner known" 75% to 66%; Knust, Baviera catalog only and Makaveli as 2Pac's
+  second profile). The Spotify rate ($4.40 to $3.60), catalogue value by release age (Drake $1.94bn to $1.56bn) and
+  the catalog rule (Boef, Honaiser, Sidhu Moose Wala) were already logged. "Decision log" now links to the public
+  DECISIONS.md on GitHub (the row's entry title stays as its tooltip). Rejected: one row per moved artist (one row per
+  rule, the artists named in it).
+- **Wording**: the Quality page's File column (review/*.csv paths) is gone; "owner's decision / owner's note" in the
+  log and "Owner's choices" / "Owner:" in the method versions (`docs/METHODOLOGY.md`) now "editor's decision(s)"; the
+  hip-hop genre queue says "Outside the list until decided" (`src/quality.py`; checked: none of its 736 artists is in
+  the top 1,000). Unsigned footnote: "checked by our editors".
+- **One royalty figure** (`streamingMid`): the build's unrounded `streaming_mid` where present (it travels with
+  `rev_lines` in extra.json, so wherever the lines are, it is too), else the sum of the lines; Drake now $115.0m on
+  Worth, the screener, Compare and the label pages. Columns named "Streaming royalties / yr" (Worth peers and top
+  100, label roster, label one-pager, Compare).
+- **Country list size**: `setMeta` writes "top 754" (the list's own size) wherever a title or description says "top
+  1,000", including the default; This month / Movers say "not all 754 yet".
+- **NICE**: a multiple blended by release age shows two decimals everywhere (`xm`: 7.87–13.84×, screener, one-pager,
+  artist card, catalog-age panel, Worth, median tile); a band's sourced multiple stays as quoted (8–13.7×), since
+  "8.00×" would claim precision the source lacks. One-pager values (ranges) no longer wrap on phones. Scout and
+  screener country filters count "East Germany" under Germany (display only; the artist page keeps Wikidata's name).
+  DistroKid's "<number> Records DK" (its name for releases without a label) shows as "DistroKid (numbered label)" on
+  the artist page's label basis and the Unsigned page (`lname`); the data keep the printed string.
+
 ## 2026-10-26 Data quality: merged MusicBrainz IDs, recent releases from Deezer, second profiles checked, review queues
 
 - **Merged MusicBrainz IDs:** 17 registry rows (16 IDs; Drake, Pusha T, Booba, KRS-One, Tinie Tempah...) carried an
@@ -40,6 +76,37 @@ What was chosen, what was considered and rejected, and why. Newest first.
     still B.o.B's (name match), which is where its Deezer genre share came from; its genre is the owner's Review-desk
     decision, so it was not changed. The Method text in app.js still names "B.o.B and Bob" as an example (not edited
     here: app.js belongs to another agent tonight).
+- **Featured guests are not prospects** (coordinator, after the 22:32 build): with the Deezer dates, Danny Chung (100%
+  of streams as a guest) and SRNO (97%) read as prospects with no reason given. `independent_kind(feat=)`: 90%+ of
+  streams as a featured guest is "inactive", reason "mostly a featured guest on others' songs" (the same 90% line
+  as the picks, `insights.PICK_MAX_FEAT`). `site_build` now works out `feat` before the test.
+- **Label queue** (`review/label_review.csv`, 351 artists): every artist's 2 newest lead releases were read at the
+  source: Deezer's album record gives the UPC, Apple's iTunes lookup by UPC gives the ℗ line (551 releases, one
+  request every 3.2 s). Only a ℗ line naming a licensee or distributor our table places, or a Wikipedia/Wikidata
+  page stating the owner, was used. 18 rows in `registry/label_owners.csv`, each with its URL and the ℗ line
+  ("research 2026-10-26"): Chapter ONE (Universal Music Germany; places RAF Camora, Pajel, Kolja Goldstein, Juju,
+  KALIM releases), WM Germany (Warner; Banger Musik, Zuna), XY Records (Vertigo Berlin, UMG), EHXIS (Altafonte,
+  Sony), CLBN (Aminé, 10K Projects, WMG), AGM Ent. (WEA Latina), Ruffhouse (Columbia back catalogue), Beastie Boys
+  JV (Capitol), Black Pearl Music and Deadline (Believe), ONErpm (independent, as Rich Vagos), Amuseio (Amuse),
+  Quality No Stress and Wagram (Wagram, French independent), Radicalis and M Music Records (independent
+  licensees), T-Series (Super Cassettes Industries, owned by Bhushan Kumar). 4 artist rows in
+  `registry/label_overrides.csv`: Saint Levant (Virgin Music Group), Alligatoah (Groove Attack), Zaho (Sony Music
+  France distribution on her releases; Suther Kane itself not placed, as Hornet La Frappe's and TK's ℗ lines name
+  no distributor) and Slipmami (UnitedMasters: confirms self-released). Key Glock already had one.
+  - Short of the 50-100 asked: in 551 ℗ lines, about 9 in 10 repeat the label or the artist's own name with no
+    distributor (G-Unit, SODMG, Brick Squad Monopoly, Bairro 13, HHR...), which the label rules (batch 3-7) leave
+    unknown; Wikidata has a record-label item with an owner for 3 of the first 163 unknown strings (one, G-Unit's
+    "parent: Universal", is out of date). Left out though a distributor is named: Ditto, Liso, EngineEars, Disetti,
+    Cornelis, Trappin' (owner not documented).
+- **Genre queue** (`review/genre_review.csv`, 735 hip-hop items): 623 are there only because Deezer matched them by
+  name, with no Wikidata entry. The confirm-country test (2 of the artist's 5 biggest lead songs on kworb among the
+  Deezer artist's 50 top tracks; kworb pages fetched for 425) confirms 382 of them. By the registry's own rule
+  (`genre.decide` with the identity confirmed) 306 are hip-hop and 76 stay in review. **Not applied:** it is a policy
+  change the owner has not made for hip-hop (2026-10-24 he left these in review, "identity not confirmed; most are
+  producers"), and 194 of the 306 would enter the top 1,000, replacing a fifth of the list, 108 with no label read
+  yet. The evidence is in `review/genre_identity_confirmed.csv` (songs checked, Deezer link, suggested genre, enters
+  the top 1,000) for one chat decision. Rejected: applying it overnight; applying only the artists outside the top
+  1,000 (the list's edge moves daily, so it would still change who is listed).
 
 ## 2026-10-26 Product ideas 4–7 (ROADMAP 11.1–11.4): deal comparison, label one-pager, saved screens, catalog age
 

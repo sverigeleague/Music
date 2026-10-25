@@ -199,6 +199,7 @@ def check_with_isrcs(status: dict, prefixes: list[str], registrants: dict[str, s
 ESTABLISHED_YEARS = 8  # releasing this long: an established act, not a prospect (owner, 2026-10-25)
 ESTABLISHED_LISTENERS = 10_000_000  # this big already: established, not up-and-coming (owner, 2026-10-25)
 PROSPECT_RECENT_YEARS = 2  # a prospect's newest song as lead is at most this old
+FEATURED_GUEST = 0.9  # this share of streams or more as a featured guest: not a prospect (as insights.is_pick)
 
 
 # a release that repackages or re-cuts existing recordings, not a new song (reissue, compilation, live, version)
@@ -243,7 +244,7 @@ def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], regi
                      since: str, year: int, table: list[dict] | None = None, ml: int | None = None,
                      cl: int | None = None, latest_lead: str | None = None,
                      today: date | None = None, floor: bool = False,
-                     deezer_dated: list[dict] | None = None) -> tuple[str, list[str]]:
+                     deezer_dated: list[dict] | None = None, feat: float | None = None) -> tuple[str, list[str]]:
     """A self-released artist: an unsigned "prospect", or "established" (independent now, but with a past label deal
     or a long career). Owner, 2026-10-25: Jeezy, Lil Pump or KYLE releasing on their own say nothing about whether
     rising artists are unsigned. Evidence, any one enough: a record label on Wikidata's career-long list (a label or a
@@ -253,7 +254,8 @@ def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], regi
     above 0) and a song of their own released in the last PROSPECT_RECENT_YEARS years (the newer of `latest_lead` and
     the tracks' first release), else they are "inactive": self-released, but not a prospect (owner, 2026-10-25:
     Knust, Makaveli). deezer_dated: undated own songs Deezer dates (deezer_dated_songs), so a new single kworb's
-    pages carry no date for yet still counts. The reasons come back in the list."""
+    pages carry no date for yet still counts. feat: share of the streams as a featured guest; FEATURED_GUEST or more is
+    not a prospect either (Danny Chung, SRNO: their audience is on others' songs). The reasons come back in the list."""
     table = table or owners()
     why = []
     for lab in wd_labels:
@@ -281,6 +283,8 @@ def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], regi
         why.append("catalog only: no current listeners (the listening is on older songs)" if cl == 0
                    else "no listener count below 500k on Spotify, and no stream figure" if floor
                    else "no current-listener figure (too few of the streams are on dated songs)")
+    if feat is not None and feat >= FEATURED_GUEST:
+        why.append("mostly a featured guest on others' songs")
     if newest < cutoff:
         why.append(f"no recent release: newest dated song of their own is from {newest[:4]}" if newest
                    else "no recent release: no dated song of their own (mostly a featured guest, or songs undated)")

@@ -387,6 +387,7 @@ table.screener td.wrap { min-width: 110px; max-width: 160px; }
   .sheetgrid { grid-template-columns: minmax(0, 1fr); }
   .sheethead .pic.big { width: 64px; height: 64px; }
   .sheettab td { white-space: normal; }
+  .sheettab td:not(.l) { white-space: nowrap; }  /* a range ($80m–$150m) stays on one line; the label and source columns wrap */
 }
 /* Printing (any page; made for the one-pager): no header, menus, buttons or player; A4 with small margins */
 @media print {
