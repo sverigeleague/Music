@@ -25,8 +25,10 @@ python -m src.site_build && python -m http.server -d site 8000   # then open htt
 
 Country (the second genre, behind the header switch): the per-artist steps take `--genre=country`
 (`python -m src.run streams --genre=country`, and so on). Country-only steps: `countrycrawl` (Deezer related-artists
-crawl for the list below the 500k floor), `country-from-crawl` and `confirm-country` (confirm Deezer matches from the
-songs). Both genres: `deezer-isrc`, `deezer-audit`, `wikidata-from-mb`. The monthly workflow runs all of them; every
+crawl for the artists below kworb's 500k-listener floor), `country-ids` (their Spotify IDs from MusicBrainz),
+`country-floor` (their kworb pages, identity confirmed from the songs), `country-from-crawl` and `confirm-country`
+(confirm Deezer matches from the songs). The country 1,000 ranks by monthly listeners down to the floor, then by
+measured daily Spotify streams. Both genres: `deezer-isrc`, `deezer-audit`, `wikidata-from-mb`. The monthly workflow runs all of them; every
 step is listed at the top of `src/run.py`.
 
 ## Files
