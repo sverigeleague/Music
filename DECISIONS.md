@@ -31,6 +31,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
   order (grade C, as before) but with the same data as everyone else apart from the stream-based figures (no money
   lines, no listener-based Scout signals). The 1,000 is complete only as far as crawl artists have a Spotify ID linked
   at the source; the remainder stays in the Deezer-ordered name list.
+- Genre review of the new below-floor artists (owner: "carry on as suggested with the uncertainties"): 50 of 53
+  decided as suggested, country except The Wild Feathers (Americana rock: other); country covers Americana,
+  bluegrass, alt-country and country rap (Savannah Dexter) as before. Beauxmont (no genre data), Ceol and LEW stay in
+  review.
 - What would measure everyone: the Spotify Web API (followers, popularity) or Last.fm (listeners), both waiting on
   keys (K1).
 
