@@ -2,6 +2,13 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Pillow in requirements: the site deploy failed since this morning
+
+- **What failed:** the site workflow, every run since 09:54 UTC. `src/static_pages.py` draws the share cards with
+  Pillow, which `requirements.txt` did not list, so the build stopped and nothing deployed (the logo and header
+  changes waited too).
+- **Fix:** `pillow==11.0.0` in `requirements.txt`. The full build passes with it in a clean environment.
+
 ## 2026-10-25 The logo leads to tventy.se; the section word is a label
 
 - **Asked:** "Don't make the music and sport words clickable anymore … Pressing tventy should bring you back to the
