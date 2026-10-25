@@ -13,7 +13,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
      (`country-floor`), the same check `country-from-crawl` uses.
   3. The registry decides the genre by the usual rules (Deezer release genres, Wikidata, MusicBrainz votes, owner
      overrides); nothing is let in on the crawl's word alone.
-  4. Ranked by measured daily Spotify streams (kworb artist pages, the same figure behind the money estimates).
+  4. Ranked by measured daily Spotify streams (kworb artist pages, the same figure behind the money estimates). kworb
+     refreshes small artists' pages irregularly (some were last updated in December 2025), so a page counts for the
+     ranking only if updated in the last 60 days; older ones wait in the name list for kworb's next update.
 - **What these artists do not get:** a monthly-listener figure (none is public below the floor; shown as "under
   500k"), listener change, current listeners and listener history.
 - **What they do get:** everything else hip-hop artists get (streams, labels, photos, release dates, certifications,

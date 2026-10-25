@@ -53,14 +53,21 @@ def current_of(spotify_id: str, dates: dict, today: date) -> dict | None:
     return current.score(current.songs(latest), dates, today, current.songs(older[-1]) if older else None)
 
 
+# below the floor, a kworb artist page counts for the ranking only if updated in the last 60 days: kworb refreshes
+# small artists' pages irregularly, and an old page's "daily streams" are that day's, not today's
+FLOOR_FRESH_DAYS = 60
+
+
 def build(genre: str = "hip_hop") -> dict:
     artists = load_artists()
     top = latest_listeners()
     streams, pics = latest_streams(), _json(PHOTOS, {})
     if genre == "country":  # below kworb's 500k-listener floor: ranked by measured daily streams, no listener figure
         listed = {t["spotify_id"] for t in top}
+        fresh = (date.today() - timedelta(days=FLOOR_FRESH_DAYS)).isoformat()  # kworb refreshes small artists rarely
         floor = sorted((a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed
-                        and num(streams.get(a["spotify_id"], {}).get("total_daily"))),
+                        and num(streams.get(a["spotify_id"], {}).get("total_daily"))
+                        and streams[a["spotify_id"]].get("date", "") >= fresh),
                        key=lambda a: -num(streams[a["spotify_id"]]["total_daily"]))
         top = top + [{"spotify_id": a["spotify_id"], "name": a["name"], "rank": None, "monthly_listeners": None,
                       "daily_change": None, "peak_rank": None, "peak_listeners": None, "floor": True} for a in floor]

@@ -41,7 +41,7 @@
 import csv
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 from . import current, genre, photos
 from .collectors import apple_charts, deezer, musicbrainz_labels, wayback, deezer_releases, kworb, kworb_countries, kworb_youtube, musicbrainz, release_dates, wikidata, wikipedia, youtube_api
@@ -209,8 +209,9 @@ def tracked(genres=None, top_n: int | None = TOP_N) -> list[dict]:
     daily = {}  # below kworb's listener floor (country), artists rank by their measured daily streams
     if kworb.STREAMS_CSV.exists():
         with kworb.STREAMS_CSV.open() as f:
+            fresh = (date.today() - timedelta(days=60)).isoformat()  # as site_build.FLOOR_FRESH_DAYS
             for r in csv.DictReader(f):
-                daily[r["spotify_id"]] = int(r["total_daily"] or 0)
+                daily[r["spotify_id"]] = int(r["total_daily"] or 0) if r["date"] >= fresh else 0
     rows = sorted((a for a in load_artists().values() if a["genre"] in genres),
                   key=lambda a: (-ml.get(a["spotify_id"], 0), -daily.get(a["spotify_id"], 0)))
     return rows[:top_n] if top_n else rows
