@@ -5,8 +5,8 @@
   {
    "key": "majors",
    "label": "Majors' share of the top 1,000's listeners",
-   "value": "65%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 333 of 386 artists are known",
+   "value": "67%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 346 of 381 artists are known",
    "link": "#/labels"
   },
   {
@@ -40,7 +40,7 @@
   {
    "key": "royalties",
    "label": "What the top 100 earn on Spotify",
-   "value": "$143.0m a year",
+   "value": "$142.0m a year",
    "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
    "link": "#/worth"
   },
@@ -61,8 +61,8 @@
   {
    "key": "size",
    "label": "Country artists tracked",
-   "value": "386",
-   "detail": "1.36bn combined monthly listeners, from Spotify's top 25,225",
+   "value": "381",
+   "detail": "1.35bn combined monthly listeners, from Spotify's top 25,225",
    "link": "#/"
   }
  ]

@@ -19,6 +19,11 @@ What was chosen, what was considered and rejected, and why. Newest first.
     artists.
 - Tucker Wetmore: label override (his releases name only himself; he signed with UMG Nashville through Back Blocks
   in May 2024, sourced).
+- **Batch 2:** 12 more rows (Thirty Tigers: Ol' Buddy, Lock13, Love Big, 3 Legged; Stem: Bill Grease, Mom & Daddy's
+  Money, Igniton, OurVinyl; Craft Recordings (Concord); Dreamcatcher Artists; Better Noise; Santa Anna Label Group,
+  Sony's joint venture with Todd Moscowitz, read as distributed by a major like Triple Tigers). Don Williams:
+  catalog override (his Deezer page mixes in unrelated uploads; his real releases are Craft reissues). The rest are
+  own imprints with no distributor named (Brett Eldredge, Randy Houser, Conner Smith...).
 - **For the owner:** Curb is Mike Curb's own label but Warner distributes it, so it reads "distributed by a major";
   say if ownership should decide instead (independent).
 - Still unknown: imprints whose ℗ line names only the artist (Treaty Oak Revival's TOR, Zac Brown Band's Master of
