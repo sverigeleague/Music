@@ -75,11 +75,20 @@ What was chosen, what was considered and rejected, and why. Newest first.
   served with brotli as Cloudflare does. Biggest costs: `data/index.json` (~300 KB after brotli) before any list
   shows; the country start page also downloading the hip-hop index (the preload in index.html ignored the route);
   the Top 1,000 table (1.7 s of layout on the phone profile); 205 photos over 40 KB (up to 390 KB for a 250 px image,
-  some PNGs named .jpg); seven flag SVGs of 35-184 KB shown at 16x12 px. Before/after numbers: __NUMBERS__
+  some PNGs named .jpg); seven flag SVGs of 35-184 KB shown at 16x12 px. Before → after (median of 2-3 runs; "list"
+  = the page's table or artist card in place; KB transferred after brotli):
+  `#/` list 2.90 → 2.21 s, 536 → 511 KB · `#/country/` 3.60 → 1.88 s, 601 → 303 KB · artist page 3.67 → 2.68 s ·
+  `#/scout` 3.36 → 3.60 s (slightly slower: it now parses a larger extra.json before drawing; bytes 501 → 476 KB) ·
+  `#/worth` 3.52 → 3.08 s, 646 → 520 KB · static `a/drake/` 3.88 → 2.73 s. First paint unchanged (~0.6 s; 0.5 s on
+  static pages). `index.json` 1.77 MB → 0.88 MB (300 → 155 KB brotli); country 1.11 → 0.60 MB. Top 1,000 click to
+  paint 1.75 → 0.48 s.
 - **Index split** (`src/site_build.py`): artist fields that only the pages waiting for extra.json read (Scout, Money,
   Labels, Compare, Screener, Method...) moved to `extra.json` as `artist_more`, merged back into the artist rows by
   app.js when it arrives (`LATER`); those the artist page also shows are copied into its shard (`ALSO_SHARD`). The
-  start page gets a precomputed `reach` (chart countries) instead of the per-country chart lists. Every use in app.js
+  start page gets a precomputed `reach` (chart countries) instead of the per-country chart lists. `artist_more` is by
+  column in the index's order (a third smaller than keyed by artist id); per-platform royalty mids other than Spotify
+  are rounded to 3 significant figures, as shown. extra.json is started alongside the index on pages that need it
+  (and preloaded by index.html and static label pages), and only after drawing on the start and artist pages. Every use in app.js
   was grepped and mapped to its page before moving (re-checked just before the rebuild, as other sessions were adding
   pages). Rejected: dropping the fields no page read (age_profile, coverage, latest_release): new pages started
   reading them during this session, so they moved to `LATER` instead; one file per artist instead of 32 shards (more
@@ -95,7 +104,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
   pages keep Pages' re-check on every visit (they change with each build).
 - **Accessibility** (axe-core 4.10 on 13 routes at 1280 and 390): search box is now a combobox (aria-expanded was
   invalid on a search box); wide tables that scroll get focus and a name; empty table headings got hidden text;
-  sortable headings take Tab and Enter/Space with focus kept; skip link; colour contrast passed.
+  sortable headings take Tab and Enter/Space with focus kept; skip link; colour contrast passed. After: no violations.
+  Static artist and label pages carry the breadcrumb the app draws, and the footer waits for the artist page, so the
+  page does not jump on load (with the faster index the footer showed before the artist page and then jumped: layout
+  shift 0.76 mid-change, 0.03 after this fix; 0 at the start).
 - **SEO**: artist JSON-LD adds Wikidata/YouTube/Instagram/TikTok/X profiles we looked up, the Commons photo with
   credit and licence, the Wikipedia summary; label JSON-LD adds the Commons logo and its Wikidata item; labels are
   og:type website; static pages preload their data; sitemap has lastmod; `/country/` is now a real page (it was in
@@ -118,9 +130,14 @@ What was chosen, what was considered and rejected, and why. Newest first.
   - Top-listener user names are removed before a response is archived (personal data). Only totals are kept.
   - HTTP 204 means ListenBrainz has computed no listener stats for that artist (will.i.am gets 204 even for all
     time). It is stored blank, never as zero.
-  - Coverage and fit with Spotify listeners: in the research note. It is an internal signal until the owner decides.
-    The panel is small (Drake: 3,497 ListenBrainz listeners in September 2026), so only ranks and changes are useful,
-    never the raw counts as an audience.
+  - **Coverage (run 2026-10-25):** 944 of 1,000 hip-hop and 704 of 757 country artists have last month's
+    listeners, including 316 of the 359 country artists below the 500k floor.
+  - **Fit with Spotify monthly listeners (log scale):** r 0.58 for hip-hop and 0.76 for country across all artists.
+    Among artists of similar size it is weak: Spearman 0.14 to 0.23, against Deezer's 0.30 on the same country
+    sample.
+  - **So it does not reorder the floor list and is not shown.** The data is kept for the Scout back-test, to see
+    whether month-on-month change finds risers (from January 2027).
+  - The panel is small (Drake: 3,497 listeners in September 2026), so the raw counts are never an audience size.
 - **Built, not run: The MLC** (`src/collectors/mlc.py`, monthly step `mlc`).
   - What it gives: the publishers, their shares, administrators and parent publishers of each artist's 3 biggest
     songs, by ISRC.

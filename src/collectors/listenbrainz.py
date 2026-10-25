@@ -2,9 +2,10 @@
 
 What it is: an open scrobble panel (people who send their plays to ListenBrainz from Spotify, Apple, players...). The
 counts are of its users only, a small panel that leans to rock and indie, so they are a measure of reach in that
-panel, not a market figure: Drake 3,497 listeners in September 2026 against about 60m on Spotify. Its use here is
-relative: a second audience measure below kworb's 500k-listener floor (where country ranks only by Deezer, grade C),
-and month-on-month change once a few months are stored.
+panel, not a market figure: Drake 3,497 listeners in September 2026 against about 95m on Spotify. Tested 2026-10-25
+(docs/research/2026-10-26-new-data-sources.md): it separates big from small (r 0.58 hip-hop, 0.76 country, log
+scale) but orders artists of similar size poorly (Spearman 0.14-0.23, below Deezer's), so it is internal only: kept
+for the Scout back-test of month-on-month change, not shown and not used to rank.
 
 Terms: "User listen data and text is made public under the Creative Commons Zero (CC0) license" (ListenBrainz page
 footer, frontend/js/src/components/Footer.tsx in metabrainz/listenbrainz-server); "All of our data is available for
