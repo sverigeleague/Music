@@ -2,6 +2,14 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 "PS/" label strings
+
+- Some UMG releases name the artist, then "PS/", then the label ("Charley Crockett PS/ Island", "Wale Music PS/ Def
+  Jam"). The "island records" pattern missed "PS/ Island", so the rule that the label string carries the artist's
+  name won, and Charley Crockett showed as unsigned. New rows: `ps/ island` and `ps/ def jam` (UMG, major), sourced
+  from the Deezer album pages and the 2025 Island signing. His 2026 album Clovis is on Atlantic Outpost (Warner),
+  already in the table.
+
 ## 2026-10-24 Country labels (overnight research)
 
 - 69 sourced rows in registry/label_owners.csv, mostly from the ℗ lines of 2025-26 releases on Deezer's public album
