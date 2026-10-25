@@ -53,6 +53,10 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' deezer ') }}
         continue-on-error: true
         timeout-minutes: 15
+      - run: python -m src.run wikidata-from-mb
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' wikidata-from-mb ') }}
+        continue-on-error: true
+        timeout-minutes: 15
       - run: python -m src.run deezer-audit
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' deezer-audit ') }}
         continue-on-error: true
