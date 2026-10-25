@@ -2,6 +2,11 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Contact address hello@tventy.se
+
+- **hello@tventy.se replaces swedenrocked@gmail.com** in the User-Agent of every collector, the site footer and the
+  working agreement (owner set up tventy.se mail, 2026-10-25; the same change in the sport repository).
+
 ## 2026-10-24 Label research batch 3, videos for the risers, Scout radio (owner: "Go with a, b and c in that order")
 
 - **a) Label research on the 14 that moved from major to unknown:**

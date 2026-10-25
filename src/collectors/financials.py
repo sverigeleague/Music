@@ -20,7 +20,7 @@ from ..http import get
 CSV = DATA / "financials.csv"
 FIELDS = ["company", "item", "statement", "period_type", "period_start", "period_end", "value", "currency", "concept",
           "form", "filed", "source"]
-CONTACT_UA = {"User-Agent": "music-ledger research swedenrocked@gmail.com"}
+CONTACT_UA = {"User-Agent": "music-ledger research hello@tventy.se"}
 
 COMPANIES = [
     {"company": "Warner Music Group", "source": "sec", "cik": "0001319161"},
