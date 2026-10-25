@@ -163,8 +163,8 @@ a.chip:hover { border-color: var(--fg); }
 .legend span { display: inline-flex; gap: 6px; align-items: center; }
 .legend i { width: 14px; height: 14px; border: 1px solid var(--line); display: inline-block; }
 .stackrow { display: grid; grid-template-columns: minmax(120px, 170px) minmax(0, 1fr); gap: 10px; align-items: center; font-size: 14px; }
-.stack { display: flex; height: 18px; border: 1px solid var(--line); }
-.stack i { display: block; height: 100%; min-width: 0; }
+div.stack { display: flex; height: 18px; border: 1px solid var(--line); }
+div.stack i { display: block; height: 100%; min-width: 0; }
 @media (max-width: 560px) { .stackrow { grid-template-columns: 1fr; gap: 4px; } }
 
 /* phones: the artist column stays in view while the numbers scroll */

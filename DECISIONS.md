@@ -2,6 +2,15 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Page fixes from a phone-width pass (overnight)
+
+- Tours: the page listed both genres' tours (the country page led with Kendrick Lamar); now only artists in the
+  genre's list. All 48 counted tours still appear on one of the two pages.
+- Stacked tables: the `.stack` rule for the share bar also hit every `table.stack`, squashing those tables to 18px
+  (tours, credits, certifications, collaborators, label tables, the audience questions). The bar rule is now `div.stack`.
+- Artist page Peak tile: artists below kworb's top 2,500 have no peak rank (the 25k pages carry none); the tile said
+  "best rank #null".
+
 ## 2026-10-25 "PS/" label strings
 
 - Some UMG releases name the artist, then "PS/", then the label ("Charley Crockett PS/ Island", "Wale Music PS/ Def

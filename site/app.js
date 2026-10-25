@@ -31,7 +31,6 @@ const cell = (a, [, key, f]) => {
 };
 const chip = (t, title) => `<span class="chip" title="${esc(title || "")}">${esc(t)}</span>`;
 const grade = g => `<span class="chip c" title="A primary, B reputable secondary, C our estimate">${esc(g)}</span>`;
-// Five sections in the header; each page belongs to one, and sections with several pages show a sub-menu.
 // Four sections in the header (owner, 2026-10-24, D1); each page belongs to one, and sections with several pages
 // show a sub-menu. Method sits in the footer.
 const SECTION = { top: "artists", movers: "artists", month: "artists", rising: "artists", compare: "artists", artist: "artists",
@@ -313,7 +312,7 @@ function audience() {
   const withGeo = hundred.filter(a => a.geo);
   app.innerHTML = `${subnav()}<section><h1>Where hip-hop is streamed</h1>${sizeSwitch()}
     <p class="sub">Who listens, and where. Some of it can be measured from public data; some of it cannot, and this page says which.</p></section>
-    <section class="tablebox"><table><thead><tr><th class="l">Question</th><th class="l">What we have</th><th class="l">Status</th></tr></thead><tbody>
+    <section class="tablebox"><table class="stack"><thead><tr><th class="l">Question</th><th class="l">What we have</th><th class="l">Status</th></tr></thead><tbody>
       <tr><td class="l"><b>Which countries</b></td><td class="l wrap">Each artist's streams in Spotify's weekly top 200 of 76 countries (kworb.net, ${weeksLabel()})</td><td class="l">${chip("measured")} for ${withGeo.length} of the top 100</td></tr>
       <tr><td class="l"><b>Which cities</b></td><td class="l wrap">Spotify shows each artist's top 5 cities on its own site, but its terms bar collecting them</td><td class="l">not collected</td></tr>
       <tr><td class="l"><b>Age and gender, per artist</b></td><td class="l wrap">Not public for any platform. Licensed providers (Soundcharts from $50 a month, Chartmetric) model it from Instagram, YouTube and TikTok followers</td><td class="l">needs a licence</td></tr>
@@ -348,7 +347,7 @@ function tours() {
     ["Agent, manager, business manager", 0.15, "agent 10%, manager 15–20%, business manager 5% of the artist's fee"],
     ["Artist's slice", 0.20, "15–35% of gross, before tax"]];
   app.innerHTML = `${subnav()}<section><h1>Tours</h1>
-    <p class="sub">Box office reported by Billboard Boxscore and Pollstar for tours since 2023 by artists in the top 100: how much a tour makes, per show and per fan, and an estimate of what reaches the artist.</p></section>
+    <p class="sub">Box office reported by Billboard Boxscore and Pollstar for tours since 2023 by artists on our list: how much a tour makes, per show and per fan, and an estimate of what reaches the artist.</p></section>
     <section class="tiles">
       <div class="tile"><div class="k">Biggest tour</div><div class="v">${esc(top.artist)}</div><div class="s">${esc(top.tour)}: ${usd(top.gross)}</div></div>
       <div class="tile"><div class="k">Most money per fan</div><div class="v">${best ? usd(best.per_fan) : "–"}</div><div class="s">${best ? esc(best.artist) + ", " + esc(best.tour) : ""}</div></div>
@@ -420,7 +419,7 @@ async function artist(id) {
     <section class="tiles">
       <div class="tile"><div class="k">Monthly listeners</div><div class="v">${count(a.ml)}</div><div class="s">${delta(a.chg)} today (${pct(a.chg_pct)})</div></div>
       <div class="tile"><div class="k">Current listeners</div><div class="v">${a.cl != null ? count(a.cl) + (a.cl_provisional ? `<span class="prov">*</span>` : "") : "–"}</div><div class="s">${a.cur_share != null ? Math.round(a.cur_share * 100) + "% of listening on recent releases" : "release dates missing"}${a.cl == null && a.cur_share != null ? " · not ranked yet" : ""}${a.cl_provisional ? ` · provisional: ${count(a.cl_range[0])}–${count(a.cl_range[1])} until more songs are dated` : ""}</div></div>
-      <div class="tile"><div class="k">Peak</div><div class="v">${count(a.peak_ml)}</div><div class="s">best rank #${a.peak_rank} on Spotify</div></div>
+      <div class="tile"><div class="k">Peak</div><div class="v">${count(a.peak_ml)}</div><div class="s">${a.peak_rank ? `best rank #${a.peak_rank} on Spotify` : "most monthly listeners kworb has seen"}</div></div>
       <div class="tile"><div class="k">Streams, all time</div><div class="v">${count(a.streams)}</div><div class="s">${count(a.daily)} a day</div></div>
       <div class="tile"><div class="k">YouTube views</div><div class="v">${count(a.yt_total)}</div><div class="s">${a.yt_daily ? count(a.yt_daily) + " a day" : "no data"}${a.yt_subs ? " · " + count(a.yt_subs) + " subscribers" : ""}</div></div>
       <div class="tile"><div class="k">Deezer fans</div><div class="v">${count(a.deezer_fans)}</div><div class="s">Deezer</div></div>

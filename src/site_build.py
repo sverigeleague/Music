@@ -387,11 +387,11 @@ def write_label_review(rows: list[dict]) -> None:
 
 def tour_table(rows: list[dict]) -> list[dict]:
     """Every counted tour (registry/tours.csv, use=Y, grade A/B) with per-show and per-fan figures and the artist's
-    estimated slice (rule-of-thumb shares, C)."""
+    estimated slice (rule-of-thumb shares, C). Only artists in this genre's list: the file holds both genres."""
     ids = {r["name"].casefold(): r["id"] for r in rows}
     out = []
     for t in revenue.tours():
-        if t.get("use") != "Y" or not t.get("gross_usd"):
+        if t.get("use") != "Y" or not t.get("gross_usd") or t["artist"].casefold() not in ids:
             continue
         g, n, k = float(t["gross_usd"]), float(t["shows"] or 0), float(t["tickets"] or 0)
         share = float(t.get("artist_share") or 1)
