@@ -1,3 +1,4 @@
+[hidden] { display: none !important; }
 /* Rap Ledger styles: the same tokens and look as Hoop Ledger (black and white, square boxes, colour only where it
    means something). The font is Bricolage Grotesque (SIL Open Font License), served from site/fonts. */
 @font-face { font-family: "Bricolage Grotesque"; src: url("fonts/bricolage.woff2") format("woff2"); font-weight: 200 800;

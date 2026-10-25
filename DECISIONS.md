@@ -10,6 +10,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
   (tours, credits, certifications, collaborators, label tables, the audience questions). The bar rule is now `div.stack`.
 - Artist page Peak tile: artists below kworb's top 2,500 have no peak rank (the 25k pages carry none); the tile said
   "best rank #null".
+- Hidden panels: `.panel`'s display rule beat the `hidden` attribute, so the deals panel showed as an empty box on
+  artists without deal figures. A global `[hidden] { display: none !important; }`.
 
 ## 2026-10-25 "PS/" label strings
 
