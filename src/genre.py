@@ -129,9 +129,14 @@ def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: 
             return "review", basis + ("" if wikidata else "; matched to Deezer by name only")
     if wd_genres:
         share = sum(1 for g in wd_genres if is_country(g[0])) / len(wd_genres)
+        basis = f"Wikidata genres: country {share:.0%} of {len(wd_genres)}"
+        if share >= 0.5 and dz and dz.get("match") in ("exact", "titles", "isrc") and int(dz.get("releases") or 0) >= 5 \
+                and dz.get("country_share") not in ("", None) and float(dz["country_share"]) < COUNTRY_REVIEW:
+            # Wikidata's genre list can be one entry ("alternative country" for Wilco); Deezer's releases say otherwise
+            return "review", basis + f"; Deezer files {float(dz['country_share']):.0%} of {dz['releases']} releases under Country"
         if share >= 0.67 and total:
-            return "country", f"Wikidata genres: country {share:.0%} of {len(wd_genres)}"
+            return "country", basis
         if share >= 0.5:
-            return "review", f"Wikidata genres: country {share:.0%} of {len(wd_genres)}"
+            return "review", basis
     return None
 

@@ -2,6 +2,14 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 One Wikidata genre no longer outweighs Deezer's releases
+
+- 28 country artists rested on a single Wikidata genre ("alternative country" is Wilco's only P136 value). New guard,
+  the mirror of the arabesque one: when Wikidata says country but a confirmed Deezer match files under 30% of 5+
+  releases under Country, the artist goes to review. Moved to review: Wilco, Rusted Root, She & Him, The Avett
+  Brothers, The Handsome Family. Tyler Farr also moved, on his MusicBrainz votes (50% of 4), not on this rule;
+  both are in the owner's review queue. Country list: 381 -> 375.
+
 ## 2026-10-25 Distribution-deal strings and nested label patterns
 
 - "Universal Music Distribution Deal", "Universal Music Distributed Deals", "Universal Music Division Virgin Records

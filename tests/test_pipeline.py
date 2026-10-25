@@ -605,3 +605,11 @@ def test_label_name_follows_dated_rows_and_titles_keep_with():
     assert labels.label_name("Big Machine Records", t, "2026-05-01") == "Big Machine Records"
     assert deezer._title("Stay With Me") != deezer._title("Stay")
     assert deezer._title("Song (with X)") == deezer._title("Song")
+
+
+def test_one_wikidata_genre_does_not_override_deezer_releases():
+    from src.genre import decide_country
+    wd = [("alternative country", False, False)]
+    rock = {"match": "exact", "releases": "49", "country_share": "0.0"}
+    assert decide_country([("rock", 1)], wd, rock)[0] == "review"
+    assert decide_country([("rock", 1)], wd)[0] == "country"  # no Deezer match: Wikidata decides as before
