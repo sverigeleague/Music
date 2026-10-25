@@ -2,6 +2,14 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Newest release shown beside the label basis
+
+- The artist page's "latest:" line showed the release the label status rests on, not the newest one (Charley
+  Crockett: Island in April 2026, though his July album Clovis is on Atlantic Outpost). It now reads "based on: ...",
+  plus "newest release: ..." when the newest lead release carries another label string.
+- Considered: letting the newest release decide. Rejected: of 28 artists whose newest release disagrees with the
+  majority, most are own-name imprints on a signed artist (Gunna Music, NF Real Music II), so the majority stays.
+
 ## 2026-10-25 One Wikidata genre no longer outweighs Deezer's releases
 
 - 28 country artists rested on a single Wikidata genre ("alternative country" is Wilco's only P136 value). New guard,

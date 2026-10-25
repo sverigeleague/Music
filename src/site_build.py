@@ -12,7 +12,7 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
 EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market")
-DETAIL_ONLY = ("cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_isrc_note", "label_confidence", "label_override",
+DETAIL_ONLY = ("cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_newest", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
                "peak_rank", "attention_series", "worth", "collabs")
@@ -162,6 +162,7 @@ def build(genre: str = "hip_hop") -> dict:
             "deal_type": deal, "label_status": status["status"], "label_owner": status["owner"] or None,
             "label_name": label_display(status, table),
             "label_basis": status["basis"], "label_override": status.get("override"),
+            "label_newest": newest_release(status),
             "label_isrc_note": status.get("isrc_note") or None, "label_confidence": status.get("confidence"),
             "money": money.estimate(num(s.get("lead_daily")), deal),
             "photo": pics.get(t["spotify_id"]) or None, "genre_basis": a["genre_basis"],
@@ -288,6 +289,13 @@ def pick_video(entry: dict | None, name: str, hit: str | None) -> dict | None:
         return {**vids[0], "why": "latest upload"}
     own = [v for v in vids if _norm(v["title"]).startswith(_norm(name))]
     return {**(own or vids)[0], "why": "most watched"}
+
+
+def newest_release(status: dict) -> dict | None:
+    """The artist's newest lead release when its label differs from the one the status rests on (a move, or an
+    imprint on the newest release); the status itself stays with most recent releases."""
+    rel, basis = (status.get("releases") or [None])[0], status.get("basis") or {}
+    return rel if rel and basis and rel["label"] != basis.get("label") else None
 
 
 def release_counts(rels: dict, table: list[dict]) -> dict[str, int]:

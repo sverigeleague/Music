@@ -433,7 +433,7 @@ async function artist(id) {
         <dt>Share from features</dt><dd>${leadShare != null ? ((1 - leadShare) * 100).toFixed(0) + "%" : "–"}</dd>
         <dt>Tracks credited</dt><dd>${a.tracks ?? "–"}</dd>
         <dt>Top track</dt><dd>${esc(a.top_track || "–")}${a.top_track_streams ? " · " + count(a.top_track_streams) : ""}</dd>
-        <dt>Label status</dt><dd>${esc(STATUS[a.label_status] || "–")}${labelOf(a) ? ` · ${labelLink(a)}` : ""}${a.label_owner && a.label_owner !== "the artist's own name" ? " · " + esc(a.label_owner) : ""}${a.label_basis ? `<br><span class="note">latest: ${esc(a.label_basis.label)} (${esc(a.label_basis.date)})</span>` : ""}</dd>
+        <dt>Label status</dt><dd>${esc(STATUS[a.label_status] || "–")}${labelOf(a) ? ` · ${labelLink(a)}` : ""}${a.label_owner && a.label_owner !== "the artist's own name" ? " · " + esc(a.label_owner) : ""}${a.label_basis ? `<br><span class="note">based on: ${esc(a.label_basis.label)} (${esc(a.label_basis.date)})${a.label_newest ? `; newest release: ${esc(a.label_newest.label)} (${esc(a.label_newest.date)})` : ""}</span>` : ""}</dd>
         <dt>Labels on record</dt><dd>${esc(a.labels.slice(0, 3).join(", ") || "–")}${a.labels.length > 3 ? ` +${a.labels.length - 3}` : ""}</dd>
       </dl><p class="note">Stream totals as of ${esc(a.streams_date || "–")} (kworb.net, from Spotify's public play counts).</p></div>
     </section>
