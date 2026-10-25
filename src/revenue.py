@@ -71,6 +71,11 @@ def _rng(lo, mid, hi):
     return {"low": lo, "mid": mid, "high": hi}
 
 
+def _mult(x: float) -> str:
+    """A platform multiplier for the basis text: 0.30, 0.02, 0.002; never "0.00"."""
+    return f"{x:.2f}" if x >= 0.01 else f"{x:.3f}".rstrip("0")
+
+
 def _rate(p: dict) -> tuple[float, float, float] | None:
     try:
         return tuple(float(p[f"per_1000_{k}"]) for k in K)
@@ -135,18 +140,18 @@ def estimate(a: dict, today: date, deal_share: dict, genre: str = "hip_hop") -> 
     if a.get("lead_daily") and sp:
         spotify = _rng(*(a["lead_daily"] * DAYS * r / 1000 for r in sp))
         lines.append({"key": "spotify", "label": "Spotify", "group": "Streaming", "generated": spotify,
-                      "grade": "C", "basis": "measured streams × $2.50–4.40 per 1,000"})
+                      "grade": "C", "basis": f"measured streams × ${sp[0]:.2f}–{sp[2]:.2f} per 1,000"})
     yt = _rate(pf["youtube"])
     if a.get("yt_daily") and yt:
         lines.append({"key": "youtube", "label": "YouTube", "group": "Streaming",
                       "generated": _rng(*(a["yt_daily"] * DAYS * r / 1000 for r in yt)),
-                      "grade": "C", "basis": "measured views × $1.00–6.00 per 1,000"})
+                      "grade": "C", "basis": f"measured views × ${yt[0]:.2f}–{yt[2]:.2f} per 1,000"})
     if spotify:
         for m in multipliers(genre):
             lines.append({"key": m["platform"], "label": (genre == "country" and COUNTRY_NAMES.get(m["platform"])) or pf.get(m["platform"], {}).get("name") or NAMES.get(m["platform"], m["platform"]),
                           "group": "Streaming",
                           "generated": {k: spotify[k] * float(m[k]) for k in K}, "grade": "C",
-                          "basis": f"Spotify × {float(m['mid']):.2f} (market share, {m['grade']}-grade source)"})
+                          "basis": f"Spotify × {_mult(float(m['mid']))} (market share, {m['grade']}-grade source)"})
     streaming = {k: sum(l["generated"][k] for l in lines) for k in K}
     for l in lines:
         l["artist"] = {k: l["generated"][k] * deal_share[k] for k in K}

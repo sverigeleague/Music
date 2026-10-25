@@ -525,9 +525,9 @@ def test_scout_weights_sum_to_one_per_genre():
 def test_label_rows_by_release_date():
     from src import labels
     t = labels.owners()
-    assert labels.classify_label("Big Machine Records, LLC", "", t, False, "2023-05-01") == ("major_distributed", "HYBE America")
+    assert labels.classify_label("Big Machine Records, LLC", "", t, False, "2023-05-01") == ("major_distributed", "Universal Music Group")  # HYBE-owned, grouped under its distributor
     assert labels.classify_label("Big Machine Records", "", t, False, "2026-06-01") == ("independent", "Big Machine Records (Scott Borchetta)")
-    assert labels.classify_label("Blue Highway Records", "", t, False, "2026-06-01")[1] == "HYBE America"
+    assert labels.classify_label("Blue Highway Records", "", t, False, "2026-06-01")[1] == "Universal Music Group"
 
 
 def test_country_revenue_has_pandora_and_radio_songwriting():

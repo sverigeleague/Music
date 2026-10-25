@@ -1,26 +1,26 @@
 {
  "month": "2026-10",
- "as_of": "2026-10-24",
+ "as_of": "2026-10-25",
  "items": [
   {
    "key": "majors",
-   "label": "Majors' share of the top 757's listeners",
-   "value": "67%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 603 of 757 artists are known",
+   "label": "Majors' share of the top 754's listeners",
+   "value": "73%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 600 of 754 artists are known",
    "link": "#/labels"
   },
   {
    "key": "top",
    "label": "No. 1 by current listeners",
    "value": "Ella Langley",
-   "detail": "26.1m current listeners, 32.0m monthly",
+   "detail": "26.2m current listeners, 32.0m monthly",
    "link": "#/a/6BRxQ8cD3eqnrVj6WKDok8"
   },
   {
    "key": "mover",
    "label": "Biggest riser over 30 days",
    "value": "Avery Anna",
-   "detail": "+24% monthly listeners, 7.8m to 9.7m since 2026-09-21",
+   "detail": "+25% monthly listeners, 7.8m to 9.8m since 2026-09-21",
    "link": "#/a/5rjz63sgMaAUAyBMyCUK5D"
   },
   {
@@ -40,7 +40,7 @@
   {
    "key": "royalties",
    "label": "What the top 100 earn on Spotify",
-   "value": "$148.0m a year",
+   "value": "$146.2m a year",
    "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
    "link": "#/worth"
   },
@@ -61,8 +61,8 @@
   {
    "key": "size",
    "label": "Country artists tracked",
-   "value": "757",
-   "detail": "1.43bn combined monthly listeners, from Spotify's top 25,584",
+   "value": "754",
+   "detail": "1.43bn combined monthly listeners, from Spotify's top 25,575",
    "link": "#/"
   }
  ]

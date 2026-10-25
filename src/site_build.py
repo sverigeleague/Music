@@ -72,7 +72,12 @@ def build(genre: str = "hip_hop") -> dict:
                 crawl_order[c["spotify_id"]] = max(crawl_order.get(c["spotify_id"], 0), int(c.get("top10_rank_sum") or 0))
         measured = lambda a: (num(streams.get(a["spotify_id"], {}).get("total_daily"))
                               and streams[a["spotify_id"]].get("date", "") >= fresh)
-        below = [a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed]
+        # a second Spotify profile of an artist measured above the floor (Charlie Daniels Band, Dan Seals) is not
+        # a second artist: below the floor, names already listed above it are left out
+        same = lambda n: re.sub(r"^the ", "", _norm(n))
+        listed_names = {same(t["name"]) for t in top}
+        below = [a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed
+                 and same(a["name"]) not in listed_names]
         # first those kworb measures (daily streams), then the rest in the Deezer crawl's order (grade C, no figure)
         floor = sorted((a for a in below if measured(a)), key=lambda a: -num(streams[a["spotify_id"]]["total_daily"])) \
             + sorted((a for a in below if not measured(a) and a["spotify_id"] in crawl_order),
@@ -109,10 +114,12 @@ def build(genre: str = "hip_hop") -> dict:
                 bodies[c["body"]] = bodies.get(c["body"], 0) + 1
         main = max(bodies, key=bodies.get)
         idx = {"works": sm["certified_works"], "riaa_plat": sm["riaa_platinum_units"],
-               "no1": sum(1 for w in e["works"] if w.get("us_peak") == 1), "countries": len(sm["by_country"]),
+               "no1": sum(1 for w in e["works"] if w.get("us_peak") == 1 and not w.get("featured")),
+               "no1_feat": sum(1 for w in e["works"] if w.get("us_peak") == 1 and w.get("featured")), "countries": len(sm["by_country"]),
                "main": {"body": main, "n": bodies[main]}}
         det = {"url": e["url"], "page": e["page"], "lang": e.get("lang", "en"), "by_country": sm["by_country"],
                "top": [{"title": w["title"], "type": w["type"], "year": w.get("year"), "us_peak": w.get("us_peak"),
+                        **({"featured": True} if w.get("featured") else {}),
                         "certs": [short(c) for c in w["certs"]]} for w in works[:12]]}
         return idx, det
     (geo, geo_weeks), ych = kworb_countries.load_recent(), youtube_api.load()
@@ -190,7 +197,7 @@ def build(genre: str = "hip_hop") -> dict:
             "label_newest": newest_release(status),
             "label_isrc_note": status.get("isrc_note") or None, "label_confidence": status.get("confidence"),
             "money": money.estimate(num(s.get("lead_daily")), deal),
-            "photo": pics.get(t["spotify_id"]) or None, "genre_basis": a["genre_basis"],
+            "photo": pics.get(t["spotify_id"]) or None, "genre_basis": genre_note(a["genre_basis"]),
             "cur_share": round(cur["current_share"], 4) if cur.get("current_share") is not None else None,
             "coverage": round(cur.get("coverage", 0), 3), "cl": round(ml * cur["current_share"]) if ml and (cur.get("ok") or cur.get("provisional")) else None,
             "cl_provisional": (bool(cur.get("provisional")) and bool(ml)) or None,
@@ -280,7 +287,8 @@ def build(genre: str = "hip_hop") -> dict:
             # the majors' share of listening, kept in the index so the other genre's pages can compare with it
             "majors_share": (lambda m: round(sum(g["ml"] for k, g in m["groups"].items()
                                                  if k in ("Universal Music Group", "Sony Music", "Warner Music Group"))
-                                             / (m["total_ml"] or 1), 3))(insights.market(rows)),
+                                             / (sum(g["ml"] for k, g in m["groups"].items() if k != "Not yet known") or 1),
+                                             3))(insights.market(rows)),  # among artists whose label is known, as on the Labels page
             "scout_factors": {k: {"weight": w, "label": l} for k, (w, l) in factors.items()},
             "month": monthly.build(rows, history, day or today.isoformat()),
             "credits": (lambda songs: {"producers": credits_src.leaderboard(songs, "producers"),
@@ -295,6 +303,15 @@ def build(genre: str = "hip_hop") -> dict:
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
             "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES)}
+
+
+def genre_note(basis: str) -> str:
+    """The genre basis as a client reads it: an owner decision says it was reviewed; a rule keeps its evidence
+    ("MusicBrainz votes: country 89% of 9") without our internal rule names."""
+    if (basis or "").startswith("owner:"):
+        return "checked by our editors"
+    parts = [p for p in (basis or "").split("; ") if not p.startswith(("hip-hop rule:", "also country?"))]
+    return "; ".join(parts) or "no genre data"
 
 
 STATUS_WORDS = {"major": "signed to", "major_distributed": "released through", "independent": "on the independent label",

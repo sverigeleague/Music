@@ -1,6 +1,6 @@
 {
  "month": "2026-10",
- "as_of": "2026-10-24",
+ "as_of": "2026-10-25",
  "items": [
   {
    "key": "majors",
@@ -13,21 +13,21 @@
    "key": "top",
    "label": "No. 1 by current listeners",
    "value": "Don Toliver",
-   "detail": "26.0m current listeners, 45.7m monthly",
+   "detail": "26.0m current listeners, 45.8m monthly",
    "link": "#/a/4Gso3d4CscCijv0lmajZWs"
   },
   {
    "key": "mover",
    "label": "Biggest riser over 30 days",
    "value": "Yung Lean",
-   "detail": "+69% monthly listeners, 7.0m to 11.9m since 2026-09-29",
+   "detail": "+71% monthly listeners, 7.0m to 12.0m since 2026-09-29",
    "link": "#/a/67lytN32YpUxiSeWlKfHJ3"
   },
   {
    "key": "breaking",
    "label": "Breaking now",
    "value": "21",
-   "detail": "artists Scout rates Breaking; top: Tiakola (95)",
+   "detail": "artists Scout rates Breaking; top: Clarent (94)",
    "link": "#/scout"
   },
   {
@@ -62,7 +62,7 @@
    "key": "size",
    "label": "Hip-hop artists tracked",
    "value": "1,000",
-   "detail": "6.52bn combined monthly listeners, from Spotify's top 25,225",
+   "detail": "6.52bn combined monthly listeners, from Spotify's top 25,219",
    "link": "#/"
   }
  ]

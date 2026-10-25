@@ -12,6 +12,7 @@ Shown as a range (low income x low multiple to high income x high multiple), gra
 import csv
 import re
 from bisect import bisect_right
+from datetime import date
 
 from .config import REGISTRY
 
@@ -31,7 +32,7 @@ FACTORS = {
     "current": (0.22, "Current share: listening on releases of the last 18-36 months"),
     "attention": (0.05, "Wikipedia attention: page views of the last 3 months against the 9 before"),
     "engagement": (0.14, "Streams a day per monthly listener"),
-    "breadth": (0.14, "Chart reach: countries with a song in Spotify's weekly top 200, plus Apple Music's daily top 100"),
+    "breadth": (0.14, "Chart reach: countries with a song in Spotify's weekly top 200 or Apple Music's daily top 100, each counted once"),
     "momentum": (0.05, "Monthly listeners, change today"),
 }
 # Country (owner C4, 2026-10-24): US AM/FM radio is the genre's biggest audience outside streaming, so its audience is
@@ -104,6 +105,14 @@ def growth(history: list[tuple[str, int]], today: str, days: int = 90, slack: in
     return history[-1][1] / best[1]
 
 
+def chart_countries(r: dict) -> int:
+    """Countries where the artist charts on Spotify's weekly top 200 or Apple Music's daily top 100, each counted once."""
+    spotify = {c[0] for c in (r.get("geo") or {}).get("charts", [])}
+    if not spotify and (r.get("geo") or {}).get("countries"):  # older rows without the per-country list
+        return r["geo"]["countries"] + len((r.get("apple") or {}).get("countries", []))
+    return len(spotify | set((r.get("apple") or {}).get("countries", [])))
+
+
 def raw_factors(r: dict) -> dict:
     att = r.get("attention") or {}
     return {
@@ -112,7 +121,7 @@ def raw_factors(r: dict) -> dict:
         "current": r.get("cur_share"),
         "attention": att.get("trend"),
         "engagement": r["daily"] / r["ml"] if r.get("daily") and r.get("ml") else None,
-        "breadth": (r.get("geo") or {}).get("countries", 0) + len((r.get("apple") or {}).get("countries", [])),
+        "breadth": chart_countries(r),
         "momentum": r.get("chg_pct"),
         "radio": r.get("radio_week"),
     }
@@ -179,6 +188,9 @@ def worth(r: dict, rev: dict, table: list[dict]) -> dict:
 def level(r: dict) -> dict:
     """Level from today's monthly listeners; badges from the measured signals."""
     name = next(n for m, n in LEVELS if (r["ml"] or 0) >= m)
+    since = str(r.get("since") or "")[:4]
+    if name == "Rookie" and since.isdigit() and date.today().year - int(since) >= 15:
+        name = "Established"  # a smaller audience after 15+ years is not a newcomer's
     badges = []
     sc = r.get("scout") or {}
     if sc.get("tier") == "Breaking":
@@ -187,7 +199,7 @@ def level(r: dict) -> dict:
         badges.append("Unsigned and rising")
     if r.get("feature_daily") and r.get("daily") and r["feature_daily"] / r["daily"] >= 0.8:
         badges.append("Feature magnet")
-    if ((r.get("geo") or {}).get("countries") or 0) + len((r.get("apple") or {}).get("countries", [])) >= 20:
+    if chart_countries(r) >= 20:
         badges.append("Global")
     if r.get("revivals"):
         badges.append("Revival")

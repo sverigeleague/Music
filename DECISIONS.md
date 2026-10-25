@@ -2,6 +2,55 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Review through a client's eyes: numbers that read right (owner: "scrutinize the entire site ... so all is clean and user friendly")
+
+Four reviews read every page as an investment-banking client would. Fixes:
+
+- **Facts:**
+  - **Grammys:** an award won in several years for several works no longer multiplies into every year × work pair.
+    Awards are grouped per Wikidata statement.
+  - **Country of origin:** an artist with several citizenships shows the one matching their birthplace, else all of
+    them (Drake: "Canada / United States"). Names are normalised ("Kingdom of the Netherlands" -> "Netherlands").
+  - **Duplicates:** a below-the-floor name matching an artist already listed is left out.
+  - **Deals:** entries that are not the artist's own income (another artist's contract, a lawsuit) move to a
+    "context" list under the artist's deals; legal filings are labelled as such.
+  - **Certifications:** releases from "as featured artist" tables are marked "as featured guest". The US No. 1s
+    tile counts lead releases only, with guest No. 1s noted beside it. 115 entries whose cached page no longer parses
+    the same keep their stored works, without the mark.
+  - **Labels:** HYBE America's Nashville labels (Big Machine / Blue Highway, Valory, Nashville Harbor) are grouped
+    under Universal, their distributor, as every other major-distributed label is. The note keeps HYBE's ownership.
+  - **Owner's genre notes:** internal notes (such as the "hip-hop rule:" ones) are no longer shown to visitors. An
+    owner's decision reads "checked by our editors".
+- **Numbers:**
+  - **Spotify royalties:** under $1,000 a month shows as "<$1k". An artist whose streams are 90%+ as a featured guest
+    is marked "own songs only".
+  - **Zeros and ranges:** a missing estimate shows "–" or "not estimated", never "$0". A range whose ends round to
+    the same figure shows once. Negative money reads "−$5.0m". A share under 1% shows "<1%". Margin changes are in
+    percentage points.
+  - **Pandora:** now counted in the country streaming total, where it is a large line.
+  - **Chart countries:** a country where the artist charts on both Spotify and Apple counts once. This also changes
+    the Scout "chart reach" signal and the "Global" badge (20+ countries), which had counted such countries twice.
+  - **Majors' share:** taken among artists whose label is known, the same basis as the size-band tiles.
+  - **Movers today:** "outside the top 100" means the top 100 by monthly listeners, whatever view the list is in.
+  - **Summed listeners:** described as summed across artists (a fan of two counts twice), not "people counted once".
+- **Wording:**
+  - **Rankings:** "#N by current listeners" replaces "#N in our ranking".
+  - **Catalog acts:** an artist with no current listeners is described as a catalog act, not shown as 0.
+  - **Royalties:** "Spotify royalties / month" and "streaming royalties / year, all services" are named apart. The
+    top-100 column "Artist keeps" says it includes tours.
+  - **Worth calculator:** an artist whose deal is not on record gets "Deal unknown", whose range spans all four
+    deal types, rather than the DIY share.
+  - **Scout tier tiles:** say Breaking needs new songs or Wikipedia attention clearly up, and that Rising is 65+.
+  - **Levels:** an artist under 5m listeners active for 15+ years is "Established", not "Rookie".
+  - **Method page:**
+    - The deal type follows the recent releases' label.
+    - The back-test is described as done.
+    - Archived listener pages are described as used for the back-test and growth only.
+  - **Platform pay rates:** revenue basis strings print the registry's rates, not a hard-coded $1–6.
+  - **Country pages:** the hip-hop listener-survey panel is no longer word-swapped into false country facts. It is
+    hidden on country pages.
+  - **Bertelsmann and Sony notes:** corrected.
+
 ## 2026-10-25 Fixes from a second independent review
 
 - **Wikipedia quotes:** the country pages' word swap ("hip-hop" -> "country") no longer touches the quoted

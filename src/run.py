@@ -164,7 +164,7 @@ def registry(mb_limit: int | None = None) -> None:
         out[s] = {**prev, "spotify_id": s, "name": (top.get(s) or prev or dz.get(s) or {}).get("name", ""), "genre": decision,
                   "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid") or prev.get("wikidata_id", ""),
                   "musicbrainz_id": d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""),
-                  "country": "" if "people" in d.get("country", "") else d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
+                  "country": d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
                   "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
                   "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
                   "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image") or prev.get("image", "")}

@@ -9,7 +9,7 @@ export const COLUMNS = {
     ["Monthly listeners", "ml", "count"],
     ["By listeners", "rank", "int"],
     ["Scout score", "scout", "int"],
-    ["Royalties generated / month", "gen_mid", "money"],
+    ["Spotify royalties / month", "gen_mid", "money"],
   ],
   monthly: [
     ["Monthly listeners", "ml", "count"],
@@ -17,7 +17,7 @@ export const COLUMNS = {
     ["Spotify rank", "rank_all", "int"],
     ["Peak listeners", "peak_ml", "count"],
     ["Streams / day", "daily", "count"],
-    ["Royalties generated / month", "gen_mid", "money"],
+    ["Spotify royalties / month", "gen_mid", "money"],
   ],
 };
 
@@ -61,7 +61,7 @@ export const GLOSSARY = {
   "Current listeners": "Monthly listeners, counting the listening that comes from recent releases. Old songs still streamed a lot count for little, so this shows who is drawing an audience with new music now.",
   "From recent releases": "Share of the artist's listening that comes from songs released in the last 18–36 months.",
   "Scout score": "0–100: momentum against artists of a similar size (new songs' pull, current share, engagement, chart reach and more). Breaking 80+, Rising 65+, Watch 50+.",
-  "Royalties generated / month": "What Spotify pays the rights holders (label or distributor) for the artist's own songs, mid estimate. Not the artist's pay.",
+  "Spotify royalties / month": "What Spotify pays the rights holders (label or distributor) for the artist's own songs, mid estimate. Not the artist's pay.",
   "New-release pull": "Share of the artist's daily streams that come from songs out 90 days or less.",
   "Current share": "Share of listening on releases of the last 18–36 months.",
   "Wikipedia, 3 mo": "English Wikipedia page views of the last 3 months against the 9 before.",
