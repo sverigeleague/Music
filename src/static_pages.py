@@ -186,6 +186,11 @@ def build(data: dict, cards: bool = True, states: list[dict] | None = None, pref
         if (root / sub).exists():
             for old in (root / sub).glob("*/index.html"):
                 old.unlink()
+    if cards and (root / "cards").exists():  # cards of artists no longer in the list
+        keep = {f"{a['slug']}.png" for a in data["artists"]}
+        for old in (root / "cards").glob("*.png"):
+            if old.name not in keep:
+                old.unlink()
     for a in data["artists"]:
         url, page = artist_page(a, as_of, prefix)
         out = root / "a" / a["slug"] / "index.html"
