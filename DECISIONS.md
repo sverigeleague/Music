@@ -2,6 +2,20 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Artist descriptions and "How this ranking works" (owner)
+
+- **Descriptions:** each artist page opens with one or two sentences. Source: the opening of the artist's English
+  Wikipedia article (page summary API; the article is the one Wikidata links, no name matching), cut at the second
+  sentence or 320 characters, birth-date asides removed, credited "Wikipedia, CC BY-SA" with a link
+  (`src/collectors/descriptions.py`, step `descriptions`, monthly). Artists without an article get one sentence
+  composed from our own sourced fields (genre, Wikidata country and start year, the label on recent releases),
+  marked by having no Wikipedia credit. Also on the static artist pages.
+- **How this ranking works:** a box under the introduction of every ranked page (top list, movers, Scout, unsigned,
+  producers, labels, tours) lists the metrics, what each measures and its weight; Method keeps the full detail.
+  The current-listeners age cut-offs stay described in general terms ("older songs fade out as they age"), as
+  decided on 2026-10-23; Scout's weights come from the data, so the box follows any change to them.
+- **Later (ROADMAP 10.5):** accounts to star and track artists across devices; planned with the owner first.
+
 ## 2026-10-25 White page, black text, as tventy sport (owner)
 
 - The owner asked for the same font and style as tventy.se/sport, with the white background and black text. The site

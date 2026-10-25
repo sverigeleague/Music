@@ -126,9 +126,49 @@ function swapWords(root) {
       .replace(/Hip-Hop|Hip-hop/g, "Country").replace(/hip-hop|hip hop/g, "country")
       .replace(/\b(top|Top|the) 1,000\b/g, `$1 ${measured()}`);  // the country list is smaller than hip-hop's
 }
+// "How this ranking works" (owner, 2026-10-25): each ranked page lists the metrics it uses, what each measures and its
+// weight, under the page's introduction; Method keeps the full detail. Rows: [metric, what it measures, weight].
+const FLOOR_ROW = () => GENRE === "country" ? [["Below 500k monthly listeners", "Spotify publishes no listener count there: those artists follow, ranked by streams a day (kworb), then in Deezer's order (grade C)", "order only"]] : [];
+const HOW = {
+  top: () => ui.by === "monthly"
+    ? [["Monthly listeners", "people who played the artist on Spotify in the last 28 days (Spotify's public count, via kworb.net, daily)", "100%"], ...FLOOR_ROW()]
+    : [["Current listeners", "monthly listeners × current share: the audience for what the artist is putting out now", "100%"],
+       ["Monthly listeners", "people who played the artist on Spotify in the last 28 days (Spotify's public count, via kworb.net)", "input"],
+       ["Current share", "the share of the artist's streams that come from recent releases; older songs fade out of it as they age, featured songs count half", "input"], ...FLOOR_ROW()],
+  movers: () => location.hash.includes("today") || location.hash.includes("rising")
+    ? [["Change in monthly listeners today", "the day's gain in Spotify monthly listeners, in percent, among artists outside the top 100", "100%"]]
+    : [["Change in monthly listeners, 30 days", "monthly listeners now against 30 days ago, in percent", "100%"]],
+  scout: () => [...Object.entries(store.data.scout_factors || {}).map(([k, x]) => [x.label.split(":")[0], SCOUT_INFO[k] || x.label, `${Math.round(x.weight * 100)}%`]),
+    ["How they combine", "each signal becomes a percentile among artists of similar size; missing signals are left out and the other weights scaled up to 100%", ""]],
+  unsigned: () => [["Current listeners", "monthly listeners × the share of streams on recent releases (as the top list)", "order"],
+    ["Monthly listeners", "Spotify's public count, where current listeners are equal", "tie-break"],
+    ["Peers", "the 5 growing signed artists closest in size (within 1.67×, else 2.5×) and in share on recent releases", "comparison"]],
+  producers: () => [["Streams a day on credited songs", "daily Spotify streams of each artist's 3 biggest songs, credited to every producer or writer MusicBrainz lists on them", "100%"]],
+  labels: () => [["Monthly listeners", "the sum over the label's artists in the list (recent releases decide an artist's label)", "100%"]],
+  tours: () => [["Reported gross", "box office reported to Billboard Boxscore or Pollstar (grade A or B)", "100%"]],
+};
+const SCOUT_INFO = {
+  velocity: "share of the artist's daily streams from songs out 90 days or less",
+  growth: "monthly listeners now against 90 days ago (where history exists)",
+  current: "share of listening on recent releases",
+  attention: "English Wikipedia page views, the last 3 months against the 9 before",
+  engagement: "streams a day per monthly listener: how hard the audience listens",
+  breadth: "countries where a song is in Spotify's weekly top 200 or Apple Music's daily top 100",
+  momentum: "today's change in monthly listeners",
+  radio: "US AM/FM airplay audience of the artist's songs this week",
+};
+function addHow() {
+  const app = document.getElementById("app"), rows = HOW[pageId] && HOW[pageId]();
+  if (!rows || !rows.length || app.querySelector(".how") || /\/label\//.test(location.hash)) return;  // not on one label's page
+  const sec = [...app.querySelectorAll("section")].find(x => x.querySelector(":scope > h1") && !x.classList.contains("hero"));
+  if (!sec) return;
+  const at = [...sec.querySelectorAll(":scope > p.sub")].pop() || sec.querySelector(":scope > h1");
+  at.insertAdjacentHTML("afterend", `<details class="how" open><summary>How this ranking works</summary><table class="stack"><thead><tr><th class="l">Metric</th><th class="l">What it measures</th><th>Weight</th></tr></thead><tbody>${rows.map(([m, d, w]) => `<tr><td class="l"><b>${esc(m)}</b></td><td class="l wrap">${esc(d)}</td><td>${esc(w)}</td></tr>`).join("")}</tbody></table><p class="note">Full detail and sources: <a href="${PREFIX()}method">Method</a>.</p></details>`);
+}
+
 // the country list's size: artists with a measured audience (above Spotify's public 500k floor)
 const measured = () => (store.data?.artists?.length || 1000).toLocaleString();
-new MutationObserver(() => { swapWords(document.getElementById("app")); swapWords(document.getElementById("crumbs")); stackify(document.getElementById("app")); })
+new MutationObserver(() => { addHow(); swapWords(document.getElementById("app")); swapWords(document.getElementById("crumbs")); stackify(document.getElementById("app")); })
   .observe(document.getElementById("app"), { childList: true, subtree: true });
 const go = hash => { location.hash = GENRE !== "hip_hop" && hash.startsWith("#/") && !hash.startsWith(PREFIX()) ? PREFIX() + hash.slice(2) : hash; };
 document.addEventListener("click", e => {
@@ -414,7 +454,8 @@ async function artist(id) {
   const links = "";
   const leadShare = a.streams ? a.lead_streams / a.streams : null;
   app.innerHTML = `<section class="head">${pic(a, true)}<div><h1>${esc(a.name)} ${star(a.id)}</h1>
-      <p class="sub">${a.cl_rank ? `#${a.cl_rank} in our ranking · ` : ""}#${a.rank} in hip-hop by listeners · #${a.rank_all} on Spotify overall${a.country ? " · " + esc(a.country) : ""}${a.since ? " · active since " + esc(a.since) : ""}</p>
+      <p class="sub">${a.cl_rank ? `#${a.cl_rank} in our ranking · ` : ""}#${a.rank} in hip-hop by ${a.floor === "streams" ? "streams a day" : a.floor ? "Deezer's order" : "listeners"}${a.rank_all ? ` · #${a.rank_all} on Spotify overall` : ""}${a.country ? " · " + esc(a.country) : ""}${a.since ? " · active since " + esc(a.since) : ""}</p>
+      ${a.about ? `<p class="about">${esc(a.about.text)}${a.about.source === "wikipedia" ? ` <span class="note"><a href="${esc(a.about.url)}" target="_blank" rel="noopener">Wikipedia</a>, CC BY-SA</span>` : ""}</p>` : ""}
       ${labelOf(a) ? `<div class="parentchip">${logo(labelOf(a).name, "logo")}<span>${labelLink(a)}${labelOf(a).parent && labelOf(a).parent !== labelOf(a).name ? ` · ${esc(labelOf(a).parent)}` : ""}</span></div>` : ""}
       ${profiles ? `<p class="profiles">On ${profiles}</p>` : ""}
       <div class="links" style="margin-top:10px">${links}<a href="#/compare/${a.id}">Compare with…</a><a href="#/worth/${a.id}">Worth on other deals</a>${shareBtn(`${a.name}: ${mlx(a)} monthly listeners${a.cl_rank ? `, #${a.cl_rank} in hip-hop by current listeners` : ""} (tventy music)`, a.slug ? `${SITE_URL}a/${a.slug}/` : "")}${a.slug ? `<a href="cards/${esc(a.slug)}.png" download="${esc(a.slug)}-tventy-music.png">Download card</a>` : ""}</div></div></section>

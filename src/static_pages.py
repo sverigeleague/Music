@@ -113,7 +113,10 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
         facts.append(f"<li>Newest hit: {esc(a['top_fresh']['title'])}</li>")
     if a.get("awards"):
         facts.append(f"<li>Awards listed on Wikidata: {a['awards']['wins']} won</li>")
-    body = f"""<article class="static"><h1>{esc(a['name'])}</h1><p class="sub">{esc(desc)}</p><ul>{''.join(facts)}</ul>
+    ab = a.get("about") or {}
+    about = (f"<p>{esc(ab['text'])}" + (f' <small><a href="{esc(ab["url"])}">Wikipedia</a>, CC BY-SA</small>'
+                                         if ab.get("source") == "wikipedia" else "") + "</p>") if ab.get("text") else ""
+    body = f"""<article class="static"><h1>{esc(a['name'])}</h1>{about}<p class="sub">{esc(desc)}</p><ul>{''.join(facts)}</ul>
 <p><a href="#/a/{esc(a['id'])}">Open the full page</a></p></article>"""
     ld = {"@context": "https://schema.org", "@type": "MusicGroup", "name": a["name"], "url": url, "genre": "Country" if gw == "country" else "Hip hop",
           "sameAs": [f"https://open.spotify.com/artist/{a['id']}"]}

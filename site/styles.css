@@ -317,5 +317,12 @@ td.lab { max-width: 160px; }
   table.stack td { border: 0; padding: 0 8px; white-space: normal; text-align: left; }
   table.stack td:first-child { flex-basis: 100%; font-weight: 600; }
   table.stack td.wrap { flex-basis: 100%; }
+  table.stack td:empty { display: none; }
   table.stack td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
 }
+/* artist description: one or two sentences under the name (Wikipedia, or our own data) */
+.about { margin: 8px 0 0; max-width: 68ch; }
+/* "How this ranking works" box under each ranked page's introduction */
+.how { border: 1px solid var(--line); padding: 10px 14px; margin-top: 14px; }
+.how summary { cursor: pointer; font: 600 13px var(--font-ui); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.how table { margin-top: 8px; } .how td.wrap { max-width: none; } .how .note { margin: 8px 0 0; }
