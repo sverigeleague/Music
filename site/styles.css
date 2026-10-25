@@ -328,3 +328,9 @@ td.lab { max-width: 160px; }
 .how { border: 1px solid var(--line); padding: 10px 14px; margin-top: 14px; }
 .how summary { cursor: pointer; font: 600 13px var(--font-ui); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .how table { margin-top: 8px; } .how td.wrap { max-width: none; } .how .note { margin: 8px 0 0; }
+
+/* where the artist is from: small flags after the name (the name's language at a glance) */
+.flags { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: -1px; white-space: nowrap; }
+.flags img { width: 16px; height: 12px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .14); display: block; }
+.sub .flags { margin: 0 5px 0 0; }
+.who .flags { margin-left: -4px; }

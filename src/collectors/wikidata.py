@@ -18,7 +18,10 @@ MAJORS = {"Q38903": "Universal Music Group", "Q21077": "Warner Music Group",
 
 # Wikidata's formal country names, as a reader knows them
 COUNTRY_NAMES = {"Kingdom of the Netherlands": "Netherlands", "People's Republic of China": "China",
-                 "Kingdom of Denmark": "Denmark", "Republic of Ireland": "Ireland"}
+                 "Kingdom of Denmark": "Denmark", "Republic of Ireland": "Ireland",
+                 # citizenship entered as a place (2026-10-25): Karachi is in Pakistan; "Cina" is a subdistrict in
+                 # Indonesia entered for an Italian rapper born in Tunis, so it is dropped rather than guessed
+                 "Karachi": "Pakistan", "Cina": ""}
 
 
 def query(q: str) -> list[dict]:
@@ -89,7 +92,7 @@ SELECT ?sp ?mbid ?yt ?ig ?tt ?x ?img ?country ?countryLabel ?bornIn ?bornInLabel
             cs, born = sorted(d.pop("_countries", set())), d.pop("_born_in", set())
             if len(cs) > 1:
                 cs = sorted(set(cs) & born) or cs
-            cs = sorted({COUNTRY_NAMES.get(c, c) for c in cs})
+            cs = sorted({COUNTRY_NAMES.get(c, c) for c in cs} - {""})
             if cs:
                 d["country"] = " / ".join(cs)
         for r in query(f"""

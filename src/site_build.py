@@ -7,6 +7,7 @@ from datetime import date, datetime, timedelta, timezone
 from . import backtest, current, monthly, health, insights, labels, money, revenue
 from .collectors import apple_charts, deezer, logos, sony_music, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
+from . import countries
 from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
@@ -189,7 +190,7 @@ def build(genre: str = "hip_hop") -> dict:
             "tracks": num(s.get("tracks")), "top_track": s.get("top_track") or None,
             "top_track_streams": num(s.get("top_track_streams")), "streams_date": s.get("date"),
             "deezer_fans": num(a.get("deezer_fans")) if a.get("deezer_match") in deezer.CONFIRMED else None,
-            "country": a["country"] or None, "born": a["born"] or None, "since": a["active_since"][:4] or None,
+            "country": a["country"] or None, "cc": countries.codes(a["country"]) or None, "born": a["born"] or None, "since": a["active_since"][:4] or None,
             "labels": wd_labels, "major": majors[0] if len(majors) == 1 else ("several majors" if majors else None),
             "deal_type": deal, "label_status": status["status"], "label_owner": status["owner"] or None,
             "label_name": label_display(status, table),
