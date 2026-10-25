@@ -24,7 +24,7 @@ from . import deezer_genres, wikidata
 API = "https://api.deezer.com"
 CSV = DATA / "country_deezer.csv"
 FIELDS = ["deezer_id", "name", "fans", "releases", "country_share", "latest", "top10_rank_sum", "spotify_id", "qid",
-          "source", "checked"]
+          "source", "checked", "mbid", "id_source", "id_checked"]
 COUNTRY, MIN_SHARE, MIN_RELEASES = 84, 0.5, 3
 
 
@@ -119,11 +119,49 @@ def crawl(limit: int | None = None) -> int:
         rows += [r for k, r in load().items() if k not in fresh]
         for r in rows:
             r["top10_rank_sum"] = int(r.get("top10_rank_sum") or 0)
+    prev = load()
     for a in rows:
         a.update(wd.get(a["deezer_id"], {}))
+        if a.get("spotify_id"):
+            a["id_source"] = "wikidata"
+        p = prev.get(a["deezer_id"], {})
+        for k in ("mbid", "id_checked"):  # MusicBrainz lookups of earlier runs are kept
+            a[k] = a.get(k) or p.get(k, "")
+        if not a.get("spotify_id") and p.get("id_source") == "musicbrainz":
+            a.update(spotify_id=p["spotify_id"], qid=a.get("qid") or p.get("qid", ""), id_source="musicbrainz")
     rows.sort(key=lambda a: -a["top10_rank_sum"])
     with CSV.open("w", newline="") as f:
         w = csv.DictWriter(f, FIELDS, extrasaction="ignore")
         w.writeheader()
         w.writerows(rows)
     return len(rows)
+
+
+def spotify_ids(limit: int | None = None, recheck_days: int = 90) -> int:
+    """Spotify IDs for crawled artists that have none, from MusicBrainz (musicbrainz.ids_for_deezer): the artist's
+    Deezer page and Spotify page linked on one MusicBrainz artist. Artists looked up in the last `recheck_days` days
+    are skipped. Returns the IDs found."""
+    from datetime import timedelta
+    from . import musicbrainz
+    rows = load()
+    since = (date.today() - timedelta(days=recheck_days)).isoformat()
+    todo = [r for r in rows.values() if not r.get("spotify_id") and (r.get("id_checked") or "") < since][:limit]
+    found = 0
+    for i, r in enumerate(todo, 1):
+        ids = musicbrainz.ids_for_deezer(r["deezer_id"])
+        r["id_checked"] = date.today().isoformat()
+        r["mbid"] = ids["mbid"] or r.get("mbid", "")
+        if ids["spotify_id"]:
+            r.update(spotify_id=ids["spotify_id"], id_source="musicbrainz", qid=r.get("qid") or ids["qid"])
+            found += 1
+        if i % 50 == 0 or i == len(todo):
+            _write(rows.values())
+    return found
+
+
+def _write(rows) -> None:
+    rows = sorted(rows, key=lambda a: -int(a.get("top10_rank_sum") or 0))
+    with CSV.open("w", newline="") as f:
+        w = csv.DictWriter(f, FIELDS, extrasaction="ignore")
+        w.writeheader()
+        w.writerows(rows)

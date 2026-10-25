@@ -37,6 +37,15 @@ def assign_slugs(artists: list[dict]) -> None:
         a["slug"] = s
 
 
+def _ml(a: dict) -> str:
+    """Below kworb's 500k-listener floor (country) there is no listener figure."""
+    return "under 500k" if a.get("floor") else _count(a["ml"])
+
+
+def _by(a: dict) -> str:
+    return "streams a day (below the 500k-listener list)" if a.get("floor") else "monthly listeners"
+
+
 def _count(n) -> str:
     if n is None:
         return "–"
@@ -86,13 +95,13 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
     url = f"{BASE}{prefix}a/{a['slug']}/"
     gw = "country" if prefix.startswith("country") else "hip-hop"
     tier = (a.get("scout") or {}).get("tier")
-    rank = f"#{a['cl_rank']} in {gw} by current listeners" if a.get("cl_rank") else f"#{a['rank']} in {gw} by monthly listeners"
+    rank = f"#{a['cl_rank']} in {gw} by current listeners" if a.get("cl_rank") else f"#{a['rank']} in {gw} by {_by(a)}"
     label = a.get("label_name") or ""
     keeps = a.get("rev_total") or {}
-    desc = (f"{a['name']}: {_count(a['ml'])} monthly listeners on Spotify, {rank}"
+    desc = (f"{a['name']}: {_ml(a)} monthly listeners on Spotify, {rank}"
             f"{f', on {label}' if label else ''}{f', Scout tier {tier}' if tier else ''}. What the music earns, who owns it "
             f"and how the artist is moving, every figure sourced. Data as of {as_of}.")
-    facts = [f"<li>Monthly listeners: {_count(a['ml'])}</li>", f"<li>{esc(rank)}</li>"]
+    facts = [f"<li>Monthly listeners: {_ml(a)}</li>", f"<li>{esc(rank)}</li>"]
     if label:
         facts.append(f"<li>Label: {esc(label)}{' (' + esc(a.get('label_owner')) + ')' if a.get('label_owner') and a.get('label_owner') != label else ''}</li>")
     if a.get("scout"):
@@ -144,11 +153,11 @@ def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:
     while size > 48 and d.textlength(name, font=f(bold, size)) > W - 128:
         size -= 6
     d.text((64, 170), name, font=f(bold, size), fill="white")
-    rank = f"#{a['cl_rank']} in {gw} by current listeners" if a.get("cl_rank") else f"#{a['rank']} in {gw} by monthly listeners"
+    rank = f"#{a['cl_rank']} in {gw} by current listeners" if a.get("cl_rank") else f"#{a['rank']} in {gw} by {_by(a)}"
     d.text((64, 170 + size + 18), rank, font=f(reg, 34), fill=(163, 168, 177))
     tier = (a.get("scout") or {}).get("tier")
     keeps = (a.get("rev_total") or {}).get("mid")
-    stats = [("Monthly listeners", _count(a["ml"])), ("Scout", f"{a['scout']['score']}{' ' + tier if tier else ''}" if a.get("scout") else "–"),
+    stats = [("Monthly listeners", _ml(a)), ("Scout", f"{a['scout']['score']}{' ' + tier if tier else ''}" if a.get("scout") else "–"),
              ("Keeps / year, est.", f"~{_usd(keeps)}" if keeps else "–"), ("Label", a.get("label_name") or "–")]
     x, y, colw = 64, 430, (W - 128) // 4
     for i, (k, v) in enumerate(stats):

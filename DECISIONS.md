@@ -8,7 +8,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
 2. Country scope: any nationality.
 3. No money figures for the below-floor ranks.
 4. Country review batches: the suggested answers are now owner overrides in `registry/genre_overrides.csv` (batch 1:
-   47 rows; the 3 marked "look up" stay in review: STELLA LEFTY, Buffalo Traffic Jam, Joseph Williams. Batch 2: 6).
+   47 rows; the 3 marked "look up": STELLA LEFTY country (owner); Buffalo Traffic Jam country (folk/country duo
+   from Bozeman, ticketing lists Country, toured with Dylan Gossett:
+   https://www.axs.com/fr/artists/1121645/buffalo-traffic-jam-tickets); Joseph Williams other (the Spotify profile is
+   Toto's singer, top songs from The Lion King, per kworb). Batch 2: 6).
 5. Hip-hop/Deezer disagreements: Lizzo, blackbear, August Alsina and Jackson Wang to other; the other 7 confirmed
    hip-hop.
 6. Curb Records and Santa Anna stay "distributed by a major".

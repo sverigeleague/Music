@@ -60,6 +60,28 @@ def band(ml: int) -> int:
     return bisect_right(BANDS, ml or 0)
 
 
+# Below kworb's 500k-listener floor (country) there is no listener figure. For comparing artists only (peers, Scout
+# bands), never shown: daily streams / 0.10, the median streams a day per monthly listener of the country artists
+# between 500k and 1.5m listeners (167 artists, 2026-10-25; quartiles 0.087-0.123).
+FLOOR_STREAMS_PER_LISTENER = 0.10
+FLOOR_BAND, FLOOR_LABEL = -1, "under 500k (by streams)"
+
+
+def size(r: dict) -> float:
+    """Monthly listeners, or below the floor the listener-equivalent of the daily streams (internal comparisons)."""
+    if r.get("ml"):
+        return r["ml"]
+    return (r.get("daily") or 0) / FLOOR_STREAMS_PER_LISTENER
+
+
+def band_of(r: dict) -> int:
+    return FLOOR_BAND if r.get("floor") else band(r["ml"])
+
+
+def band_label(b: int) -> str:
+    return FLOOR_LABEL if b == FLOOR_BAND else BAND_LABELS[b]
+
+
 def attention(months: list[tuple[str, int]]) -> dict | None:
     """Last 3 full months against the average of the 9 before, plus the 24-month series for the sparkline."""
     if len(months) < 12:
@@ -101,7 +123,7 @@ def scout(rows: list[dict], factors: dict = FACTORS) -> None:
     raw = {r["id"]: raw_factors(r) for r in rows}
     by_band: dict[int, list[dict]] = {}
     for r in rows:
-        by_band.setdefault(band(r["ml"]), []).append(r)
+        by_band.setdefault(band_of(r), []).append(r)
     for members in by_band.values():
         pct: dict[str, dict[str, float]] = {}
         for f in factors:
@@ -125,7 +147,7 @@ def scout(rows: list[dict], factors: dict = FACTORS) -> None:
                 tier = "Rising"
             if (r["ml"] or 0) >= SCOUTED_BELOW:
                 tier = None
-            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": BAND_LABELS[band(r["ml"])]}
+            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": band_label(band_of(r))}
 
 
 def multiples() -> list[dict]:

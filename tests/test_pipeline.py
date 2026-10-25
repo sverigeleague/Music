@@ -614,3 +614,29 @@ def test_one_wikidata_genre_does_not_override_deezer_releases():
     rock = {"match": "exact", "releases": "49", "country_share": "0.0"}
     assert decide_country([("rock", 1)], wd, rock)[0] == "review"
     assert decide_country([("rock", 1)], wd)[0] == "country"  # no Deezer match: Wikidata decides as before
+
+
+def test_below_floor_artists_compare_by_streams_and_band_apart():
+    from src import insights
+    floor = {"id": "f", "ml": None, "daily": 20_000, "floor": True}
+    listed = {"id": "m", "ml": 800_000, "daily": 90_000}
+    assert insights.size(floor) == 200_000 and insights.size(listed) == 800_000
+    assert insights.band_of(floor) == insights.FLOOR_BAND and insights.band_of(listed) == 0
+    assert insights.band_label(insights.FLOOR_BAND).startswith("under 500k")
+
+
+def test_ids_for_deezer_needs_one_artist_and_one_spotify_link(monkeypatch):
+    from src.collectors import musicbrainz as mb
+
+    class R:
+        def __init__(self, j): self.status_code, self._j = 200, j
+        def json(self): return self._j
+    pages = {
+        "url": {"relations": [{"artist": {"id": "mb1"}}]},
+        "artist/mb1": {"relations": [{"url": {"resource": "https://open.spotify.com/artist/SP1"}},
+                                     {"type": "wikidata", "url": {"resource": "https://www.wikidata.org/wiki/Q1"}}]},
+    }
+    monkeypatch.setattr(mb, "get", lambda url, params=None: R(pages[url.split("/ws/2/")[1]]))
+    assert mb.ids_for_deezer("1") == {"mbid": "mb1", "spotify_id": "SP1", "qid": "Q1"}
+    pages["url"] = {"relations": [{"artist": {"id": "mb1"}}, {"artist": {"id": "mb2"}}]}  # shared URL: no match
+    assert mb.ids_for_deezer("1")["spotify_id"] == ""

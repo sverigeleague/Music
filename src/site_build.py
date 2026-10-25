@@ -57,6 +57,13 @@ def build(genre: str = "hip_hop") -> dict:
     artists = load_artists()
     top = latest_listeners()
     streams, pics = latest_streams(), _json(PHOTOS, {})
+    if genre == "country":  # below kworb's 500k-listener floor: ranked by measured daily streams, no listener figure
+        listed = {t["spotify_id"] for t in top}
+        floor = sorted((a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed
+                        and num(streams.get(a["spotify_id"], {}).get("total_daily"))),
+                       key=lambda a: -num(streams[a["spotify_id"]]["total_daily"]))
+        top = top + [{"spotify_id": a["spotify_id"], "name": a["name"], "rank": None, "monthly_listeners": None,
+                      "daily_change": None, "peak_rank": None, "peak_listeners": None, "floor": True} for a in floor]
     dates, today = release_dates.load(), datetime.now(timezone.utc).date()
     yt, shares = kworb_youtube.load_latest(), money.deal_shares()
     videos = json.loads(kworb_youtube.VIDEOS.read_text()) if kworb_youtube.VIDEOS.exists() else {}
@@ -169,9 +176,10 @@ def build(genre: str = "hip_hop") -> dict:
             "money": money.estimate(num(s.get("lead_daily")), deal),
             "photo": pics.get(t["spotify_id"]) or None, "genre_basis": a["genre_basis"],
             "cur_share": round(cur["current_share"], 4) if cur.get("current_share") is not None else None,
-            "coverage": round(cur.get("coverage", 0), 3), "cl": round(ml * cur["current_share"]) if cur.get("ok") or cur.get("provisional") else None,
-            "cl_provisional": bool(cur.get("provisional")) or None,
-            "cl_range": [round(ml * x) for x in cur["share_range"]] if cur.get("provisional") else None,
+            "coverage": round(cur.get("coverage", 0), 3), "cl": round(ml * cur["current_share"]) if ml and (cur.get("ok") or cur.get("provisional")) else None,
+            "cl_provisional": (bool(cur.get("provisional")) and bool(ml)) or None,
+            "cl_range": [round(ml * x) for x in cur["share_range"]] if ml and cur.get("provisional") else None,
+            "floor": t.get("floor") or None,
             "revivals": cur.get("revivals", []),
             "fresh_share": round(cur["fresh_share"], 4) if cur.get("fresh_share") is not None and cur.get("ok") else None,
             "fresh_daily": cur.get("fresh_daily"), "top_fresh": cur.get("top_fresh"),
@@ -226,7 +234,7 @@ def build(genre: str = "hip_hop") -> dict:
         r["worth_mid"] = round(r["worth"]["recordings"]["mid"] + r["worth"]["publishing"]["mid"])
         r["level"] = insights.level(r)
         # co-signed: an artist under 3m listeners with a song (50k+ streams a day) together with a 20m+ listener artist
-        if r["ml"] < 3_000_000 and any(ml_of.get(c["id"], 0) >= 20_000_000 and c["daily"] >= 50_000 for c in r["collabs"]):
+        if (r["ml"] or 0) < 3_000_000 and any(ml_of.get(c["id"], 0) >= 20_000_000 and c["daily"] >= 50_000 for c in r["collabs"]):
             r["level"]["badges"].append("Co-signed")
         att = r.pop("attention")
         r["attention"] = {"trend": round(att["trend"], 3) if att["trend"] else None, "last3": att["last3"]} if att else None
@@ -350,16 +358,20 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
         if u["label_status"] != "self_released" or not gen(u):
             continue
         def dist(p):
-            d = abs(math.log(p["ml"] / u["ml"]))
+            d = abs(math.log(insights.size(p) / insights.size(u)))
             if p.get("cur_share") is not None and u.get("cur_share") is not None:
                 d += abs(p["cur_share"] - u["cur_share"])
             return d
         # "growing" peers: active, with at least 20% of their listening on recent releases (until 28-day listener
         # growth is available); the listener band widens when fewer than 3 qualify
         active = [p for p in signed if (p.get("cur_share") or 0) >= 0.2]
-        peers = sorted([p for p in active if 0.6 <= p["ml"] / u["ml"] <= 1.67], key=dist)[:5]
+        su = insights.size(u)
+        if not su:
+            continue
+        ratio = lambda p: insights.size(p) / su  # monthly listeners; below the floor, from daily streams (internal)
+        peers = sorted([p for p in active if 0.6 <= ratio(p) <= 1.67], key=dist)[:5]
         if len(peers) < 3:
-            peers = sorted([p for p in active if 0.4 <= p["ml"] / u["ml"] <= 2.5], key=dist)[:5]
+            peers = sorted([p for p in active if 0.4 <= ratio(p) <= 2.5], key=dist)[:5]
         if not peers:
             continue
         med = lambda xs: sorted(xs)[len(xs) // 2] if xs else None
@@ -381,7 +393,7 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
             "if_signed": {k: round(g_u * v) for k, v in keep.items()},
             "break_even": {k: round(diy / v, 2) for k, v in keep.items()},
         })
-    return sorted(out, key=lambda x: (-(x["cl"] or 0), -x["ml"]))  # our ranking first, then monthly listeners
+    return sorted(out, key=lambda x: (-(x["cl"] or 0), -(x["ml"] or 0)))  # our ranking first, then monthly listeners
 
 
 def write_label_review(rows: list[dict]) -> None:
@@ -392,7 +404,7 @@ def write_label_review(rows: list[dict]) -> None:
     with (REVIEW / "label_review.csv").open("w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["spotify_id", "name", "monthly_listeners", "status_now", "latest_label", "codes_note", "spotify_url"])
-        for r in sorted(items, key=lambda r: -r["ml"]):
+        for r in sorted(items, key=lambda r: -(r["ml"] or 0)):
             w.writerow([r["id"], r["name"], r["ml"], r["label_status"] + (" (label name only)" if r.get("label_confidence") == "label name only" else ""),
                         (r.get("label_basis") or {}).get("label", ""), r.get("label_isrc_note") or "", r["links"]["spotify"]])
 
