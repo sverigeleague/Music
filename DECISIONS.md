@@ -43,6 +43,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
   (grade C); see the C1 entry. Presentation pending the owner (suggested: as now).
 - **On US radio** (country artist pages): our own rank among the country artists on the week's airplay chart
   ("#2 of the 24"), from kworb's audience estimates; the audience figures themselves stay internal (C4).
+- **Guard:** Deezer files some Turkish arabesque under Country (Müslüm Gürses, Ferdi Tayfur were in the list). A
+  Deezer-only "country" now goes to review when the artist's Wikidata genres name no country genre. That also sent
+  Ingrid Andress, Tenille Arts and Joseph Williams to review; all five are in the review batch (country: 381).
 - **Kept fresh:** the monthly workflow runs every per-artist step for country too, plus `countrycrawl`,
   `country-from-crawl` and `confirm-country`; the daily Scout log records country scores.
 - **MusicBrainz dates** were stopped for country tonight: the step works through every unlooked-up ISRC in the shared

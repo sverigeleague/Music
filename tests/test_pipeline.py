@@ -585,3 +585,10 @@ def test_credits_leaderboard_counts_a_shared_song_once(monkeypatch):
     songs = [{"isrc": "US1", "title": "Thrift Shop", "daily": 100, "artist_id": a, "artist": a} for a in ("m", "rl", "m&rl")]
     (p,) = credits.leaderboard(songs)
     assert p["daily"] == 100 and len(p["songs"]) == 1
+
+
+def test_deezer_country_alone_does_not_override_wikidata_genres():
+    from src import genre
+    dz = {"match": "exact", "releases": "10", "country_share": "0.9"}
+    assert genre.decide_country([], [("arabesque", False, False)], dz, wikidata=True)[0] == "review"
+    assert genre.decide_country([], [], dz, wikidata=True)[0] == "country"

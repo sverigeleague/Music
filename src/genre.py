@@ -120,6 +120,9 @@ def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: 
     if dz and dz.get("match") in ("exact", "titles") and int(dz.get("releases") or 0) >= 5 and dz.get("country_share") not in ("", None):
         c = float(dz["country_share"])
         basis = f"Deezer: {c:.0%} of {dz['releases']} releases Country"
+        if c >= COUNTRY_REVIEW and wd_genres and not any(is_country(g[0]) for g in wd_genres):
+            # Deezer files some Turkish arabesque and folk under Country; Wikidata's genres say otherwise
+            return "review", basis + "; Wikidata genres name no country genre"
         if c >= COUNTRY_IN and wikidata:
             return "country", basis
         if c >= COUNTRY_REVIEW:
