@@ -51,6 +51,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - **Guard:** Deezer files some Turkish arabesque under Country (Müslüm Gürses, Ferdi Tayfur were in the list). A
   Deezer-only "country" now goes to review when the artist's Wikidata genres name no country genre. That also sent
   Ingrid Andress, Tenille Arts and Joseph Williams to review; all five are in the review batch (country: 381).
+- **Listener history for country:** the Wayback backfill now keeps country artists and stores only artist-weeks it
+  does not hold yet; `backfill-refetch` (workflow "backfill", input refetch) re-reads every archived week once so the
+  country artists get the same 90-day growth history as hip-hop.
 - **Kept fresh:** the monthly workflow runs every per-artist step for country too, plus `countrycrawl`,
   `country-from-crawl` and `confirm-country`; the daily Scout log records country scores.
 - **MusicBrainz dates** were stopped for country tonight: the step works through every unlooked-up ISRC in the shared
