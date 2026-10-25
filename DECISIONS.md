@@ -2,6 +2,47 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 New data sources: ListenBrainz built, MLC publishers built behind a login (task: "deep research on NEW data sources")
+
+- **Research:** `docs/research/2026-10-26-new-data-sources.md`, about 25 candidates with terms quoted and live calls
+  on ten of our artists, ranked.
+- **Built: ListenBrainz** (`src/collectors/listenbrainz.py`, monthly step `listenbrainz`, both genres' top 1,000).
+  - What it gives: listeners and plays per artist, for last month and all time, from ListenBrainz's open scrobble
+    panel. Looked up by the registry's MusicBrainz ID, never by name.
+  - Terms: CC0, commercial use allowed; one call a second.
+  - Merged MusicBrainz IDs are followed to the current ID. The registry's Drake ID is one of them.
+  - Top-listener user names are removed before a response is archived (personal data). Only totals are kept.
+  - HTTP 204 means ListenBrainz has computed no listener stats for that artist (will.i.am gets 204 even for all
+    time). It is stored blank, never as zero.
+  - Coverage and fit with Spotify listeners: in the research note. It is an internal signal until the owner decides.
+    The panel is small (Drake: 3,497 ListenBrainz listeners in September 2026), so only ranks and changes are useful,
+    never the raw counts as an audience.
+- **Built, not run: The MLC** (`src/collectors/mlc.py`, monthly step `mlc`).
+  - What it gives: the publishers, their shares, administrators and parent publishers of each artist's 3 biggest
+    songs, by ISRC.
+  - Terms: "You may use the data in the Database for any lawful purpose".
+  - Needs a free MLC Data Access Hub account, as the GitHub secrets `MLC_USERNAME` and `MLC_PASSWORD`. Without them
+    the step logs "skipped".
+  - The parser follows the published OpenAPI schema. It has not been checked against a live response; check it at
+    the first run.
+- **Workflow:** both steps are added to `monthly.yml`. The MLC step reads the two secrets.
+- **Not built (owner):**
+  - setlist.fm (free key, non-commercial, short caching only).
+  - Ticketmaster Discovery (free key, no revenue from the API).
+  - Last.fm (key plus Last.fm's written approval for public pages).
+  - Audiomack (key issuance unclear).
+  - Google Trends (alpha by application).
+- **Rejected on terms or cost:**
+  - Spotify city and viral charts (login).
+  - YouTube Charts (robots.txt and ToS).
+  - TikTok Creative Center (ToS 3.4).
+  - Billboard (pay-per-crawl, HTTP 402).
+  - ASCAP/BMI Songview (no API, terms unreadable to automated fetch; the MLC covers the same ground).
+  - Apple Music API city charts ($99 a year).
+  - Bandsintown and Songkick (as before).
+- **Not wired into the site:** `src/site_build.py` and `site/app.js` are being edited by others. The research note
+  says exactly what to show and where.
+
 ## 2026-10-25 YouTube Data API set up (owner: "Yes set up the YouTube data api")
 
 - **What it gives:** for each artist's own YouTube channel, subscribers, total views and views a day. It covers 680

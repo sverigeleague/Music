@@ -85,10 +85,10 @@ def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: s
 <header><div class="wrap bar">
   <span class="brandbox"><a class="brand" href="#/">tventy</a><a class="section" href="https://tventy.se/sport/" title="Go to tventy sport">music</a></span>
   <nav class="genres" aria-label="Genre"><a href="#/" data-genre="hip_hop">Hip-hop</a><a href="#/country/" data-genre="country">Country</a></nav>
-  <div class="search" role="search"><input id="q" type="search" placeholder="Search artists and labels" autocomplete="off" aria-label="Search" aria-controls="q-results" aria-expanded="false"><div class="results" id="q-results" role="listbox" hidden></div></div>
+  <div class="search" role="search"><input id="q" type="search" role="combobox" aria-autocomplete="list" placeholder="Search artists and labels" autocomplete="off" aria-label="Search" aria-controls="q-results" aria-expanded="false"><div class="results" id="q-results" role="listbox" hidden></div></div>
   <nav class="seg main mainnav" aria-label="Section"><a class="segbtn" href="#/" id="nav-artists">Artists</a><a class="segbtn" href="#/scout" id="nav-scout">Scout</a><a class="segbtn" href="#/worth" id="nav-money">Money</a><a class="segbtn" href="#/labels" id="nav-labels">Labels</a></nav>
 </div></header>
-<div class="wrap"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav><main id="app">{body}</main></div>
+<div class="wrap"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav><main id="app" tabindex="-1">{body}</main></div>
 <footer class="wrap note" id="foot"></footer>
 <script type="module" src="app.js"></script>
 </body>
@@ -122,8 +122,21 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
                                          if ab.get("source") == "wikipedia" else "") + "</p>") if ab.get("text") else ""
     body = f"""<article class="static"><h1>{esc(a['name'])}</h1>{about}<p class="sub">{esc(desc)}</p><ul>{''.join(facts)}</ul>
 <p><a href="#/a/{esc(a['id'])}">Open the full page</a></p></article>"""
+    # JSON-LD: only facts we hold: the profiles we looked up (Spotify, and Wikidata's links), the Commons photo with
+    # its credit and licence, the Wikipedia summary with its source
+    links = a.get("links") or {}
+    same = [f"https://open.spotify.com/artist/{a['id']}"] + [links[k] for k in ("wikidata", "youtube", "instagram", "tiktok", "x")
+                                                               if links.get(k) and links[k].startswith("https://")]
     ld = {"@context": "https://schema.org", "@type": "MusicGroup", "name": a["name"], "url": url, "genre": "Country" if gw == "country" else "Hip hop",
-          "sameAs": [f"https://open.spotify.com/artist/{a['id']}"]}
+          "sameAs": list(dict.fromkeys(same))}
+    if ab.get("text"):
+        ld["description"] = ab["text"]
+    ph = a.get("photo") or {}
+    if ph.get("file"):
+        ld["image"] = {"@type": "ImageObject", "url": BASE + ph["file"], **({"creditText": ph["author"]} if ph.get("author") and ph["author"] != "unknown" else {}),
+                       **({"license": ph["license_url"]} if ph.get("license_url") else {}), **({"acquireLicensePage": ph["page"]} if ph.get("page") else {})}
+    if label:
+        ld["recordLabel"] = {"@type": "Organization", "name": label}
     boot = f"#/{prefix}a/{a['id']}"
     body = body.replace(f'href="#/a/{a["id"]}"', f'href="{boot}"')
     return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}{prefix}cards/{a['slug']}.png", ld, boot, body, prefix)
