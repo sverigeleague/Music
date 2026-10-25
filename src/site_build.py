@@ -190,9 +190,9 @@ def build(genre: str = "hip_hop") -> dict:
                       "x": a["x"] and f"https://x.com/{a['x']}"},
         })
     factors = insights.FACTORS_BY_GENRE.get(genre, insights.FACTORS)
-    if genre == "country":  # US radio (C4, C5): an internal Scout signal and the songwriters' radio money
-        from .collectors import radio as radio_src
-        on_air = radio_src.presence({r["id"]: r["name"] for r in rows})
+    from .collectors import radio as radio_src
+    on_air = radio_src.presence({r["id"]: r["name"] for r in rows})  # US AM/FM, last 7 days (internal, C4)
+    if genre == "country":  # an internal Scout signal and the songwriters' radio money (C4, C5)
         for r in rows:
             r["radio_week"] = on_air.get(r["id"], {}).get("aud", 0.0)
     for r in rows:
@@ -202,7 +202,7 @@ def build(genre: str = "hip_hop") -> dict:
     for r in rows:
         r["streaming_mid"] = round(sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming"))
     insights.scout(rows, factors)
-    on_radio = sorted((r for r in rows if r.get("radio_week")), key=lambda r: -r["radio_week"])
+    on_radio = sorted((r for r in rows if r["id"] in on_air), key=lambda r: -on_air[r["id"]]["aud"])
     for i, r in enumerate(on_radio, 1):
         r["radio_rank"] = {"rank": i, "of": len(on_radio)}  # our own rank (C4); the audience figure is not shown
     for r in rows:
