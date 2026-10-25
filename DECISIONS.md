@@ -2,6 +2,26 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Fixes from a second independent review
+
+- **Wikipedia quotes:** the country pages' word swap ("hip-hop" -> "country") no longer touches the quoted
+  descriptions. Shaboozey's "country, Americana, and hip-hop" had read "country, Americana, and country".
+- **Sentence cutting:** "2010s.", "R&B." and "D.C. He ..." now end sentences; "the U.S. Army" does not; nested
+  brackets are removed. The full opening paragraph is stored, so the cut is redone at every build without
+  refetching.
+- **Country top list, our ranking:** below-floor artists follow the ranked ones at their place (399 onwards),
+  instead of being missing and listed as "missing release dates". The sentence under the title now counts only the
+  398 artists on Spotify's public list, and names the 359 below it separately.
+- **Worth calculator:** a below-floor artist is compared with artists of a similar size by daily streams / 0.10, the
+  build's internal measure; the box shows "under 500k". Artists with no stream figure can't be picked.
+- **Scout:** a size filter for "under 500k (by streams)".
+- **Unsigned and compare pages:** below-floor artists show "under 500k" rather than "–".
+- **Two Deezer pages, one Spotify artist** (Hank 3 / Hank Williams III, Bellamy Brothers, Charlie Daniels): the
+  artist ranks by the bigger page, and the second page no longer shows in the names list.
+- **Country links:** in-site links carry the genre prefix, so a link opened in a new tab or followed by a search
+  engine reaches the country page. Found by a page crawl: 24 country label pages opened empty that way.
+- Composed descriptions say "from the United States".
+
 ## 2026-10-25 Artist descriptions and "How this ranking works" (owner)
 
 - **Descriptions:** each artist page opens with one or two sentences. Source: the opening of the artist's English
