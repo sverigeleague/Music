@@ -2,6 +2,30 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Country top 1,000 at the same depth as hip-hop (owner: "a list of top 1,000 country artists robust with all information possible")
+
+- **Places 1 to ~395:** monthly listeners from kworb's public list, as before.
+- **Below kworb's 500k-listener floor:** artists from the Deezer related-artists crawl now go through the full
+  pipeline instead of being a Deezer-ordered name list (grade C):
+  1. Spotify ID looked up at the source: Wikidata (P2722 -> P1902) or MusicBrainz, where one MusicBrainz artist links
+     both the Deezer and the Spotify page (`country-ids`; `musicbrainz.ids_for_deezer`). Never guessed from a name.
+  2. Identity confirmed a second way: the artist's biggest songs on kworb must be among the Deezer artist's top tracks
+     (`country-floor`), the same check `country-from-crawl` uses.
+  3. The registry decides the genre by the usual rules (Deezer release genres, Wikidata, MusicBrainz votes, owner
+     overrides); nothing is let in on the crawl's word alone.
+  4. Ranked by measured daily Spotify streams (kworb artist pages, the same figure behind the money estimates).
+- **What these artists do not get:** a monthly-listener figure (none is public below the floor; shown as "under
+  500k"), listener change, current listeners and listener history.
+- **What they do get:** everything else hip-hop artists get (streams, labels, photos, release dates, certifications,
+  awards, credits, money estimates, Scout).
+- **Comparisons:** Scout compares them only with each other (a separate "under 500k (by streams)" band). Peer
+  comparisons use daily streams / 0.10, the median streams a day per monthly listener of country artists between
+  500k and 1.5m (167 artists; quartiles 0.087-0.123). That figure is internal and never shown.
+- **Supersedes** this morning's answer 3 ("no money below the floor"): the money lines rest on measured streams, like
+  everyone else's, so they are shown, as ranges.
+- Crawl artists with no Spotify ID or no kworb page stay in the Deezer-ordered name list, after the measured 1,000 or
+  filling it if fewer than 1,000 are measured.
+
 ## 2026-10-25 Owner's answers to the overnight questions ("go with suggested for all")
 
 1. Country ranks below the 500k floor: shown as now (names in Deezer order, grade C, no figures).
