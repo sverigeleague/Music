@@ -159,6 +159,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
   covers everyone under 3m (about 380): 56% against 75% at 15m+.
 - **Producers:** a song on several artists' pages (a duo and its members: Macklemore, Ryan Lewis, "Macklemore & Ryan
   Lewis") counted once per page; it now counts once per person (by ISRC).
+- **Search across genres:** the header search also lists the other genre's artists (its list loads on the first
+  search), marked "Country ·" or "Hip-hop ·" and linking to that genre's page.
 - **Tables on phones:** the artist page's certifications, credits and collaborations, the tours list and the label
   directory stack each row with its column names (`table.stack`); comparison tables still scroll sideways.
 - **Revenue table on phones:** the figures were scrolled off the right edge; each line now stacks the source over

@@ -63,7 +63,23 @@ function searchFor(q) {
     .map(([, a]) => ({ href: `#/a/${a.id}`, icon: pic(a), t: a.name, sub: `#${a.rank} · ${count(a.ml)} monthly listeners${a.label_name ? " · " + a.label_name : ""}` }));
   const L = (store.data.labels || []).map(x => [score(x.name), x]).filter(x => x[0] < 9).sort((x, y) => x[0] - y[0] || y[1].ml - x[1].ml).slice(0, 4)
     .map(([, x]) => ({ href: `#/label/${x.slug}`, icon: logo(x.name), t: x.name, sub: `Label · ${x.artists.length} artists in the top 1,000` }));
-  return [...A, ...L];
+  // the other genre's artists too (its list loads on the first search), marked and linking to its own pages
+  const og = GENRE === "hip_hop" ? "country" : "hip_hop", od = otherGenre(og);
+  const O = od ? od.artists.map(a => [score(a.name), a]).filter(x => x[0] < 2).sort((x, y) => x[0] - y[0] || y[1].ml - x[1].ml).slice(0, 3)
+    .map(([, a]) => ({ href: `${og === "hip_hop" ? "#/" : "#/" + og + "/"}a/${a.id}`, genre: og, icon: pic(a), t: a.name,
+      sub: `${og === "hip_hop" ? "Hip-hop" : "Country"} · #${a.rank} · ${count(a.ml)} monthly listeners` })) : [];
+  return [...A, ...O, ...L];
+}
+let otherLoading = false;
+function otherGenre(g) {
+  if (genreStore[g]) return genreStore[g].data;
+  if (!otherLoading) {
+    otherLoading = true;
+    fetch(g === "hip_hop" ? "data/index.json" : `data/${g}/index.json`).then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) genreStore[g] = { data: d }; document.querySelectorAll("input[type=search]").forEach(i => i === document.activeElement && i.dispatchEvent(new Event("input"))); })
+      .catch(() => {}).finally(() => { otherLoading = false; });
+  }
+  return null;
 }
 function bindSearchBox(input, box, global) {
   let hits = [], at = 0;
@@ -71,7 +87,7 @@ function bindSearchBox(input, box, global) {
   const draw = () => {
     hits = searchFor(input.value); at = 0;
     if (!input.value.trim()) return close();
-    box.innerHTML = hits.length ? hits.map((x, i) => `<a role="option" href="${x.href}" aria-selected="${i === at}">${x.icon}<span>${esc(x.t)}<small>${esc(x.sub)}</small></span></a>`).join("")
+    box.innerHTML = hits.length ? hits.map((x, i) => `<a role="option" href="${x.href}"${x.genre ? ` data-genre-link="${x.genre}"` : ""} aria-selected="${i === at}">${x.icon}<span>${esc(x.t)}<small>${esc(x.sub)}</small></span></a>`).join("")
       : `<p class="note" style="padding:10px 12px;margin:0">No match. Try an artist or a label.</p>`;
     box.hidden = false; input.setAttribute("aria-expanded", "true");
   };
@@ -80,7 +96,7 @@ function bindSearchBox(input, box, global) {
   input.addEventListener("focus", () => input.value && draw());
   input.addEventListener("keydown", ev => {
     if (ev.key === "ArrowDown" || ev.key === "ArrowUp") { ev.preventDefault(); at = (at + (ev.key === "ArrowDown" ? 1 : -1) + hits.length) % Math.max(1, hits.length); mark(); }
-    else if (ev.key === "Enter" && hits[at]) { go(hits[at].href); input.value = ""; close(); input.blur(); }
+    else if (ev.key === "Enter" && hits[at]) { hits[at].genre ? (location.hash = hits[at].href) : go(hits[at].href); input.value = ""; close(); input.blur(); }
     else if (ev.key === "Escape") { close(); input.blur(); }
   });
   box.addEventListener("click", ev => { if (ev.target.closest("a")) { input.value = ""; close(); } });
@@ -111,7 +127,7 @@ new MutationObserver(() => { swapWords(document.getElementById("app")); swapWord
 const go = hash => { location.hash = GENRE !== "hip_hop" && hash.startsWith("#/") && !hash.startsWith(PREFIX()) ? PREFIX() + hash.slice(2) : hash; };
 document.addEventListener("click", e => {
   const a = e.target.closest('a[href^="#/"]');
-  if (!a || GENRE === "hip_hop" || a.dataset.genre || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+  if (!a || GENRE === "hip_hop" || a.dataset.genre || a.dataset.genreLink || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
   const href = a.getAttribute("href");
   if (href.startsWith(PREFIX()) || href === "#/state" || href.startsWith("#/state/") || href === "#/method") return;
   e.preventDefault();
