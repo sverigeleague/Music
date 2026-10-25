@@ -2,6 +2,102 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 YouTube Data API set up (owner: "Yes set up the YouTube data api")
+
+- **What it gives:** for each artist's own YouTube channel, subscribers, total views and views a day. It covers 680
+  of the 1,000 hip-hop artists with a known channel; kworb.net covers 255.
+  - Channel IDs come from Wikidata, else the one youtube.com/channel/ link on the artist's MusicBrainz page (two or
+    more: none taken).
+  - Views a day: the change in channel views between today's reading and one 7–30 days old.
+- **Where it shows:**
+  - The artist page's YouTube tile, with source, method and window.
+  - Compare, and Data coverage on Method.
+  - The YouTube money line where kworb has no page: own-channel views × the YouTube rate (C). Fan uploads and other
+    channels are not counted, so it understates.
+- **Terms (YouTube API Services Developer Policies):** statistics are kept for 30 days at most and never as a history.
+  - So `data/youtube_channels.csv` holds only the latest reading plus one earlier base per channel, and anything over
+    30 days is dropped (`youtube_api.daily_rate`).
+  - The file is not committed: this repository is public and git would keep every version, which would be a
+    history. It lives in a GitHub Actions cache that the daily job writes and the site build reads.
+- **Runs daily** in daily.yml (about 40 quota units a day of the free 10,000). The monthly step was moved there.
+- **Needs from the owner:** a YouTube Data API v3 key added as the repository secret `YOUTUBE_API_KEY`. Without it the
+  step is skipped with a log line, and the site shows kworb figures only. Views a day appear after a week of daily
+  readings.
+- **Rejected:** keeping a longer history for growth trends. It would need YouTube's audited-analytics approval
+  (III.L).
+
+## 2026-10-26 Product pass: 24 ideas, three built (task: "product development for the music site", overnight)
+
+- **Ideas:** `docs/product/2026-10-26-ideas.md`: 24 ideas, each with its user, job, data, effort, value and risks,
+  ranked, with notes on what is free and what a label or investor would pay for. The rest are in ROADMAP Phase 11 as
+  "idea".
+- **Chosen to build:** the three top-ranked ones that are small or medium, use data we already hold, and need no
+  accounts and no money: a catalog screener, an artist one-pager and a data-quality page. One entry each below.
+- **Rejected for now:**
+  - "What changed this week": the daily log starts 2026-10-23, so a week has 3 days of data, and Movers already
+    covers 30 days.
+  - Watchlist digest: needs a week of log. The email version needs accounts (ROADMAP 10.5, a hard stop).
+  - Embed widget: it widens the reach of Spotify-derived numbers before the licence gate (2.1). Owner's call.
+
+## 2026-10-26 Catalog screener (`#/screener`, Money)
+
+- **For:** investors and catalog buyers ("catalogs worth $X–Y, mostly evergreen, not with a major; export").
+- **Shows:** the top 1,000 as catalogs.
+  - Recordings + songs value: the mid, with the range under it.
+  - The artist's multiple, and the age mix of the streams as a bar (new / 3–10 years / 10+ years).
+  - Streaming royalties a year, what the artist keeps a year (range), monthly listeners and latest release.
+  - Tiles for the selection: count, combined value with its range, median multiple, how many are mostly evergreen,
+    how many are not with a major.
+- **Filters:** value band, age mix (50%+ in a band), owner (incl. "not with a major"), royalties floor, country.
+  Columns sort, with blanks last.
+- **CSV:** every figure as low / mid / high, the multiple and its basis, the age shares and the dated share, then
+  grade "C (estimate)", the data date and "indicative estimate, not a valuation".
+- **Data:** everything was already in `index.json` except the value's low and high ends.
+  - `src/site_build.py` now writes `worth_range` = recordings + publishing, low and high (two numbers per artist).
+- **On the page:** a "How this works" panel with the multiples' sources and grades. It also says the owner shown is
+  who releases the music now, not necessarily who owns older masters.
+- **Rejected:**
+  - Filtering on the multiple itself: the age mix is the input investors reason with.
+  - A single "value" without the range: the house rule is that estimates are ranges.
+
+## 2026-10-26 Artist one-pager (`#/sheet/<id>`, linked from every artist page)
+
+- **For:** A&R and investors who attach a summary to a memo or signing note.
+- **Shows:** one A4 page, in six blocks. Every row names its source and method, and money blocks carry grade C.
+  - Audience;
+  - label and deal;
+  - earnings a year (streaming summed, other lines as on the artist page, artist keeps total);
+  - catalog value (recordings, songs, both, multiple and age mix);
+  - Scout factors with weights;
+  - recognition.
+  - At the foot: sources and grades, the data date and the page's address, so a printout keeps its caveats.
+- **How:** "Print or save as PDF" uses the browser's print dialog. A new `@media print` block in `styles.css` hides the
+  header, menus, buttons, player and "How this ranking works" on any page. Two columns on paper and on wide screens,
+  one on phones.
+- **Rejected:**
+  - Generating PDFs in the build: 1,754 files, and the print dialog does the same for free.
+  - Print styles on the full artist page alone: it runs to 4+ pages.
+
+## 2026-10-26 Data quality and corrections page (`#/quality`, footer)
+
+- **For:** everyone who has to trust a number (investors' diligence, press), and the ROADMAP's "honesty features as a
+  selling point".
+- **Shows:**
+  - Coverage of eight main fields (count and share), plus the existing coverage table.
+  - Open review queues per file: rows, and how many are still open after owner overrides.
+  - First and latest date in each source file, with "late" when older than the source's usual cadence.
+  - A corrections log.
+  - The ranking method's versions.
+- **New:**
+  - `src/quality.py` (`queues`, `latest`, `sources`, `corrections`, `method_versions`, `summary`), written to
+    `extra.json` as `quality` by `src/site_build.py`. Tests: `tests/test_quality.py`.
+  - `registry/corrections.csv`: 17 corrections, each taken from an entry in this log (2026-10-25). Columns: date,
+    genre, kind (data / method), subject, field, was, now, basis, source.
+- **Rule from now on:** a correction to a published figure or classification, or a change to a money or Scout method,
+  gets a row in `registry/corrections.csv` along with its entry here.
+- **Rejected:** file modification times as "last updated": a fresh checkout resets them. The dates inside the files
+  are used instead.
+
 ## 2026-10-25 YouTube: matching kworb pages by identifiers (task: "more artists with measured YouTube views")
 
 - **Why most artists had no YouTube figure (top 1,000 hip-hop, 757 country):**

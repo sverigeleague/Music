@@ -1,5 +1,5 @@
 # Daily: kworb's top 2,500 by monthly listeners (raw page archived, tracked artists' rows kept). About 1 minute.
-# Also Apple Music's daily top 100 in 25 countries (a few seconds).
+# Also Apple Music's daily top 100 in 25 countries (a few seconds), and YouTube channel statistics (YouTube Data API).
 # Fridays also: the weekly Spotify top 200 of 76 countries (where each artist's songs are streamed), about 2 minutes,
 # and the YouTube videos of Scout's risers (data/videos.json), about 4 minutes.
 # Scheduled workflows run only from the default branch (main).
@@ -31,6 +31,23 @@ jobs:
       - run: python -m src.run radio
         continue-on-error: true
       - run: python -m src.run scoutlog
+      # YouTube API statistics may be kept 30 days at most and never as a history (API terms), so the file is not
+      # committed (the repo is public and git keeps every version): it lives in an Actions cache the site build reads
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/youtube_channels.csv
+          key: ytapi-${{ github.run_id }}
+          restore-keys: ytapi-
+      - name: YouTube channel statistics (YouTube Data API; skipped without the YOUTUBE_API_KEY secret, ~40 quota units)
+        run: python -m src.run ytapi && python -m src.run ytapi --genre=country
+        continue-on-error: true
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      - uses: actions/cache/save@v4
+        if: ${{ hashFiles('data/youtube_channels.csv') != '' }}
+        with:
+          path: data/youtube_channels.csv
+          key: ytapi-${{ github.run_id }}
       - name: Country charts (Fridays, when kworb has the new week)
         run: if [ "$(date -u +%u)" = "5" ]; then python -m src.run countries; fi
       - name: Risers' YouTube videos (Fridays; kworb's YouTube pages and channel feeds, about 4 minutes)

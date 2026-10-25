@@ -146,6 +146,12 @@ def estimate(a: dict, today: date, deal_share: dict, genre: str = "hip_hop") -> 
         lines.append({"key": "youtube", "label": "YouTube", "group": "Streaming",
                       "generated": _rng(*(a["yt_daily"] * DAYS * r / 1000 for r in yt)),
                       "grade": "C", "basis": f"measured views × ${yt[0]:.2f}–{yt[2]:.2f} per 1,000"})
+    elif a.get("yt_api_daily") and yt:  # no kworb page: the artist's own channel, from the YouTube Data API
+        w = a.get("yt_api_window") or ["", ""]
+        lines.append({"key": "youtube", "label": "YouTube", "group": "Streaming",
+                      "generated": _rng(*(a["yt_api_daily"] * DAYS * r / 1000 for r in yt)),
+                      "grade": "C", "basis": f"measured views a day on the artist's own channel ({w[0]} to {w[1]}, "
+                      f"YouTube Data API) × ${yt[0]:.2f}–{yt[2]:.2f} per 1,000; fan uploads and other channels not counted"})
     if spotify:
         for m in multipliers(genre):
             lines.append({"key": m["platform"], "label": (genre == "country" and COUNTRY_NAMES.get(m["platform"])) or pf.get(m["platform"], {}).get("name") or NAMES.get(m["platform"], m["platform"]),

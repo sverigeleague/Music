@@ -577,8 +577,24 @@ def awards_step() -> None:
     print(f"awards and nominations (Wikidata): {awards.update({a['spotify_id']: a.get('wikidata_id', '') for a in tracked()})} artists with at least one")
 
 
+def youtube_channels() -> dict[str, str]:
+    """spotify_id -> the artist's own YouTube channel ID: Wikidata P2397, else the one youtube.com/channel/UC... link on
+    their MusicBrainz page (data/musicbrainz_youtube.csv). Two or more MusicBrainz channels: none taken (ambiguous)."""
+    mb = {}
+    p = DATA / "musicbrainz_youtube.csv"
+    if p.exists():
+        with p.open() as f:
+            mb = {r["musicbrainz_id"]: [c for c in r["channels"].split("|") if c.startswith("UC")] for r in csv.DictReader(f)}
+    out = {}
+    for a in tracked():
+        c = a["youtube_channel"] or (lambda cs: cs[0] if len(cs) == 1 else "")(mb.get(a.get("musicbrainz_id", ""), []))
+        if c:
+            out[a["spotify_id"]] = c
+    return out
+
+
 def ytapi_step() -> None:
-    n = youtube_api.update({a["spotify_id"]: a["youtube_channel"] for a in tracked() if a["youtube_channel"]})
+    n = youtube_api.update(youtube_channels())
     print("YouTube API: no YOUTUBE_API_KEY, skipped" if n is None else f"YouTube API: {n} channels")
 
 

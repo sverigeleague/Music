@@ -4,7 +4,7 @@ import json
 import re
 from datetime import date, datetime, timedelta, timezone
 
-from . import backtest, current, monthly, health, insights, labels, money, revenue
+from . import backtest, current, monthly, health, insights, labels, money, quality, revenue
 from .collectors import apple_charts, deezer, logos, sony_music, deezer_releases, wayback, wikipedia, kworb, kworb_countries, kworb_youtube, release_dates, youtube_api
 from .config import REGISTRY, SITE
 from . import countries
@@ -12,10 +12,10 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
-EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market")
+EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market", "quality")
 DETAIL_ONLY = ("about", "cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_newest", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
-               "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views", "yt_basis",
+               "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views", "yt_basis", "yt_api_window",
                "peak_rank", "attention_series", "worth", "collabs")
 
 
@@ -242,6 +242,10 @@ def build(genre: str = "hip_hop") -> dict:
             if t["spotify_id"] in yt else None,
             "yt_subs": num(ych.get(t["spotify_id"], {}).get("subscribers")),
             "yt_channel_views": num(ych.get(t["spotify_id"], {}).get("views")),
+            # YouTube Data API: the artist's own channel, views a day over a 7-30 day window (used where kworb has none)
+            "yt_api_daily": num(ych.get(t["spotify_id"], {}).get("views_per_day")),
+            "yt_api_window": [ych[t["spotify_id"]].get("prev_date"), ych[t["spotify_id"]].get("date")]
+            if ych.get(t["spotify_id"], {}).get("views_per_day") else None,
             "geo": geography(geo.get(t["spotify_id"], {})),
             "links": {"spotify": f"https://open.spotify.com/artist/{t['spotify_id']}",
                       "wikidata": a["wikidata_id"] and f"https://www.wikidata.org/wiki/{a['wikidata_id']}",
@@ -273,6 +277,8 @@ def build(genre: str = "hip_hop") -> dict:
     for r in rows:
         r["worth"] = insights.worth(r, r["revenue"], mult)
         r["worth_mid"] = round(r["worth"]["recordings"]["mid"] + r["worth"]["publishing"]["mid"])
+        # recordings + songs, low and high ends, for the catalog screener (a range, never the mid alone)
+        r["worth_range"] = [round(r["worth"]["recordings"][k] + r["worth"]["publishing"][k]) for k in ("low", "high")]
         # the multiple used, for the worth calculator: [low, high, main age band, method, age mix]
         r["wmult"] = [*r["worth"]["multiple"], r["worth"]["vintage"], r["worth"]["method"], r["worth"]["age_mix"]]
         r["level"] = insights.level(r)
@@ -327,7 +333,8 @@ def build(genre: str = "hip_hop") -> dict:
             "labels": insights.labels_index(rows, release_counts(rels, table)),
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
-            "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES)}
+            "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES),
+            "quality": quality.summary(genre)}  # review queues, source dates, corrections log (#/quality)
 
 
 def genre_note(basis: str) -> str:

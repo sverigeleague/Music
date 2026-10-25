@@ -691,3 +691,22 @@ def test_worth_multiple_blends_by_release_age():
     assert lo == round((m["new"][0] + m["evergreen"][0]) / 2, 2) and hi == round((m["new"][1] + m["evergreen"][1]) / 2, 2)
     # too few streams dated: no age-based multiple (the current-share vintage is used instead)
     assert insights.blended({"new": 1.0, "coverage": 0.3}, t) is None
+
+
+def test_youtube_api_daily_rate_within_30_days():
+    from datetime import date
+    from src.collectors.youtube_api import daily_rate
+    now = {"views": 1_700_000}
+    # first run: nothing earlier
+    assert daily_rate(now, None, date(2026, 11, 1)) == {"prev_date": "", "prev_views": "", "views_per_day": ""}
+    # one day later: the earlier snapshot becomes the base, too young for a rate
+    prev = {"date": "2026-11-01", "views": "1000000", "prev_date": "", "prev_views": "", "views_per_day": ""}
+    out = daily_rate(now, prev, date(2026, 11, 2))
+    assert out["prev_date"] == "2026-11-01" and out["views_per_day"] == ""
+    # ten days after the base: views a day over those ten days
+    prev = {"date": "2026-11-10", "views": "1600000", "prev_date": "2026-11-01", "prev_views": "1000000", "views_per_day": ""}
+    assert daily_rate(now, prev, date(2026, 11, 11))["views_per_day"] == 70_000
+    # base over 30 days old: dropped (API terms); the last rate is kept while the new base matures
+    prev = {"date": "2026-12-01", "views": "1650000", "prev_date": "2026-11-01", "prev_views": "1000000", "views_per_day": "21000"}
+    out = daily_rate(now, prev, date(2026, 12, 2))
+    assert out["prev_date"] == "2026-12-01" and out["views_per_day"] == 21000
