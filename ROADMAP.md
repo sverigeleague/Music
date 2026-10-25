@@ -200,8 +200,8 @@ Further out:
 | 9.6 | Label research batches 4-7 and two country batches: unknown hip-hop labels 262 -> 191, country 207 -> 35 | built |
 | 9.7 | Product pass: key numbers first, Scout table fits, phone tables stack, coverage table, search and compare across genres | built |
 
-**Checkpoint (owner):** the country questions in PR #9 (below-floor presentation, scope, money below the floor, the
-50-artist review batch, Curb and Santa Anna, kworb radio staying internal).
+**Checkpoint (owner): passed 2026-10-25.** The owner took the suggested answer on all ten questions in PR #9
+(DECISIONS.md, 2026-10-25 "Owner's answers").
 
 Next candidates: Last.fm listeners as a second below-floor measure (needs a key, K1); YouTube Data API for views
 (K1); the country back-test once 90 days of daily scores exist (January 2027).

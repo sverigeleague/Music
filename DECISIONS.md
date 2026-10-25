@@ -2,6 +2,24 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Owner's answers to the overnight questions ("go with suggested for all")
+
+1. Country ranks below the 500k floor: shown as now (names in Deezer order, grade C, no figures).
+2. Country scope: any nationality.
+3. No money figures for the below-floor ranks.
+4. Country review batches: the suggested answers are now owner overrides in `registry/genre_overrides.csv` (batch 1:
+   47 rows; the 3 marked "look up" stay in review: STELLA LEFTY, Buffalo Traffic Jam, Joseph Williams. Batch 2: 6).
+5. Hip-hop/Deezer disagreements: Lizzo, blackbear, August Alsina and Jackson Wang to other; the other 7 confirmed
+   hip-hop.
+6. Curb Records and Santa Anna stay "distributed by a major".
+7. kworb radio and Country Aircheck figures stay internal.
+8. The four low-confidence label leads (G-Unit, SODMG, Master of None, Blacktop) stay unapplied: unknown.
+9. Oranj and UnitedMasters releases stay self-released.
+10. Hayden Blount, Token and Aitch stay unsigned until a better source turns up.
+
+Effect after the registry run: country 375 -> 395 artists (20 from review), 33 review artists to other, the hip-hop
+list loses 4 and takes the next four by listeners.
+
 ## 2026-10-25 Fixes from an independent review of the overnight changes
 
 - "based on:" and "newest release" only where the status rests on releases; with an override or an unknown or
