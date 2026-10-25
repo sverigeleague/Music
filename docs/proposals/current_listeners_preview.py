@@ -3,7 +3,7 @@ import csv, glob, gzip, html, json, re, sys, time, unicodedata
 from datetime import date
 import requests
 ROOT, OUT = sys.argv[1], sys.argv[2]
-S = requests.Session(); S.headers["User-Agent"] = "music-ledger/0.1 (swedenrocked@gmail.com)"
+S = requests.Session(); S.headers["User-Agent"] = "music-ledger/0.1 (hello@tventy.se)"
 def norm(s):
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode().casefold()
     s = re.sub(r"\s*[\(\[].*?[\)\]]", "", s); s = re.sub(r"\s-\s.*$", "", s)

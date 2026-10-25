@@ -51,6 +51,40 @@ Four reviews read every page as an investment-banking client would. Fixes:
     hidden on country pages.
   - **Bertelsmann and Sony notes:** corrected.
 
+## 2026-10-25 A change to requirements.txt redeploys the site
+
+- **Asked:** "Yes add to package list" (owner). Merging the Pillow fix did not start a deploy, because the site
+  workflow ran on pushes to site/, src/ and registry/ only.
+- **Chosen:** `requirements.txt` is now one of the paths that start the site workflow.
+
+## 2026-10-25 Pillow in requirements: the site deploy failed since this morning
+
+- **What failed:** the site workflow, every run since 09:54 UTC. `src/static_pages.py` draws the share cards with
+  Pillow, which `requirements.txt` did not list, so the build stopped and nothing deployed (the logo and header
+  changes waited too).
+- **Fix:** `pillow==11.0.0` in `requirements.txt`. The full build passes with it in a clean environment.
+
+## 2026-10-25 The logo leads to tventy.se; the section word is a label
+
+- **Asked:** "Don't make the music and sport words clickable anymore … Pressing tventy should bring you back to the
+  sport or music choice page" (owner).
+- **The logo** links to https://tventy.se/, the choice page; "music" under it is plain text. Artists, the first tab,
+  is this site's home. The sport site has the same change.
+
+## 2026-10-25 Logo and tab icon: the circled t of tventy
+
+- **The logo: the wordmark with its first "t" white in a filled circle** (owner, 2026-10-25), drawn from the site's
+  own font (Bricolage Grotesque, bold). The header shows it at the old wordmark's size and baseline, and the circled t
+  takes the page colour.
+- **The browser tab icon is that circled t.** It is a white t in a near-black circle, so it reads on light and dark
+  tabs. Files: `site/favicon.svg`, `site/favicon.png` (32 px, for Safari) and `site/apple-touch-icon.png` (180 px, for
+  phone home screens). They are the same files as the sport site's.
+
+## 2026-10-25 Contact address hello@tventy.se
+
+- **hello@tventy.se replaces swedenrocked@gmail.com** in the User-Agent of every collector, the site footer and the
+  working agreement (owner set up tventy.se mail, 2026-10-25; the same change in the sport repository).
+
 ## 2026-10-25 Fixes from a second independent review
 
 - **Wikipedia quotes:** the country pages' word swap ("hip-hop" -> "country") no longer touches the quoted

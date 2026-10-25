@@ -8,7 +8,7 @@ on:
     types: [completed]
   push:
     branches: [main]
-    paths: ["site/**", "src/**", "registry/**", ".github/workflows/site.yml"]
+    paths: ["site/**", "src/**", "registry/**", "requirements.txt", ".github/workflows/site.yml"]  # requirements: a new package must redeploy
   workflow_dispatch:
 permissions:
   contents: read
