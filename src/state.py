@@ -29,7 +29,7 @@ def build(data: dict, extra: dict) -> dict:
     m = extra.get("market") or {}
     groups, total = m.get("groups", {}), m.get("total_ml") or 1
     major_ml = sum(groups.get(g, {}).get("ml", 0) for g in MAJORS)
-    items = [{"key": "majors", "label": "Majors' share of the top 1,000's listeners",
+    items = [{"key": "majors", "label": f"Majors' share of the top {len(A):,}'s listeners",
               "value": _pct(major_ml / total),
               "detail": f"Universal, Sony and Warner, by monthly listeners added per artist; labels on {sum(1 for a in A if a.get('label_status') != 'unknown')} of {len(A)} artists are known",
               "link": "#/labels"}]

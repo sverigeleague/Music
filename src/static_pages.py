@@ -116,8 +116,9 @@ def label_page(L: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
     url = f"{BASE}{prefix}label/{L['slug']}/"
     gw = "country" if prefix.startswith("country") else "hip-hop"
     n = len(L.get("artists", []))
+    pool = "the country list" if gw == "country" else "hip-hop's top 1,000"
     desc = (f"{L['name']}{', owned by ' + L['parent'] if L.get('parent') and L['parent'] != L['name'] else ''}: {n} artists in "
-            f"{gw}'s top 1,000 with {_count(L.get('ml'))} combined monthly listeners. Roster, momentum and finances, every "
+            f"{pool} with {_count(L.get('ml'))} combined monthly listeners. Roster, momentum and finances, every "
             f"figure sourced. Data as of {as_of}.")
     body = f"""<article class="static"><h1>{esc(L['name'])}</h1><p class="sub">{esc(desc)}</p>
 <p><a href="#/label/{esc(L['slug'])}">Open the full page</a></p></article>"""

@@ -2,6 +2,14 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Smaller fixes (overnight)
+
+- Static country pages said "top 1,000" (the in-page word swap does not run on static pages): State of country now
+  reads "top 375", label pages "the country list".
+- Unsigned list: artists placed by a sourced override (Jeezy: self-released through Stem) showed a blank label; they
+  show the override's distributor.
+- Reported deals read as sentences with the amount in bold.
+
 ## 2026-10-25 RIAA Latin certifications kept apart; label batch 8
 
 - Wikipedia's "RIAA: 96× Platinum (Latin)" was read as 96 main Platinum awards. Latin Platinum is 60,000 units, not

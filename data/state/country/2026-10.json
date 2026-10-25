@@ -4,7 +4,7 @@
  "items": [
   {
    "key": "majors",
-   "label": "Majors' share of the top 1,000's listeners",
+   "label": "Majors' share of the top 375's listeners",
    "value": "67%",
    "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 341 of 375 artists are known",
    "link": "#/labels"
