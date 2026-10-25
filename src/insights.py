@@ -2,8 +2,11 @@
 
 Scout score (0-100): a ranking signal for labels, not a prediction. Each factor is turned into a percentile among
 artists of a similar size (monthly-listener band), so a 2m-listener artist is compared with other 2m-listener artists.
-The score is the weighted mean of the factors the artist has (at least 3); weights below. Tiers: Breaking 80+,
-Rising 65+, Watch 50+. Back-test once 90 days of listener history exist (ROADMAP 7.10).
+The score is the weighted mean of the factors the artist has (at least 3); weights below. A signal that is measured
+as absent (no chart entry, no song out in the last 90 days, not on US radio) scores 0, not a percentile among the
+other zeros. Tiers: Breaking 80+, Rising 65+, Watch 50+, only when the factors measured carry at least 60% of the
+weight; below that the score is provisional and has no tier. Back-test once 90 days of listener history exist
+(ROADMAP 7.10).
 
 Worth: the value of an income stream = yearly income x a sale multiple. The multiple depends on how new the music is
 (registry/catalog_multiples.csv, sourced): new music decays faster, so buyers pay fewer years of income for it.
@@ -50,6 +53,10 @@ COUNTRY_FACTORS = {
 }
 FACTORS_BY_GENRE = {"hip_hop": FACTORS, "country": COUNTRY_FACTORS}
 TIERS = ((80, "Breaking"), (65, "Rising"), (50, "Watch"))
+# owner, 2026-10-25 (review 5): factors where a zero means the signal is absent, so it scores 0, and the weight a tier
+# needs (MiyaGi & Endspiel was "Rising" on a third of the weight, Tennessee Ernie Ford 50/100 for no chart entry)
+ZERO_IS_ABSENT = ("velocity", "breadth", "radio")
+TIER_MIN_WEIGHT = 0.6
 SCOUTED_BELOW = 15_000_000  # artists this big are established: scored, but given no tier
 # Breaking also needs a measured absolute signal, not only a high rank among peers: new songs pulling at least a
 # quarter of the streams, or Wikipedia attention up 30%+
@@ -139,7 +146,9 @@ def scout(rows: list[dict], factors: dict = FACTORS) -> None:
             vals = sorted(v for r in members if (v := raw[r["id"]][f]) is not None)
             for r in members:
                 v = raw[r["id"]][f]
-                if v is not None and len(vals) > 1:
+                if v is not None and f in ZERO_IS_ABSENT and v == 0:
+                    pct.setdefault(r["id"], {})[f] = 0
+                elif v is not None and len(vals) > 1:
                     # mid-rank percentile: ties share a value
                     lo, hi = bisect_right(vals, v - 1e-12), bisect_right(vals, v)
                     pct.setdefault(r["id"], {})[f] = round(100 * ((lo + hi) / 2) / len(vals))
@@ -150,13 +159,15 @@ def scout(rows: list[dict], factors: dict = FACTORS) -> None:
                 continue
             w = sum(factors[f][0] for f in p)
             score = round(sum(factors[f][0] * v for f, v in p.items()) / w)
-            tier = next((t for m, t in TIERS if score >= m), None)
+            weight = round(w / sum(x[0] for x in factors.values()), 2)
+            tier = next((t for m, t in TIERS if score >= m), None) if weight >= TIER_MIN_WEIGHT else None
             if tier == "Breaking" and not ((r.get("fresh_share") or 0) >= BREAKING_FRESH
                                            or ((r.get("attention") or {}).get("trend") or 0) >= BREAKING_ATTENTION):
                 tier = "Rising"
             if (r["ml"] or 0) >= SCOUTED_BELOW:
                 tier = None
-            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": band_label(band_of(r))}
+            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": band_label(band_of(r)), "weight": weight,
+                          **({"provisional": True} if weight < TIER_MIN_WEIGHT else {})}
 
 
 def multiples() -> list[dict]:
@@ -203,6 +214,20 @@ def worth(r: dict, rev: dict, table: list[dict]) -> dict:
             "publishing": val(pub, "generated")}
 
 
+PICK_MAX_FEAT = 0.9  # mostly a featured guest: not a pick (SRNO 97%, Danny Chung 100%; owner, 2026-10-25)
+
+
+def is_prospect(r: dict) -> bool:
+    """An unsigned prospect (labels.independent_kind): self-released, no label deal on record, a short career, under
+    10m listeners, a current audience and a recent song of their own; not a second profile of another artist."""
+    return r.get("label_status") == "self_released" and r.get("indie_kind") == "prospect" and not r.get("second_of")
+
+
+def is_pick(r: dict) -> bool:
+    """A prospect we name as a pick (start page, State, Scout, This month): not mostly a featured guest."""
+    return is_prospect(r) and (r.get("feat") or 0) < PICK_MAX_FEAT
+
+
 def level(r: dict) -> dict:
     """Level from today's monthly listeners; badges from the measured signals."""
     name = next(n for m, n in LEVELS if (r["ml"] or 0) >= m)
@@ -213,7 +238,7 @@ def level(r: dict) -> dict:
     sc = r.get("scout") or {}
     if sc.get("tier") == "Breaking":
         badges.append("Breaking")
-    if r.get("label_status") == "self_released" and r.get("indie_kind") != "established" and (sc.get("score") or 0) >= 65:
+    if is_pick(r) and (sc.get("score") or 0) >= 65 and not sc.get("provisional"):
         badges.append("Unsigned and rising")
     if r.get("feature_daily") and r.get("daily") and r["feature_daily"] / r["daily"] >= 0.8:
         badges.append("Feature magnet")
@@ -238,8 +263,9 @@ def market(rows: list[dict]) -> dict:
     """Share of the top 1,000 by group: artists, monthly listeners, current listeners; overall and per size band.
     Independent labels are also listed one by one."""
     groups: dict[str, dict] = {}
-    catalog = [r for r in rows if r.get("label_status") == "catalog"]  # no new releases: left out of the shares
-    for r in (r for r in rows if r.get("label_status") != "catalog"):
+    catalog = [r for r in rows if r.get("label_status") == "catalog" and not r.get("second_of")]  # no new releases: left out of the shares
+    # a second Spotify profile of an artist (Bob / B.o.B) is left out: its listeners are mostly the main profile's
+    for r in (r for r in rows if r.get("label_status") != "catalog" and not r.get("second_of")):
         g = groups.setdefault(group_of(r), {"artists": 0, "ml": 0, "cl": 0, "bands": [0] * len(BAND_LABELS),
                                             "top": [], "labels": {}})
         g["artists"] += 1
@@ -322,6 +348,8 @@ def labels_index(rows: list[dict], release_counts: dict[str, int]) -> list[dict]
                                  "artists": [], "ml": 0, "cl": 0, "royalties": 0, "breaking": 0, "rising": 0,
                                  "scores": []})
         L["artists"].append(r["id"])
+        if r.get("second_of"):  # listed on the roster, left out of the sums (the main profile counts)
+            continue
         L["ml"] += r["ml"] or 0
         L["cl"] += r.get("cl") or 0
         L["royalties"] += r.get("streaming_mid") or 0

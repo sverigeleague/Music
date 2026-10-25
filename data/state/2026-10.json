@@ -6,7 +6,7 @@
    "key": "majors",
    "label": "Majors' share of the top 1,000's listeners",
    "value": "68%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist, among the 661 of 1,000 artists whose label is known (catalog acts left out)",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist, among the 658 of 1,000 artists whose label is known (catalog acts left out)",
    "link": "#/labels"
   },
   {
@@ -26,21 +26,21 @@
   {
    "key": "breaking",
    "label": "Breaking now",
-   "value": "21",
+   "value": "18",
    "detail": "artists Scout rates Breaking; top: Clarent (94)",
    "link": "#/scout"
   },
   {
    "key": "unsigned",
    "label": "Top unsigned prospect",
-   "value": "SRNO",
-   "detail": "Scout 88, 4.3m monthly listeners, releasing without a label",
-   "link": "#/a/0Kwf0zcciIFGLCKiqNcO6Q"
+   "value": "LACAZETTE",
+   "detail": "Scout 87, 3.5m monthly listeners, releasing without a label",
+   "link": "#/a/7rBed6Ya7Hwa2fXbh5btJE"
   },
   {
    "key": "royalties",
    "label": "What the top 100 earn on Spotify",
-   "value": "$335.7m a year",
+   "value": "$335.4m a year",
    "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
    "link": "#/worth"
   },
@@ -62,7 +62,7 @@
    "key": "size",
    "label": "Hip-hop artists tracked",
    "value": "1,000",
-   "detail": "6.52bn combined monthly listeners, from Spotify's top 25,219",
+   "detail": "6.50bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,219",
    "link": "#/"
   }
  ]

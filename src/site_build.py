@@ -19,7 +19,7 @@ DETAIL_ONLY = ("about", "cert_detail", "award_list", "song_credits", "genre_basi
                "peak_rank", "attention_series", "worth", "collabs",
                "radio_rank")
 # fields only pages that wait for extra.json read (Scout, Money, Labels, Compare, Method...): written to extra.json
-# as artist_more {id: {field: value}}, which app.js merges back into store.data.artists when it arrives; the start
+# as artist_more {field: [value per artist, in index.json's order]}, which app.js merges back into store.data.artists when it arrives; the start
 # page and artist pages render without them (2026-10-25, page speed). ALSO_SHARD: the artist page shows them too, so
 # its shard carries a copy. Grep site/app.js for every use before adding a field here.
 LATER = ("rev_lines", "wmult", "deal_type", "worth_mid", "fresh_share", "streaming_mid", "growth90", "awards", "rev_total",
@@ -71,6 +71,7 @@ FLOOR_FRESH_DAYS = 60
 def build(genre: str = "hip_hop") -> dict:
     artists = load_artists()
     top = latest_listeners()
+    universe = len(top)  # Spotify's public list (kworb), the same for both genres: before country's below-floor rows
     streams, pics = latest_streams(), _json(PHOTOS, {})
     if genre == "country":  # below kworb's 500k-listener floor: ranked by measured daily streams, no listener figure
         listed = {t["spotify_id"] for t in top}
@@ -217,9 +218,6 @@ def build(genre: str = "hip_hop") -> dict:
             "label_basis": status["basis"], "label_override": status.get("override"),
             "label_newest": newest_release(status),
             "label_isrc_note": status.get("isrc_note") or None, "label_confidence": status.get("confidence"),
-            **(dict(zip(("indie_kind", "indie_basis"), labels.independent_kind(
-                a["name"], wd_labels, dated_of.get(t["spotify_id"], []), registrants, a["active_since"], today.year, table)))
-               if status["status"] == "self_released" else {}),
             "money": money.estimate(num(s.get("lead_daily")), deal),
             "photo": pics.get(t["spotify_id"]) or None, "genre_basis": genre_note(a["genre_basis"]),
             "cur_share": round(cur["current_share"], 4) if cur.get("current_share") is not None else None,
@@ -263,6 +261,22 @@ def build(genre: str = "hip_hop") -> dict:
                       "tiktok": a["tiktok"] and f"https://www.tiktok.com/@{a['tiktok']}",
                       "x": a["x"] and f"https://x.com/{a['x']}"},
         })
+        r = rows[-1]
+        if status["status"] == "self_released":  # unsigned prospect, established independent, or neither (inactive)
+            # below the floor (no listener figure) the current audience is read from the daily streams
+            seen = r["cl"] if ml else (round(r["daily"] * r["cur_share"]) if r["daily"] and r["cur_share"] is not None else None)
+            r["indie_kind"], r["indie_basis"] = labels.independent_kind(
+                a["name"], wd_labels, dated_of.get(t["spotify_id"], []), registrants, a["active_since"], today.year, table,
+                ml=ml, cl=seen, latest_lead=r["latest_release"], today=today)
+        # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
+        r["feat"] = round(r["feature_daily"] / r["daily"], 3) if r.get("daily") and r.get("feature_daily") is not None else None
+    second = second_profiles(rows[:TOP_N], artists)  # within the list the site shows (rows are in its final order)
+    by_id = {r["id"]: r for r in rows}
+    for sid, mid in second.items():  # one artist on two Spotify profiles: the smaller takes the main one's label
+        r, m = by_id[sid], by_id[mid]
+        r.pop("indie_kind", None), r.pop("indie_basis", None)
+        r.update({k: m[k] for k in SECOND_COPIES if k in m}, second_of=mid, second_of_name=m["name"])
+        r["money"] = money.estimate(r["lead_daily"], r["deal_type"])
     factors = insights.FACTORS_BY_GENRE.get(genre, insights.FACTORS)
     from .collectors import radio as radio_src
     on_air = radio_src.presence({r["id"]: r["name"] for r in rows})  # US AM/FM, last 7 days (internal, C4)
@@ -291,6 +305,8 @@ def build(genre: str = "hip_hop") -> dict:
         # the multiple used, for the worth calculator: [low, high, main age band, method, age mix]
         r["wmult"] = [*r["worth"]["multiple"], r["worth"]["vintage"], r["worth"]["method"], r["worth"]["age_mix"]]
         r["level"] = insights.level(r)
+        if r["id"] in second:  # Makaveli is 2Pac: the main profile's level
+            r["level"]["name"] = insights.level(by_id[second[r["id"]]])["name"]
         # co-signed: an artist under 3m listeners with a song (50k+ streams a day) together with a 20m+ listener artist
         if (r["ml"] or 0) < 3_000_000 and any(ml_of.get(c["id"], 0) >= 20_000_000 and c["daily"] >= 50_000 for c in r["collabs"]):
             r["level"]["badges"].append("Co-signed")
@@ -301,13 +317,12 @@ def build(genre: str = "hip_hop") -> dict:
     about = desc_src.load()
     for r in rows:
         r["about"] = about_of(r, about.get(r["id"]), genre)
-    seen_names = set()
     for i, r in enumerate(rows, 1):
         r["rank"] = i  # by monthly listeners
-        # two Spotify profiles under one name (Macklemore & Ryan Lewis): the smaller one is marked, not merged
-        if r["name"].lower() in seen_names:
+        # two Spotify profiles of one artist (Macklemore & Ryan Lewis, B.o.B / Bob): the smaller one is marked, not merged
+        if r["id"] in second:
             r["name"] += " (second Spotify profile)"
-        seen_names.add(r["name"].lower())
+    write_second_profiles(rows, second, artists, genre)
     for i, r in enumerate(sorted((r for r in rows if r["cl"] is not None), key=lambda r: -r["cl"]), 1):
         r["cl_rank"] = i  # our ranking: current listeners
     unsigned = benchmark(rows, shares)
@@ -319,7 +334,7 @@ def build(genre: str = "hip_hop") -> dict:
         deals = list(csv.DictReader(f))
     day = max((r["date"] for r in csv.DictReader(kworb.LISTENERS_CSV.open())), default=None)
     return {"built": datetime.now(timezone.utc).isoformat(timespec="minutes"), "as_of": day,
-            "universe": len(top), "artists": rows, "rates": rates, "deals": deals,
+            "universe": universe, "artists": rows, "rates": rates, "deals": deals,
             "platforms": revenue.platforms(genre), "multipliers": revenue.multipliers(genre), "tours": tour_table(rows),
             "countries": {r["code"]: r["name"] for r in csv.DictReader((REGISTRY / "countries.csv").open())},
             "chart_weeks": kworb_countries.load_recent()[1],  # {"weeks": n, "latest": week}
@@ -450,6 +465,69 @@ def label_display(status: dict, table: list[dict]) -> str | None:
     return labels.label_name(basis["label"], table, basis.get("date", "")) if basis.get("label") else status.get("owner") or None
 
 
+# the label fields a second Spotify profile takes from the main one
+SECOND_COPIES = ("label_status", "label_owner", "label_name", "label_basis", "label_override", "label_newest",
+                 "label_isrc_note", "label_confidence", "deal_type", "major", "indie_kind", "indie_basis")
+
+
+def second_profiles(rows: list[dict], artists: dict[str, dict]) -> dict[str, str]:
+    """List members that are one artist on two (or more) Spotify profiles: the same Wikidata item, the same confirmed
+    Deezer artist or the same name (Ye / Kanye West, Makaveli / 2Pac, Bob / B.o.B, Macklemore & Ryan Lewis). Returns
+    each smaller profile's id -> the biggest profile of its group (by monthly listeners, below the floor by streams)."""
+    parent = {r["id"]: r["id"] for r in rows}
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    first: dict[tuple, str] = {}
+    for r in rows:
+        a = artists.get(r["id"], {})
+        keys = [("wikidata_id", (a.get("wikidata_id") or "").strip()), ("name", r["name"].casefold())]
+        if a.get("deezer_match") in deezer.CONFIRMED:
+            keys.append(("deezer_id", str(a.get("deezer_id") or "").strip()))
+        for k in keys:
+            if not k[1]:
+                continue
+            if k in first:
+                parent[find(r["id"])] = find(first[k])
+            else:
+                first[k] = r["id"]
+    groups: dict[str, list[dict]] = {}
+    for r in rows:
+        groups.setdefault(find(r["id"]), []).append(r)
+    out = {}
+    for g in groups.values():
+        if len(g) > 1:
+            main = max(g, key=lambda r: insights.size(r))
+            out.update({r["id"]: main["id"] for r in g if r is not main})
+    return out
+
+
+def write_second_profiles(rows: list[dict], second: dict[str, str], artists: dict[str, dict], genre: str) -> None:
+    """review/second_profiles.csv: each pair, with what they share, for the owner to confirm (one file, both genres)."""
+    from .config import REVIEW
+    path = REVIEW / "second_profiles.csv"
+    head = ["genre", "second_id", "second_name", "second_monthly_listeners", "main_id", "main_name",
+            "main_monthly_listeners", "shared"]
+    keep = [x for x in csv.DictReader(path.open())] if path.exists() else []
+    keep = [x for x in keep if x.get("genre") != genre]
+    by = {r["id"]: r for r in rows}
+    for sid, mid in sorted((x for x in second.items() if x[0] in by and x[1] in by), key=lambda x: -(by[x[1]]["ml"] or 0)):
+        a, b = artists.get(sid, {}), artists.get(mid, {})
+        shared = [f"{k}={a.get(k)}" for k in ("wikidata_id", "deezer_id") if a.get(k) and a.get(k) == b.get(k)]
+        if by[sid]["name"].removesuffix(" (second Spotify profile)").casefold() == by[mid]["name"].casefold():
+            shared.append("same name")
+        keep.append({"genre": genre, "second_id": sid, "second_name": by[sid]["name"].removesuffix(" (second Spotify profile)"),
+                     "second_monthly_listeners": by[sid]["ml"] or "", "main_id": mid, "main_name": by[mid]["name"],
+                     "main_monthly_listeners": by[mid]["ml"] or "", "shared": "; ".join(shared)})
+    with path.open("w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=head)
+        w.writeheader()
+        w.writerows(keep)
+
+
 def benchmark(rows: list[dict], shares: dict) -> list[dict]:
     """Each unsigned (self-released) artist against the 5 growing signed artists closest in monthly listeners (within a
     factor of 1.67 either way, else 2.5) and share of listening on recent releases. All money is yearly at today's
@@ -457,10 +535,10 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
     import math
     gen = lambda r: sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming") or None
     spl = lambda r: r["daily"] / r["ml"] if r.get("daily") and r.get("ml") else None  # streams a day per listener
-    signed = [r for r in rows if r["label_status"] in SIGNED and gen(r)]
+    signed = [r for r in rows if r["label_status"] in SIGNED and gen(r) and not r.get("second_of")]
     out = []
     for u in rows:
-        if u["label_status"] != "self_released" or not gen(u):
+        if u["label_status"] != "self_released" or not gen(u) or u.get("second_of"):
             continue
         def dist(p):
             d = abs(math.log(insights.size(p) / insights.size(u)))
@@ -577,8 +655,6 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     about = {r["id"]: {"about": r.get("about"), "links": r.get("links"), "photo": r.get("photo")} for r in data["artists"]}
     for r in data["artists"]:
         rev = r.pop("revenue")
-        # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
-        r["feat"] = round(r["feature_daily"] / r["daily"], 3) if r.get("daily") and r.get("feature_daily") is not None else None
         r["reach"] = insights.chart_countries(r)  # chart countries, for the start page's "widest reach" (geo loads later)
         detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, **{k: r[k] for k in ALSO_SHARD if k in r},
                   "photo": r.get("photo")}  # full photo credit
@@ -602,7 +678,7 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     sig3 = lambda v: round(v, 2 - len(str(int(abs(v))))) if isinstance(v, (int, float)) and v else v
     for r in data["artists"]:
         if r.get("rev_lines"):
-            r["rev_lines"] = {k: sig3(v) for k, v in r["rev_lines"].items()}
+            r["rev_lines"] = {k: v if k == "spotify" else sig3(v) for k, v in r["rev_lines"].items()}  # Spotify to the dollar: State's top-100 total adds the same figures
     extra["artist_more"] = {k: [r.pop(k, None) for r in data["artists"]] for k in LATER}
     (out.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
     out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))

@@ -435,7 +435,9 @@ def test_this_month_movers_and_short_log(monkeypatch, tmp_path):
     monkeypatch.setattr(monthly, "SCOUT_LOG", tmp_path / "log.csv")
     (tmp_path / "log.csv").write_text("date,spotify_id,score,tier,monthly_listeners,label_status\n2026-10-20,a,90,Breaking,100,major\n")
     rows = [{"id": "a", "ml": 150, "label_status": "major", "scout": {"score": 90, "tier": "Breaking"}},
-            {"id": "b", "ml": 50, "label_status": "self_released", "scout": {"score": 70, "tier": "Rising"}}]
+            {"id": "b", "ml": 50, "label_status": "self_released", "indie_kind": "prospect", "scout": {"score": 70, "tier": "Rising"}},
+            # mostly a featured guest: not a pick
+            {"id": "c", "ml": 40, "label_status": "self_released", "indie_kind": "prospect", "feat": 0.95, "scout": {"score": 95, "tier": "Rising"}}]
     hist = {"a": [("2026-09-23", 100), ("2026-10-24", 150)], "b": [("2026-10-10", 60)]}
     m = monthly.build(rows, hist, "2026-10-24")
     assert [x["id"] for x in m["up"]] == ["a"] and m["up"][0]["pct"] == 50.0  # b has no value near 30 days ago
@@ -718,3 +720,69 @@ def test_spotify_rate_one_source():
     r = money.rates()["master_per_1000"]
     p = revenue.platforms()["spotify"]
     assert [p[f"per_1000_{k}"] for k in ("low", "mid", "high")] == [r["low"], r["mid"], r["high"]]
+
+
+def test_independent_kind_size_and_activity():
+    """Review 5 (2026-10-25): 10m+ listeners is established; a prospect needs current listeners and a recent song."""
+    from datetime import date
+    from src import labels
+    t, today = labels.owners(), date(2026, 10, 25)
+    new = [{"isrc": "QZAAA2500001", "first_release": "2025-06-01"}]
+    k, why = labels.independent_kind("X", [], new, {}, "", 2026, t, ml=19_700_000, cl=10_000_000, today=today)
+    assert k == "established" and why == ["10m+ monthly listeners"]
+    assert labels.independent_kind("X", [], new, {}, "", 2026, t, ml=2_000_000, cl=900_000, today=today) == ("prospect", [])
+    # no current listeners: catalog only
+    k, why = labels.independent_kind("X", [], new, {}, "", 2026, t, ml=5_000_000, cl=0, today=today)
+    assert k == "inactive" and why[0].startswith("catalog only")
+    # newest song of their own over 2 years old (the kworb date counts too)
+    old = [{"isrc": "QZAAA2000001", "first_release": "2020-03-01"}]
+    k, why = labels.independent_kind("X", [], old, {}, "", 2026, t, ml=3_000_000, cl=500_000, today=today)
+    assert k == "inactive" and "from 2020" in why[0]
+    assert labels.independent_kind("X", [], old, {}, "", 2026, t, ml=3_000_000, cl=500_000, latest_lead="2026-01-10",
+                                   today=today)[0] == "prospect"
+    # without `today` (older callers) only the established test applies
+    assert labels.independent_kind("X", [], old, {}, "", 2026, t, cl=0)[0] == "prospect"
+
+
+def test_second_profiles_share_wikidata_deezer_or_name():
+    from src import site_build
+    rows = [{"id": "bob", "name": "B.o.B", "ml": 27_000_000}, {"id": "b2", "name": "Bob", "ml": 2_200_000},
+            {"id": "pac", "name": "2Pac", "ml": 28_000_000}, {"id": "mak", "name": "Makaveli", "ml": 1_600_000},
+            {"id": "m1", "name": "Macklemore & Ryan Lewis", "ml": 5_000_000}, {"id": "m2", "name": "Macklemore & Ryan Lewis", "ml": 900_000},
+            {"id": "x", "name": "Someone", "ml": 3_000_000}, {"id": "y", "name": "Other", "ml": 2_000_000}]
+    artists = {"bob": {"deezer_id": "280294", "deezer_match": "isrc"}, "b2": {"deezer_id": "280294", "deezer_match": "isrc"},
+               "pac": {"wikidata_id": "Q6107"}, "mak": {"wikidata_id": "Q6107"},
+               # an unconfirmed Deezer match is not evidence
+               "x": {"deezer_id": "5", "deezer_match": ""}, "y": {"deezer_id": "5", "deezer_match": ""}}
+    from src.collectors import deezer
+    if "isrc" not in deezer.CONFIRMED:
+        for k in ("bob", "b2"):
+            artists[k]["deezer_match"] = next(iter(deezer.CONFIRMED))
+    assert site_build.second_profiles(rows, artists) == {"b2": "bob", "mak": "pac", "m2": "m1"}
+
+
+def test_scout_absent_signal_scores_zero_and_tier_needs_weight():
+    from src import insights
+    rows = [{"id": f"s{i}", "ml": 1_000_000, "fresh_share": 0.0 if i < 5 else i / 10, "cur_share": i / 10,
+             "daily": 100_000 + i, "chg_pct": i / 100, "geo": None, "attention": None} for i in range(10)]
+    insights.scout(rows)
+    assert rows[0]["scout"]["factors"]["velocity"] == 0 and rows[0]["scout"]["factors"]["breadth"] == 0
+    assert rows[9]["scout"]["factors"]["velocity"] > 50 and rows[9]["scout"]["weight"] >= 0.6
+    # current share, engagement and momentum measured, new-release pull and growth missing: 41 of 81 points of
+    # weight, so a provisional score with no tier
+    thin = [{"id": f"t{i}", "ml": 1_000_000, "cur_share": i / 10, "daily": 100_000 + i, "chg_pct": i / 100,
+             "fresh_share": None, "attention": None} for i in range(10)]
+    insights.scout(thin, {k: insights.FACTORS[k] for k in ("current", "engagement", "momentum", "velocity", "growth")})
+    sc = thin[9]["scout"]
+    assert sc["provisional"] and sc["tier"] is None and sc["weight"] == round(0.41 / 0.81, 2) and sc["score"] >= 80
+
+
+def test_picks_leave_out_featured_guests_and_non_prospects():
+    from src import insights
+    base = {"label_status": "self_released", "indie_kind": "prospect", "feat": 0.2}
+    assert insights.is_pick(base)
+    assert not insights.is_pick({**base, "feat": 0.97})               # SRNO: mostly a featured guest
+    assert insights.is_prospect({**base, "feat": 0.97})
+    assert not insights.is_prospect({**base, "indie_kind": "inactive"})  # Knust: catalog only
+    assert not insights.is_prospect({**base, "indie_kind": "established"})
+    assert not insights.is_prospect({**base, "second_of": "x"})

@@ -2,6 +2,38 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Review 5: prospects, second Spotify profiles, Scout zeros and tiers, status words (items 4-10, 13, 14)
+
+- **Who is a prospect** (`labels.independent_kind`): 10m+ monthly listeners is now established evidence ("10m+
+  monthly listeners": BigXthaPlug, Morad, Shubh, Veigh). Of the rest, a prospect also needs current listeners above
+  0 and a song of their own (lead) released in the last 2 years (kworb's dated songs, the earlier of the Deezer and
+  MusicBrainz dates); otherwise `indie_kind` is "inactive", with the reasons (Knust, Baviera: catalog only; Danny
+  Chung: no song of his own). Below the 500k floor the current audience is read from daily streams × current share.
+  The site shows "Self-released, catalog only" or "Self-released, no recent release", and "catalog only" for a 0
+  current-listener figure (Unsigned page, label rosters, one-pager); the Unsigned page lists them apart, with the
+  reasons. Rejected: Deezer's release list as the recent-release test: it lists reissues (Makaveli has 2026 entries).
+- **Second Spotify profiles** (`site_build.second_profiles`): list members sharing a Wikidata item, a confirmed
+  Deezer artist or a name are one artist; the biggest profile is the main one. The smaller is named "(second Spotify
+  profile)" (page address unchanged), takes the main profile's label fields, deal type (so its money too), indie kind
+  and level, and is left out of the Unsigned benchmark, the picks, `insights.market` (shares, catalog count),
+  label totals (still listed on the roster), This month's shares, State's and the start page's summed listeners;
+  the artist page and Method say so. Pairs are written to `review/second_profiles.csv` for the owner (both genres).
+  Unconfirmed Deezer matches are not used. Rejected: merging the profiles (two real Spotify pages, two figures).
+- **Picks** (start page "Top unsigned prospect", State, Scout "Unsigned and rising", This month, the "Unsigned and
+  rising" badge): prospects with under 90% of their streams as a featured guest (`insights.is_pick`; SRNO 97%).
+- **Scout**: a signal measured as absent (no chart country, no song out in 90 days, not on US radio) scores 0, not
+  the mid-rank of the zeros (it gave 29-50/100). A tier needs 60%+ of the factor weight measured; below that the
+  score shows as "provisional" with no tier (`scout.weight`, `scout.provisional`). The back-test was not re-run: it
+  uses only listener growth and Wikipedia attention (`src/backtest.py`), which neither change touches.
+- **Status words**: one helper in app.js (`statusWord`): "Unsigned prospect", "Independent (established)",
+  "Self-released, catalog only / no recent release", else the label status; used in the top list, artist page
+  Label status, Compare, the one-pager and both CSV exports. Rejected: "Self-released" for all three (the review
+  found "Unsigned" and "Self-released" for the same artist on two pages).
+- **Mostly-featured artists** (90%+ of streams as a guest) get a small "mostly as a featured guest" note under the
+  name in the top list; the ranking method is unchanged (owner's choice: mark, don't reweight).
+- **Below the floor** the missing current-listener reason reads "no listener count below 500k on Spotify" (it said
+  "release dates missing").
+
 ## 2026-10-25 Site engineering: speed, accessibility, SEO, robustness (task: "engineering quality of the music site")
 
 - **Measured** with Playwright + CDP (Chromium, 390px phone, Lighthouse "slow 4G": 150 ms RTT, 1.6 Mbps, 4x CPU),

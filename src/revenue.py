@@ -111,7 +111,7 @@ def tour_last_12_months(artist: str, today: date) -> dict | None:
         s, e = _day(t["start"], False), _day(t.get("end") or t["start"], True)
         row = {"tour": t["tour"], "start": t["start"], "end": t.get("end"), "gross": float(t["gross_usd"]),
                "tickets": float(t["tickets"]) if t.get("tickets") else None, "grade": t.get("grade"),
-               "source": t.get("source_url"), "note": t.get("use_note") or ""}
+               "source": t.get("source_url"), "note": t.get("use_note") or "", "gross_through": t.get("gross_through") or None}
         if not s or not e:
             continue
         # a Billboard year-end figure covers shows only to 30 September: the split stops where the gross stops

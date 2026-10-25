@@ -29,7 +29,7 @@ export const RISING_LIMIT = 50;
 // Pay gap: what an artist keeps of the recording royalties under each deal type (low, mid, high share).
 // Each row has its source; grade A = primary, B = reputable secondary, C = estimate.
 export const DEALS = [
-  { key: "major", name: "Major label royalty deal", low: 0.15, mid: 0.20, high: 0.30, grade: "A",
+  { key: "major", name: "Major label royalty deal", low: 0.15, mid: 0.20, high: 0.30, grade: "B",
     note: "UK CMA: average major-label royalty rose from 19.7% (2012) to 23.3% (2021). Before recouping the advance.",
     src: "https://gov.uk/government/news/music-streaming-report-published" },
   { key: "small", name: "Small label / production deal", low: 0.30, mid: 0.40, high: 0.50, grade: "B",
@@ -48,7 +48,7 @@ export const DEALS = [
 
 // Platforms page: the per-artist columns [label, key, format]; "rev:<platform>" is yearly royalties (mid estimate).
 export const PLATFORM_COLUMNS = [
-  ["Spotify streams / day", "daily", "count"],
+  ["Spotify streams / day, as lead", "lead_daily", "count"],  // what the royalty columns are paid on (features left out)
   ["YouTube views / day", "yt_daily", "count"],
   ["Deezer fans", "deezer_fans", "count"],
   ["Spotify", "rev:spotify", "money"],

@@ -12,6 +12,7 @@ Statuses:
 import csv
 import re
 import unicodedata
+from datetime import date
 
 from .config import REGISTRY
 
@@ -196,15 +197,23 @@ def check_with_isrcs(status: dict, prefixes: list[str], registrants: dict[str, s
 
 
 ESTABLISHED_YEARS = 8  # releasing this long: an established act, not a prospect (owner, 2026-10-25)
+ESTABLISHED_LISTENERS = 10_000_000  # this big already: established, not up-and-coming (owner, 2026-10-25)
+PROSPECT_RECENT_YEARS = 2  # a prospect's newest song as lead is at most this old
 
 
 def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], registrants: dict[str, str],
-                     since: str, year: int, table: list[dict] | None = None) -> tuple[str, list[str]]:
+                     since: str, year: int, table: list[dict] | None = None, ml: int | None = None,
+                     cl: int | None = None, latest_lead: str | None = None,
+                     today: date | None = None) -> tuple[str, list[str]]:
     """A self-released artist: an unsigned "prospect", or "established" (independent now, but with a past label deal
     or a long career). Owner, 2026-10-25: Jeezy, Lil Pump or KYLE releasing on their own say nothing about whether
     rising artists are unsigned. Evidence, any one enough: a record label on Wikidata's career-long list (a label or a
     major, not a distributor or the artist's own name); older recordings registered by a major (ISRC prefix); first
-    release or Wikidata's "active since" ESTABLISHED_YEARS or more years ago. tracks: the artist's dated songs."""
+    release or Wikidata's "active since" ESTABLISHED_YEARS or more years ago; ESTABLISHED_LISTENERS or more monthly
+    listeners. tracks: the artist's dated songs. With `today`, the rest need a current audience (current listeners
+    above 0) and a song of their own released in the last PROSPECT_RECENT_YEARS years (the newer of `latest_lead` and
+    the tracks' first release), else they are "inactive": self-released, but not a prospect (owner, 2026-10-25:
+    Knust, Makaveli). The reasons come back in the list."""
     table = table or owners()
     why = []
     for lab in wd_labels:
@@ -220,7 +229,20 @@ def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], regi
     years = [int(y) for y in [since[:4]] + [(t.get("deezer_date") or "")[:4] for t in tracks] if y.isdigit()]
     if years and year - min(years) >= ESTABLISHED_YEARS:
         why.append(f"releasing since {min(years)}")
-    return ("established" if why else "prospect"), why
+    if (ml or 0) >= ESTABLISHED_LISTENERS:
+        why.append(f"{ESTABLISHED_LISTENERS // 1_000_000}m+ monthly listeners")
+    if why or today is None:
+        return ("established" if why else "prospect"), why
+    newest = max([d for d in [latest_lead or ""] + [t.get("first_release") or t.get("deezer_date") or "" for t in tracks]
+                  if d[:4].isdigit() and d[:10] <= today.isoformat()], default="")
+    cutoff = date(today.year - PROSPECT_RECENT_YEARS, today.month, min(today.day, 28)).isoformat()
+    if not cl:
+        why.append("catalog only: no current listeners (the listening is on older songs)" if cl == 0
+                   else "no current-listener figure (too few of the streams are on dated songs)")
+    if newest < cutoff:
+        why.append(f"no recent release: newest dated song of their own is from {newest[:4]}" if newest
+                   else "no recent release: no dated song of their own (mostly a featured guest, or songs undated)")
+    return ("inactive" if why else "prospect"), why
 
 
 DEAL_OF_STATUS = {"major": "major", "major_distributed": "services", "independent": "independent",
