@@ -9,6 +9,10 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - Unsigned list: artists placed by a sourced override (Jeezy: self-released through Stem) showed a blank label; they
   show the override's distributor.
 - Reported deals read as sentences with the amount in bold.
+- `review/hiphop_deezer_disagree.csv`: 11 hip-hop artists whose MusicBrainz votes say hip-hop while a confirmed Deezer
+  match files under 15% of releases as Rap/Hip Hop (Black Eyed Peas, Lil Nas X, Lizzo, blackbear...). Nobody moved:
+  the hip-hop rule is the owner's; suggested answers are in the file (other: Lizzo, blackbear, August Alsina, Jackson
+  Wang; the rest stay).
 
 ## 2026-10-25 RIAA Latin certifications kept apart; label batch 8
 
