@@ -135,14 +135,12 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
     if ph.get("file"):
         ld["image"] = {"@type": "ImageObject", "url": BASE + ph["file"], **({"creditText": ph["author"]} if ph.get("author") and ph["author"] != "unknown" else {}),
                        **({"license": ph["license_url"]} if ph.get("license_url") else {}), **({"acquireLicensePage": ph["page"]} if ph.get("page") else {})}
-    if label:
-        ld["recordLabel"] = {"@type": "Organization", "name": label}
     boot = f"#/{prefix}a/{a['id']}"
     body = body.replace(f'href="#/a/{a["id"]}"', f'href="{boot}"')
     return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}{prefix}cards/{a['slug']}.png", ld, boot, body, prefix)
 
 
-def label_page(L: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
+def label_page(L: dict, as_of: str, prefix: str = "", logo: dict | None = None) -> tuple[str, str]:
     url = f"{BASE}{prefix}label/{L['slug']}/"
     gw = "country" if prefix.startswith("country") else "hip-hop"
     n = len(L.get("artists", []))
@@ -155,9 +153,13 @@ def label_page(L: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": L["name"], "url": url}
     if L.get("parent") and L["parent"] != L["name"]:
         ld["parentOrganization"] = {"@type": "Organization", "name": L["parent"]}
+    if logo and logo.get("file"):  # the Commons logo the label page shows, and the Wikidata item it was found by
+        ld["logo"] = BASE + logo["file"]
+        if logo.get("qid"):
+            ld["sameAs"] = [f"https://www.wikidata.org/wiki/{logo['qid']}"]
     boot = f"#/{prefix}label/{L['slug']}"
     body = body.replace(f'href="#/label/{L["slug"]}"', f'href="{boot}"')
-    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, boot, body, prefix)
+    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, boot, body, prefix, og_type="website")
 
 
 def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:
@@ -231,7 +233,7 @@ def build(data: dict, cards: bool = True, states: list[dict] | None = None, pref
         if cards:
             card(a, as_of, root / "cards" / f"{a['slug']}.png", gw)
     for L in data.get("labels", []):
-        url, page = label_page(L, as_of, prefix)
+        url, page = label_page(L, as_of, prefix, (data.get("label_logos") or {}).get(L["name"]))
         out = root / "label" / L["slug"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page)
