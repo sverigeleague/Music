@@ -360,6 +360,12 @@ tr.dim > td { color: var(--muted); }
 .agebar { display: inline-flex; width: 72px; height: 8px; border: 1px solid var(--line); vertical-align: middle; }
 .agebar i { display: block; height: 100%; } .agebar i:nth-child(1) { background: #000; } .agebar i:nth-child(2) { background: #6b7079; } .agebar i:nth-child(3) { background: #d3d6db; }
 table.screener td { vertical-align: top; }
+table.screener th, table.screener td { padding-inline: 8px; }
+table.screener th { white-space: normal; vertical-align: bottom; }
+table.screener td .note { white-space: normal; display: inline-block; min-width: 9em; }
+table.screener td .agebar + .note { display: inline; min-width: 0; white-space: nowrap; }
+table.screener td:nth-child(2) { white-space: normal; min-width: 170px; }
+table.screener td.wrap { min-width: 110px; max-width: 160px; }
 /* Artist one-pager (2026-10-26): two columns on screen and on paper, one column on phones */
 .sheet { display: grid; gap: var(--gap); }
 .sheethead { display: flex; gap: 18px; align-items: flex-start; }
@@ -377,18 +383,21 @@ table.screener td { vertical-align: top; }
 }
 /* Printing (any page; made for the one-pager): no header, menus, buttons or player; A4 with small margins */
 @media print {
-  @page { size: A4; margin: 12mm; }
+  @page { size: A4; margin: 10mm; }
   header, footer, .crumbs, .subnav, .noprint, .filters, #dock, .star, .play, .how { display: none !important; }
-  body { font-size: 10pt; }
+  body { font-size: 9pt; line-height: 1.3; }
   .wrap { max-width: none; padding: 0; }
-  .sheet { gap: 6px; }
-  .sheetgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
-  .sheethead .pic.big { width: 72px; height: 72px; }
-  .sheethead h1 { font-size: 20pt; }
-  .sheet .panel { padding: 6px 8px; gap: 4px; break-inside: avoid; }
-  .sheet .panel h2 { font-size: 11pt; margin: 0; }
-  .sheettab { font-size: 8.5pt; }
+  .sheet { gap: 5px; }
+  .sheetgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+  .sheethead { gap: 10px; }
+  .sheethead .pic.big { width: 56px; height: 56px; }
+  .sheethead h1 { font-size: 18pt; }
+  .sheethead .sub, .sheethead .about, .sheethead p { margin: 2px 0; }
+  .sheet .panel { padding: 5px 7px; gap: 3px; break-inside: avoid; }
+  .sheet .panel h2 { font-size: 8.5pt; margin: 0; }
+  .sheet .panel p { margin: 0; }
+  .sheettab { font-size: 8pt; }
   .sheettab td { padding: 1px 4px 1px 0; }
-  .sheet .note, .sheet .about { font-size: 8pt; }
+  .sheet .note, .sheet .about { font-size: 7.5pt; }
   a { text-decoration: none; }
 }

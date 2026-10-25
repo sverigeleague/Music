@@ -16,7 +16,16 @@ EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tour
 DETAIL_ONLY = ("about", "cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_newest", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views", "yt_basis", "yt_api_window",
-               "peak_rank", "attention_series", "worth", "collabs")
+               "peak_rank", "attention_series", "worth", "collabs",
+               "radio_rank")
+# fields only pages that wait for extra.json read (Scout, Money, Labels, Compare, Method...): written to extra.json
+# as artist_more {id: {field: value}}, which app.js merges back into store.data.artists when it arrives; the start
+# page and artist pages render without them (2026-10-25, page speed). ALSO_SHARD: the artist page shows them too, so
+# its shard carries a copy. Grep site/app.js for every use before adding a field here.
+LATER = ("rev_lines", "wmult", "deal_type", "worth_mid", "fresh_share", "streaming_mid", "growth90", "awards", "rev_total",
+         "certs", "geo", "apple", "shazam", "level", "attention", "video", "yt_daily", "deezer_fans",
+         "worth_range", "age_profile", "coverage", "fresh_daily", "latest_release")
+ALSO_SHARD = ("certs", "geo", "apple", "shazam", "level", "attention", "video", "yt_daily", "deezer_fans")
 
 
 def latest_streams() -> dict[str, dict]:
@@ -562,14 +571,17 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     for old in shard_dir.glob("*.json"):
         old.unlink()
     shards: dict[int, dict] = {}
-    from . import static_pages
+    from . import static_pages, insights
     static_pages.assign_slugs(data["artists"])
-    about = {r["id"]: r.get("about") for r in data["artists"]}  # detail-only, but the static artist pages show it
+    # detail-only, but the static artist pages show them (about) or list them in their JSON-LD (links, photo credit)
+    about = {r["id"]: {"about": r.get("about"), "links": r.get("links"), "photo": r.get("photo")} for r in data["artists"]}
     for r in data["artists"]:
         rev = r.pop("revenue")
         # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
         r["feat"] = round(r["feature_daily"] / r["daily"], 3) if r.get("daily") and r.get("feature_daily") is not None else None
-        detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, "photo": r.get("photo")}  # full photo credit
+        r["reach"] = insights.chart_countries(r)  # chart countries, for the start page's "widest reach" (geo loads later)
+        detail = {**{k: r.pop(k) for k in DETAIL_ONLY if k in r}, **{k: r[k] for k in ALSO_SHARD if k in r},
+                  "photo": r.get("photo")}  # full photo credit
         shards.setdefault(ord(r["id"][1]) % 32, {})[r["id"]] = {**rev, "artist": detail}
         r["rev_total"] = {k: round(v) for k, v in rev["artist_total"].items()} if rev["artist_total"] else None
         r["rev_lines"] = {l["key"]: round(l["generated"]["mid"]) for l in rev["lines"]}
@@ -584,10 +596,12 @@ def write(data: dict, genre: str = "hip_hop") -> list[str]:
     extra = {k: data.pop(k) for k in EXTRA_KEYS if k in data}
     from . import state
     extra["state"] = state.update(data, extra)
+    full = [dict(r) for r in data["artists"]]  # the static pages and cards read some of the LATER fields
+    extra["artist_more"] = {r["id"]: {k: r.pop(k) for k in LATER if k in r} for r in data["artists"]}
     (out.parent / "extra.json").write_text(json.dumps(extra, ensure_ascii=False, separators=(",", ":")))
     out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(f"{out.relative_to(SITE.parent)}: {len(data['artists'])} {genre} artists, {out.stat().st_size // 1024} KB")
-    urls = static_pages.build({**data, "artists": [{**r, "about": about.get(r["id"])} for r in data["artists"]]},
+    urls = static_pages.build({**data, "artists": [{**r, **about.get(r["id"], {})} for r in full]},
                               states=extra["state"], prefix="" if genre == "hip_hop" else f"{genre}/")
     print(f"static pages and cards ({genre}): {len(urls)} pages")
     return urls
