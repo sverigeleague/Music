@@ -188,6 +188,24 @@ Further out:
 - Last.fm listeners and setlist.fm show counts (each needs a free key as a GitHub secret);
 - other genres.
 
+## Phase 9: Second genre and data depth (owner, 2026-10-24: research journey; country as a second genre)
+
+| # | Step | Status |
+| --- | --- | --- |
+| 9.1 | Four sections (Artists, Scout, Money, Labels), indexable static pages, share cards, lighter first load (D1-D6) | built |
+| 9.2 | Country behind a header switch: 381 artists above the 500k floor, found by the genre rule and confirmed from their songs; Deezer-ordered list below the floor (grade C) | built; presentation pending the owner |
+| 9.3 | Country money: Amazon/Pandora-weighted services and a radio songwriting line (C5); US radio as an internal Scout factor and our own radio rank (C4) | built |
+| 9.4 | New data for both genres: certifications (English, French, German Wikipedia), awards, credits, Shazam (incl. country charts), US radio, Discogs label parents, tours (country, 2025-26 hip-hop) | built |
+| 9.5 | Identity: Deezer IDs confirmed by ISRC or song titles; monthly Deezer audit; Wikidata items from MusicBrainz | built |
+| 9.6 | Label research batches 4-7 and two country batches: unknown hip-hop labels 262 -> 191, country 207 -> 35 | built |
+| 9.7 | Product pass: key numbers first, Scout table fits, phone tables stack, coverage table, search and compare across genres | built |
+
+**Checkpoint (owner): passed 2026-10-25.** The owner took the suggested answer on all ten questions in PR #9
+(DECISIONS.md, 2026-10-25 "Owner's answers").
+
+Next candidates: Last.fm listeners as a second below-floor measure (needs a key, K1); YouTube Data API for views
+(K1); the country back-test once 90 days of daily scores exist (January 2027).
+
 ## My own additions (beyond the brief)
 
 - **Pay-gap explainer:** the same 100m streams under a DIY, distribution, joint-venture and major deal, side by side.

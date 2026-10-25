@@ -12,7 +12,7 @@ from .config import REGISTRY, REVIEW
 from .run import load_artists, save_artists
 
 DECISIONS = REVIEW / "decisions.json"
-GENRES = ("hip_hop", "latin", "other")
+GENRES = ("hip_hop", "country", "latin", "other")
 
 
 def _write(path, fields, rows: dict[str, dict]) -> None:

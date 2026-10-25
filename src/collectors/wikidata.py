@@ -32,6 +32,16 @@ SELECT ?sp ?item WHERE {{ ?item wdt:P1902 ?sp ; wdt:P136 ?g . ?g wdt:P279* wd:{H
     return {r["sp"]: {"qid": qid(r["item"])} for r in rows}
 
 
+COUNTRY = "Q83440"  # country music
+
+
+def country_spotify_ids() -> dict[str, dict]:
+    """Every item with a Spotify artist ID and at least one genre under country music (P136 / P279*)."""
+    rows = query(f"""
+SELECT ?sp ?item WHERE {{ ?item wdt:P1902 ?sp ; wdt:P136 ?g . ?g wdt:P279* wd:{COUNTRY} . }}""")
+    return {r["sp"]: {"qid": qid(r["item"])} for r in rows}
+
+
 def _values(spotify_ids) -> str:
     return " ".join(f'"{s}"' for s in spotify_ids)
 
@@ -78,4 +88,13 @@ SELECT ?sp ?lab ?labLabel ?major WHERE {{
                 d["labels"].append(r["labLabel"])
             if r.get("major"):
                 d["majors"].add(MAJORS[qid(r["major"])])
+    return out
+
+
+def images(qids: list[str]) -> dict[str, str]:
+    """QID -> its image (P18, a Wikimedia Commons file URL)."""
+    out: dict[str, str] = {}
+    for chunk in [qids[i:i + 300] for i in range(0, len(qids), 300)]:
+        for r in query(f"""SELECT ?item ?img WHERE {{ VALUES ?item {{ {' '.join('wd:' + q for q in chunk)} }} ?item wdt:P18 ?img . }}"""):
+            out.setdefault(qid(r["item"]), r["img"])
     return out

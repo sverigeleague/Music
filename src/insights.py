@@ -34,6 +34,20 @@ FACTORS = {
     "breadth": (0.14, "Chart reach: countries with a song in Spotify's weekly top 200, plus Apple Music's daily top 100"),
     "momentum": (0.05, "Monthly listeners, change today"),
 }
+# Country (owner C4, 2026-10-24): US AM/FM radio is the genre's biggest audience outside streaming, so its audience is
+# a factor; our percentile is shown, kworb's audience figures are not. Chart reach weighs less (country charts are
+# mostly US, CA, AU). A starting point until a country back-test exists.
+COUNTRY_FACTORS = {
+    "velocity": (0.30, FACTORS["velocity"][1]),
+    "growth": FACTORS["growth"],
+    "current": (0.20, FACTORS["current"][1]),
+    "attention": FACTORS["attention"],
+    "engagement": (0.12, FACTORS["engagement"][1]),
+    "breadth": (0.08, FACTORS["breadth"][1]),
+    "momentum": FACTORS["momentum"],
+    "radio": (0.15, "US radio: AM/FM airplay audience of the artist's current songs (0 when not on the airplay chart)"),
+}
+FACTORS_BY_GENRE = {"hip_hop": FACTORS, "country": COUNTRY_FACTORS}
 TIERS = ((80, "Breaking"), (65, "Rising"), (50, "Watch"))
 SCOUTED_BELOW = 15_000_000  # artists this big are established: scored, but given no tier
 # Breaking also needs a measured absolute signal, not only a high rank among peers: new songs pulling at least a
@@ -44,6 +58,28 @@ LEVELS = ((40_000_000, "Icon"), (15_000_000, "Headliner"), (5_000_000, "Rising s
 
 def band(ml: int) -> int:
     return bisect_right(BANDS, ml or 0)
+
+
+# Below kworb's 500k-listener floor (country) there is no listener figure. For comparing artists only (peers, Scout
+# bands), never shown: daily streams / 0.10, the median streams a day per monthly listener of the country artists
+# between 500k and 1.5m listeners (167 artists, 2026-10-25; quartiles 0.087-0.123).
+FLOOR_STREAMS_PER_LISTENER = 0.10
+FLOOR_BAND, FLOOR_LABEL = -1, "under 500k (by streams)"
+
+
+def size(r: dict) -> float:
+    """Monthly listeners, or below the floor the listener-equivalent of the daily streams (internal comparisons)."""
+    if r.get("ml"):
+        return r["ml"]
+    return (r.get("daily") or 0) / FLOOR_STREAMS_PER_LISTENER
+
+
+def band_of(r: dict) -> int:
+    return FLOOR_BAND if r.get("floor") else band(r["ml"])
+
+
+def band_label(b: int) -> str:
+    return FLOOR_LABEL if b == FLOOR_BAND else BAND_LABELS[b]
 
 
 def attention(months: list[tuple[str, int]]) -> dict | None:
@@ -78,18 +114,19 @@ def raw_factors(r: dict) -> dict:
         "engagement": r["daily"] / r["ml"] if r.get("daily") and r.get("ml") else None,
         "breadth": (r.get("geo") or {}).get("countries", 0) + len((r.get("apple") or {}).get("countries", [])),
         "momentum": r.get("chg_pct"),
+        "radio": r.get("radio_week"),
     }
 
 
-def scout(rows: list[dict]) -> None:
+def scout(rows: list[dict], factors: dict = FACTORS) -> None:
     """Adds r["scout"] = {score, tier, factors: {name: percentile}} to every row with 3+ factors."""
     raw = {r["id"]: raw_factors(r) for r in rows}
     by_band: dict[int, list[dict]] = {}
     for r in rows:
-        by_band.setdefault(band(r["ml"]), []).append(r)
+        by_band.setdefault(band_of(r), []).append(r)
     for members in by_band.values():
         pct: dict[str, dict[str, float]] = {}
-        for f in FACTORS:
+        for f in factors:
             vals = sorted(v for r in members if (v := raw[r["id"]][f]) is not None)
             for r in members:
                 v = raw[r["id"]][f]
@@ -102,15 +139,15 @@ def scout(rows: list[dict]) -> None:
             if len(p) < 3:
                 r["scout"] = None
                 continue
-            w = sum(FACTORS[f][0] for f in p)
-            score = round(sum(FACTORS[f][0] * v for f, v in p.items()) / w)
+            w = sum(factors[f][0] for f in p)
+            score = round(sum(factors[f][0] * v for f, v in p.items()) / w)
             tier = next((t for m, t in TIERS if score >= m), None)
             if tier == "Breaking" and not ((r.get("fresh_share") or 0) >= BREAKING_FRESH
                                            or ((r.get("attention") or {}).get("trend") or 0) >= BREAKING_ATTENTION):
                 tier = "Rising"
             if (r["ml"] or 0) >= SCOUTED_BELOW:
                 tier = None
-            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": BAND_LABELS[band(r["ml"])]}
+            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": band_label(band_of(r))}
 
 
 def multiples() -> list[dict]:

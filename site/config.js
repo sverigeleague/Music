@@ -55,3 +55,18 @@ export const PLATFORM_COLUMNS = [
   ["Amazon", "rev:amazon", "money"],
   ["All streaming", "rev:streaming", "money"],
 ];
+
+// Plain-language definitions shown on hover (and to screen readers) on column headings that use our own terms.
+export const GLOSSARY = {
+  "Current listeners": "Monthly listeners, counting the listening that comes from recent releases. Old songs still streamed a lot count for little, so this shows who is drawing an audience with new music now.",
+  "From recent releases": "Share of the artist's listening that comes from songs released in the last 18–36 months.",
+  "Scout score": "0–100: momentum against artists of a similar size (new songs' pull, current share, engagement, chart reach and more). Breaking 80+, Rising 65+, Watch 50+.",
+  "Royalties generated / month": "What Spotify pays the rights holders (label or distributor) for the artist's own songs, mid estimate. Not the artist's pay.",
+  "New-release pull": "Share of the artist's daily streams that come from songs out 90 days or less.",
+  "Current share": "Share of listening on releases of the last 18–36 months.",
+  "Wikipedia, 3 mo": "English Wikipedia page views of the last 3 months against the 9 before.",
+  "Streams / listener": "Spotify streams a day per monthly listener: how often listeners come back.",
+  "Chart countries": "Countries where a song is in Spotify's weekly top 200 or Apple Music's daily top 100.",
+  "By listeners": "Rank among hip-hop artists by Spotify monthly listeners.",
+  "Shazam": "Number of Shazam charts (world, 15 countries, 31 cities; last 7 days) the artist is on: people looking their songs up, often before streams follow. Not part of the score yet.",
+};

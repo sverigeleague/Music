@@ -1,0 +1,69 @@
+{
+ "month": "2026-10",
+ "as_of": "2026-10-24",
+ "items": [
+  {
+   "key": "majors",
+   "label": "Majors' share of the top 395's listeners",
+   "value": "66%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 358 of 395 artists are known",
+   "link": "#/labels"
+  },
+  {
+   "key": "top",
+   "label": "No. 1 by current listeners",
+   "value": "Ella Langley",
+   "detail": "26.1m current listeners, 32.0m monthly",
+   "link": "#/a/6BRxQ8cD3eqnrVj6WKDok8"
+  },
+  {
+   "key": "mover",
+   "label": "Biggest riser over 30 days",
+   "value": "Avery Anna",
+   "detail": "+24% monthly listeners, 7.8m to 9.7m since 2026-09-21",
+   "link": "#/a/5rjz63sgMaAUAyBMyCUK5D"
+  },
+  {
+   "key": "breaking",
+   "label": "Breaking now",
+   "value": "1",
+   "detail": "artists Scout rates Breaking; top: Zach John King (88)",
+   "link": "#/scout"
+  },
+  {
+   "key": "unsigned",
+   "label": "Top unsigned prospect",
+   "value": "CHASE WRIGHT",
+   "detail": "Scout 79, 660k monthly listeners, releasing without a label",
+   "link": "#/a/4P70LmF7PJwBGS9BV5dk2c"
+  },
+  {
+   "key": "royalties",
+   "label": "What the top 100 earn on Spotify",
+   "value": "$143.5m a year",
+   "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
+   "link": "#/worth"
+  },
+  {
+   "key": "producer",
+   "label": "Producer behind the most streams",
+   "value": "Miranda Lambert",
+   "detail": "credited on songs with 3.6m Spotify streams a day (credits partial)",
+   "link": "#/producers"
+  },
+  {
+   "key": "shazam",
+   "label": "Most Shazamed country artist",
+   "value": "Ella Langley",
+   "detail": "on 37 Shazam charts in the last 7 days",
+   "link": "#/a/6BRxQ8cD3eqnrVj6WKDok8"
+  },
+  {
+   "key": "size",
+   "label": "Country artists tracked",
+   "value": "395",
+   "detail": "1.40bn combined monthly listeners, from Spotify's top 25,225",
+   "link": "#/"
+  }
+ ]
+}

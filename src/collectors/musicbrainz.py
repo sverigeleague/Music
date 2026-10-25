@@ -68,3 +68,45 @@ def update(wanted: dict[str, str | None], limit: int | None = None) -> dict[str,
             f.flush()
             cache[s] = row
     return cache
+
+
+def wikidata_of(mbid: str) -> str | None:
+    """The Wikidata item MusicBrainz links from the artist (a curated url relation), e.g. 'Q123'; None if none."""
+    r = get(f"{API}/artist/{mbid}", params={"inc": "url-rels", "fmt": "json"})
+    if r.status_code != 200:
+        return None
+    for rel in r.json().get("relations", []):
+        url = (rel.get("url") or {}).get("resource", "")
+        if rel.get("type") == "wikidata" and "/wiki/Q" in url:
+            return url.rsplit("/", 1)[-1]
+    return None
+
+
+def ids_for_deezer(deezer_id: str) -> dict:
+    """{mbid, spotify_id, qid} that MusicBrainz links from the artist behind a Deezer artist page: the Deezer URL must
+    lead to exactly one MusicBrainz artist, and that artist must link exactly one Spotify artist (both curated url
+    relations, so the ID is looked up at the source, never guessed). Empty values when not linked."""
+    out = {"mbid": "", "spotify_id": "", "qid": ""}
+    r = get(f"{API}/url", params={"fmt": "json", "inc": "artist-rels",
+                                  "resource": f"https://www.deezer.com/artist/{deezer_id}"})
+    if r.status_code != 200:
+        return out
+    arts = {x["artist"]["id"] for x in r.json().get("relations", []) if x.get("artist")}
+    if len(arts) != 1:
+        return out
+    out["mbid"] = arts.pop()
+    r = get(f"{API}/artist/{out['mbid']}", params={"inc": "url-rels", "fmt": "json"})
+    if r.status_code != 200:
+        return out
+    spotify, qids = set(), set()
+    for rel in r.json().get("relations", []):
+        url = (rel.get("url") or {}).get("resource", "")
+        if "open.spotify.com/artist/" in url:
+            spotify.add(url.rstrip("/").split("/artist/")[1].split("?")[0])
+        elif rel.get("type") == "wikidata" and "/wiki/Q" in url:
+            qids.add(url.rsplit("/", 1)[1])
+    if len(spotify) == 1:
+        out["spotify_id"] = spotify.pop()
+    if len(qids) == 1:
+        out["qid"] = qids.pop()
+    return out
