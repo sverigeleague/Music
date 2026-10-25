@@ -1873,7 +1873,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 3u65Tx20y4WqxO7W7khEhj,Clara La San,5677708,11029,exact,11,0.0,0.0,2026-10-23,0.0
 3kVUvbeRdcrqQ3oHk5hPdx,GROUPLOVE,483428,94639,exact,49,0.0,0.0,2026-10-23,0.0
 2MxriAGmcX5lgQt3SFyru6,Kabilan,4717737,201,exact,34,0.0,0.0,2026-10-23,0.0
-7A8S43ryYdbWpJKeHRZRcq,JACKBOYS,81764332,233424,exact,2,1.0,0.0,2026-10-23,0.0
+7A8S43ryYdbWpJKeHRZRcq,JACKBOYS,249619382,43019,isrc,2,1.0,0.0,2026-10-25,0.0
 4oAZA3aniPjL9XINSvj7VP,Utopia,64753,9180,ambiguous,46,0.065,0.0,2026-10-23,0.0
 73OtDyghUEJ9QfGtu1pkaJ,Kerispatih,453408,13889,exact,9,0.0,0.0,2026-10-23,0.0
 6VD4UEUPvtsemqD3mmTqCR,Deorro,3542201,972508,exact,47,0.0,0.021,2026-10-23,0.0
@@ -2702,7 +2702,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 73O5T44Ui5WqxtW6S5JENA,Natasja,167542,14227,exact,5,0.0,0.0,2026-10-23,0.0
 574Sftrqpo7OKHWPXprSMx,Al-Ghazali,7013409,343,exact,50,0.0,0.0,2026-10-23,0.0
 5veVxxPm1vzgi6pO2iVA8L,Bruno Martini,1545148,253682,exact,48,0.0,0.0,2026-10-23,0.0
-1DTZRmlVZBxx2wRQBtx6yi,Midland,405359,38305,ambiguous,4,0.0,0.0,2026-10-23,0.0
+1DTZRmlVZBxx2wRQBtx6yi,Midland,12750457,11038,isrc,38,0.0,0.026,2026-10-25,0.974
 24JRvbKfTcF2x7c2kCCJrW,Alan Braxe,11703,14633,exact,27,0.0,0.0,2026-10-23,0.0
 3lY9Fxceu60W1rbon7PkuF,Omar Montes,6397900,63239,exact,47,0.532,0.17,2026-10-23,0.0
 1xr2G8Hlx4QWmT9HaUbmoO,Young Stoner Life,117111442,54314,exact,50,1.0,0.0,2026-10-23,0.0
@@ -2808,7 +2808,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 4hYxvgmTzS29XAXlo5adgM,L2B,13790723,851286,exact,49,0.918,0.0,2026-10-23,0.0
 1yX62RHdYysNcIrO33WQxJ,Dani Flow,11810033,38809,exact,47,0.66,0.17,2026-10-23,0.0
 1bZDq4po4dMIpN74Zendm0,Janieck,10249356,8169,exact,47,0.0,0.0,2026-10-23,0.0
-51DevdOxIJin6DB1FXJpD1,UZI,250495,662318,ambiguous,50,0.96,0.0,2026-10-23,0.0
+51DevdOxIJin6DB1FXJpD1,UZI,98336572,135764,isrc,43,0.953,0.0,2026-10-25,0.0
 0ZHPrnImGh4re3TbSNkoZl,Beret,10110184,409351,exact,50,0.06,0.0,2026-10-23,0.0
 1Bz46nDCMO1UOKp9GJjL92,Zeeshan Ali,80035792,114,exact,50,0.0,0.0,2026-10-23,0.0
 6aaMZ3fcfLv4tEbmY7bjRM,Isaiah Rashad,5515551,68857,exact,24,0.958,0.0,2026-10-23,0.0
@@ -3613,7 +3613,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 0GutRVONcyyBj1WduodFc6,Vico C,16642,108777,ambiguous,22,0.045,0.955,2026-10-23,0.0
 5JYtpnUKxAzXfHEYpOeeit,Jorge Ben Jor,4917,503938,exact,35,0.0,0.0,2026-10-23,0.0
 34dfPo3Zi55yM6oV46q4y7,Mumuzinho,1646315,1320336,exact,50,0.0,0.0,2026-10-23,0.0
-3CQIn7N5CuRDP8wEI7FiDA,Run–D.M.C.,49116291,6194,exact,0,,,2026-10-23,
+3CQIn7N5CuRDP8wEI7FiDA,Run–D.M.C.,79236,292137,isrc,28,1.0,0.0,2026-10-25,0.0
 4oZolC0sCwCAKqsNXfRlVS,The La Planta,13532187,15983,exact,50,0.0,0.2,2026-10-23,0.0
 08yYd8o1CrOjIpGHP2I6zU,Huan62,270820532,2768,exact,49,0.388,0.592,2026-10-23,0.0
 4bJh7sMPcVRiqe5jlnsWQV,DELLAFUENTE,8376040,42453,exact,50,0.52,0.2,2026-10-23,0.0
@@ -3766,7 +3766,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 3WTrdbZU99dgTtt3ZkyamT,Oxlade,7548984,113587,exact,29,0.138,0.0,2026-10-23,0.0
 46UMQ0cW8ToR8egkBRwAxZ,Cynthia Erivo,6979963,36277,exact,43,0.023,0.0,2026-10-23,0.0
 1VwDG9aBflQupaFNjUru9A,NAYEON,13601441,63505,exact,6,0.0,0.0,2026-10-23,0.0
-4wAqlYtTaaHELEgyCh9KjG,FAVE,168275777,500608,exact,41,1.0,0.0,2026-10-23,0.0
+4wAqlYtTaaHELEgyCh9KjG,FAVE,12248736,42420,isrc,21,0.0,0.0,2026-10-25,0.0
 2NmK5FyrQ18HOPXq1UBzqa,SWV,2380,162107,exact,12,0.0,0.0,2026-10-23,0.0
 6LHsnRBUYhFyt01PdKXAF5,Bob Moses,106110,26422,exact,50,0.0,0.0,2026-10-23,0.0
 3GXvEIDsldUNbsvypttNd2,Mc Fael Halls,87903632,1224,exact,46,0.022,0.022,2026-10-23,0.0
@@ -5439,7 +5439,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 3DVYnBKNeZTLLPvMaEbmzC,ERIICE,97344732,372,exact,40,0.0,0.0,2026-10-23,0.0
 2aM5jpQ0WTcQDeHsil8Ihz,Michael Gray,5692,7460,exact,50,0.0,0.0,2026-10-23,0.0
 3OykSjAE6F2Mb51WplFoRk,WILLIS,67150,2138,exact,17,0.0,0.0,2026-10-23,0.0
-0MIG6gMcQTSvFbKvUwK0id,Mata,78517542,11807,ambiguous,50,0.86,0.04,2026-10-23,0.0
+0MIG6gMcQTSvFbKvUwK0id,Mata,353802652,1852,isrc,50,0.98,0.0,2026-10-25,0.0
 6zpNfYJcPavd1pqLXKiSvl,Edson & Hudson,242123,855768,exact,49,0.0,0.0,2026-10-23,0.122
 3u6lPufHw4Oww6D88rv6sB,Penelope Scott,73040542,58699,exact,0,,,2026-10-23,
 3nF0yXDatdq9xV279nEs5X,Kahraman Deniz,11213314,147871,exact,18,0.056,0.0,2026-10-23,0.0
@@ -5810,7 +5810,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 6rM2yY0GnVcOHMU5GD3y9E,Martinho Da Vila,12762,563830,exact,50,0.0,0.0,2026-10-23,0.0
 71LRKKvAjoc6LyNmob269Q,Portugal No Beat,80318852,5945,exact,46,0.348,0.065,2026-10-23,0.0
 0KDEADL3DeTLtENG3DliCd,QARAN,8540540,114,exact,22,0.045,0.0,2026-10-23,0.0
-31eYHfjltzC2VyNsoVHHR9,Flame 火炎,114679,50811,exact,34,0.706,0.0,2026-10-23,0.0
+31eYHfjltzC2VyNsoVHHR9,Flame 火炎,140973602,177,isrc,31,0.968,0.032,2026-10-25,0.0
 0Zlo3SFncjP8twXgkTdeGq,Shafqat Amanat Ali,147435,25880,exact,33,0.0,0.0,2026-10-23,0.0
 3HAwumPgGOSXlZSyGWuLhB,Sayf,1414085,2397,exact,50,0.74,0.0,2026-10-23,0.0
 1y46m0kIaKwnodL0ElvQIs,Salma Salsabil,213972347,149,exact,8,0.0,0.0,2026-10-23,0.0
@@ -7053,7 +7053,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 1G5v3lpMz7TeoW0yGpRQHr,George Clanton,8885366,3654,exact,26,0.038,0.0,2026-10-23,0.0
 1NkQbSzN7LhkURNg2ChZMp,Nabeel Shaukat Ali,9545598,10016,exact,46,0.0,0.0,2026-10-23,0.0
 5puPe9ODwSfnmqy5cx90TC,Adera,6872473,930,exact,44,0.205,0.0,2026-10-23,0.0
-24b0qNYNgeOfpP5rbljIB3,JADE,78534732,10103,exact,29,0.517,0.0,2026-10-23,0.0
+24b0qNYNgeOfpP5rbljIB3,JADE,270463722,13318,isrc,33,0.0,0.0,2026-10-25,0.0
 6qGkLCMQkNGOJ079iEcC5k,Ben Platt,11474676,19957,exact,31,0.0,0.0,2026-10-23,0.0
 5a93v7K0tRAdG6e0qGz38J,Heavy Weight,1113913,773,exact,50,0.54,0.0,2026-10-23,0.0
 65wmIidwFZCCoT1BUewp5P,La Rondalla De Saltillo,244991,6499,exact,23,0.0,0.783,2026-10-23,0.0
@@ -15072,3 +15072,4 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 5xF3SekjB3b2VO0FKN3K0A,Dalton Dover,69575492,538,titles,24,0.0,0.0,2026-10-24,1.0
 0gSAxSvAApQc71cTpoXDFu,Tenille Arts,11086348,1282,titles,34,0.0,0.0,2026-10-24,0.941
 0ATGYvt8HyUK8ydaxJybSi,Pony Bradshaw,51729252,232,titles,17,0.0,0.0,2026-10-24,0.706
+4BclNkZtAUq1YrYNzye3N7,Garth Brooks,296223591,79,isrc,1,0.0,0.0,2026-10-25,1.0

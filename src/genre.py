@@ -44,7 +44,7 @@ def overrides() -> dict[str, dict]:
 
 
 def _deezer(dz: dict | None) -> tuple[float, float] | None:
-    if not dz or dz.get("match") not in ("exact", "titles") or int(dz.get("releases") or 0) < 5 or dz.get("rap_share") in ("", None):
+    if not dz or dz.get("match") not in ("exact", "titles", "isrc") or int(dz.get("releases") or 0) < 5 or dz.get("rap_share") in ("", None):
         return None
     return float(dz["rap_share"]), float(dz["latin_share"] or 0)
 
@@ -117,7 +117,7 @@ def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: 
             return "country", f"MusicBrainz votes: country {share:.0%} of {total}"
         if share >= COUNTRY_REVIEW:
             return "review", f"MusicBrainz votes: country {share:.0%} of {total} (borderline)"
-    if dz and dz.get("match") in ("exact", "titles") and int(dz.get("releases") or 0) >= 5 and dz.get("country_share") not in ("", None):
+    if dz and dz.get("match") in ("exact", "titles", "isrc") and int(dz.get("releases") or 0) >= 5 and dz.get("country_share") not in ("", None):
         c = float(dz["country_share"])
         basis = f"Deezer: {c:.0%} of {dz['releases']} releases Country"
         if c >= COUNTRY_REVIEW and wd_genres and not any(is_country(g[0]) for g in wd_genres):

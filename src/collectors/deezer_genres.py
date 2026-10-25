@@ -46,14 +46,14 @@ def lookup(spotify_id: str, name: str) -> dict:
             "country_share": round(sum(x in COUNTRY for x in g) / len(g), 3) if g else ""}
 
 
-def add_confirmed(spotify_id: str, name: str, deezer_id, fans) -> dict:
-    """A row for an artist whose Deezer match was confirmed from their songs (match "titles"): the release shares read
-    from that Deezer artist, not from a name search."""
+def add_confirmed(spotify_id: str, name: str, deezer_id, fans, match: str = "titles") -> dict:
+    """A row for an artist whose Deezer match was confirmed from their songs (match "titles" or "isrc"): the release
+    shares read from that Deezer artist, not from a name search."""
     rows = load()
     al = get(f"{API}/artist/{deezer_id}/albums", params={"limit": 50})
     g = [a.get("genre_id") for a in (al.json().get("data", []) if al.status_code == 200 else []) if a.get("genre_id", -1) > 0]
     share = lambda ids: round(sum(x in ids for x in g) / len(g), 3) if g else ""
-    rows[spotify_id] = {"spotify_id": spotify_id, "name": name, "deezer_id": deezer_id, "fans": fans, "match": "titles",
+    rows[spotify_id] = {"spotify_id": spotify_id, "name": name, "deezer_id": deezer_id, "fans": fans, "match": match,
                         "releases": len(g), "rap_share": share(RAP), "latin_share": share(LATIN),
                         "country_share": share(COUNTRY), "checked": date.today().isoformat()}
     _save(rows)

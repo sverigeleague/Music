@@ -129,7 +129,7 @@ document.addEventListener("click", e => {
   const a = e.target.closest('a[href^="#/"]');
   if (!a || GENRE === "hip_hop" || a.dataset.genre || a.dataset.genreLink || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
   const href = a.getAttribute("href");
-  if (href.startsWith(PREFIX()) || href === "#/state" || href.startsWith("#/state/") || href === "#/method") return;
+  if (href.startsWith(PREFIX())) return;
   e.preventDefault();
   go(href);
 });
@@ -822,7 +822,7 @@ function statePage(ym) {
     <p class="sub">The month in hip-hop's top 1,000, in numbers you can quote. ${st.month === all[0]?.month ? `This month's page updates daily until the month ends; then its numbers are fixed. ` : ""}Data as of ${esc(st.as_of)}.</p>
     ${all.length > 1 ? `<div class="chips">${all.map(x => `<a class="chip" href="#/state/${x.month}"${x.month === st.month ? ' aria-current="page"' : ""}>${esc(x.month)}</a>`).join(" ")}</div>` : ""}</section>
     <section class="statgrid">${st.items.map(i => `<a class="stat" href="${esc(i.link)}"><span class="k">${esc(i.label)}</span><b>${esc(i.value)}</b><span class="note">${esc(i.detail)}</span></a>`).join("")}</section>
-    <section class="panel"><h2>Quoting these numbers</h2><p>Please cite: <code>${esc(cite)}</code> <button type="button" class="linkbtn" data-share="${esc(cite)}" data-url="${esc(SITE_URL + "state/" + st.month + "/")}">Share</button></p>
+    <section class="panel"><h2>Quoting these numbers</h2><p>Please cite: <code>${esc(cite)}</code> <button type="button" class="linkbtn" data-share="${esc(cite)}" data-url="${esc(SITE_URL + (GENRE === "hip_hop" ? "" : GENRE + "/") + "state/" + st.month + "/")}">Share</button></p>
     <p class="note">Every figure links to the page it comes from, with its sources and grades. Listener counts are Spotify's public numbers via kworb; money is our estimate, shown as a range on each page; labels come from the ℗ lines of recent releases. <a href="#/method">Method</a></p></section>`;
 }
 
@@ -1217,11 +1217,11 @@ async function route() {
   document.documentElement.dataset.genre = GENRE;
   document.querySelectorAll("[data-genre]").forEach(a => a.dataset.genre === GENRE ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
   document.querySelectorAll(".mainnav a").forEach(a => { const base = a.dataset.href || a.getAttribute("href"); a.dataset.href = base; a.setAttribute("href", GENRE === "hip_hop" ? base : PREFIX() + base.slice(2)); });
-  if (!genreStore[GENRE]) {
-    const g = genreStore[GENRE] = { data: await (await fetch(`${DATA_DIR()}index.json`)).json() };
-    // page-specific data loads in the background (D6); pages other than the start page and artist pages wait for it
-    g.extra = fetch(`${DATA_DIR()}extra.json`).then(r => r.json()).then(x => Object.assign(g.data, x));
-  }
+  if (!genreStore[GENRE]) genreStore[GENRE] = { data: await (await fetch(`${DATA_DIR()}index.json`)).json() };
+  const g = genreStore[GENRE];
+  // page-specific data loads in the background (D6); pages other than the start page and artist pages wait for it.
+  // (A genre first loaded by a cross-genre search has its index but not this yet.)
+  if (!g.extra) g.extra = fetch(`${DATA_DIR()}extra.json`).then(r => r.json()).then(x => Object.assign(g.data, x));
   store.data = genreStore[GENRE].data;
   store.extra = genreStore[GENRE].extra;
   const NAMES = { movers: ["Artists", "Movers"], month: ["Artists", "Movers"], rising: ["Artists", "Movers"], compare: ["Artists", "Compare"],
@@ -1254,7 +1254,7 @@ async function route() {
   else if (h[0] === "label") labelPage(decodeURIComponent(h[1] || ""));
   else if (h[0] === "compare") compare(h.slice(1).map(decodeURIComponent));
   else top();
-  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of hip-hop</a> · <a href="#/method">Method</a> · <a href="mailto:swedenrocked@gmail.com?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
+  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of ${GENRE === "country" ? "country" : "hip-hop"}</a> · <a href="#/method">Method</a> · <a href="mailto:swedenrocked@gmail.com?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
   window.scrollTo(0, 0);
 }
 function setMeta(title, desc) {

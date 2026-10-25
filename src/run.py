@@ -125,9 +125,9 @@ def registry(mb_limit: int | None = None) -> None:
     dz = deezer_genres.load()
     # candidates: in kworb's listener pages (about 25,000 artists), tagged hip-hop on Wikidata or with most releases
     # filed under Rap/Hip Hop on Deezer; plus every artist already in the registry
-    dz_rap = {s for s, r in dz.items() if r.get("match") in ("exact", "titles") and r.get("rap_share") not in ("", None)
+    dz_rap = {s for s, r in dz.items() if r.get("match") in ("exact", "titles", "isrc") and r.get("rap_share") not in ("", None)
               and float(r["rap_share"]) >= 0.5}
-    dz_country = {s for s, r in dz.items() if r.get("match") in ("exact", "titles") and r.get("country_share") not in ("", None)
+    dz_country = {s for s, r in dz.items() if r.get("match") in ("exact", "titles", "isrc") and r.get("country_share") not in ("", None)
                   and float(r["country_share"]) >= 0.3}
     ids = sorted({s for s in cands if s in top} | {s for s in dz_rap if s in top} | set(known)
                  | {s for s in country_cands if s in top} | {s for s in dz_country if s in top})
@@ -139,7 +139,7 @@ def registry(mb_limit: int | None = None) -> None:
     over = genre.overrides()
     # Deezer matches confirmed from the artist's own songs (ISRCs or titles) count like a Wikidata identity
     sure = {s for s, a in known.items() if a.get("deezer_match") in ("isrc", "titles")
-            and str(a.get("deezer_id")) == str(dz.get(s, {}).get("deezer_id"))} | {s for s, r in dz.items() if r.get("match") == "titles"}
+            and str(a.get("deezer_id")) == str(dz.get(s, {}).get("deezer_id"))} | {s for s, r in dz.items() if r.get("match") in ("titles", "isrc")}
     out = {}
     for s in ids:
         d, prev = wd.get(s, {}), known.get(s, {})
@@ -248,6 +248,8 @@ def deezer_isrc_step(limit: int | None = None) -> None:
         if found:
             rows[a["spotify_id"]].update(found)
             n += 1
+            from .collectors import deezer_genres  # genre shares from the confirmed artist, not the name match
+            deezer_genres.add_confirmed(a["spotify_id"], a["name"], found["deezer_id"], found["deezer_fans"], "isrc")
     save_artists(rows)
     print(f"Deezer IDs confirmed by ISRC: {n} of {len(todo[:limit])} unconfirmed artists")
 
@@ -321,6 +323,8 @@ def deezer_audit_step() -> None:
         if found and str(found["deezer_id"]) != str(a["deezer_id"]):
             rows[a["spotify_id"]].update(found)
             fixed.append(str(found["deezer_id"]))
+            from .collectors import deezer_genres  # the genre shares must come from the corrected artist too
+            deezer_genres.add_confirmed(a["spotify_id"], a["name"], found["deezer_id"], found["deezer_fans"], "isrc")
     save_artists(rows)
     n = deezer_releases.update(fixed, workers=1) if fixed else 0
     print(f"Deezer audit: {len(fixed)} matches corrected by ISRC ({n} releases read)")
