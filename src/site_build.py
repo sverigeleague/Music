@@ -296,6 +296,8 @@ def pick_video(entry: dict | None, name: str, hit: str | None) -> dict | None:
 def newest_release(status: dict) -> dict | None:
     """The artist's newest lead release when its label differs from the one the status rests on (a move, or an
     imprint on the newest release); the status itself stays with most recent releases."""
+    if status.get("override") or status.get("status") in ("unknown", "catalog"):
+        return None  # the status does not rest on a release, so there is no basis to set it beside
     rel, basis = (status.get("releases") or [None])[0], status.get("basis") or {}
     return rel if rel and basis and rel["label"] != basis.get("label") else None
 

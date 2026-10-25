@@ -272,7 +272,7 @@ def place_artist(releases: list[dict], artist: str, table: list[dict] | None = N
         count[x["status"]] = count.get(x["status"], 0) + 1
     status = max(count, key=lambda k: (count[k], -labels.RANK[k]))
     owners_ = [x["owner"] for x in known if x["status"] == status]
-    owner = max(set(owners_), key=owners_.count)
+    owner = max(dict.fromkeys(owners_), key=owners_.count)
     basis = next((x for x in known if x["status"] == status and x["owner"] == owner and "chain" in x),
                  next(x for x in known if x["status"] == status and x["owner"] == owner))
     return {"status": status, "owner": owner, "basis": basis, "releases": seen,

@@ -38,6 +38,22 @@ def _matches(pattern: str, text: str) -> bool:
     return pattern in text
 
 
+def _most_specific(hits: list[dict], text: str) -> list[dict]:
+    """Drops a pattern that matched only inside a longer matching pattern ("universal music" inside "universal music
+    distribution"); one that also matches elsewhere in the string (a second label) stays."""
+    pats = {r["pattern"].lstrip("=") for r in hits}
+    out = []
+    for r in hits:
+        p = r["pattern"].lstrip("=")
+        longer = [q for q in pats if q != p and p in q]
+        rest = text
+        for q in longer:
+            rest = rest.replace(q, " ")
+        if not longer or _matches(r["pattern"], rest):
+            out.append(r)
+    return out
+
+
 _MB: dict | None = None
 
 
@@ -77,8 +93,7 @@ def classify_label(label: str, artist: str, table: list[dict] | None = None, use
     parts = [m[1], text] if m else [text]  # the licensee decides
     for part in parts:
         hits = [r for r in table if _matches(r["pattern"], part)]
-        pats = [r["pattern"].lstrip("=") for r in hits]  # a longer pattern that contains a shorter one is more specific
-        hits = [r for r in hits if not any(q != r["pattern"].lstrip("=") and r["pattern"].lstrip("=") in q for q in pats)]
+        hits = _most_specific(hits, part)
         if hits:
             best = min(hits, key=lambda r: RANK[r["status"]])
             return best["status"], best["owner"]
@@ -99,8 +114,7 @@ def label_name(label: str, table: list[dict] | None = None, released: str = "") 
     m = re.search(r"under (?:exclusive )?licen[cs]e to (.+)$", text)
     for part in ([m[1], text] if m else [text]):
         hits = [r for r in table if _matches(r["pattern"], part)]
-        pats = [r["pattern"].lstrip("=") for r in hits]  # a longer pattern that contains a shorter one is more specific
-        hits = [r for r in hits if not any(q != r["pattern"].lstrip("=") and r["pattern"].lstrip("=") in q for q in pats)]
+        hits = _most_specific(hits, part)
         if hits:
             best = min(hits, key=lambda r: RANK[r["status"]])
             return best.get("label") or best["pattern"].title()
@@ -131,7 +145,7 @@ def artist_status(releases: list[dict], artist: str, table: list[dict] | None = 
         count[x["status"]] = count.get(x["status"], 0) + 1
     status = max(count, key=lambda k: (count[k], -RANK[k]))  # a tie goes to the more signed status
     owners_ = [x["owner"] for x in known if x["status"] == status]
-    owner = max(set(owners_), key=owners_.count)
+    owner = max(dict.fromkeys(owners_), key=owners_.count)
     basis = next(x for x in known if x["status"] == status and x["owner"] == owner)
     return {"status": status, "owner": owner, "basis": basis, "releases": seen,
             "agree": f"{count[status]} of {len(seen)} recent releases"}
@@ -154,7 +168,7 @@ def learn_registrants(statuses: dict[str, dict], isrcs: dict[str, list[str]], mi
     for p, owners_ in seen.items():
         majors = [o for o in owners_ if o != "-"]
         if len(owners_) >= min_tracks and len(majors) / len(owners_) >= 0.9:
-            out[p] = max(set(majors), key=majors.count)
+            out[p] = max(dict.fromkeys(majors), key=majors.count)
     return out
 
 
@@ -172,7 +186,7 @@ def check_with_isrcs(status: dict, prefixes: list[str], registrants: dict[str, s
     major = [registrants[p] for p in prefixes if p in registrants]
     new_us = [p for p in prefixes if p.startswith(NEW_US)]
     if len(major) / len(prefixes) >= 0.5:
-        owner = max(set(major), key=major.count)
+        owner = max(dict.fromkeys(major), key=major.count)
         status.pop("confidence", None)
         return {**status, "status": "major", "owner": owner,
                 "isrc_note": f"{len(major)} of {len(prefixes)} recent songs registered by {owner}"}

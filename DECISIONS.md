@@ -2,6 +2,17 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Fixes from an independent review of the overnight changes
+
+- "based on:" and "newest release" only where the status rests on releases; with an override or an unknown or
+  catalog status the note reads "latest:" as before (Yung Lean's override said "based on: Yung Lean").
+- Nested label patterns: a shorter pattern is dropped only when it matched inside the longer one, so a string naming
+  two labels ("Universal Music Distribution / Universal Music") keeps both. No label string we hold changes.
+- Tours page: no crash when a genre has no counted tours.
+- Deals notes starting with a quote mark are capitalised.
+- Reproducible builds: ties between owners (`max(set(...))`) depended on Python's per-run string hashing; they now go
+  to the first seen. Two builds with different hash seeds now differ only in the build time.
+
 ## 2026-10-25 Smaller fixes (overnight)
 
 - Static country pages said "top 1,000" (the in-page word swap does not run on static pages): State of country now

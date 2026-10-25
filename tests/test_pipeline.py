@@ -166,6 +166,7 @@ def test_label_classification():
     # a longer pattern containing a shorter one wins; separate labels in one string still rank by status
     assert c("Universal Music Distribution Deal", "x")[0] == "major_distributed"
     assert c("10K Projects/Capitol Records", "x")[0] == "major"
+    assert c("Universal Music Distribution / Universal Music", "x")[0] == "major"  # a second, separate label
 
 
 def test_label_status_and_codes():
