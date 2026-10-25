@@ -202,6 +202,9 @@ def build(genre: str = "hip_hop") -> dict:
     for r in rows:
         r["streaming_mid"] = round(sum(l["generated"]["mid"] for l in r["revenue"]["lines"] if l["group"] == "Streaming"))
     insights.scout(rows, factors)
+    on_radio = sorted((r for r in rows if r.get("radio_week")), key=lambda r: -r["radio_week"])
+    for i, r in enumerate(on_radio, 1):
+        r["radio_rank"] = {"rank": i, "of": len(on_radio)}  # our own rank (C4); the audience figure is not shown
     for r in rows:
         r.pop("radio_week", None)  # kworb's audience figure stays internal (C4): only our percentile and estimate show
     mult = insights.multiples()

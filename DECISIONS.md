@@ -41,6 +41,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
     Tatlises, Ozcan Deniz...) stay out.
 - **Below the floor:** 598-666 artists from the crawl, in Deezer track-popularity order, shown as names only
   (grade C); see the C1 entry. Presentation pending the owner (suggested: as now).
+- **On US radio** (country artist pages): our own rank among the country artists on the week's airplay chart
+  ("#2 of the 24"), from kworb's audience estimates; the audience figures themselves stay internal (C4).
 - **Kept fresh:** the monthly workflow runs every per-artist step for country too, plus `countrycrawl`,
   `country-from-crawl` and `confirm-country`; the daily Scout log records country scores.
 - **MusicBrainz dates** were stopped for country tonight: the step works through every unlooked-up ISRC in the shared

@@ -417,6 +417,7 @@ async function artist(id) {
         <dt>Labels on record</dt><dd>${esc(a.labels.slice(0, 3).join(", ") || "–")}${a.labels.length > 3 ? ` +${a.labels.length - 3}` : ""}</dd>
       </dl><p class="note">Stream totals as of ${esc(a.streams_date || "–")} (kworb.net, from Spotify's public play counts).</p></div>
     </section>
+    ${a.radio_rank ? `<section class="panel"><h2>On US radio</h2><p><b>#${a.radio_rank.rank}</b> of the ${a.radio_rank.of} hip-hop artists on the US airplay chart this week, by the audience their songs reached on AM/FM radio.</p><p class="note">Our ranking from the week's airplay audience estimates (all formats). Radio pays the songs' writers and publishers, not the recordings; see the radio line in the money table.</p></section>` : ""}
     ${a.shazam ? `<section class="panel"><h2>Discovery</h2><p>${shazamBadge(a)}</p><p class="note">People looking the song up on Shazam: often an early sign, before streams follow. From Shazam's public charts (world, 15 countries and 31 cities, the last 7 days).</p></section>` : ""}
     ${certsPanel(a)}
     ${awardsPanel(a)}
