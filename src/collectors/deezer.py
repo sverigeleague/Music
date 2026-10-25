@@ -42,7 +42,7 @@ def by_isrc(name: str, isrcs: list[str], need: int = 2) -> dict | None:
         if not isinstance(j, dict) or "error" in j or not j.get("id"):
             continue
         seen += 1
-        for c in {c["id"]: c for c in j.get("contributors", []) or [j.get("artist", {})]}.values():
+        for c in {c.get("id"): c for c in j.get("contributors", []) or [j.get("artist") or {}]}.values():
             if c.get("id") and _norm(c.get("name", "")) == _norm(name):
                 votes[c["id"]] = votes.get(c["id"], 0) + 1
     if not votes:
@@ -58,7 +58,7 @@ def by_isrc(name: str, isrcs: list[str], need: int = 2) -> dict | None:
 def _title(t: str) -> str:
     """A song title without its featured artists or version note, for matching across services."""
     import re
-    head = re.split(r"\s[\(\[-]|\s(?:feat|ft|with)\.?\s", t, maxsplit=1, flags=re.I)[0]
+    head = re.split(r"\s[\(\[-]|\s(?:feat|ft)\.?\s", t, maxsplit=1, flags=re.I)[0]  # "(with X)" is caught by "("
     # letters of any script (Cyrillic, Turkish, CJK titles); accents folded where they fold
     return "".join(c for c in unicodedata.normalize("NFKD", head).casefold() if c.isalnum())
 

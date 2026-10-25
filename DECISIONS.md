@@ -79,6 +79,22 @@ What was chosen, what was considered and rejected, and why. Newest first.
   gross anywhere (projections and per-night averages are not reports). Billboard's year-end 2026 (about December)
   should fill most gaps.
 
+## 2026-10-25 Bug review of the overnight changes (fixed)
+
+An independent read of the branch found, and these were fixed:
+- Country pages broke after a search on the hip-hop side had loaded the country list (its page data never loaded).
+- Links to the monthly State page and Method from country pages went to the hip-hop versions; the share link and
+  footer named hip-hop.
+- Deezer corrections (audit, ISRC) changed the artist's Deezer ID but not the genre row read by the genre rules; the
+  genre row is now re-read from the corrected artist (9 repaired; no genre decision changed).
+- The country list below the 500k line repeated a few measured artists (a second Deezer profile, or an ID matched
+  outside the genre table); it now excludes every registry Deezer ID and any name on kworb's listener pages.
+- Label names ignored the dated rows (Big Machine after February 2026 showed as HYBE's group).
+- Confirmation steps could lose all progress on one failed kworb page; a partial `countrycrawl N` replaced the whole
+  file; an ISRC answer without an artist crashed; song titles were cut at " with " ("Stay With Me" = "Stay").
+- Known and kept: the registry keeps a stored photo or Wikidata item when Wikidata later drops it (refreshed only
+  when Wikidata gives a new one).
+
 ## 2026-10-25 Certifications from French and German Wikipedia (overnight)
 
 - When an artist's English discography has no certifications, `src/collectors/certifications_frde.py` reads the

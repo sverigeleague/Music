@@ -89,10 +89,10 @@ def classify_label(label: str, artist: str, table: list[dict] | None = None, use
     return "unknown", ""
 
 
-def label_name(label: str, table: list[dict] | None = None) -> str:
+def label_name(label: str, table: list[dict] | None = None, released: str = "") -> str:
     """The label a release string names, as shown on the site: our table's display name for the matched pattern
-    (the licensee first), else the release string without company suffixes."""
-    table = table or owners()
+    (the licensee first), else the release string without company suffixes. Dated rows apply as in classify_label."""
+    table = [r for r in (table or owners()) if _in_force(r, released)]
     text = label.casefold()
     m = re.search(r"under (?:exclusive )?licen[cs]e to (.+)$", text)
     for part in ([m[1], text] if m else [text]):

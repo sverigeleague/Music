@@ -295,7 +295,7 @@ def release_counts(rels: dict, table: list[dict]) -> dict[str, int]:
             if r["album_id"] in seen or not r["label"]:
                 continue
             seen.add(r["album_id"])
-            n = labels.label_name(r["label"], table)
+            n = labels.label_name(r["label"], table, r.get("release_date", ""))
             out[n] = out.get(n, 0) + 1
     return out
 
@@ -318,7 +318,7 @@ def label_display(status: dict, table: list[dict]) -> str | None:
     if status.get("override") and status.get("owner"):
         return status["owner"]
     basis = status.get("basis") or {}
-    return labels.label_name(basis["label"], table) if basis.get("label") else status.get("owner") or None
+    return labels.label_name(basis["label"], table, basis.get("date", "")) if basis.get("label") else status.get("owner") or None
 
 
 def benchmark(rows: list[dict], shares: dict) -> list[dict]:
@@ -408,10 +408,14 @@ def below_floor(measured: int, listed: set[str], today: date, years: int = 3) ->
     kworb's listener pages (above the floor, so measured or not country by our rule), anyone matched to Deezer from
     those pages, and artists with no release in `years` years (reissues of past acts)."""
     from .collectors import deezer_country, deezer_genres
+    from .collectors.deezer import _norm
     above = {str(r.get("deezer_id")) for r in deezer_genres.load().values() if r.get("deezer_id")}
+    above |= {str(a["deezer_id"]) for a in load_artists().values() if a.get("deezer_id")}  # matched or ISRC-confirmed
+    listed_names = {_norm(t["name"]) for t in latest_listeners()}  # a second Deezer profile of a listed artist
     cutoff = date(today.year - years, today.month, min(today.day, 28)).isoformat()
     rows = [r for r in deezer_country.load().values()
-            if r["deezer_id"] not in above and r.get("spotify_id", "") not in listed and (r.get("latest") or "") >= cutoff]
+            if r["deezer_id"] not in above and r.get("spotify_id", "") not in listed and (r.get("latest") or "") >= cutoff
+            and _norm(r["name"]) not in listed_names]
     rows.sort(key=lambda r: -int(r.get("top10_rank_sum") or 0))
     return [{"pos": measured + i + 1, "name": r["name"], "spotify": r.get("spotify_id") or None,
              "deezer": r["deezer_id"], "year": (r.get("latest") or "")[:4]}

@@ -592,3 +592,13 @@ def test_deezer_country_alone_does_not_override_wikidata_genres():
     dz = {"match": "exact", "releases": "10", "country_share": "0.9"}
     assert genre.decide_country([], [("arabesque", False, False)], dz, wikidata=True)[0] == "review"
     assert genre.decide_country([], [], dz, wikidata=True)[0] == "country"
+
+
+def test_label_name_follows_dated_rows_and_titles_keep_with():
+    from src import labels
+    from src.collectors import deezer
+    t = labels.owners()
+    assert labels.label_name("Big Machine Records", t, "2024-01-01") == "Big Machine Label Group"
+    assert labels.label_name("Big Machine Records", t, "2026-05-01") == "Big Machine Records"
+    assert deezer._title("Stay With Me") != deezer._title("Stay")
+    assert deezer._title("Song (with X)") == deezer._title("Song")

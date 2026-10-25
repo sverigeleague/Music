@@ -114,6 +114,11 @@ def crawl(limit: int | None = None) -> int:
             admit(str(b["id"]), b["name"], "related", b.get("nb_fan", 0))
         done += 1
     rows = [a for a in seen.values() if a["country"] and a.get("top10_rank_sum") is not None]
+    if limit is not None:  # a partial crawl (a test run) updates the rows it read and keeps the rest
+        fresh = {a["deezer_id"] for a in rows}
+        rows += [r for k, r in load().items() if k not in fresh]
+        for r in rows:
+            r["top10_rank_sum"] = int(r.get("top10_rank_sum") or 0)
     for a in rows:
         a.update(wd.get(a["deezer_id"], {}))
     rows.sort(key=lambda a: -a["top10_rank_sum"])

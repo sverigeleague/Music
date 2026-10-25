@@ -243,7 +243,9 @@ def deezer_isrc_step(limit: int | None = None) -> None:
         isrcs = [c for x in songs if (c := dates.get(x["track_id"], {}).get("isrc"))][:5]
         if isrcs:
             todo.append((a, isrcs))
-    for a, isrcs in todo[:limit]:
+    for i, (a, isrcs) in enumerate(todo[:limit], 1):
+        if i % 25 == 0:
+            save_artists(rows)
         found = deezer.by_isrc(a["name"], isrcs)
         if found:
             rows[a["spotify_id"]].update(found)
@@ -266,11 +268,16 @@ def confirm_country_step(limit: int | None = None) -> None:
                 and d.get("country_share") not in ("", None) and float(d["country_share"]) >= genre.COUNTRY_REVIEW
                 and a.get("deezer_match") not in ("isrc", "titles")):
             todo.append((a, d["deezer_id"]))
-    for a, did in todo[:limit]:
+    for i, (a, did) in enumerate(todo[:limit], 1):
         p = current.pages(a["spotify_id"])
         if not p:
-            kworb.fetch_artist(a["spotify_id"])  # archives the page
+            try:
+                kworb.fetch_artist(a["spotify_id"])  # archives the page
+            except Exception as e:  # one failed page must not lose the confirmations so far
+                print(f"  kworb page for {a['name']} failed: {e}")
             p = current.pages(a["spotify_id"])
+        if i % 25 == 0:
+            save_artists(rows)
         songs = sorted((x for x in current.songs(p[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:5] if p else []
         if songs and deezer.by_titles(did, [x["title"] for x in songs]):
             rows[a["spotify_id"]].update(deezer_id=did, deezer_match="titles")
@@ -297,7 +304,10 @@ def country_from_crawl_step(limit: int | None = None) -> None:
     for k, c in todo[:limit]:
         p = current.pages(k["spotify_id"])
         if not p:
-            kworb.fetch_artist(k["spotify_id"])
+            try:
+                kworb.fetch_artist(k["spotify_id"])
+            except Exception as e:
+                print(f"  kworb page for {k['name']} failed: {e}")
             p = current.pages(k["spotify_id"])
         songs = sorted((x for x in current.songs(p[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:5] if p else []
         if songs and deezer.by_titles(c["deezer_id"], [x["title"] for x in songs]):
