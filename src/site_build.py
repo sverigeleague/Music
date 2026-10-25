@@ -554,6 +554,16 @@ def write_second_profiles(rows: list[dict], second: dict[str, str], artists: dic
         w.writerows(keep)
 
 
+PUBLIC_LINKS = ("spotify", "youtube", "instagram", "wikidata")
+
+
+def public_links(links: dict | None) -> dict[str, str]:
+    """The official public profiles the Unsigned export carries (ROADMAP 11.12, 2026-10-26): Spotify, the artist's own
+    YouTube channel, Instagram and Wikidata, as looked up (kworb; Wikidata P2397/P2003, else MusicBrainz). TikTok and X
+    are left out; no email, phone or other personal contact data is ever held."""
+    return {k: links[k] for k in PUBLIC_LINKS if links and isinstance(links.get(k), str) and links[k].startswith("https://")}
+
+
 def benchmark(rows: list[dict], shares: dict) -> list[dict]:
     """Each unsigned (self-released) artist against the 5 growing signed artists closest in monthly listeners (within a
     factor of 1.67 either way, else 2.5) and share of listening on recent releases. All money is yearly at today's
@@ -589,7 +599,7 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
         diy, keep = float(shares["diy"]["mid"]), {k: float(shares[k]["mid"]) for k in ("major", "services", "independent")}
         out.append({
             "id": u["id"], "name": u["name"], "ml": u["ml"], "floor": u.get("floor"), "cl": u.get("cl"), "cur_share": u.get("cur_share"),
-            "indie_kind": u.get("indie_kind"), "indie_basis": u.get("indie_basis"),
+            "indie_kind": u.get("indie_kind"), "indie_basis": u.get("indie_basis"), "links": public_links(u.get("links")),
             "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label") or u.get("label_name") or u.get("label_owner"),
             "generated": round(g_u), "keeps_now": round(g_u * diy), "spl": u_spl,
             "feat": round(u["feature_daily"] / u["daily"], 3) if u.get("daily") and u.get("feature_daily") is not None else None,

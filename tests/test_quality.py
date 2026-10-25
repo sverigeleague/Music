@@ -50,3 +50,30 @@ def test_repository_files_parse():
     rows = quality.corrections("hip_hop") + quality.corrections("country")
     assert rows and all(r["date"] and r["subject"] and r["now"] and r["kind"] in ("data", "method") for r in rows)
     assert quality.method_versions()
+
+
+def test_method_changes_join_corrections(tmp_path):
+    _csv(tmp_path / "corrections.csv", "date,genre,kind,subject,field,was,now,basis,source\n2026-10-25,all,method,Rate,high end,$4,$3,b,s")
+    _csv(tmp_path / "method_changes.csv", "area,version,date,genre,change,effect,correction,source\n"
+         "money,1.0,2026-10-23,all,first,e,,s\nscout,1.0,2026-10-23,all,s1,e,,s\nmoney,1.1,2026-10-25,all,rate,e,Rate,s")
+    rows = quality.method_changes(tmp_path)
+    assert [(r["area"], r["version"]) for r in rows] == [("money", "1.1"), ("money", "1.0"), ("scout", "1.0")]
+    assert rows[0]["was"] == "$4" and rows[0]["now"] == "$3" and "was" not in rows[1]
+    _csv(tmp_path / "method_changes.csv", "area,version,date,genre,change,effect,correction,source\nmoney,1.0,2026-10-24,all,x,e,Rate,s")
+    import pytest
+    with pytest.raises(ValueError):
+        quality.method_changes(tmp_path)
+
+
+def test_method_changes_in_sync_with_corrections():
+    # every method row of the corrections log is in the changelog, and every changelog row names a decision entry
+    import csv
+    from src.config import REGISTRY
+    rows = quality.method_changes()
+    named = {(r["date"], r["subject"]) for r in csv.DictReader((REGISTRY / "method_changes.csv").open())
+             for r in [{"date": r["date"], "subject": r["correction"]}] if r["subject"]}
+    method = {(r["date"], r["subject"]) for r in csv.DictReader((REGISTRY / "corrections.csv").open()) if r["kind"] == "method"}
+    assert method <= named, method - named
+    assert rows and all(r["change"] and r["effect"] and r["source"].startswith("DECISIONS.md") for r in rows)
+    heads = (quality.ROOT / "DECISIONS.md").read_text()
+    assert all(r["source"].removeprefix("DECISIONS.md ") in heads for r in rows), [r["source"] for r in rows if r["source"].removeprefix("DECISIONS.md ") not in heads]

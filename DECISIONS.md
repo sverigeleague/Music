@@ -2,6 +2,40 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Engineering follow-ups to the speed pass: extra.json split by page, site smoke tests, load failures
+
+- **extra.json split by page** (`src/site_build.py PARTS`, app.js `PARTS`/`NEEDS` in the router, index.html and
+  static-page preloads). Scout had become slower (3.36 → 3.60 s) because it waited for all of extra.json (now
+  ~190 KB compressed). Now `scout.json` (backtest; attention, geo, apple, shazam, fresh_share, video: ~27 KB) holds
+  everything Scout reads beyond the index, and `unsigned.json` (~28 KB) only the Unsigned page's list; extra.json
+  keeps the rest. Scout waits for scout.json only; the other listed pages for extra + scout; Unsigned and any page
+  not listed in `NEEDS` load all three, so a new page works without being registered. The rest still loads in the
+  background after drawing. Measured on the same build (slow 4G, 4x CPU, phone; median of 3), all files awaited →
+  split: Scout 3.27 → 2.39 s, country Scout 2.41 → 1.84 s, Worth 3.26 → 3.20, Labels 3.46 → 3.33, Platforms 3.21 →
+  3.09 s (a closer 4-run A/B: Worth, Labels, Platforms 0.14-0.18 s faster); start, artist and static pages unchanged.
+  Every route renders the same text split or with every file loaded (30 routes, both genres, Scout's sorts too).
+  Rejected: Scout's fields in index.json (+27 KB for every page, including the start page); a file per page (Money,
+  Labels): other sessions are adding features to those pages tonight, and a wrong guess would draw them with blanks.
+- **Rounding bug**: the per-platform royalty mids in extra.json were kept to 2 significant figures, not 3 (a
+  $24.5m line showed as $24.0m on Platforms). Fixed (`sig3`).
+- **Smoke tests** (`tests/test_site_data.py`): after a build, ids unique, ranks 1..n, current-listener ranks
+  contiguous, every range low ≤ mid ≤ high (index, shards, worth, label totals), index figures equal to the artist
+  page's (worth_mid, per-platform lines, streaming_mid, artist total), shards and label rosters match the index,
+  every flag and photo on disk, no NaN/Infinity (the browser cannot parse them), a static page per artist and label,
+  in the sitemap. They skip when site/data is absent: `tests.yml` does not build the site, so it now also checks
+  that app.js and config.js parse (`node --check`); `site.yml` runs them after its build, so a broken build is not
+  deployed.
+- **Load failures** (Playwright: every route with each data file failing, then the retry; and slow 4G): every page
+  works or shows "The data did not load" with a retry that then draws it correctly. Fixed: a failed artist file was
+  remembered as empty, so the retry never fetched it again and Worth for a picked artist showed no money; now it is
+  not kept and the error shows. A slower page's files arriving after the visitor moved on no longer draw over the
+  newer page (router sequence check). The Labels tile comparing with the other genre is redrawn when that genre's
+  data arrives (on a slow connection it was left out).
+- **Static pages**: titles, descriptions, ranks, labels, Scout tiers and JSON-LD match the data for all 1,754 artist
+  and 279 label pages. The artist fact "Keeps from streaming" was the artist's total including songwriting and
+  reported tours; it now says "Artist keeps ... (streaming and songwriting / and reported touring)", as the app.
+  The sitemap lists every static page (2,037); the routes added tonight are app-only (no static page), so none to add.
+
 ## 2026-10-26 Review by an investment-banking MD: awards, provisional Scout, corrections log, wording (items 2-8 and NICE)
 
 - **Awards as a floor** (`app.js sheetPage` Recognition row, `awardsPanel`): Wikidata lists wins far more often than

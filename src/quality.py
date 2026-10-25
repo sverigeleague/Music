@@ -90,8 +90,36 @@ def method_versions(path: Path = ROOT / "docs" / "METHODOLOGY.md") -> list[dict]
     return out
 
 
+AREAS = ("money", "scout", "unsigned", "other")
+
+
+def method_changes(registry: Path = REGISTRY) -> list[dict]:
+    """Money, Scout and Unsigned method versions (registry/method_changes.csv, site #/changelog), all genres (a row
+    for one genre says so on the page). A row naming a correction (same date and subject in registry/corrections.csv)
+    carries that row's was / now / basis, so the two files cannot drift: a name with no match raises."""
+    path = registry / "method_changes.csv"
+    if not path.exists():
+        return []
+    fixes = {(r["date"], r["subject"]): r for r in csv.DictReader((registry / "corrections.csv").open())} \
+        if (registry / "corrections.csv").exists() else {}
+    out = []
+    for r in csv.DictReader(path.open()):
+        if r["area"] not in AREAS:
+            raise ValueError(f"method_changes.csv: unknown area {r['area']!r}")
+        row = {k: r[k] for k in ("area", "version", "date", "genre", "change", "effect", "source")}
+        if r["correction"]:
+            c = fixes.get((r["date"], r["correction"]))
+            if c is None:
+                raise ValueError(f"method_changes.csv: no correction {r['correction']!r} on {r['date']} in corrections.csv")
+            row.update(was=c["was"], now=c["now"], field=c["field"])
+        out.append(row)
+    out.sort(key=lambda r: (r["date"], tuple(int(x) for x in r["version"].split(".")) if r["version"] else ()), reverse=True)
+    return sorted(out, key=lambda r: AREAS.index(r["area"]))  # by area, newest first within each
+
+
 def summary(genre: str) -> dict:
-    return {"queues": queues(genre), "sources": sources(), "corrections": corrections(genre), "method": method_versions()}
+    return {"queues": queues(genre), "sources": sources(), "corrections": corrections(genre), "method": method_versions(),
+            "changes": method_changes()}
 
 
 if __name__ == "__main__":
