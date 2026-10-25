@@ -3967,181 +3967,6 @@
 }
 ]
 },
-"5BcAKTbp20cv7tC5VqPFoC": {
-"qid": "Q16853301",
-"wins": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2014",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2013",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Album",
-"family": "American Music Awards",
-"year": "2013",
-"work": "The Heist"
-},
-{
-"award": "MTV Europe Music Award for Best New Act",
-"family": "MTV",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Song",
-"family": "Grammy",
-"year": "2013",
-"work": "Thrift Shop"
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Album",
-"family": "Grammy",
-"year": "2013",
-"work": "The Heist"
-},
-{
-"award": "BET Award for Best Group",
-"family": "BET",
-"year": "2013",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
-"family": "American Music Awards",
-"year": "2013",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "BET Award for Best Group",
-"family": "BET",
-"year": "2014",
-"work": ""
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2014",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Album",
-"family": "Grammy",
-"year": "2013",
-"work": "The Heist"
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Album",
-"family": "American Music Awards",
-"year": "2013",
-"work": "The Heist"
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Song",
-"family": "Grammy",
-"year": "2013",
-"work": "Thrift Shop"
-},
-{
-"award": "BET Award for Best Group",
-"family": "BET",
-"year": "2013",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best Hip-Hop",
-"family": "MTV",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Billboard Music Award for Top Selling Song",
-"family": "Billboard Music Awards",
-"year": "2013",
-"work": "Thrift Shop"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Band/Duo/Group",
-"family": "American Music Awards",
-"year": "2013",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best World Stage Performance",
-"family": "MTV",
-"year": "2013",
-"work": ""
-},
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "2013",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best New Act",
-"family": "MTV",
-"year": "2013",
-"work": ""
-},
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "2013",
-"work": "The Heist"
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
-"family": "American Music Awards",
-"year": "2013",
-"work": ""
-},
-{
-"award": "American Music Award for Single of the Year",
-"family": "American Music Awards",
-"year": "2013",
-"work": ""
-}
-]
-},
-"6l3HvQ5sa6mXTsMTB19rO5": {
-"qid": "Q204018",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2012",
-"work": ""
-}
-]
-},
 "3TVXtAsR1Inumwj472S9r4": {
 "qid": "Q33240",
 "wins": [
@@ -4217,116 +4042,6 @@
 "award": "Grammy Award for Best New Artist",
 "family": "Grammy",
 "year": "2011",
-"work": ""
-}
-]
-},
-"0c173mlxpT3dSFRgMO8XPh": {
-"qid": "Q367634",
-"wins": [
-{
-"award": "BET Award for Best New Artist",
-"family": "BET",
-"year": "2012",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2013",
-"work": "Mercy"
-},
-{
-"award": "BET Award for Video of the Year",
-"family": "BET",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Song",
-"family": "Grammy",
-"year": "2012",
-"work": "Mercy"
-},
-{
-"award": "MTV Video Music Award for Best Editing",
-"family": "MTV",
-"year": "2012",
-"work": ""
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2012",
-"work": "Marvin & Chardonnay"
-},
-{
-"award": "MTV Europe Music Award for Best US Act",
-"family": "MTV",
-"year": "2012",
-"work": ""
-},
-{
-"award": "BET Award for Best New Artist",
-"family": "BET",
-"year": "2012",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Best Hip-Hop Video",
-"family": "MTV",
-"year": "2012",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Best New Artist",
-"family": "MTV",
-"year": "2011",
-"work": ""
-}
-]
-},
-"3JhNCzhSMTxs9WLGJJxWOY": {
-"qid": "Q484874",
-"wins": [
-{
-"award": "Grammy Award for Best Rap Song",
-"family": "Grammy",
-"year": "2014",
-"work": "Thrift Shop"
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2014",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Best Video with a Social Message",
-"family": "MTV",
-"year": "2013",
-"work": "Same Love"
-},
-{
-"award": "MTV Video Music Award for Best Hip-Hop Video",
-"family": "MTV",
-"year": "2013",
-"work": "Can't Hold Us"
-},
-{
-"award": "MTV Video Music Award for Best Cinematography",
-"family": "MTV",
-"year": "2013",
-"work": "Can't Hold Us"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2014",
 "work": ""
 }
 ]
@@ -4790,937 +4505,6 @@
 "family": "Grammy",
 "year": "2004",
 "work": "Holy Grail"
-}
-],
-"nominations": []
-},
-"4E2rKHVDssGJm2SCDOMMJB": {
-"qid": "Q106629186",
-"wins": [
-{
-"award": "Grammy Award for Best Rap Album",
-"family": "Grammy",
-"year": "2025",
-"work": "Alligator Bites Never Heal"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2025",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2025",
-"work": "Nissan Altima"
-}
-]
-},
-"3jK9MiCrA42lLAdMGUZpwa": {
-"qid": "Q20810369",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2017",
-"work": ""
-}
-]
-},
-"246dkjvS1zLTtiykXe5h60": {
-"qid": "Q21621919",
-"wins": [
-{
-"award": "Billboard Music Award for Top Artist",
-"family": "Billboard Music Awards",
-"year": "2020",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "ARIA Award for Best International Artist",
-"family": "ARIA",
-"year": "2022",
-"work": ""
-},
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "2020",
-"work": ""
-},
-{
-"award": "ARIA Award for Best International Artist",
-"family": "ARIA",
-"year": "2019",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
-"family": "American Music Awards",
-"year": "2019",
-"work": ""
-},
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "2019",
-"work": ""
-},
-{
-"award": "ARIA Award for Best International Artist",
-"family": "ARIA",
-"year": "2018",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip Hop Artist",
-"family": "American Music Awards",
-"year": "2018",
-"work": ""
-},
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "2018",
-"work": ""
-},
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "2017",
-"work": ""
-}
-]
-},
-"4O15NlyKLIASxsJ0PrXPfz": {
-"qid": "Q23771950",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2018",
-"work": ""
-}
-]
-},
-"4kYSro6naA4h99UJvo89HB": {
-"qid": "Q29033668",
-"wins": [
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Song",
-"family": "American Music Awards",
-"year": "2021",
-"work": "Up"
-},
-{
-"award": "BET Award for Video of the Year",
-"family": "BET",
-"year": "2021",
-"work": "WAP"
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2021",
-"work": "WAP"
-},
-{
-"award": "MTV Europe Music Award for Best Hip-Hop",
-"family": "MTV",
-"year": "2020",
-"work": ""
-},
-{
-"award": "Billboard Music Award for Top Rap Female Artist",
-"family": "Billboard Music Awards",
-"year": "2020",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Song",
-"family": "American Music Awards",
-"year": "2020",
-"work": "WAP"
-},
-{
-"award": "BET Award for Best Female Hip Hop Artist",
-"family": "BET",
-"year": "2019",
-"work": ""
-},
-{
-"award": "Billboard Music Award for Top Radio Song",
-"family": "Billboard Music Awards",
-"year": "2019",
-"work": "Girls Like You"
-},
-{
-"award": "Billboard Music Award for Top Collaboration",
-"family": "Billboard Music Awards",
-"year": "2019",
-"work": "Girls Like You"
-},
-{
-"award": "Billboard Music Award for Top Rap Female Artist",
-"family": "Billboard Music Awards",
-"year": "2019",
-"work": ""
-},
-{
-"award": "Billboard Music Award for Top Hot 100 Song",
-"family": "Billboard Music Awards",
-"year": "2019",
-"work": "Girls Like You"
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
-"family": "American Music Awards",
-"year": "2019",
-"work": ""
-},
-{
-"award": "Billboard Music Award for Top Rap Song",
-"family": "Billboard Music Awards",
-"year": "2019",
-"work": "I Like It"
-},
-{
-"award": "BET Award for Album of the Year",
-"family": "BET",
-"year": "2019",
-"work": "Invasion of Privacy"
-},
-{
-"award": "MTV Video Music Award for Best Hip-Hop Video",
-"family": "MTV",
-"year": "2019",
-"work": "Money"
-},
-{
-"award": "Grammy Award for Best Rap Album",
-"family": "Grammy",
-"year": "2019",
-"work": "Invasion of Privacy"
-},
-{
-"award": "Billboard Music Award for Top Selling Song",
-"family": "Billboard Music Awards",
-"year": "2019",
-"work": "Girls Like You"
-},
-{
-"award": "American Music Award for Favorite Soul/R&B Song",
-"family": "American Music Awards",
-"year": "2018",
-"work": "Finesse"
-},
-{
-"award": "BET Award for Best Female Hip Hop Artist",
-"family": "BET",
-"year": "2018",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Best New Artist",
-"family": "MTV",
-"year": "2018",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
-"family": "American Music Awards",
-"year": "2018",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Song",
-"family": "American Music Awards",
-"year": "2018",
-"work": "Bodak Yellow"
-},
-{
-"award": "MTV Video Music Award for Best Collaboration",
-"family": "MTV",
-"year": "2018",
-"work": "Dinero"
-},
-{
-"award": "Billboard Music Award for Top Rap Female Artist",
-"family": "Billboard Music Awards",
-"year": "2018",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Song of Summer",
-"family": "MTV",
-"year": "2018",
-"work": "I Like It"
-},
-{
-"award": "MTV Europe Music Award for Best New Act",
-"family": "MTV",
-"year": "2018",
-"work": ""
-},
-{
-"award": "BET Award for Viewer's Choice",
-"family": "BET",
-"year": "2018",
-"work": "Bodak Yellow"
-},
-{
-"award": "MTV Video Music Awards",
-"family": "MTV",
-"year": "",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2025",
-"work": "Enough (Miami)"
-},
-{
-"award": "BET Award for Best Female Hip Hop Artist",
-"family": "BET",
-"year": "2022",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2022",
-"work": "Up"
-},
-{
-"award": "BET Award for Viewer's Choice",
-"family": "BET",
-"year": "2021",
-"work": "WAP"
-},
-{
-"award": "American Music Award for Video of the Year",
-"family": "American Music Awards",
-"year": "2021",
-"work": ""
-},
-{
-"award": "BET Award for Video of the Year",
-"family": "BET",
-"year": "2021",
-"work": "Up"
-},
-{
-"award": "BET Award for Best Female Hip Hop Artist",
-"family": "BET",
-"year": "2021",
-"work": ""
-},
-{
-"award": "BET Award for Best Female Hip Hop Artist",
-"family": "BET",
-"year": "2020",
-"work": ""
-},
-{
-"award": "American Music Award for Collaboration of the Year",
-"family": "American Music Awards",
-"year": "2020",
-"work": "WAP"
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2020",
-"work": "Clout"
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "2019",
-"work": "I Like It"
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "2019",
-"work": "Invasion of Privacy"
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2019",
-"work": "I Like It"
-},
-{
-"award": "BET Award for Video of the Year",
-"family": "BET",
-"year": "2019",
-"work": "Money"
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2019",
-"work": "Be Careful"
-},
-{
-"award": "BET Award for Viewer's Choice",
-"family": "BET",
-"year": "2019",
-"work": "I Like It"
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2019",
-"work": "Please Me"
-},
-{
-"award": "BET Award for Video of the Year",
-"family": "BET",
-"year": "2019",
-"work": "Please Me"
-},
-{
-"award": "Grammy Award for Best Pop Duo/Group Performance",
-"family": "Grammy",
-"year": "2019",
-"work": "Girls Like You"
-},
-{
-"award": "American Music Award for Collaboration of the Year",
-"family": "American Music Awards",
-"year": "2018",
-"work": "Finesse"
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2018",
-"work": "Finesse"
-},
-{
-"award": "American Music Award for Video of the Year",
-"family": "American Music Awards",
-"year": "2018",
-"work": "Bodak Yellow"
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2018",
-"work": "Bartier Cardi"
-},
-{
-"award": "BET Award for Video of the Year",
-"family": "BET",
-"year": "2018",
-"work": "Finesse"
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2018",
-"work": "Bodak Yellow"
-},
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "2018",
-"work": ""
-},
-{
-"award": "BET Award for Viewer's Choice",
-"family": "BET",
-"year": "2018",
-"work": "MotorSport"
-},
-{
-"award": "Grammy Award for Best Rap Song",
-"family": "Grammy",
-"year": "2018",
-"work": "Bodak Yellow"
-},
-{
-"award": "BET Award for Video of the Year",
-"family": "BET",
-"year": "2018",
-"work": "Bodak Yellow"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Female Artist",
-"family": "American Music Awards",
-"year": "2018",
-"work": ""
-},
-{
-"award": "BET Award for Best New Artist",
-"family": "BET",
-"year": "2017",
-"work": ""
-},
-{
-"award": "BET Award for Best Female Hip Hop Artist",
-"family": "BET",
-"year": "2017",
-"work": ""
-}
-]
-},
-"5cj0lLjcoR7YOSnhnX0Po5": {
-"qid": "Q51120673",
-"wins": [
-{
-"award": "Grammy Award for Best Pop Duo/Group Performance",
-"family": "Grammy",
-"year": "2022",
-"work": "Kiss Me More"
-},
-{
-"award": "American Music Award for Collaboration of the Year",
-"family": "American Music Awards",
-"year": "2021",
-"work": "Kiss Me More"
-},
-{
-"award": "American Music Award for Favorite Soul/R&B Album",
-"family": "American Music Awards",
-"year": "2021",
-"work": "Planet Her"
-},
-{
-"award": "American Music Award for Favorite Soul/R&B Female Artist",
-"family": "American Music Awards",
-"year": "2021",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best Collaboration",
-"family": "MTV",
-"year": "2021",
-"work": "Kiss Me More"
-},
-{
-"award": "MTV Video Music Award for Best Collaboration",
-"family": "MTV",
-"year": "2021",
-"work": "Kiss Me More"
-},
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "2020",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best New Act",
-"family": "MTV",
-"year": "2020",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Soul/R&B Female Artist",
-"family": "American Music Awards",
-"year": "2020",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Best New Artist",
-"family": "MTV",
-"year": "2020",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2021",
-"work": ""
-}
-]
-},
-"181bsRPaVXVlUKXrxwZfHK": {
-"qid": "Q59268408",
-"wins": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2021",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Song",
-"family": "Grammy",
-"year": "2021",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2021",
-"work": ""
-}
-]
-},
-"2LIk90788K0zvyj2JJVwkJ": {
-"qid": "Q59727812",
-"wins": [
-{
-"award": "Billboard Music Award for Top Rap Song",
-"family": "Billboard Music Awards",
-"year": "2022",
-"work": "Industry Baby"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Melodic Rap Performance",
-"family": "Grammy",
-"year": "2022",
-"work": "Industry Baby"
-},
-{
-"award": "Billboard Music Award for Top Collaboration",
-"family": "Billboard Music Awards",
-"year": "2022",
-"work": "Industry Baby"
-},
-{
-"award": "BET Award for Best Male Hip-Hop Artist",
-"family": "BET",
-"year": "2022",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Song of Summer",
-"family": "MTV",
-"year": "2021",
-"work": "Industry Baby"
-},
-{
-"award": "Billboard Music Award for Top New Artist",
-"family": "Billboard Music Awards",
-"year": "2021",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best Collaboration",
-"family": "MTV",
-"year": "2021",
-"work": "Industry Baby"
-},
-{
-"award": "BET Award for Best New Artist",
-"family": "BET",
-"year": "2021",
-"work": ""
-},
-{
-"award": "BET Award for Best Male Hip-Hop Artist",
-"family": "BET",
-"year": "2021",
-"work": ""
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2021",
-"work": "Whats Poppin"
-},
-{
-"award": "Billboard Music Award for Top Streaming Song",
-"family": "Billboard Music Awards",
-"year": "2021",
-"work": "Whats Poppin"
-},
-{
-"award": "Billboard Music Award for Top Rap Song",
-"family": "Billboard Music Awards",
-"year": "2021",
-"work": "Whats Poppin"
-},
-{
-"award": "Billboard Music Award for Top Collaboration",
-"family": "Billboard Music Awards",
-"year": "2021",
-"work": "Whats Poppin"
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "2021",
-"work": "Whats Poppin"
-},
-{
-"award": "MTV Europe Music Award for Best Push Act",
-"family": "MTV",
-"year": "2020",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best New Act",
-"family": "MTV",
-"year": "2020",
-"work": ""
-},
-{
-"award": "MTV Video Music Award for Push Performance of the Year",
-"family": "MTV",
-"year": "2020",
-"work": ""
-}
-]
-},
-"7jVv8c5Fj3E9VhNjxT4snq": {
-"qid": "Q62591281",
-"wins": [
-{
-"award": "MTV Europe Music Award for Best Video",
-"family": "MTV",
-"year": "2021",
-"work": "MONTERO (Call Me By Your Name)"
-},
-{
-"award": "Grammy Award for Best Music Video",
-"family": "Grammy",
-"year": "2020",
-"work": "Old Town Road"
-},
-{
-"award": "Grammy Award for Best Pop Duo/Group Performance",
-"family": "Grammy",
-"year": "2020",
-"work": "Old Town Road (remix)"
-},
-{
-"award": "MTV Video Music Award for Best Direction",
-"family": "MTV",
-"year": "2019",
-"work": "Old Town Road"
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Song",
-"family": "American Music Awards",
-"year": "2019",
-"work": "Old Town Road"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2020",
-"work": ""
-}
-]
-},
-"73sIBHcqh3Z3NyqHKZ7FOL": {
-"qid": "Q1239933",
-"wins": [
-{
-"award": "Grammy Award for Song of the Year",
-"family": "Grammy",
-"year": "2018",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Music Video",
-"family": "Grammy",
-"year": "2018",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Melodic Rap Performance",
-"family": "Grammy",
-"year": "2018",
-"work": ""
-},
-{
-"award": "Grammy Award for Best R&B Song",
-"family": "Grammy",
-"year": "2015",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Traditional R&B Performance",
-"family": "Grammy",
-"year": "2015",
-"work": ""
-}
-],
-"nominations": []
-},
-"0Y5tJX1MQlPlqiwlOH1tJY": {
-"qid": "Q13605596",
-"wins": [
-{
-"award": "MTV Video Music Award for Best Hip-Hop Video",
-"family": "MTV",
-"year": "2021",
-"work": "FRANCHISE"
-},
-{
-"award": "Latin Grammy Award for Best Short Form Music Video",
-"family": "Grammy",
-"year": "2020",
-"work": "TKN"
-}
-],
-"nominations": []
-},
-"2jku7tDXc6XoB6MO2hFuqg": {
-"qid": "Q18353558",
-"wins": [
-{
-"award": "Juno Awards",
-"family": "Juno",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"085pc2PYOi8bGKj0PNjekA": {
-"qid": "Q185610",
-"wins": [
-{
-"award": "NAACP Image Awards",
-"family": "NAACP Image",
-"year": "2009",
-"work": ""
-},
-{
-"award": "Grammy Awards",
-"family": "Grammy",
-"year": "",
-"work": ""
-},
-{
-"award": "Billboard Music Awards",
-"family": "Billboard Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"4OBJLual30L7gRl5UkeRcT": {
-"qid": "Q214227",
-"wins": [
-{
-"award": "Grammy Award for Best Rap Performance by a Duo or Group",
-"family": "Grammy",
-"year": "2009",
-"work": "Swagga Like Us"
-},
-{
-"award": "MTV Video Music Award for Best Male Video",
-"family": "MTV",
-"year": "2009",
-"work": "Live Your Life"
-},
-{
-"award": "BET Award for Viewer's Choice",
-"family": "BET",
-"year": "2009",
-"work": "Live Your Life"
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Album",
-"family": "American Music Awards",
-"year": "2007",
-"work": "T.I. vs. T.I.P."
-},
-{
-"award": "BET Award for Best Male Hip-Hop Artist",
-"family": "BET",
-"year": "2007",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
-"family": "American Music Awards",
-"year": "2007",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Solo Performance",
-"family": "Grammy",
-"year": "2007",
-"work": "What You Know"
-},
-{
-"award": "Grammy Award for Best Melodic Rap Performance",
-"family": "Grammy",
-"year": "2007",
-"work": "My Love"
-},
-{
-"award": "BET Award for Best Male Hip-Hop Artist",
-"family": "BET",
-"year": "2006",
-"work": ""
-}
-],
-"nominations": []
-},
-"2gBjLmx6zQnFGQJCAQpRgw": {
-"qid": "Q218992",
-"wins": [
-{
-"award": "Grammy Award for Best Melodic Rap Performance",
-"family": "Grammy",
-"year": "2003",
-"work": "Dilemma"
-}
-],
-"nominations": []
-},
-"0fA0VVWsXO9YnASrzqfmYu": {
-"qid": "Q299138",
-"wins": [
-{
-"award": "Grammy Award for Best Melodic Rap Performance",
-"family": "Grammy",
-"year": "2012",
-"work": "All of the Lights"
-}
-],
-"nominations": []
-},
-"3y24n3XhZ96wgwRXjvS17T": {
-"qid": "Q310357",
-"wins": [
-{
-"award": "Grammy Award for Best Rap Solo Performance",
-"family": "Grammy",
-"year": "1996",
-"work": ""
-}
-],
-"nominations": []
-},
-"4MCBfE4596Uoi2O4DtmEMz": {
-"qid": "Q52151598",
-"wins": [
-{
-"award": "Billboard Music Award for Top New Artist",
-"family": "Billboard Music Awards",
-"year": "2019",
-"work": ""
 }
 ],
 "nominations": []
@@ -6494,18 +5278,6 @@
 }
 ]
 },
-"1Z8ODXyhEBi3WynYw0Rya6": {
-"qid": "Q685595",
-"wins": [],
-"nominations": [
-{
-"award": "Soul Train Music Award for Best Rap Album",
-"family": "Soul Train",
-"year": "1990",
-"work": "3 Feet High and Rising"
-}
-]
-},
 "5YwzDz4RJfTiMHS4tdR5Lf": {
 "qid": "Q106977922",
 "wins": [
@@ -6740,6 +5512,1475 @@
 ],
 "nominations": []
 },
+"1WQBwwssN6r8DSjUlkyUGW": {
+"qid": "Q85875010",
+"wins": [
+{
+"award": "MTV MIAW Awards",
+"family": "MTV",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"5BcAKTbp20cv7tC5VqPFoC": {
+"qid": "Q16853301",
+"wins": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2014",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Album",
+"family": "American Music Awards",
+"year": "2013",
+"work": "The Heist"
+},
+{
+"award": "MTV Europe Music Award for Best New Act",
+"family": "MTV",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2013",
+"work": "Thrift Shop"
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Album",
+"family": "Grammy",
+"year": "2013",
+"work": "The Heist"
+},
+{
+"award": "BET Award for Best Group",
+"family": "BET",
+"year": "2013",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2013",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "BET Award for Best Group",
+"family": "BET",
+"year": "2014",
+"work": ""
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2014",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Album",
+"family": "Grammy",
+"year": "2013",
+"work": "The Heist"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Album",
+"family": "American Music Awards",
+"year": "2013",
+"work": "The Heist"
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2013",
+"work": "Thrift Shop"
+},
+{
+"award": "BET Award for Best Group",
+"family": "BET",
+"year": "2013",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best Hip-Hop",
+"family": "MTV",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Billboard Music Award for Top Selling Song",
+"family": "Billboard Music Awards",
+"year": "2013",
+"work": "Thrift Shop"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Band/Duo/Group",
+"family": "American Music Awards",
+"year": "2013",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best World Stage Performance",
+"family": "MTV",
+"year": "2013",
+"work": ""
+},
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "2013",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best New Act",
+"family": "MTV",
+"year": "2013",
+"work": ""
+},
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2013",
+"work": "The Heist"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2013",
+"work": ""
+},
+{
+"award": "American Music Award for Single of the Year",
+"family": "American Music Awards",
+"year": "2013",
+"work": ""
+}
+]
+},
+"6l3HvQ5sa6mXTsMTB19rO5": {
+"qid": "Q204018",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2012",
+"work": ""
+}
+]
+},
+"0c173mlxpT3dSFRgMO8XPh": {
+"qid": "Q367634",
+"wins": [
+{
+"award": "BET Award for Best New Artist",
+"family": "BET",
+"year": "2012",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2013",
+"work": "Mercy"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2012",
+"work": "Mercy"
+},
+{
+"award": "MTV Video Music Award for Best Editing",
+"family": "MTV",
+"year": "2012",
+"work": ""
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2012",
+"work": "Marvin & Chardonnay"
+},
+{
+"award": "MTV Europe Music Award for Best US Act",
+"family": "MTV",
+"year": "2012",
+"work": ""
+},
+{
+"award": "BET Award for Best New Artist",
+"family": "BET",
+"year": "2012",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Best Hip-Hop Video",
+"family": "MTV",
+"year": "2012",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Best New Artist",
+"family": "MTV",
+"year": "2011",
+"work": ""
+}
+]
+},
+"3JhNCzhSMTxs9WLGJJxWOY": {
+"qid": "Q484874",
+"wins": [
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2014",
+"work": "Thrift Shop"
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2014",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Best Video with a Social Message",
+"family": "MTV",
+"year": "2013",
+"work": "Same Love"
+},
+{
+"award": "MTV Video Music Award for Best Hip-Hop Video",
+"family": "MTV",
+"year": "2013",
+"work": "Can't Hold Us"
+},
+{
+"award": "MTV Video Music Award for Best Cinematography",
+"family": "MTV",
+"year": "2013",
+"work": "Can't Hold Us"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2014",
+"work": ""
+}
+]
+},
+"73sIBHcqh3Z3NyqHKZ7FOL": {
+"qid": "Q1239933",
+"wins": [
+{
+"award": "Grammy Award for Song of the Year",
+"family": "Grammy",
+"year": "2018",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Music Video",
+"family": "Grammy",
+"year": "2018",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2018",
+"work": ""
+},
+{
+"award": "Grammy Award for Best R&B Song",
+"family": "Grammy",
+"year": "2015",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Traditional R&B Performance",
+"family": "Grammy",
+"year": "2015",
+"work": ""
+}
+],
+"nominations": []
+},
+"0Y5tJX1MQlPlqiwlOH1tJY": {
+"qid": "Q13605596",
+"wins": [
+{
+"award": "MTV Video Music Award for Best Hip-Hop Video",
+"family": "MTV",
+"year": "2021",
+"work": "FRANCHISE"
+},
+{
+"award": "Latin Grammy Award for Best Short Form Music Video",
+"family": "Grammy",
+"year": "2020",
+"work": "TKN"
+}
+],
+"nominations": []
+},
+"2jku7tDXc6XoB6MO2hFuqg": {
+"qid": "Q18353558",
+"wins": [
+{
+"award": "Juno Awards",
+"family": "Juno",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"085pc2PYOi8bGKj0PNjekA": {
+"qid": "Q185610",
+"wins": [
+{
+"award": "NAACP Image Awards",
+"family": "NAACP Image",
+"year": "2009",
+"work": ""
+},
+{
+"award": "Grammy Awards",
+"family": "Grammy",
+"year": "",
+"work": ""
+},
+{
+"award": "Billboard Music Awards",
+"family": "Billboard Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"4OBJLual30L7gRl5UkeRcT": {
+"qid": "Q214227",
+"wins": [
+{
+"award": "Grammy Award for Best Rap Performance by a Duo or Group",
+"family": "Grammy",
+"year": "2009",
+"work": "Swagga Like Us"
+},
+{
+"award": "MTV Video Music Award for Best Male Video",
+"family": "MTV",
+"year": "2009",
+"work": "Live Your Life"
+},
+{
+"award": "BET Award for Viewer's Choice",
+"family": "BET",
+"year": "2009",
+"work": "Live Your Life"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Album",
+"family": "American Music Awards",
+"year": "2007",
+"work": "T.I. vs. T.I.P."
+},
+{
+"award": "BET Award for Best Male Hip-Hop Artist",
+"family": "BET",
+"year": "2007",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2007",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "2007",
+"work": "What You Know"
+},
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2007",
+"work": "My Love"
+},
+{
+"award": "BET Award for Best Male Hip-Hop Artist",
+"family": "BET",
+"year": "2006",
+"work": ""
+}
+],
+"nominations": []
+},
+"246dkjvS1zLTtiykXe5h60": {
+"qid": "Q21621919",
+"wins": [
+{
+"award": "Billboard Music Award for Top Artist",
+"family": "Billboard Music Awards",
+"year": "2020",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "ARIA Award for Best International Artist",
+"family": "ARIA",
+"year": "2022",
+"work": ""
+},
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "2020",
+"work": ""
+},
+{
+"award": "ARIA Award for Best International Artist",
+"family": "ARIA",
+"year": "2019",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2019",
+"work": ""
+},
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "2019",
+"work": ""
+},
+{
+"award": "ARIA Award for Best International Artist",
+"family": "ARIA",
+"year": "2018",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip Hop Artist",
+"family": "American Music Awards",
+"year": "2018",
+"work": ""
+},
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "2018",
+"work": ""
+},
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "2017",
+"work": ""
+}
+]
+},
+"2gBjLmx6zQnFGQJCAQpRgw": {
+"qid": "Q218992",
+"wins": [
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2003",
+"work": "Dilemma"
+}
+],
+"nominations": []
+},
+"4kYSro6naA4h99UJvo89HB": {
+"qid": "Q29033668",
+"wins": [
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Song",
+"family": "American Music Awards",
+"year": "2021",
+"work": "Up"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2021",
+"work": "WAP"
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2021",
+"work": "WAP"
+},
+{
+"award": "MTV Europe Music Award for Best Hip-Hop",
+"family": "MTV",
+"year": "2020",
+"work": ""
+},
+{
+"award": "Billboard Music Award for Top Rap Female Artist",
+"family": "Billboard Music Awards",
+"year": "2020",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Song",
+"family": "American Music Awards",
+"year": "2020",
+"work": "WAP"
+},
+{
+"award": "BET Award for Best Female Hip Hop Artist",
+"family": "BET",
+"year": "2019",
+"work": ""
+},
+{
+"award": "Billboard Music Award for Top Radio Song",
+"family": "Billboard Music Awards",
+"year": "2019",
+"work": "Girls Like You"
+},
+{
+"award": "Billboard Music Award for Top Collaboration",
+"family": "Billboard Music Awards",
+"year": "2019",
+"work": "Girls Like You"
+},
+{
+"award": "Billboard Music Award for Top Rap Female Artist",
+"family": "Billboard Music Awards",
+"year": "2019",
+"work": ""
+},
+{
+"award": "Billboard Music Award for Top Hot 100 Song",
+"family": "Billboard Music Awards",
+"year": "2019",
+"work": "Girls Like You"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2019",
+"work": ""
+},
+{
+"award": "Billboard Music Award for Top Rap Song",
+"family": "Billboard Music Awards",
+"year": "2019",
+"work": "I Like It"
+},
+{
+"award": "BET Award for Album of the Year",
+"family": "BET",
+"year": "2019",
+"work": "Invasion of Privacy"
+},
+{
+"award": "MTV Video Music Award for Best Hip-Hop Video",
+"family": "MTV",
+"year": "2019",
+"work": "Money"
+},
+{
+"award": "Grammy Award for Best Rap Album",
+"family": "Grammy",
+"year": "2019",
+"work": "Invasion of Privacy"
+},
+{
+"award": "Billboard Music Award for Top Selling Song",
+"family": "Billboard Music Awards",
+"year": "2019",
+"work": "Girls Like You"
+},
+{
+"award": "American Music Award for Favorite Soul/R&B Song",
+"family": "American Music Awards",
+"year": "2018",
+"work": "Finesse"
+},
+{
+"award": "BET Award for Best Female Hip Hop Artist",
+"family": "BET",
+"year": "2018",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Best New Artist",
+"family": "MTV",
+"year": "2018",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2018",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Song",
+"family": "American Music Awards",
+"year": "2018",
+"work": "Bodak Yellow"
+},
+{
+"award": "MTV Video Music Award for Best Collaboration",
+"family": "MTV",
+"year": "2018",
+"work": "Dinero"
+},
+{
+"award": "Billboard Music Award for Top Rap Female Artist",
+"family": "Billboard Music Awards",
+"year": "2018",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Song of Summer",
+"family": "MTV",
+"year": "2018",
+"work": "I Like It"
+},
+{
+"award": "MTV Europe Music Award for Best New Act",
+"family": "MTV",
+"year": "2018",
+"work": ""
+},
+{
+"award": "BET Award for Viewer's Choice",
+"family": "BET",
+"year": "2018",
+"work": "Bodak Yellow"
+},
+{
+"award": "MTV Video Music Awards",
+"family": "MTV",
+"year": "",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2025",
+"work": "Enough (Miami)"
+},
+{
+"award": "BET Award for Best Female Hip Hop Artist",
+"family": "BET",
+"year": "2022",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2022",
+"work": "Up"
+},
+{
+"award": "BET Award for Viewer's Choice",
+"family": "BET",
+"year": "2021",
+"work": "WAP"
+},
+{
+"award": "American Music Award for Video of the Year",
+"family": "American Music Awards",
+"year": "2021",
+"work": ""
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2021",
+"work": "Up"
+},
+{
+"award": "BET Award for Best Female Hip Hop Artist",
+"family": "BET",
+"year": "2021",
+"work": ""
+},
+{
+"award": "BET Award for Best Female Hip Hop Artist",
+"family": "BET",
+"year": "2020",
+"work": ""
+},
+{
+"award": "American Music Award for Collaboration of the Year",
+"family": "American Music Awards",
+"year": "2020",
+"work": "WAP"
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2020",
+"work": "Clout"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "2019",
+"work": "I Like It"
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2019",
+"work": "Invasion of Privacy"
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2019",
+"work": "I Like It"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2019",
+"work": "Money"
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2019",
+"work": "Be Careful"
+},
+{
+"award": "BET Award for Viewer's Choice",
+"family": "BET",
+"year": "2019",
+"work": "I Like It"
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2019",
+"work": "Please Me"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2019",
+"work": "Please Me"
+},
+{
+"award": "Grammy Award for Best Pop Duo/Group Performance",
+"family": "Grammy",
+"year": "2019",
+"work": "Girls Like You"
+},
+{
+"award": "American Music Award for Collaboration of the Year",
+"family": "American Music Awards",
+"year": "2018",
+"work": "Finesse"
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2018",
+"work": "Finesse"
+},
+{
+"award": "American Music Award for Video of the Year",
+"family": "American Music Awards",
+"year": "2018",
+"work": "Bodak Yellow"
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2018",
+"work": "Bartier Cardi"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2018",
+"work": "Finesse"
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2018",
+"work": "Bodak Yellow"
+},
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "2018",
+"work": ""
+},
+{
+"award": "BET Award for Viewer's Choice",
+"family": "BET",
+"year": "2018",
+"work": "MotorSport"
+},
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2018",
+"work": "Bodak Yellow"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2018",
+"work": "Bodak Yellow"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Female Artist",
+"family": "American Music Awards",
+"year": "2018",
+"work": ""
+},
+{
+"award": "BET Award for Best New Artist",
+"family": "BET",
+"year": "2017",
+"work": ""
+},
+{
+"award": "BET Award for Best Female Hip Hop Artist",
+"family": "BET",
+"year": "2017",
+"work": ""
+}
+]
+},
+"0fA0VVWsXO9YnASrzqfmYu": {
+"qid": "Q299138",
+"wins": [
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2012",
+"work": "All of the Lights"
+}
+],
+"nominations": []
+},
+"3y24n3XhZ96wgwRXjvS17T": {
+"qid": "Q310357",
+"wins": [
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "1996",
+"work": ""
+}
+],
+"nominations": []
+},
+"5cj0lLjcoR7YOSnhnX0Po5": {
+"qid": "Q51120673",
+"wins": [
+{
+"award": "Grammy Award for Best Pop Duo/Group Performance",
+"family": "Grammy",
+"year": "2022",
+"work": "Kiss Me More"
+},
+{
+"award": "American Music Award for Collaboration of the Year",
+"family": "American Music Awards",
+"year": "2021",
+"work": "Kiss Me More"
+},
+{
+"award": "American Music Award for Favorite Soul/R&B Album",
+"family": "American Music Awards",
+"year": "2021",
+"work": "Planet Her"
+},
+{
+"award": "American Music Award for Favorite Soul/R&B Female Artist",
+"family": "American Music Awards",
+"year": "2021",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best Collaboration",
+"family": "MTV",
+"year": "2021",
+"work": "Kiss Me More"
+},
+{
+"award": "MTV Video Music Award for Best Collaboration",
+"family": "MTV",
+"year": "2021",
+"work": "Kiss Me More"
+},
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "2020",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best New Act",
+"family": "MTV",
+"year": "2020",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Soul/R&B Female Artist",
+"family": "American Music Awards",
+"year": "2020",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Best New Artist",
+"family": "MTV",
+"year": "2020",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2021",
+"work": ""
+}
+]
+},
+"4MCBfE4596Uoi2O4DtmEMz": {
+"qid": "Q52151598",
+"wins": [
+{
+"award": "Billboard Music Award for Top New Artist",
+"family": "Billboard Music Awards",
+"year": "2019",
+"work": ""
+}
+],
+"nominations": []
+},
+"181bsRPaVXVlUKXrxwZfHK": {
+"qid": "Q59268408",
+"wins": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2021",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2021",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2021",
+"work": ""
+}
+]
+},
+"2LIk90788K0zvyj2JJVwkJ": {
+"qid": "Q59727812",
+"wins": [
+{
+"award": "Billboard Music Award for Top Rap Song",
+"family": "Billboard Music Awards",
+"year": "2022",
+"work": "Industry Baby"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2022",
+"work": "Industry Baby"
+},
+{
+"award": "Billboard Music Award for Top Collaboration",
+"family": "Billboard Music Awards",
+"year": "2022",
+"work": "Industry Baby"
+},
+{
+"award": "BET Award for Best Male Hip-Hop Artist",
+"family": "BET",
+"year": "2022",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Song of Summer",
+"family": "MTV",
+"year": "2021",
+"work": "Industry Baby"
+},
+{
+"award": "Billboard Music Award for Top New Artist",
+"family": "Billboard Music Awards",
+"year": "2021",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best Collaboration",
+"family": "MTV",
+"year": "2021",
+"work": "Industry Baby"
+},
+{
+"award": "BET Award for Best New Artist",
+"family": "BET",
+"year": "2021",
+"work": ""
+},
+{
+"award": "BET Award for Best Male Hip-Hop Artist",
+"family": "BET",
+"year": "2021",
+"work": ""
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2021",
+"work": "Whats Poppin"
+},
+{
+"award": "Billboard Music Award for Top Streaming Song",
+"family": "Billboard Music Awards",
+"year": "2021",
+"work": "Whats Poppin"
+},
+{
+"award": "Billboard Music Award for Top Rap Song",
+"family": "Billboard Music Awards",
+"year": "2021",
+"work": "Whats Poppin"
+},
+{
+"award": "Billboard Music Award for Top Collaboration",
+"family": "Billboard Music Awards",
+"year": "2021",
+"work": "Whats Poppin"
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2021",
+"work": "Whats Poppin"
+},
+{
+"award": "MTV Europe Music Award for Best Push Act",
+"family": "MTV",
+"year": "2020",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best New Act",
+"family": "MTV",
+"year": "2020",
+"work": ""
+},
+{
+"award": "MTV Video Music Award for Push Performance of the Year",
+"family": "MTV",
+"year": "2020",
+"work": ""
+}
+]
+},
+"4E2rKHVDssGJm2SCDOMMJB": {
+"qid": "Q106629186",
+"wins": [
+{
+"award": "Grammy Award for Best Rap Album",
+"family": "Grammy",
+"year": "2025",
+"work": "Alligator Bites Never Heal"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2025",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "2025",
+"work": "Nissan Altima"
+}
+]
+},
+"3jK9MiCrA42lLAdMGUZpwa": {
+"qid": "Q20810369",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2017",
+"work": ""
+}
+]
+},
+"4O15NlyKLIASxsJ0PrXPfz": {
+"qid": "Q23771950",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2018",
+"work": ""
+}
+]
+},
+"7jVv8c5Fj3E9VhNjxT4snq": {
+"qid": "Q62591281",
+"wins": [
+{
+"award": "MTV Europe Music Award for Best Video",
+"family": "MTV",
+"year": "2021",
+"work": "MONTERO (Call Me By Your Name)"
+},
+{
+"award": "Grammy Award for Best Music Video",
+"family": "Grammy",
+"year": "2020",
+"work": "Old Town Road"
+},
+{
+"award": "Grammy Award for Best Pop Duo/Group Performance",
+"family": "Grammy",
+"year": "2020",
+"work": "Old Town Road (remix)"
+},
+{
+"award": "MTV Video Music Award for Best Direction",
+"family": "MTV",
+"year": "2019",
+"work": "Old Town Road"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Song",
+"family": "American Music Awards",
+"year": "2019",
+"work": "Old Town Road"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2020",
+"work": ""
+}
+]
+},
+"2x7PC78TmgqpEIjaGAZ0Oz": {
+"qid": "Q98273264",
+"wins": [
+{
+"award": "Latin Grammy Award for Best Urban Fusion/Performance",
+"family": "Grammy",
+"year": "2024",
+"work": ""
+}
+],
+"nominations": []
+},
+"1Z8ODXyhEBi3WynYw0Rya6": {
+"qid": "Q685595",
+"wins": [],
+"nominations": [
+{
+"award": "Soul Train Music Award for Best Rap Album",
+"family": "Soul Train",
+"year": "1990",
+"work": "3 Feet High and Rising"
+}
+]
+},
+"5gqmbbfjcikQBzPB5Hv13I": {
+"qid": "Q107427536",
+"wins": [
+{
+"award": "Victoires de la Musique – Male artist of the year",
+"family": "Victoires de la musique",
+"year": "2024",
+"work": ""
+}
+],
+"nominations": []
+},
+"3NlsBPwqJuDgtXZ2rv5Dmq": {
+"qid": "Q15935",
+"wins": [
+{
+"award": "BET Award for Best Group",
+"family": "BET",
+"year": "2012",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Album",
+"family": "American Music Awards",
+"year": "2008",
+"work": "Graduation"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2008",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2006",
+"work": "Diamonds from Sierra Leone"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2006",
+"work": "Gold Digger"
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "2006",
+"work": "Gold Digger"
+},
+{
+"award": "Grammy Award for Best Rap Album",
+"family": "Grammy",
+"year": "2006",
+"work": "Late Registration"
+},
+{
+"award": "BET Award for Best Male Hip-Hop Artist",
+"family": "BET",
+"year": "2005",
+"work": ""
+},
+{
+"award": "Grammy Award for Best R&B Song",
+"family": "Grammy",
+"year": "2005",
+"work": "You Don't Know My Name"
+},
+{
+"award": "Grammy Award for Best Rap Song",
+"family": "Grammy",
+"year": "2005",
+"work": "Jesus Walks"
+},
+{
+"award": "BET Award for Video of the Year",
+"family": "BET",
+"year": "2005",
+"work": "Jesus Walks"
+},
+{
+"award": "Grammy Award for Best Rap Album",
+"family": "Grammy",
+"year": "2005",
+"work": "The College Dropout"
+},
+{
+"award": "BET Award for Best New Artist",
+"family": "BET",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Billboard Music Award for Top Rap Artist",
+"family": "Billboard Music Awards",
+"year": "2004",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "American Music Award for Collaboration of the Year",
+"family": "American Music Awards",
+"year": "2015",
+"work": "FourFiveSeconds"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2011",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Album",
+"family": "American Music Awards",
+"year": "2011",
+"work": "Watch the Throne"
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2006",
+"work": "Late Registration"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2006",
+"work": ""
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2006",
+"work": "The Emancipation of Mimi"
+},
+{
+"award": "Grammy Award for Best R&B Song",
+"family": "Grammy",
+"year": "2006",
+"work": "Unbreakable"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "2006",
+"work": "Gold Digger"
+},
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2006",
+"work": "They Say"
+},
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2005",
+"work": "All Falls Down"
+},
+{
+"award": "Grammy Award for Best Melodic Rap Performance",
+"family": "Grammy",
+"year": "2005",
+"work": "Slow Jamz"
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2005",
+"work": ""
+},
+{
+"award": "Grammy Award for Song of the Year",
+"family": "Grammy",
+"year": "2005",
+"work": "Jesus Walks"
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "2005",
+"work": "Through the Wire"
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2005",
+"work": "The College Dropout"
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2005",
+"work": "The Diary of Alicia Keys"
+},
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "2004",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "2004",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Album",
+"family": "American Music Awards",
+"year": "2004",
+"work": "The College Dropout"
+}
+]
+},
 "7LnaAXbDVIL75IVPnndf7w": {
 "qid": "Q171905",
 "wins": [
@@ -6801,17 +7042,17 @@
 }
 ]
 },
-"6AUl0ykLLpvTktob97x9hO": {
-"qid": "Q28732615",
-"wins": [],
-"nominations": [
+"4Yttlv9ndGjCDCVLqM7ACq": {
+"qid": "Q213670",
+"wins": [
 {
-"award": "BET Hip Hop Awards",
-"family": "BET",
-"year": "",
+"award": "MTV Europe Music Award for Best German Act",
+"family": "MTV",
+"year": "2010",
 "work": ""
 }
-]
+],
+"nominations": []
 },
 "0Tob4H0FLtEONHU1MjpUEp": {
 "qid": "Q46321",
@@ -6832,30 +7073,6 @@
 }
 ]
 },
-"5gqmbbfjcikQBzPB5Hv13I": {
-"qid": "Q107427536",
-"wins": [
-{
-"award": "Victoires de la Musique – Male artist of the year",
-"family": "Victoires de la musique",
-"year": "2024",
-"work": ""
-}
-],
-"nominations": []
-},
-"4Yttlv9ndGjCDCVLqM7ACq": {
-"qid": "Q213670",
-"wins": [
-{
-"award": "MTV Europe Music Award for Best German Act",
-"family": "MTV",
-"year": "2010",
-"work": ""
-}
-],
-"nominations": []
-},
 "6cK3NBO6uP7hh0oyuVELFl": {
 "qid": "Q50486592",
 "wins": [
@@ -6867,6 +7084,18 @@
 }
 ],
 "nominations": []
+},
+"6AUl0ykLLpvTktob97x9hO": {
+"qid": "Q28732615",
+"wins": [],
+"nominations": [
+{
+"award": "BET Hip Hop Awards",
+"family": "BET",
+"year": "",
+"work": ""
+}
+]
 },
 "26s8LSolLfCIY88ysQbIuT": {
 "qid": "Q1027165",
@@ -7117,54 +7346,6 @@
 "work": "Eazy-Duz-It"
 }
 ]
-},
-"5Qi4Bb7a8C0a00NZcA77L0": {
-"qid": "Q154543",
-"wins": [
-{
-"award": "MTV Europe Music Award for Best Hip-Hop",
-"family": "MTV",
-"year": "2004",
-"work": ""
-}
-],
-"nominations": []
-},
-"2rblp9fJo16ZPTcKDtlmKW": {
-"qid": "Q295923",
-"wins": [
-{
-"award": "Grammy Award for Best Music Video",
-"family": "Grammy",
-"year": "1991",
-"work": ""
-}
-],
-"nominations": []
-},
-"7rz6ZZErn5YFDteXKhyf3g": {
-"qid": "Q1228700",
-"wins": [
-{
-"award": "Victoires de la Musique – Male artist of the year",
-"family": "Victoires de la musique",
-"year": "2026",
-"work": ""
-}
-],
-"nominations": []
-},
-"4VmEWwd8y9MCLwexFMdpwt": {
-"qid": "Q298694",
-"wins": [
-{
-"award": "Grammy Award for Best Rap Performance by a Duo or Group",
-"family": "Grammy",
-"year": "1996",
-"work": "I'll Be There for You/You're All I Need to Get By"
-}
-],
-"nominations": []
 },
 "78xUyw6FkVZrRAtziFdtdu": {
 "qid": "Q1052139",
@@ -7462,6 +7643,30 @@
 ],
 "nominations": []
 },
+"35sCXuy5gN6Or69rZ9vqBs": {
+"qid": "Q361661",
+"wins": [
+{
+"award": "BET Award for Viewer's Choice",
+"family": "BET",
+"year": "2007",
+"work": "Stuntin' Like My Daddy"
+}
+],
+"nominations": []
+},
+"5Qi4Bb7a8C0a00NZcA77L0": {
+"qid": "Q154543",
+"wins": [
+{
+"award": "MTV Europe Music Award for Best Hip-Hop",
+"family": "MTV",
+"year": "2004",
+"work": ""
+}
+],
+"nominations": []
+},
 "7GXXMm3DB1VswVcuGyInUd": {
 "qid": "Q313578",
 "wins": [
@@ -7474,83 +7679,41 @@
 ],
 "nominations": []
 },
-"5lHRUCqkQZCIWeX7xG4sYT": {
-"qid": "Q15488745",
-"wins": [],
-"nominations": [
-{
-"award": "BET Award for Best New Artist",
-"family": "BET",
-"year": "2014",
-"work": ""
-},
-{
-"award": "BET Award for Best Collaboration",
-"family": "BET",
-"year": "2014",
-"work": "My Nigga"
-}
-]
-},
-"0vN920jukdAbErvjo2OJ2o": {
-"qid": "Q144166",
+"2rblp9fJo16ZPTcKDtlmKW": {
+"qid": "Q295923",
 "wins": [
 {
-"award": "MTV Europe Music Award for Best French Act",
-"family": "MTV",
-"year": "2008",
-"work": ""
-}
-],
-"nominations": []
-},
-"4FpJcNgOvIpSBeJgRg3OfN": {
-"qid": "Q2813374",
-"wins": [
-{
-"award": "Victoires de la Musique – Male artist of the year",
-"family": "Victoires de la musique",
-"year": "2022",
-"work": ""
-},
-{
-"award": "Victoires de la Musique – Male artist of the year",
-"family": "Victoires de la musique",
-"year": "2018",
-"work": ""
-},
-{
-"award": "MTV Europe Music Award for Best French Act",
-"family": "MTV",
-"year": "2009",
-"work": ""
-}
-],
-"nominations": []
-},
-"4sg4no0TXdsrM1s4SVUwNF": {
-"qid": "Q52289064",
-"wins": [
-{
-"award": "MTV Europe Music Award for Best German Act",
-"family": "MTV",
-"year": "2019",
-"work": ""
-}
-],
-"nominations": []
-},
-"3A5tHz1SfngyOZM2gItYKu": {
-"qid": "Q1033188",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Album of the Year",
+"award": "Grammy Award for Best Music Video",
 "family": "Grammy",
-"year": "2012",
-"work": "Channel Orange"
+"year": "1991",
+"work": ""
 }
-]
+],
+"nominations": []
+},
+"7rz6ZZErn5YFDteXKhyf3g": {
+"qid": "Q1228700",
+"wins": [
+{
+"award": "Victoires de la Musique – Male artist of the year",
+"family": "Victoires de la musique",
+"year": "2026",
+"work": ""
+}
+],
+"nominations": []
+},
+"4VmEWwd8y9MCLwexFMdpwt": {
+"qid": "Q298694",
+"wins": [
+{
+"award": "Grammy Award for Best Rap Performance by a Duo or Group",
+"family": "Grammy",
+"year": "1996",
+"work": "I'll Be There for You/You're All I Need to Get By"
+}
+],
+"nominations": []
 },
 "1CFCsEqKrCyvAFKOATQHiW": {
 "qid": "Q1041034",
@@ -7685,15 +7848,93 @@
 }
 ]
 },
-"0Cm90jv892OeEegB3ELmvN": {
-"qid": "Q47037314",
+"0vN920jukdAbErvjo2OJ2o": {
+"qid": "Q144166",
+"wins": [
+{
+"award": "MTV Europe Music Award for Best French Act",
+"family": "MTV",
+"year": "2008",
+"work": ""
+}
+],
+"nominations": []
+},
+"3AlRiyjMywTVNzTcHbf9QT": {
+"qid": "Q20895739",
+"wins": [
+{
+"award": "MTV Europe Music Award for Best Dutch Act",
+"family": "MTV",
+"year": "2017",
+"work": ""
+}
+],
+"nominations": []
+},
+"4FpJcNgOvIpSBeJgRg3OfN": {
+"qid": "Q2813374",
+"wins": [
+{
+"award": "Victoires de la Musique – Male artist of the year",
+"family": "Victoires de la musique",
+"year": "2022",
+"work": ""
+},
+{
+"award": "Victoires de la Musique – Male artist of the year",
+"family": "Victoires de la musique",
+"year": "2018",
+"work": ""
+},
+{
+"award": "MTV Europe Music Award for Best French Act",
+"family": "MTV",
+"year": "2009",
+"work": ""
+}
+],
+"nominations": []
+},
+"4sg4no0TXdsrM1s4SVUwNF": {
+"qid": "Q52289064",
+"wins": [
+{
+"award": "MTV Europe Music Award for Best German Act",
+"family": "MTV",
+"year": "2019",
+"work": ""
+}
+],
+"nominations": []
+},
+"1EeArivTpzLNCqubV95255": {
+"qid": "Q1026723",
 "wins": [],
 "nominations": [
 {
-"award": "MTV Europe Music Award for Best MTV Russia Act",
-"family": "MTV",
-"year": "2018",
+"award": "BET Award for Best Group",
+"family": "BET",
+"year": "2011",
 "work": ""
+}
+]
+},
+"5lHRUCqkQZCIWeX7xG4sYT": {
+"qid": "Q15488745",
+"wins": [],
+"nominations": [
+{
+"award": "BET Award for Best New Artist",
+"family": "BET",
+"year": "2014",
+"work": ""
+},
+{
+"award": "BET Award for Best Collaboration",
+"family": "BET",
+"year": "2014",
+"work": "My Nigga"
 }
 ]
 },
@@ -7705,6 +7946,30 @@
 "award": "MTV Europe Music Award for Best German Act",
 "family": "MTV",
 "year": "2009",
+"work": ""
+}
+]
+},
+"3A5tHz1SfngyOZM2gItYKu": {
+"qid": "Q1033188",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2012",
+"work": "Channel Orange"
+}
+]
+},
+"0Cm90jv892OeEegB3ELmvN": {
+"qid": "Q47037314",
+"wins": [],
+"nominations": [
+{
+"award": "MTV Europe Music Award for Best MTV Russia Act",
+"family": "MTV",
+"year": "2018",
 "work": ""
 }
 ]
@@ -7756,6 +8021,159 @@
 }
 ],
 "nominations": []
+},
+"4dyfAiJCbl7jS1GHOCdiJv": {
+"qid": "Q1061860",
+"wins": [],
+"nominations": [
+{
+"award": "MTV Europe Music Award for Best Italian Act",
+"family": "MTV",
+"year": "2012",
+"work": ""
+}
+]
+},
+"5m7wCUhYhBh7A3A3YMxrbt": {
+"qid": "Q1112005",
+"wins": [
+{
+"award": "NAACP Image Award for Outstanding Actress in a Television Movie, Mini-Series or Dramatic Special",
+"family": "NAACP Image",
+"year": "2008",
+"work": "Life Support"
+},
+{
+"award": "BET Award for Best Actor & Actress",
+"family": "BET",
+"year": "2003",
+"work": "Bringing Down the House"
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "1995",
+"work": "U.N.I.T.Y."
+},
+{
+"award": "Soul Train Music Award for Sammy Davis, Jr. – Entertainer of the Year",
+"family": "Soul Train",
+"year": "1995",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "1994",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Traditional Pop Vocal Album",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Jazz Vocal Album",
+"family": "Grammy",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Rap Solo Performance",
+"family": "Grammy",
+"year": "2003",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "1991",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Solo Performance",
+"family": "Grammy",
+"year": "1990",
+"work": ""
+}
+]
+},
+"5n30a5V4ftXNMHCHChmK2h": {
+"qid": "Q1132431",
+"wins": [
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "1989",
+"work": "Bust a Move"
+}
+],
+"nominations": [
+{
+"award": "MTV Video Music Award for Best Rap Video",
+"family": "MTV",
+"year": "1990",
+"work": ""
+},
+{
+"award": "Soul Train Music Award for Best Rap Album",
+"family": "Soul Train",
+"year": "1990",
+"work": "Stone Cold Rhymin'"
+},
+{
+"award": "Soul Train Music Award for Best R&B/Soul or Rap New Artist",
+"family": "Soul Train",
+"year": "1990",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Rap Performance",
+"family": "Grammy",
+"year": "1989",
+"work": ""
+}
+]
+},
+"4GvOygVQquMaPm8oAc0vXi": {
+"qid": "Q316029",
+"wins": [],
+"nominations": [
+{
+"award": "MTV Europe Music Award for Best UK & Ireland Act",
+"family": "MTV",
+"year": "2004",
+"work": ""
+}
+]
+},
+"2gINJ8xw86xawPyGvx1bla": {
+"qid": "Q432552",
+"wins": [
+{
+"award": "BET Hip Hop Awards",
+"family": "BET",
+"year": "2007",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Rap Performance by a Duo or Group",
+"family": "Grammy",
+"year": "2008",
+"work": ""
+}
+]
 },
 "2GHclqNVjqGuiE5mA7BEoc": {
 "qid": "Q286022",
@@ -8076,147 +8494,6 @@
 }
 ]
 },
-"5m7wCUhYhBh7A3A3YMxrbt": {
-"qid": "Q1112005",
-"wins": [
-{
-"award": "NAACP Image Award for Outstanding Actress in a Television Movie, Mini-Series or Dramatic Special",
-"family": "NAACP Image",
-"year": "2008",
-"work": "Life Support"
-},
-{
-"award": "BET Award for Best Actor & Actress",
-"family": "BET",
-"year": "2003",
-"work": "Bringing Down the House"
-},
-{
-"award": "Grammy Award for Best Rap Solo Performance",
-"family": "Grammy",
-"year": "1995",
-"work": "U.N.I.T.Y."
-},
-{
-"award": "Soul Train Music Award for Sammy Davis, Jr. – Entertainer of the Year",
-"family": "Soul Train",
-"year": "1995",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Solo Performance",
-"family": "Grammy",
-"year": "1994",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Traditional Pop Vocal Album",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Jazz Vocal Album",
-"family": "Grammy",
-"year": "2004",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Rap Solo Performance",
-"family": "Grammy",
-"year": "2003",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Solo Performance",
-"family": "Grammy",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Solo Performance",
-"family": "Grammy",
-"year": "1991",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Solo Performance",
-"family": "Grammy",
-"year": "1990",
-"work": ""
-}
-]
-},
-"5n30a5V4ftXNMHCHChmK2h": {
-"qid": "Q1132431",
-"wins": [
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "1989",
-"work": "Bust a Move"
-}
-],
-"nominations": [
-{
-"award": "MTV Video Music Award for Best Rap Video",
-"family": "MTV",
-"year": "1990",
-"work": ""
-},
-{
-"award": "Soul Train Music Award for Best Rap Album",
-"family": "Soul Train",
-"year": "1990",
-"work": "Stone Cold Rhymin'"
-},
-{
-"award": "Soul Train Music Award for Best R&B/Soul or Rap New Artist",
-"family": "Soul Train",
-"year": "1990",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Rap Performance",
-"family": "Grammy",
-"year": "1989",
-"work": ""
-}
-]
-},
-"4GvOygVQquMaPm8oAc0vXi": {
-"qid": "Q316029",
-"wins": [],
-"nominations": [
-{
-"award": "MTV Europe Music Award for Best UK & Ireland Act",
-"family": "MTV",
-"year": "2004",
-"work": ""
-}
-]
-},
-"2gINJ8xw86xawPyGvx1bla": {
-"qid": "Q432552",
-"wins": [
-{
-"award": "BET Hip Hop Awards",
-"family": "BET",
-"year": "2007",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Rap Performance by a Duo or Group",
-"family": "Grammy",
-"year": "2008",
-"work": ""
-}
-]
-},
 "3c96G4d2lUOxhomM2mby5S": {
 "qid": "Q311961",
 "wins": [
@@ -8231,6 +8508,36 @@
 "family": "MTV",
 "year": "2006",
 "work": ""
+}
+],
+"nominations": []
+},
+"4pmNqFu71wEmFXSsYAiWK8": {
+"qid": "Q6107",
+"wins": [
+{
+"award": "Soul Train Music Award for Best R&B/Soul Album of the Year",
+"family": "Soul Train",
+"year": "1997",
+"work": "All Eyez on Me"
+},
+{
+"award": "American Music Award for Favorite Rap/Hip-Hop Artist",
+"family": "American Music Awards",
+"year": "1997",
+"work": ""
+},
+{
+"award": "Soul Train Music Award for Best Rap Album",
+"family": "Soul Train",
+"year": "1996",
+"work": "Me Against the World"
+},
+{
+"award": "MOBO Awards for Best Video",
+"family": "MOBO",
+"year": "1996",
+"work": "California Love"
 }
 ],
 "nominations": []
