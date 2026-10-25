@@ -57,7 +57,8 @@ def archive_links() -> list[tuple[str, str]]:
     global _links
     if _links is None:
         r = get("https://kworb.net/youtube/archive.html")
-        _links = re.findall(r'href="(?:\.\./)?(?:/youtube/)?artist/([^"]+)\.html"[^>]*>(.*?)</a>', r.text) if r.status_code == 200 else []
+        _links = re.findall(r'href="(?:\.\./)?(?:/youtube/)?artist/([^"]+)\.html"[^>]*>(.*?)</a>',
+                            r.content.decode("utf-8", "replace")) if r.status_code == 200 else []  # no charset in the header
     return _links
 
 
