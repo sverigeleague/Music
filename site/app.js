@@ -475,6 +475,23 @@ function pay() {
   app.querySelectorAll("input").forEach(i => i.oninput = draw); draw();
 }
 
+// How complete each source is for this list: the gaps, said plainly
+function coverageTable() {
+  const A = store.data.artists, n = A.length, pctOf = f => Math.round(100 * A.filter(f).length / n) + "%";
+  const rows = [
+    ["Label owner known", a => a.label_status && a.label_status !== "unknown", "the label on the last two years' releases, placed with its owner"],
+    ["Ranked by current listeners", a => a.cl != null, "enough of the listening is on songs with a known release date"],
+    ["Listener growth (90 days)", a => a.growth90 != null, "a snapshot about 90 days ago (our daily log, or the Internet Archive)"],
+    ["Certifications", a => a.certs, "an English Wikipedia discography that lists RIAA, BPI and other awards"],
+    ["Awards", a => a.awards, "wins or nominations listed on Wikidata"],
+    ["Shazam charts", a => a.shazam, "a song on a Shazam chart in the last 7 days"],
+    ["YouTube views measured", a => a.yt_daily, "tracked by kworb's YouTube pages (the bigger channels only)"],
+    ["Photo", a => a.photo, "a free-licence photo on Wikimedia Commons"]];
+  return `<h2>Data coverage</h2><div class="tablebox"><table><thead><tr><th class="l">What</th><th>Share of the ${n.toLocaleString()} artists</th><th class="l">Needs</th></tr></thead><tbody>
+    ${rows.map(([l, f, d]) => `<tr><td class="l">${esc(l)}</td><td>${pctOf(f)}</td><td class="l wrap note">${esc(d)}</td></tr>`).join("")}</tbody></table></div>
+    <p class="note">A missing figure is left out, never filled in with a guess.</p>`;
+}
+
 function method() {
   nav("method");
   app.innerHTML = `<section class="prose"><h1>Method and sources</h1>
@@ -499,6 +516,7 @@ function method() {
    <li><b>Wikipedia attention:</b> monthly page views of the artist's English Wikipedia article, people only, from the Wikimedia API; the article is the one linked on the artist's Wikidata item.</li>
    <li><b>Apple Music charts:</b> the daily top 100 most-played songs in ${store.data.apple_countries} countries (Apple's public feed). Artists are matched by exact name; names shared by two artists are skipped.</li></ul>
   <h2>Not yet included</h2><p>Instagram, TikTok and X audiences and per-artist age and gender (licensed data only); listener history before 2026-10-23 (a backfill from the Internet Archive is planned).</p>
+  ${coverageTable()}
   <h2>Photos</h2><p>Wikimedia Commons, with the author and licence on each artist page. Initials where there is no free photo.</p></section>`;
 }
 
