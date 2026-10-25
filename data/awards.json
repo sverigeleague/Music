@@ -1,2984 +1,4 @@
 {
-"32vWCbZh0xZ4o9gkz4PsEU": {
-"qid": "Q180453",
-"wins": [
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2011",
-"work": ""
-},
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2010",
-"work": ""
-},
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2006",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2001",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Bluegrass Album",
-"family": "Grammy",
-"year": "2000",
-"work": "The Grass Is Blue"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1987",
-"work": "Trio"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1981",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1981",
-"work": "9 to 5"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1978",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1978",
-"work": "New Harvest… First Gathering"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Country Duo/Group Performance",
-"family": "Grammy",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Song Written for Visual Media",
-"family": "Grammy",
-"year": "2007",
-"work": "Transamerica"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2004",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2003",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2002",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2002",
-"work": "Halos & Horns"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2001",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2000",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Bluegrass Album",
-"family": "Grammy",
-"year": "2000",
-"work": "The Grass Is Blue"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "1999",
-"work": "Trio II"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1995",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1994",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1993",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1991",
-"work": "Eagle When She Flies"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1990",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1989",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1987",
-"work": "Trio"
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "1987",
-"work": "Trio"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1986",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1985",
-"work": ""
-},
-{
-"award": "Juno Award for Best Selling Single",
-"family": "Juno",
-"year": "1984",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1984",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1983",
-"work": "Burlap & Satin"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1982",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Female Artist",
-"family": "American Music Awards",
-"year": "1982",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1982",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1981",
-"work": "9 to 5"
-},
-{
-"award": "Grammy Award for Song of the Year",
-"family": "Grammy",
-"year": "1981",
-"work": "9 to 5"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1981",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1980",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1979",
-"work": "Here You Come Again"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1978",
-"work": "New Harvest… First Gathering"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1978",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Pop Vocal Performance",
-"family": "Grammy",
-"year": "1977",
-"work": ""
-}
-]
-},
-"5W5bDNCqJ1jbCgTxDD0Cb3": {
-"qid": "Q206112",
-"wins": [
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2010",
-"work": ""
-},
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-},
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2006",
-"work": "Wanted! The Outlaws"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2002",
-"work": ""
-},
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2001",
-"work": "Red Headed Stranger"
-},
-{
-"award": "Grammy Legend Award",
-"family": "Grammy",
-"year": "1990",
-"work": ""
-},
-{
-"award": "American Music Award of Merit",
-"family": "American Music Awards",
-"year": "1989",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1983",
-"work": "Always on My Mind"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Album",
-"family": "American Music Awards",
-"year": "1983",
-"work": "Always on My Mind"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1982",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1980",
-"work": "On the Road Again"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1978",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1978",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1975",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Americana Album",
-"family": "Grammy",
-"year": "2010",
-"work": "Country Music"
-},
-{
-"award": "Grammy Award for Best Traditional Pop Vocal Album",
-"family": "Grammy",
-"year": "2009",
-"work": "American Classic"
-},
-{
-"award": "Grammy Award for Best Pop Collaboration with Vocals",
-"family": "Grammy",
-"year": "2009",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Americana Album",
-"family": "Grammy",
-"year": "2009",
-"work": "Willie and the Wheel"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2006",
-"work": "You Don't Know Me: The Songs of Cindy Walker"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2005",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "2005",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2004",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "2004",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2003",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2003",
-"work": "Live and Kickin'"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2002",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2002",
-"work": "The Great Divide"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "2001",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2001",
-"work": "Rainbow Connection"
-},
-{
-"award": "Grammy Award for Best Music Film",
-"family": "Grammy",
-"year": "2000",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Pop Instrumental Performance",
-"family": "Grammy",
-"year": "1999",
-"work": "Night and Day"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1997",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Traditional Pop Vocal Album",
-"family": "Grammy",
-"year": "1994",
-"work": "Moonlight Becomes You"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1990",
-"work": "Highwayman 2"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1986",
-"work": "City of New Orleans"
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1984",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1984",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1983",
-"work": "Take It to the Limit"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Album",
-"family": "American Music Awards",
-"year": "1983",
-"work": "Always on My Mind"
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1983",
-"work": "Pancho & Lefty"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1983",
-"work": "Always on My Mind"
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1982",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1982",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1982",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1981",
-"work": "Somewhere Over the Rainbow"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1980",
-"work": "On the Road Again"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1980",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1978",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1978",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1975",
-"work": ""
-}
-]
-},
-"2d3VHzlOEwXvmBdS4pzOPL": {
-"qid": "Q120533",
-"wins": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1997",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1997",
-"work": ""
-}
-]
-},
-"5e4Dhzv426EvQe3aDb64jL": {
-"qid": "Q131433",
-"wins": [
-{
-"award": "Juno Award for Country Album of the Year",
-"family": "Juno",
-"year": "2004",
-"work": "Up!"
-},
-{
-"award": "Juno Award for Artist of the Year",
-"family": "Juno",
-"year": "2003",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Female Artist",
-"family": "American Music Awards",
-"year": "2000",
-"work": ""
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "2000",
-"work": "You've Got a Way"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "2000",
-"work": "That Don't Impress Me Much"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "2000",
-"work": "Man! I Feel Like a Woman!"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "2000",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1999",
-"work": "Come On Over"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1998",
-"work": "You're Still the One"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1998",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1997",
-"work": ""
-},
-{
-"award": "Juno Award for Entertainer of the Year",
-"family": "Juno",
-"year": "1996",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "1995",
-"work": "The Woman in Me"
-}
-],
-"nominations": [
-{
-"award": "Juno Award for Single of the Year",
-"family": "Juno",
-"year": "2005",
-"work": "Party for Two"
-},
-{
-"award": "Juno Award for Country Album of the Year",
-"family": "Juno",
-"year": "2005",
-"work": ""
-},
-{
-"award": "Juno Award for Country Album of the Year",
-"family": "Juno",
-"year": "2004",
-"work": "Up!"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2004",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2004",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2003",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "2003",
-"work": ""
-},
-{
-"award": "Juno Award for Artist of the Year",
-"family": "Juno",
-"year": "2003",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "2003",
-"work": "Forever and for Always"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2003",
-"work": "Up!"
-},
-{
-"award": "Juno Award for Album of the Year",
-"family": "Juno",
-"year": "2003",
-"work": "Up!"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "2003",
-"work": "I'm Gonna Getcha Good!"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "2003",
-"work": "Up!"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "2000",
-"work": "You've Got a Way"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "2000",
-"work": "That Don't Impress Me Much"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "2000",
-"work": "Man! I Feel Like a Woman!"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Female Artist",
-"family": "American Music Awards",
-"year": "2000",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Adult Contemporary Artist",
-"family": "American Music Awards",
-"year": "2000",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "2000",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Adult Contemporary Artist",
-"family": "American Music Awards",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "1999",
-"work": "From This Moment On"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "1999",
-"work": "Don't Be Stupid (You Know I Love You)"
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "1999",
-"work": "You're Still the One"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Award for Song of the Year",
-"family": "Grammy",
-"year": "1999",
-"work": "You've Got a Way"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Album",
-"family": "American Music Awards",
-"year": "1999",
-"work": "Come On Over"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1999",
-"work": "Come On Over"
-},
-{
-"award": "Juno Award for International Album of the Year",
-"family": "Juno",
-"year": "1999",
-"work": "Come On Over"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1999",
-"work": "Come On Over"
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "1999",
-"work": "Come On Over"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Female Artist",
-"family": "American Music Awards",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1998",
-"work": ""
-},
-{
-"award": "Grammy Award for Song of the Year",
-"family": "Grammy",
-"year": "1998",
-"work": "You're Still the One"
-},
-{
-"award": "MTV Video Music Award for Best Female Video",
-"family": "MTV",
-"year": "1998",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "1998",
-"work": "Come On Over"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1998",
-"work": "You're Still the One"
-},
-{
-"award": "Juno Award for Album of the Year",
-"family": "Juno",
-"year": "1998",
-"work": "Come On Over"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1998",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1998",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1997",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1997",
-"work": "The Woman in Me"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1996",
-"work": ""
-},
-{
-"award": "Juno Award for Songwriter of the Year",
-"family": "Juno",
-"year": "1996",
-"work": ""
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1996",
-"work": ""
-},
-{
-"award": "Juno Award for International Album of the Year",
-"family": "Juno",
-"year": "1996",
-"work": "The Woman in Me"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1996",
-"work": "The Woman in Me"
-},
-{
-"award": "Juno Award for Single of the Year",
-"family": "Juno",
-"year": "1996",
-"work": ""
-},
-{
-"award": "Juno Award for Entertainer of the Year",
-"family": "Juno",
-"year": "1996",
-"work": ""
-},
-{
-"award": "Juno Award for Album of the Year",
-"family": "Juno",
-"year": "1996",
-"work": "The Woman in Me"
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1995",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "1995",
-"work": "The Woman in Me"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1995",
-"work": "Any Man of Mine"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1995",
-"work": ""
-}
-]
-},
-"6yJCxee7QumYr820xdIsjo": {
-"qid": "Q139154",
-"wins": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2010",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2010",
-"work": ""
-}
-]
-},
-"25IG9fa7cbdmCIy3OnuH57": {
-"qid": "Q142636",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-}
-]
-},
-"59hLmB5DrdihCYtNeFeW1U": {
-"qid": "Q162667",
-"wins": [
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "2015",
-"work": "I'm Not Gonna Miss You"
-},
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2012",
-"work": ""
-},
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2011",
-"work": ""
-},
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-},
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "2003",
-"work": ""
-},
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1977",
-"work": "Rhinestone Cowboy"
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "1968",
-"work": "By the Time I Get to Phoenix"
-},
-{
-"award": "Grammy Award for Best Contemporary (R&R) Performance",
-"family": "Grammy",
-"year": "1967",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Pop Vocal Performance",
-"family": "Grammy",
-"year": "1967",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country & Western Recording",
-"family": "Grammy",
-"year": "1967",
-"work": "Gentle on My Mind"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1967",
-"work": "Gentle on My Mind"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1980",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1977",
-"work": "Rhinestone Cowboy"
-},
-{
-"award": "Grammy Award for Best Male Pop Vocal Performance",
-"family": "Grammy",
-"year": "1975",
-"work": ""
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1975",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Pop Vocal Performance",
-"family": "Grammy",
-"year": "1968",
-"work": ""
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "1968",
-"work": "By the Time I Get to Phoenix"
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1968",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country & Western Recording",
-"family": "Grammy",
-"year": "1967",
-"work": "Gentle on My Mind"
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1967",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Pop Vocal Performance",
-"family": "Grammy",
-"year": "1967",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Contemporary (R&R) Performance",
-"family": "Grammy",
-"year": "1967",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1967",
-"work": "Gentle on My Mind"
-}
-]
-},
-"2ptmyXoL7poH6Zq62h1QT9": {
-"qid": "Q183092",
-"wins": [
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2006",
-"work": ""
-}
-],
-"nominations": []
-},
-"6kACVPfCOnqzgfEF5ryl0x": {
-"qid": "Q42775",
-"wins": [
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "1999",
-"work": ""
-},
-{
-"award": "Grammy Legend Award",
-"family": "Grammy",
-"year": "1991",
-"work": ""
-}
-],
-"nominations": []
-},
-"0vYQRW5LIDeYQOccTviQNX": {
-"qid": "Q208681",
-"wins": [
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2014",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1972",
-"work": "Help Me Make It Through the Night"
-}
-],
-"nominations": []
-},
-"4xFUf1FHVy696Q1JQZMTRj": {
-"qid": "Q215546",
-"wins": [
-{
-"award": "Grammy Award for Best Country Solo Performance",
-"family": "Grammy",
-"year": "2015",
-"work": "Something in the Water"
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-},
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-},
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-}
-]
-},
-"4tw2Lmn9tTPUv7Gy7mVPI4": {
-"qid": "Q217160",
-"wins": [
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1987",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1985",
-"work": "Eyes That See in the Dark"
-},
-{
-"award": "American Music Award of Merit",
-"family": "American Music Awards",
-"year": "1983",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1982",
-"work": "Kenny Rogers - Greatest Hits (1980)"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Album",
-"family": "American Music Awards",
-"year": "1982",
-"work": "Kenny Rogers - Greatest Hits (1980)"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1981",
-"work": "The Gambler"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1980",
-"work": "The Gambler"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1979",
-"work": "Ten Years of Gold"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1977",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Country Duo/Group Performance",
-"family": "Grammy",
-"year": "2013",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1987",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1985",
-"work": "Eyes That See in the Dark"
-},
-{
-"award": "Juno Award for Best Selling Single",
-"family": "Juno",
-"year": "1984",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1983",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Album",
-"family": "American Music Awards",
-"year": "1982",
-"work": "Kenny Rogers - Greatest Hits (1980)"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1982",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1982",
-"work": "Kenny Rogers - Greatest Hits (1980)"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1981",
-"work": "The Gambler"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1981",
-"work": "Ten Years of Gold"
-},
-{
-"award": "Juno Award for International Album of the Year",
-"family": "Juno",
-"year": "1981",
-"work": "Kenny Rogers - Greatest Hits (1980)"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1980",
-"work": "The Gambler"
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1980",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Pop Vocal Performance",
-"family": "Grammy",
-"year": "1980",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Pop Performance by a Duo or Group with Vocals",
-"family": "Grammy",
-"year": "1980",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Pop Vocal Performance",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1979",
-"work": "Ten Years of Gold"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "1979",
-"work": "The Gambler"
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1977",
-"work": ""
-}
-]
-},
-"02rd0anEWfMtF7iMku9uor": {
-"qid": "Q229430",
-"wins": [
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "2004",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1998",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1995",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1994",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1993",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1992",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1991",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1990",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1989",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1988",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1987",
-"work": "Whoever's in New England"
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"66lH4jAE7pqPlOlzUKbwA0": {
-"qid": "Q231233",
-"wins": [
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2015",
-"work": "Platinum"
-}
-],
-"nominations": []
-},
-"60rpJ9SgigSd16DOAG7GSa": {
-"qid": "Q231259",
-"wins": [
-{
-"award": "Juno Award for Best Selling Single",
-"family": "Juno",
-"year": "1993",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Juno Award for Best Selling Single",
-"family": "Juno",
-"year": "1993",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1993",
-"work": "Some Gave All"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1993",
-"work": ""
-},
-{
-"award": "Juno Award for International Album of the Year",
-"family": "Juno",
-"year": "1993",
-"work": "Some Gave All"
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1993",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1992",
-"work": ""
-}
-]
-},
-"7wCjDgV6nqBsHguQXPAaIM": {
-"qid": "Q251287",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1979",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1970",
-"work": "MacArthur Park"
-}
-]
-},
-"3P33qFNGBVXl86yQYWspFj": {
-"qid": "Q256732",
-"wins": [
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Country Solo Performance",
-"family": "Grammy",
-"year": "2012",
-"work": "I'm Gonna Love You Through It"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2010",
-"work": "I Just Call You Mine"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2009",
-"work": "For These Times"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2007",
-"work": "I Still Miss Someone"
-},
-{
-"award": "Grammy Award for Best Music Video",
-"family": "Grammy",
-"year": "2006",
-"work": "God's Will"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2005",
-"work": "In My Daughter's Eyes"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2004",
-"work": "This One's for the Girls"
-},
-{
-"award": "Grammy Award for Best Music Video",
-"family": "Grammy",
-"year": "2004",
-"work": "Concrete Angel"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2003",
-"work": "Blessed"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "2000",
-"work": "I Love You"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1998",
-"work": "Still Holding On"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1996",
-"work": "On My Own"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1996",
-"work": "Safe in the Arms of Love"
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "1995",
-"work": "Independence Day"
-}
-]
-},
-"4mxWe1mtYIYfP040G38yvS": {
-"qid": "Q380927",
-"wins": [
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2010",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "2002",
-"work": "Where Were You (When the World Stopped Turning)"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1994",
-"work": "A Lot About Livin' (And a Little 'bout Love)"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "2007",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2006",
-"work": "Like Red on a Rose"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2004",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2003",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "2003",
-"work": "Drive"
-},
-{
-"award": "Grammy Award for Song of the Year",
-"family": "Grammy",
-"year": "2002",
-"work": "Where Were You (When the World Stopped Turning)"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "2002",
-"work": "Where Were You (When the World Stopped Turning)"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "2002",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2002",
-"work": "Drive"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "2001",
-"work": "Under the Influence"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2000",
-"work": "Under the Influence"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "1997",
-"work": "Everything I Love"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1996",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1995",
-"work": "Who I Am"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1995",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1995",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1994",
-"work": "A Lot About Livin' (And a Little 'bout Love)"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1993",
-"work": "Chattahoochee"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1993",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1992",
-"work": "Don't Rock the Jukebox"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1991",
-"work": "Don't Rock the Jukebox"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1991",
-"work": "Don't Rock the Jukebox"
-}
-]
-},
-"0hYxQe3AK5jBPCr5MumLHD": {
-"qid": "Q1200415",
-"wins": [
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2006",
-"work": ""
-}
-]
-},
-"75FnCoo4FBxH5K1Rrx0k5A": {
-"qid": "Q1460017",
-"wins": [
-{
-"award": "Grammy Award for Best Country Duo/Group Performance",
-"family": "Grammy",
-"year": "2015",
-"work": "Gentle on My Mind"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2012",
-"work": ""
-}
-]
-},
-"2kucQ9jQwuD8jWdtR9Ef38": {
-"qid": "Q16223171",
-"wins": [
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2016",
-"work": ""
-}
-]
-},
-"7MSTO40bsb3DOJQT6xLsIc": {
-"qid": "Q1755990",
-"wins": [
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1991",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1988",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1986",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1984",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1991",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1991",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1990",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1990",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1989",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1989",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1988",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1988",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1988",
-"work": "Heartland"
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1987",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1987",
-"work": "Heartland"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1987",
-"work": "Rockin' with the Rhythm"
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1986",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1986",
-"work": ""
-},
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1985",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1984",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1982",
-"work": ""
-}
-]
-},
-"3RqBeV12Tt7A8xH3zBDDUF": {
-"qid": "Q18637137",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2017",
-"work": ""
-}
-]
-},
-"6WY7D3jk8zTrHtmkqqo5GI": {
-"qid": "Q21622122",
-"wins": [
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2017",
-"work": ""
-}
-]
-},
-"718COspgdWOnwOFpJHRZHS": {
-"qid": "Q23884740",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2019",
-"work": ""
-}
-]
-},
-"70kkdajctXSbqSMJbQO424": {
-"qid": "Q2783855",
-"wins": [
-{
-"award": "Grammy Award for Best Country Duo/Group Performance",
-"family": "Grammy",
-"year": "2024",
-"work": "I Remember Everything"
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "2019",
-"work": "Golden Hour"
-},
-{
-"award": "Grammy Award for Best Country Solo Performance",
-"family": "Grammy",
-"year": "2019",
-"work": "Butterflies"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2019",
-"work": "Golden Hour"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "2019",
-"work": "Space Cowboy"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "2014",
-"work": "Merry Go 'Round"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2014",
-"work": "Same Trailer Different Park"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2014",
-"work": ""
-}
-]
-},
-"32WkQRZEVKSzVAAYqukAEA": {
-"qid": "Q389870",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2009",
-"work": ""
-}
-]
-},
-"0IdYRFTswLdsGwSnzOaGNF": {
-"qid": "Q443897",
-"wins": [
-{
-"award": "American Music Award for New Artist of the Year",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2005",
-"work": ""
-}
-]
-},
-"738OS3zrCO782uDiUN9pet": {
-"qid": "Q454082",
-"wins": [
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2003",
-"work": "Mendocino County Line"
-}
-],
-"nominations": []
-},
-"25NQNriVT2YbSW80ILRWJa": {
-"qid": "Q464241",
-"wins": [
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"1pTuR132U5b4Rizal2Pr7m": {
-"qid": "Q467519",
-"wins": [
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2009",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
-"family": "Grammy",
-"year": "2006",
-"work": "Glory Train: Songs of Faith, Worship, and Praise"
-},
-{
-"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
-"family": "Grammy",
-"year": "2004",
-"work": "Worship & Faith"
-},
-{
-"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
-"family": "Grammy",
-"year": "2003",
-"work": "Rise and Shine"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1998",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1990",
-"work": "Old 8×10"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1989",
-"work": "Always & Forever"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1988",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1988",
-"work": "Storms of Life"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1987",
-"work": "Always & Forever"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2009",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2008",
-"work": "Around the Bend"
-},
-{
-"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
-"family": "Grammy",
-"year": "2006",
-"work": "Glory Train: Songs of Faith, Worship, and Praise"
-},
-{
-"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
-"family": "Grammy",
-"year": "2004",
-"work": "Worship & Faith"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "2003",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
-"family": "Grammy",
-"year": "2003",
-"work": "Rise and Shine"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1998",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1990",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1990",
-"work": "Old 8×10"
-},
-{
-"award": "Juno Award for International Entertainer of the Year",
-"family": "Juno",
-"year": "1990",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1990",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1989",
-"work": "Always & Forever"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1989",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1988",
-"work": "Storms of Life"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1988",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1987",
-"work": "Always & Forever"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1986",
-"work": ""
-}
-]
-},
-"3grHWM9bx2E9vwJCdlRv9O": {
-"qid": "Q467526",
-"wins": [
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"2OpqcUtj10HHvGG6h9VYC5": {
-"qid": "Q508202",
-"wins": [
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2012",
-"work": ""
-}
-],
-"nominations": []
-},
-"2dyeCWctcFRt3Pha76ONgb": {
-"qid": "Q552819",
-"wins": [
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1989",
-"work": "There's a Tear in My Beer"
-}
-],
-"nominations": [
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1985",
-"work": "All My Rowdy Friends Are Coming Over Tonight"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1985",
-"work": "All My Rowdy Friends Are Coming Over Tonight"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "1965",
-"work": ""
-}
-]
-},
-"0a1gHP0HAqALbEyxaD5Ngn": {
-"qid": "Q753598",
-"wins": [
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"0Xi59sEw38vRvwleSAVqoo": {
-"qid": "Q919565",
-"wins": [
-{
-"award": "Grammy Awards",
-"family": "Grammy",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"5s6TJEuHTr9GR894wc6VfP": {
-"qid": "Q231286",
-"wins": [
-{
-"award": "Grammy Awards",
-"family": "Grammy",
-"year": "",
-"work": ""
-},
-{
-"award": "Billboard Music Awards",
-"family": "Billboard Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"7dNsHhGeGU5MV01r06O8gK": {
-"qid": "Q273080",
-"wins": [
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "1995",
-"work": ""
-}
-],
-"nominations": []
-},
-"6tPHARSq45lQ8BSALCfkFC": {
-"qid": "Q106378786",
-"wins": [
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2024",
-"work": "Bell Bottom Country"
-}
-],
-"nominations": []
-},
-"13YmWQJFwgZrd4bf5IjMY4": {
-"qid": "Q39639",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2001",
-"work": ""
-}
-]
-},
-"4BclNkZtAUq1YrYNzye3N7": {
-"qid": "Q216288",
-"wins": [
-{
-"award": "American Music Award of Merit",
-"family": "American Music Awards",
-"year": "2002",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "2000",
-"work": "Double Live"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1999",
-"work": "Sevens"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1997",
-"work": ""
-},
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "1996",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1996",
-"work": "The Hits"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1992",
-"work": "No Fences"
-},
-{
-"award": "Juno Award for International Entertainer of the Year",
-"family": "Juno",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1991",
-"work": "Ropin' the Wind"
-}
-],
-"nominations": [
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "2008",
-"work": "The Ultimate Hits"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2002",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2001",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "2000",
-"work": "Double Live"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1999",
-"work": "Sevens"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1998",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "1998",
-"work": "Sevens"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1998",
-"work": "Where Your Road Leads"
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1997",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1997",
-"work": "Fresh Horses"
-},
-{
-"award": "Grammy Award for Best Country Song",
-"family": "Grammy",
-"year": "1997",
-"work": "In Another's Eyes"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1996",
-"work": "The Hits"
-},
-{
-"award": "American Music Award for Artist of the Year",
-"family": "American Music Awards",
-"year": "1996",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1994",
-"work": "In Pieces"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1993",
-"work": ""
-},
-{
-"award": "Juno Award for International Entertainer of the Year",
-"family": "Juno",
-"year": "1993",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1993",
-"work": "The Chase"
-},
-{
-"award": "Juno Award for International Entertainer of the Year",
-"family": "Juno",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "1992",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1992",
-"work": "The Chase"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1992",
-"work": "Ropin' the Wind"
-},
-{
-"award": "American Music Award for Favorite Country Album",
-"family": "American Music Awards",
-"year": "1992",
-"work": "No Fences"
-},
-{
-"award": "Grammy Award for Best Music Video",
-"family": "Grammy",
-"year": "1991",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1991",
-"work": "Ropin' the Wind"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1990",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1989",
-"work": "To Make You Feel My Love"
-}
-]
-},
-"09yvLritEUxHrzx5TlFvbl": {
-"qid": "Q22073688",
-"wins": [],
-"nominations": [
-{
-"award": "Grammy Award for Best New Artist",
-"family": "Grammy",
-"year": "2019",
-"work": ""
-}
-]
-},
-"2dIP3oiEt0xB8CrfSqN9Og": {
-"qid": "Q2997024",
-"wins": [],
-"nominations": [
-{
-"award": "Juno Award for Roots & Traditional Album of the Year – Solo",
-"family": "Juno",
-"year": "2013",
-"work": "Cabin Fever"
-},
-{
-"award": "Juno Award for Roots & Traditional Album of the Year – Solo",
-"family": "Juno",
-"year": "2010",
-"work": "Losin' Lately Gambler"
-},
-{
-"award": "Juno Award for Roots & Traditional Album of the Year – Group",
-"family": "Juno",
-"year": "2003",
-"work": "Five Dollar Bill"
-}
-]
-},
-"218kRJZ7FJs0hWIk8Ynzhz": {
-"qid": "Q563057",
-"wins": [
-{
-"award": "Grammy Hall of Fame",
-"family": "Grammy",
-"year": "1998",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Album",
-"family": "American Music Awards",
-"year": "1975",
-"work": "Behind Closed Doors"
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1973",
-"work": ""
-}
-],
-"nominations": [
-{
-"award": "Juno Award for International Album of the Year",
-"family": "Juno",
-"year": "1975",
-"work": "Behind Closed Doors"
-},
-{
-"award": "American Music Award for Favorite Pop/Rock Album",
-"family": "American Music Awards",
-"year": "1975",
-"work": "Behind Closed Doors"
-},
-{
-"award": "Juno Award for Best Selling Single",
-"family": "Juno",
-"year": "1975",
-"work": ""
-},
-{
-"award": "Grammy Award for Album of the Year",
-"family": "Grammy",
-"year": "1973",
-"work": "Behind Closed Doors"
-},
-{
-"award": "Grammy Award for Record of the Year",
-"family": "Grammy",
-"year": "1973",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Male Country Vocal Performance",
-"family": "Grammy",
-"year": "1973",
-"work": ""
-}
-]
-},
 "0jPnVIasXzBYjrlpO5irii": {
 "qid": "Q71746387",
 "wins": [],
@@ -2990,162 +10,6 @@
 "work": ""
 }
 ]
-},
-"69Fk1s1lzINOKqoSWjjEiE": {
-"qid": "Q1066772",
-"wins": [
-{
-"award": "Grammy Awards",
-"family": "Grammy",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"502FY8XQYRxClWgolQ3Hf2": {
-"qid": "Q163593",
-"wins": [
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"1FE0rls8gfQT3laAeRYNgl": {
-"qid": "Q272931",
-"wins": [
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2010",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Collaboration with Vocals",
-"family": "Grammy",
-"year": "2004",
-"work": "Portland Oregon"
-},
-{
-"award": "Grammy Award for Best Country Album",
-"family": "Grammy",
-"year": "2004",
-"work": "Van Lear Rose"
-},
-{
-"award": "American Music Award of Merit",
-"family": "American Music Awards",
-"year": "1985",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1978",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1978",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1977",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "1977",
-"work": ""
-},
-{
-"award": "American Music Award for Favorite Country Band/Duo/Group",
-"family": "American Music Awards",
-"year": "1975",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
-"family": "Grammy",
-"year": "1971",
-"work": "After the Fire Is Gone"
-}
-],
-"nominations": []
-},
-"5ixB75BQR3ADoWQkcHQJTs": {
-"qid": "Q342723",
-"wins": [
-{
-"award": "Grammy Lifetime Achievement Award",
-"family": "Grammy",
-"year": "2009",
-"work": ""
-}
-],
-"nominations": []
-},
-"6OheJTrDFGiyZ67F1BBLhc": {
-"qid": "Q434512",
-"wins": [
-{
-"award": "American Music Award for Favorite Country Female Artist",
-"family": "American Music Awards",
-"year": "",
-"work": ""
-},
-{
-"award": "Grammy Award for Best Female Country Vocal Performance",
-"family": "Grammy",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
-},
-"6lx6XS8umFqYRVbBErx9fE": {
-"qid": "Q462289",
-"wins": [
-{
-"award": "Grammy Award for Best American Roots Performance",
-"family": "Grammy",
-"year": "2015",
-"work": "A Feather's Not a Bird"
-},
-{
-"award": "Grammy Award for Best American Roots Song",
-"family": "Grammy",
-"year": "2015",
-"work": "A Feather's Not a Bird"
-},
-{
-"award": "Grammy Award for Best Americana Album",
-"family": "Grammy",
-"year": "2015",
-"work": "The River & the Thread"
-}
-],
-"nominations": []
-},
-"3kvy8do7n0qVqvlNFS4yOF": {
-"qid": "Q712914",
-"wins": [
-{
-"award": "Grammy Awards",
-"family": "Grammy",
-"year": "",
-"work": ""
-}
-],
-"nominations": []
 },
 "137W8MRPWKqSmrBGDBFSop": {
 "qid": "Q117139",
@@ -8567,6 +5431,3244 @@
 "award": "MTV Europe Music Award for Best German Act",
 "family": "MTV",
 "year": "2021",
+"work": ""
+}
+],
+"nominations": []
+},
+"2d3VHzlOEwXvmBdS4pzOPL": {
+"qid": "Q120533",
+"wins": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1997",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1997",
+"work": ""
+}
+]
+},
+"5e4Dhzv426EvQe3aDb64jL": {
+"qid": "Q131433",
+"wins": [
+{
+"award": "Juno Award for Country Album of the Year",
+"family": "Juno",
+"year": "2004",
+"work": "Up!"
+},
+{
+"award": "Juno Award for Artist of the Year",
+"family": "Juno",
+"year": "2003",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Female Artist",
+"family": "American Music Awards",
+"year": "2000",
+"work": ""
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "2000",
+"work": "You've Got a Way"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "2000",
+"work": "That Don't Impress Me Much"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "2000",
+"work": "Man! I Feel Like a Woman!"
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "2000",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1999",
+"work": "Come On Over"
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1998",
+"work": "You're Still the One"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1998",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1997",
+"work": ""
+},
+{
+"award": "Juno Award for Entertainer of the Year",
+"family": "Juno",
+"year": "1996",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "1995",
+"work": "The Woman in Me"
+}
+],
+"nominations": [
+{
+"award": "Juno Award for Single of the Year",
+"family": "Juno",
+"year": "2005",
+"work": "Party for Two"
+},
+{
+"award": "Juno Award for Country Album of the Year",
+"family": "Juno",
+"year": "2005",
+"work": ""
+},
+{
+"award": "Juno Award for Country Album of the Year",
+"family": "Juno",
+"year": "2004",
+"work": "Up!"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2003",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "2003",
+"work": ""
+},
+{
+"award": "Juno Award for Artist of the Year",
+"family": "Juno",
+"year": "2003",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "2003",
+"work": "Forever and for Always"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2003",
+"work": "Up!"
+},
+{
+"award": "Juno Award for Album of the Year",
+"family": "Juno",
+"year": "2003",
+"work": "Up!"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "2003",
+"work": "I'm Gonna Getcha Good!"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "2003",
+"work": "Up!"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "2000",
+"work": "You've Got a Way"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "2000",
+"work": "That Don't Impress Me Much"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "2000",
+"work": "Man! I Feel Like a Woman!"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Female Artist",
+"family": "American Music Awards",
+"year": "2000",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Adult Contemporary Artist",
+"family": "American Music Awards",
+"year": "2000",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "2000",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Adult Contemporary Artist",
+"family": "American Music Awards",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "1999",
+"work": "From This Moment On"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "1999",
+"work": "Don't Be Stupid (You Know I Love You)"
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "1999",
+"work": "You're Still the One"
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Award for Song of the Year",
+"family": "Grammy",
+"year": "1999",
+"work": "You've Got a Way"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Album",
+"family": "American Music Awards",
+"year": "1999",
+"work": "Come On Over"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1999",
+"work": "Come On Over"
+},
+{
+"award": "Juno Award for International Album of the Year",
+"family": "Juno",
+"year": "1999",
+"work": "Come On Over"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1999",
+"work": "Come On Over"
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "1999",
+"work": "Come On Over"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Female Artist",
+"family": "American Music Awards",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1998",
+"work": ""
+},
+{
+"award": "Grammy Award for Song of the Year",
+"family": "Grammy",
+"year": "1998",
+"work": "You're Still the One"
+},
+{
+"award": "MTV Video Music Award for Best Female Video",
+"family": "MTV",
+"year": "1998",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "1998",
+"work": "Come On Over"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1998",
+"work": "You're Still the One"
+},
+{
+"award": "Juno Award for Album of the Year",
+"family": "Juno",
+"year": "1998",
+"work": "Come On Over"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1998",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1998",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1997",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1997",
+"work": "The Woman in Me"
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1996",
+"work": ""
+},
+{
+"award": "Juno Award for Songwriter of the Year",
+"family": "Juno",
+"year": "1996",
+"work": ""
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1996",
+"work": ""
+},
+{
+"award": "Juno Award for International Album of the Year",
+"family": "Juno",
+"year": "1996",
+"work": "The Woman in Me"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1996",
+"work": "The Woman in Me"
+},
+{
+"award": "Juno Award for Single of the Year",
+"family": "Juno",
+"year": "1996",
+"work": ""
+},
+{
+"award": "Juno Award for Entertainer of the Year",
+"family": "Juno",
+"year": "1996",
+"work": ""
+},
+{
+"award": "Juno Award for Album of the Year",
+"family": "Juno",
+"year": "1996",
+"work": "The Woman in Me"
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1995",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "1995",
+"work": "The Woman in Me"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1995",
+"work": "Any Man of Mine"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1995",
+"work": ""
+}
+]
+},
+"6yJCxee7QumYr820xdIsjo": {
+"qid": "Q139154",
+"wins": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2010",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2010",
+"work": ""
+}
+]
+},
+"25IG9fa7cbdmCIy3OnuH57": {
+"qid": "Q142636",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+}
+]
+},
+"59hLmB5DrdihCYtNeFeW1U": {
+"qid": "Q162667",
+"wins": [
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "2015",
+"work": "I'm Not Gonna Miss You"
+},
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2012",
+"work": ""
+},
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2011",
+"work": ""
+},
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+},
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2003",
+"work": ""
+},
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1977",
+"work": "Rhinestone Cowboy"
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "1968",
+"work": "By the Time I Get to Phoenix"
+},
+{
+"award": "Grammy Award for Best Contemporary (R&R) Performance",
+"family": "Grammy",
+"year": "1967",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Pop Vocal Performance",
+"family": "Grammy",
+"year": "1967",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country & Western Recording",
+"family": "Grammy",
+"year": "1967",
+"work": "Gentle on My Mind"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1967",
+"work": "Gentle on My Mind"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1980",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1977",
+"work": "Rhinestone Cowboy"
+},
+{
+"award": "Grammy Award for Best Male Pop Vocal Performance",
+"family": "Grammy",
+"year": "1975",
+"work": ""
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1975",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Pop Vocal Performance",
+"family": "Grammy",
+"year": "1968",
+"work": ""
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "1968",
+"work": "By the Time I Get to Phoenix"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1968",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country & Western Recording",
+"family": "Grammy",
+"year": "1967",
+"work": "Gentle on My Mind"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1967",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Pop Vocal Performance",
+"family": "Grammy",
+"year": "1967",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Contemporary (R&R) Performance",
+"family": "Grammy",
+"year": "1967",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1967",
+"work": "Gentle on My Mind"
+}
+]
+},
+"32vWCbZh0xZ4o9gkz4PsEU": {
+"qid": "Q180453",
+"wins": [
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2011",
+"work": ""
+},
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2010",
+"work": ""
+},
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2006",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2001",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Bluegrass Album",
+"family": "Grammy",
+"year": "2000",
+"work": "The Grass Is Blue"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1987",
+"work": "Trio"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1981",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1981",
+"work": "9 to 5"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1978",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1978",
+"work": "New Harvest… First Gathering"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Country Duo/Group Performance",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Song Written for Visual Media",
+"family": "Grammy",
+"year": "2007",
+"work": "Transamerica"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2003",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2002",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2002",
+"work": "Halos & Horns"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2001",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Bluegrass Album",
+"family": "Grammy",
+"year": "2000",
+"work": "The Grass Is Blue"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2000",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "1999",
+"work": "Trio II"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1995",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1994",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1993",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1991",
+"work": "Eagle When She Flies"
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1990",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1989",
+"work": ""
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "1987",
+"work": "Trio"
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1987",
+"work": "Trio"
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1986",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1985",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "Juno Award for Best Selling Single",
+"family": "Juno",
+"year": "1984",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1984",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1983",
+"work": "Burlap & Satin"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1982",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1982",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Female Artist",
+"family": "American Music Awards",
+"year": "1982",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1981",
+"work": "9 to 5"
+},
+{
+"award": "Grammy Award for Song of the Year",
+"family": "Grammy",
+"year": "1981",
+"work": "9 to 5"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1981",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1980",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1979",
+"work": "Here You Come Again"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1978",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1978",
+"work": "New Harvest… First Gathering"
+},
+{
+"award": "Grammy Award for Best Female Pop Vocal Performance",
+"family": "Grammy",
+"year": "1977",
+"work": ""
+}
+]
+},
+"5W5bDNCqJ1jbCgTxDD0Cb3": {
+"qid": "Q206112",
+"wins": [
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2010",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+},
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+},
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2006",
+"work": "Wanted! The Outlaws"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2002",
+"work": ""
+},
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "2001",
+"work": "Red Headed Stranger"
+},
+{
+"award": "Grammy Legend Award",
+"family": "Grammy",
+"year": "1990",
+"work": ""
+},
+{
+"award": "American Music Award of Merit",
+"family": "American Music Awards",
+"year": "1989",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Album",
+"family": "American Music Awards",
+"year": "1983",
+"work": "Always on My Mind"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1983",
+"work": "Always on My Mind"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1982",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1980",
+"work": "On the Road Again"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1978",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1978",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1975",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Americana Album",
+"family": "Grammy",
+"year": "2010",
+"work": "Country Music"
+},
+{
+"award": "Grammy Award for Best Traditional Pop Vocal Album",
+"family": "Grammy",
+"year": "2009",
+"work": "American Classic"
+},
+{
+"award": "Grammy Award for Best Pop Collaboration with Vocals",
+"family": "Grammy",
+"year": "2009",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Americana Album",
+"family": "Grammy",
+"year": "2009",
+"work": "Willie and the Wheel"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2006",
+"work": "You Don't Know Me: The Songs of Cindy Walker"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2005",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "2005",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2003",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2003",
+"work": "Live and Kickin'"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2002",
+"work": "The Great Divide"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2002",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "2001",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2001",
+"work": "Rainbow Connection"
+},
+{
+"award": "Grammy Award for Best Music Film",
+"family": "Grammy",
+"year": "2000",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Pop Instrumental Performance",
+"family": "Grammy",
+"year": "1999",
+"work": "Night and Day"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1997",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Traditional Pop Vocal Album",
+"family": "Grammy",
+"year": "1994",
+"work": "Moonlight Becomes You"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1990",
+"work": "Highwayman 2"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1986",
+"work": "City of New Orleans"
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1984",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1984",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1983",
+"work": "Take It to the Limit"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Album",
+"family": "American Music Awards",
+"year": "1983",
+"work": "Always on My Mind"
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1983",
+"work": "Pancho & Lefty"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1983",
+"work": "Always on My Mind"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1982",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1982",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1982",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1981",
+"work": "Somewhere Over the Rainbow"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1980",
+"work": "On the Road Again"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1980",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1978",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1978",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1975",
+"work": ""
+}
+]
+},
+"4xFUf1FHVy696Q1JQZMTRj": {
+"qid": "Q215546",
+"wins": [
+{
+"award": "Grammy Award for Best Country Solo Performance",
+"family": "Grammy",
+"year": "2015",
+"work": "Something in the Water"
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+},
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+},
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+}
+]
+},
+"4tw2Lmn9tTPUv7Gy7mVPI4": {
+"qid": "Q217160",
+"wins": [
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1987",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1985",
+"work": "Eyes That See in the Dark"
+},
+{
+"award": "American Music Award of Merit",
+"family": "American Music Awards",
+"year": "1983",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1982",
+"work": "Kenny Rogers - Greatest Hits (1980)"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Album",
+"family": "American Music Awards",
+"year": "1982",
+"work": "Kenny Rogers - Greatest Hits (1980)"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1981",
+"work": "The Gambler"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1980",
+"work": "The Gambler"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1979",
+"work": "Ten Years of Gold"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1977",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Country Duo/Group Performance",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1987",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1985",
+"work": "Eyes That See in the Dark"
+},
+{
+"award": "Juno Award for Best Selling Single",
+"family": "Juno",
+"year": "1984",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1983",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Album",
+"family": "American Music Awards",
+"year": "1982",
+"work": "Kenny Rogers - Greatest Hits (1980)"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1982",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1982",
+"work": "Kenny Rogers - Greatest Hits (1980)"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1981",
+"work": "The Gambler"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1981",
+"work": "Ten Years of Gold"
+},
+{
+"award": "Juno Award for International Album of the Year",
+"family": "Juno",
+"year": "1981",
+"work": "Kenny Rogers - Greatest Hits (1980)"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1980",
+"work": "The Gambler"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1980",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Pop Vocal Performance",
+"family": "Grammy",
+"year": "1980",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Pop Performance by a Duo or Group with Vocals",
+"family": "Grammy",
+"year": "1980",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Pop Vocal Performance",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1979",
+"work": "Ten Years of Gold"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "1979",
+"work": "The Gambler"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1977",
+"work": ""
+}
+]
+},
+"60rpJ9SgigSd16DOAG7GSa": {
+"qid": "Q231259",
+"wins": [
+{
+"award": "Juno Award for Best Selling Single",
+"family": "Juno",
+"year": "1993",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Juno Award for Best Selling Single",
+"family": "Juno",
+"year": "1993",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1993",
+"work": "Some Gave All"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1993",
+"work": ""
+},
+{
+"award": "Juno Award for International Album of the Year",
+"family": "Juno",
+"year": "1993",
+"work": "Some Gave All"
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1993",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1992",
+"work": ""
+}
+]
+},
+"4mxWe1mtYIYfP040G38yvS": {
+"qid": "Q380927",
+"wins": [
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2010",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "2002",
+"work": "Where Were You (When the World Stopped Turning)"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1994",
+"work": "A Lot About Livin' (And a Little 'bout Love)"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "2007",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2006",
+"work": "Like Red on a Rose"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2004",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2003",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "2003",
+"work": "Drive"
+},
+{
+"award": "Grammy Award for Song of the Year",
+"family": "Grammy",
+"year": "2002",
+"work": "Where Were You (When the World Stopped Turning)"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "2002",
+"work": "Where Were You (When the World Stopped Turning)"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "2002",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2002",
+"work": "Drive"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "2001",
+"work": "Under the Influence"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2000",
+"work": "Under the Influence"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "1997",
+"work": "Everything I Love"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1996",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1995",
+"work": "Who I Am"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1995",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1995",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1994",
+"work": "A Lot About Livin' (And a Little 'bout Love)"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1993",
+"work": "Chattahoochee"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1993",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1992",
+"work": "Don't Rock the Jukebox"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1991",
+"work": "Don't Rock the Jukebox"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1991",
+"work": "Don't Rock the Jukebox"
+}
+]
+},
+"66lH4jAE7pqPlOlzUKbwA0": {
+"qid": "Q231233",
+"wins": [
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2015",
+"work": "Platinum"
+}
+],
+"nominations": []
+},
+"25NQNriVT2YbSW80ILRWJa": {
+"qid": "Q464241",
+"wins": [
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"1pTuR132U5b4Rizal2Pr7m": {
+"qid": "Q467519",
+"wins": [
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2009",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
+"family": "Grammy",
+"year": "2006",
+"work": "Glory Train: Songs of Faith, Worship, and Praise"
+},
+{
+"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
+"family": "Grammy",
+"year": "2004",
+"work": "Worship & Faith"
+},
+{
+"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
+"family": "Grammy",
+"year": "2003",
+"work": "Rise and Shine"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1998",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1990",
+"work": "Old 8×10"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1989",
+"work": "Always & Forever"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1988",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1988",
+"work": "Storms of Life"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1987",
+"work": "Always & Forever"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2009",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2008",
+"work": "Around the Bend"
+},
+{
+"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
+"family": "Grammy",
+"year": "2006",
+"work": "Glory Train: Songs of Faith, Worship, and Praise"
+},
+{
+"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
+"family": "Grammy",
+"year": "2004",
+"work": "Worship & Faith"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "2003",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Southern, Country or Bluegrass Gospel Album",
+"family": "Grammy",
+"year": "2003",
+"work": "Rise and Shine"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1998",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1990",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1990",
+"work": "Old 8×10"
+},
+{
+"award": "Juno Award for International Entertainer of the Year",
+"family": "Juno",
+"year": "1990",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1990",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1989",
+"work": "Always & Forever"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1989",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1988",
+"work": "Storms of Life"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1988",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1987",
+"work": "Always & Forever"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1986",
+"work": ""
+}
+]
+},
+"6kACVPfCOnqzgfEF5ryl0x": {
+"qid": "Q42775",
+"wins": [
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "1999",
+"work": ""
+},
+{
+"award": "Grammy Legend Award",
+"family": "Grammy",
+"year": "1991",
+"work": ""
+}
+],
+"nominations": []
+},
+"2kucQ9jQwuD8jWdtR9Ef38": {
+"qid": "Q16223171",
+"wins": [
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2016",
+"work": ""
+}
+]
+},
+"3RqBeV12Tt7A8xH3zBDDUF": {
+"qid": "Q18637137",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2017",
+"work": ""
+}
+]
+},
+"6WY7D3jk8zTrHtmkqqo5GI": {
+"qid": "Q21622122",
+"wins": [
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2017",
+"work": ""
+}
+]
+},
+"718COspgdWOnwOFpJHRZHS": {
+"qid": "Q23884740",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2019",
+"work": ""
+}
+]
+},
+"70kkdajctXSbqSMJbQO424": {
+"qid": "Q2783855",
+"wins": [
+{
+"award": "Grammy Award for Best Country Duo/Group Performance",
+"family": "Grammy",
+"year": "2024",
+"work": "I Remember Everything"
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "2019",
+"work": "Golden Hour"
+},
+{
+"award": "Grammy Award for Best Country Solo Performance",
+"family": "Grammy",
+"year": "2019",
+"work": "Butterflies"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2019",
+"work": "Golden Hour"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "2019",
+"work": "Space Cowboy"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "2014",
+"work": "Merry Go 'Round"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2014",
+"work": "Same Trailer Different Park"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2014",
+"work": ""
+}
+]
+},
+"32WkQRZEVKSzVAAYqukAEA": {
+"qid": "Q389870",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2009",
+"work": ""
+}
+]
+},
+"2dyeCWctcFRt3Pha76ONgb": {
+"qid": "Q552819",
+"wins": [
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1989",
+"work": "There's a Tear in My Beer"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1985",
+"work": "All My Rowdy Friends Are Coming Over Tonight"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1985",
+"work": "All My Rowdy Friends Are Coming Over Tonight"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "1965",
+"work": ""
+}
+]
+},
+"3grHWM9bx2E9vwJCdlRv9O": {
+"qid": "Q467526",
+"wins": [
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"0a1gHP0HAqALbEyxaD5Ngn": {
+"qid": "Q753598",
+"wins": [
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"6tPHARSq45lQ8BSALCfkFC": {
+"qid": "Q106378786",
+"wins": [
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2024",
+"work": "Bell Bottom Country"
+}
+],
+"nominations": []
+},
+"7H6dkUChT5EoOQtUVMg4cN": {
+"qid": "Q1042498",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best Country Solo Performance",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2013",
+"work": ""
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2012",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2012",
+"work": "Hunter Hayes"
+},
+{
+"award": "Grammy Award for Best Country Solo Performance",
+"family": "Grammy",
+"year": "2012",
+"work": ""
+}
+]
+},
+"0hYxQe3AK5jBPCr5MumLHD": {
+"qid": "Q1200415",
+"wins": [
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2006",
+"work": ""
+}
+]
+},
+"75FnCoo4FBxH5K1Rrx0k5A": {
+"qid": "Q1460017",
+"wins": [
+{
+"award": "Grammy Award for Best Country Duo/Group Performance",
+"family": "Grammy",
+"year": "2015",
+"work": "Gentle on My Mind"
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2012",
+"work": ""
+}
+]
+},
+"7MSTO40bsb3DOJQT6xLsIc": {
+"qid": "Q1755990",
+"wins": [
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1991",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1988",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1986",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1984",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1991",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1991",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1990",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1990",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1989",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1989",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1988",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1988",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1988",
+"work": "Heartland"
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1987",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1987",
+"work": "Heartland"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1987",
+"work": "Rockin' with the Rhythm"
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1986",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1986",
+"work": ""
+},
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1985",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1984",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1982",
+"work": ""
+}
+]
+},
+"7wCjDgV6nqBsHguQXPAaIM": {
+"qid": "Q251287",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1979",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1970",
+"work": "MacArthur Park"
+}
+]
+},
+"3P33qFNGBVXl86yQYWspFj": {
+"qid": "Q256732",
+"wins": [
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best Country Solo Performance",
+"family": "Grammy",
+"year": "2012",
+"work": "I'm Gonna Love You Through It"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2010",
+"work": "I Just Call You Mine"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2009",
+"work": "For These Times"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2007",
+"work": "I Still Miss Someone"
+},
+{
+"award": "Grammy Award for Best Music Video",
+"family": "Grammy",
+"year": "2006",
+"work": "God's Will"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2005",
+"work": "In My Daughter's Eyes"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2004",
+"work": "This One's for the Girls"
+},
+{
+"award": "Grammy Award for Best Music Video",
+"family": "Grammy",
+"year": "2004",
+"work": "Concrete Angel"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2003",
+"work": "Blessed"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "2000",
+"work": "I Love You"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1998",
+"work": "Still Holding On"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1996",
+"work": "On My Own"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1996",
+"work": "Safe in the Arms of Love"
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1995",
+"work": "Independence Day"
+}
+]
+},
+"13YmWQJFwgZrd4bf5IjMY4": {
+"qid": "Q39639",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2001",
+"work": ""
+}
+]
+},
+"0IdYRFTswLdsGwSnzOaGNF": {
+"qid": "Q443897",
+"wins": [
+{
+"award": "American Music Award for New Artist of the Year",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2005",
+"work": ""
+}
+]
+},
+"0Xi59sEw38vRvwleSAVqoo": {
+"qid": "Q919565",
+"wins": [
+{
+"award": "Grammy Awards",
+"family": "Grammy",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"2ptmyXoL7poH6Zq62h1QT9": {
+"qid": "Q183092",
+"wins": [
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2006",
+"work": ""
+}
+],
+"nominations": []
+},
+"0vYQRW5LIDeYQOccTviQNX": {
+"qid": "Q208681",
+"wins": [
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2014",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1972",
+"work": "Help Me Make It Through the Night"
+}
+],
+"nominations": []
+},
+"02rd0anEWfMtF7iMku9uor": {
+"qid": "Q229430",
+"wins": [
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "2004",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1998",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1995",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1994",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1993",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1992",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1991",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1990",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1989",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1988",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "1987",
+"work": "Whoever's in New England"
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"5s6TJEuHTr9GR894wc6VfP": {
+"qid": "Q231286",
+"wins": [
+{
+"award": "Billboard Music Awards",
+"family": "Billboard Music Awards",
+"year": "",
+"work": ""
+},
+{
+"award": "Grammy Awards",
+"family": "Grammy",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"7dNsHhGeGU5MV01r06O8gK": {
+"qid": "Q273080",
+"wins": [
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "1995",
+"work": ""
+}
+],
+"nominations": []
+},
+"738OS3zrCO782uDiUN9pet": {
+"qid": "Q454082",
+"wins": [
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2003",
+"work": "Mendocino County Line"
+}
+],
+"nominations": []
+},
+"2OpqcUtj10HHvGG6h9VYC5": {
+"qid": "Q508202",
+"wins": [
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2012",
+"work": ""
+}
+],
+"nominations": []
+},
+"502FY8XQYRxClWgolQ3Hf2": {
+"qid": "Q163593",
+"wins": [
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"1FClsNYBUoNFtGgzeG74dW": {
+"qid": "Q206181",
+"wins": [
+{
+"award": "Pulitzer Prize Special Citations and Awards",
+"family": "Pulitzer",
+"year": "2010",
+"work": ""
+},
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "1987",
+"work": ""
+}
+],
+"nominations": []
+},
+"4BclNkZtAUq1YrYNzye3N7": {
+"qid": "Q216288",
+"wins": [
+{
+"award": "American Music Award of Merit",
+"family": "American Music Awards",
+"year": "2002",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "2000",
+"work": "Double Live"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1999",
+"work": "Sevens"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1997",
+"work": ""
+},
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "1996",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1996",
+"work": "The Hits"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1992",
+"work": "No Fences"
+},
+{
+"award": "Juno Award for International Entertainer of the Year",
+"family": "Juno",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1991",
+"work": "Ropin' the Wind"
+}
+],
+"nominations": [
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "2008",
+"work": "The Ultimate Hits"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2002",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2001",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "2000",
+"work": "Double Live"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1999",
+"work": "Sevens"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1998",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "1998",
+"work": "Sevens"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1998",
+"work": "Where Your Road Leads"
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1997",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1997",
+"work": "Fresh Horses"
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1997",
+"work": "In Another's Eyes"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1996",
+"work": "The Hits"
+},
+{
+"award": "American Music Award for Artist of the Year",
+"family": "American Music Awards",
+"year": "1996",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1994",
+"work": "In Pieces"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1993",
+"work": ""
+},
+{
+"award": "Juno Award for International Entertainer of the Year",
+"family": "Juno",
+"year": "1993",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1993",
+"work": "The Chase"
+},
+{
+"award": "Juno Award for International Entertainer of the Year",
+"family": "Juno",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "1992",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1992",
+"work": "The Chase"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1992",
+"work": "Ropin' the Wind"
+},
+{
+"award": "American Music Award for Favorite Country Album",
+"family": "American Music Awards",
+"year": "1992",
+"work": "No Fences"
+},
+{
+"award": "Grammy Award for Best Music Video",
+"family": "Grammy",
+"year": "1991",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1991",
+"work": "Ropin' the Wind"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1990",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1989",
+"work": "To Make You Feel My Love"
+}
+]
+},
+"1FE0rls8gfQT3laAeRYNgl": {
+"qid": "Q272931",
+"wins": [
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2010",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Collaboration with Vocals",
+"family": "Grammy",
+"year": "2004",
+"work": "Portland Oregon"
+},
+{
+"award": "Grammy Award for Best Country Album",
+"family": "Grammy",
+"year": "2004",
+"work": "Van Lear Rose"
+},
+{
+"award": "American Music Award of Merit",
+"family": "American Music Awards",
+"year": "1985",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1978",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1978",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1977",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "1977",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Country Band/Duo/Group",
+"family": "American Music Awards",
+"year": "1975",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Performance by a Duo or Group with Vocal",
+"family": "Grammy",
+"year": "1971",
+"work": "After the Fire Is Gone"
+}
+],
+"nominations": []
+},
+"5ixB75BQR3ADoWQkcHQJTs": {
+"qid": "Q342723",
+"wins": [
+{
+"award": "Grammy Lifetime Achievement Award",
+"family": "Grammy",
+"year": "2009",
+"work": ""
+}
+],
+"nominations": []
+},
+"6OheJTrDFGiyZ67F1BBLhc": {
+"qid": "Q434512",
+"wins": [
+{
+"award": "American Music Award for Favorite Country Female Artist",
+"family": "American Music Awards",
+"year": "",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"6lx6XS8umFqYRVbBErx9fE": {
+"qid": "Q462289",
+"wins": [
+{
+"award": "Grammy Award for Best American Roots Performance",
+"family": "Grammy",
+"year": "2015",
+"work": "A Feather's Not a Bird"
+},
+{
+"award": "Grammy Award for Best American Roots Song",
+"family": "Grammy",
+"year": "2015",
+"work": "A Feather's Not a Bird"
+},
+{
+"award": "Grammy Award for Best Americana Album",
+"family": "Grammy",
+"year": "2015",
+"work": "The River & the Thread"
+}
+],
+"nominations": []
+},
+"218kRJZ7FJs0hWIk8Ynzhz": {
+"qid": "Q563057",
+"wins": [
+{
+"award": "Grammy Hall of Fame",
+"family": "Grammy",
+"year": "1998",
+"work": ""
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Album",
+"family": "American Music Awards",
+"year": "1975",
+"work": "Behind Closed Doors"
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1973",
+"work": ""
+}
+],
+"nominations": [
+{
+"award": "Juno Award for International Album of the Year",
+"family": "Juno",
+"year": "1975",
+"work": "Behind Closed Doors"
+},
+{
+"award": "American Music Award for Favorite Pop/Rock Album",
+"family": "American Music Awards",
+"year": "1975",
+"work": "Behind Closed Doors"
+},
+{
+"award": "Juno Award for Best Selling Single",
+"family": "Juno",
+"year": "1975",
+"work": ""
+},
+{
+"award": "Grammy Award for Album of the Year",
+"family": "Grammy",
+"year": "1973",
+"work": "Behind Closed Doors"
+},
+{
+"award": "Grammy Award for Record of the Year",
+"family": "Grammy",
+"year": "1973",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Male Country Vocal Performance",
+"family": "Grammy",
+"year": "1973",
+"work": ""
+}
+]
+},
+"1LFKKuzn302wp15dYH28id": {
+"qid": "Q234017",
+"wins": [
+{
+"award": "Grammy Award for Best Female Country Vocal Performance",
+"family": "Grammy",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"1RP2UpEaRzkF0Id3JigqD8": {
+"qid": "Q712359",
+"wins": [
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1965",
+"work": "King of the Road"
+},
+{
+"award": "Grammy Award for Best Country & Western Recording",
+"family": "Grammy",
+"year": "1965",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country Song",
+"family": "Grammy",
+"year": "1964",
+"work": ""
+},
+{
+"award": "Grammy Award for Best New Country & Western Artist",
+"family": "Grammy",
+"year": "1964",
+"work": ""
+},
+{
+"award": "Grammy Award for Best Country & Western Recording",
+"family": "Grammy",
+"year": "1964",
+"work": "Dang Me"
+}
+],
+"nominations": []
+},
+"09yvLritEUxHrzx5TlFvbl": {
+"qid": "Q22073688",
+"wins": [],
+"nominations": [
+{
+"award": "Grammy Award for Best New Artist",
+"family": "Grammy",
+"year": "2019",
+"work": ""
+}
+]
+},
+"2dIP3oiEt0xB8CrfSqN9Og": {
+"qid": "Q2997024",
+"wins": [],
+"nominations": [
+{
+"award": "Juno Award for Roots & Traditional Album of the Year – Solo",
+"family": "Juno",
+"year": "2013",
+"work": "Cabin Fever"
+},
+{
+"award": "Juno Award for Roots & Traditional Album of the Year – Solo",
+"family": "Juno",
+"year": "2010",
+"work": "Losin' Lately Gambler"
+},
+{
+"award": "Juno Award for Roots & Traditional Album of the Year – Group",
+"family": "Juno",
+"year": "2003",
+"work": "Five Dollar Bill"
+}
+]
+},
+"69Fk1s1lzINOKqoSWjjEiE": {
+"qid": "Q1066772",
+"wins": [
+{
+"award": "Grammy Awards",
+"family": "Grammy",
+"year": "",
+"work": ""
+}
+],
+"nominations": []
+},
+"3kvy8do7n0qVqvlNFS4yOF": {
+"qid": "Q712914",
+"wins": [
+{
+"award": "Grammy Awards",
+"family": "Grammy",
+"year": "",
 "work": ""
 }
 ],
