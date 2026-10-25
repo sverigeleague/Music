@@ -417,7 +417,7 @@ async function artist(id) {
         <dt>Labels on record</dt><dd>${esc(a.labels.slice(0, 3).join(", ") || "–")}${a.labels.length > 3 ? ` +${a.labels.length - 3}` : ""}</dd>
       </dl><p class="note">Stream totals as of ${esc(a.streams_date || "–")} (kworb.net, from Spotify's public play counts).</p></div>
     </section>
-    ${a.radio_rank ? `<section class="panel"><h2>On US radio</h2><p><b>#${a.radio_rank.rank}</b> of the ${a.radio_rank.of} hip-hop artists on the US airplay chart this week, by the audience their songs reached on AM/FM radio.</p><p class="note">Our ranking from the week's airplay audience estimates (all formats). Radio pays the songs' writers and publishers, not the recordings; see the radio line in the money table.</p></section>` : ""}
+    ${a.radio_rank ? `<section class="panel"><h2>On US radio</h2><p><b>#${a.radio_rank.rank}</b> of the ${a.radio_rank.of} hip-hop artists on the US airplay chart this week, by the audience their songs reached on AM/FM radio.</p><p class="note">Our ranking from the week's airplay audience estimates (all formats). Radio pays the songs' writers and publishers, not the recordings${GENRE === "country" ? "; see the radio line in the money table" : ""}.</p></section>` : ""}
     ${a.shazam ? `<section class="panel"><h2>Discovery</h2><p>${shazamBadge(a)}</p><p class="note">People looking the song up on Shazam: often an early sign, before streams follow. From Shazam's public charts (world, 15 countries and 31 cities, the last 7 days).</p></section>` : ""}
     ${certsPanel(a)}
     ${awardsPanel(a)}
@@ -428,7 +428,16 @@ async function artist(id) {
     <section class="panel" id="deals" hidden></section>
     <section class="note">Genre: ${esc(a.genre_basis)}.${a.photo ? ` Photo: ${esc(a.photo.author)}, <a href="${esc(a.photo.page)}" target="_blank" rel="noopener">${esc(a.photo.license)}</a>, via Wikimedia Commons.` : ""}</section>`;
   bindStars(() => artist(id));
+  stackify(app);
   revenuePanel(a);
+}
+
+// Phones: tables marked "stack" show each row as a block, every value under its column's name (from the header)
+function stackify(root) {
+  root.querySelectorAll("table.stack").forEach(t => {
+    const heads = [...t.querySelectorAll("thead th")].map(th => th.innerText.trim());
+    t.querySelectorAll("tbody tr").forEach(tr => [...tr.children].forEach((td, i) => { if (i && heads[i]) td.dataset.k = heads[i]; }));
+  });
 }
 
 // ---------- revenue streams (artist page): detail from data/a/<id>.json
@@ -764,7 +773,7 @@ const mbRec = id => `https://musicbrainz.org/recording/${encodeURIComponent(id)}
 function creditsPanel(a) {
   const C = a.song_credits;
   if (!C?.length) return "";
-  return `<section class="panel"><h2>Who makes the hits ${grade("B")}</h2><div class="tablebox"><table><thead><tr><th class="l">Song</th><th>Streams / day</th><th class="l">Produced by</th><th class="l">Written by</th></tr></thead><tbody>
+  return `<section class="panel"><h2>Who makes the hits ${grade("B")}</h2><div class="tablebox"><table class="stack"><thead><tr><th class="l">Song</th><th>Streams / day</th><th class="l">Produced by</th><th class="l">Written by</th></tr></thead><tbody>
     ${C.map(c => `<tr><td class="l"><a href="${mbRec(c.recording)}" target="_blank" rel="noopener">${esc(c.title)}</a></td><td>${count(c.daily)}</td><td class="l wrap">${c.producers.map(n => `<a href="#/producers?q=${encodeURIComponent(n)}">${esc(n)}</a>`).join(", ") || "–"}</td><td class="l wrap">${c.writers.map(esc).join(", ") || "–"}</td></tr>`).join("")}
   </tbody></table></div><p class="note">The artist's biggest songs as lead artist, with the credits entered on MusicBrainz (open data). Credits are partial: a blank means none entered yet.</p></section>`;
 }
@@ -814,7 +823,7 @@ function certsPanel(a) {
     <section class="tiles"><div class="tile"><div class="k">Certified releases</div><div class="v">${S.works}</div><div class="s">in ${S.countries} countr${S.countries === 1 ? "y" : "ies"}</div></div>
       <div class="tile"><div class="k">RIAA Platinum, all releases</div><div class="v">${S.riaa_plat}×</div><div class="s">Diamond counts as 10× (US)</div></div>
       <div class="tile"><div class="k">US No. 1s</div><div class="v">${S.no1}</div><div class="s">Billboard 200 or Hot 100, as listed</div></div></section>
-    <div class="tablebox"><table><thead><tr><th class="l">Release</th><th>Year</th><th>US peak</th><th class="l">Certifications</th></tr></thead><tbody>
+    <div class="tablebox"><table class="stack"><thead><tr><th class="l">Release</th><th>Year</th><th>US peak</th><th class="l">Certifications</th></tr></thead><tbody>
     ${C.top.map(w => `<tr><td class="l">${esc(w.title)} <span class="note">${esc(w.type)}</span></td><td>${esc(w.year || "–")}</td><td>${w.us_peak ? "#" + w.us_peak : "–"}</td><td class="l wrap">${w.certs.map(esc).join(", ")}</td></tr>`).join("")}
     </tbody></table></div>
     <p class="note">Most-certified releases first (RIAA multiples). From the artist's discography on <a href="${esc(C.url)}" target="_blank" rel="noopener">English Wikipedia</a> (CC BY-SA), which cites the certifying bodies (RIAA, BPI, ARIA, Music Canada and others). Wikipedia can lag the bodies' own databases by weeks.</p></section>`;
@@ -967,7 +976,7 @@ function collabPanel(a) {
   if (!C.length) return "";
   const inSite = new Set(store.data.artists.map(x => x.id));
   return `<section class="panel"><h2>Collaborations</h2>
-    <div class="tablebox"><table><thead><tr><th class="l">With</th><th>Songs</th><th>Their daily streams</th><th class="l">Biggest</th></tr></thead><tbody>
+    <div class="tablebox"><table class="stack"><thead><tr><th class="l">With</th><th>Songs</th><th>Their daily streams</th><th class="l">Biggest</th></tr></thead><tbody>
     ${C.map(c => `<tr><td class="l">${inSite.has(c.id) ? `<a href="#/a/${c.id}">${esc(c.name)}</a>` : esc(c.name)}</td><td>${c.songs}</td><td>${count(c.daily)}</td><td class="l wrap">${esc(c.top)}</td></tr>`).join("")}
     </tbody></table></div><p class="note">Songs where one of the two is the lead artist and the other is named in the title (feat. / with), from Spotify's play counts. Featuring a much bigger artist is an early sign labels watch.</p></section>`;
 }

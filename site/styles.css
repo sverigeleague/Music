@@ -310,3 +310,11 @@ td.lab { max-width: 160px; }
   table.rev td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
   table.rev tr.sec td.l, table.rev tr.sec { font-weight: 600; }
 }
+@media (max-width: 560px) {
+  table.stack thead { display: none; }
+  table.stack tr { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  table.stack td { border: 0; padding: 0 8px; white-space: normal; text-align: left; }
+  table.stack td:first-child { flex-basis: 100%; font-weight: 600; }
+  table.stack td.wrap { flex-basis: 100%; }
+  table.stack td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+}
