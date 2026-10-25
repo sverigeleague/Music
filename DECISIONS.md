@@ -18,7 +18,8 @@ What was chosen, what was considered and rejected, and why. Newest first.
 10. Hayden Blount, Token and Aitch stay unsigned until a better source turns up.
 
 Effect after the registry run: country 375 -> 395 artists (20 from review), 33 review artists to other, the hip-hop
-list loses 4 and takes the next four by listeners.
+list loses 4 and takes the next four by listeners. Streams, labels, photos and release dates were fetched for the new
+country artists; unknown country labels are now 37 of 395 (three new ones among the 20).
 
 ## 2026-10-25 Fixes from an independent review of the overnight changes
 

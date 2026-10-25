@@ -6,7 +6,7 @@
    "key": "majors",
    "label": "Majors' share of the top 1,000's listeners",
    "value": "60%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 810 of 1000 artists are known",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 808 of 1000 artists are known",
    "link": "#/labels"
   },
   {
@@ -34,7 +34,7 @@
    "key": "unsigned",
    "label": "Top unsigned prospect",
    "value": "SadiQ",
-   "detail": "Scout 92, 1.5m monthly listeners, releasing without a label",
+   "detail": "Scout 93, 1.5m monthly listeners, releasing without a label",
    "link": "#/a/2cbnuG01tV93pqdfr4OBqL"
   },
   {
@@ -62,7 +62,7 @@
    "key": "size",
    "label": "Hip-hop artists tracked",
    "value": "1,000",
-   "detail": "6.54bn combined monthly listeners, from Spotify's top 25,225",
+   "detail": "6.52bn combined monthly listeners, from Spotify's top 25,225",
    "link": "#/"
   }
  ]
