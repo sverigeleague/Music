@@ -51,7 +51,7 @@ def build(data: dict, extra: dict) -> dict:
         best = max(tiers["Breaking"], key=lambda a: a["scout"]["score"])
         items.append({"key": "breaking", "label": "Breaking now", "value": str(len(tiers["Breaking"])),
                       "detail": f"artists Scout rates Breaking; top: {best['name']} ({best['scout']['score']})", "link": "#/scout"})
-    unsigned = sorted((a for a in A if a.get("label_status") == "self_released" and a.get("scout")), key=lambda a: -a["scout"]["score"])
+    unsigned = sorted((a for a in A if a.get("label_status") == "self_released" and a.get("indie_kind") != "established" and a.get("scout")), key=lambda a: -a["scout"]["score"])
     if unsigned:
         u = unsigned[0]
         items.append({"key": "unsigned", "label": "Top unsigned prospect", "value": u["name"],

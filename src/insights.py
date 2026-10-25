@@ -195,7 +195,7 @@ def level(r: dict) -> dict:
     sc = r.get("scout") or {}
     if sc.get("tier") == "Breaking":
         badges.append("Breaking")
-    if r.get("label_status") == "self_released" and (sc.get("score") or 0) >= 65:
+    if r.get("label_status") == "self_released" and r.get("indie_kind") != "established" and (sc.get("score") or 0) >= 65:
         badges.append("Unsigned and rising")
     if r.get("feature_daily") and r.get("daily") and r["feature_daily"] / r["daily"] >= 0.8:
         badges.append("Feature magnet")

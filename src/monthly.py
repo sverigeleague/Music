@@ -44,7 +44,7 @@ def build(rows: list[dict], history: dict[str, list[tuple[str, int]]], today: st
     tier = lambda r: (r.get("scout") or {}).get("tier")
     new = {k: [r["id"] for r in rows if tier(r) == k and start and first.get(r["id"], {}).get("tier") != k]
            for k in ("Breaking", "Rising")}
-    unsigned = sorted((r for r in rows if r.get("label_status") == "self_released" and r.get("scout")),
+    unsigned = sorted((r for r in rows if r.get("label_status") == "self_released" and r.get("indie_kind") != "established" and r.get("scout")),
                       key=lambda r: -r["scout"]["score"])
     prospects = [r["id"] for r in unsigned if tier(r) in ("Breaking", "Rising")] or [r["id"] for r in unsigned[:n]]
     share = lambda pairs: {k: sum(v for s, v in pairs if s == k) / max(1, sum(v for _, v in pairs))

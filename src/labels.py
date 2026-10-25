@@ -195,5 +195,33 @@ def check_with_isrcs(status: dict, prefixes: list[str], registrants: dict[str, s
     return {**status, "isrc_note": f"{len(new_us)} of {len(prefixes)} recent songs on newer US registrant codes" if new_us else ""}
 
 
+ESTABLISHED_YEARS = 8  # releasing this long: an established act, not a prospect (owner, 2026-10-25)
+
+
+def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], registrants: dict[str, str],
+                     since: str, year: int, table: list[dict] | None = None) -> tuple[str, list[str]]:
+    """A self-released artist: an unsigned "prospect", or "established" (independent now, but with a past label deal
+    or a long career). Owner, 2026-10-25: Jeezy, Lil Pump or KYLE releasing on their own say nothing about whether
+    rising artists are unsigned. Evidence, any one enough: a record label on Wikidata's career-long list (a label or a
+    major, not a distributor or the artist's own name); older recordings registered by a major (ISRC prefix); first
+    release or Wikidata's "active since" ESTABLISHED_YEARS or more years ago. tracks: the artist's dated songs."""
+    table = table or owners()
+    why = []
+    for lab in wd_labels:
+        st, _ = classify_label(lab, artist, table, use_musicbrainz=False)
+        if st in ("major", "major_distributed", "independent"):
+            why.append(f"earlier label on record: {lab} (Wikidata)")
+            break
+    for tr in sorted(tracks, key=lambda t: t.get("deezer_date") or "9999"):
+        p = (tr.get("isrc") or "")[:5]
+        if p in registrants:
+            why.append(f"own recordings registered by {registrants[p]} ({(tr.get('deezer_date') or '')[:4]}, ISRC)")
+            break
+    years = [int(y) for y in [since[:4]] + [(t.get("deezer_date") or "")[:4] for t in tracks] if y.isdigit()]
+    if years and year - min(years) >= ESTABLISHED_YEARS:
+        why.append(f"releasing since {min(years)}")
+    return ("established" if why else "prospect"), why
+
+
 DEAL_OF_STATUS = {"major": "major", "major_distributed": "services", "independent": "independent",
                   "self_released": "diy"}

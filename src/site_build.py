@@ -159,6 +159,10 @@ def build(genre: str = "hip_hop") -> dict:
     first = {a["spotify_id"]: labels.artist_status(rels.get(a.get("deezer_id", ""), []), a["name"], table)
              for a in artists.values() if a["genre"] == genre and a.get("deezer_match") in deezer.CONFIRMED}
     registrants = labels.learn_registrants(first, isrcs)
+    dated_of: dict[str, list[dict]] = {}  # each artist's dated songs as lead, for the established-or-prospect test
+    for tid, tr in dates.items():
+        if tid in lead.get(tr["artist_id"], ()):
+            dated_of.setdefault(tr["artist_id"], []).append(tr)
     rows = []
     for t in top:
         a = artists.get(t["spotify_id"])
@@ -197,6 +201,9 @@ def build(genre: str = "hip_hop") -> dict:
             "label_basis": status["basis"], "label_override": status.get("override"),
             "label_newest": newest_release(status),
             "label_isrc_note": status.get("isrc_note") or None, "label_confidence": status.get("confidence"),
+            **(dict(zip(("indie_kind", "indie_basis"), labels.independent_kind(
+                a["name"], wd_labels, dated_of.get(t["spotify_id"], []), registrants, a["active_since"], today.year, table)))
+               if status["status"] == "self_released" else {}),
             "money": money.estimate(num(s.get("lead_daily")), deal),
             "photo": pics.get(t["spotify_id"]) or None, "genre_basis": genre_note(a["genre_basis"]),
             "cur_share": round(cur["current_share"], 4) if cur.get("current_share") is not None else None,
@@ -450,6 +457,7 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
         diy, keep = float(shares["diy"]["mid"]), {k: float(shares[k]["mid"]) for k in ("major", "services", "independent")}
         out.append({
             "id": u["id"], "name": u["name"], "ml": u["ml"], "floor": u.get("floor"), "cl": u.get("cl"), "cur_share": u.get("cur_share"),
+            "indie_kind": u.get("indie_kind"), "indie_basis": u.get("indie_basis"),
             "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label") or u.get("label_name") or u.get("label_owner"),
             "generated": round(g_u), "keeps_now": round(g_u * diy), "spl": u_spl,
             "feat": round(u["feature_daily"] / u["daily"], 3) if u.get("daily") and u.get("feature_daily") is not None else None,

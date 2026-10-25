@@ -662,3 +662,18 @@ def test_description_sentence_edge_cases():
     assert f("M rose in the 2010s. He founded a label. Third.") == "M rose in the 2010s. He founded a label."
     assert f("She served in the U.S. Army. She sings. Third.") == "She served in the U.S. Army. She sings."
     assert f("Mac Miller (born Malcolm (Mac) McCormick) was a rapper.") == "Mac Miller was a rapper."
+
+
+def test_independent_kind_established_or_prospect():
+    from src import labels
+    t = labels.owners()
+    reg = {"USUM7": "Universal Music Group"}
+    # a past label deal on Wikidata
+    assert labels.independent_kind("Jeezy", ["Def Jam Recordings"], [], {}, "", 2026, t)[0] == "established"
+    # own recordings registered by a major
+    k, why = labels.independent_kind("X", [], [{"isrc": "USUM71900001", "deezer_date": "2019-05-01"}], reg, "", 2026, t)
+    assert k == "established" and "Universal Music Group" in why[0]
+    # a long career
+    assert labels.independent_kind("X", [], [{"isrc": "QZAAA1800001", "deezer_date": "2016-01-01"}], reg, "", 2026, t)[0] == "established"
+    # none of these: an unsigned prospect (a distributor on Wikidata is not a label deal)
+    assert labels.independent_kind("X", ["UnitedMasters"], [{"isrc": "QZAAA2400001", "deezer_date": "2023-03-01"}], reg, "", 2026, t) == ("prospect", [])

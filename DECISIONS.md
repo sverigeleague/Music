@@ -61,19 +61,47 @@ Three parallel passes, one per section, on the reviewers' remaining findings.
   - Better YouTube channel matching.
   - The catalog rule for acts with new hits only as features (Boef, Honaiser, Sidhu Moose Wala).
 
-## 2026-10-25 Who counts as unsigned (owner: "count stem and independent as unsigned. I take your guidance on the licensed out deals")
+## 2026-10-25 Who counts as unsigned: prospects and established independents (owner)
 
-- **Stem and "Independent":** releases distributed by Stem (Jeezy), and those whose label field says "Independent" or
-  "Independent Co." (Himra, Lil Pump, KYLE), count as self-released (unsigned). This was already the build's
-  classification; it is now the owner's rule.
-- **Licensed out, chosen:** the licensee decides, as `labels.classify_label` already does.
-  - A licence to a distribution service (UnitedMasters, Stem, DistroKid, TuneCore, CD Baby, Amuse, Too Lost) keeps
-    the masters with the artist. It stays self-released, with no warning (BigXthaPlug, Veigh, Ro$ama).
-  - A licence to a record label is classed by that label, so the artist is signed.
-  - Only an ambiguous line such as "Label Deal" (D-Block Europe, Paul Wall) keeps the "licensed out" chip on the
-    Unsigned page.
-- **Rejected:** treating every licence as a label-services deal. That would move artists with distributor deals,
-  who own their masters, out of the unsigned list.
+- **Owner's note:** "not sure if stem and independent should count as unsigned as it seems they are established
+  artists and wouldn't bring any value to help understand if up and coming artists are unsigned ... need a better
+  solution". An earlier answer that day ("count stem and independent as unsigned") is replaced by this entry.
+- **Chosen:** self-released artists are split in two (`labels.independent_kind`).
+  - **Established independent:** any one piece of evidence is enough.
+    - a record label on Wikidata's career-long list (a label or a major, not a distributor or the artist's own name);
+    - own recordings, as lead artist, registered by a major (ISRC prefix);
+    - 8+ years of releases (Wikidata's "active since", or the earliest dated song as lead).
+  - **Unsigned prospect:** the rest.
+  - Hip-hop: 38 prospects and 101 established (Jeezy, Lil Pump, KYLE, Meek Mill, Russ, D-Block Europe, among
+    others). Each established artist shows the evidence that placed them.
+- **Where it applies:**
+  - Only prospects appear on the Unsigned page (established independents are listed apart, at the end), under
+    Scout's "Unsigned" filter ("Any self-released" keeps them all), and in the "Top unsigned prospect", "Unsigned and
+    worth a look" and "Unsigned and rising" picks.
+  - Market shares still count every self-released artist, because they measure who owns the listening.
+- **Limits:**
+  - Wikidata covers established acts better than new ones, and Deezer dates can be reissue dates.
+  - So a prospect can be an older act with thin records. The evidence is shown so it can be checked.
+  - 8 years is a judgement, set in one place (`labels.ESTABLISHED_YEARS`).
+- **Licensed out (owner: "be clear about the licensed out method in the method tab"):** the licensee decides.
+  - A record label (Atlantic, Ministry of Sound): signed to that label.
+  - A distribution service that leaves the masters with the artist (UnitedMasters, Stem, DistroKid, TuneCore, CD
+    Baby, Amuse, Too Lost): self-released.
+  - ONErpm offers both distribution and label-services deals with advances, so a licence to it is flagged "licensed
+    out", not decided.
+  - Written out on Method, under Labels.
+- **"Label Deal" (owner: "get clarity around the label deal language"):**
+  - Found only on D-Block Europe's 2026 releases on Deezer ("D-Block Europe Label Deal"). It is not a company. No
+    published definition was found, and Apple does not list the 2026 album.
+  - Our reading: the artist's own imprint as set up in a distributor's or partner's system, so a deal sits behind it
+    without the partner being named.
+  - Evidence:
+    - the 2026 recordings carry registrant US-A2P, also seen on Rostrum Records and BIGHIT MUSIC releases, so a
+      third party registered them;
+    - earlier own recordings were registered by Universal (2019);
+    - "Prada" (2023) was released "under exclusive license to Ministry of Sound Recordings" (Apple);
+    - Wikipedia lists D-Block Records, EGA Distro (distributed by Virgin Music Group) and Caroline as their labels.
+  - So they are an established independent with a partner deal, not an unsigned prospect. Stated on Method.
 
 ## 2026-10-25 Lists, start page and compare: the rest of the client review
 
