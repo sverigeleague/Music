@@ -10,6 +10,7 @@ Latin trap and reggaeton are a separate bucket ("latin") until the owner decides
 """
 import csv
 
+from .collectors.deezer import CONFIRMED
 from .config import REGISTRY
 
 HIP_HOP_WORDS = ("hip hop", "hip-hop", "rap", "trap", "drill", "grime", "boom bap", "g-funk", "crunk", "plugg",
@@ -44,7 +45,7 @@ def overrides() -> dict[str, dict]:
 
 
 def _deezer(dz: dict | None) -> tuple[float, float] | None:
-    if not dz or dz.get("match") != "exact" or int(dz.get("releases") or 0) < 5 or dz.get("rap_share") in ("", None):
+    if not dz or dz.get("match") not in CONFIRMED or int(dz.get("releases") or 0) < 5 or dz.get("rap_share") in ("", None):
         return None
     return float(dz["rap_share"]), float(dz["latin_share"] or 0)
 
@@ -92,3 +93,51 @@ def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, boo
     if lat >= 0.5:
         return "latin", basis
     return ("hip_hop" if hh >= 0.67 and total else "review"), basis
+
+
+# Country (owner, 2026-10-24: a second genre). Checked only when the hip-hop rule says "other" or "review", so no
+# hip-hop decision changes; the owner settles crossovers (Jelly Roll: country).
+COUNTRY_WORDS = ("country", "americana", "bluegrass", "red dirt", "outlaw", "honky-tonk", "honky tonk", "western swing",
+                 "nashville sound", "bakersfield sound", "alt-country", "alternative country", "southern rock")
+NOT_COUNTRY = ("country house", "country blues", "uk garage")
+COUNTRY_IN, COUNTRY_REVIEW = 0.6, 0.3
+
+
+def is_country(genre: str) -> bool:
+    g = genre.casefold()
+    return any(w in g for w in COUNTRY_WORDS) and not any(w in g for w in NOT_COUNTRY)
+
+
+def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: dict | None = None,
+                   wikidata: bool = True) -> tuple[str, str] | None:
+    """("country" | "review", basis) when the artist looks country; None otherwise."""
+    total = sum(n for _, n in mb_votes)
+    if total >= 3:
+        share = sum(n for g, n in mb_votes if is_country(g)) / total
+        if share >= COUNTRY_IN:
+            return "country", f"MusicBrainz votes: country {share:.0%} of {total}"
+        if share >= COUNTRY_REVIEW:
+            return "review", f"MusicBrainz votes: country {share:.0%} of {total} (borderline)"
+    if dz and dz.get("match") in CONFIRMED and int(dz.get("releases") or 0) >= 5 and dz.get("country_share") not in ("", None):
+        c = float(dz["country_share"])
+        basis = f"Deezer: {c:.0%} of {dz['releases']} releases Country"
+        if c >= COUNTRY_REVIEW and wd_genres and not any(is_country(g[0]) for g in wd_genres):
+            # Deezer files some Turkish arabesque and folk under Country; Wikidata's genres say otherwise
+            return "review", basis + "; Wikidata genres name no country genre"
+        if c >= COUNTRY_IN and wikidata:
+            return "country", basis
+        if c >= COUNTRY_REVIEW:
+            return "review", basis + ("" if wikidata else "; matched to Deezer by name only")
+    if wd_genres:
+        share = sum(1 for g in wd_genres if is_country(g[0])) / len(wd_genres)
+        basis = f"Wikidata genres: country {share:.0%} of {len(wd_genres)}"
+        if share >= 0.5 and dz and dz.get("match") in CONFIRMED and int(dz.get("releases") or 0) >= 5 \
+                and dz.get("country_share") not in ("", None) and float(dz["country_share"]) < COUNTRY_REVIEW:
+            # Wikidata's genre list can be one entry ("alternative country" for Wilco); Deezer's releases say otherwise
+            return "review", basis + f"; Deezer files {float(dz['country_share']):.0%} of {dz['releases']} releases under Country"
+        if share >= 0.67 and total:
+            return "country", basis
+        if share >= 0.5:
+            return "review", basis
+    return None
+

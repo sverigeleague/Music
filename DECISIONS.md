@@ -2,6 +2,548 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Country top 1,000 at the same depth as hip-hop (owner: "a list of top 1,000 country artists robust with all information possible")
+
+- **Places 1 to ~395:** monthly listeners from kworb's public list, as before.
+- **Below kworb's 500k-listener floor:** artists from the Deezer related-artists crawl now go through the full
+  pipeline instead of being a Deezer-ordered name list (grade C):
+  1. Spotify ID looked up at the source: Wikidata (P2722 -> P1902) or MusicBrainz, where one MusicBrainz artist links
+     both the Deezer and the Spotify page (`country-ids`; `musicbrainz.ids_for_deezer`). Never guessed from a name.
+  2. Identity confirmed a second way where possible: the artist's biggest songs on kworb must be among the Deezer
+     artist's top tracks (`country-floor`), the same check `country-from-crawl` uses. kworb has no page for most of
+     these artists (125 of the first 153), so there the link at the source confirms the identity alone (Deezer match
+     type "links"); songs that contradict the link reject it.
+  3. The registry decides the genre by the usual rules (Deezer release genres, Wikidata, MusicBrainz votes, owner
+     overrides); nothing is let in on the crawl's word alone.
+  4. Ranked by measured daily Spotify streams (kworb artist pages, the same figure behind the money estimates). kworb
+     refreshes small artists' pages irregularly (some were last updated in December 2025), so a page counts for the
+     ranking only if updated in the last 60 days; older ones wait in the name list for kworb's next update.
+- **What these artists do not get:** a monthly-listener figure (none is public below the floor; shown as "under
+  500k"), listener change, current listeners and listener history.
+- **What they do get:** everything else hip-hop artists get (streams, labels, photos, release dates, certifications,
+  awards, credits, money estimates, Scout).
+- **Comparisons:** Scout compares them only with each other (a separate "under 500k (by streams)" band). Peer
+  comparisons use daily streams / 0.10, the median streams a day per monthly listener of country artists between
+  500k and 1.5m (167 artists; quartiles 0.087-0.123). That figure is internal and never shown.
+- **Supersedes** this morning's answer 3 ("no money below the floor"): the money lines rest on measured streams, like
+  everyone else's, so they are shown, as ranges.
+- Order below the floor: first the artists kworb measures (daily streams), then the rest in the Deezer crawl's
+  order (grade C, as before) but with the same data as everyone else apart from the stream-based figures (no money
+  lines, no listener-based Scout signals). The 1,000 is complete only as far as crawl artists have a Spotify ID linked
+  at the source; the remainder stays in the Deezer-ordered name list.
+- What would measure everyone: the Spotify Web API (followers, popularity) or Last.fm (listeners), both waiting on
+  keys (K1).
+
+## 2026-10-25 Owner's answers to the overnight questions ("go with suggested for all")
+
+1. Country ranks below the 500k floor: shown as now (names in Deezer order, grade C, no figures).
+2. Country scope: any nationality.
+3. No money figures for the below-floor ranks.
+4. Country review batches: the suggested answers are now owner overrides in `registry/genre_overrides.csv` (batch 1:
+   47 rows; the 3 marked "look up": STELLA LEFTY country (owner); Buffalo Traffic Jam country (folk/country duo
+   from Bozeman, ticketing lists Country, toured with Dylan Gossett:
+   https://www.axs.com/fr/artists/1121645/buffalo-traffic-jam-tickets); Joseph Williams other (the Spotify profile is
+   Toto's singer, top songs from The Lion King, per kworb). Batch 2: 6).
+5. Hip-hop/Deezer disagreements: Lizzo, blackbear, August Alsina and Jackson Wang to other; the other 7 confirmed
+   hip-hop.
+6. Curb Records and Santa Anna stay "distributed by a major".
+7. kworb radio and Country Aircheck figures stay internal.
+8. The four low-confidence label leads (G-Unit, SODMG, Master of None, Blacktop) stay unapplied: unknown.
+9. Oranj and UnitedMasters releases stay self-released.
+10. Hayden Blount, Token and Aitch stay unsigned until a better source turns up.
+
+Effect after the registry run: country 375 -> 395 artists (20 from review), 33 review artists to other, the hip-hop
+list loses 4 and takes the next four by listeners. Streams, labels, photos and release dates were fetched for the new
+country artists; unknown country labels are now 37 of 395 (three new ones among the 20).
+
+## 2026-10-25 Fixes from an independent review of the overnight changes
+
+- "based on:" and "newest release" only where the status rests on releases; with an override or an unknown or
+  catalog status the note reads "latest:" as before (Yung Lean's override said "based on: Yung Lean").
+- Nested label patterns: a shorter pattern is dropped only when it matched inside the longer one, so a string naming
+  two labels ("Universal Music Distribution / Universal Music") keeps both. No label string we hold changes.
+- Tours page: no crash when a genre has no counted tours.
+- Dylan Gossett (was a pending owner question): the Mercury deal is now sourced (Big Loud Texas / Mercury Records,
+  Nov 2023; UMPG's 2025 release names the label), so he gets an override like Tucker Wetmore's: major-distributed,
+  UMG. He leaves the country Unsigned list.
+- Same check on the rest of the country Unsigned list's own-name strings: Kip Moore (Virgin Music Group global deal,
+  2024: major-distributed) and Cole Phillips (RECORDS Nashville / Columbia, 2024: major) get sourced overrides. Hayden
+  Blount's reported Santa Anna distribution deal rests on venue bios only: for the owner. Will Dempsey is described
+  as independent; Treaty Oak Revival stays self-released.
+- Hip-hop Unsigned list, same check: Key Glock signed with Republic in March 2025 (Glockaveli via Paper Route Empire /
+  Republic), so he gets a sourced override (major, UMG). Token stays: Atlantic distribution from 2020, but his recent
+  releases credit his own imprint and a 2026 one Fenix Music; for the owner if wanted. Aitch stays too: his 2025 album
+  is on his own Infinitum per Wikipedia, NQ Records / The Orchard (Sony's distributor) per Dork; for the owner.
+- Deals notes starting with a quote mark are capitalised.
+- Reproducible builds: ties between owners (`max(set(...))`) depended on Python's per-run string hashing; they now go
+  to the first seen. Two builds with different hash seeds now differ only in the build time.
+
+## 2026-10-25 Smaller fixes (overnight)
+
+- Static country pages said "top 1,000" (the in-page word swap does not run on static pages): State of country now
+  reads "top 375", label pages "the country list".
+- Unsigned list: artists placed by a sourced override (Jeezy: self-released through Stem) showed a blank label; they
+  show the override's distributor.
+- Reported deals read as sentences with the amount in bold.
+- `review/hiphop_deezer_disagree.csv`: 11 hip-hop artists whose MusicBrainz votes say hip-hop while a confirmed Deezer
+  match files under 15% of releases as Rap/Hip Hop (Black Eyed Peas, Lil Nas X, Lizzo, blackbear...). Nobody moved:
+  the hip-hop rule is the owner's; suggested answers are in the file (other: Lizzo, blackbear, August Alsina, Jackson
+  Wang; the rest stay).
+
+## 2026-10-25 RIAA Latin certifications kept apart; label batch 8
+
+- Wikipedia's "RIAA: 96× Platinum (Latin)" was read as 96 main Platinum awards. Latin Platinum is 60,000 units, not
+  1 million, so Bad Bunny's "Mía" (feat. Drake) topped Drake's list and his RIAA Platinum total read 705 instead of
+  575. Latin awards are now marked `latin`, carry no units, are left out of the RIAA Platinum total, weigh 0.06 of a
+  Platinum in the ordering, and show as "RIAA 96× Platinum (Latin)". 31 awards across 10 artists.
+- Label batch 8 (40 of the biggest unknowns): added jungeratze (Ski Aggu; UMG partnership, medium) and Ollywoo
+  (Oliver Anthony, self-released via DistroKid, medium). Not applied, low confidence, for the owner if wanted:
+  G-Unit Records (Caroline/Capitol deal of 2014, nothing newer), SODMG (Virgin 2021, nothing newer), Zac Brown
+  Band's Master of None (one 2025 mention of Warner Music Nashville), Clint Black's Blacktop (Thirty Tigers since
+  2015). The rest name only the artist's own company on the ℗ line, with no distributor found.
+
+## 2026-10-25 Newest release shown beside the label basis
+
+- The artist page's "latest:" line showed the release the label status rests on, not the newest one (Charley
+  Crockett: Island in April 2026, though his July album Clovis is on Atlantic Outpost). It now reads "based on: ...",
+  plus "newest release: ..." when the newest lead release carries another label string.
+- Considered: letting the newest release decide. Rejected: of 28 artists whose newest release disagrees with the
+  majority, most are own-name imprints on a signed artist (Gunna Music, NF Real Music II), so the majority stays.
+
+## 2026-10-25 One Wikidata genre no longer outweighs Deezer's releases
+
+- 28 country artists rested on a single Wikidata genre ("alternative country" is Wilco's only P136 value). New guard,
+  the mirror of the arabesque one: when Wikidata says country but a confirmed Deezer match files under 30% of 5+
+  releases under Country, the artist goes to review. Moved to review: Wilco, Rusted Root, She & Him, The Avett
+  Brothers, The Handsome Family. Tyler Farr also moved, on his MusicBrainz votes (50% of 4), not on this rule;
+  both are in the owner's review queue. Country list: 381 -> 375.
+
+## 2026-10-25 Distribution-deal strings and nested label patterns
+
+- "Universal Music Distribution Deal", "Universal Music Distributed Deals", "Universal Music Division Virgin Records
+  Distribution Deal" and "Universal Music MENA Distributed Labels" counted as UMG labels (major) because the generic
+  `universal music` row matched first. The strings themselves say distribution deal, so they are now
+  major_distributed (structural rows, no outside source needed). 87 releases change; no tracked artist's status or the majors' shares move.
+- Rule change in `classify_label`: when one matching pattern contains another ("universal music distribution" contains
+  "universal music"), the longer one wins. Different labels in one string ("10K Projects/Capitol Records") still
+  rank by status as before; a full check of every label string we hold changed only the strings above.
+- "Sony Music Nashville" gets its own row (it showed as "Sony Music (local)").
+
+## 2026-10-25 Page fixes from a phone-width pass (overnight)
+
+- Tours: the page listed both genres' tours (the country page led with Kendrick Lamar); now only artists in the
+  genre's list. All 48 counted tours still appear on one of the two pages.
+- Stacked tables: the `.stack` rule for the share bar also hit every `table.stack`, squashing those tables to 18px
+  (tours, credits, certifications, collaborators, label tables, the audience questions). The bar rule is now `div.stack`.
+- Artist page Peak tile: artists below kworb's top 2,500 have no peak rank (the 25k pages carry none); the tile said
+  "best rank #null".
+- Hidden panels: `.panel`'s display rule beat the `hidden` attribute, so the deals panel showed as an empty box on
+  artists without deal figures. A global `[hidden] { display: none !important; }`.
+
+## 2026-10-25 "PS/" label strings
+
+- Some UMG releases name the artist, then "PS/", then the label ("Charley Crockett PS/ Island", "Wale Music PS/ Def
+  Jam"). The "island records" pattern missed "PS/ Island", so the rule that the label string carries the artist's
+  name won, and Charley Crockett showed as unsigned. New rows: `ps/ island` and `ps/ def jam` (UMG, major), sourced
+  from the Deezer album pages and the 2025 Island signing. His 2026 album Clovis is on Atlantic Outpost (Warner),
+  already in the table.
+
+## 2026-10-24 Country labels (overnight research)
+
+- 69 sourced rows in registry/label_owners.csv, mostly from the ℗ lines of 2025-26 releases on Deezer's public album
+  pages, checked against press and Wikipedia. Each pattern was tested against every label string we hold and matches
+  only its own label.
+  - UMG: Lost Highway (revived 2025), UMG Nashville, Capitol Nashville codes, Keith Urban's and Miranda Lambert's
+    imprints and Reba's Rockin' R (all licensed to UMG), Wyatt Flores's OEG/Island string, Dot.
+  - Distributed by a major: Sun Records (Primary Wave via Virgin), 5&2 (Capitol CMG), Music Soup and Darkroom
+    (Interscope), Back Blocks (UMG Nashville), Walk Off, Gaither and ATO (Virgin/Caroline); Triple Tigers, Black
+    River, Fugitive, Quartz Hill, Riser House and Reviver (The Orchard / Sony RED); HEY NOW (Kenny Chesney's new
+    label), Bigger Picture and Curb (Warner).
+  - Independent: Thirty Tigers labels (Big & Rich, Bossier City, Southeastern, Velvet Rose...), Rounder and PULSE
+    (Concord), New West, Firebird, Stem, Average Joes, Dualtone, Leo33, StarVista, Many Hats, catalog labels.
+  - Self-released: DistroKid's numbered names ("12496410 Records DK", "...DK2"), which also places some hip-hop
+    artists.
+- Tucker Wetmore: label override (his releases name only himself; he signed with UMG Nashville through Back Blocks
+  in May 2024, sourced).
+- **Batch 2:** 12 more rows (Thirty Tigers: Ol' Buddy, Lock13, Love Big, 3 Legged; Stem: Bill Grease, Mom & Daddy's
+  Money, Igniton, OurVinyl; Craft Recordings (Concord); Dreamcatcher Artists; Better Noise; Santa Anna Label Group,
+  Sony's joint venture with Todd Moscowitz, read as distributed by a major like Triple Tigers). Don Williams:
+  catalog override (his Deezer page mixes in unrelated uploads; his real releases are Craft reissues). The rest are
+  own imprints with no distributor named (Brett Eldredge, Randy Houser, Conner Smith...).
+- **For the owner:** Curb is Mike Curb's own label but Warner distributes it, so it reads "distributed by a major";
+  say if ownership should decide instead (independent).
+- Still unknown: imprints whose ℗ line names only the artist (Treaty Oak Revival's TOR, Zac Brown Band's Master of
+  None, Kip Moore, Tenille Townes...). Two Turkish labels Deezer files under Country are not country.
+
+## 2026-10-24 Country list built (overnight; owner C1-C5)
+
+- **Who is in (above Spotify's public 500k floor): 386 artists.**
+  - The registry's country rule (src/genre.py: 60%+ of MusicBrainz votes, 60%+ of Deezer releases filed under Country
+    with the artist's identity confirmed, or two-thirds of Wikidata genres) placed 255, plus Jelly Roll by the owner.
+  - 71 more were held for review only because Deezer matched them by name alone (no Wikidata entry). Their identity
+    is now confirmed from the songs: at least two of the artist's five biggest songs on kworb are among the Deezer
+    artist's top tracks (`confirm-country`). A confirmed match counts like a Wikidata one.
+  - 68 more were never candidates: no Wikidata country tag and outside the hip-hop candidate set, so no Deezer genre
+    row (Luke Grimes, LOCASH, Ian Noe, Lukas Nelson, Hailey Whitters...). The Deezer crawl found them; a crawl name
+    that matches exactly one artist on kworb's listener pages is confirmed from the songs the same way
+    (`country-from-crawl`, 73 of 73) and then decided by the same rule.
+  - 88 borderline artists remain for the owner (review/country_review_batch1.csv has the 45 biggest with suggested
+    answers: Taylor Swift, John Denver, Darius Rucker...). Turkish acts that Deezer files under Country (Ibrahim
+    Tatlises, Ozcan Deniz...) stay out.
+- **Below the floor:** 598-666 artists from the crawl, in Deezer track-popularity order, shown as names only
+  (grade C); see the C1 entry. Presentation pending the owner (suggested: as now).
+- **On US radio** (artist pages, both genres; hip-hop money unchanged): our own rank among the country artists on the week's airplay chart
+  ("#2 of the 24"), from kworb's audience estimates; the audience figures themselves stay internal (C4).
+- **Guard:** Deezer files some Turkish arabesque under Country (Müslüm Gürses, Ferdi Tayfur were in the list). A
+  Deezer-only "country" now goes to review when the artist's Wikidata genres name no country genre. That also sent
+  Ingrid Andress, Tenille Arts and Joseph Williams to review; all five are in the review batch (country: 381).
+- **Listener history for country:** the Wayback backfill now keeps country artists and stores only artist-weeks it
+  does not hold yet; `backfill-refetch` (workflow "backfill", input refetch) re-reads every archived week once so the
+  country artists get the same 90-day growth history as hip-hop.
+- **Shazam country charts:** the world and US country charts join the daily Shazam read (Canada, Australia and the UK
+  have none). Country artists on a Shazam chart: 1% -> 19%. The badge now names the genre chart ("#1 country in
+  world"); it never did for hip-hop because of a wrong key, fixed.
+- **Kept fresh:** the monthly workflow runs every per-artist step for country too, plus `countrycrawl`,
+  `country-from-crawl` and `confirm-country`; the daily Scout log records country scores.
+- **MusicBrainz dates** were stopped for country tonight: the step works through every unlooked-up ISRC in the shared
+  song cache (36,000 at one a second, about 10 hours). Deezer already dates 7,287 of the 7,526 country songs; the
+  monthly workflow keeps working through the backlog within its 75-minute limit.
+- **Copy:** on country pages "top 1,000" reads as the real list size and "hip-hop or rap" as "country".
+
+## 2026-10-24 Country tours (overnight research)
+
+- registry/tours.csv gains 52 country rows: 22 reported grosses (grade A: Billboard year-end 2025 and midyear 2026,
+  Billboard's NFL-stadium list, Pollstar box office) and 30 context rows for tours with no reported total.
+- Billboard's year-end 2025 figures end 2025-09-30, so they fall outside the last 12 months; what counts now:
+  Luke Combs $86.5m (three reported runs), Chris Stapleton $73.5m (summer 2026 leg), George Strait $28.4m (Lubbock),
+  Treaty Oak Revival $26.7m, Tim McGraw $13.5m, Lainey Wilson $12.4m, Zach Bryan $10.2m (one reported show), HARDY.
+- Hip-hop, Oct 2025 to now: Billboard's midyear 2026 rap top five (Travis Scott, Cardi B, YoungBoy, Kendrick Lamar,
+  Wu-Tang Clan) are already in existing rows except Wu-Tang ($16.9m, added). Billboard's monthly reports for
+  April-August 2026 name no other rap tour; J. Cole, Post Malone, Don Toliver, A$AP Rocky and Playboi Carti have no
+  reported 2026 gross yet (Pollstar per-city averages are not used).
+- Not estimated: Morgan Wallen's 2025 and 2026 stadium tours and most of Zach Bryan's 2026 tour have no reported
+  gross anywhere (projections and per-night averages are not reports). Billboard's year-end 2026 (about December)
+  should fill most gaps.
+
+## 2026-10-25 Bug review of the overnight changes (fixed)
+
+An independent read of the branch found, and these were fixed:
+- Country pages broke after a search on the hip-hop side had loaded the country list (its page data never loaded).
+- Links to the monthly State page and Method from country pages went to the hip-hop versions; the share link and
+  footer named hip-hop.
+- Deezer corrections (audit, ISRC) changed the artist's Deezer ID but not the genre row read by the genre rules; the
+  genre row is now re-read from the corrected artist (9 repaired; no genre decision changed).
+- The country list below the 500k line repeated a few measured artists (a second Deezer profile, or an ID matched
+  outside the genre table); it now excludes every registry Deezer ID and any name on kworb's listener pages.
+- Label names ignored the dated rows (Big Machine after February 2026 showed as HYBE's group).
+- Confirmation steps could lose all progress on one failed kworb page; a partial `countrycrawl N` replaced the whole
+  file; an ISRC answer without an artist crashed; song titles were cut at " with " ("Stay With Me" = "Stay").
+- Known and kept: the registry keeps a stored photo or Wikidata item when Wikidata later drops it (refreshed only
+  when Wikidata gives a new one).
+
+## 2026-10-25 Certifications from French and German Wikipedia (overnight)
+
+- When an artist's English discography has no certifications, `src/collectors/certifications_frde.py` reads the
+  French and German pages, found through Wikidata's sitelinks and the article's own links (never guessed titles).
+  French: the discography templates, tables with a Certifications column and flagged list items (France -> SNEP,
+  Belgique -> BEA, Suisse -> IFPI Switzerland...); an unflagged French certification first in its cell counts as SNEP.
+  German: `{{Charteintrag}}` rows (A_DE, A_AT, A_CH, A_FR, A_IT... and codes like G, 3P, D+5P).
+- One wiki per artist (the one with more certifications), so each entry has one credit; every entry stores its
+  language and the panel credits "French/German/English Wikipedia" (CC BY-SA).
+- Hip-hop top 1,000 with at least one certification: 503 -> 599 (85 from German pages, 11 from French).
+  Spot checks matched the pages (Werenoi, Luciano, Salmo, Gazo, Tayc).
+- The English parser read the year as the title in tables that put the year first (Booba, Damso, SCH, Ninho, Jul...);
+  fixed, nothing lost (23,950 -> 24,420 certifications on the cached pages).
+- Panel: where there is no RIAA Platinum, the headline tile is the main body ("SNEP: 81 certifications"); releases
+  sort Diamond over Platinum over Gold for any body; the US peak column shows only when there are US peaks.
+- **Wikidata items from MusicBrainz** (`wikidata-from-mb`, monthly): 296 artists in the two lists had no Wikidata item
+  carrying their Spotify ID but had a MusicBrainz ID; MusicBrainz's curated Wikidata link gave 135 of them. The
+  registry keeps these, and awards and photos now read the stored item (photos: hip-hop 615 -> 672, country
+  206 -> 235). Artists with certifications: hip-hop 599 -> 646,
+  country 195 -> 238; awards: hip-hop 102 -> 110.
+- Kanye West's lookup followed Wikidata to his production discography (records he produced for others); production
+  discographies and videographies are now skipped, and his entry reads his own albums discography (488
+  certifications).
+
+## 2026-10-24 Label research batch 4 (overnight) and Deezer IDs from ISRCs
+
+- **Shared names:** 18 artists in the top 1,000 (Aminé, City Girls, Luciano, Eve...) had a Deezer name that several
+  artists share, so their labels were never read. Their Deezer ID is now confirmed from their own songs: Deezer's
+  `track/isrc:<code>` for their 5 biggest songs as lead; the same-named contributor on at least 2 of them
+  (`python -m src.run deezer-isrc`, match "isrc"). No name guessing.
+- **Batch 4:** the 45 biggest unknown label strings, read from the ℗ lines on Deezer's public album pages plus
+  press and Wikipedia. 14 rows added (each sourced in registry/label_owners.csv): Capricarolesque, Just Woke Up and
+  Groove Attack (Believe), broke (Create Music Group), Giant Music (Stem, from 2026-01-21), 187 Strassenbande and
+  Teamwrk (Universal-distributed), Hall Access, Altafonte and A Quadrilha (Sony-distributed), WM Mexico (Warner),
+  Viva Records and Cleopatra (independent). Just Woke Up was with Warner's ADA until 2025-06-19. Altafonte's
+  start date (2024-01-01) is assumed: Sony's purchase was notified in November 2023 and done by August 2024.
+- **Audit of name-only Deezer matches** (both genres): the 42 whose biggest songs were not among the Deezer artist's
+  top tracks were re-checked by ISRC. Six were the wrong Deezer artist and now carry the ISRC-confirmed one, with
+  their labels re-read: JACKBOYS, Run-D.M.C., FAVE, Flame, JADE, Garth Brooks. Most others were false alarms from
+  title matching, which dropped non-Latin letters; titles now keep letters of any script.
+- 34 stay unknown: the ℗ line names only the artist's own imprint, with no distributor (G-Unit, SODMG, Brick Squad
+  Monopoly, Pineapple Storm and others). Not guessed.
+- Unknown in the top 1,000: 262 -> 236.
+- **Batch 5** (the next 48 strings): 13 rows, all with a distributor on the ℗ line: Plata o Plomo, Only Pro, Blue
+  Magic, Carré Bleu (Sony France), Maison Baron Rouge (Warner France), Strange Music (Virgin), Verdansk, Indipendenza
+  and Futura (Believe), Toreshi (Stem, from 2025-11-24), Twenty Nine (Tully), MORE VISION (Kakao), KOZ (HYBE). Left
+  out though placeable as companies: LAIKA, COLORSxSTUDIOS, Big Noise (no distributor named). 32 stay unknown.
+- **Batch 6** (60 more strings): 16 rows: Milan (Sony), Ambition Music, 3TR6AP2, 7th Magnitude, Boogie Naipe,
+  G59 (Sony-distributed; Virgin until 2020), Psychopathic (ADA from 2019); Thaurus (Believe), MNRK, X-Ray (Cleopatra),
+  Zef and Glizzy Gang (Stem), Stones Throw, Netflix Music, Rich Vagos (ONErpm). About 45 stay own-imprint only.
+- **Batch 7:** 13 rows: AWA (Sony France bought it 2025-03-10: major from then, Sony-distributed before), Tanta Roba
+  (Sony Italy from 2025-12-12), Pupila Dilatada (Altafonte), Black Money Records (EGA Distro, Virgin), Eklat (Warner
+  Central Europe), GR6 (Virgin), Lyons Produções (ONErpm), Oranj (UnitedMasters, read as self-released like the
+  existing UnitedMasters row), ALTER Music (Firebird), Ineffable, Carosello, Peermusic. About 32 stay unknown.
+
+## 2026-10-24 Country money (owner C5): platform weights and radio songwriting
+
+- Research in docs/research/research_country_rates.md (every figure sourced and graded).
+- **Platform weights** (registry/platform_multipliers_country.csv, as a ratio of Spotify recording royalties):
+  Amazon 0.55 mid (hip-hop 0.30), Apple 0.45 (0.55), a new Pandora line 0.50, "others" 0.10 without Pandora
+  (0.30 with it). All C: platform-by-genre data are thin and from 2017-2022.
+- **Radio airplay (songwriters):** US AM/FM audience x $0.15 / $0.25 / $0.40 per 1,000 listeners reached, from US
+  radio revenue x the PROs' rates divided by music impressions; cross-checked against a 2014 per-spin study. Shown
+  as money generated for the writers and publishers, with no artist slice (country hits are often staff-written).
+  US radio pays recordings nothing.
+- kworb's radio audience turned out to be a 7-day figure (it matches Luminate's weekly impressions), so a year is
+  52 weeks of it. The audience figure itself stays internal (C4).
+
+## 2026-10-24 Artist page: the numbers first (product review, overnight)
+
+- The key figures (monthly and current listeners, peak, streams, YouTube, Deezer) now come straight after the name,
+  before the Level/Scout/Worth card; certifications, awards, credits and Shazam follow the Streams panel instead of
+  pushing the numbers below the first phone screen.
+- External profiles are one line of text links ("On Spotify · YouTube · ..."); the buttons are for actions only
+  (Compare, Worth on other deals, Share, Download card). The Level explainer is a hover.
+- **Scout list:** 13 columns made the table nearly twice the page width, with the newest hit and its ▶ player
+  off-screen. Now: rank, artist, score, label, newest hit (with ▶ and 🎬), monthly listeners and new-release pull;
+  the other five signals sit behind "Show all signals". The CSV still has every column.
+- **Top list:** the numbers come before the label group, and column headers wrap on phones, so the listener figure
+  is on the first phone screen (it was cut off at the right edge).
+- **Labels:** the "majors, under 1.5m" figure rested on 30 artists (the top 1,000 starts near 1.4m); it now
+  covers everyone under 3m (about 380): 56% against 75% at 15m+.
+- **Producers:** a song on several artists' pages (a duo and its members: Macklemore, Ryan Lewis, "Macklemore & Ryan
+  Lewis") counted once per page; it now counts once per person (by ISRC).
+- **Labels, across genres:** the majors' share tile adds the other genre's figure (hip-hop 59%, country 67% of
+  listening); "rap" stands in for "hip-hop" there so the country pages' word swap leaves it alone.
+- **Compare across genres:** Compare takes artists from either list ("Drake vs Morgan Wallen" is offered as a
+  start); each links to their own genre's page, and a note says Scout scores and levels are within each genre.
+- **Search across genres:** the header search also lists the other genre's artists (its list loads on the first
+  search), marked "Country ·" or "Hip-hop ·" and linking to that genre's page.
+- **Tables on phones:** the artist page's certifications, credits and collaborations, the tours list and the label
+  directory stack each row with its column names (`table.stack`); comparison tables still scroll sideways.
+- **Revenue table on phones:** the figures were scrolled off the right edge; each line now stacks the source over
+  its generated amount, the artist's slice and the grade.
+- Tiles fit one row on desktop (six tiles at 1280px) and no longer leave an empty slot when a page has fewer.
+
+## 2026-10-24 Country: below-floor crawl, radio in Scout, Big Machine by date
+
+- **Below kworb's 500k floor (C1):** kworb has nothing usable below
+  500k listeners. Deezer's related-artists graph, seeded from its country chart, our matched artists and Wikidata,
+  finds about 1,077 country artists, about 400 of them above the floor. `src/collectors/deezer_country.py`, monthly
+  step `countrycrawl` -> data/country_deezer.csv. Ordered by the summed Deezer rank of the top 10 tracks (r 0.79 with
+  log Spotify listeners on 240 country artists, but Spearman 0.22 among artists of similar size): grade C, an order
+  only, never a converted listener figure. How to show ranks 401-1,000 goes to the owner.
+- **Radio in country Scout (C4):** a factor of its own, 15%: the summed AM/FM audience of the artist's songs on
+  kworb's airplay chart, 0 when none. Only our percentile reaches the site. Chart reach weighs 8% (country charts are
+  mostly US, Canada, Australia), new-release pull 30%, current share 20%, engagement 12%. Hip-hop is unchanged.
+  Credits like "Move On f/Shaboozey" now count for the featured artist.
+- **Big Machine** (registry/label_owners.csv gains `from`/`until` columns): releases to 2026-02-17 are HYBE America's
+  Big Machine Label Group (distributed by Universal: major-distributed); from 2026-02-18 Big Machine Records is
+  Scott Borchetta's relaunched independent. Blue Highway Records, Nashville Harbor and Valory: HYBE America.
+  Sources: Variety and Billboard (February 2026), Wikipedia.
+
+## 2026-10-24 Certifications from Wikipedia discographies
+
+- **Source** (`src/collectors/certifications.py`, monthly step `certifications`): the artist's English Wikipedia
+  discography page (CC BY-SA, credited on the panel), which cites RIAA, BPI, ARIA, Music Canada and the other bodies.
+  - Pages are read with `index.php?action=raw` because the action API answered 429 (rate limited) for this volume.
+  - Top 1,000: 683 pages found, 503 artists with at least one certification, 18,874 certifications. Spot checks
+    against the pages' wikitext matched (Drake, Kendrick Lamar, Lil Baby, GloRilla, Central Cee).
+- **On the artist page:** certified releases, RIAA platinum total (Diamond = 10x), US No. 1s and the 12
+  most-certified releases. Wikipedia can lag the bodies by weeks; the panel says so.
+- **Rejected:** the RIAA's own search (no bulk access, terms against automated use).
+- The country site build no longer rewrites review/label_review.csv (it emptied the hip-hop queue).
+
+## 2026-10-24 Country groundwork (before the C1 research returns)
+
+- **Nashville label map** (registry/label_owners.csv, each row sourced):
+  - Universal: MCA Nashville, including its pre-2025 name UMG Nashville.
+  - BMG (BBR Music Group): Broken Bow, Stoney Creek, Wheelhouse.
+  - Big Loud: distributed by Mercury/Republic.
+  - Belting Bronco: Zach Bryan, with Warner.
+  - American Dogwood: Shaboozey, with EMPIRE.
+  - Thirty Tigers: independent.
+  - Already covered by existing patterns: Mercury, EMI and Capitol Nashville, Columbia and RCA Nashville, Warner.
+  - **Left for research:** Big Machine / Blue Highway (HYBE renamed it in February 2026; Borchetta kept the name for a
+    new independent label), so it must be read by release date.
+- **US radio** (`src/collectors/radio.py`, daily step `radio`; owner C4):
+  - kworb.net/radio's daily estimate of each song's US AM/FM audience (about 100 songs), plus the 30 archived days
+    before: 3,100 song-days on the first run.
+  - Used inside country scoring only. kworb's figures are not shown until the owner has asked them.
+
+## 2026-10-24 Pages search engines can find, shareable cards (D2, D3), Shazam (K3)
+
+- **D5: State of hip-hop** (`src/state.py`, #/state/<YYYY-MM> and a static page site/state/<YYYY-MM>/):
+  - **Headline numbers:** majors' share of listening, No. 1 by current listeners, biggest 30-day riser, Breaking
+    count, top unsigned prospect, what the top 100 earn on Spotify, the top producer, the most Shazamed artist, and
+    the size of the list. Each links to the page it comes from.
+  - **Citation:** a ready citation line and a Share button.
+  - **Storage:** each month is stored in data/state/<YYYY-MM>.json. The current month refreshes with each build;
+    past months keep their figures and their address.
+  - **Links:** from the footer, and from the start page's value line ("This month in numbers").
+
+- **D6: lighter first load:**
+  - Page-specific data (unsigned peers, label and group finances, credits, tours, Sony Music, back-test, movers,
+    market map) moved from data/index.json to data/extra.json. It is fetched in the background right after the
+    core file, and pages that use it wait for it.
+  - The start page and artist pages render from the core alone.
+  - The core is 1.46 MB (about 330 KB compressed); extra is 364 KB. A per-page split of the artist list itself was
+    rejected: search, Scout, labels and the start page all need it.
+
+- **D2: static pages** (`src/static_pages.py`, generated at each build and deploy, gitignored):
+  - **What:** site/a/<slug>/ for every artist (1,000) and site/label/<slug>/ for every label (116), each with its own
+    title, description, canonical address (https://tventy.se/music/...), Open Graph and Twitter tags, structured
+    data (schema.org MusicGroup / Organization) and a short readable summary.
+  - **How it opens:** the full app loads on top and opens that artist or label (window.BOOT), so visitors see the
+    usual page; navigating onward goes to the main site.
+  - **Sitemap:** sitemap.xml lists all 1,117 addresses; robots.txt points to it.
+  - **Rejected:** a server-rendered site. Static pages beside the app keep one codebase and the Cloudflare Pages
+    deploy.
+- **D3: artist cards** (1200×630 PNG per artist, site/cards/<slug>.png):
+  - Shows the rank, monthly listeners, Scout score and tier, label, and what the artist keeps a year (marked
+    "est."), with the data date and the address.
+  - Used as each artist page's link preview and offered on the artist page as "Download card". Share now gives the
+    artist's own page address.
+  - Font: Bricolage Grotesque TTF (SIL Open Font Licence) in assets/fonts.
+  - Build time: about 80 seconds for the cards, within the 10-minute deploy job.
+- **K3: Shazam** (`src/collectors/shazam.py`, daily step `shazam`):
+  - **Charts:** 58 of Shazam's public charts (world top 200, world hip-hop, 15 countries, 10 countries' hip-hop,
+    31 cities), each covering the last 7 days.
+  - **Matching:** to registry artists by name; featured artists in titles count. 321 hip-hop artists matched on
+    the first day.
+  - **Shown:** a "Shazam" column on the Scout list and a "Discovery" badge on artist pages, linking to Shazam's
+    chart. Shazam's tables are not reproduced (owner, K3).
+  - **Not in the Scout score yet:** it joins once our daily log can back-test it (from January 2027, as the other
+    signals).
+  - **Source note:** Shazam's own pages answer 403 to our client. The CSV service answers and is the documented
+    download behind its "Download" button.
+
+## 2026-10-24 Four sections (D1)
+
+- **Header:** Artists · Scout · Money · Labels. Method moved to the footer, which already links it. On a phone the four
+  fit on one row.
+  - **Artists:** Top list, **Movers** and Compare. Movers merges Rising and This month into one page with a switch:
+    Today (daily change outside the top 100) and Last 30 days (movers, new on Scout, unsigned prospects, listening
+    shares). Compare moved here from Scout.
+  - **Scout:** Scout list, Unsigned vs signed peers, Producers.
+  - **Money** (was Worth): What is it worth?, Pay gap by deal, Platforms and Tours. These are money explainers, not
+    charts.
+  - **Labels:** Labels and market share, and Where it is streamed (was Audience, under Charts).
+- **Old links keep working:** #/month, #/rising, #/audience and the rest. Breadcrumbs follow the new sections, and
+  artist pages sit under Artists.
+- **Kept, not merged:** Unsigned vs signed peers stays its own page, for its peer comparison. The Scout list already
+  has an "Unsigned" filter, which acts as the preset.
+
+## 2026-10-24 Owner's answers on country, sources and structure (the 12-hour research run)
+
+- **Country:**
+  - **C1 "c, dig deeper":** a country top 1,000. Research has started on ranking country artists below kworb's
+    500,000-listener floor (Deezer fans, kworb's other lists, Wikidata, charts). Only about 340 sit above it.
+  - **C2:** Jelly Roll moves to country (decision in review/decisions.json; `country` is now a genre value). He
+    leaves the hip-hop top 1,000; the next artist takes his place.
+  - **C3:** a genre switch in the header (hip-hop ↔ country), with Labels and Method shared.
+  - **C4:** radio from kworb's radio estimates and Country Aircheck, used inside our scoring only. Ask before
+    showing their figures.
+  - **C5:** country platform weights (Pandora, Amazon) and a radio songwriting line, grade C.
+- **Sources:**
+  - **K1:** API keys (Ticketmaster and others) later; the owner adds them.
+  - **K2:** the site is non-commercial for now. That keeps non-commercial-licensed sources open.
+  - **K3:** Shazam charts as an internal Scout signal, shown only as a badge with a link.
+- **Structure and growth, all as suggested:**
+  - D1: four sections (Artists, Scout, Money, Labels); Method in the footer.
+  - D2: indexable static pages per artist and label.
+  - D3: shareable artist cards, after D2.
+  - D4: email alerts later.
+  - D5: a monthly "State of hip-hop" page.
+  - D6: a lighter first load.
+- **Labels:** R1 accepted. "Urban" means Universal Music Germany only when it is the whole label string (new
+  "=" exact-match rule in registry/label_owners.csv). That places Sido, Capital Bra, Pashanim, MERO, Samra, Shindy,
+  SSIO and Tom Hengst.
+
+## 2026-10-24 New sources, step 2: credits (MusicBrainz) and label parents (Discogs)
+
+- **Producer and songwriter credits** (`src/collectors/credits.py`, monthly step `credits`):
+  - Each artist's 3 biggest songs as lead artist: recording code → MusicBrainz recording → producers (on the
+    recording) and writers (on the work). Two requests per song at 1 a second; each code is looked up once.
+  - Site: a "Who makes the hits" panel on artist pages, and a new Scout › Producers page ranking producers and
+    songwriters by the daily streams of the songs they are credited on.
+  - Partial coverage (volunteer-entered credits), said on both pages. The first full lookup of 2,745 songs runs
+    about 1.5 hours.
+- **Label parents from Discogs** (`src/collectors/discogs_labels.py`, CC0 dump of 1 October 2026,
+  data/discogs_label_parents.csv for the 1,227 label names we need):
+  - Discogs would place 29 of the 286 unknown artists. It keeps one parent per label, sometimes a past owner, so its
+    chains are used as evidence, not applied blindly.
+  - **Added to the owner table** (current and clear): AllPoints and Believe (Believe), 10K Projects (Warner,
+    major-distributed), Rec. 118 in both spellings and Warner Music Spain (Warner), Affranchis Music (Universal,
+    major-distributed). Each row carries its Discogs link.
+  - **Result:** unknown fell from 286 to 269. Placed now include Franglish, RK, Bouss, Landy, Djadja & Dinaz and
+    Yamê (Believe); Gambi, Soprano and Bello&Dallas (Rec. 118, Warner France); Rich Amiri and Pressure 9X19 (10K
+    Projects); SFDK; and Sofiane.
+  - **To the owner (review):** "Urban" as Universal Music Germany's hip-hop label for 8 German rappers (Sido,
+    Capital Bra and others: the name is generic, so it needs a narrow rule). Also 50 Cent (G-Unit → Caroline/UMG),
+    Waka Flocka Flame (1017 Brick Squad → Warner) and Jaden (Three Six Zero → Warner), where Discogs may show a past
+    parent.
+
+## 2026-10-24 New sources, step 1: awards from Wikidata
+
+- **Research:** 30+ candidate sources, ranked by value and feasibility, with live tests (the 12-hour research run).
+  - Free and open, buildable now: Wikidata awards, Wikipedia discographies (certifications and chart peaks), Discogs
+    label data (CC0), MusicBrainz producer credits, kworb radio, GDELT news.
+  - Need a key, or carry non-commercial terms: Ticketmaster, setlist.fm, Last.fm (public pages need written
+    approval), Genius, SeatGeek. These go to the owner.
+  - Grey (a public download with no reuse licence): Shazam charts. Goes to the owner.
+  - Rejected on terms: RIAA's site (no scraping), Billboard, Official Charts/BPI, Bandsintown, Songkick, Tunefind,
+    and Instagram/TikTok follower counts (no legitimate route).
+- **Built: awards** (`src/collectors/awards.py`, monthly step `awards`):
+  - Wins (P166) and nominations (P1411) with year and work, for the top 1,000, grouped into known families: Grammy,
+    BET, AMA, Billboard, MTV, BRIT, MOBO, Juno, ARIA, Victoires, Polaris, Mercury, Soul Train, NAACP, Pulitzer.
+  - Coverage: 102 artists, 378 wins, 367 nominations.
+  - Grade B, and the page says it is a floor, not a total. Wikidata lists 10 of Kendrick Lamar's Grammy wins; he
+    has more than twenty.
+  - Shown as an "Awards" panel on the artist page.
+
+## 2026-10-24 Product review: quick wins (owner: "scrutinize design and structure ... simple and logical to use and navigate but very insightful")
+
+- **Review:** a product and marketing pass over all 16 pages on desktop and phone (64 screenshots).
+  - Top problems found: no page can be found or shared on its own (one title for every page, no description or
+    share); a start page that says nothing about what the site is for; two "biggest riser" tiles that disagree; a
+    misleading money figure; prototype wording in public; four pages that answer "who is rising?"; jargon; buried
+    labels on artist pages; phone overflow; very long pages.
+- **Built now (no change of direction):**
+  - **Titles and description per page,** including each artist's name ("Drake: listeners, earnings and label").
+    Default share tags (Open Graph) in index.html.
+  - **Start page:** a one-sentence value line replaces the second search box (the header search stays). The top-list
+    tile reads "Biggest riser today in this top 100", so it no longer contradicts "Right now", which covers all 1,000.
+    The table's box is labelled "Filter this list".
+  - **Prototype wording removed:** "Prototype, private", the roadmap step numbers, and "the full method will be
+    published here" (now: method version and date).
+  - **Wayfinding:** "This month" now has a breadcrumb. Compare's empty page suggests three pairs.
+  - **Artist header:** the label and its owner, with logo, under the name, plus a Share button (the phone's share
+    sheet, or the link copied).
+  - **Money honesty:** where more than 90% of an artist's streams come as a featured guest, the money figure is marked
+    "own songs only", with the reason. Danny Chung shows $164 a year against 8.7m listeners because 99.99% of his
+    streams are features on "Soda Pop".
+  - **Long pages:** Scout and Unsigned show 50 rows, then "Show all": Scout falls from 18,000 to 5,500 px, Unsigned
+    from 18,700 to 7,300.
+  - **Phones:** This month no longer overflows sideways. Buttons are at least 44 px tall. Wide tables and sub-menus
+    fade at the right edge to show they scroll.
+- **Kept as decided:** the "music" word under the wordmark links to tventy sport (owner, earlier the same day), though
+  the review suggested pointing it home.
+- **For the owner (bigger changes):** a simpler structure in four sections, pages that search engines can index,
+  shareable artist cards, alerts, and a lighter first load. These are put as decisions, not built.
+
 ## 2026-10-24 Label research batch 3, videos for the risers, Scout radio (owner: "Go with a, b and c in that order")
 
 - **a) Label research on the 14 that moved from major to unknown:**

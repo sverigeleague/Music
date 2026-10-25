@@ -5,3 +5,10 @@ __pycache__/
 .cache/
 # website data: built by src/site_build.py before each deploy
 site/data/
+site/a/
+site/label/
+site/cards/
+site/sitemap.xml
+site/robots.txt
+site/state/
+site/country/

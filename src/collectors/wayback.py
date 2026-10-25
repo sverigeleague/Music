@@ -51,13 +51,17 @@ def parse(html: str) -> list[dict]:
     return [r for r in out if r["monthly_listeners"]]
 
 
-def update(keep: set[str], since: str = SINCE, limit: int | None = None) -> tuple[int, int]:
-    """Fetch the weeks not yet stored; keep rows of the given Spotify IDs. Returns (snapshots read, unreadable)."""
-    have = set()
+def update(keep: set[str], since: str = SINCE, limit: int | None = None, refetch: bool = False) -> tuple[int, int]:
+    """Fetch the weeks not yet stored (every week with refetch, e.g. when a genre is added); keep rows of the given
+    Spotify IDs that are not stored for that week yet. Returns (snapshots read, unreadable)."""
+    have, stored = set(), set()
     if CSV.exists():
         with CSV.open() as f:
-            have = {r["date"] for r in csv.DictReader(f) if r["source"] == "wayback"}
-    todo = [ts for ts in snapshots(since) if f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}" not in have][:limit]
+            for r in csv.DictReader(f):
+                if r["source"] == "wayback":
+                    have.add(r["date"])
+                    stored.add((r["date"], r["spotify_id"]))
+    todo = [ts for ts in snapshots(since) if refetch or f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}" not in have][:limit]
     new = not CSV.exists()
     done = bad = 0
     with CSV.open("a", newline="") as f:
@@ -72,7 +76,7 @@ def update(keep: set[str], since: str = SINCE, limit: int | None = None) -> tupl
                 continue
             day = f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}"
             for x in rows:
-                if x["spotify_id"] in keep:
+                if x["spotify_id"] in keep and (day, x["spotify_id"]) not in stored:
                     w.writerow({"date": day, **x, "source": "wayback"})
             f.flush()
             done += 1

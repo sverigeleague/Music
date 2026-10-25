@@ -163,6 +163,10 @@ def test_label_classification():
     assert c("Canada Dry Music", "x")[0] == "unknown"      # "ada" (ADA) is matched as a word only
     assert c("Volume Records", "x")[0] == "unknown"        # nor "ume" (UME)
     assert c("BBR Music Group/Jelly Roll", "Jelly Roll") == ("independent", "BMG")
+    # a longer pattern containing a shorter one wins; separate labels in one string still rank by status
+    assert c("Universal Music Distribution Deal", "x")[0] == "major_distributed"
+    assert c("10K Projects/Capitol Records", "x")[0] == "major"
+    assert c("Universal Music Distribution / Universal Music", "x")[0] == "major"  # a second, separate label
 
 
 def test_label_status_and_codes():
@@ -468,3 +472,171 @@ def test_risers_video_pick_and_parsers(monkeypatch):
             '<media:statistics views="42"/></entry>')
     monkeypatch.setattr(youtube_feed, "get", lambda url, params=None: type("R", (), {"status_code": 200, "text": feed}))
     assert youtube_feed.latest("x") == [{"id": "DDDDDDDDDDD", "title": "New & video", "published": "2026-10-18", "views": 42}]
+
+
+def test_credits_leaderboard(monkeypatch):
+    from src.collectors import credits
+    monkeypatch.setattr(credits, "load", lambda: {
+        "A1": {"isrc": "A1", "recording": "r1", "producers": "Mustard~m1;Sounwave~m2", "writers": "K~w1"},
+        "B1": {"isrc": "B1", "recording": "r2", "producers": "Mustard~m1", "writers": ""}})
+    songs = [{"isrc": "A1", "title": "Not Like Us", "daily": 100, "artist_id": "k", "artist": "Kendrick"},
+             {"isrc": "B1", "title": "Other", "daily": 50, "artist_id": "y", "artist": "YG"},
+             {"isrc": "", "title": "No code", "daily": 999, "artist_id": "z", "artist": "Z"}]
+    top = credits.leaderboard(songs)
+    assert [(p["name"], p["daily"], p["artists"]) for p in top] == [("Mustard", 150, 2), ("Sounwave", 100, 1)]
+    assert credits.split("Mustard~m1;Sounwave~m2") == [("Mustard", "m1"), ("Sounwave", "m2")]
+
+
+def test_radio_parse_and_presence(monkeypatch, tmp_path):
+    from src.collectors import radio
+    page = ('<table><tr><th>Pos</th></tr><tr><td>1</td><td>=</td><td><a>Morgan Wallen - Just In Case</a></td><td>90</td>'
+            '<td>1</td><td>(x5)</td><td>45.10</td><td>+0.30</td><td>2</td><td>46.0</td></tr>'
+            '<tr><td>2</td><td>+1</td><td><a>Shaboozey - Good News (feat. Jelly Roll)</a></td><td>40</td><td>2</td><td></td>'
+            '<td>30.00</td><td>-0.10</td><td>3</td><td>31.0</td></tr></table>')
+    rows = radio.parse(page)
+    assert [(r["pos"], r["artist_raw"], r["aud"]) for r in rows] == [(1, "Morgan Wallen", 45.1), (2, "Shaboozey", 30.0)]
+    monkeypatch.setattr(radio, "CSV", tmp_path / "radio.csv")
+    import csv
+    with radio.CSV.open("w", newline="") as f:
+        w = csv.DictWriter(f, radio.FIELDS); w.writeheader()
+        for r in rows:
+            w.writerow({"date": "2026-10-24", **r})
+    p = radio.presence({"mw": "Morgan Wallen", "jr": "Jelly Roll"})
+    assert p["mw"]["aud"] == 45.1 and p["jr"]["best_pos"] == 2
+
+
+def test_country_rule():
+    from src.genre import decide_country, is_country
+    assert is_country("red dirt") and is_country("Country pop") and not is_country("country blues")
+    assert decide_country([("country", 8), ("pop", 2)], [])[0] == "country"
+    assert decide_country([("country", 4), ("hip hop", 6)], [])[0] == "review"
+    dz = {"match": "exact", "releases": "12", "country_share": "0.9"}
+    assert decide_country([], [], dz, wikidata=True)[0] == "country"
+    assert decide_country([], [], dz, wikidata=False)[0] == "review"  # name-only Deezer match never decides
+    assert decide_country([("pop", 5)], [("pop", False, False)]) is None
+
+
+def test_scout_weights_sum_to_one_per_genre():
+    from src import insights
+    for factors in insights.FACTORS_BY_GENRE.values():
+        assert abs(sum(w for w, _ in factors.values()) - 1) < 1e-9
+
+
+def test_label_rows_by_release_date():
+    from src import labels
+    t = labels.owners()
+    assert labels.classify_label("Big Machine Records, LLC", "", t, False, "2023-05-01") == ("major_distributed", "HYBE America")
+    assert labels.classify_label("Big Machine Records", "", t, False, "2026-06-01") == ("independent", "Big Machine Records (Scott Borchetta)")
+    assert labels.classify_label("Blue Highway Records", "", t, False, "2026-06-01")[1] == "HYBE America"
+
+
+def test_country_revenue_has_pandora_and_radio_songwriting():
+    from datetime import date
+    from src import revenue
+    a = {"name": "X", "lead_daily": 1_000_000, "yt_daily": 0, "radio_week": 48.65}
+    share = {"low": 0.2, "mid": 0.2, "high": 0.2}
+    hh = {l["key"]: l for l in revenue.estimate(a, date(2026, 10, 24), share)["lines"]}
+    cy = {l["key"]: l for l in revenue.estimate(a, date(2026, 10, 24), share, "country")["lines"]}
+    assert "pandora" not in hh and "pandora" in cy
+    assert cy["amazon"]["generated"]["mid"] > hh["amazon"]["generated"]["mid"]
+    r = cy["radio"]
+    assert r["artist"] is None and r["group"] == "Publishing"
+    assert round(r["generated"]["mid"]) == round(48.65e6 * 52 * 0.25 / 1000)  # about $632k
+
+
+def test_deezer_by_isrc_takes_the_artist_credited_on_most_songs(monkeypatch):
+    from src.collectors import deezer
+
+    class R:
+        status_code = 200
+
+        def __init__(self, j):
+            self.j = j
+
+        def json(self):
+            return self.j
+    songs = {"A": [{"id": 1, "name": "Eve"}], "B": [{"id": 1, "name": "Eve"}, {"id": 9, "name": "Swizz"}],
+             "C": [{"id": 2, "name": "Eve"}]}
+
+    def fake(url, params=None):
+        if "isrc:" in url:
+            return R({"id": 5, "contributors": songs[url.split(":")[-1]]})
+        return R({"nb_fan": 77})
+    monkeypatch.setattr(deezer, "get", fake)
+    assert deezer.by_isrc("Eve", ["A", "B", "C"]) == {"deezer_id": 1, "deezer_fans": 77, "deezer_match": "isrc"}
+    assert deezer.by_isrc("Eve", ["A", "C"]) is None  # one song each: no majority
+
+
+def test_deezer_by_titles_needs_two_of_the_biggest_songs(monkeypatch):
+    from src.collectors import deezer
+
+    class R:
+        status_code = 200
+
+        def json(self):
+            return {"data": [{"title": "Whiskey Glasses"}, {"title": "Chasin' You (Live)"}, {"title": "Sand In My Boots"}]}
+    monkeypatch.setattr(deezer, "get", lambda url, params=None: R())
+    assert deezer._title("Chasin' You - Acoustic") == deezer._title("Chasin' You (Live)") == "chasinyou"
+    assert deezer.by_titles(1, ["Whiskey Glasses", "Chasin' You (feat. X)", "Other"])
+    assert not deezer.by_titles(1, ["Whiskey Glasses", "Nope", "Other"])
+    assert deezer.by_titles(1, ["Sand In My Boots"])
+
+
+def test_credits_leaderboard_counts_a_shared_song_once(monkeypatch):
+    from src.collectors import credits
+    monkeypatch.setattr(credits, "load", lambda: {"US1": {"producers": "Ryan Lewis|mb1", "writers": ""}})
+    monkeypatch.setattr(credits, "split", lambda v: [tuple(v.split("|"))] if v else [])
+    songs = [{"isrc": "US1", "title": "Thrift Shop", "daily": 100, "artist_id": a, "artist": a} for a in ("m", "rl", "m&rl")]
+    (p,) = credits.leaderboard(songs)
+    assert p["daily"] == 100 and len(p["songs"]) == 1
+
+
+def test_deezer_country_alone_does_not_override_wikidata_genres():
+    from src import genre
+    dz = {"match": "exact", "releases": "10", "country_share": "0.9"}
+    assert genre.decide_country([], [("arabesque", False, False)], dz, wikidata=True)[0] == "review"
+    assert genre.decide_country([], [], dz, wikidata=True)[0] == "country"
+
+
+def test_label_name_follows_dated_rows_and_titles_keep_with():
+    from src import labels
+    from src.collectors import deezer
+    t = labels.owners()
+    assert labels.label_name("Big Machine Records", t, "2024-01-01") == "Big Machine Label Group"
+    assert labels.label_name("Big Machine Records", t, "2026-05-01") == "Big Machine Records"
+    assert deezer._title("Stay With Me") != deezer._title("Stay")
+    assert deezer._title("Song (with X)") == deezer._title("Song")
+
+
+def test_one_wikidata_genre_does_not_override_deezer_releases():
+    from src.genre import decide_country
+    wd = [("alternative country", False, False)]
+    rock = {"match": "exact", "releases": "49", "country_share": "0.0"}
+    assert decide_country([("rock", 1)], wd, rock)[0] == "review"
+    assert decide_country([("rock", 1)], wd)[0] == "country"  # no Deezer match: Wikidata decides as before
+
+
+def test_below_floor_artists_compare_by_streams_and_band_apart():
+    from src import insights
+    floor = {"id": "f", "ml": None, "daily": 20_000, "floor": True}
+    listed = {"id": "m", "ml": 800_000, "daily": 90_000}
+    assert insights.size(floor) == 200_000 and insights.size(listed) == 800_000
+    assert insights.band_of(floor) == insights.FLOOR_BAND and insights.band_of(listed) == 0
+    assert insights.band_label(insights.FLOOR_BAND).startswith("under 500k")
+
+
+def test_ids_for_deezer_needs_one_artist_and_one_spotify_link(monkeypatch):
+    from src.collectors import musicbrainz as mb
+
+    class R:
+        def __init__(self, j): self.status_code, self._j = 200, j
+        def json(self): return self._j
+    pages = {
+        "url": {"relations": [{"artist": {"id": "mb1"}}]},
+        "artist/mb1": {"relations": [{"url": {"resource": "https://open.spotify.com/artist/SP1"}},
+                                     {"type": "wikidata", "url": {"resource": "https://www.wikidata.org/wiki/Q1"}}]},
+    }
+    monkeypatch.setattr(mb, "get", lambda url, params=None: R(pages[url.split("/ws/2/")[1]]))
+    assert mb.ids_for_deezer("1") == {"mbid": "mb1", "spotify_id": "SP1", "qid": "Q1"}
+    pages["url"] = {"relations": [{"artist": {"id": "mb1"}}, {"artist": {"id": "mb2"}}]}  # shared URL: no match
+    assert mb.ids_for_deezer("1")["spotify_id"] == ""

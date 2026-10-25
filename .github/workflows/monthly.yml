@@ -53,6 +53,14 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' deezer ') }}
         continue-on-error: true
         timeout-minutes: 15
+      - run: python -m src.run wikidata-from-mb
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' wikidata-from-mb ') }}
+        continue-on-error: true
+        timeout-minutes: 15
+      - run: python -m src.run deezer-audit
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' deezer-audit ') }}
+        continue-on-error: true
+        timeout-minutes: 20
       - run: python -m src.run labels
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' labels ') }}
         continue-on-error: true
@@ -79,6 +87,31 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' pageviews ') }}
         continue-on-error: true
         timeout-minutes: 20
+      - run: python -m src.run awards
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' awards ') }}
+        continue-on-error: true
+        timeout-minutes: 20
+      - run: python -m src.run certifications
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' certifications ') }}
+        continue-on-error: true
+        timeout-minutes: 60
+      - run: python -m src.run countrycrawl
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' countrycrawl ') }}
+        continue-on-error: true
+        timeout-minutes: 45
+      - name: Country candidates confirmed from their songs (decided at the next registry run)
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' countrycrawl ') }}
+        continue-on-error: true
+        timeout-minutes: 90
+        run: |
+          python -m src.run country-from-crawl
+          python -m src.run confirm-country
+          python -m src.run country-ids
+          python -m src.run country-floor
+      - run: python -m src.run credits
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' credits ') }}
+        continue-on-error: true
+        timeout-minutes: 90
       - run: python -m src.run financials
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' financials ') }}
         continue-on-error: true
@@ -89,6 +122,14 @@ jobs:
         timeout-minutes: 20
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: "Country (owner, 2026-10-24): the per-artist steps for the country top artists"
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' country ') }}
+        continue-on-error: true
+        timeout-minutes: 150
+        run: |
+          for step in streams dates mbdates deezer deezer-isrc labels mblabels youtube photos pageviews awards certifications credits; do
+            python -m src.run "$step" --genre=country || echo "country $step failed"
+          done
       - name: Commit
         if: always()
         run: |

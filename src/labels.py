@@ -31,9 +31,27 @@ def owners() -> list[dict]:
 
 
 def _matches(pattern: str, text: str) -> bool:
+    if pattern.startswith("="):  # the whole label string, for generic names ("=urban": Universal Music Germany's label)
+        return text.strip() == pattern[1:]
     if re.fullmatch(r"[a-z0-9 ]+", pattern):
         return re.search(r"\b" + re.escape(pattern) + r"\b", text) is not None
     return pattern in text
+
+
+def _most_specific(hits: list[dict], text: str) -> list[dict]:
+    """Drops a pattern that matched only inside a longer matching pattern ("universal music" inside "universal music
+    distribution"); one that also matches elsewhere in the string (a second label) stays."""
+    pats = {r["pattern"].lstrip("=") for r in hits}
+    out = []
+    for r in hits:
+        p = r["pattern"].lstrip("=")
+        longer = [q for q in pats if q != p and p in q]
+        rest = text
+        for q in longer:
+            rest = rest.replace(q, " ")
+        if not longer or _matches(r["pattern"], rest):
+            out.append(r)
+    return out
 
 
 _MB: dict | None = None
@@ -57,14 +75,25 @@ def musicbrainz_owner(label: str, table: list[dict]) -> tuple[str, str] | None:
     return None
 
 
-def classify_label(label: str, artist: str, table: list[dict] | None = None, use_musicbrainz: bool = True) -> tuple[str, str]:
+def _in_force(row: dict, released: str) -> bool:
+    """A row with a from/until date (a label that changed hands, e.g. Big Machine in February 2026) applies only to
+    releases dated inside it; without a release date, only rows with no dates apply."""
+    lo, hi = row.get("from") or "", row.get("until") or ""
+    if not (lo or hi):
+        return True
+    return bool(released) and (not lo or released[:10] >= lo) and (not hi or released[:10] <= hi)
+
+
+def classify_label(label: str, artist: str, table: list[dict] | None = None, use_musicbrainz: bool = True,
+                   released: str = "") -> tuple[str, str]:
     """(status, owner) of one release's label string: our table first, then the label's owners on MusicBrainz."""
-    table = table or owners()
+    table = [r for r in (table or owners()) if _in_force(r, released)]
     text = label.casefold()
     m = re.search(r"under (?:exclusive )?licen[cs]e to (.+)$", text)
     parts = [m[1], text] if m else [text]  # the licensee decides
     for part in parts:
         hits = [r for r in table if _matches(r["pattern"], part)]
+        hits = _most_specific(hits, part)
         if hits:
             best = min(hits, key=lambda r: RANK[r["status"]])
             return best["status"], best["owner"]
@@ -77,14 +106,15 @@ def classify_label(label: str, artist: str, table: list[dict] | None = None, use
     return "unknown", ""
 
 
-def label_name(label: str, table: list[dict] | None = None) -> str:
+def label_name(label: str, table: list[dict] | None = None, released: str = "") -> str:
     """The label a release string names, as shown on the site: our table's display name for the matched pattern
-    (the licensee first), else the release string without company suffixes."""
-    table = table or owners()
+    (the licensee first), else the release string without company suffixes. Dated rows apply as in classify_label."""
+    table = [r for r in (table or owners()) if _in_force(r, released)]
     text = label.casefold()
     m = re.search(r"under (?:exclusive )?licen[cs]e to (.+)$", text)
     for part in ([m[1], text] if m else [text]):
         hits = [r for r in table if _matches(r["pattern"], part)]
+        hits = _most_specific(hits, part)
         if hits:
             best = min(hits, key=lambda r: RANK[r["status"]])
             return best.get("label") or best["pattern"].title()
@@ -105,7 +135,7 @@ def artist_status(releases: list[dict], artist: str, table: list[dict] | None = 
     table = table or owners()
     seen = []
     for r in releases:
-        st, owner = classify_label(r["label"], artist, table)
+        st, owner = classify_label(r["label"], artist, table, released=r.get("release_date", ""))
         seen.append({"title": r["title"], "date": r["release_date"], "label": r["label"], "status": st, "owner": owner})
     known = [x for x in seen if x["status"] != "unknown"]
     if not known:
@@ -115,7 +145,7 @@ def artist_status(releases: list[dict], artist: str, table: list[dict] | None = 
         count[x["status"]] = count.get(x["status"], 0) + 1
     status = max(count, key=lambda k: (count[k], -RANK[k]))  # a tie goes to the more signed status
     owners_ = [x["owner"] for x in known if x["status"] == status]
-    owner = max(set(owners_), key=owners_.count)
+    owner = max(dict.fromkeys(owners_), key=owners_.count)
     basis = next(x for x in known if x["status"] == status and x["owner"] == owner)
     return {"status": status, "owner": owner, "basis": basis, "releases": seen,
             "agree": f"{count[status]} of {len(seen)} recent releases"}
@@ -138,7 +168,7 @@ def learn_registrants(statuses: dict[str, dict], isrcs: dict[str, list[str]], mi
     for p, owners_ in seen.items():
         majors = [o for o in owners_ if o != "-"]
         if len(owners_) >= min_tracks and len(majors) / len(owners_) >= 0.9:
-            out[p] = max(set(majors), key=majors.count)
+            out[p] = max(dict.fromkeys(majors), key=majors.count)
     return out
 
 
@@ -156,7 +186,7 @@ def check_with_isrcs(status: dict, prefixes: list[str], registrants: dict[str, s
     major = [registrants[p] for p in prefixes if p in registrants]
     new_us = [p for p in prefixes if p.startswith(NEW_US)]
     if len(major) / len(prefixes) >= 0.5:
-        owner = max(set(major), key=major.count)
+        owner = max(dict.fromkeys(major), key=major.count)
         status.pop("confidence", None)
         return {**status, "status": "major", "owner": owner,
                 "isrc_note": f"{len(major)} of {len(prefixes)} recent songs registered by {owner}"}

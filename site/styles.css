@@ -1,3 +1,4 @@
+[hidden] { display: none !important; }
 /* Rap Ledger styles: the same tokens and look as Hoop Ledger (black and white, square boxes, colour only where it
    means something). The font is Bricolage Grotesque (SIL Open Font License), served from site/fonts. */
 @font-face { font-family: "Bricolage Grotesque"; src: url("fonts/bricolage.woff2") format("woff2"); font-weight: 200 800;
@@ -59,7 +60,7 @@ h2 { font: 600 13px var(--font-ui); text-transform: uppercase; letter-spacing: .
 .up { color: var(--good); } .down { color: var(--bad); }
 
 /* tiles */
-.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: var(--gap); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: var(--gap); }
 .tile { border: 1px solid var(--line); padding: 14px 16px; min-width: 0; display: grid; gap: 2px; align-content: start; }
 .tile .k { font-size: 13px; color: var(--muted); }
 .tile .v { font: 600 22px/1.25 var(--font-ui); overflow-wrap: anywhere; }
@@ -163,8 +164,8 @@ a.chip:hover { border-color: var(--fg); }
 .legend span { display: inline-flex; gap: 6px; align-items: center; }
 .legend i { width: 14px; height: 14px; border: 1px solid var(--line); display: inline-block; }
 .stackrow { display: grid; grid-template-columns: minmax(120px, 170px) minmax(0, 1fr); gap: 10px; align-items: center; font-size: 14px; }
-.stack { display: flex; height: 18px; border: 1px solid var(--line); }
-.stack i { display: block; height: 100%; min-width: 0; }
+div.stack { display: flex; height: 18px; border: 1px solid var(--line); }
+div.stack i { display: block; height: 100%; min-width: 0; }
 @media (max-width: 560px) { .stackrow { grid-template-columns: 1fr; gap: 4px; } }
 
 /* phones: the artist column stays in view while the numbers scroll */
@@ -261,3 +262,60 @@ button.play.vid { font-size: 13px; }
 .radio { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 0 10px; }
 .radio button { border: 1px solid var(--fg); background: none; color: var(--fg); padding: 4px 10px; cursor: pointer; font: inherit; }
 .radio button:hover, .radio button:focus-visible { background: var(--fg); color: var(--bg); }
+/* product review 2026-10-24: start-page value line, share button, phone overflow and tap targets */
+.lede { font-size: 18px; line-height: 1.45; max-width: 760px; color: var(--fg); margin: 0; }
+.linkbtn { border: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+.grid2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.grid2 .tablebox { max-width: 100%; }
+@media (max-width: 700px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .segbtn, .seg button { min-height: 44px; } }
+.subnav, .tablebox { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent); }
+.tablebox { padding-right: 24px; }
+.links .linkbtn { font-size: 13px; border: 1px solid var(--line); padding: 4px 10px; text-decoration: none; }
+.links .linkbtn:hover { border-color: var(--fg); }
+.more { margin: 10px 0 0; }
+.def { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+tr.hl td { background: var(--soft); outline: 1px solid var(--fg); }
+.statgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 12px; }
+.stat { display: grid; gap: 6px; padding: 18px; border: 1px solid var(--line); text-decoration: none; }
+.stat:hover, .stat:focus-visible { border-color: var(--fg); }
+.stat b { font: 650 30px/1.1 var(--font-ui); letter-spacing: -.02em; }
+.stat .k { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+/* genre switch (owner, 2026-10-24, C3): hip-hop and country side by side in the header */
+.genres { display: inline-flex; border: 1px solid var(--line); }
+.genres a { padding: 6px 12px; font-size: 13px; text-decoration: none; color: var(--muted); }
+.genres a[aria-current="page"] { background: var(--fg); color: var(--bg); }
+.genres a:hover { color: var(--fg); }
+.genres a[aria-current="page"]:hover { color: var(--bg); }
+@media (max-width: 560px) { .genres a { padding: 10px 12px; } }
+.profiles { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+.profiles a { color: var(--fg); }
+table.brief .sig { display: none; }
+td.hit { min-width: 220px; }
+td.hit .note { display: block; }
+td.lab { max-width: 160px; }
+@media (max-width: 560px) {
+  th { white-space: normal; min-width: 64px; vertical-align: bottom; }
+  th, td { padding: 8px 8px; }
+  td .who span { white-space: normal; }
+}
+.floorlist { columns: 3 220px; column-gap: 24px; padding-left: 3.2em; margin: 12px 0; }
+.floorlist li { break-inside: avoid; padding: 2px 0; font-size: 14px; }
+/* revenue table on phones: the source on its own line, the figures under it with their labels */
+@media (max-width: 560px) {
+  table.rev thead { display: none; }
+  table.rev tr { display: grid; grid-template-columns: 1fr 1fr auto; border-bottom: 1px solid var(--line); }
+  table.rev td { border: 0; white-space: normal; text-align: left; padding: 4px 8px; }
+  table.rev td.l { grid-column: 1 / -1; padding-top: 10px; font-weight: 600; }
+  table.rev td:empty { display: none; }
+  table.rev td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  table.rev tr.sec td.l, table.rev tr.sec { font-weight: 600; }
+}
+@media (max-width: 560px) {
+  table.stack thead { display: none; }
+  table.stack tr { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  table.stack td { border: 0; padding: 0 8px; white-space: normal; text-align: left; }
+  table.stack td:first-child { flex-basis: 100%; font-weight: 600; }
+  table.stack td.wrap { flex-basis: 100%; }
+  table.stack td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+}
