@@ -15,7 +15,7 @@ OUT = SITE / "data" / "index.json"
 EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market")
 DETAIL_ONLY = ("about", "cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_newest", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
-               "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views",
+               "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views", "yt_basis",
                "peak_rank", "attention_series", "worth", "collabs")
 
 
@@ -237,6 +237,9 @@ def build(genre: str = "hip_hop") -> dict:
             "growth90": insights.growth(history.get(t["spotify_id"], []), today.isoformat()),
             "yt_total": num(yt.get(t["spotify_id"], {}).get("total_views")),
             "yt_daily": num(yt.get(t["spotify_id"], {}).get("daily_views")),
+            # source, method and date of the YouTube figures: kworb.net, measured, matched on an identifier
+            "yt_basis": {"date": yt[t["spotify_id"]].get("date"), "match": yt[t["spotify_id"]].get("match") or "backlink"}
+            if t["spotify_id"] in yt else None,
             "yt_subs": num(ych.get(t["spotify_id"], {}).get("subscribers")),
             "yt_channel_views": num(ych.get(t["spotify_id"], {}).get("views")),
             "geo": geography(geo.get(t["spotify_id"], {})),

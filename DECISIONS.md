@@ -2,6 +2,38 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 YouTube: matching kworb pages by identifiers (task: "more artists with measured YouTube views")
+
+- **Why most artists had no YouTube figure (top 1,000 hip-hop, 757 country):**
+  - kworb has no YouTube page for them. Its archive lists 1,732 artists worldwide. All 1,732 pages were read once:
+    1,559 link back to a Spotify ID, but only 253 of those are hip-hop and 31 country registry artists. A sample of
+    missing hip-hop artists (A$AP Ferg, Sexyy Red, Vince Staples) returned 404 under their names too.
+  - Pages that exist but have no link back to Spotify were never taken: 9 hip-hop artists.
+  - Wikidata channel IDs were not used for matching (392 missing hip-hop and 202 missing country artists have one).
+  - The archive was decoded as Latin-1 (no charset header), so accented names never matched (Maître Gims, L'Algérino).
+- **Chosen:**
+  - `data/kworb_youtube_index.csv`: every archive page with the Spotify ID it links back to. Each page is read once
+    and kept in `raw/kworb/youtube/pages/`; only new archive entries are read on later runs.
+  - Match on the artist's own channel. The channel ID comes from Wikidata P2397, else MusicBrainz url relations
+    (`data/musicbrainz_youtube.csv`, `youtube.com/channel/` links only). The channel's public feed gives its latest
+    uploads (kept in `raw/youtube/feeds/`). A match needs exactly one kworb page that lists one of those videos as
+    the artist's own (not a feature) and links to no other Spotify ID.
+  - Take a page with no link back when kworb's own page for the Spotify ID links to it.
+  - The `match` column in `data/youtube.csv` records how each row was matched (`backlink`, `kworb_spotify_link`,
+    `channel <ID> video <ID>`). Earlier rows are `backlink`.
+  - Conflicts and name-only candidates go to `review/youtube_review.csv`, never into the data.
+- **Result:** hip-hop 242 -> 255. 7 by channel (mgk, Fugees, Hungria Hip Hop, Maître Gims, Chris Jeday, Bad Meets
+  Evil, JayDaYoungan), 3 by kworb's link, 3 by backlink. Country stays at 31: kworb has no page for the other 726.
+  Six review rows: B.o.B, Macklemore, Macklemore & Ryan Lewis, Quavo (Migos page), and Ye (Kanye West page).
+- **Rejected:**
+  - Name matches without an identifier.
+  - Filling `youtube_channel` in the registry from MusicBrainz. The registry column stays Wikidata P2397.
+  - kworb video pages: they exist only for artists kworb tracks.
+- **Left open:** the 745 hip-hop and 726 country artists still without a figure are not on kworb. 473 hip-hop and
+  314 country have a channel ID. The YouTube Data API (key in Actions) gives their channel views and subscribers,
+  but daily views need two snapshots, and keeping them is limited by the API's terms (no history without III.L).
+  This is an owner decision.
+
 ## 2026-10-25 Country flags in every list (owner: "show the country flag each artist is from in all list formats / rankings")
 
 - **Chosen:** a small flag after the artist's name in every list, ranking, search result, card and on the artist page.
