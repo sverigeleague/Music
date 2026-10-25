@@ -58,8 +58,10 @@ def _usd(n) -> str:
     return "$" + _count(n) if n is not None else "–"
 
 
-def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str, prefix: str = "") -> str:
+def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str, prefix: str = "",
+           og_type: str = "profile") -> str:
     depth = "../" * (2 + prefix.count("/"))
+    data = f"data/{prefix}index.json"  # fetched by app.js once it loads; preloaded so the two downloads overlap
     img = f'<meta property="og:image" content="{esc(image)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{esc(image)}">' if image else '<meta name="twitter:card" content="summary">'
     return f"""<!doctype html>
 <html lang="en">
@@ -70,14 +72,16 @@ def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: s
 <title>{esc(title)} · tventy music</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(url)}">
-<meta property="og:site_name" content="tventy music"><meta property="og:type" content="profile">
+<meta property="og:site_name" content="tventy music"><meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}"><meta property="og:url" content="{esc(url)}">
 {img}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <link rel="stylesheet" href="styles.css">
+<link rel="preload" href="{data}" as="fetch" crossorigin>
 <script>window.BOOT = {json.dumps(boot)};</script>
 </head>
 <body>
+<a class="skip" href="#app">Skip to content</a>
 <header><div class="wrap bar">
   <span class="brandbox"><a class="brand" href="#/">tventy</a><a class="section" href="https://tventy.se/sport/" title="Go to tventy sport">music</a></span>
   <nav class="genres" aria-label="Genre"><a href="#/" data-genre="hip_hop">Hip-hop</a><a href="#/country/" data-genre="country">Country</a></nav>

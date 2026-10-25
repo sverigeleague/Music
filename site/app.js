@@ -101,6 +101,7 @@ function otherGenre(g) {
 }
 function bindSearchBox(input, box, global) {
   let hits = [], at = 0;
+  input.setAttribute("role", "combobox"); input.setAttribute("aria-autocomplete", "list");  // aria-expanded is valid on a combobox, not a search box
   const close = () => { box.hidden = true; input.setAttribute("aria-expanded", "false"); };
   const draw = () => {
     hits = searchFor(input.value); at = 0;
