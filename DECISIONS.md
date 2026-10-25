@@ -9,6 +9,9 @@ What was chosen, what was considered and rejected, and why. Newest first.
 - Nested label patterns: a shorter pattern is dropped only when it matched inside the longer one, so a string naming
   two labels ("Universal Music Distribution / Universal Music") keeps both. No label string we hold changes.
 - Tours page: no crash when a genre has no counted tours.
+- Dylan Gossett (was a pending owner question): the Mercury deal is now sourced (Big Loud Texas / Mercury Records,
+  Nov 2023; UMPG's 2025 release names the label), so he gets an override like Tucker Wetmore's: major-distributed,
+  UMG. He leaves the country Unsigned list.
 - Deals notes starting with a quote mark are capitalised.
 - Reproducible builds: ties between owners (`max(set(...))`) depended on Python's per-run string hashing; they now go
   to the first seen. Two builds with different hash seeds now differ only in the build time.
