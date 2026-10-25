@@ -657,8 +657,8 @@ def test_description_sentences_and_fallback():
 
 def test_description_sentence_edge_cases():
     from src.collectors.descriptions import first_sentences as f
-    assert f("S is a rapper from Washington, D.C. He is known for X. Third.") == \
-        "S is a rapper from Washington, D.C. He is known for X."
+    assert f("S is a rapper from Washington, D.C. He is known for his mixtapes. Third.") == \
+        "S is a rapper from Washington, D.C. He is known for his mixtapes."
     assert f("M rose in the 2010s. He founded a label. Third.") == "M rose in the 2010s. He founded a label."
     assert f("She served in the U.S. Army. She sings. Third.") == "She served in the U.S. Army. She sings."
     assert f("Mac Miller (born Malcolm (Mac) McCormick) was a rapper.") == "Mac Miller was a rapper."
