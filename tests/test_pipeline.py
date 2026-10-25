@@ -740,6 +740,8 @@ def test_independent_kind_size_and_activity():
     assert k == "inactive" and "from 2020" in why[0]
     assert labels.independent_kind("X", [], old, {}, "", 2026, t, ml=3_000_000, cl=500_000, latest_lead="2026-01-10",
                                    today=today)[0] == "prospect"
+    # below the 500k floor with no stream figure
+    assert "below 500k" in labels.independent_kind("X", [], new, {}, "", 2026, t, today=today, floor=True)[1][0]
     # without `today` (older callers) only the established test applies
     assert labels.independent_kind("X", [], old, {}, "", 2026, t, cl=0)[0] == "prospect"
 

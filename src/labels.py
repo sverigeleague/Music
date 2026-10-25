@@ -204,7 +204,7 @@ PROSPECT_RECENT_YEARS = 2  # a prospect's newest song as lead is at most this ol
 def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], registrants: dict[str, str],
                      since: str, year: int, table: list[dict] | None = None, ml: int | None = None,
                      cl: int | None = None, latest_lead: str | None = None,
-                     today: date | None = None) -> tuple[str, list[str]]:
+                     today: date | None = None, floor: bool = False) -> tuple[str, list[str]]:
     """A self-released artist: an unsigned "prospect", or "established" (independent now, but with a past label deal
     or a long career). Owner, 2026-10-25: Jeezy, Lil Pump or KYLE releasing on their own say nothing about whether
     rising artists are unsigned. Evidence, any one enough: a record label on Wikidata's career-long list (a label or a
@@ -238,6 +238,7 @@ def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], regi
     cutoff = date(today.year - PROSPECT_RECENT_YEARS, today.month, min(today.day, 28)).isoformat()
     if not cl:
         why.append("catalog only: no current listeners (the listening is on older songs)" if cl == 0
+                   else "no listener count below 500k on Spotify, and no stream figure" if floor
                    else "no current-listener figure (too few of the streams are on dated songs)")
     if newest < cutoff:
         why.append(f"no recent release: newest dated song of their own is from {newest[:4]}" if newest

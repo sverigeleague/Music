@@ -267,7 +267,7 @@ def build(genre: str = "hip_hop") -> dict:
             seen = r["cl"] if ml else (round(r["daily"] * r["cur_share"]) if r["daily"] and r["cur_share"] is not None else None)
             r["indie_kind"], r["indie_basis"] = labels.independent_kind(
                 a["name"], wd_labels, dated_of.get(t["spotify_id"], []), registrants, a["active_since"], today.year, table,
-                ml=ml, cl=seen, latest_lead=r["latest_release"], today=today)
+                ml=ml, cl=seen, latest_lead=r["latest_release"], today=today, floor=bool(r["floor"]))
         # share of today's streams that come as a featured guest: the money lines count the artist's own songs only
         r["feat"] = round(r["feature_daily"] / r["daily"], 3) if r.get("daily") and r.get("feature_daily") is not None else None
     second = second_profiles(rows[:TOP_N], artists)  # within the list the site shows (rows are in its final order)

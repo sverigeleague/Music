@@ -2,6 +2,41 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-25 Review 5 fixes: country links, one figure per measure, client wording (items 3, 11, 12, 15 and the SHOULD/NICE list)
+
+- **Country artist pages** (`app.js artist()`): Share text says "#n in country", the shared URL and the Download card
+  point at `/music/country/a/<slug>/` and `country/cards/<slug>.png` (new `GDIR()` helper; the State citation uses it
+  too). Static pages, sitemap and og:image already used the country paths. The footer now gets `prefixLinks`, so its
+  links keep `#/country/` in a new tab.
+- **Worth on other deals** is shown only when the artist has a listener count or a stream figure (the Worth page
+  values nothing without one; before, it opened the default 1m-listener result).
+- **Country "Our ranking"**: below-floor rows are numbered on from the last ranked place, and the Deezer-order block
+  under the table follows on from the table's last place, so an artist not yet ranked leaves no gap. Rejected:
+  giving unranked artists a place (they have no current-listeners figure).
+- **One top-100 Spotify figure**: State summed `money.generated` (monthly, rounded) x 12; Platforms summed the yearly
+  Spotify line, which the build rounded to 3 significant figures per artist. Both now add the same yearly line, kept
+  to the dollar in index data (`src/site_build.py`, `src/state.py`). **Label owner known**: one definition, as Labels
+  and State: an artist with a release in the last two years whose label is placed with its owner, or self-released;
+  catalog acts and those not yet classified are not counted (`labelKnown` in app.js; Method and Quality said 75% by
+  counting catalog acts as known, now 66% with the definition written next to it).
+- **Platforms**: the streams column is lead-artist streams a day (daily x (1 - feature share)), what the royalty
+  columns are paid on; the note says features are left out. **Compare**: "Artist keeps" says "incl. touring" or
+  "streaming only" per artist. **Search**: labels of both genres (the other genre's marked and linking there) and label
+  owners ("universal" finds Universal Music Group), which open the Labels directory filtered to that owner
+  (`#/labels/owner/<name>`, new). Rejected: a separate group page (the directory filter already is one).
+- **Client wording**: docs paths and "Instagram API (Phase 2)" out of `registry/platforms.csv`; "owner's review list"
+  now "an editor's check"; "(YE2025 window)" and "Midyear 2026 window" removed from tour names in
+  `registry/tours.csv` (the rows' notes keep the Billboard window; the page already says "gross for shows to Sep
+  2025"); country Labels tile "in hip-hop" (not swapped to "country"); Audience: 2024's 1.7-point fall stated as such,
+  with the 2024 Luminate source; "Turkey" everywhere (the English Wikidata label the artists' home countries come from; `registry/countries.csv` had
+  "Türkiye"); Movers says "past month" and the real span (up to 34 days) instead of "30 days".
+- **Pay**: the major-label 15–30% range is graded B, and its note says the CMA covers the average only, the 30% top end
+  is press-reported and the 15% low end is our assumption (`registry/deal_shares.csv`).
+- **Tours**: a tour whose end is known only as a year shows the months its gross covers (`tourSpan()`, from the
+  Billboard cut-off), so every row reads month to month; the artist page's tour list uses the same.
+- **Spotify list size**: the country build counted its below-floor rows into `universe` (25,575); now both genres
+  show the size of Spotify's public list (25,219 on the same day).
+
 ## 2026-10-25 Review 5: prospects, second Spotify profiles, Scout zeros and tiers, status words (items 4-10, 13, 14)
 
 - **Who is a prospect** (`labels.independent_kind`): 10m+ monthly listeners is now established evidence ("10m+

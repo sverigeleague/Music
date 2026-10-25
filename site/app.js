@@ -220,7 +220,7 @@ document.addEventListener("click", e => {
 const getJSON = url => fetch(url).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); });
 function loadFailed(e) {
   console.error(e);
-  crumbs([]);
+  nav("error"); crumbs([]);
   app.innerHTML = `<section class="panel" role="alert"><h1>The data did not load</h1><p>${navigator.onLine === false ? "You appear to be offline." : "The connection failed or timed out."} Check your connection and try again.</p><p><button type="button" class="btn" id="retry">Try again</button></p><p class="note">Detail: ${esc(e?.message || e)}</p></section>`;
   app.querySelector("#retry").onclick = () => { app.innerHTML = `<p class="note">Loading…</p>`; route().catch(loadFailed); };
 }
@@ -237,12 +237,17 @@ document.addEventListener("keydown", e => {
   e.preventDefault();
   const attr = [...th.attributes].find(x => /^data-\w*s(c|or)/.test(x.name));
   th.click();
-  if (attr) app.querySelector(`th[${attr.name}="${CSS.escape(attr.value)}"]`)?.focus();
+  const again = attr && app.querySelector(`th[${attr.name}="${CSS.escape(attr.value)}"]`);
+  if (again) { again.tabIndex = 0; again.focus(); }
 });
 function keyboardTables(root) {
   root.querySelectorAll("thead th").forEach(th => { if (th.onclick && !th.hasAttribute("tabindex")) th.tabIndex = 0; });
   // wide tables scroll sideways inside their box: keyboard users can focus the box to scroll it
-  root.querySelectorAll(".tablebox:not([tabindex])").forEach(b => { if (b.scrollWidth > b.clientWidth + 1) { b.tabIndex = 0; b.setAttribute("role", "region"); b.setAttribute("aria-label", (b.closest("section, .panel")?.querySelector("h1, h2")?.textContent || "Table").trim().slice(0, 80)); } });
+  const used = new Set([...root.querySelectorAll(".tablebox[aria-label]")].map(b => b.getAttribute("aria-label")));
+  root.querySelectorAll(".tablebox:not([tabindex])").forEach(b => { if (b.scrollWidth > b.clientWidth + 1) {
+    const name = (b.previousElementSibling?.matches("h2, h3") ? b.previousElementSibling : b.closest("section, .panel")?.querySelector("h1, h2"))?.textContent?.trim().slice(0, 80) || "Table";
+    let label = name; for (let i = 2; used.has(label); i++) label = `${name} (table ${i})`;  // each region needs its own name
+    used.add(label); b.tabIndex = 0; b.setAttribute("role", "region"); b.setAttribute("aria-label", label); } });
 }
 
 // Per-artist detail lives in 32 shard files (src/site_build.py): <data>/a/<second character's code % 32>.json.
