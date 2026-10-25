@@ -20,18 +20,36 @@ ABBREV = {"jr", "sr", "st", "mr", "mrs", "ms", "dr", "inc", "ltd", "co", "vs", "
 
 
 def load() -> dict[str, dict]:
-    return json.loads(OUT.read_text()) if OUT.exists() else {}
+    """Stored summaries, with "text" cut again from the stored opening paragraph by today's first_sentences."""
+    out = json.loads(OUT.read_text()) if OUT.exists() else {}
+    for d in out.values():
+        if d.get("extract"):
+            d["text"] = first_sentences(d["extract"])
+    return out
+
+
+# after a dotted abbreviation ("U.S.", "D.C."), a full stop ends the sentence only before one of these words
+STARTS = {"He", "She", "They", "It", "His", "Her", "Their", "The", "In", "After", "Born", "As", "With", "On", "At",
+          "Since", "During", "Following", "A", "An", "Its", "This"}
 
 
 def first_sentences(text: str, n: int = 2, max_chars: int = MAX_CHARS) -> str:
     """The first n sentences, or fewer when two would run past max_chars (always at least one)."""
-    text = re.sub(r"\s+", " ", re.sub(r"\s*\([^()]*\)", "", text or "")).strip()  # drop "(born ...)" asides
+    text = text or ""
+    while True:  # drop "(born ...)" asides, nested ones too
+        t = re.sub(r"\s*\([^()]*\)", "", text)
+        if t == text:
+            break
+        text = t
+    text = re.sub(r"\s+", " ", text).strip()
     out, start = [], 0
-    for m in re.finditer(r"[.!?](?=\s+[\"“A-Z0-9])", text):
-        word = re.findall(r"([A-Za-z.]+)$", text[start:m.start()])
-        prev = word[0].lower().rstrip(".") if word else ""
-        if prev in ABBREV or len(prev) == 1 or "." in prev:  # an abbreviation or an initial
-            continue
+    for m in re.finditer(r"[.!?](?=\s+([\"“A-Z0-9][\w'’]*))", text):
+        tok = text[start:m.start()].rsplit(" ", 1)[-1]
+        nxt = m.group(1).lstrip("\"“")
+        if text[m.start()] == "." and (re.fullmatch(r"[A-Z]", tok) or tok.lower().rstrip(".") in ABBREV):
+            continue  # an initial ("J. Cole") or a title ("Jr.", "St. Louis")
+        if text[m.start()] == "." and "." in tok and nxt not in STARTS:
+            continue  # "the U.S. Army"; but "Washington, D.C. He ..." ends there
         out.append(text[start:m.end()].strip())
         start = m.end()
         if len(out) == n:
@@ -51,7 +69,7 @@ def summary(title: str) -> dict | None:
     j = r.json()
     if j.get("type") == "disambiguation" or not j.get("extract"):
         return None
-    return {"text": first_sentences(j["extract"]), "article": j.get("title") or title,
+    return {"extract": j["extract"], "text": first_sentences(j["extract"]), "article": j.get("title") or title,
             "url": (j.get("content_urls") or {}).get("desktop", {}).get("page")
             or "https://en.wikipedia.org/wiki/" + quote(title.replace(" ", "_")),
             "source": "wikipedia", "fetched": date.today().isoformat()}
@@ -60,7 +78,7 @@ def summary(title: str) -> dict | None:
 def update(articles: dict[str, str], refresh: bool = False, workers: int = 2) -> int:
     """articles: spotify_id -> English Wikipedia title. Fetches the ones not stored yet. Returns the count stored."""
     out = load()
-    todo = [(s, t) for s, t in articles.items() if refresh or s not in out]
+    todo = [(s, t) for s, t in articles.items() if refresh or "extract" not in out.get(s, {})]
     with ThreadPoolExecutor(workers) as pool:
         for i, ((s, _), d) in enumerate(zip(todo, pool.map(lambda st: summary(st[1]), todo)), 1):
             if d and d["text"]:

@@ -651,5 +651,14 @@ def test_description_sentences_and_fallback():
     r = {"name": "X", "country": "United States", "since": "2019", "label_status": "major",
          "label_name": "Capitol Records", "label_owner": "Universal Music Group"}
     assert about_of(r, None, "country")["text"] == (
-        "X is a country artist from United States, active since 2019, signed to Capitol Records (Universal Music Group).")
+        "X is a country artist from the United States, active since 2019, signed to Capitol Records (Universal Music Group).")
     assert about_of(r, {"text": "W.", "url": "u"}, "country") == {"text": "W.", "source": "wikipedia", "url": "u"}
+
+
+def test_description_sentence_edge_cases():
+    from src.collectors.descriptions import first_sentences as f
+    assert f("S is a rapper from Washington, D.C. He is known for X. Third.") == \
+        "S is a rapper from Washington, D.C. He is known for X."
+    assert f("M rose in the 2010s. He founded a label. Third.") == "M rose in the 2010s. He founded a label."
+    assert f("She served in the U.S. Army. She sings. Third.") == "She served in the U.S. Army. She sings."
+    assert f("Mac Miller (born Malcolm (Mac) McCormick) was a rapper.") == "Mac Miller was a rapper."

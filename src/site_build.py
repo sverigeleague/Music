@@ -66,8 +66,10 @@ def build(genre: str = "hip_hop") -> dict:
         listed = {t["spotify_id"] for t in top}
         fresh = (date.today() - timedelta(days=FLOOR_FRESH_DAYS)).isoformat()  # kworb refreshes small artists rarely
         from .collectors import deezer_country
-        crawl_order = {c["spotify_id"]: int(c.get("top10_rank_sum") or 0)
-                       for c in deezer_country.load().values() if c.get("spotify_id")}
+        crawl_order: dict[str, int] = {}  # an artist with two Deezer pages (Hank 3 / Hank Williams III) takes the bigger
+        for c in deezer_country.load().values():
+            if c.get("spotify_id"):
+                crawl_order[c["spotify_id"]] = max(crawl_order.get(c["spotify_id"], 0), int(c.get("top10_rank_sum") or 0))
         measured = lambda a: (num(streams.get(a["spotify_id"], {}).get("total_daily"))
                               and streams[a["spotify_id"]].get("date", "") >= fresh)
         below = [a for a in artists.values() if a["genre"] == genre and a["spotify_id"] not in listed]
@@ -307,7 +309,10 @@ def about_of(r: dict, wiki: dict | None, genre: str) -> dict | None:
     word = "country" if genre == "country" else "hip-hop"
     parts = [f"{r['name']} is a {word} artist"]
     if r.get("country"):
-        parts.append(f" from {r['country']}")
+        c = r["country"]
+        the = c.startswith(("United ", "Republic of ", "Czech Republic", "Dominican Republic")) or c in (
+            "Netherlands", "Philippines", "Bahamas", "Gambia", "Ivory Coast", "Democratic Republic of the Congo")
+        parts.append(f" from {'the ' if the else ''}{c}")
     if r.get("since"):
         parts.append(f", active since {r['since']}")
     st, lab = r.get("label_status"), r.get("label_name")
@@ -421,11 +426,11 @@ def benchmark(rows: list[dict], shares: dict) -> list[dict]:
         peer_spl, u_spl = med([spl(p) for p in peers if spl(p)]), spl(u)
         diy, keep = float(shares["diy"]["mid"]), {k: float(shares[k]["mid"]) for k in ("major", "services", "independent")}
         out.append({
-            "id": u["id"], "name": u["name"], "ml": u["ml"], "cl": u.get("cl"), "cur_share": u.get("cur_share"),
+            "id": u["id"], "name": u["name"], "ml": u["ml"], "floor": u.get("floor"), "cl": u.get("cl"), "cur_share": u.get("cur_share"),
             "confidence": u.get("label_confidence"), "label": (u.get("label_basis") or {}).get("label") or u.get("label_name") or u.get("label_owner"),
             "generated": round(g_u), "keeps_now": round(g_u * diy), "spl": u_spl,
             "feat": round(u["feature_daily"] / u["daily"], 3) if u.get("daily") and u.get("feature_daily") is not None else None,
-            "peers": [{"id": p["id"], "name": p["name"], "ml": p["ml"], "status": p["label_status"],
+            "peers": [{"id": p["id"], "name": p["name"], "ml": p["ml"], "floor": p.get("floor"), "status": p["label_status"],
                        "owner": p.get("label_owner"), "generated": round(gen(p)),
                        "artist_slice": round(gen(p) * float(shares[p["deal_type"]]["mid"])), "spl": spl(p)} for p in peers],
             "peer_generated": round(peer_gen), "peer_spl": peer_spl,
@@ -480,7 +485,9 @@ def below_floor(measured: int, listed: set[str], today: date, years: int = 3) ->
     from .collectors import deezer_country, deezer_genres
     from .collectors.deezer import _norm
     above = {str(r.get("deezer_id")) for r in deezer_genres.load().values() if r.get("deezer_id")}
-    above |= {str(a["deezer_id"]) for a in load_artists().values() if a.get("deezer_id")}  # matched or ISRC-confirmed
+    reg = load_artists()
+    above |= {str(a["deezer_id"]) for a in reg.values() if a.get("deezer_id")}  # matched or ISRC-confirmed
+    listed = set(listed) | set(reg)  # a second Deezer page of an artist the registry holds (Bellamy Brothers)
     listed_names = {_norm(t["name"]) for t in latest_listeners()}  # a second Deezer profile of a listed artist
     cutoff = date(today.year - years, today.month, min(today.day, 28)).isoformat()
     rows = [r for r in deezer_country.load().values()

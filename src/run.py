@@ -214,7 +214,10 @@ def tracked(genres=None, top_n: int | None = TOP_N) -> list[dict]:
             for r in csv.DictReader(f):
                 daily[r["spotify_id"]] = int(r["total_daily"] or 0) if r["date"] >= fresh else 0
     from .collectors import deezer_country  # then the rest of the crawl in Deezer's order
-    crawl = {c["spotify_id"]: int(c.get("top10_rank_sum") or 0) for c in deezer_country.load().values() if c.get("spotify_id")}
+    crawl: dict[str, int] = {}  # an artist with two Deezer pages takes the bigger
+    for c in deezer_country.load().values():
+        if c.get("spotify_id"):
+            crawl[c["spotify_id"]] = max(crawl.get(c["spotify_id"], 0), int(c.get("top10_rank_sum") or 0))
     rows = sorted((a for a in load_artists().values() if a["genre"] in genres),
                   key=lambda a: (-ml.get(a["spotify_id"], 0), -daily.get(a["spotify_id"], 0), -crawl.get(a["spotify_id"], 0)))
     return rows[:top_n] if top_n else rows
