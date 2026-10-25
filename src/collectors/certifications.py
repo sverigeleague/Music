@@ -12,6 +12,9 @@ Parsed: the "Certifications" column of discography tables ("RIAA: 2× Platinum",
 {{Certification Table Entry}} templates. The US peak is the chart column headed "US". Units only where the
 threshold is certain: RIAA (albums and singles from 1989: Gold 500k, Platinum 1m, Diamond 10m) and BPI (albums
 60k/100k/300k, singles from 1989 200k/400k/600k); everything else null.
+
+Artists with no English page, or none with a certification, are read from the French or German Wikipedia
+(certifications_frde.py). Each entry records its wiki in "lang" ("en", "fr" or "de") next to "page" and "url".
 """
 import csv
 import json
@@ -291,8 +294,8 @@ def parse_certs(cell: str, kind: str = "other", year: str = "") -> list[dict]:
 
 def _kind(heading: str) -> str:
     h = heading.lower()
-    single = re.search(r"single|song|featur|lead artist", h)
-    if re.search(r"album|mixtape|extended play|\beps?\b|compilation|soundtrack", h) and not single:
+    single = re.search(r"single|song|featur|lead artist|chanson|lieder|gastbeitr|gastmusik", h)
+    if re.search(r"album|alben|mixtape|extended play|\beps?\b|compilation|soundtrack", h) and not single:
         return "album"
     return "single" if single else "other"
 
@@ -306,16 +309,16 @@ def _heading_kind(headings: list[str]) -> str:
 
 
 def _title(cell_text: str) -> str:
-    t = re.split(r"<br\s*/?>", cell_text, flags=re.I)[0]
-    t = plain(t).strip()
-    m = re.match(r'^"([^"]+)"', t)
-    return (m.group(1) if m else t).strip(' "')
+    lines = re.split(r"<br\s*/?>|\n(?=\s*\*)", cell_text.strip(), flags=re.I)  # French cells list titles as bullets
+    t = plain(next((x for x in lines if plain(x).strip("*• ")), "")).lstrip("*• ").strip()
+    m = re.match(r'^["«„“]\s*([^"»“”]+?)\s*["»“”]', t)
+    return (m.group(1) if m else t).strip(' "«»„“”')
 
 
 def _year(cells: list[dict | None], heads: list[list[str]]) -> str:
     for i, c in enumerate(cells):
         label = " ".join(heads[i]).lower() if i < len(heads) else ""
-        if c and ("year" in label or "detail" in label):
+        if c and re.search(r"year|detail|détail|année|jahr|veröffentlich", label):
             if m := re.search(r"\b(19[5-9]\d|20\d\d)\b", plain(c["text"])):
                 return m.group(1)
     return ""
@@ -345,7 +348,13 @@ def parse_tables(text: str) -> list[dict]:
         heads, data = grid(rows)
         cert_col = next((i for i, l in enumerate(heads) if any("certification" in x.lower() for x in l)), None)
         us_col = _us_column(heads)
-        year_col = next((i for i, l in enumerate(heads) if l and l[0].lower() in ("year", "release date")), None)
+        year_col = next((i for i, l in enumerate(heads) if l and l[0].lower() in ("year", "release date", "année")),
+                        None)
+        # the title column when the row has no row header (French tables put the year first)
+        title_col = next((i for i, l in enumerate(heads)
+                          if l and re.fullmatch(r"(title|titre|single|chanson|song|titel)s?", l[0].lower())), None)
+        if title_col is None and heads and heads[0] and re.fullmatch(r"year|année|jahr", heads[0][0].lower()):
+            title_col = 1
         if cert_col is None and us_col is None:
             continue
         stack: list[tuple[int, str]] = []
@@ -355,7 +364,8 @@ def parse_tables(text: str) -> list[dict]:
             stack = [x for x in stack if x[0] < lvl] + [(lvl, h)]
         kind = _heading_kind([h for _, h in stack])
         for cells in data:
-            head = next((c for c in cells if c and c["row"]), None) or (cells[0] if cells and cells[0] else None)
+            head = next((c for c in cells if c and c["row"]), None) or (
+                cells[title_col] if title_col is not None and title_col < len(cells) else cells[0] if cells else None)
             if not head:
                 continue
             title = _title(head["text"])
@@ -444,18 +454,24 @@ def _norm(title: str) -> str:
     return t[:1].upper() + t[1:]
 
 
-def _cache_path(title: str):
-    return CACHE / (quote(_norm(title).replace(" ", "_"), safe="") + ".wt")
+def _cache_path(title: str, lang: str = "en"):
+    return (CACHE if lang == "en" else CACHE / lang) / (quote(_norm(title).replace(" ", "_"), safe="") + ".wt")
 
 
-def raw(title: str, refresh: bool = False) -> str | None:
+def wiki_url(title: str, lang: str = "en") -> str:
+    return f"https://{lang}.wikipedia.org/wiki/" + quote(_norm(title).replace(" ", "_"))
+
+
+def raw(title: str, refresh: bool = False, lang: str = "en") -> str | None:
     """A page's wikitext (index.php?action=raw, served from Wikimedia's cache), or None when the page does not
-    exist. Cached, misses included (as an empty file); a refused request is not cached and comes back None."""
-    path = _cache_path(title)
+    exist. Cached, misses included (as an empty file); a refused request is not cached and comes back None.
+    `lang` "fr"/"de" reads that Wikipedia, cached under .cache/wikitext/<lang>/."""
+    path = _cache_path(title, lang)
     if path.exists() and not refresh:
         return path.read_text() or None
-    CACHE.mkdir(parents=True, exist_ok=True)
-    r = get(INDEX, params={"title": _norm(title), "action": "raw"})
+    path.parent.mkdir(parents=True, exist_ok=True)
+    r = get(INDEX if lang == "en" else f"https://{lang}.wikipedia.org/w/index.php",
+            params={"title": _norm(title), "action": "raw"})
     if r.status_code == 404:
         path.write_text("")
         return None
@@ -465,14 +481,14 @@ def raw(title: str, refresh: bool = False) -> str | None:
     return r.text or None
 
 
-def page(title: str, refresh: bool = False) -> tuple[str, str] | None:
+def page(title: str, refresh: bool = False, lang: str = "en") -> tuple[str, str] | None:
     """(the title it lands on, wikitext), redirects followed (two hops at most), or None when missing."""
     title = _norm(title)
     for _ in range(3):
-        text = raw(title, refresh)
+        text = raw(title, refresh, lang)
         if text is None:
             return None
-        m = re.match(r"\s*#REDIRECT\s*:?\s*\[\[([^\]|]+)", text, re.I)
+        m = re.match(r"\s*#(?:REDIRECT|REDIRECTION|WEITERLEITUNG)\s*:?\s*\[\[([^\]|]+)", text, re.I)
         if not m:
             return title, text
         title = _norm(m.group(1))
@@ -555,9 +571,13 @@ def update(ids_and_names, refresh: bool = False) -> int:
             works += [w for w in parse(texts.get(p, "")) if (w["title"].lower(), w["type"]) not in
                       {(x["title"].lower(), x["type"]) for x in works}]
         out[s] = {"page": ps[0], "url": "https://en.wikipedia.org/wiki/" + quote(ps[0].replace(" ", "_")),
-                  "fetched": today, "works": works}
+                  "lang": "en", "fetched": today, "works": works}
         if len(ps) > 1:
             out[s]["pages"] = ps
+    # no English page, or none with a certification: the French or German discography (certifications_frde)
+    from . import certifications_frde
+    todo = {s: q for s, (_, q) in artists.items() if q and not any(w["certs"] for w in out.get(s, {}).get("works", []))}
+    out.update(certifications_frde.entries(todo, today, refresh))
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=0))
     return sum(1 for k, e in out.items() if k in names and any(w["certs"] for w in e["works"]))
 

@@ -122,3 +122,176 @@ def test_summary():
     assert s["certified_works"] == 4  # Small Song has none
     assert s["riaa_platinum_units"] == 3 + 10 + 1  # Gold is not counted
     assert s["by_country"]["US"] == 4 and s["by_country"]["UK"] == 2
+
+
+# ---------- French and German Wikipedia ----------
+
+from src.collectors import certifications_frde as f
+
+FR_TEMPLATES = """== Albums ==
+{{Discographie des albums
+| pays1 = {{drapeau|France}} [[Syndicat national de l'édition phonographique|FRA]]
+| titre1 = ''[[Comme prévu]]''
+| détails1 = * Sortie : 8 septembre 2017
+* Label : Rec.118
+| position1 = 78;3
+| certif1 = {{Drapeau|France}}{{Certification|Diamant}}<ref name="SNEP">{{Lien web|url=http://snepmusique.com|titre=SNEP}}</ref>
+| titre2 = ''[[Destin (album)|Destin]]''
+| détails2 = * Sortie : {{date|22|mars|2019|en musique}}
+| certif2 = {{Drapeau|France}} {{certification|Diamant|2}}<ref name="SNEP"/><br>{{Drapeau|Belgique}} {{certification|or}}
+| titre3 = ''Sans certif''
+| certif3 = —
+| titre4 = ''Seul''
+| détails4 = * Sortie : 2023
+| certif4 = {{Certification|Platine|3}}<ref>{{Lien web|url=https://snepmusique.com}}</ref>
+}}
+== Chansons ==
+=== Singles ===
+{{Discographie des chansons
+| pays1 = [[France|FR]]
+| titre1 = ''Miroir''
+| année1 = 2015
+| annéen1 = 2
+| titre2 = ''Malcolm''
+| certif2 = {{Drapeau|France}} {{Certification|Platine}}
+| titre3 = ''Roro''
+| année3 = 2017
+| certif3 = {{Drapeau|France}} {{Certification|Or}}
+}}
+"""
+
+FR_TABLE = """=== Singles ===
+{| class="wikitable"
+! rowspan="2" |Année
+! rowspan="2" |Titre
+! colspan="2" |Meilleure position
+! rowspan="2" |[[Disque de certification#France|Certifications]]
+|-
+! {{Drapeau|France}} FRA
+! {{Drapeau|Suisse}} SUI
+|-
+| rowspan="2" | 2018
+| style="text-align:left;"|''Sapés comme jamais'' <small>(feat. [[Niska]])</small>
+| 2 || 30
+|
+* {{France}} ([[Syndicat national de l'édition phonographique|SNEP]]) : {{Certification|Diamant}}<ref name="SNEP"/>
+* {{Suisse}} : {{Certification|Or}}
+|-
+| style="text-align:left;"|''Bella''
+| 1 || 5
+| FRA : {{Certification|platine|2}}
+|}
+
+=== Titres certifiés ===
+* ''Ocho''
+** ''Yakalelo'' : {{drapeau|France}}  {{Certification|Diamant}}
+** ''Titulaires'' <small>(feat. [[Koba LaD]])</small> : {{drapeau|France}} {{Certification|Or}}
+"""
+
+DE_CHARTS = """== Alben ==
+=== Studioalben ===
+{{Charttabelle
+|DE|AT|CH|US
+| Art = Alben
+| INHALT =
+{{Charteintrag
+|DE|AT|CH|US
+| Jahr = 2017
+| Titel = [[Makarov Komplex]]
+| POS_DE = 2 | WO_DE = 8 | A_DE = G
+| POS_AT = 1 | WO_AT = 3
+| Titel2 = [[Blyat]]
+| POS_DE2 = 3 | A_DE2 = 3P
+| POS_AT2 = 3 | A_AT2 = D+5P
+| POS_US2 = 40
+}}
+}}
+== Singles ==
+=== Als Leadmusiker ===
+{{Charttabelle
+|DE|AT|CH
+| Art = Singles
+| INHALT =
+{{Charteintrag
+|DE|AT|CH
+| Jahr = 2018
+| Titel = Spielplatz <sup>A, P</sup>
+| POS_DE = 51 | A_DE = G (Single) + G (Streaming)
+| POS_CH = 70 | A_CH = P
+| Titel2 = Ohne Auszeichnung
+| POS_DE2 = 90
+}}
+{{Charteintrag
+|DE|FR
+| Jahr = 2020
+| Titel = Ciao
+| POS_FR = 1 | A_FR = D
+| A_BEW = G
+}}
+}}
+"""
+
+
+def _fr(text):
+    return {w["title"]: w for w in f.parse("fr", text)}
+
+
+def _lv(w):
+    return [(x["body"], x["multiplier"], x["level"]) for x in w["certs"]]
+
+
+def test_fr_discographie_templates():
+    w = _fr(FR_TEMPLATES)
+    assert set(w) == {"Comme prévu", "Destin", "Seul", "Malcolm", "Roro"}  # uncertified and "—" left out
+    assert w["Comme prévu"]["type"] == "album" and w["Comme prévu"]["year"] == "2017"
+    assert w["Comme prévu"]["certs"] == [
+        {"body": "SNEP", "country": "France", "level": "Diamond", "multiplier": 1, "units": None}]
+    assert _lv(w["Destin"]) == [("SNEP", 2, "Diamond"), ("BEA", 1, "Gold")] and w["Destin"]["year"] == "2019"
+    assert _lv(w["Seul"]) == [("SNEP", 3, "Platinum")]  # a certification without a flag is SNEP's
+    assert w["Malcolm"]["type"] == "single" and w["Malcolm"]["year"] == "2015"  # année1 carried down
+    assert w["Roro"]["year"] == "2017" and _lv(w["Roro"]) == [("SNEP", 1, "Gold")]
+    assert all(x["us_peak"] is None for x in w.values())
+
+
+def test_fr_wikitable_year_first_and_lists():
+    w = _fr(FR_TABLE)
+    s = w["Sapés comme jamais (feat. Niska)"]  # the title column, not the year column; the rowspan year carried
+    assert s["type"] == "single" and s["year"] == "2018"
+    assert _lv(s) == [("SNEP", 1, "Diamond"), ("IFPI Switzerland", 1, "Gold")]
+    assert _lv(w["Bella"]) == [("SNEP", 2, "Platinum")] and w["Bella"]["year"] == "2018"  # "FRA :" code kept
+    assert _lv(w["Yakalelo"]) == [("SNEP", 1, "Diamond")] and w["Yakalelo"]["type"] == "single"
+    assert "Titulaires" in w
+
+
+def test_de_charteintrag():
+    w = {(x["title"], x["type"]): x for x in f.parse("de", DE_CHARTS)}
+    assert set(w) == {("Makarov Komplex", "album"), ("Blyat", "album"), ("Spielplatz", "single"),
+                      ("Ciao", "single")}
+    assert _lv(w["Makarov Komplex", "album"]) == [("BVMI", 1, "Gold")] and w["Makarov Komplex", "album"]["year"] == "2017"
+    b = w["Blyat", "album"]
+    assert _lv(b) == [("BVMI", 3, "Platinum"), ("IFPI Austria", 1, "Diamond"), ("IFPI Austria", 5, "Platinum")]
+    assert b["us_peak"] == 40 and b["certs"][0]["units"] is None
+    assert _lv(w["Spielplatz", "single"]) == [("BVMI", 1, "Gold"), ("IFPI Switzerland", 1, "Platinum")]
+    assert _lv(w["Ciao", "single"]) == [("SNEP", 1, "Diamond"), ("BEA", 1, "Gold")]
+
+
+def test_de_award_codes():
+    assert f.de_award("G") == [("Gold", 1)]
+    assert f.de_award("8P") == [("Platinum", 8)]
+    assert f.de_award("D+5P") == [("Diamond", 1), ("Platinum", 5)]
+    assert f.de_award("S") == [("Silver", 1)]
+    assert f.de_award("") == [] and f.de_award("—") == []
+
+
+def test_entries_pick_the_wiki_and_record_it(monkeypatch):
+    pages = {("fr", "Ninho"): FR_TEMPLATES, ("de", "Ninho/Diskografie"): DE_CHARTS,
+             ("de", "Ninho"): "{{Eingebundene Diskografie|Ninho/Diskografie|Überschrift=Alben}}"}
+    monkeypatch.setattr(f, "wikidata_pages", lambda qids, lang: ({"Q1": "Ninho"}, {}))
+    monkeypatch.setattr(c, "page", lambda t, refresh=False, lang="en": (t, pages[lang, t]) if (lang, t) in pages
+                        else None)
+    e = f.entries({"sp1": "Q1"}, "2026-10-25")["sp1"]
+    assert e["lang"] == "de" and e["page"] == "Ninho/Diskografie"  # 8 certifications against 6: German
+    assert e["url"] == "https://de.wikipedia.org/wiki/Ninho/Diskografie"
+    pages["fr", "Ninho"] = FR_TEMPLATES + FR_TABLE  # now more on the French page
+    e = f.entries({"sp1": "Q1"}, "2026-10-25")["sp1"]
+    assert e["lang"] == "fr" and e["url"] == "https://fr.wikipedia.org/wiki/Ninho" and e["fetched"] == "2026-10-25"

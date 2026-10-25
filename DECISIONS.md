@@ -79,6 +79,24 @@ What was chosen, what was considered and rejected, and why. Newest first.
   gross anywhere (projections and per-night averages are not reports). Billboard's year-end 2026 (about December)
   should fill most gaps.
 
+## 2026-10-25 Certifications from French and German Wikipedia (overnight)
+
+- When an artist's English discography has no certifications, `src/collectors/certifications_frde.py` reads the
+  French and German pages, found through Wikidata's sitelinks and the article's own links (never guessed titles).
+  French: the discography templates, tables with a Certifications column and flagged list items (France -> SNEP,
+  Belgique -> BEA, Suisse -> IFPI Switzerland...); an unflagged French certification first in its cell counts as SNEP.
+  German: `{{Charteintrag}}` rows (A_DE, A_AT, A_CH, A_FR, A_IT... and codes like G, 3P, D+5P).
+- One wiki per artist (the one with more certifications), so each entry has one credit; every entry stores its
+  language and the panel credits "French/German/English Wikipedia" (CC BY-SA).
+- Hip-hop top 1,000 with at least one certification: 503 -> 599 (85 from German pages, 11 from French).
+  Spot checks matched the pages (Werenoi, Luciano, Salmo, Gazo, Tayc).
+- The English parser read the year as the title in tables that put the year first (Booba, Damso, SCH, Ninho, Jul...);
+  fixed, nothing lost (23,950 -> 24,420 certifications on the cached pages).
+- Panel: where there is no RIAA Platinum, the headline tile is the main body ("SNEP: 81 certifications"); releases
+  sort Diamond over Platinum over Gold for any body; the US peak column shows only when there are US peaks.
+- Gaps: 222 of the 401 artists still without certifications have no Wikidata entry; Kanye West's English lookup lands
+  on his production discography (to fix), so his entry comes from the German page.
+
 ## 2026-10-24 Label research batch 4 (overnight) and Deezer IDs from ISRCs
 
 - **Shared names:** 18 artists in the top 1,000 (Aminé, City Girls, Luciano, Eve...) had a Deezer name that several

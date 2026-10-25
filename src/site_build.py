@@ -73,11 +73,20 @@ def build(genre: str = "hip_hop") -> dict:
         sm = cert_src.summary(e)
         riaa = lambda w: sum((c["multiplier"] or 1) * (10 if c["level"] == "Diamond" else 1) for c in w["certs"]
                              if c["body"] == "RIAA" and c["level"] in ("Platinum", "Diamond"))
-        works = sorted((w for w in e["works"] if w["certs"]), key=lambda w: (-riaa(w), -len(w["certs"])))
+        level = {"Diamond": 10, "Platinum": 1, "Gold": 0.5, "Silver": 0.25}
+        weight = lambda w: sum((c["multiplier"] or 1) * level.get(c["level"], 0.1) if c["level"] != "Diamond" else 10
+                               for c in w["certs"])  # any body: a Diamond outranks a Platinum
+        works = sorted((w for w in e["works"] if w["certs"]), key=lambda w: (-riaa(w), -weight(w), -len(w["certs"])))
         short = lambda c: f"{c['body']} {(str(c['multiplier']) + '× ') if (c['multiplier'] or 1) > 1 else ''}{c['level']}"
+        bodies: dict[str, int] = {}
+        for w in e["works"]:
+            for c in w["certs"]:
+                bodies[c["body"]] = bodies.get(c["body"], 0) + 1
+        main = max(bodies, key=bodies.get)
         idx = {"works": sm["certified_works"], "riaa_plat": sm["riaa_platinum_units"],
-               "no1": sum(1 for w in e["works"] if w.get("us_peak") == 1), "countries": len(sm["by_country"])}
-        det = {"url": e["url"], "page": e["page"], "by_country": sm["by_country"],
+               "no1": sum(1 for w in e["works"] if w.get("us_peak") == 1), "countries": len(sm["by_country"]),
+               "main": {"body": main, "n": bodies[main]}}
+        det = {"url": e["url"], "page": e["page"], "lang": e.get("lang", "en"), "by_country": sm["by_country"],
                "top": [{"title": w["title"], "type": w["type"], "year": w.get("year"), "us_peak": w.get("us_peak"),
                         "certs": [short(c) for c in w["certs"]]} for w in works[:12]]}
         return idx, det

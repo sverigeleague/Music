@@ -819,14 +819,16 @@ const shazamBadge = (a, short = false) => { const z = a.shazam; if (!z) return s
 function certsPanel(a) {
   const C = a.cert_detail, S = a.certs;
   if (!C || !S) return "";
+  const peaks = C.top.some(w => w.us_peak);
   return `<section class="panel"><h2>Certifications ${grade("B")}</h2>
     <section class="tiles"><div class="tile"><div class="k">Certified releases</div><div class="v">${S.works}</div><div class="s">in ${S.countries} countr${S.countries === 1 ? "y" : "ies"}</div></div>
-      <div class="tile"><div class="k">RIAA Platinum, all releases</div><div class="v">${S.riaa_plat}×</div><div class="s">Diamond counts as 10× (US)</div></div>
-      <div class="tile"><div class="k">US No. 1s</div><div class="v">${S.no1}</div><div class="s">Billboard 200 or Hot 100, as listed</div></div></section>
-    <div class="tablebox"><table class="stack"><thead><tr><th class="l">Release</th><th>Year</th><th>US peak</th><th class="l">Certifications</th></tr></thead><tbody>
-    ${C.top.map(w => `<tr><td class="l">${esc(w.title)} <span class="note">${esc(w.type)}</span></td><td>${esc(w.year || "–")}</td><td>${w.us_peak ? "#" + w.us_peak : "–"}</td><td class="l wrap">${w.certs.map(esc).join(", ")}</td></tr>`).join("")}
+      ${S.riaa_plat ? `<div class="tile"><div class="k">RIAA Platinum, all releases</div><div class="v">${S.riaa_plat}×</div><div class="s">Diamond counts as 10× (US)</div></div>`
+        : S.main ? `<div class="tile"><div class="k">${esc(S.main.body)}</div><div class="v">${S.main.n}</div><div class="s">certifications, the most of any body</div></div>` : ""}
+      ${S.no1 ? `<div class="tile"><div class="k">US No. 1s</div><div class="v">${S.no1}</div><div class="s">Billboard 200 or Hot 100, as listed</div></div>` : ""}</section>
+    <div class="tablebox"><table class="stack"><thead><tr><th class="l">Release</th><th>Year</th>${peaks ? "<th>US peak</th>" : ""}<th class="l">Certifications</th></tr></thead><tbody>
+    ${C.top.map(w => `<tr><td class="l">${esc(w.title)} <span class="note">${esc(w.type)}</span></td><td>${esc(w.year || "–")}</td>${peaks ? `<td>${w.us_peak ? "#" + w.us_peak : "–"}</td>` : ""}<td class="l wrap">${w.certs.map(esc).join(", ")}</td></tr>`).join("")}
     </tbody></table></div>
-    <p class="note">Most-certified releases first (RIAA multiples). From the artist's discography on <a href="${esc(C.url)}" target="_blank" rel="noopener">English Wikipedia</a> (CC BY-SA), which cites the certifying bodies (RIAA, BPI, ARIA, Music Canada and others). Wikipedia can lag the bodies' own databases by weeks.</p></section>`;
+    <p class="note">Most-certified releases first (RIAA multiples, then Diamond over Platinum over Gold for any body). From the artist's discography on <a href="${esc(C.url)}" target="_blank" rel="noopener">${{ fr: "French", de: "German" }[C.lang] || "English"} Wikipedia</a> (CC BY-SA), which cites the certifying bodies (RIAA, BPI, ARIA, Music Canada and others). Wikipedia can lag the bodies' own databases by weeks.</p></section>`;
 }
 
 // ---------- awards and nominations (Wikidata, CC0)
