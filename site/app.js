@@ -2025,8 +2025,7 @@ const FIN_LINES = [["Revenue", ["total_revenue", "revenue", "music_segment_sales
   ["Recorded music streaming", ["recorded_music_streaming_revenue", "recorded_music_streaming_sales", ["subscription_streaming_revenue", "ad_supported_streaming_revenue"]]],
   ["Music publishing", ["music_publishing_revenue", "music_publishing_sales"]], ["Profit", ["adjusted_ebitda", "adjusted_oibda", "operating_ebitda_adjusted", "music_segment_operating_income"]]];
 const PROFIT_NAME = { adjusted_ebitda: "adjusted EBITDA", adjusted_oibda: "adjusted OIBDA", operating_ebitda_adjusted: "operating EBITDA, adjusted", music_segment_operating_income: "segment operating income" };
-const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-function alignedFinancials() {
+function alignedFinancials() {  // month names: MON, defined with the tour date helpers
   const R = (store.data.label_financials || []).filter(r => r.unit === "millions" && r.value !== "" && !isNaN(+r.value));
   const endOf = r => (/year ended (\d{4}-\d{2}-\d{2})/.exec(r.period || "") || [])[1];
   const cols = FIN_COS.map(([co, name]) => {
