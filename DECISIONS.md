@@ -2,6 +2,15 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Labels page: every label name links before the full list (owner)
+
+- **Owner:** "each label listed should hyperlink to the label page so before i reach the list i can already click them."
+- **Chosen:** on the Labels page, a label or owner name links to its label page where one exists (the share table,
+  "Independent labels and distributors", the rosters). An owner with no page of its own (Believe, Stem, Sony Music…)
+  opens the label list below, filtered to that owner's labels. 38 names link before the list; the rest stay plain text
+  (Self-released, Not yet known, owners with no label in the top 1,000).
+- **Rejected:** a page per owner company: the filtered list already shows its labels, with their figures.
+
 ## 2026-10-26 Site look: "the liner notes", the financial-broadsheet direction (owner)
 
 - **Owner:** "optimize the UI", in the financial-broadsheet direction chosen for both tventy sites; music is the

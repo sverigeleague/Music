@@ -1237,18 +1237,26 @@ function labelsPage() {
       <h2 style="margin-top:12px">By size (artists, monthly listeners)</h2>
       ${m.band_labels.map((b, i) => `<div class="stackrow"><span>${esc(i === 0 && store.data.artists.some(a => a.floor) ? b + " (including under 500k)" : b.replace(/(\d)-(\d)/, "$1–$2"))} <span class="note">${m.band_totals[i]}</span></span>${stack(G.map(g => [g, m.groups[g].bands[i]]))}</div>`).join("")}
       <div class="tablebox"><table><thead><tr><th class="l">Group</th><th>Artists</th><th>Share of artists</th><th>Monthly listeners</th><th>Share</th><th>Current listeners</th><th>Share</th></tr></thead><tbody>
-        ${G.map(g => `<tr><td class="l"><b>${esc(g)}</b></td><td>${gv(g, "artists")}</td><td>${share(gv(g, "artists") / tot("artists"))}</td><td>${count(gv(g, "ml"))}</td><td>${share(gv(g, "ml") / tot("ml"))}</td><td>${count(gv(g, "cl"))}</td><td>${share(gv(g, "cl") / tot("cl"))}</td></tr>`).join("")}
+        ${G.map(g => `<tr><td class="l"><b>${labName(g)}</b></td><td>${gv(g, "artists")}</td><td>${share(gv(g, "artists") / tot("artists"))}</td><td>${count(gv(g, "ml"))}</td><td>${share(gv(g, "ml") / tot("ml"))}</td><td>${count(gv(g, "cl"))}</td><td>${share(gv(g, "cl") / tot("cl"))}</td></tr>`).join("")}
       </tbody></table></div>
       <p class="note">Among artists whose label is known, the majors hold ${share(majBand(4))} of those with 15m+ monthly listeners and ${share(majLow())} of those under 3m. ${m.catalog ? `${m.catalog} catalog acts (no release in two years) are left out. ` : ""}The shares in this table are of all the other artists, those not yet known included, so they run lower than the tiles above; they are rounded and may not add to 100%. Monthly listeners are added up per artist, so a fan of two artists counts twice. "Not yet known": no label read from recent releases yet (waiting for an editor's check). Groups follow the label printed on the last two years of releases (Deezer), checked against recording codes; distribution deals with a major count under that major.</p></section>
     <section class="panel"><h2>Independent labels and distributors in the top 1,000</h2>
       <div class="tablebox"><table><thead><tr><th class="l">Label</th><th>Artists</th><th>Monthly listeners</th></tr></thead><tbody>
-      ${indies.map(([l, v]) => `<tr><td class="l">${esc(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div>
+      ${indies.map(([l, v]) => `<tr><td class="l">${labName(l)}</td><td>${v.artists}</td><td>${count(v.ml)}</td></tr>`).join("")}</tbody></table></div>
       <p class="note">By the company behind the label: an imprint counts under its owner here, so these rows can be larger than the same name's row in the label list below.</p></section>
     ${alignedFinancials()}${groupsCompare()}${groupsCompare(true)}
     ${labelDirectory()}
     <section><h2>Rosters: the biggest artists in each group</h2>
-      ${G.map(g => `<details class="panel"><summary><b>${esc(g)}</b>: ${gv(g, "artists")} artist${gv(g, "artists") === 1 ? "" : "s"}</summary><div class="chips">${m.groups[g].top.map(id => byId[id]).filter(Boolean).map(a => `<a class="chip" href="#/a/${a.id}">${esc(a.name)}${flag(a)} · ${mlx(a)}</a>`).join(" ")}</div></details>`).join("")}</section>`;
+      ${G.map(g => `<details class="panel"><summary><b>${esc(g)}</b>: ${gv(g, "artists")} artist${gv(g, "artists") === 1 ? "" : "s"}</summary><div class="chips">${m.groups[g].top.map(id => byId[id]).filter(Boolean).map(a => `<a class="chip" href="#/a/${a.id}">${esc(a.name)}${flag(a)} · ${mlx(a)}</a>`).join(" ")}</div>${labName(g) !== esc(g) ? `<p class="note">${labName(g, `${esc(g)}'s labels`)}</p>` : ""}</details>`).join("")}</section>`;
   bindDirectory();
+  // an owner with no page of its own opens the directory below, filtered to its labels
+  app.querySelectorAll("button[data-owner]").forEach(b => b.onclick = () => { ui.labf = { ...(ui.labf || { q: "", sort: ["ml", -1] }), q: "", group: b.dataset.owner }; labelsPage(); document.getElementById("labeldir").scrollIntoView(); });
+}
+// a label or owner name on the Labels page: its label page where there is one, else the directory filtered to its labels
+function labName(name, text = esc(name)) {
+  const L = (store.data.labels || []).find(x => x.name === name);
+  if (L) return `<a href="#/label/${L.slug}">${text}</a>`;
+  return (store.data.labels || []).some(x => x.parent === name) ? `<button type="button" class="linkbtn" data-owner="${esc(name)}" title="Show ${esc(name)}'s labels in the list below">${text}</button>` : text;
 }
 
 function collabPanel(a) {
