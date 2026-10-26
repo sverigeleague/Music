@@ -77,3 +77,12 @@ def test_method_changes_in_sync_with_corrections():
     assert rows and all(r["change"] and r["effect"] and r["source"].startswith("DECISIONS.md") for r in rows)
     heads = (quality.ROOT / "DECISIONS.md").read_text()
     assert all(r["source"].removeprefix("DECISIONS.md ") in heads for r in rows), [r["source"] for r in rows if r["source"].removeprefix("DECISIONS.md ") not in heads]
+
+
+def test_held_back_rows_stay_open(tmp_path):
+    rev, reg = tmp_path / "review", tmp_path / "registry"
+    rev.mkdir(), reg.mkdir()
+    _csv(rev / "genre_review.csv", "spotify_id,name\na,A\nb,B\nc,C")
+    _csv(reg / "genre_overrides.csv", "spotify_id,decision,note\na,review,held back 2026-10-26 (owner)\nb,hip_hop,\nc,review,unclear")
+    q = quality.queues("hip_hop", rev, reg)[0]
+    assert (q["open"], q["held"]) == (2, 1)  # an owner "review" is not settled; only "held back" rows count as held

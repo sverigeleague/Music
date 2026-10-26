@@ -1,6 +1,6 @@
 {
  "month": "2026-10",
- "as_of": "2026-10-25",
+ "as_of": "2026-10-26",
  "items": [
   {
    "key": "majors",
@@ -20,21 +20,21 @@
    "key": "mover",
    "label": "Biggest riser over about a month",
    "value": "Avery Anna",
-   "detail": "+25% monthly listeners, 7.8m to 9.8m since 2026-09-21 (34 days)",
+   "detail": "+26% monthly listeners, 7.9m to 9.9m since 2026-09-29 (27 days)",
    "link": "#/a/5rjz63sgMaAUAyBMyCUK5D"
   },
   {
    "key": "breaking",
    "label": "Breaking now",
    "value": "1",
-   "detail": "artists Scout rates Breaking; top: Zach John King (83)",
+   "detail": "artists Scout rates Breaking; top: Zach John King (87)",
    "link": "#/scout"
   },
   {
    "key": "unsigned",
    "label": "Top unsigned prospect",
    "value": "Sam Donald",
-   "detail": "Scout 71, 555k monthly listeners, releasing without a label",
+   "detail": "Scout 71, 566k monthly listeners, releasing without a label",
    "link": "#/a/33HvGTT4l89zxUyt5VTFJs"
   },
   {
@@ -55,14 +55,14 @@
    "key": "shazam",
    "label": "Most Shazamed country artist",
    "value": "Ella Langley",
-   "detail": "on 37 Shazam charts in the last 7 days",
+   "detail": "on 38 Shazam charts in the last 7 days",
    "link": "#/a/6BRxQ8cD3eqnrVj6WKDok8"
   },
   {
    "key": "size",
    "label": "Country artists tracked",
    "value": "754",
-   "detail": "1.43bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,219",
+   "detail": "1.43bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,232",
    "link": "#/"
   }
  ]
