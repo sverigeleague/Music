@@ -2,6 +2,59 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Genre queue: 306 identity-confirmed artists quality-checked; 247 accepted as hip-hop (owner)
+
+- **Owner:** "Accept for the 306 but run a quality check to make sure they are accurate" (the 306 that
+  `review/genre_identity_confirmed.csv` suggests as hip-hop).
+- **Check, per artist:** kworb song list (lead vs feature, featured names), Deezer artist and top 50 tracks (who
+  leads each one) from the API, Deezer's Rap/Latin release shares, the MusicBrainz artist that links the Spotify ID
+  (293 of 306: type, area, description, genres), and the registry genre of every collaborator. Full table with
+  evidence: `review/genre_quality_check_2026-10-26.csv`.
+- **Result:** 247 accepted, 52 rejected, 7 left in review.
+  - Accepted: `registry/genre_overrides.csv`, decision hip_hop, decided_by owner, note "owner 2026-10-26: accepted
+    after quality check; <songs, Deezer share>".
+  - Rejected: overrides too, so the registry stays the same at the next run. 41 Latin (decision latin), 8 not an
+    artist (other), 3 other genres (other); decided_by "claude quality check".
+    - Not an artist: Trap Capos, W Sound, Young Stoner Life (YSL's label profile), Never Broke Again (YoungBoy's
+      label), Lyrical Lemonade, On The Radar, groundZERO Records, Stars Music Chile.
+    - Other genres: SOSA (UK house), Mallaury (French R&B), T2 (Indonesian pop; the Deezer page is a different T2).
+  - Left in review, genuinely unclear: prodshushy, Fat Papi, Promoting Sounds, Kevin Powers, NO11, Big Papa313,
+    Jokhay.
+- **Rules used:**
+  - Latin follows the 2026-10-24 rule. Reggaeton, Latin trap, Cuban reparto, dembow and Spanish-language urbano are
+    Latin. Spanish-language rap from a Spanish-speaking country is Latin too (rule 3), as Natos y Waor, Duki and
+    Cartel de Santa already are. About 15 of the 41 are this kind of rap rather than reggaeton (Doble ONE Flow
+    Letal, Aerstame, Primobeatz, Al Safir, Saske, GRECAS...). The owner can move them if Spanish-language rap
+    should count as hip-hop.
+  - Phonk counts as hip-hop (it is in genre.HIP_HOP_WORDS; 1nonly and Memphis Cult are listed). Brazilian funk/trap
+    MCs stay hip-hop, as MC Cabelinho and MC Lon are. German party rap is rapped, so it is hip-hop (PA69,
+    LOKIMITDERMASKE, Doktormethoden).
+  - Producers who lead songs are artists making hip-hop (Bazzazian, Lucry & Suena, KARDO, Jenn Carter). 14
+    accepted acts lead 5 songs or fewer on kworb, so their listeners come mostly from features or credits.
+  - No duplicates were found: Deezer ID, name and a looser name match all checked against the registry.
+- **Automatic classifier vs the hand check:** agreed on 282 of 306 (92%); on a 61-artist sample (the 30 biggest,
+  then every 9th) 56 of 61 (92%).
+  - Its misses were mostly Spanish-language rap without Spanish words in the titles, and false "Latin" calls from
+    words like "Te Quiero" (Hunxho, 22simba).
+  - It also misread names as brands: Dorrough Music, Eirian Music.
+- **Applied:**
+  - `registry/artists.csv` genre/basis/reviewed for the 299 decided artists, as `registry()` applies overrides. The
+    full registry run was not used, so Wikidata/MusicBrainz drift would not mix into this change.
+  - The 299 were removed from `review/genre_review.csv` (437 remain).
+  - Top 1,000: 121 accepted artists entered and 121 left. The floor rose from 1.43m to 1.69m. The biggest who left:
+    Stormy, Action Bronson, Nafe Smallz, VEN1, SonoTWS, Makaveli (2Pac's second profile).
+- **Steps run for the new artists:** streams, dates, labels, wikidata-from-mb, mblabels, credits, photos, awards,
+  certifications, descriptions, pageviews, listenbrainz, youtube.
+  - mbdates was stopped: 38,054 ISRCs queue there for every artist, about 12 hours at MusicBrainz's rate; the
+    monthly run carries on.
+  - Coverage of the 121 new entrants:
+    - stream totals 121 (11 of them from kworb pages last updated in September);
+    - releases read 116, label placed 85 (36 unknown);
+    - songs dated 2,769 of 2,833;
+    - Wikidata 24, photo 6.
+- **Rejected:**
+  - Accepting all 306 unchecked: 52 were Latin, label/brand profiles or other genres.
+  - Running the full registry.
 ## 2026-10-26 Second-profile pairs accepted; data quality and changelog stay public (owner)
 
 - **Second Spotify profiles:** the owner said "go with suggested". The four pairs in `registry/profile_pairs.csv`
