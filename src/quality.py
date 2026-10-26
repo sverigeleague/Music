@@ -23,6 +23,7 @@ SOURCES = [
     ("Release labels", "release_labels.csv", "checked", "Deezer", "monthly"),
     ("Song release dates", "track_dates.csv", "checked", "Deezer and MusicBrainz", "monthly"),
     ("Song credits", "credits.csv", "checked", "MusicBrainz", "monthly"),
+    ("Publishers on record", "credits.csv", "pub_checked", "MusicBrainz", "monthly"),
     ("Company financials", "financials.csv", "filed", "SEC, Companies House and company reports", "quarterly"),
 ]
 

@@ -622,6 +622,7 @@ async function artist(id) {
     ${certsPanel(a)}
     ${awardsPanel(a)}
     ${creditsPanel(a)}
+    ${publishersPanel(a)}
     ${a.revivals?.length ? `<section class="panel"><h2>Revival</h2><p>${a.revivals.map(r => `<b>${esc(r.title)}</b> (${r.year}) is up ${Math.round(r.rise * 100)}% in daily streams on a month ago.`).join(" ")} Older songs that come back stay out of current listeners.</p></section>` : ""}
     ${collabPanel(a)}
     ${audiencePanel(a)}
@@ -739,7 +740,8 @@ function method() {
    <li><b>Second Spotify profiles:</b> two profiles in the list that share a Wikidata item, a confirmed Deezer page or a name (2Pac and Makaveli, Ye and Kanye West, Miyagi & Andy Panda and MiyaGi & Endspiel) are one artist. The smaller is marked "(second Spotify profile)", takes the main profile's label status and level, and is left out of summed listeners, market shares and label totals (a listener of both mostly counts once already). Each pair is checked by our editors.</li></ul>
   <h2>Other sources</h2><ul>
    <li><b>Wikipedia attention:</b> monthly page views of the artist's English Wikipedia article, people only, from the Wikimedia API; the article is the one linked on the artist's Wikidata item.</li>
-   <li><b>Apple Music charts:</b> the daily top 100 most-played songs in ${store.data.apple_countries} countries (Apple's public feed). Artists are matched by exact name; names shared by two artists are skipped.</li></ul>
+   <li><b>Apple Music charts:</b> the daily top 100 most-played songs in ${store.data.apple_countries} countries (Apple's public feed). Artists are matched by exact name; names shared by two artists are skipped.</li>
+   <li><b>Publishers on record:</b> the publishers listed on each of the artist's 3 biggest songs on MusicBrainz (open data, entered by volunteers), grouped to their publishing group by name; record companies entered as publishers are left out. Who holds the publishing, not how much: shares are not public. Reported.</li></ul>
   <h2>Not yet included</h2><p>Instagram, TikTok and X audiences and per-artist age and gender (licensed data only); daily listener history before 2026-10-23 (weekly archived pages from the Internet Archive are used for the Scout back-test and listener growth only).</p>
   ${coverageTable()}
   <h2>Photos</h2><p>Wikimedia Commons, with the author and licence on each artist page. Initials where there is no free photo.</p></section>`;
@@ -1009,11 +1011,22 @@ function radioStep(d) {
 // ---------- producer and songwriter credits (MusicBrainz, CC0)
 const mbRec = id => `https://musicbrainz.org/recording/${encodeURIComponent(id)}`;
 function creditsPanel(a) {
-  const C = a.song_credits;
-  if (!C?.length) return "";
+  const C = (a.song_credits || []).filter(c => c.producers.length || c.writers.length);  // publishers only: next panel
+  if (!C.length) return "";
   return `<section class="panel"><h2>Who makes the hits ${grade("B")}</h2><div class="tablebox"><table class="stack"><thead><tr><th class="l">Song</th><th>Streams / day</th><th class="l">Produced by</th><th class="l">Written by</th></tr></thead><tbody>
     ${C.map(c => `<tr><td class="l"><a href="${mbRec(c.recording)}" target="_blank" rel="noopener">${esc(c.title)}</a></td><td>${count(c.daily)}</td><td class="l wrap">${c.producers.map(n => `<a href="#/producers?q=${encodeURIComponent(n)}">${esc(n)}</a>`).join(", ") || "–"}</td><td class="l wrap">${c.writers.map(esc).join(", ") || "–"}</td></tr>`).join("")}
   </tbody></table></div><p class="note">The artist's biggest songs as lead artist, with the credits entered on MusicBrainz (open data). Credits are partial: a blank means none entered yet.</p></section>`;
+}
+// publishers on record per song (MusicBrainz work "publishing" links), grouped to the publishing group by name
+// (src/collectors/credits.py GROUPS); record companies entered as publishers are left out; no shares
+const mbWork = id => `https://musicbrainz.org/work/${encodeURIComponent(id)}`;
+function publishersPanel(a) {
+  const C = (a.song_credits || []).filter((c, i, all) => c.publishers?.length && all.findIndex(x => x.work === c.work) === i);  // two recordings of one song: once
+  if (!C.length) return "";
+  const days = C.map(c => c.pub_checked).filter(Boolean).sort(), when = days[0] === days.at(-1) ? days[0] : `${days[0]} to ${days.at(-1)}`;
+  return `<section class="panel"><h2>Publishers on record ${grade("B")}</h2><div class="tablebox"><table class="stack"><thead><tr><th class="l">Song</th><th class="l">Publishers on record</th></tr></thead><tbody>
+    ${C.map(c => `<tr><td class="l"><a href="${mbWork(c.work)}" target="_blank" rel="noopener">${esc(c.title)}</a></td><td class="l wrap">${c.publishers.map(g => `<b>${esc(g.group)}</b>: ${g.names.map(esc).join(", ")}`).join("<br>")}</td></tr>`).join("")}
+  </tbody></table></div><p class="note">Who holds the publishing, as listed on MusicBrainz. Shares are not public; missing means not listed, not unpublished. Source: <a href="https://musicbrainz.org" target="_blank" rel="noopener">MusicBrainz</a> (open data, CC0), ${chip("reported")}, checked ${esc(when)}. Names are grouped to their publishing group by name (for example EMI April and Sony/ATV under Sony Music Publishing); record companies entered as publishers are left out.</p></section>`;
 }
 function producersPage() {
   nav("producers");
@@ -1640,7 +1653,9 @@ function qualityPage() {
     ["Country of origin", a => a.cc?.length, "Wikidata citizenship (matching the birthplace when several)", "reported"],
     ["Scout score", a => a.scout, "at least three of the signals", "our measure"],
     ["Deezer fans", a => a.deezer_fans != null, "Deezer artist matched by ISRC or song titles", "measured"]];
-  const open = Q.queues.reduce((s, q) => s + q.open, 0);
+  const P = Q.publishers;  // songs, not artists: each artist's 3 biggest songs, looked up on MusicBrainz
+  if (P?.checked) fields.push(["Publishers on record (songs)", `${Math.round(100 * P.with / P.checked)}%<br><span class="note">${P.with.toLocaleString()} of ${P.checked.toLocaleString()} songs checked; biggest 40: ${P.top40_with} of ${P.top40_checked}</span>`, `a publisher listed on the song's MusicBrainz work (each artist's 3 biggest songs; ${(P.songs - P.checked).toLocaleString()} not yet checked). Shares are not public${P.songs_with_label_dropped ? `; record companies entered as publishers on ${P.songs_with_label_dropped} songs are left out` : ""}`, "reported"]);
+  const open =Q.queues.reduce((s, q) => s + q.open, 0);
   const old = s => (Date.parse(store.data.as_of) - Date.parse(s.latest.length === 7 ? s.latest + "-01" : s.latest)) / 864e5;
   const stale = s => s.cadence.startsWith("daily") ? old(s) > 3 : s.cadence === "weekly" ? old(s) > 14 : s.cadence === "monthly" ? old(s) > 45 : old(s) > 200;
   app.innerHTML = `${subnav()}<section><h1>Data quality and corrections</h1>
@@ -1653,7 +1668,7 @@ function qualityPage() {
       <div class="tile"><div class="k">Ranking method</div><div class="v">${Q.method[0] ? "v" + esc(Q.method[0].version) : "–"}</div><div class="s">${Q.method[0] ? esc(Q.method[0].date) : ""}</div></div>
     </section>
     <section class="panel"><h2>Coverage of the main fields</h2><div class="tablebox"><table class="stack"><thead><tr><th class="l">Field</th><th>Artists with it</th><th class="l">Needs</th><th class="l">Method</th></tr></thead><tbody>
-      ${fields.map(([l, f, d, m]) => `<tr><td class="l"><b>${esc(l)}</b></td><td>${pctOf(f)}</td><td class="l wrap note">${esc(d)}</td><td class="l">${esc(m)}</td></tr>`).join("")}</tbody></table></div>
+      ${fields.map(([l, f, d, m]) => `<tr><td class="l"><b>${esc(l)}</b></td><td>${typeof f === "string" ? f : pctOf(f)}</td><td class="l wrap note">${esc(d)}</td><td class="l">${esc(m)}</td></tr>`).join("")}</tbody></table></div>
       ${coverageTable().replace("<h2>Data coverage</h2>", "<h3>Further fields</h3>")}</section>
     <section class="panel"><h2>Review queues</h2><p class="note">Cases our rules could not settle. Each waits for an editor's decision; until then the artist keeps the safe default (left out of the list, or "not yet classified").</p>
       <div class="tablebox"><table class="stack"><thead><tr><th class="l">Queue</th><th>Open</th><th>Rows</th></tr></thead><tbody>

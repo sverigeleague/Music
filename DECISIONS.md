@@ -2,6 +2,70 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Publishers on record from MusicBrainz works (publisher research, recommendation 1)
+
+- **Task:** recommendation 1 of `docs/research/2026-10-26-publisher-sources.md`. The MusicBrainz credits step also
+  saves each song's publishers and ISWC; the artist page shows "Publishers on record".
+- **Collector (`src/collectors/credits.py`):**
+  - The recording call adds `label-rels`, so it brings the work's "publishing" links to MusicBrainz labels. MusicBrainz
+    exposes no other publisher relationship on works.
+  - Four new columns in `data/credits.csv`: `work`, `iswc`, `publishers` (`Name~<label id>`, plus `~sub` for a
+    sub-publisher) and `pub_checked`.
+  - A row checked before today has a recording but no `pub_checked`. It is checked again once: one request, since the
+    recording ID is already known. A failed re-check keeps the old row. The file is saved every 50 songs, so a cut-off
+    run resumes where it stopped.
+  - `credits_step` now goes biggest songs first, so a partial run covers the hits.
+  - The monthly workflow already runs `credits`, for hip-hop and for country, so it finishes whatever is left.
+- **Grouping:** `GROUPS` in `credits.py` holds name rules. Names are compared in lower case, without accents, with
+  dashes and slashes read as spaces. The first rule that matches wins.
+  - Sony Music Publishing: Sony/ATV and EMI Music Publishing (EMI April, EMI Blackwood), Sony's since 2018.
+  - Universal Music Publishing Group: Songs of Universal, Universal Music Corp., PolyGram publishing, Zomba, Rondor,
+    Almo and Careers-BMG. Careers-BMG is the old BMG Music Publishing, which Universal bought in 2007.
+  - Warner Chappell: Warner-Tamerlane, WB Music, WC Music and (Uni)Chappell.
+  - Kobalt; BMG; Concord (with Imagem); Reservoir; Downtown / Songtrust (with Sentric).
+  - Everything else is "Independent and other".
+- **Record companies are not publishers:** `record_company()` catches the majors' recorded-music companies by name
+  (Sony Music Entertainment, Universal Music Group, Warner Music Group, Warner Records ...). It also catches any
+  "... Records" or "... Recordings" name with no publishing word in it. These names stay in the CSV as entered, but
+  the site leaves them out, and the Data quality page counts the songs where one was dropped.
+- **Site:**
+  - Artist page: a "Publishers on record" panel under "Who makes the hits". Each song links to its MusicBrainz work
+    and shows its names by group. It carries the source, "reported", the check date and the owner's note: "Who holds
+    the publishing ... missing means not listed, not unpublished."
+  - Data quality: a "Publishers on record (songs)" row with songs with publishers out of songs checked, overall and
+    for the biggest 40, plus the source date row.
+  - Method page: one line under Other sources.
+  - Grade B, as for the other MusicBrainz credits: reported by volunteers, not our estimate. The research note had
+    suggested C, but on this site C means "our estimate".
+- **Rejected:**
+  - Publisher rows in `registry/label_owners.csv`, as the research suggested: that file maps record labels by name
+    pattern for the label status, and publisher patterns there could match record labels. The rules sit next to the
+    collector instead, with tests.
+  - Shares or a publishing market share: there are no shares. Counting songs per group is not money, and too few
+    songs are covered.
+  - Showing record companies flagged in the list: they are left out instead, because a reader would take them for
+    publishers.
+  - A separate work request for the ISWC: the work inside the recording reply already carries it.
+- **Run (today):**
+  - 79 songs were seeded from the research agent's cached MusicBrainz replies (same call, same day).
+  - The rest went through `credits_step` at 2 s between requests, so the combined rate stays under 1/s if `mbdates`
+    runs at the same time. About 740 requests. MusicBrainz answered 503 now and then, and those songs were retried
+    once.
+  - The run stopped once the top 1,000 hip-hop songs (by daily streams; 668 of them on MusicBrainz) were done: 663
+    of the 668 checked.
+  - The remaining 926 songs on MusicBrainz, the lower songs, are left to the monthly `credits` step. At its 1.1 s
+    pace that is about 20–35 minutes.
+- **Coverage (listed hip-hop artists, 3 biggest songs each):**
+  - Biggest 40 songs: 15 with publishers (36 of the 40 are on MusicBrainz).
+  - Top 1,000 songs: 107 with publishers.
+  - All checked: 112 of 1,803 songs. That count includes 1,083 songs that are not on MusicBrainz at all.
+  - Songs per group: Sony 49, Universal 51, Warner Chappell 46, BMG 11, Kobalt 10, Reservoir 5, Concord 4,
+    Downtown 1, independent and other 109.
+  - 8 names on 6 songs were dropped: Sony Music Entertainment, Universal Music Group (2), Warner Music Group Corp.,
+    Ultra Records, and Copyright Control (3). "Copyright Control" means the writer holds the rights, so no publisher
+    is named.
+- **Tests:** `tests/test_credits_publishers.py` covers the grouping rules, the label-not-publisher rule and the parse.
+
 ## 2026-10-26 Reverse check: hip-hop acts that are Latin urbano moved out; Motive and LENNSKO stay (owner)
 
 - **Task:** the reverse of the Spanish-rap check below. Under the owner's rule (reggaeton, dembow, reparto, corridos

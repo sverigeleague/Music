@@ -25,7 +25,8 @@
             and the list of the majors' UK accounts at Companies House (data/uk_accounts.csv, read by `reports`)
             and Sony's Music segment from its results releases on EDGAR (data/sony_music.csv)
   videos    the busiest YouTube videos of Scout's risers from kworb's YouTube pages -> data/videos.json (weekly)
-  credits   producer and songwriter credits of each artist's 3 biggest songs from MusicBrainz -> data/credits.csv
+  credits   producer and songwriter credits, publishers on record and ISWC of each artist's 3 biggest songs from
+            MusicBrainz -> data/credits.csv
   radio     US radio airplay audience per song (kworb.net/radio; today and the last 30 archived days) -> data/radio.csv
   shazam    Shazam's charts (world, 15 countries, 10 hip-hop, 31 cities) -> data/shazam.csv; an internal Scout signal (daily)
   wikidata-from-mb  Wikidata items linked from MusicBrainz for artists Wikidata has no Spotify ID for (monthly)
@@ -533,7 +534,7 @@ def top_songs(per_artist: int = 3) -> list[dict]:
 
 def credits_step(limit: int | None = None) -> None:
     from .collectors import credits
-    songs = top_songs()
+    songs = sorted(top_songs(), key=lambda s: -s["daily"])  # biggest songs first, so a cut-off run covers the hits
     print(f"credits (MusicBrainz): {credits.update([s['isrc'] for s in songs], limit)} recordings looked up")
 
 
