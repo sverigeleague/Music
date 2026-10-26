@@ -102085,6 +102085,588 @@
 }
 ]
 },
+"2u4xMsh0M2B7R8Wb3pEWae": {
+"page": "Anıl Piyancı",
+"url": "https://en.wikipedia.org/wiki/An%C4%B1l_Piyanc%C4%B1",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"6289Bbkkk3gaCbh1K7Rv8F": {
+"page": "Izi (Rapper)",
+"url": "https://de.wikipedia.org/wiki/Izi_%28Rapper%29",
+"lang": "de",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "Fenice",
+"type": "album",
+"year": "2016",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Pizzicato",
+"type": "album",
+"year": "2017",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Aletheia",
+"type": "album",
+"year": "2019",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Riot",
+"type": "album",
+"year": "2020",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Chic",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 4,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Scusa",
+"type": "single",
+"year": "2016",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Volare",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Fumo da solo",
+"type": "single",
+"year": "2018",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Dammi un motivo",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Wild Bandana",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "48h",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Weekend",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mammastomale",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Manhattan",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Bimbi",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 2,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Rap",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Stupida allegria",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Vivere",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "6 A.M.",
+"type": "single",
+"year": "2017",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Cazal",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Blueface",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Come stai",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Tutto fuori controllo",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Jolly Roger",
+"type": "single",
+"year": "2024",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"2gGtD7OGXbNZAY3oCZvZqA": {
+"page": "Rob Vicious",
+"url": "https://en.wikipedia.org/wiki/Rob_Vicious",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"74YbW6s8CZdaYLxJU9HeS7": {
+"page": "Mister You",
+"url": "https://en.wikipedia.org/wiki/Mister_You",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"5Gv1C1LY8pWiYcfcdjSNMT": {
+"page": "Tasha & Tracie",
+"url": "https://en.wikipedia.org/wiki/Tasha_%26_Tracie",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"3x3jSlhyv5CiCZDZlaTq0M": {
+"page": "Pi'erre Bourne",
+"url": "https://en.wikipedia.org/wiki/Pi%27erre_Bourne",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "The Life of Pi'erre 4",
+"type": "album",
+"year": "2019",
+"certs": [],
+"us_peak": 107
+},
+{
+"title": "The Life of Pi'erre 5",
+"type": "album",
+"year": "2021",
+"certs": [],
+"us_peak": 35
+},
+{
+"title": "Drunk and Nasty",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "RIAA",
+"country": "US",
+"level": "Gold",
+"multiplier": 1,
+"units": 500000
+}
+],
+"us_peak": null
+}
+]
+},
+"14uo609t1MvRGZcskySt9R": {
+"page": "SXMPRA",
+"url": "https://en.wikipedia.org/wiki/SXMPRA",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"2jl4qd6UbzeCmImT4nWbtA": {
+"page": "Nettspend discography",
+"url": "https://en.wikipedia.org/wiki/Nettspend_discography",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "Early Life Crisis",
+"type": "album",
+"year": "2026",
+"certs": [],
+"us_peak": 39
+},
+{
+"title": "Bad Ass F*cking Kid",
+"type": "album",
+"year": "2024",
+"certs": [],
+"us_peak": 197
+}
+]
+},
+"37ioGUZGhKk7VjWIocx8kM": {
+"page": "DTF (groupe)",
+"url": "https://fr.wikipedia.org/wiki/DTF_%28groupe%29",
+"lang": "fr",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "La hass avant le bonheur",
+"type": "album",
+"year": "",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Sans rêve",
+"type": "album",
+"year": "",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "On ira où ?",
+"type": "album",
+"year": "",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Double Star",
+"type": "album",
+"year": "",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"60uPSVM3svOL8kZ3Wkb3Zw": {
+"page": "Monet192",
+"url": "https://de.wikipedia.org/wiki/Monet192",
+"lang": "de",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "Hotel",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "BVMI",
+"country": "Germany",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Austria",
+"country": "Austria",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+},
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Platinum",
+"multiplier": 3,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Gar kein Bock",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "IFPI Switzerland",
+"country": "Switzerland",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
 "3TVXtAsR1Inumwj472S9r4": {
 "page": "Drake albums discography",
 "url": "https://en.wikipedia.org/wiki/Drake_albums_discography",
@@ -256744,6 +257326,59 @@
 }
 ]
 },
+"07PdYoE4jVRF6Ut40GgVSP": {
+"page": "Cartel de Santa",
+"url": "https://en.wikipedia.org/wiki/Cartel_de_Santa",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "Sincopa",
+"type": "album",
+"year": "2010",
+"certs": [
+{
+"body": "AMPROFON",
+"country": "Mexico",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Golpe Avisa",
+"type": "album",
+"year": "2014",
+"certs": [
+{
+"body": "AMPROFON",
+"country": "Mexico",
+"level": "Platinum",
+"multiplier": 2,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Viejo Marihuano",
+"type": "album",
+"year": "2016",
+"certs": [
+{
+"body": "AMPROFON",
+"country": "Mexico",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
 "4nVa6XlBFlIkF6msW57PHp": {
 "page": "Hanumankind",
 "url": "https://en.wikipedia.org/wiki/Hanumankind",
@@ -266666,6 +267301,13 @@
 "1GMwSpFzrLd12jUX15bHB6": {
 "page": "Blok3",
 "url": "https://en.wikipedia.org/wiki/Blok3",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"2hejA1Dkf8v8R0koF44FvW": {
+"page": "Gera MX",
+"url": "https://en.wikipedia.org/wiki/Gera_MX",
 "lang": "en",
 "fetched": "2026-10-26",
 "works": []
@@ -308144,6 +308786,13 @@
 }
 ]
 },
+"78nr1pVnDR7qZH6QbVMYZf": {
+"page": "Baco Exu do Blues",
+"url": "https://en.wikipedia.org/wiki/Baco_Exu_do_Blues",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
 "3TQ9JTBI2n2hfo7aRONEYV": {
 "page": "Sir Mix-a-Lot discography",
 "url": "https://en.wikipedia.org/wiki/Sir_Mix-a-Lot_discography",
@@ -315514,6 +316163,13 @@
 "us_peak": null
 }
 ]
+},
+"66RfYVdftqnuHRicyClgL0": {
+"page": "Dharius",
+"url": "https://en.wikipedia.org/wiki/Dharius",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
 },
 "5XenQ7XfcvQdfIbpLEFaKQ": {
 "page": "GoldLink",
@@ -328290,6 +328946,13 @@
 "us_peak": null
 }
 ]
+},
+"40JMTpVRUw90SrN4pFA6Mz": {
+"page": "Ana Tijoux",
+"url": "https://en.wikipedia.org/wiki/Ana_Tijoux",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
 },
 "1E8mXBWN7AXZCOPYbOky4J": {
 "page": "Jazeek/Diskografie",
@@ -343679,6 +344342,13 @@
 }
 ]
 },
+"5YCc6xS5Gpj3EkaYGdjyNK": {
+"page": "Wos (musician)",
+"url": "https://en.wikipedia.org/wiki/Wos_%28musician%29",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
 "66Ok6bgC570sHkw08N20pZ": {
 "page": "Oboy (rapper)",
 "url": "https://en.wikipedia.org/wiki/Oboy_%28rapper%29",
@@ -344248,6 +344918,13 @@
 "6Qhgat07PNOdnJSnCXJigu": {
 "page": "Yuki Chiba",
 "url": "https://en.wikipedia.org/wiki/Yuki_Chiba",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"3mYFuz6iY7D9X78rOXg5CG": {
+"page": "Akwid",
+"url": "https://en.wikipedia.org/wiki/Akwid",
 "lang": "en",
 "fetched": "2026-10-26",
 "works": []
@@ -367157,6 +367834,13 @@
 }
 ]
 },
+"0zgFL90nGTrH2iOMD8Vysy": {
+"page": "Sabino (singer)",
+"url": "https://en.wikipedia.org/wiki/Sabino_%28singer%29",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
 "3vjd6YHdWCqO3MWaYbxDf0": {
 "page": "95 South",
 "url": "https://en.wikipedia.org/wiki/95_South",
@@ -369653,6 +370337,13 @@
 }
 ]
 },
+"0WZOmdnCln6FK6GM9e2tGm": {
+"page": "Redimi2",
+"url": "https://en.wikipedia.org/wiki/Redimi2",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
 "4OVbrPbhvK46A1uXTU1u5F": {
 "page": "Lay Bankz",
 "url": "https://en.wikipedia.org/wiki/Lay_Bankz",
@@ -370480,6 +371171,13 @@
 "56VhOZOF6hwqrbNYwkmcsH": {
 "page": "Sobel (singer)",
 "url": "https://en.wikipedia.org/wiki/Sobel_%28singer%29",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": []
+},
+"4cJD9t5QBFTUQcd3xfbOb2": {
+"page": "Dillom",
+"url": "https://en.wikipedia.org/wiki/Dillom",
 "lang": "en",
 "fetched": "2026-10-26",
 "works": []
@@ -371902,6 +372600,105 @@
 "lang": "en",
 "fetched": "2026-10-26",
 "works": []
+},
+"6hkKbkZGvAXuvle2FhCnxy": {
+"page": "Shablo",
+"url": "https://en.wikipedia.org/wiki/Shablo",
+"lang": "en",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "Non ci sto",
+"type": "single",
+"year": "2019",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "M' manc",
+"type": "single",
+"year": "2020",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 6,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Luna piena",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 5,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Hollywood",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Platinum",
+"multiplier": 2,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "La mia parola",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Je ne sais pas",
+"type": "single",
+"year": "2021",
+"certs": [
+{
+"body": "FIMI",
+"country": "Italy",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null,
+"featured": true
+}
+]
 },
 "4oDjh8wNW5vDHyFRrDYC4k": {
 "page": "Loyle Carner",
@@ -380352,536 +381149,6 @@
 }
 ]
 },
-"2u4xMsh0M2B7R8Wb3pEWae": {
-"page": "Anıl Piyancı",
-"url": "https://en.wikipedia.org/wiki/An%C4%B1l_Piyanc%C4%B1",
-"lang": "en",
-"fetched": "2026-10-26",
-"works": []
-},
-"6289Bbkkk3gaCbh1K7Rv8F": {
-"page": "Izi (Rapper)",
-"url": "https://de.wikipedia.org/wiki/Izi_%28Rapper%29",
-"lang": "de",
-"fetched": "2026-10-26",
-"works": [
-{
-"title": "Fenice",
-"type": "album",
-"year": "2016",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Pizzicato",
-"type": "album",
-"year": "2017",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Aletheia",
-"type": "album",
-"year": "2019",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Riot",
-"type": "album",
-"year": "2020",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Chic",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 4,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Scusa",
-"type": "single",
-"year": "2016",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Volare",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Fumo da solo",
-"type": "single",
-"year": "2018",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Dammi un motivo",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Wild Bandana",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "48h",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Weekend",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Mammastomale",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Manhattan",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Bimbi",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 2,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Rap",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Stupida allegria",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Vivere",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "6 A.M.",
-"type": "single",
-"year": "2017",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Cazal",
-"type": "single",
-"year": "2019",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Blueface",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Come stai",
-"type": "single",
-"year": "2022",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Tutto fuori controllo",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Jolly Roger",
-"type": "single",
-"year": "2024",
-"certs": [
-{
-"body": "FIMI",
-"country": "Italy",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"2gGtD7OGXbNZAY3oCZvZqA": {
-"page": "Rob Vicious",
-"url": "https://en.wikipedia.org/wiki/Rob_Vicious",
-"lang": "en",
-"fetched": "2026-10-26",
-"works": []
-},
-"74YbW6s8CZdaYLxJU9HeS7": {
-"page": "Mister You",
-"url": "https://en.wikipedia.org/wiki/Mister_You",
-"lang": "en",
-"fetched": "2026-10-26",
-"works": []
-},
-"5Gv1C1LY8pWiYcfcdjSNMT": {
-"page": "Tasha & Tracie",
-"url": "https://en.wikipedia.org/wiki/Tasha_%26_Tracie",
-"lang": "en",
-"fetched": "2026-10-26",
-"works": []
-},
-"3x3jSlhyv5CiCZDZlaTq0M": {
-"page": "Pi'erre Bourne",
-"url": "https://en.wikipedia.org/wiki/Pi%27erre_Bourne",
-"lang": "en",
-"fetched": "2026-10-26",
-"works": [
-{
-"title": "The Life of Pi'erre 4",
-"type": "album",
-"year": "2019",
-"certs": [],
-"us_peak": 107
-},
-{
-"title": "The Life of Pi'erre 5",
-"type": "album",
-"year": "2021",
-"certs": [],
-"us_peak": 35
-},
-{
-"title": "Drunk and Nasty",
-"type": "single",
-"year": "2021",
-"certs": [
-{
-"body": "RIAA",
-"country": "US",
-"level": "Gold",
-"multiplier": 1,
-"units": 500000
-}
-],
-"us_peak": null
-}
-]
-},
-"14uo609t1MvRGZcskySt9R": {
-"page": "SXMPRA",
-"url": "https://en.wikipedia.org/wiki/SXMPRA",
-"lang": "en",
-"fetched": "2026-10-26",
-"works": []
-},
-"2jl4qd6UbzeCmImT4nWbtA": {
-"page": "Nettspend discography",
-"url": "https://en.wikipedia.org/wiki/Nettspend_discography",
-"lang": "en",
-"fetched": "2026-10-26",
-"works": [
-{
-"title": "Early Life Crisis",
-"type": "album",
-"year": "2026",
-"certs": [],
-"us_peak": 39
-},
-{
-"title": "Bad Ass F*cking Kid",
-"type": "album",
-"year": "2024",
-"certs": [],
-"us_peak": 197
-}
-]
-},
-"37ioGUZGhKk7VjWIocx8kM": {
-"page": "DTF (groupe)",
-"url": "https://fr.wikipedia.org/wiki/DTF_%28groupe%29",
-"lang": "fr",
-"fetched": "2026-10-26",
-"works": [
-{
-"title": "La hass avant le bonheur",
-"type": "album",
-"year": "",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Sans rêve",
-"type": "album",
-"year": "",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "On ira où ?",
-"type": "album",
-"year": "",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Platinum",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Double Star",
-"type": "album",
-"year": "",
-"certs": [
-{
-"body": "SNEP",
-"country": "France",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
 "78iJ2FMbYAFY3djO4PbWZi": {
 "page": "La Mano 1.9",
 "url": "https://de.wikipedia.org/wiki/La_Mano_1.9",
@@ -381901,6 +382168,119 @@
 "body": "SNEP",
 "country": "France",
 "level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+}
+]
+},
+"20JMfmzDb5cjHxEoMXXMyY": {
+"page": "Favé (rappeur)",
+"url": "https://fr.wikipedia.org/wiki/Fav%C3%A9_%28rappeur%29",
+"lang": "fr",
+"fetched": "2026-10-26",
+"works": [
+{
+"title": "Mercedes",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Mode avion",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Platinum",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Urus",
+"type": "single",
+"year": "2022",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Toxic",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Vibes",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Flashback (feat. Gazo)",
+"type": "single",
+"year": "2023",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Diamond",
+"multiplier": 1,
+"units": null
+}
+],
+"us_peak": null
+},
+{
+"title": "Parle moi (feat. SDM)",
+"type": "single",
+"year": "2025",
+"certs": [
+{
+"body": "SNEP",
+"country": "France",
+"level": "Gold",
 "multiplier": 1,
 "units": null
 }
@@ -383238,58 +383618,6 @@
 {
 "body": "BVMI",
 "country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-}
-],
-"us_peak": null
-}
-]
-},
-"60uPSVM3svOL8kZ3Wkb3Zw": {
-"page": "Monet192",
-"url": "https://de.wikipedia.org/wiki/Monet192",
-"lang": "de",
-"fetched": "2026-10-26",
-"works": [
-{
-"title": "Hotel",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "BVMI",
-"country": "Germany",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Austria",
-"country": "Austria",
-"level": "Gold",
-"multiplier": 1,
-"units": null
-},
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
-"level": "Platinum",
-"multiplier": 3,
-"units": null
-}
-],
-"us_peak": null
-},
-{
-"title": "Gar kein Bock",
-"type": "single",
-"year": "2020",
-"certs": [
-{
-"body": "IFPI Switzerland",
-"country": "Switzerland",
 "level": "Gold",
 "multiplier": 1,
 "units": null

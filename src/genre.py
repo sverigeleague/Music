@@ -6,7 +6,10 @@
    borderline cases and decides when votes are thin, if the name match is exact and there are 5+ releases.
 4. registry/genre_overrides.csv: the owner's decisions from the review list.
 
-Latin trap and reggaeton are a separate bucket ("latin") until the owner decides how to treat them.
+Latin (owner 2026-10-26): reggaeton, dembow, Cuban reparto, corridos and the Latin trap/urbano that sits in the
+reggaeton orbit are a separate bucket ("latin", left out). Spanish-language rap in the hip-hop tradition (boom bap,
+conscious, battle/freestyle, drill) is hip-hop, as Kase.O, Trueno and MC Davo. Where an artist mixes, most of their
+lead songs decide; the hand decisions are in genre_overrides.csv.
 """
 import csv
 
@@ -20,8 +23,9 @@ LATIN_WORDS = ("reggaeton", "trap latino", "latin trap", "latin hip hop", "latin
                "urbano latino", "corrido", "regional mexicano")
 
 INCLUDE, REVIEW_LOW = 0.5, 0.3
-# Deezer files much Latin urbano under Rap/Hip Hop: an artist from these countries decided on Deezer alone goes to the
-# Latin list (owner's default: Latin trap and reggaeton apart; Brazilian and other rap stays in)
+# Deezer files much Latin urbano under Rap/Hip Hop, so an artist from these countries decided on Deezer alone goes to
+# review: Spanish-language rap is hip-hop, reggaeton/urbano is Latin, and only their songs tell them apart (owner
+# 2026-10-26; until then, 2026-10-24, they went to the Latin list)
 SPANISH_SPEAKING = {"Argentina", "Bolivia", "Chile", "Colombia", "Costa Rica", "Cuba", "Dominican Republic", "Ecuador",
                     "El Salvador", "Guatemala", "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru",
                     "Puerto Rico", "Spain", "Uruguay", "Venezuela"}
@@ -78,8 +82,10 @@ def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, boo
         if not wikidata:
             # no Wikidata entry tying the Spotify ID to a person: the Deezer match rests on the name alone
             return "review", basis + "; matched to Deezer by name only"
-        if d[1] >= 0.5 or country in SPANISH_SPEAKING:
-            return "latin", basis + (f"; {country}" if country in SPANISH_SPEAKING else "")
+        if d[1] >= 0.5:
+            return "latin", basis
+        if country in SPANISH_SPEAKING:
+            return "review", basis + f"; {country}: Spanish-language rap or Latin urbano? decided from the songs"
         if d[0] >= 0.7:
             return "hip_hop", basis
         if d[0] <= 0.2:

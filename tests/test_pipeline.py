@@ -190,7 +190,7 @@ def test_genre_with_deezer():
     dz = lambda rap, lat=0.0, n=20, m="exact": {"match": m, "releases": n, "rap_share": rap, "latin_share": lat}
     assert genre.decide([], [], dz(0.98))[0] == "hip_hop"                      # thin votes: Deezer decides
     assert genre.decide([], [], dz(0.98), wikidata=False)[0] == "review"      # not on a name-only match
-    assert genre.decide([], [], dz(0.82), country="Colombia")[0] == "latin"   # Latin urbano filed as rap
+    assert genre.decide([], [], dz(0.82), country="Colombia")[0] == "review"  # rap or urbano filed as rap: by hand
     assert genre.decide([], [], dz(0.65))[0] == "review"
     assert genre.decide([], [], dz(0.25, 0.67))[0] == "latin"
     assert genre.decide([], [], dz(0.16))[0] == "other"

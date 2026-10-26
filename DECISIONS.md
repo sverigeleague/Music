@@ -2,6 +2,72 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Spanish-language hip-hop counted; features-led acts held back (owner)
+
+- **Owner:** "Keep pure Spanish hip hop in", and hold back the acts whose listeners come mostly from features or
+  production credits, with a note.
+- **Rule now (replaces rule 3 of 2026-10-24 for rap):**
+  - Spanish-language rap in the hip-hop tradition is hip-hop: boom bap, conscious, battle and freestyle rap, Spanish
+    drill. This matches Kase.O, Trueno and MC Davo, who were already in.
+  - Reggaeton, dembow, Cuban reparto, corridos tumbados and the Latin trap or urbano that sits in the reggaeton orbit
+    stay Latin (left out).
+  - An artist who mixes is placed by most of their lead songs. A genuinely unclear case stays in review with a note.
+  - Code: `src/genre.py` no longer sends an artist from a Spanish-speaking country, decided on Deezer alone, to the
+    Latin list. It now goes to review ("rap or urbano? decided from the songs"). The hand decisions are rows in
+    `registry/genre_overrides.csv`, so the next registry run reproduces them. The Method page says the same.
+- **Check, per artist:** every artist on the Latin list (278) and the 88 queue artists with any Spanish signal
+  (Spanish titles, Spanish-speaking country, Deezer Latin share 10%+, Latin collaborators). Evidence: kworb lead
+  songs (lead count, feature share of daily streams), Deezer top 50 and genre shares, MusicBrainz genres and
+  description (cached; 16 looked up, 10 s apart while mbdates ran), Wikidata genres, registry genre of collaborators.
+  Full table: `review/spanish_rap_check_2026-10-26.csv`.
+- **Result:**
+  - **Latin to hip-hop, Spanish-language rap (49):** Cartel De Santa, Nanpa Básico, Gera MX, Lefty Sm, Dharius,
+    Chino El Don, Ana Tijoux, Yoss Bones, Doble ONE Flow Letal, WOS, Akwid, Granuja, Akapellah, Tornillo, Delaossa,
+    Jan Glack, Santa RM, Sabino, Redimi2, Dillom, Sandro Malandro, ElReghosg, McKlopedia, GRECAS, Natos y Waor,
+    Homer El Mero Mero, Penyair, Saske, Carrion GodBle$$, Recycled J, El Jincho, Eirian Music, TREN LOKOTE,
+    Primobeatz, Movimiento Original, Gonzalo Genek, Faruz Feet, Hard GZ, Al Safir, Aerstame, Orishas, KID FLEX,
+    Mala Rodríguez, Lil Supa, Crack Family, Arce, Kaze, Skinny Flex, Ayax y Prok.
+  - **Review queue to hip-hop (2):** Millonario & W. Corona, Alcolirykoz (all kworb songs their own; MusicBrainz
+    groups in Monterrey and Medellín).
+  - **Latin list to hip-hop, not Spanish at all (4):** Baco Exu do Blues (Brazilian), Favé (French), Shablo and
+    Flaco G (Italian rap). They had been caught by the country rule or a mix-up.
+  - **Left in review, unclear (11):** Yung Beef, La Pantera, Vico C, Camin, Fazzini, Bardero$, Murder,
+    Arte Elegante, Deyco, Tali Goya, Serko. Each note says what is mixed.
+  - **Not an artist (1):** La Loquera, a rap session series: other.
+  - **Kept Latin (213):** reggaeton, dembow, reparto, corridos and Latin pop as before. Argentine and Chilean trap in
+    the urbano circle stays Latin: Duki (Deezer files 59% of releases as Latin; Wikidata Latin trap; biggest tracks
+    with Bad Bunny, KHEA, Morat), YSY A, C.R.O, Neo Pistea, Paulo Londra, LIT killah, Polimá Westcoast. Also Bizarrap
+    (sessions mostly urbano and pop), C. Tangana (flamenco pop) and Rels B.
+- **Held back (12), features-led:**
+  - Test: 5 lead songs or fewer on kworb and more than half of the daily streams as a featured guest. It was applied
+    to today's 247 accepted acts and to the 55 just added.
+  - AKDO 5 lead songs of 49, YKNIECE 4 of 22, Jenn Carter 5 of 63, Jumpa 3 of 32, Finesse 2 of 18, FELIX! 4 of 11,
+    PSR 5 of 193, Yung Hood 5 of 13, Dauner 1 of 14, Selim61 4 of 7, Lucry & Suena 4 of 19, Yuyu19 1 of 25.
+  - Override decision "review", note "held back 2026-10-26 (owner): listeners mostly from features or production
+    credits; n lead songs of m". They are listed in `review/genre_review.csv`.
+  - Data quality shows "n of them held back" on the genre queue (`quality.queues` held count). An owner "review"
+    decision now counts as open there, not settled. `write_review` keeps "review" rows that carry an owner decision.
+  - Not held back: Motive (1 song on kworb) and LENNSKO (5 of 5). Both meet the 5-song count, but all of their streams
+    are on their own songs, so the "features" note would be false. Motive's kworb page lists one song against 6.7m
+    listeners; MusicBrainz calls him a Turkish rapper. No Spanish rap act added today has 5 or fewer lead songs.
+- **Top 1,000:** 26 entered and 26 left. The floor rose from 1.69m to 1.73m.
+  - Entered: 23 Spanish-language acts, Cartel De Santa (11.0m) down to Sandro Malandro (2.05m), plus Baco Exu do
+    Blues, Favé and Shablo.
+  - Left: 7 held back (AKDO, YKNIECE, Jenn Carter, Jumpa, Finesse, FELIX!, PSR) and 19 at the floor (Mixtape
+    Madness, Anıl Piyancı, Idaly, Remik Gonzalez ... Kolja Goldstein).
+  - Corrections log: two rows (`registry/corrections.csv`).
+- **Steps run for the 26 entrants:** streams, dates, labels, photos, awards, certifications, descriptions,
+  pageviews, listenbrainz, youtube, mblabels, credits. Wikidata-from-MusicBrainz was run for the entrants only (5
+  asked, none found); the full step would have asked about 328 artists again. MusicBrainz calls waited 10 s each
+  because mbdates was running.
+  - Coverage of the 26: stream totals 26, current-listener rank 26, label status 19, Wikidata 18, photo 12.
+- **Rejected:**
+  - Moving all Argentine trap in: Deezer, Wikidata and the collaborators put most of it with Latin trap. Duki is the
+    owner's named test case and the evidence says Latin.
+  - Holding back by the song count alone: it would have marked Motive and LENNSKO with a false reason.
+  - Reclassifying hip-hop acts that look like urbano (Dalex, iZaak, Clarent, Alvaro Diaz, Beny Jr): outside this
+    task. They are listed as a follow-up.
+
 ## 2026-10-26 Genre queue: 306 identity-confirmed artists quality-checked; 247 accepted as hip-hop (owner)
 
 - **Owner:** "Accept for the 306 but run a quality check to make sure they are accurate" (the 306 that

@@ -37,13 +37,17 @@ QUEUES = [
 ]
 
 
-def _ids(path: Path) -> set[str]:
-    return {r["spotify_id"] for r in csv.DictReader(path.open())} if path.exists() else set()
+def _ids(path: Path, decision: str | None = None, note: str = "") -> set[str]:
+    return {r["spotify_id"] for r in csv.DictReader(path.open()) if (decision is None or r.get("decision") == decision)
+            and note in (r.get("note") or "")} if path.exists() else set()
 
 
 def queues(genre: str, review: Path = REVIEW, registry: Path = REGISTRY) -> list[dict]:
     """Rows per review file for this genre, and how many are still open (no owner override yet)."""
-    settled = {"genre": _ids(registry / "genre_overrides.csv"), "label": _ids(registry / "label_overrides.csv")}
+    # an owner decision "review" (an unclear case, or an act held back) is not a settled case
+    ov = registry / "genre_overrides.csv"
+    held = _ids(ov, "review", "held back")  # listeners mostly from features or production credits (owner 2026-10-26)
+    settled = {"genre": _ids(ov) - _ids(ov, "review"), "label": _ids(registry / "label_overrides.csv")}
     out = []
     for name, g, what, by in QUEUES:
         path = review / name
@@ -51,7 +55,10 @@ def queues(genre: str, review: Path = REVIEW, registry: Path = REGISTRY) -> list
             continue
         rows = [r for r in csv.DictReader(path.open()) if g or r.get("genre", genre) == genre]
         done = sum(1 for r in rows if by and r.get("spotify_id") in settled[by])
-        out.append({"file": f"review/{name}", "what": what, "rows": len(rows), "open": len(rows) - done})
+        q = {"file": f"review/{name}", "what": what, "rows": len(rows), "open": len(rows) - done}
+        if by == "genre" and (k := sum(1 for r in rows if r.get("spotify_id") in held)):
+            q["held"] = k  # held back by the owner: listeners mostly from features or production credits
+        out.append(q)
     return out
 
 

@@ -186,7 +186,8 @@ def registry(mb_limit: int | None = None) -> None:
 def write_review(rows, top, mb, wd) -> None:
     """Borderline and Latin artists for the owner, biggest first. Approving: a row in registry/genre_overrides.csv."""
     REVIEW.mkdir(exist_ok=True)
-    items = [r for r in rows.values() if r["genre"] in ("review", "latin") and not r["reviewed"]]
+    # an owner decision "review" (held back, e.g. listeners mostly from features) stays listed with its note
+    items = [r for r in rows.values() if r["genre"] == "review" or (r["genre"] == "latin" and not r["reviewed"])]
     items.sort(key=lambda r: -(top.get(r["spotify_id"], {}).get("monthly_listeners") or 0))
     with GENRE_REVIEW.open("w", newline="") as f:
         w = csv.writer(f)

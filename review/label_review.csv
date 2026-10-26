@@ -9,6 +9,7 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 51OKuyM4BiiYxFm8Mi6fa9,Mauvais djo,12497357,unknown,Nojoke Record,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/51OKuyM4BiiYxFm8Mi6fa9
 6f4XkbvYlXMH0QgVRzW0sM,Waka Flocka Flame,12443859,unknown,Brick Squad Monopoly,,https://open.spotify.com/artist/6f4XkbvYlXMH0QgVRzW0sM
 1oH2B8tcHn4Gpl2bmmyd4A,La Santa Grifa,11099504,self_released (label name only),La Santa Grifa,,https://open.spotify.com/artist/1oH2B8tcHn4Gpl2bmmyd4A
+07PdYoE4jVRF6Ut40GgVSP,Cartel De Santa,10975111,unknown,"Babilonia Music, S.A. De C.V.",,https://open.spotify.com/artist/07PdYoE4jVRF6Ut40GgVSP
 0RESbWvOMyua0yuyVrztJ5,Key Glock,10526061,major (label name only),Key Glock,,https://open.spotify.com/artist/0RESbWvOMyua0yuyVrztJ5
 41X1TR6hrK8Q2ZCpp2EqCz,bbno$,10435317,self_released (label name only),bbno$$,3 of 20 recent songs on newer US registrant codes,https://open.spotify.com/artist/41X1TR6hrK8Q2ZCpp2EqCz
 4PULA4EFzYTrxYvOVlwpiQ,Sidhu Moose Wala,9987513,self_released (label name only),Sidhu Moose Wala,,https://open.spotify.com/artist/4PULA4EFzYTrxYvOVlwpiQ
@@ -44,7 +45,6 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 5OLkn5GT6EcMuJzjwgvQnu,Vacra,6048362,unknown,Convergence Music,,https://open.spotify.com/artist/5OLkn5GT6EcMuJzjwgvQnu
 6h5P3J0j1x2lhiDk9w4deZ,Eypio,6045585,unknown,Niffos Music,,https://open.spotify.com/artist/6h5P3J0j1x2lhiDk9w4deZ
 0YWxKQj2Go9CGHCp77UOyy,Fabolous,5994975,unknown,The Family Music Group,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/0YWxKQj2Go9CGHCp77UOyy
-17EAWIoXAMU9Vo9xRrdZQ0,AKDO,5934740,unknown,Fellas Müzik,,https://open.spotify.com/artist/17EAWIoXAMU9Vo9xRrdZQ0
 13zmjclMwzz8kIxRrN7JOV,2ZDinizz,5814840,unknown,Camboja Records,,https://open.spotify.com/artist/13zmjclMwzz8kIxRrN7JOV
 5spEJXLwD1sKUdC2bnOHPg,Bone Thugs-N-Harmony,5729747,unknown,Greenback Records,,https://open.spotify.com/artist/5spEJXLwD1sKUdC2bnOHPg
 0vRvGUQVUjytro0xpb26bs,Arizona Zervas,5659071,self_released (label name only),Arizona Zervas,,https://open.spotify.com/artist/0vRvGUQVUjytro0xpb26bs
@@ -75,9 +75,11 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 4P2HohWBtvSxxwabNDdYXN,Nono La Grinta,4781548,unknown,MPR Records,,https://open.spotify.com/artist/4P2HohWBtvSxxwabNDdYXN
 1xxS2WrLlgl9QNGEUCsbPG,Tribo da Periferia,4754840,unknown,Kamika-z Produtora,,https://open.spotify.com/artist/1xxS2WrLlgl9QNGEUCsbPG
 3jLj1sAQaEpLpktyJmyGIh,Lourena,4727570,unknown,Malibu Studios,,https://open.spotify.com/artist/3jLj1sAQaEpLpktyJmyGIh
+6eXHRfK9Ad3IpMpSAqvcDf,Lefty Sm,4701062,unknown,Alzada Corp,,https://open.spotify.com/artist/6eXHRfK9Ad3IpMpSAqvcDf
 6vP4azTCk053nGL0xAYnVH,Tenxi,4666292,unknown,AntiNRML,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/6vP4azTCk053nGL0xAYnVH
 7d3WFRME3vBY2cgoP38RDo,Lil Skies,4660079,unknown,Big Noise Music Group,,https://open.spotify.com/artist/7d3WFRME3vBY2cgoP38RDo
 3jksrX4oBklxR78ft8gv3j,Plies,4585402,unknown,Fulcrum Mass Media,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/3jksrX4oBklxR78ft8gv3j
+5jH7ecfniD5healoIkHVHa,Chino El Don,4560821,unknown,VIDA PATRON LLC,,https://open.spotify.com/artist/5jH7ecfniD5healoIkHVHa
 641Pd0RfQQ81mnWu7Vlb8v,Gat Putch,4550088,unknown,Greenhouse Records,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/641Pd0RfQQ81mnWu7Vlb8v
 2G7VQ1kVhVfNagytlousgm,Al James,4523056,self_released (label name only),Al James,,https://open.spotify.com/artist/2G7VQ1kVhVfNagytlousgm
 28ExwzUQsvgJooOI0X1mr3,Jay Rock,4428452,unknown,,"recent releases are 1 collaborations or features on other artists' records (newest: Black Dynamite, NORF Records, 2025-01-17); no release of their own to read the label from",https://open.spotify.com/artist/28ExwzUQsvgJooOI0X1mr3
@@ -104,6 +106,7 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 1E8mXBWN7AXZCOPYbOky4J,Jazeek,3906162,unknown,Ninetynine Music/Good Kid Records/Ventura,,https://open.spotify.com/artist/1E8mXBWN7AXZCOPYbOky4J
 5LhTec3c7dcqBvpLRWbMcf,Madlib,3890764,unknown,,"recent releases are 8 collaborations or features on other artists' records (newest: Bad Neighbor (10 Year Anniversary Remaster), Bang Ya Head, 2026-06-12); no release of their own to read the label from",https://open.spotify.com/artist/5LhTec3c7dcqBvpLRWbMcf
 747jtvVsxwzOLCJeOOz3oT,Wegh,3881667,unknown,Mamba Music,,https://open.spotify.com/artist/747jtvVsxwzOLCJeOOz3oT
+0SmgVe3giVHaJjGmIz8xA4,Yoss Bones,3876522,self_released (label name only),Yoss Bones,,https://open.spotify.com/artist/0SmgVe3giVHaJjGmIz8xA4
 7kFfY4UjNdNyaeUgLIEbIF,DeJ Loaf,3845393,unknown,,"recent releases are 4 collaborations or features on other artists' records (newest: Fuck A Friendzone 2, FYB Records / Yellow World LLC / EMPIRE, 2025-02-14); no release of their own to read the label from",https://open.spotify.com/artist/7kFfY4UjNdNyaeUgLIEbIF
 6OQggpm01CmAB717TKtDCr,Dopebwoy,3829057,unknown,APLCO,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/6OQggpm01CmAB717TKtDCr
 0ixIqccVXNU45qPhq3kWex,Maquiny,3819720,unknown,,"recent releases are 2 collaborations or features on other artists' records (newest: Verdade na Cama, MNT RECORDS, 2025-12-16); no release of their own to read the label from",https://open.spotify.com/artist/0ixIqccVXNU45qPhq3kWex
@@ -133,9 +136,11 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 0gusqTJKxtU1UTmNRMHZcv,Dizzee Rascal,3351733,unknown,Big Dirtee Records,,https://open.spotify.com/artist/0gusqTJKxtU1UTmNRMHZcv
 6DDTbUgrNrVcAJFVrOjmVK,Diomedes Chinaski,3333825,self_released (label name only),Diomedes Chinaski,,https://open.spotify.com/artist/6DDTbUgrNrVcAJFVrOjmVK
 1ntQKIMIgESKpKoNXVBvQg,Kaaris,3329003,unknown,OG Records,,https://open.spotify.com/artist/1ntQKIMIgESKpKoNXVBvQg
+5YCc6xS5Gpj3EkaYGdjyNK,WOS,3327614,unknown,DOGUITO Records distribuido por DALE PLAY Records,,https://open.spotify.com/artist/5YCc6xS5Gpj3EkaYGdjyNK
 6ynopZPMBXcIGBI9M02Un5,Haftbefehl,3322454,unknown,,"recent releases are 9 collaborations or features on other artists' records (newest: MAYBACH, Columbia/BE.ELA.QU GmbH, 2026-05-15); no release of their own to read the label from",https://open.spotify.com/artist/6ynopZPMBXcIGBI9M02Un5
 5cMgGlA1xGyeAB2ctYlRdZ,Gang Starr,3315776,self_released (label name only),Gang Starr Enterprises,,https://open.spotify.com/artist/5cMgGlA1xGyeAB2ctYlRdZ
 3uL4UpqShC4p2x1dJutoRW,Ghostemane,3300631,unknown,Blackmage,,https://open.spotify.com/artist/3uL4UpqShC4p2x1dJutoRW
+3mYFuz6iY7D9X78rOXg5CG,Akwid,3291125,self_released (label name only),Akwid Entertainment,,https://open.spotify.com/artist/3mYFuz6iY7D9X78rOXg5CG
 372IgXgnCt4wlfumrMTIOs,Big Boogie,3246233,self_released (label name only),Big Boogie,,https://open.spotify.com/artist/372IgXgnCt4wlfumrMTIOs
 14CHVeJGrR5xgUGQFV5BVM,Fivio Foreign,3231848,unknown,Fivi Affairs,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/14CHVeJGrR5xgUGQFV5BVM
 5qvrAlKjc0Sqrqz6v2wBGk,JT Music,3224523,unknown,"JT Machinima, LLC",small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/5qvrAlKjc0Sqrqz6v2wBGk
@@ -152,6 +157,7 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 4Icvbp9RDt5aY2TWDOVDsr,Afroman,3072303,unknown,"Music Access, Inc.",,https://open.spotify.com/artist/4Icvbp9RDt5aY2TWDOVDsr
 0jeYkqwckGJoHQhhXwgzk3,Cruzzi,3069748,unknown,MÉCÈN Ent.,,https://open.spotify.com/artist/0jeYkqwckGJoHQhhXwgzk3
 138UAIyJocdHT5PpR0iTJE,Thekidszn,3057422,unknown,SANA / LISTEN TO THE KIDS,,https://open.spotify.com/artist/138UAIyJocdHT5PpR0iTJE
+5KBPxIED8ejHkvhs4KCzyS,Granuja,3047138,unknown,,"recent releases are 21 collaborations or features on other artists' records (newest: Sed, Charlie Blue, 2026-10-21); no release of their own to read the label from",https://open.spotify.com/artist/5KBPxIED8ejHkvhs4KCzyS
 3gGUMEwIX6XodWsYEvKSal,YBN Nahmir,3032411,unknown,Veneration Group Ltd,,https://open.spotify.com/artist/3gGUMEwIX6XodWsYEvKSal
 6vdMPayKk8YJxxeNP5oMCb,Chamillionaire,3029601,unknown,,"recent releases are 1 collaborations or features on other artists' records (newest: Dolla $igns, Wreckshop Records & Quiet Money Records, 2026-07-09); no release of their own to read the label from",https://open.spotify.com/artist/6vdMPayKk8YJxxeNP5oMCb
 3vDUJHQtqT3jFRZ2ECXDTi,Lloyd Banks,3024675,unknown,,"recent releases are 2 collaborations or features on other artists' records (newest: Circumvention, Momentum Entertainment, LLC, 2026-08-18); no release of their own to read the label from",https://open.spotify.com/artist/3vDUJHQtqT3jFRZ2ECXDTi
@@ -172,7 +178,6 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 0QSrUuv6y5Woazd3LAjbSH,İzel,2798639,self_released (label name only),IZEL,,https://open.spotify.com/artist/0QSrUuv6y5Woazd3LAjbSH
 3rbtPd0NcvhO2AzMfzx90z,Fredo,2793334,unknown,BIORDI,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/3rbtPd0NcvhO2AzMfzx90z
 31eYHfjltzC2VyNsoVHHR9,Flame 火炎,2791033,unknown,Salazar récords SAS,,https://open.spotify.com/artist/31eYHfjltzC2VyNsoVHHR9
-0W1zQBUWnDofTkc0APdaog,YKNIECE,2786388,unknown,release.global,,https://open.spotify.com/artist/0W1zQBUWnDofTkc0APdaog
 57yOAX6apIrclpBG736Uy2,CK YG,2772644,unknown,Ghost Worldwide,,https://open.spotify.com/artist/57yOAX6apIrclpBG736Uy2
 645xd9cHiiLqqehoLzLMDR,Adán Cruz,2762775,unknown,Nuevos Lanzamientos Adán,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/645xd9cHiiLqqehoLzLMDR
 39KEQQAG9JhIt71g9NEVhh,Azet,2759557,unknown,Fastlife Records,,https://open.spotify.com/artist/39KEQQAG9JhIt71g9NEVhh
@@ -189,6 +194,7 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 34Y0ldeyUv7jBvukWOGASO,Bobby Shmurda,2663758,unknown,Total Damage Records,,https://open.spotify.com/artist/34Y0ldeyUv7jBvukWOGASO
 0701LAQrkY5Il5vt06uNnC,Trouble,2646785,unknown,,"recent releases are 1 collaborations or features on other artists' records (newest: To You, 1033 Music, 2026-01-09); no release of their own to read the label from",https://open.spotify.com/artist/0701LAQrkY5Il5vt06uNnC
 3VooEK5HkkcSc4Tv7FCBzb,Yung Ouzo,2645143,unknown,ULUDAG boys,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/3VooEK5HkkcSc4Tv7FCBzb
+0Vg3WP6VS3IuKYwvnGsJFh,Jan Glack,2644051,unknown,Dinastia INC,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/0Vg3WP6VS3IuKYwvnGsJFh
 1XLWox9w1Yvbodui0SRhUQ,StaySolidRocky,2631791,self_released (label name only),StaySolidRocky LLC,,https://open.spotify.com/artist/1XLWox9w1Yvbodui0SRhUQ
 5MbNzCW3qokGyoo9giHA3V,EARTHGANG,2624934,unknown,,"recent releases are 4 collaborations or features on other artists' records (newest: Nirvana, etcetc Music, 2026-08-14); no release of their own to read the label from",https://open.spotify.com/artist/5MbNzCW3qokGyoo9giHA3V
 3cAaV8C5Lgdvtib9ub4EGs,OLG Zak,2624612,unknown,Ghost Worldwide,,https://open.spotify.com/artist/3cAaV8C5Lgdvtib9ub4EGs
@@ -227,7 +233,6 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 4zvO09rVUIVTeALhs6xLoB,Otsochodzi,2334427,unknown,2020,,https://open.spotify.com/artist/4zvO09rVUIVTeALhs6xLoB
 4VuARVJiWGsH2msKTdsKdQ,Veysel,2322759,unknown,Bela Boyz,,https://open.spotify.com/artist/4VuARVJiWGsH2msKTdsKdQ
 5xY6E5PMZNtz9jDvxTRiGI,Dangrangto,2321846,unknown,Higher Dimension,,https://open.spotify.com/artist/5xY6E5PMZNtz9jDvxTRiGI
-3BcgTyEdL81zMljmXcilZM,Jenn Carter,2304408,self_released (label name only),Jenn Carter,,https://open.spotify.com/artist/3BcgTyEdL81zMljmXcilZM
 2IHoZ3RrDJIikMRsYgHjhy,Kizo,2294211,unknown,spacerange,,https://open.spotify.com/artist/2IHoZ3RrDJIikMRsYgHjhy
 2GzZAv52VCMdVli7QzkteT,Kaz Bałagane,2258782,unknown,NARKOPOP LABEL,,https://open.spotify.com/artist/2GzZAv52VCMdVli7QzkteT
 1fxbULcd6ryMNc1usHoP0R,Quebonafide,2257267,unknown,Magnetowid,,https://open.spotify.com/artist/1fxbULcd6ryMNc1usHoP0R
@@ -247,6 +252,7 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 662f8mEv1eRLXE9DzBy4vV,Jauria Santa,2182599,unknown,,"recent releases are 2 collaborations or features on other artists' records (newest: Volver A Verla, 228 Music, 2025-05-30); no release of their own to read the label from",https://open.spotify.com/artist/662f8mEv1eRLXE9DzBy4vV
 6bwkMlweHsBCpI2a0C5nnN,D Double E,2175913,unknown,Bluku Music Limited,,https://open.spotify.com/artist/6bwkMlweHsBCpI2a0C5nnN
 1oHPSeQJBwNmpq0J52Wjn1,Toser One,2173847,unknown,Alzada Corp,,https://open.spotify.com/artist/1oHPSeQJBwNmpq0J52Wjn1
+4cJD9t5QBFTUQcd3xfbOb2,Dillom,2165418,unknown,Bohemian Groove,,https://open.spotify.com/artist/4cJD9t5QBFTUQcd3xfbOb2
 0r0R5nIjDY04TfxRM10Bcb,Alligatoah,2160384,independent (label name only),Alligatoah,,https://open.spotify.com/artist/0r0R5nIjDY04TfxRM10Bcb
 4CflzQprp6nZxKiv0t78tH,Mohamed Ramadan,2156468,unknown,MR1,,https://open.spotify.com/artist/4CflzQprp6nZxKiv0t78tH
 1oxn6cQ37twQ7yGnlE3ETd,OKI,2151060,unknown,2020,,https://open.spotify.com/artist/1oxn6cQ37twQ7yGnlE3ETd
@@ -258,6 +264,7 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 3IJ21966TwNZI24MwZHMu4,Baby Tate,2113992,unknown,"2024 Sekoya Spectrum, LLC. / LVRN (Love Rennaisance)",,https://open.spotify.com/artist/3IJ21966TwNZI24MwZHMu4
 2Z9KL8Zmqx5Sg3cd7Fldhl,Olexesh,2094550,unknown,385ideal,,https://open.spotify.com/artist/2Z9KL8Zmqx5Sg3cd7Fldhl
 44IvvHRk2XF243QLA2VOa8,Stunna 4 Vegas,2088326,unknown,WT4V MUSIC,small or new registrant (QM/QZ/QT codes): a small label or self-release; review,https://open.spotify.com/artist/44IvvHRk2XF243QLA2VOa8
+5fT0BvMTWquu2lNbnRnDP3,ElReghosg,2087635,self_released (label name only),ElReghosg,,https://open.spotify.com/artist/5fT0BvMTWquu2lNbnRnDP3
 0Cm90jv892OeEegB3ELmvN,Eldzhey,2085760,unknown,143,,https://open.spotify.com/artist/0Cm90jv892OeEegB3ELmvN
 2dLhpezBEgAELn73fiMEak,Jonatan,2080715,self_released (label name only),Jonatan,,https://open.spotify.com/artist/2dLhpezBEgAELn73fiMEak
 4nZmMrwH6LxHnCzQv4IFUE,BIG30,2079242,self_released (label name only),BIG30,,https://open.spotify.com/artist/4nZmMrwH6LxHnCzQv4IFUE
@@ -276,7 +283,6 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 6USMTwO0MNDnKte5a5h0xx,Y2K,1990431,self_released (label name only),Y2K,,https://open.spotify.com/artist/6USMTwO0MNDnKte5a5h0xx
 0lZ2oIRdMsQfFEPmOa3YyL,TWXN,1989171,self_released (label name only),TWXN,,https://open.spotify.com/artist/0lZ2oIRdMsQfFEPmOa3YyL
 3PGiywHOqNwJ1bv4S3fgZF,Big Yavo,1985220,unknown,GoodTalk,10 of 22 recent songs on newer US registrant codes,https://open.spotify.com/artist/3PGiywHOqNwJ1bv4S3fgZF
-3GWuJyC9r6Ug0F6jeLzTpY,Finesse,1964097,self_released (label name only),Finesse,,https://open.spotify.com/artist/3GWuJyC9r6Ug0F6jeLzTpY
 774od4b04zDMQMGxrJDeuB,Xcho,1954509,unknown,Glass Cage,,https://open.spotify.com/artist/774od4b04zDMQMGxrJDeuB
 5SyGEPymt1G2uto47tVWvZ,MadeinTYO,1948066,unknown,Madeinsounds.,,https://open.spotify.com/artist/5SyGEPymt1G2uto47tVWvZ
 2r8r62VGJKGi463aH1HJUZ,Kirko Bangz,1944691,self_released (label name only),Independent,,https://open.spotify.com/artist/2r8r62VGJKGi463aH1HJUZ
@@ -317,9 +323,3 @@ spotify_id,name,monthly_listeners,status_now,latest_label,codes_note,spotify_url
 0g9vAlRPK9Gt3FKCekk4TW,Ab-Soul,1748394,unknown,Top Dawg Entertainment,,https://open.spotify.com/artist/0g9vAlRPK9Gt3FKCekk4TW
 0Wi2fADbhwXlPUWxBmzo99,Szpaku,1746979,unknown,2115,,https://open.spotify.com/artist/0Wi2fADbhwXlPUWxBmzo99
 6NHJLHGyF86wd4DT8fNqD0,Raflow,1729105,unknown,Stash Entertainment,,https://open.spotify.com/artist/6NHJLHGyF86wd4DT8fNqD0
-4ocdD0Bi1syVqLs1GiHqQ9,Mixtape Madness,1726011,self_released (label name only),Mixtape Madness,,https://open.spotify.com/artist/4ocdD0Bi1syVqLs1GiHqQ9
-6TgVQhHx0BWvzdEQxRnr23,POLLO,1716241,self_released (label name only),Pollo,,https://open.spotify.com/artist/6TgVQhHx0BWvzdEQxRnr23
-6289Bbkkk3gaCbh1K7Rv8F,Izi,1713868,unknown,,"recent releases are 4 collaborations or features on other artists' records (newest: Resident Evil, Magma Music, 2026-05-20); no release of their own to read the label from",https://open.spotify.com/artist/6289Bbkkk3gaCbh1K7Rv8F
-74YbW6s8CZdaYLxJU9HeS7,Mister You,1703379,self_released (label name only),Mister You Production,,https://open.spotify.com/artist/74YbW6s8CZdaYLxJU9HeS7
-39SBljHcUD66edvRmiRqlS,Himra,1702409,self_released (label name only),Independent,4 of 44 recent songs on newer US registrant codes,https://open.spotify.com/artist/39SBljHcUD66edvRmiRqlS
-37ioGUZGhKk7VjWIocx8kM,DTF,1691220,self_released (label name only),DTF,,https://open.spotify.com/artist/37ioGUZGhKk7VjWIocx8kM
