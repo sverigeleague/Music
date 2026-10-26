@@ -1,6 +1,5 @@
 """Builds site/data/index.json: every number the pages show, computed once; the browser only reads and sorts."""
 import csv
-import os
 import json
 import re
 from datetime import date, datetime, timedelta, timezone
@@ -367,10 +366,7 @@ def build(genre: str = "hip_hop") -> dict:
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
             "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES),
-            # review queues, source dates, corrections log and method changelog (#/quality, #/changelog): internal only
-            # (owner, 2026-10-26: "don't let the data quality and corrections rule pages go public"), so they are built
-            # only when MUSIC_INTERNAL=1 is set, never by the site workflow
-            **({"quality": quality.summary(genre)} if os.environ.get("MUSIC_INTERNAL") == "1" else {})}
+            "quality": quality.summary(genre)}  # review queues, source dates, corrections log (#/quality)
 
 
 def genre_note(basis: str) -> str:

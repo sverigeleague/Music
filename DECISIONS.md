@@ -2,27 +2,18 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
-## 2026-10-26 Data quality and changelog kept internal; second-profile pairs accepted (owner)
+## 2026-10-26 Second-profile pairs accepted; data quality and changelog stay public (owner)
 
-- **Owner:** "don't let the data quality and corrections rule pages go public" and "go with suggested" on the
-  second-profile pairs.
-- **Data quality (#/quality) and Method changelog (#/changelog):**
-  - **Taken off the public site.** No links in the footer or the About sub-menu. On the site, the routes show "Page
-    not found". Their data (`quality`: review queues, source dates, corrections log, method versions) is no longer
-    in the site's data files.
-  - **Still open internally.** The pages open only on a local build (localhost, built with `MUSIC_INTERNAL=1 python
-    -m src.site_build`).
-  - **Corrections rule kept.** Every correction still gets a row in `registry/corrections.csv`, enforced by tests.
-  - **Unchanged:** a sentence on the Labels method that counted open label cases now just says editors check them.
-    The press page, glossary and Method stay public.
-  - **Caveat:** the repository itself is public on GitHub, so `registry/corrections.csv`, `review/*.csv` and this log
-    are readable there. Making the repository private would hide them; that is the owner's call.
-- **Second Spotify profiles:** the four pairs in `registry/profile_pairs.csv` are accepted as checked:
+- **Second Spotify profiles:** the owner said "go with suggested". The four pairs in `registry/profile_pairs.csv`
+  are accepted as checked:
   - Ye / Kanye West;
   - Makaveli / 2Pac;
   - Macklemore & Ryan Lewis (second profile);
   - Miyagi & Andy Panda / MiyaGi & Endspiel.
   - Bob / B.o.B stays "not a pair". Each row's `checked` column records the owner's acceptance.
+- **Data quality (#/quality) and Method changelog (#/changelog) stay public.** The owner first asked to keep them
+  internal, then took it back: "keep data quality and corrections public". The internal-only change was reverted
+  before merging, and the corrections rule (a row in `registry/corrections.csv` per correction) stands.
 
 ## 2026-10-26 Genres compared, aligned label financials, peer card, prospects CSV, tours by size (ROADMAP 11.11, 11.14, 11.15, 11.12, 11.18)
 

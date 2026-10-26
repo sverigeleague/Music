@@ -57,7 +57,7 @@ const SUBNAV = {
   scout: [["scout", "#/scout", "Scout list"], ["unsigned", "#/unsigned", "Unsigned vs signed peers"], ["producers", "#/producers", "Producers"]],
   money: [["worth", "#/worth", "What is it worth?"], ["pay", "#/pay", "Pay gap by deal"], ["platforms", "#/platforms", "Platforms"], ["tours", "#/tours", "Tours"]],
   labels: [["labels", "#/labels", "Labels and market share"], ["audience", "#/audience", "Where it is streamed"]],
-  about: [["method", "#/method", "Method"], ["glossary", "#/glossary", "Glossary"], ["press", "#/press", "Press"]],  // Data quality and Method changelog: internal only (owner, 2026-10-26)
+  about: [["method", "#/method", "Method"], ["changelog", "#/changelog", "Method changelog"], ["quality", "#/quality", "Data quality"], ["glossary", "#/glossary", "Glossary"], ["press", "#/press", "Press"]],
 };
 // Movers: today (daily change, outside the top 100) and the last 30 days, one page with a switch
 const moversSwitch = on => `<div class="seg" role="group" aria-label="Period" style="margin:10px 0 4px"><a class="segbtn" href="#/movers/today"${on === "today" ? ' aria-current="page"' : ""}>Today</a><a class="segbtn" href="#/movers"${on === "month" ? ' aria-current="page"' : ""}>Past month</a></div>`;
@@ -1547,7 +1547,7 @@ function screenerPage() {
       <li><b>Value</b> ${grade("C")}: a year's streaming and songwriting royalties at today's pace × a sale multiple. The low end multiplies the low royalty estimate by the lowest multiple, the high end the high estimate by the highest, so ranges are wide; "about" is the mid. Touring, merch, brand deals and costs are not in it, and the multiples are quoted on a catalog's net income while we apply them to royalties before the artist's and writers' share: treat values as indicative.</li>
       <li><b>Multiples</b>: ${store.data.multiples.map(m => `${esc(m.vintage)} ${m.multiple_low}–${m.multiple_high}× ${grade(m.grade)} <a href="${esc(m.source_url)}" target="_blank" rel="noopener">source</a>`).join("; ")}. Each artist's multiple weights these by the streams on songs of each age (under 3, 3–10, 10+ years); the band edges are our split.</li>
       <li><b>Royalties</b> ${grade("C")}: Spotify streams (kworb.net, from Spotify's public play counts) and YouTube views where measured, with the other services estimated from Spotify; rates from <code>registry/rates.csv</code> (Spotify's middle figure ${grade("B")}).</li>
-      <li><b>Owner</b>: the label on the artist's releases of the last two years (Deezer), placed with its owner and checked against the recordings' registrant codes. It says who releases the music now, not who owns older masters: a catalog can sit with an earlier label. ${store.data.quality ? `${(store.data.quality.queues.find(q => q.file.includes("label")) || {}).open ?? 0} label cases are being checked by our editors.` : ""}</li>
+      <li><b>Owner</b>: the label on the artist's releases of the last two years (Deezer), placed with its owner and checked against the recordings' registrant codes. It says who releases the music now, not who owns older masters: a catalog can sit with an earlier label. ${store.data.quality ? `${(store.data.quality.queues.find(q => q.file.includes("label")) || {}).open ?? 0} label cases are in the review queue (<a href="#/quality">Data quality</a>).` : ""}</li>
       <li>Data as of ${esc(store.data.as_of)}. Method in full: <a href="#/method">Method</a>; one artist's figures: <a href="#/worth">What is it worth?</a></li></ul></section>`;
   app.querySelectorAll("select[data-sf]").forEach(s => s.onchange = () => { f[s.dataset.sf] = s.value; f.all = false; screenerPage(); });
   app.querySelectorAll("th[data-scr]").forEach(t => t.onclick = () => { f.sort = [t.dataset.scr, sk === t.dataset.scr ? -sd : -1]; screenerPage(); });
@@ -2119,8 +2119,6 @@ function toursByBand(T) {
 // unsigned.json only the Unsigned page's. NEEDS: the files a page reads; a page not listed loads them all. Before
 // listing a page, grep its store.data.* and artist-field uses against PARTS.
 const PARTS = ["extra", "scout", "unsigned"];
-// Data quality and the method changelog are internal (owner, 2026-10-26): open only on a local build, never on the site
-const INTERNAL = ["localhost", "127.0.0.1"].includes(location.hostname);
 const NEEDS = { scout: ["scout"], ...Object.fromEntries("movers month rising compare producers state pay platforms tours audience method worth labels label screener sheet quality genres".split(" ").map(p => [p, ["extra", "scout"]])),
   press: ["extra", "unsigned"], changelog: ["extra"], glossary: [] };  // glossary: the index's scout_factors only
 let routeSeq = 0;
@@ -2184,14 +2182,14 @@ async function route() {
   else if (h[0] === "compare") compare(h.slice(1).map(decodeURIComponent));
   else if (h[0] === "screener") { readScreen("screener"); screenerPage(); }
   else if (h[0] === "sheet") await sheetPage(decodeURIComponent(h[1] || ""));
-  else if (h[0] === "quality" && INTERNAL) qualityPage();  // internal only (owner, 2026-10-26: not public)
+  else if (h[0] === "quality") qualityPage();
   else if (h[0] === "genres") await genresPage();
   else if (h[0] === "press") pressPage();
-  else if (h[0] === "changelog" && INTERNAL) changelogPage();
+  else if (h[0] === "changelog") changelogPage();
   else if (h[0] === "glossary") glossaryPage();
   else if (h[0] === "") top();
   else notFound();
-  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of ${GENRE === "country" ? "country" : "hip-hop"}</a> · <a href="#/press">Press</a> · <a href="#/method">Method</a> · <a href="#/glossary">Glossary</a> · <a href="mailto:hello@tventy.se?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
+  document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of ${GENRE === "country" ? "country" : "hip-hop"}</a> · <a href="#/press">Press</a> · <a href="#/method">Method</a> · <a href="#/changelog">Method changelog</a> · <a href="#/quality">Data quality and corrections</a> · <a href="#/glossary">Glossary</a> · <a href="mailto:hello@tventy.se?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
   prefixLinks(document.getElementById("foot"));  // country: footer links keep the genre (new tab, copied link)
   window.scrollTo(0, 0);
   if (!PARTS.every(p => parts[p])) setTimeout(() => loadExtra().catch(() => {}), 0);  // in the background, for the next page
