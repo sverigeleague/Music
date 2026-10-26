@@ -242,14 +242,14 @@ corrections page (`#/quality`); see DECISIONS.md 2026-10-26. The rest, in ranked
 | 11.8 | Embeddable artist widget (iframe) with source and date | press, artists | S | 3 | idea (licence question first, 2.1) |
 | 11.9 | "What changed this week" digest from the daily logs (no new claims) | press, A&R | S-M | 3 | idea (needs 7+ days) |
 | 11.10 | Market share over time by label group | analysts, investors | M | 4 | idea (needs months of log) |
-| 11.11 | Country vs hip-hop comparison page | analysts, press | S | 3 | idea |
-| 11.12 | Unsigned prospects export with official public links only (no personal contact data) | A&R | S | 4 | idea |
+| 11.11 | Country vs hip-hop comparison page | analysts, press | S | 3 | built (2026-10-26: `#/genres`, Artists > Genres compared) |
+| 11.12 | Unsigned prospects export with official public links only (no personal contact data) | A&R | S | 4 | built (2026-10-26: "Download prospects CSV" on Unsigned) |
 | 11.13 | Correction request form as a prefilled email (nothing stored) | artists, managers | S | 3 | built (2026-10-26: "Report a correction" on artist and label pages) |
-| 11.14 | Label financials side by side, periods aligned | investors | S | 3 | idea |
-| 11.15 | Peer benchmark card: percentile among the 10 nearest artists | artists | S | 3 | idea |
+| 11.14 | Label financials side by side, periods aligned | investors | S | 3 | built (2026-10-26: Labels, "music results, periods aligned") |
+| 11.15 | Peer benchmark card: percentile among the 10 nearest artists | artists | S | 3 | built (2026-10-26: artist page "Against the 10 nearest artists") |
 | 11.16 | Read-only JSON API with documentation | analysts, funds | S | 3 | idea (redistribution terms, 2.1) |
 | 11.17 | Glossary page from config.js | all | S | 2 | built (2026-10-26: `#/glossary`, GLOSSARY + How-box metrics; footer and How boxes) |
-| 11.18 | Tours league table v2 by size band | investors, managers | S | 2 | idea |
+| 11.18 | Tours league table v2 by size band | investors, managers | S | 2 | built (2026-10-26: Tours, "By the artist's size"; only 15m+ and 6–15m hold tours today) |
 | 11.19 | Scout hit rate published on our own daily log | A&R, investors | M | 4 | idea (January 2027) |
 | 11.20 | Paid tier: weekly CSV and alerts for labels and investors | labels, investors | M | 5 | idea (hard stop: accounts, cost, licence) |
 

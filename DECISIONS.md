@@ -2,6 +2,33 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Genres compared, aligned label financials, peer card, prospects CSV, tours by size (ROADMAP 11.11, 11.14, 11.15, 11.12, 11.18)
+
+- **11.11 `#/genres`** (Artists > Genres compared, also at `#/country/genres`): hip-hop and country side by side. Chosen:
+  compute in the page from both genres' index + extra.json (`loadGenreParts`, merged the way route's loadPart merges),
+  with the same formulas as the genre pages (Labels tiles for majors' and self-released share, screener for value
+  sums and median multiple, label one-pager for the royalty-weighted age mix, Platforms for the service mix, Scout
+  tiers). The page states that the lists are different universes (hip-hop top 1,000 from about 1.5m listeners;
+  country 754 including those below the 500k floor) and that listeners are a sum. Rejected: a Python summary file
+  (a second copy of each formula that could drift from the pages). The page is `data-noswap` and sets its own title,
+  since the country word swap would turn "hip-hop" into "country".
+- **11.14 Labels > "Label groups' music results, periods aligned"**: from label_financials (music businesses: Sony's
+  music segment, not Sony Group). Each column names its fiscal year, the twelve months it covers and its currency; a
+  calendar strip shows the overlap; a year 9+ months behind the newest is shaded (the groupsCompare rule, Believe
+  FY2024 today). No total, with a note why (FX per period, non-overlapping years); growth and margins in own currency.
+  Rejected: converting to one currency (needs period-average FX rates we do not hold; a spot rate would mislead).
+- **11.15 Artist page "Against the 10 nearest artists"**: nearest = same genre's list, closest by monthly-listener
+  ratio, second profiles and below-floor artists left out; percentile = share of peers below, ties half. Royalties
+  per listener use Spotify only (in index.json for every artist), so the card needs no extra download and every
+  peer is measured the same way; all-platform royalties load later and would make the card change between visits.
+- **11.12 Unsigned "Download prospects CSV"**: prospects only, with Spotify, YouTube channel, Instagram and Wikidata
+  URLs we hold (`site_build.public_links`, added to unsigned.json rows; TikTok and X left out as asked, no personal
+  contact data), links source and data date. Tests: tests/test_public_links.py.
+- **11.18 Tours "By the artist's size"**: tours grouped by the artist's listener band today (not at tour time, said on
+  the page), median gross per show, per ticket and tickets per show; empty bands named; Boxscore/Pollstar coverage
+  note. Today only the 15m+ and 6–15m bands hold counted tours, so the small-band question stays open until coverage
+  grows.
+
 ## 2026-10-26 Press page, method changelog, correction emails, glossary (ROADMAP 11.6, 11.7, 11.13, 11.17)
 
 - **Press (`#/press`, `app.js pressPage`):** quotable figures in four groups (labels and market share, top artists,
