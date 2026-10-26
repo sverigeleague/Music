@@ -2,6 +2,77 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Site look: "the liner notes", the financial-broadsheet direction (owner)
+
+- **Owner:** "optimize the UI", in the financial-broadsheet direction chosen for both tventy sites; music is the
+  "liner notes" variant: cooler ivory paper, ink-green text, a brass accent, catalogue-number labels. A reskin plus
+  targeted layout fixes: every route, id and class the code relies on stays, and no data or figure changes.
+- **Type** (self-hosted in `site/fonts/`, subset with fonttools to Latin, Latin-1, Latin Extended-A, Romanian
+  ș ț, and the punctuation, arrows and currency the site prints; both preloaded in `index.html` and the static
+  pages; `font-display: swap`):
+  - Display: **Gloock** Regular, SIL Open Font License 1.1, `gloock.woff2` 18.4 KB (h1, the start page's door
+    headlines, the "music" section word). Licence: `site/fonts/gloock-OFL.txt`.
+  - UI, body and every figure: **Schibsted Grotesk**, variable weight 400–800, SIL Open Font License 1.1,
+    `schibsted-grotesk.woff2` 53.2 KB. Licence: `site/fonts/schibsted-grotesk-OFL.txt`.
+  - Together 71.5 KB (budget about 120 KB), against 41.5 KB for Bricolage Grotesque before. `bricolage.woff2` is
+    removed from the site. The share cards (`src/static_pages.py` `card`) still draw with the Bricolage TTFs in
+    `assets/fonts/`, left alone.
+  - Schibsted's `tnum` feature also widened `, . : ; % #`, which opened gaps in running text ("now , what"). The
+    subset keeps tabular widths for the digits only. Figures use `tabular-nums lining-nums` everywhere.
+- **Palette** (tokens on `:root` in `site/styles.css`; contrast on the paper):
+  - `--bg #f2f0e6` (paper), `--paper-hi #f8f7f1` (inputs, panels), `--soft #e8e6da`, `--line #cdd0c3`.
+  - `--fg #122b27` (ink, 13.1:1), `--muted #4b5c55` (6.2:1), `--accent #7d581b` (brass ink for kickers and
+    catalogue numbers, 5.5:1), `--brass #b58a3a` (rules and marks only, never text).
+  - `--good #1d6a3b` (5.8:1), `--bad #a3301f` (6.1:1).
+  - Chart shades `--s0`–`--s4`: an ink ramp from `#122b27` to `#c9d2cb`. The label-share bars (`SHADE` in
+    `app.js`) and the catalogue age bar use them. The order, dark to light, and the striped and dotted extras are
+    unchanged.
+  - `--grain`: an inline SVG `feTurbulence` noise at 7% opacity, tiled under the body (no request).
+- **Details:**
+  - Masthead: an edition line ("The liner notes · Global hip-hop, by the numbers · Data built <date>", filled by
+    `route()`). On desktop it scrolls away while the bar stays sticky. A double rule sits under the bar.
+  - Section menu: small-capital section heads with a brass underline.
+  - Every `h2` in the main column gets a catalogue number ("Cat. 01", a CSS counter per page).
+  - Tiles, stats, panels, tables and the summary card are ruled, not boxed: a 2px ink rule on top, hairlines between
+    rows, a 1px ink rule under table heads.
+- **Layout fixes:**
+  - Start page as a front page: kicker, a large Gloock headline and the standfirst beside the four figures (a ruled
+    2×2 column, 960px and up). "Right now" and the three doors are newspaper columns with column rules.
+  - Phones:
+    - The header is no longer sticky: it held about a third of the screen. The menu keeps its mechanism, now one
+      ruled row.
+    - The headline figures no longer float apart.
+    - "Right now" is a ruled list with the photo beside the text, not four cramped boxes.
+    - The artist and label heads put the photo beside the name, with the rest full width under it.
+    - The summary card's columns stack with a rule, not a stray right border, and each score bar sits under its own
+      label and figure.
+    - The sticky artist column carries the paper grain, so it no longer shows as a lighter band.
+  - Label page "the one to watch": no stray space before the comma when the artist has no tier.
+  - `404.html` takes the paper and ink, with system fonts so it still loads nothing. Its dark variant went too: the
+    site has no dark mode.
+- **Motion** (CSS only; `prefers-reduced-motion` turns it all off):
+  - On a new route the page's sections rise in, 40 ms apart. `route()` sets a class for 0.8 s, so a re-draw
+    (typing in a filter) does not replay it.
+  - Links in text draw their underline in. Tiles change their rule to brass; doors, "Right now" items and stat
+    blocks lift 1px. Table rows highlight in brass.
+  - Numbers never animate.
+- **Bytes** (raw / gzip):
+  - `styles.css`: 29.9 / 7.2 KB before, 38.0 / 9.6 KB after.
+  - `app.js`: 294.3 / 92.2 KB before, 295.1 / 92.4 KB after.
+  - Fonts: 41.5 KB before, 71.5 KB after.
+- **Rejected:**
+  - A night edition: the site has no dark mode today, so there was nothing to retheme.
+  - An italic display face for subheads: Gloock has no italic. A browser-made slant of it was not used, and a third
+    family would add bytes the brief asks to justify. The subheads are small capitals with catalogue numbers instead.
+  - A sticky table head: the tables scroll sideways inside their box, so a sticky head cannot work without making
+    each box scroll vertically too.
+  - Switching the share cards to the new fonts: they are rendered with Pillow from TTFs and are a separate task.
+- **Check:**
+  - Playwright at 1280 and 390 px on 15 routes: the start page, an artist, Scout, Money, Labels, a label, Method,
+    country, movers, compare, the one-pager, State, the screener, the glossary and an unknown address. No page
+    errors, no NaN or undefined, no sideways scroll.
+  - `pytest` passed (131 tests), the site build ran, and `app.js` and `config.js` parse.
+
 ## 2026-10-26 Spanish-language hip-hop counted; features-led acts held back (owner)
 
 - **Owner:** "Keep pure Spanish hip hop in", and hold back the acts whose listeners come mostly from features or

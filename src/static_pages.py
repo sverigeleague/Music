@@ -80,12 +80,13 @@ def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: s
 {img}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <link rel="stylesheet" href="styles.css">
+<link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/gloock.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{data}" as="fetch" crossorigin>{"" if re.match(r"#/(country/)?(a/|$)", boot) else "".join(f'<link rel="preload" href="data/{prefix}{p}.json" as="fetch" crossorigin>' for p in ("extra", "scout"))}
 <script>window.BOOT = {json.dumps(boot)};</script>
 </head>
 <body>
 <a class="skip" href="#app">Skip to content</a>
-<header><div class="wrap bar">
+<header><div class="wrap edition" id="edition"></div><div class="wrap bar">
   <span class="brandbox"><a class="brand" href="#/">tventy</a><a class="section" href="https://tventy.se/sport/" title="Go to tventy sport">music</a></span>
   <nav class="genres" aria-label="Genre"><a href="#/" data-genre="hip_hop">Hip-hop</a><a href="#/country/" data-genre="country">Country</a></nav>
   <div class="search" role="search"><input id="q" type="search" role="combobox" aria-autocomplete="list" placeholder="Search artists and labels" autocomplete="off" aria-label="Search" aria-controls="q-results" aria-expanded="false"><div class="results" id="q-results" role="listbox" hidden></div></div>
