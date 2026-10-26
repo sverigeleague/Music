@@ -6,7 +6,8 @@ was on the music site. Everything is on the branch `claude/music-roadmap`, in pu
 change has an entry in DECISIONS.md.
 
 **Interruption:** the session hit its usage limit at about 23:40 UTC. Work stopped until about 06:30 UTC, so roughly
-5 of the 12 hours ran.
+5 of the 12 hours ran. During that gap a duplicate declaration left by two agents stopped the site's script from
+loading. CI caught it, it is fixed, and every check now runs the stricter module test.
 
 ## What changed
 
@@ -34,7 +35,16 @@ change has an entry in DECISIONS.md.
   - data quality and corrections log;
   - deal comparison with advance recoupment (worth page);
   - catalog age panel on artist pages;
-  - filter views kept in the page address (send a colleague the exact view).
+  - filter views kept in the page address (send a colleague the exact view);
+  - genres compared, hip-hop against country (`#/genres`);
+  - label groups' results side by side, with fiscal periods aligned (Labels);
+  - each artist against the 10 nearest artists (artist page);
+  - prospects CSV with public links only (Unsigned);
+  - tours by artist size (Tours);
+  - press page with quotable, dated figures (`#/press`);
+  - method changelog (`#/changelog`);
+  - glossary (`#/glossary`);
+  - "Report a correction" email link on artist and label pages.
 - **Speed and quality:**
   - The country start page is ready in 1.9 s, down from 3.6 s; Scout in 2.4 s, down from 3.5 s.
   - Photos are 40% smaller.
