@@ -1,0 +1,518 @@
+{
+"c920948b-83e3-40b7-8fe9-9ab5abaac55b": {
+"name": "Houston",
+"type": "City",
+"code": "",
+"parent": "206f1f44-9380-48cc-bf6c-772585ef1e74"
+},
+"206f1f44-9380-48cc-bf6c-772585ef1e74": {
+"name": "Harris County",
+"type": "County",
+"code": "",
+"parent": "f934c8da-e40e-4056-8f8c-212e68fdcaec"
+},
+"f934c8da-e40e-4056-8f8c-212e68fdcaec": {
+"name": "Texas",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"d3cc3f33-b404-419a-8f7e-13166cdf26ef": {
+"name": "Valparaíso",
+"type": "City",
+"code": "",
+"parent": "320b9e36-1e2f-4743-9b5f-a6a4a0eef127"
+},
+"320b9e36-1e2f-4743-9b5f-a6a4a0eef127": {
+"name": "Valparaíso",
+"type": "Subdivision",
+"code": "",
+"parent": "448375eb-82d9-43ba-b114-6bfc2db011c8"
+},
+"448375eb-82d9-43ba-b114-6bfc2db011c8": {
+"name": "Valparaíso",
+"type": "Subdivision",
+"code": "CL",
+"parent": "82d5f4d6-aed4-3ff5-81d1-5363ac6e97a7"
+},
+"aeb8c6dc-c58c-413e-972b-04e5a47fad27": {
+"name": "Naarden",
+"type": "Municipality",
+"code": "",
+"parent": "61d4a9f2-68f1-4cec-a25f-e8f953954459"
+},
+"61d4a9f2-68f1-4cec-a25f-e8f953954459": {
+"name": "Noord-Holland",
+"type": "Subdivision",
+"code": "NL",
+"parent": "ef1b7cc0-cd26-36f4-8ea0-04d9623786c7"
+},
+"61c6ca23-d20f-4086-a5a8-08f040f76260": {
+"name": "Bozeman",
+"type": "City",
+"code": "",
+"parent": "b1b64ff2-f8dc-4d26-b1cd-7115a01ce3bd"
+},
+"b1b64ff2-f8dc-4d26-b1cd-7115a01ce3bd": {
+"name": "Gallatin County",
+"type": "County",
+"code": "",
+"parent": "fb8840b9-ff2f-4484-8540-7112ee426ea7"
+},
+"fb8840b9-ff2f-4484-8540-7112ee426ea7": {
+"name": "Montana",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"6fa1c7da-6689-4cec-85f9-680f853e8a08": {
+"name": "Scotland",
+"type": "Subdivision",
+"code": "GB",
+"parent": "8a754a16-0027-3a29-b6d7-2b40ea0481ed"
+},
+"f03d09b3-39dc-4083-afd6-159e3f0d462f": {
+"name": "London",
+"type": "City",
+"code": "",
+"parent": "9d5dd675-3cf4-4296-9e39-67865ebee758"
+},
+"9d5dd675-3cf4-4296-9e39-67865ebee758": {
+"name": "England",
+"type": "Subdivision",
+"code": "GB",
+"parent": "8a754a16-0027-3a29-b6d7-2b40ea0481ed"
+},
+"0e4c5a2b-b595-494d-8c3e-2968d18b6e1f": {
+"name": "Beograd",
+"type": "City",
+"code": "RS",
+"parent": "424c1b50-57f8-34af-ab97-313e2ad40058"
+},
+"ba52a56e-b06c-48d7-91ad-b98fb7bf1a75": {
+"name": "Ridgeville",
+"type": "City",
+"code": "",
+"parent": "c797ec4a-e95d-4c73-bfcb-3a1f7429a1a1"
+},
+"c797ec4a-e95d-4c73-bfcb-3a1f7429a1a1": {
+"name": "Dorchester County",
+"type": "County",
+"code": "",
+"parent": "aec173a2-0f12-489e-812b-7d2c252e4b62"
+},
+"aec173a2-0f12-489e-812b-7d2c252e4b62": {
+"name": "South Carolina",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"9443d4f5-668c-4f30-96bd-6caf831de30f": {
+"name": "Rio de Janeiro",
+"type": "City",
+"code": "",
+"parent": "7a317b09-3948-46f2-99da-a14355d6fff7"
+},
+"7a317b09-3948-46f2-99da-a14355d6fff7": {
+"name": "Rio de Janeiro",
+"type": "Subdivision",
+"code": "BR",
+"parent": "f45b47f8-5796-386e-b172-6c31b009a5d8"
+},
+"f45b47f8-5796-386e-b172-6c31b009a5d8": {
+"name": "Brazil",
+"type": "Country",
+"code": "BR",
+"parent": ""
+},
+"160e4363-cdcd-43fd-ba05-cbc27082588d": {
+"name": "Winterbach",
+"type": "Municipality",
+"code": "",
+"parent": "4b8c47dd-0fe2-450e-8a21-d4d739ee0e0c"
+},
+"4b8c47dd-0fe2-450e-8a21-d4d739ee0e0c": {
+"name": "Baden-Württemberg",
+"type": "Subdivision",
+"code": "DE",
+"parent": "85752fda-13c4-31a3-bee5-0e5cb1f51dad"
+},
+"5da600e5-b0ad-441c-9503-b3d784da4c7b": {
+"name": "Tamarac",
+"type": "City",
+"code": "",
+"parent": "4d9d9bb7-a419-40ad-b292-dea20df41a35"
+},
+"4d9d9bb7-a419-40ad-b292-dea20df41a35": {
+"name": "Broward County",
+"type": "County",
+"code": "",
+"parent": "d2918f1a-c51e-4a4a-ad7f-cdd88877b25f"
+},
+"d2918f1a-c51e-4a4a-ad7f-cdd88877b25f": {
+"name": "Florida",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"4429f8bb-96f9-4e9e-86a0-610068484c2c": {
+"name": "Samsun",
+"type": "Subdivision",
+"code": "TR",
+"parent": "d3be28b4-41f7-3752-8a05-ed45e1d1e492"
+},
+"719f6082-95c7-3dd5-9503-e143010a6cc1": {
+"name": "Peru",
+"type": "Country",
+"code": "PE",
+"parent": ""
+},
+"c2d96f61-75a4-4375-aed5-6aacb0b6326a": {
+"name": "Memphis",
+"type": "City",
+"code": "",
+"parent": "9f1c845b-0536-4c8e-b40e-6b4dcd3eaac6"
+},
+"9f1c845b-0536-4c8e-b40e-6b4dcd3eaac6": {
+"name": "Shelby County",
+"type": "County",
+"code": "",
+"parent": "f9caf2d8-9638-4b96-bc49-8462339d4b2e"
+},
+"f9caf2d8-9638-4b96-bc49-8462339d4b2e": {
+"name": "Tennessee",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"26e0e534-19ea-4645-bfb3-1aa4e83a4046": {
+"name": "Atlanta",
+"type": "City",
+"code": "",
+"parent": "2b66da02-b2e3-4220-bff5-875d9a5a973a"
+},
+"2b66da02-b2e3-4220-bff5-875d9a5a973a": {
+"name": "Fulton County",
+"type": "County",
+"code": "",
+"parent": "d10ba752-c9ce-4804-afc0-7ff94aa5d8d6"
+},
+"d10ba752-c9ce-4804-afc0-7ff94aa5d8d6": {
+"name": "Georgia",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"8c2196d9-b7be-4051-90d1-ac81895355f1": {
+"name": "Illinois",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"226c4dca-ef2a-4d4b-ba25-4118d116557a": {
+"name": "Birmingham",
+"type": "City",
+"code": "GB",
+"parent": "07607044-8140-47ba-bb24-7129babe586b"
+},
+"8a754a16-0027-3a29-b6d7-2b40ea0481ed": {
+"name": "United Kingdom",
+"type": "Country",
+"code": "GB",
+"parent": ""
+},
+"b07271ff-75a4-4dbd-96ee-6386cf3c5fab": {
+"name": "Mannheim",
+"type": "City",
+"code": "",
+"parent": "4b8c47dd-0fe2-450e-8a21-d4d739ee0e0c"
+},
+"3e75bd2f-3891-4e28-a7c3-dee590a8a3fb": {
+"name": "Beaumont",
+"type": "City",
+"code": "",
+"parent": "56e5c440-1bc5-45c2-a076-93503bca1e9c"
+},
+"56e5c440-1bc5-45c2-a076-93503bca1e9c": {
+"name": "Jefferson County",
+"type": "County",
+"code": "",
+"parent": "f934c8da-e40e-4056-8f8c-212e68fdcaec"
+},
+"0c81089f-621b-4c30-acf3-a5d81f07f84b": {
+"name": "Tijuana",
+"type": "City",
+"code": "",
+"parent": "a7cf05a3-6ea1-479f-bb61-7b2259872d7b"
+},
+"a7cf05a3-6ea1-479f-bb61-7b2259872d7b": {
+"name": "Baja California",
+"type": "Subdivision",
+"code": "MX",
+"parent": "3e08b2cd-69f3-317c-b1e4-e71be581839e"
+},
+"d793f202-faf0-4de8-83e2-9ddfca54a35f": {
+"name": "Milano",
+"type": "City",
+"code": "",
+"parent": "9ceb9473-9fa6-4077-be05-02113549dd87"
+},
+"9ceb9473-9fa6-4077-be05-02113549dd87": {
+"name": "Milano",
+"type": "Subdivision",
+"code": "IT",
+"parent": "e9534cdf-f4d6-4346-bfbe-6a34619e518a"
+},
+"ae0110b6-13d4-4998-9116-5b926287aa23": {
+"name": "California",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"cc55c78b-15c9-45dd-8ff4-4a212c54eff3": {
+"name": "Indiana",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"da3df781-956c-4f08-8b93-2de318c9002f": {
+"name": "Đồng Nai",
+"type": "Subdivision",
+"code": "VN",
+"parent": "0158e991-c3c6-374a-9b9d-024bbaff6980"
+},
+"0eeb01c2-6e31-46ad-96b8-319749f731d2": {
+"name": "Philadelphia",
+"type": "City",
+"code": "",
+"parent": "2818e858-23fc-4aa1-a63e-434b44da6b5c"
+},
+"2818e858-23fc-4aa1-a63e-434b44da6b5c": {
+"name": "Philadelphia County",
+"type": "County",
+"code": "",
+"parent": "75d8fdcf-03e9-43d9-9399-131b8e118b0b"
+},
+"75d8fdcf-03e9-43d9-9399-131b8e118b0b": {
+"name": "Pennsylvania",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"9a5d387b-26b2-4bea-a9c9-f2844148a4aa": {
+"name": "Hertfordshire",
+"type": "Subdivision",
+"code": "GB",
+"parent": "9d5dd675-3cf4-4296-9e39-67865ebee758"
+},
+"10cd0042-0dc9-48cb-8364-90c20dc20838": {
+"name": "Rosario",
+"type": "City",
+"code": "",
+"parent": "54cad475-f076-4617-a6ac-290776bc811b"
+},
+"54cad475-f076-4617-a6ac-290776bc811b": {
+"name": "Santa Fe",
+"type": "Subdivision",
+"code": "AR",
+"parent": "0df04709-c7d8-3b55-a6ea-f3e5069a947b"
+},
+"3c5c2abc-0b8f-42f3-ab3a-a34b43cdf871": {
+"name": "Ponce",
+"type": "City",
+"code": "",
+"parent": "3906cf32-00a7-32df-93cc-4710c5f5a542"
+},
+"3906cf32-00a7-32df-93cc-4710c5f5a542": {
+"name": "Puerto Rico",
+"type": "Country",
+"code": "PR",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"ad3ef3fd-3a7b-4712-97bf-6712376545df": {
+"name": "Matamoros",
+"type": "City",
+"code": "",
+"parent": "922043b0-04b8-4ccd-b8c0-5f1af89d9182"
+},
+"922043b0-04b8-4ccd-b8c0-5f1af89d9182": {
+"name": "Tamaulipas",
+"type": "Subdivision",
+"code": "MX",
+"parent": "3e08b2cd-69f3-317c-b1e4-e71be581839e"
+},
+"768367d2-ac8c-4daf-ba70-94710ad4870a": {
+"name": "Bangkok",
+"type": "City",
+"code": "TH",
+"parent": "ce209e56-cda5-358e-96db-830e3405b675"
+},
+"dd7f80c8-f017-3d01-8608-2a8c9c32b954": {
+"name": "Poland",
+"type": "Country",
+"code": "PL",
+"parent": ""
+},
+"3e08b2cd-69f3-317c-b1e4-e71be581839e": {
+"name": "Mexico",
+"type": "Country",
+"code": "MX",
+"parent": ""
+},
+"6ef0b580-b9d5-4c9e-851d-33b24cd66bac": {
+"name": "Rabat",
+"type": "City",
+"code": "",
+"parent": "e1ef58de-437a-4ba9-885c-1571604efa9a"
+},
+"e1ef58de-437a-4ba9-885c-1571604efa9a": {
+"name": "Rabat-Salé-Kénitra",
+"type": "Subdivision",
+"code": "MA",
+"parent": "b84d8617-249a-3a06-849d-fc5c25e2249b"
+},
+"1e23d84b-202e-3fc8-8c49-debc71e9eb16": {
+"name": "Nigeria",
+"type": "Country",
+"code": "NG",
+"parent": ""
+},
+"10258ba2-f3ff-40cc-8e43-d8e6b4fcc3e4": {
+"name": "Baja California Sur",
+"type": "Subdivision",
+"code": "MX",
+"parent": "3e08b2cd-69f3-317c-b1e4-e71be581839e"
+},
+"c1a06409-9063-41cb-bacb-2fc4589e7ad5": {
+"name": "Molenbeek-Saint-Jean / Sint-Jans-Molenbeek",
+"type": "Municipality",
+"code": "",
+"parent": "7bda5d46-4809-41dc-a0b8-e889ff818f2e"
+},
+"7bda5d46-4809-41dc-a0b8-e889ff818f2e": {
+"name": "Brussels",
+"type": "City",
+"code": "BE",
+"parent": "5b8a5ee5-0bb3-34cf-9a75-c27c44e341fc"
+},
+"33e0f86c-d709-448d-a484-d55778913af1": {
+"name": "São Paulo",
+"type": "City",
+"code": "",
+"parent": "204dd468-f79e-475d-94a7-64e417246439"
+},
+"204dd468-f79e-475d-94a7-64e417246439": {
+"name": "São Paulo",
+"type": "Subdivision",
+"code": "BR",
+"parent": "f45b47f8-5796-386e-b172-6c31b009a5d8"
+},
+"ab811c1e-750e-460b-82ca-ad893fa30892": {
+"name": "Bryansk",
+"type": "City",
+"code": "",
+"parent": "da6424a8-f5c3-47ff-a246-8986763a0fe7"
+},
+"da6424a8-f5c3-47ff-a246-8986763a0fe7": {
+"name": "Bryanskaya oblast'",
+"type": "Subdivision",
+"code": "RU",
+"parent": "1f1fc3a4-9500-39b8-9f10-f0a465557eef"
+},
+"743523d6-c574-454e-9079-de113e30452a": {
+"name": "Valencia",
+"type": "City",
+"code": "",
+"parent": "e879b9a5-161a-4f21-b77e-f6cb3400b42d"
+},
+"e879b9a5-161a-4f21-b77e-f6cb3400b42d": {
+"name": "Valencia",
+"type": "Subdivision",
+"code": "ES",
+"parent": "7514d443-6f68-4d09-ab6b-30f92798bb4a"
+},
+"7e5e7fd7-c1eb-4cb8-87e2-fb1c0eda9e48": {
+"name": "Buffalo",
+"type": "City",
+"code": "",
+"parent": "ffa23254-203a-4e8b-9173-86be427dcfef"
+},
+"ffa23254-203a-4e8b-9173-86be427dcfef": {
+"name": "Erie County",
+"type": "County",
+"code": "",
+"parent": "75e398a3-5f3f-4224-9cd8-0fe44715bc95"
+},
+"75e398a3-5f3f-4224-9cd8-0fe44715bc95": {
+"name": "New York",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"c5f92386-f9a9-41c0-b15d-9023937d12f7": {
+"name": "Sabadell",
+"type": "City",
+"code": "",
+"parent": "8cfddbcc-b38a-4da2-a990-6317cd92892a"
+},
+"8cfddbcc-b38a-4da2-a990-6317cd92892a": {
+"name": "Barcelona",
+"type": "Subdivision",
+"code": "ES",
+"parent": "92e2d2d3-63b0-4b5a-adca-0e31c367eca2"
+},
+"91f54885-82f1-4c49-9336-35f2c3c48dc1": {
+"name": "Viña del Mar",
+"type": "City",
+"code": "",
+"parent": "320b9e36-1e2f-4743-9b5f-a6a4a0eef127"
+},
+"782d4fa5-dfbf-4558-87bf-c41043f5a2a1": {
+"name": "Brisbane",
+"type": "City",
+"code": "",
+"parent": "c1e9cc93-f223-470d-b9e1-653709de68c3"
+},
+"c1e9cc93-f223-470d-b9e1-653709de68c3": {
+"name": "Queensland",
+"type": "Subdivision",
+"code": "AU",
+"parent": "106e0bec-b638-3b37-b731-f53d507dc00e"
+},
+"75226102-a4bf-4e2c-af81-5d4bce5d4b48": {
+"name": "Capelle aan den IJssel",
+"type": "City",
+"code": "",
+"parent": "33c20196-8212-4975-b914-5d52855d94ff"
+},
+"33c20196-8212-4975-b914-5d52855d94ff": {
+"name": "Zuid-Holland",
+"type": "Subdivision",
+"code": "NL",
+"parent": "ef1b7cc0-cd26-36f4-8ea0-04d9623786c7"
+},
+"462e7952-4fa9-43cd-bc24-2c5c9cd5dd47": {
+"name": "Dublin",
+"type": "City",
+"code": "",
+"parent": "a4382217-8e68-4101-8ac0-2f14a31dd44d"
+},
+"a4382217-8e68-4101-8ac0-2f14a31dd44d": {
+"name": "County Dublin",
+"type": "Subdivision",
+"code": "IE",
+"parent": "e673d48d-9eec-4941-a5fe-9e6c330f9b26"
+},
+"a8c1d0e2-0837-454c-afa9-4190b3fe4d92": {
+"name": "Staten Island",
+"type": "District",
+"code": "",
+"parent": "74e50e58-5deb-4b99-93a2-decbb365c07f"
+},
+"74e50e58-5deb-4b99-93a2-decbb365c07f": {
+"name": "New York",
+"type": "City",
+"code": "",
+"parent": "75e398a3-5f3f-4224-9cd8-0fe44715bc95"
+}
+}

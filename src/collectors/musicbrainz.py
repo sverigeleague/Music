@@ -174,3 +174,32 @@ def youtube_channels(mbids: list[str]) -> dict[str, list[str]]:
             w.writerow(cache[m])
             f.flush()
     return {m: cache[m]["channels"].split("|") for m in mbids if m in cache and cache[m]["channels"]}
+
+
+HIP_HOP_TAGS = ('"hip hop"', "rap", "trap", "drill", "grime", '"boom bap"')
+COUNTRY_TAGS = ("country", "americana", "bluegrass", '"red dirt"', '"alt-country"')
+
+
+def search_tagged(tags: tuple[str, ...], cc: str, pages: int = 10) -> list[dict]:
+    """Artists MusicBrainz's search finds with one of these tags and this main country (ISO code): [{id, name}].
+    Used to find candidates; the Spotify ID comes only from the artist's own url relations (spotify_of)."""
+    out, q = [], f"({' OR '.join('tag:' + t for t in tags)}) AND country:{cc.upper()}"
+    for page in range(pages):
+        r = get(f"{API}/artist", params={"fmt": "json", "limit": 100, "offset": page * 100, "query": q})
+        if r.status_code != 200:
+            break
+        j = r.json()
+        out += [{"id": a["id"], "name": a["name"]} for a in j.get("artists", [])]
+        if (page + 1) * 100 >= j.get("count", 0):
+            break
+    return out
+
+
+def spotify_of(mbid: str) -> str:
+    """The one Spotify artist ID the MusicBrainz artist links (url relation), else ""."""
+    r = get(f"{API}/artist/{quote(mbid)}", params={"inc": "url-rels", "fmt": "json"})
+    if r.status_code != 200:
+        return ""
+    ids = {u.rstrip("/").split("/artist/")[1].split("?")[0] for rel in r.json().get("relations", [])
+           if "open.spotify.com/artist/" in (u := (rel.get("url") or {}).get("resource", ""))}
+    return ids.pop() if len(ids) == 1 else ""

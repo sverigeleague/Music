@@ -19,9 +19,9 @@
 <link rel="canonical" href="https://tventy.se/music/">
 <meta property="og:url" content="https://tventy.se/music/">
 <!-- the page's data, fetched while app.js loads: the country files for #/country/ addresses, else hip-hop; the extra
-     files for pages that wait for them (all but the start page and artist pages; Scout reads scout.json only; app.js NEEDS) -->
+     files for pages that wait for them (all but the start page and artist pages; Scout reads scout.json only, and its country view scout_countries.json; app.js NEEDS) -->
 <script>(function(){var h=location.hash,c=/^#\/country(\/|$)/.test(h),d=c?"data/country/":"data/",r=h.replace(/^#\/?(country\/?)?/,""),p=r.split(/[\/?]/)[0];
-[d+"index.json"].concat(!r||p=="a"?[]:p=="scout"?[d+"scout.json"]:[d+"extra.json",d+"scout.json"].concat(p=="unsigned"?[d+"unsigned.json"]:[])).forEach(function(u){var l=document.createElement("link");l.rel="preload";l.as="fetch";l.crossOrigin="anonymous";l.href=u;document.head.appendChild(l);});})();</script>
+[d+"index.json"].concat(!r||p=="a"?[]:p=="scout"?[d+"scout.json"].concat(/[?&]country=/.test(h)?[d+"scout_countries.json"]:[]):[d+"extra.json",d+"scout.json"].concat(p=="unsigned"?[d+"unsigned.json"]:[])).forEach(function(u){var l=document.createElement("link");l.rel="preload";l.as="fetch";l.crossOrigin="anonymous";l.href=u;document.head.appendChild(l);});})();</script>
 </head>
 <body>
 <a class="skip" href="#app">Skip to content</a>

@@ -12,7 +12,7 @@ from .run import PHOTOS, TOP_N, _json, latest_listeners, load_artists
 
 OUT = SITE / "data" / "index.json"
 # fields only the artist page needs: written to site/data/a/<id>.json, so the index stays small at 1,000 artists
-EXTRA_KEYS = ("unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market", "quality")
+EXTRA_KEYS = ("scout_countries", "scout_country_list", "unsigned", "group_finances", "credits", "label_financials", "tours", "sony_music", "backtest", "month", "market", "quality")
 DETAIL_ONLY = ("about", "cert_detail", "award_list", "song_credits", "genre_basis", "links", "label_basis", "label_newest", "label_isrc_note", "label_confidence", "label_override",
                "labels", "born", "since", "streams", "lead_streams", "feature_streams", "lead_daily", "feature_daily",
                "tracks", "top_track", "top_track_streams", "streams_date", "yt_total", "yt_subs", "yt_channel_views", "yt_basis", "yt_api_window",
@@ -30,8 +30,10 @@ ALSO_SHARD = ("certs", "geo", "apple", "shazam", "level", "attention", "video", 
 # extra.json split by page (2026-10-26, page speed): <name>.json beside it holds these top-level keys and artist_more
 # columns, so a page loads only the files it needs (app.js PARTS / NEEDS; a page not listed there loads them all).
 # scout.json: everything Scout reads beyond the index; unsigned.json: only the Unsigned page reads it.
-PARTS = {"scout": (("backtest",), ("attention", "geo", "apple", "shazam", "fresh_share", "video")),
-         "unsigned": (("unsigned",), ())}
+PARTS = {"scout": (("backtest", "scout_country_list"), ("attention", "geo", "apple", "shazam", "fresh_share", "video")),
+         "unsigned": (("unsigned",), ()),
+         # Scout's country view only (#/scout?country=SE; app.js loads it when a country is picked, 2026-10-26)
+         "scout_countries": (("scout_countries",), ())}
 
 
 def latest_streams() -> dict[str, dict]:
@@ -310,6 +312,7 @@ def build(genre: str = "hip_hop") -> dict:
     if genre == "country":  # an internal Scout signal and the songwriters' radio money (C4, C5)
         for r in rows:
             r["radio_week"] = on_air.get(r["id"], {}).get("aud", 0.0)
+    by_country = scout_by_country(rows, factors)  # every listed artist of the genre, on copies (2026-10-26)
     for r in rows:
         sh = shares[r["deal_type"]]
         r["revenue"] = revenue.estimate(r, today, {k: float(sh[k]) for k in ("low", "mid", "high")}, genre)
@@ -379,13 +382,67 @@ def build(genre: str = "hip_hop") -> dict:
                                        "with_producer": sum(1 for x in songs if cred.get(x["isrc"], {}).get("producers"))})(
                 [h for r in rows for h in hits.get(r["id"], [])]),
             "backtest": backtest.run({k: v for k, v in history.items() if artists.get(k, {}).get("genre") == genre}, views),
-            "genre": genre,
+            "genre": genre, "scout_countries": by_country,
+            # the picker's list (scout.json, small): the rows load only with the country view
+            "scout_country_list": {**{k: v for k, v in by_country.items() if k != "countries"},
+                                   "countries": [{k: c[k] for k in ("cc", "name", "listed", "scored")} for c in by_country["countries"]]},
             "below_floor": below_floor(len(rows), {t["spotify_id"] for t in top}, today) if genre == "country" else None,
             "labels": insights.labels_index(rows, release_counts(rels, table)),
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
             "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES),
             "quality": {**quality.summary(genre), "publishers": pub_coverage([r["id"] for r in rows])}}  # review queues, source dates, corrections log (#/quality)
+
+
+COUNTRY_TOP = 100  # Scout by country: the top 100 of each country (owner, 2026-10-26)
+
+
+def scout_by_country(rows: list[dict], factors: dict) -> dict:
+    """Scout by country (owner, 2026-10-26: "the top 100 artists for each country"). Every artist of the genre on
+    kworb's listener pages is scored by the same method as the top 1,000 (insights.scout), with the size-band
+    percentiles taken over this whole set, so scores compare across countries; computed on copies, so the top
+    1,000's own scores and ranks do not change. Country: the registry's (Wikidata), else src/origin.py's fill
+    (Wikidata by QID, then MusicBrainz); an artist with two countries counts in both. Per country: the artists
+    listed, those with enough signals to score (3+), and the top 100 by score."""
+    from . import origin
+    filled = origin.load()
+    deep = [dict(r) for r in rows]
+    insights.scout(deep, factors)
+    keep = ("id", "name", "cc", "country", "ml", "floor", "chg_pct", "daily", "fresh_share", "cur_share", "cl",
+            "top_fresh", "label_status", "label_name", "label_owner", "indie_kind", "feat")
+    by: dict[str, dict] = {}
+    for i, r in enumerate(deep):
+        for cc in r.get("cc") or []:
+            c = by.setdefault(cc, {"listed": 0, "scored": []})
+            c["listed"] += 1
+            if r.get("scout"):
+                c["scored"].append((i, r))
+    names = {v: k for k, v in countries.ISO2.items() if k not in ("Northern Ireland", "East Germany")}
+
+    def row(i, r):
+        f = filled.get(r["id"]) or {}
+        out = {k: r[k] for k in keep if r.get(k) is not None}
+        sc = r["scout"]
+        out.update(page=i < TOP_N, reach=insights.chart_countries(r),
+                   csrc=f["source"] if f.get("country") and f["country"] == r.get("country") else "wikidata",
+                   scout={k: sc[k] for k in ("score", "tier", "band", "weight", "provisional") if k in sc})
+        if r.get("attention"):
+            out["attention"] = {"trend": round(r["attention"]["trend"], 3) if r["attention"].get("trend") else None}
+        if r.get("shazam"):
+            out["shazam"] = {"charts": r["shazam"]["charts"], "best": r["shazam"]["best"], "url": r["shazam"].get("url")}
+        if r.get("photo"):
+            out["photo"] = {"file": r["photo"]["file"]}
+        for k in ("fresh_share", "cur_share", "chg_pct", "feat"):
+            if isinstance(out.get(k), float):
+                out[k] = round(out[k], 4)
+        return out
+    order = sorted(by, key=lambda cc: (-len(by[cc]["scored"]), cc))
+    return {"listed": len(deep), "scored": sum(1 for r in deep if r.get("scout")),
+            "no_country": sum(1 for r in deep if not r.get("cc")),
+            "countries": [{"cc": cc, "name": names.get(cc, cc.upper()), "listed": by[cc]["listed"],
+                           "scored": len(by[cc]["scored"]),
+                           "rows": [row(i, r) for i, r in sorted(by[cc]["scored"], key=lambda x: (-x[1]["scout"]["score"], -(x[1]["ml"] or 0)))[:COUNTRY_TOP]]}
+                          for cc in order]}
 
 
 def genre_note(basis: str) -> str:
