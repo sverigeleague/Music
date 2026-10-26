@@ -2,6 +2,743 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Genres compared, aligned label financials, peer card, prospects CSV, tours by size (ROADMAP 11.11, 11.14, 11.15, 11.12, 11.18)
+
+- **11.11 `#/genres`** (Artists > Genres compared, also at `#/country/genres`): hip-hop and country side by side. Chosen:
+  compute in the page from both genres' index + extra.json (`loadGenreParts`, merged the way route's loadPart merges),
+  with the same formulas as the genre pages (Labels tiles for majors' and self-released share, screener for value
+  sums and median multiple, label one-pager for the royalty-weighted age mix, Platforms for the service mix, Scout
+  tiers). The page states that the lists are different universes (hip-hop top 1,000 from about 1.5m listeners;
+  country 754 including those below the 500k floor) and that listeners are a sum. Rejected: a Python summary file
+  (a second copy of each formula that could drift from the pages). The page is `data-noswap` and sets its own title,
+  since the country word swap would turn "hip-hop" into "country".
+- **11.14 Labels > "Label groups' music results, periods aligned"**: from label_financials (music businesses: Sony's
+  music segment, not Sony Group). Each column names its fiscal year, the twelve months it covers and its currency; a
+  calendar strip shows the overlap; a year 9+ months behind the newest is shaded (the groupsCompare rule, Believe
+  FY2024 today). No total, with a note why (FX per period, non-overlapping years); growth and margins in own currency.
+  Rejected: converting to one currency (needs period-average FX rates we do not hold; a spot rate would mislead).
+- **11.15 Artist page "Against the 10 nearest artists"**: nearest = same genre's list, closest by monthly-listener
+  ratio, second profiles and below-floor artists left out; percentile = share of peers below, ties half. Royalties
+  per listener use Spotify only (in index.json for every artist), so the card needs no extra download and every
+  peer is measured the same way; all-platform royalties load later and would make the card change between visits.
+- **11.12 Unsigned "Download prospects CSV"**: prospects only, with Spotify, YouTube channel, Instagram and Wikidata
+  URLs we hold (`site_build.public_links`, added to unsigned.json rows; TikTok and X left out as asked, no personal
+  contact data), links source and data date. Tests: tests/test_public_links.py.
+- **11.18 Tours "By the artist's size"**: tours grouped by the artist's listener band today (not at tour time, said on
+  the page), median gross per show, per ticket and tickets per show; empty bands named; Boxscore/Pollstar coverage
+  note. Today only the 15m+ and 6–15m bands hold counted tours, so the small-band question stays open until coverage
+  grows.
+
+## 2026-10-26 Press page, method changelog, correction emails, glossary (ROADMAP 11.6, 11.7, 11.13, 11.17)
+
+- **Press (`#/press`, `app.js pressPage`):** quotable figures in four groups (labels and market share, top artists,
+  rising and unsigned, money), each a sentence to quote, its method chip (measured / measured + classified / our
+  measure / estimate), the data date and a line `Source: tventy music, <date>, <url>` with a Copy button (sentence +
+  line). Only figures other pages show, computed the same way: majors', independent labels' and self-released shares
+  among artists whose label is known (Labels page), No. 1 by current and by monthly listeners, the month's biggest
+  riser, top unsigned prospect (State page items), Breaking count, unsigned prospects (the Unsigned page's count, so
+  the page loads unsigned.json), Spotify royalties of the top 100 and the highest catalog value, both as a range with
+  grade C and "estimate" in the quoted sentence, and the list's size against Spotify's universe. A "How to cite" box
+  (date matters; call an estimate an estimate; grades; State page for month-end figures). Artist figures cite the
+  static artist page. Rejected: new figures for the press (only what the site already shows and explains), and
+  quoting a mid alone (the ideas pass's risk: quotes travel without caveats).
+- **Method changelog (`#/changelog`, `changelogPage`):** `registry/method_changes.csv` (area money / scout /
+  unsigned / other, version, date, genre, change, effect, correction, source), read by `quality.method_changes` into
+  `extra.json` quality.changes. 16 rows from DECISIONS.md: money 1.0–1.5 (first model, catalog multiples, deal by
+  recent releases, country platform weights, the Spotify rate, multiples by song age), Scout 1.0–1.5 (first score,
+  back-test weights, country radio, chart countries once, absent signals 0, 60% weight for a tier), Unsigned 1.0–1.2,
+  and the "label owner known" definition. Kept in sync: a row naming a correction carries that corrections.csv row's
+  field / was / now (the build fails on a name with no match), and a test requires every method row of
+  corrections.csv to be named in the changelog and every source to be a DECISIONS.md heading. One-genre rows carry a
+  "country list only" chip; the top-list ranking versions (docs/METHODOLOGY.md) are shown below. Rejected: a section
+  on #/quality (that page is long already; it links here) and hard-coding the versions in app.js.
+- **Correction request (`corrLink`):** "Report a correction" on every artist and label page: a mailto to
+  hello@tventy.se, subject "Correction: <name> (<page url>)", body asking what is wrong, what it should be, a source
+  and (optionally) the sender's role. Nothing is sent or stored by the site. Rejected: a form (it would store
+  personal data, ROADMAP 10.5).
+- **Glossary (`#/glossary`, `glossaryPage`):** config.js GLOSSARY plus every metric row of the How boxes (HOW, with
+  SCOUT_INFO and the tier rule), alphabetical, each with the pages that use it. GLOSSARY gains 11 terms no column
+  heading uses (grades, measured, estimate, range, streaming royalties / yr, catalog value, the status words,
+  second profile, provisional Scout). Linked from the footer and from each How box ("every term defined").
+- **Navigation:** the footer pages (Method, Method changelog, Data quality, Glossary, Press) share a sub-menu; the
+  footer lists all five. NEEDS: press `extra` + `unsigned`, changelog `extra`, glossary none.
+
+## 2026-10-26 Engineering follow-ups to the speed pass: extra.json split by page, site smoke tests, load failures
+
+- **extra.json split by page** (`src/site_build.py PARTS`, app.js `PARTS`/`NEEDS` in the router, index.html and
+  static-page preloads). Scout had become slower (3.36 → 3.60 s) because it waited for all of extra.json (now
+  ~190 KB compressed). Now `scout.json` (backtest; attention, geo, apple, shazam, fresh_share, video: ~27 KB) holds
+  everything Scout reads beyond the index, and `unsigned.json` (~28 KB) only the Unsigned page's list; extra.json
+  keeps the rest. Scout waits for scout.json only; the other listed pages for extra + scout; Unsigned and any page
+  not listed in `NEEDS` load all three, so a new page works without being registered. The rest still loads in the
+  background after drawing. Measured on the same build (slow 4G, 4x CPU, phone; median of 3), all files awaited →
+  split: Scout 3.27 → 2.39 s, country Scout 2.41 → 1.84 s, Worth 3.26 → 3.20, Labels 3.46 → 3.33, Platforms 3.21 →
+  3.09 s (a closer 4-run A/B: Worth, Labels, Platforms 0.14-0.18 s faster); start, artist and static pages unchanged.
+  Every route renders the same text split or with every file loaded (30 routes, both genres, Scout's sorts too).
+  Rejected: Scout's fields in index.json (+27 KB for every page, including the start page); a file per page (Money,
+  Labels): other sessions are adding features to those pages tonight, and a wrong guess would draw them with blanks.
+- **Rounding bug**: the per-platform royalty mids in extra.json were kept to 2 significant figures, not 3 (a
+  $24.5m line showed as $24.0m on Platforms). Fixed (`sig3`).
+- **Smoke tests** (`tests/test_site_data.py`): after a build, ids unique, ranks 1..n, current-listener ranks
+  contiguous, every range low ≤ mid ≤ high (index, shards, worth, label totals), index figures equal to the artist
+  page's (worth_mid, per-platform lines, streaming_mid, artist total), shards and label rosters match the index,
+  every flag and photo on disk, no NaN/Infinity (the browser cannot parse them), a static page per artist and label,
+  in the sitemap. They skip when site/data is absent: `tests.yml` does not build the site, so it now also checks
+  that app.js and config.js parse (`node --check`); `site.yml` runs them after its build, so a broken build is not
+  deployed.
+- **Load failures** (Playwright: every route with each data file failing, then the retry; and slow 4G): every page
+  works or shows "The data did not load" with a retry that then draws it correctly. Fixed: a failed artist file was
+  remembered as empty, so the retry never fetched it again and Worth for a picked artist showed no money; now it is
+  not kept and the error shows. A slower page's files arriving after the visitor moved on no longer draw over the
+  newer page (router sequence check). The Labels tile comparing with the other genre is redrawn when that genre's
+  data arrives (on a slow connection it was left out).
+- **Static pages**: titles, descriptions, ranks, labels, Scout tiers and JSON-LD match the data for all 1,754 artist
+  and 279 label pages. The artist fact "Keeps from streaming" was the artist's total including songwriting and
+  reported tours; it now says "Artist keeps ... (streaming and songwriting / and reported touring)", as the app.
+  The sitemap lists every static page (2,037); the routes added tonight are app-only (no static page), so none to add.
+
+## 2026-10-26 Review by an investment-banking MD: awards, provisional Scout, corrections log, wording (items 2-8 and NICE)
+
+- **Awards as a floor** (`app.js sheetPage` Recognition row, `awardsPanel`): Wikidata lists wins far more often than
+  nominations (61 of 108 hip-hop and 34 of 69 country artists with awards have fewer nominations than wins), so a
+  count read as fact was wrong (Drake "11 wins, 1 nominations · 4 Grammys"). The one-pager says "at least N wins,
+  incl. N Grammys", source "as listed on Wikidata, incomplete: a floor, not a total"; plurals fixed. The nominations
+  count is hidden whenever it is below the wins (one-pager and the artist page's chips; the artist page keeps the
+  listed nominations under "Nominations listed (fewer than the wins: Wikidata is incomplete)"). Rejected: dropping
+  awards (the listed wins are sourced, only the total is not).
+- **Provisional Scout on the one-pager**: the provisional chip as on the artist page and label roster, and "on N% of
+  the signals by weight, so no tier" (MiyaGi & Endspiel 90/100 on 33%).
+- **Corrections log** (`registry/corrections.csv`): six rows added from the two Review 5 entries of 2026-10-25 (Scout
+  absent signals score 0; tier needs 60% of the weight; 10m+ monthly listeners = established, moving BigXthaPlug,
+  Morad, Shubh, Veigh; second Spotify profiles, Ye, Makaveli, Macklemore & Ryan Lewis, Miyagi & Andy Panda, with the
+  Bob / B.o.B pairing dropped; "label owner known" 75% to 66%; Knust, Baviera catalog only and Makaveli as 2Pac's
+  second profile). The Spotify rate ($4.40 to $3.60), catalogue value by release age (Drake $1.94bn to $1.56bn) and
+  the catalog rule (Boef, Honaiser, Sidhu Moose Wala) were already logged. "Decision log" now links to the public
+  DECISIONS.md on GitHub (the row's entry title stays as its tooltip). Rejected: one row per moved artist (one row per
+  rule, the artists named in it).
+- **Wording**: the Quality page's File column (review/*.csv paths) is gone; "owner's decision / owner's note" in the
+  log and "Owner's choices" / "Owner:" in the method versions (`docs/METHODOLOGY.md`) now "editor's decision(s)"; the
+  hip-hop genre queue says "Outside the list until decided" (`src/quality.py`; checked: none of its 736 artists is in
+  the top 1,000). Unsigned footnote: "checked by our editors".
+- **One royalty figure** (`streamingMid`): the build's unrounded `streaming_mid` where present (it travels with
+  `rev_lines` in extra.json, so wherever the lines are, it is too), else the sum of the lines; Drake now $115.0m on
+  Worth, the screener, Compare and the label pages. Columns named "Streaming royalties / yr" (Worth peers and top
+  100, label roster, label one-pager, Compare).
+- **Country list size**: `setMeta` writes "top 754" (the list's own size) wherever a title or description says "top
+  1,000", including the default; This month / Movers say "not all 754 yet".
+- **NICE**: a multiple blended by release age shows two decimals everywhere (`xm`: 7.87–13.84×, screener, one-pager,
+  artist card, catalog-age panel, Worth, median tile); a band's sourced multiple stays as quoted (8–13.7×), since
+  "8.00×" would claim precision the source lacks. One-pager values (ranges) no longer wrap on phones. Scout and
+  screener country filters count "East Germany" under Germany (display only; the artist page keeps Wikidata's name).
+  DistroKid's "<number> Records DK" (its name for releases without a label) shows as "DistroKid (numbered label)" on
+  the artist page's label basis and the Unsigned page (`lname`); the data keep the printed string.
+- **Method example of second profiles**: "B.o.B and Bob" (a pairing found wrong and removed) replaced by confirmed
+  pairs: 2Pac and Makaveli, Ye and Kanye West, Miyagi & Andy Panda and MiyaGi & Endspiel (also a code comment in
+  `src/insights.py`).
+
+## 2026-10-26 Data quality: merged MusicBrainz IDs, recent releases from Deezer, second profiles checked, review queues
+
+- **Merged MusicBrainz IDs:** 17 registry rows (16 IDs; Drake, Pusha T, Booba, KRS-One, Tinie Tempah...) carried an
+  ID MusicBrainz has merged into another; Wikidata, where the registry reads it, still holds the old one. All 16
+  redirects in `data/musicbrainz_redirects.json` were checked at the MusicBrainz API (each old ID answers with the
+  new `id`; 16 of 16 agree) and the registry, `data/musicbrainz.csv` and the YouTube-channel cache now use the
+  current IDs. In future: `musicbrainz.fetch` stores the ID MusicBrainz answers with and records old -> current in the
+  same redirect file the ListenBrainz step fills; `run.registry` follows it (`musicbrainz.current_id`). An ID
+  MusicBrainz no longer knows ("") is kept as it is, not blanked. Rejected: asking MusicBrainz for all 3,800 IDs at
+  every registry run (an hour at 1 request/s for 16 hits).
+- **Recent release for unsigned prospects** (`labels.deezer_dated_songs`, `independent_kind(deezer_dated=)`): a lead
+  song on the artist's latest kworb page that has no date yet takes the date of a Deezer lead release of the same
+  title, on the artist's confirmed Deezer page. Not counted: Deezer record type "compile"; titles marking a reissue,
+  compilation, live or alternate version (remaster, deluxe, edition, anniversary, greatest hits, live, remix, sped
+  up, instrumental...); a song whose ISRC is older than the year before the release (an old recording put out
+  again); a Deezer title with no lead song of that name on Spotify. The last rule is the one that matters for
+  Makaveli: his "2026 Deezer entries" are not reissues but another artist of the same name (a Deezer page with 30
+  fans and two Portuguese singles, Storm and Tanto Faz), and none of its titles is a Makaveli song on Spotify.
+  Jrldm, Cupidon, N.I.N.A and Slipmami now have recent songs of their own (2025-26 singles such as SHAGANSSS,
+  Introvert, No Campo, GODZILLA). NADAMAL stays "no recent release": his 2025 Deezer EP (Jam #2) is not on his
+  Spotify page as lead, and his 2026 songs on Spotify (Só Lazer, FDR, 2TELEFONE) list him as a guest. Rejected: the
+  whole Deezer release list (it would date Makaveli by a stranger's singles), and label names as the reissue test
+  (an estate's label and a new label look alike).
+- **Second Spotify profiles checked at the source** (`registry/profile_pairs.csv`, new; verdict, evidence with URL;
+  the build copies them into `review/second_profiles.csv` as `confirmed`/`evidence`):
+  - Confirmed: Ye / Kanye West (one MusicBrainz artist links both Spotify IDs), Makaveli / 2Pac (MusicBrainz:
+    Makaveli "is person" Tupac Shakur), Macklemore & Ryan Lewis (same name and the same songs on both profiles), and
+    **Miyagi & Andy Panda / MiyaGi & Endspiel**: one duo, Endspiel (Эндшпиль, Soslan Burnatsev) now records as Andy
+    Panda. MusicBrainz has one group, "Miyagi & Эндшпиль", with the alias "Miyagi & Andy Panda", both Spotify links
+    and both members; the Wikidata item Q52686724 lists both Spotify IDs. It also explains their MusicBrainz ID:
+    the Andy Panda entry was merged into the duo's.
+  - **Removed: Bob / B.o.B.** The pairing rested only on a Deezer name match ("Bob" normalises to "bob", like B.o.B).
+    Spotify's "Bob" profile is Bollywood songs (Bhool Bhulaiyaa 2 Title Track, Make Some Noise For The Desi Boyz)
+    and Harlem Shuffle; MusicBrainz links it to a German band; Wikidata's B.o.B lists only his own profile.
+    `second_profiles` never joins a pair marked "different". Left for the owner: Bob's Deezer ID in the registry is
+    still B.o.B's (name match), which is where its Deezer genre share came from; its genre is the owner's Review-desk
+    decision, so it was not changed. The Method text in app.js still names "B.o.B and Bob" as an example (not edited
+    here: app.js belongs to another agent tonight).
+- **Featured guests are not prospects** (coordinator, after the 22:32 build): with the Deezer dates, Danny Chung (100%
+  of streams as a guest) and SRNO (97%) read as prospects with no reason given. `independent_kind(feat=)`: 90%+ of
+  streams as a featured guest is "inactive", reason "mostly a featured guest on others' songs" (the same 90% line
+  as the picks, `insights.PICK_MAX_FEAT`). `site_build` now works out `feat` before the test.
+- **Label queue** (`review/label_review.csv`, 351 artists): every artist's 2 newest lead releases were read at the
+  source: Deezer's album record gives the UPC, Apple's iTunes lookup by UPC gives the ℗ line (551 releases, one
+  request every 3.2 s). Only a ℗ line naming a licensee or distributor our table places, or a Wikipedia/Wikidata
+  page stating the owner, was used. 18 rows in `registry/label_owners.csv`, each with its URL and the ℗ line
+  ("research 2026-10-26"): Chapter ONE (Universal Music Germany; places RAF Camora, Pajel, Kolja Goldstein, Juju,
+  KALIM releases), WM Germany (Warner; Banger Musik, Zuna), XY Records (Vertigo Berlin, UMG), EHXIS (Altafonte,
+  Sony), CLBN (Aminé, 10K Projects, WMG), AGM Ent. (WEA Latina), Ruffhouse (Columbia back catalogue), Beastie Boys
+  JV (Capitol), Black Pearl Music and Deadline (Believe), ONErpm (independent, as Rich Vagos), Amuseio (Amuse),
+  Quality No Stress and Wagram (Wagram, French independent), Radicalis and M Music Records (independent
+  licensees), T-Series (Super Cassettes Industries, owned by Bhushan Kumar). 4 artist rows in
+  `registry/label_overrides.csv`: Saint Levant (Virgin Music Group), Alligatoah (Groove Attack), Zaho (Sony Music
+  France distribution on her releases; Suther Kane itself not placed, as Hornet La Frappe's and TK's ℗ lines name
+  no distributor) and Slipmami (UnitedMasters: confirms self-released). Key Glock already had one.
+  - Short of the 50-100 asked: in 551 ℗ lines, about 9 in 10 repeat the label or the artist's own name with no
+    distributor (G-Unit, SODMG, Brick Squad Monopoly, Bairro 13, HHR...), which the label rules (batch 3-7) leave
+    unknown; Wikidata has a record-label item with an owner for 3 of the first 163 unknown strings (one, G-Unit's
+    "parent: Universal", is out of date). Left out though a distributor is named: Ditto, Liso, EngineEars, Disetti,
+    Cornelis, Trappin' (owner not documented).
+- **Genre queue** (`review/genre_review.csv`, 735 hip-hop items): 623 are there only because Deezer matched them by
+  name, with no Wikidata entry. The confirm-country test (2 of the artist's 5 biggest lead songs on kworb among the
+  Deezer artist's 50 top tracks; kworb pages fetched for 425) confirms 382 of them. By the registry's own rule
+  (`genre.decide` with the identity confirmed) 306 are hip-hop and 76 stay in review. **Not applied:** it is a policy
+  change the owner has not made for hip-hop (2026-10-24 he left these in review, "identity not confirmed; most are
+  producers"), and 194 of the 306 would enter the top 1,000, replacing a fifth of the list, 108 with no label read
+  yet. The evidence is in `review/genre_identity_confirmed.csv` (songs checked, Deezer link, suggested genre, enters
+  the top 1,000) for one chat decision. Rejected: applying it overnight; applying only the artists outside the top
+  1,000 (the list's edge moves daily, so it would still change who is listed).
+
+## 2026-10-26 Product ideas 4–7 (ROADMAP 11.1–11.4): deal comparison, label one-pager, saved screens, catalog age
+
+- **Deal comparison and advance recoupment** (`app.js dealPanel`, `bindDeal`, `recoupMonths`, `paidBy`; on
+  `#/worth/<id>` and for a typed audience): the same recording royalties through each deal type in
+  `store.data.deals` (DIY, label services, independent, major; "unknown" left out), the artist's share per year, when
+  an advance is paid back, cumulative cash to the artist by years 1–5 and what is still owed after 5. Cash by a year =
+  the larger of the advance and the share earned (an unrecouped advance is not repaid). Mid in the cells, low×low and
+  high×high ranges under them; recoupment from the high case (fastest) to the low case (slowest). Chosen: one
+  advance input (default about 18 months of the artist's share on a major deal, rounded) and a "streams over five
+  years" choice (−30% to +30% a year, default today's pace, labelled as the user's assumption). DIY is shown with no
+  advance (distributors rarely pay one). Songwriting is left out (usually not recoupable under a record deal).
+  Rejected: a sourced decay curve per artist (no sourced decay rate; the catalog-age panel covers decay through
+  multiples), modelling recoupable recording/marketing costs and cross-collateralisation (deal-specific; named as
+  "not modelled"). Labelled illustrative, before costs, grade C, "not a statement about any artist's contract".
+- **Label one-pager and roster CSV** (`app.js labelSheet`, `labelCsv`, `labelRoster`; route `#/label/<slug>/sheet`;
+  links "One-pager (print / PDF)" and "Roster CSV" on each label page): roster size, summed listeners and share,
+  streaming royalties and recordings + songs value as ranges, roster streams by song age (weighted by each artist's
+  royalties), Scout tiers, biggest 10 artists, and the label's (or its owner's) published accounts, with a sources and
+  grades footer and the data date. `src/insights.py labels_index` now adds `roy_low/roy_high` (streaming lines'
+  generated low/high) and `value_low/value_mid/value_high` (artists' `worth_range`/`worth_mid`), second profiles left
+  out of the sums as before; test `test_labels_index_sums_royalty_and_value_ranges`. The CSV has readable statuses,
+  the tventy page, value ranges, multiples, age shares, a source column, the grade, the data date and a note.
+  Rejected: printing the full roster (the CSV carries it; the page stays near two A4 pages, longer when the owner has
+  long published accounts such as UMG).
+- **Saved screens** (`app.js SCREENS`, `readScreen`, `syncScreen`, `linkBtn`): Scout, the catalog screener and
+  Unsigned write their filters, sort and "show all" into the address (`#/scout?tier=all&band=1.5-3m`) with
+  `history.replaceState` (no redraw); `route()` reads them back before drawing. Only values that differ from the
+  defaults are written; a hand-edited unknown value falls back to the default (the screener would otherwise fail on
+  an unknown age or owner key). "Copy link to this view" on Scout and the screener. Unsigned has no filters beyond
+  "show all", so it has no copy button. A link with the "★ My watchlist" tier shows the recipient's own watchlist
+  (browser-only by design, no accounts).
+- **Catalog age explorer** (`app.js agePanel`, artist page under the revenue table): share of the artist's dated lead
+  streams on songs under 3, 3–10 and 10+ years old, each band's sourced multiple with grade and source, the dated
+  coverage, the blended multiple written out as the weighted sum, and the recordings value range it gives.
+  `age_profile` moved into `ALSO_SHARD` (`src/site_build.py`) so the artist page has it before extra.json loads (it
+  stays in LATER for the screener); `worth` was already in the shard. Notes the known limit: a reissue date makes a
+  catalog look newer. Rejected for now: per-song rows by release year (per-song dates and streams are in `data/` but
+  not in the site data; it would add size to every shard: a follow-up if investors ask).
+
+## 2026-10-25 Review 5 fixes: country links, one figure per measure, client wording (items 3, 11, 12, 15 and the SHOULD/NICE list)
+
+- **Country artist pages** (`app.js artist()`): Share text says "#n in country", the shared URL and the Download card
+  point at `/music/country/a/<slug>/` and `country/cards/<slug>.png` (new `GDIR()` helper; the State citation uses it
+  too). Static pages, sitemap and og:image already used the country paths. The footer now gets `prefixLinks`, so its
+  links keep `#/country/` in a new tab.
+- **Worth on other deals** is shown only when the artist has a listener count or a stream figure (the Worth page
+  values nothing without one; before, it opened the default 1m-listener result).
+- **Country "Our ranking"**: below-floor rows are numbered on from the last ranked place, and the Deezer-order block
+  under the table follows on from the table's last place, so an artist not yet ranked leaves no gap. Rejected:
+  giving unranked artists a place (they have no current-listeners figure).
+- **One top-100 Spotify figure**: State summed `money.generated` (monthly, rounded) x 12; Platforms summed the yearly
+  Spotify line, which the build rounded to 3 significant figures per artist. Both now add the same yearly line, kept
+  to the dollar in index data (`src/site_build.py`, `src/state.py`). **Label owner known**: one definition, as Labels
+  and State: an artist with a release in the last two years whose label is placed with its owner, or self-released;
+  catalog acts and those not yet classified are not counted (`labelKnown` in app.js; Method and Quality said 75% by
+  counting catalog acts as known, now 66% with the definition written next to it).
+- **Platforms**: the streams column is lead-artist streams a day (daily x (1 - feature share)), what the royalty
+  columns are paid on; the note says features are left out. **Compare**: "Artist keeps" says "incl. touring" or
+  "streaming only" per artist. **Search**: labels of both genres (the other genre's marked and linking there) and label
+  owners ("universal" finds Universal Music Group), which open the Labels directory filtered to that owner
+  (`#/labels/owner/<name>`, new). Rejected: a separate group page (the directory filter already is one).
+- **Client wording**: docs paths and "Instagram API (Phase 2)" out of `registry/platforms.csv`; "owner's review list"
+  now "an editor's check"; "(YE2025 window)" and "Midyear 2026 window" removed from tour names in
+  `registry/tours.csv` (the rows' notes keep the Billboard window; the page already says "gross for shows to Sep
+  2025"); country Labels tile "in hip-hop" (not swapped to "country"); Audience: 2024's 1.7-point fall stated as such,
+  with the 2024 Luminate source; "Turkey" everywhere (the English Wikidata label the artists' home countries come from; `registry/countries.csv` had
+  "Türkiye"); Movers says "past month" and the real span (up to 34 days) instead of "30 days".
+- **Pay**: the major-label 15–30% range is graded B, and its note says the CMA covers the average only, the 30% top end
+  is press-reported and the 15% low end is our assumption (`registry/deal_shares.csv`).
+- **Tours**: a tour whose end is known only as a year shows the months its gross covers (`tourSpan()`, from the
+  Billboard cut-off), so every row reads month to month; the artist page's tour list uses the same.
+- **Spotify list size**: the country build counted its below-floor rows into `universe` (25,575); now both genres
+  show the size of Spotify's public list (25,219 on the same day).
+
+## 2026-10-25 Review 5: prospects, second Spotify profiles, Scout zeros and tiers, status words (items 4-10, 13, 14)
+
+- **Who is a prospect** (`labels.independent_kind`): 10m+ monthly listeners is now established evidence ("10m+
+  monthly listeners": BigXthaPlug, Morad, Shubh, Veigh). Of the rest, a prospect also needs current listeners above
+  0 and a song of their own (lead) released in the last 2 years (kworb's dated songs, the earlier of the Deezer and
+  MusicBrainz dates); otherwise `indie_kind` is "inactive", with the reasons (Knust, Baviera: catalog only; Danny
+  Chung: no song of his own). Below the 500k floor the current audience is read from daily streams × current share.
+  The site shows "Self-released, catalog only" or "Self-released, no recent release", and "catalog only" for a 0
+  current-listener figure (Unsigned page, label rosters, one-pager); the Unsigned page lists them apart, with the
+  reasons. Rejected: Deezer's release list as the recent-release test: it lists reissues (Makaveli has 2026 entries).
+- **Second Spotify profiles** (`site_build.second_profiles`): list members sharing a Wikidata item, a confirmed
+  Deezer artist or a name are one artist; the biggest profile is the main one. The smaller is named "(second Spotify
+  profile)" (page address unchanged), takes the main profile's label fields, deal type (so its money too), indie kind
+  and level, and is left out of the Unsigned benchmark, the picks, `insights.market` (shares, catalog count),
+  label totals (still listed on the roster), This month's shares, State's and the start page's summed listeners;
+  the artist page and Method say so. Pairs are written to `review/second_profiles.csv` for the owner (both genres).
+  Unconfirmed Deezer matches are not used. Rejected: merging the profiles (two real Spotify pages, two figures).
+- **Picks** (start page "Top unsigned prospect", State, Scout "Unsigned and rising", This month, the "Unsigned and
+  rising" badge): prospects with under 90% of their streams as a featured guest (`insights.is_pick`; SRNO 97%).
+- **Scout**: a signal measured as absent (no chart country, no song out in 90 days, not on US radio) scores 0, not
+  the mid-rank of the zeros (it gave 29-50/100). A tier needs 60%+ of the factor weight measured; below that the
+  score shows as "provisional" with no tier (`scout.weight`, `scout.provisional`). The back-test was not re-run: it
+  uses only listener growth and Wikipedia attention (`src/backtest.py`), which neither change touches.
+- **Status words**: one helper in app.js (`statusWord`): "Unsigned prospect", "Independent (established)",
+  "Self-released, catalog only / no recent release", else the label status; used in the top list, artist page
+  Label status, Compare, the one-pager and both CSV exports. Rejected: "Self-released" for all three (the review
+  found "Unsigned" and "Self-released" for the same artist on two pages).
+- **Mostly-featured artists** (90%+ of streams as a guest) get a small "mostly as a featured guest" note under the
+  name in the top list; the ranking method is unchanged (owner's choice: mark, don't reweight).
+- **Below the floor** the missing current-listener reason reads "no listener count below 500k on Spotify" (it said
+  "release dates missing").
+
+## 2026-10-25 Site engineering: speed, accessibility, SEO, robustness (task: "engineering quality of the music site")
+
+- **Measured** with Playwright + CDP (Chromium, 390px phone, Lighthouse "slow 4G": 150 ms RTT, 1.6 Mbps, 4x CPU),
+  served with brotli as Cloudflare does. Biggest costs: `data/index.json` (~300 KB after brotli) before any list
+  shows; the country start page also downloading the hip-hop index (the preload in index.html ignored the route);
+  the Top 1,000 table (1.7 s of layout on the phone profile); 205 photos over 40 KB (up to 390 KB for a 250 px image,
+  some PNGs named .jpg); seven flag SVGs of 35-184 KB shown at 16x12 px. Before → after (median of 2-3 runs; "list"
+  = the page's table or artist card in place; KB transferred after brotli):
+  `#/` list 2.90 → 2.21 s, 536 → 511 KB · `#/country/` 3.60 → 1.88 s, 601 → 303 KB · artist page 3.67 → 2.68 s ·
+  `#/scout` 3.36 → 3.60 s (slightly slower: it now parses a larger extra.json before drawing; bytes 501 → 476 KB) ·
+  `#/worth` 3.52 → 3.08 s, 646 → 520 KB · static `a/drake/` 3.88 → 2.73 s. First paint unchanged (~0.6 s; 0.5 s on
+  static pages). `index.json` 1.77 MB → 0.88 MB (300 → 155 KB brotli); country 1.11 → 0.60 MB. Top 1,000 click to
+  paint 1.75 → 0.48 s.
+- **Index split** (`src/site_build.py`): artist fields that only the pages waiting for extra.json read (Scout, Money,
+  Labels, Compare, Screener, Method...) moved to `extra.json` as `artist_more`, merged back into the artist rows by
+  app.js when it arrives (`LATER`); those the artist page also shows are copied into its shard (`ALSO_SHARD`). The
+  start page gets a precomputed `reach` (chart countries) instead of the per-country chart lists. `artist_more` is by
+  column in the index's order (a third smaller than keyed by artist id); per-platform royalty mids other than Spotify
+  are rounded to 3 significant figures, as shown. extra.json is started alongside the index on pages that need it
+  (and preloaded by index.html and static label pages), and only after drawing on the start and artist pages. Every use in app.js
+  was grepped and mapped to its page before moving (re-checked just before the rebuild, as other sessions were adding
+  pages). Rejected: dropping the fields no page read (age_profile, coverage, latest_release): new pages started
+  reading them during this session, so they moved to `LATER` instead; one file per artist instead of 32 shards (more
+  requests, little gain).
+- **Top 1,000**: the first 200 rows render, a button shows the rest (sorting and the filter still use the full list).
+  Rejected: content-visibility (does not apply to table rows) and drip-feeding rows (the table re-lays out each time).
+- **Photos**: re-encoded in place when over 40 KB and at least a fifth smaller (JPEG q82; WebP with alpha when truly
+  transparent): 43 MB to 26 MB; `src/photos.py optimise()` now runs on each new download. Commons licences allow it.
+  The big artist photo loads eagerly at high priority; all photos carry width/height.
+- **Flags**: svgo saved under 3%, so the seven largest (rs, mx, es, me, do, hr, gt) are now a 96x72 PNG inside an SVG
+  of the same name (6x the display size; identical at 16x12): 557 KB to 23 KB. Other flags unchanged.
+- **Caching**: `site/_headers` keeps fonts a week and flags, logos, photos a day in the browser; data, app.js and
+  pages keep Pages' re-check on every visit (they change with each build).
+- **Accessibility** (axe-core 4.10 on 13 routes at 1280 and 390): search box is now a combobox (aria-expanded was
+  invalid on a search box); wide tables that scroll get focus and a name; empty table headings got hidden text;
+  sortable headings take Tab and Enter/Space with focus kept; skip link; colour contrast passed. After: no violations.
+  Static artist and label pages carry the breadcrumb the app draws, and the footer waits for the artist page, so the
+  page does not jump on load (with the faster index the footer showed before the artist page and then jumped: layout
+  shift 0.76 mid-change, 0.03 after this fix; 0 at the start).
+- **SEO**: artist JSON-LD adds Wikidata/YouTube/Instagram/TikTok/X profiles we looked up, the Commons photo with
+  credit and licence, the Wikipedia summary; label JSON-LD adds the Commons logo and its Wikidata item; labels are
+  og:type website; static pages preload their data; sitemap has lastmod; `/country/` is now a real page (it was in
+  the sitemap but had no file); `site/404.html` so Cloudflare Pages answers unknown addresses with a 404 instead of
+  the start page with a 200. index.html: canonical and og:url.
+- **Robustness**: a failed or broken data file shows "The data did not load" with a retry (it showed a raw JSON
+  parse error, or nothing on in-site navigation); a failed extra.json is retried on the next page; unknown routes show
+  "Page not found" (they showed the start page); an artist id from the other genre opens there; "Loading…" while a
+  page waits for extra.json.
+
+## 2026-10-26 New data sources: ListenBrainz built, MLC publishers built behind a login (task: "deep research on NEW data sources")
+
+- **Research:** `docs/research/2026-10-26-new-data-sources.md`, about 25 candidates with terms quoted and live calls
+  on ten of our artists, ranked.
+- **Built: ListenBrainz** (`src/collectors/listenbrainz.py`, monthly step `listenbrainz`, both genres' top 1,000).
+  - What it gives: listeners and plays per artist, for last month and all time, from ListenBrainz's open scrobble
+    panel. Looked up by the registry's MusicBrainz ID, never by name.
+  - Terms: CC0, commercial use allowed; one call a second.
+  - Merged MusicBrainz IDs are followed to the current ID. The registry's Drake ID is one of them.
+  - Top-listener user names are removed before a response is archived (personal data). Only totals are kept.
+  - HTTP 204 means ListenBrainz has computed no listener stats for that artist (will.i.am gets 204 even for all
+    time). It is stored blank, never as zero.
+  - **Coverage (run 2026-10-25):** 944 of 1,000 hip-hop and 704 of 757 country artists have last month's
+    listeners, including 316 of the 359 country artists below the 500k floor.
+  - **Fit with Spotify monthly listeners (log scale):** r 0.58 for hip-hop and 0.76 for country across all artists.
+    Among artists of similar size it is weak: Spearman 0.14 to 0.23, against Deezer's 0.30 on the same country
+    sample.
+  - **So it does not reorder the floor list and is not shown.** The data is kept for the Scout back-test, to see
+    whether month-on-month change finds risers (from January 2027).
+  - The panel is small (Drake: 3,497 listeners in September 2026), so the raw counts are never an audience size.
+- **Built, not run: The MLC** (`src/collectors/mlc.py`, monthly step `mlc`).
+  - What it gives: the publishers, their shares, administrators and parent publishers of each artist's 3 biggest
+    songs, by ISRC.
+  - Terms: "You may use the data in the Database for any lawful purpose".
+  - Needs a free MLC Data Access Hub account, as the GitHub secrets `MLC_USERNAME` and `MLC_PASSWORD`. Without them
+    the step logs "skipped".
+  - The parser follows the published OpenAPI schema. It has not been checked against a live response; check it at
+    the first run.
+- **Workflow:** both steps are added to `monthly.yml`. The MLC step reads the two secrets.
+- **Not built (owner):**
+  - setlist.fm (free key, non-commercial, short caching only).
+  - Ticketmaster Discovery (free key, no revenue from the API).
+  - Last.fm (key plus Last.fm's written approval for public pages).
+  - Audiomack (key issuance unclear).
+  - Google Trends (alpha by application).
+- **Rejected on terms or cost:**
+  - Spotify city and viral charts (login).
+  - YouTube Charts (robots.txt and ToS).
+  - TikTok Creative Center (ToS 3.4).
+  - Billboard (pay-per-crawl, HTTP 402).
+  - ASCAP/BMI Songview (no API, terms unreadable to automated fetch; the MLC covers the same ground).
+  - Apple Music API city charts ($99 a year).
+  - Bandsintown and Songkick (as before).
+- **Not wired into the site:** `src/site_build.py` and `site/app.js` are being edited by others. The research note
+  says exactly what to show and where.
+
+## 2026-10-25 YouTube Data API set up (owner: "Yes set up the YouTube data api")
+
+- **What it gives:** for each artist's own YouTube channel, subscribers, total views and views a day. It covers 680
+  of the 1,000 hip-hop artists with a known channel; kworb.net covers 255.
+  - Channel IDs come from Wikidata, else the one youtube.com/channel/ link on the artist's MusicBrainz page (two or
+    more: none taken).
+  - Views a day: the change in channel views between today's reading and one 7–30 days old.
+- **Where it shows:**
+  - The artist page's YouTube tile, with source, method and window.
+  - Compare, and Data coverage on Method.
+  - The YouTube money line where kworb has no page: own-channel views × the YouTube rate (C). Fan uploads and other
+    channels are not counted, so it understates.
+- **Terms (YouTube API Services Developer Policies):** statistics are kept for 30 days at most and never as a history.
+  - So `data/youtube_channels.csv` holds only the latest reading plus one earlier base per channel, and anything over
+    30 days is dropped (`youtube_api.daily_rate`).
+  - The file is not committed: this repository is public and git would keep every version, which would be a
+    history. It lives in a GitHub Actions cache that the daily job writes and the site build reads.
+- **Runs daily** in daily.yml (about 40 quota units a day of the free 10,000). The monthly step was moved there.
+- **Needs from the owner:** a YouTube Data API v3 key added as the repository secret `YOUTUBE_API_KEY`. Without it the
+  step is skipped with a log line, and the site shows kworb figures only. Views a day appear after a week of daily
+  readings.
+- **Rejected:** keeping a longer history for growth trends. It would need YouTube's audited-analytics approval
+  (III.L).
+
+## 2026-10-26 Product pass: 24 ideas, three built (task: "product development for the music site", overnight)
+
+- **Ideas:** `docs/product/2026-10-26-ideas.md`: 24 ideas, each with its user, job, data, effort, value and risks,
+  ranked, with notes on what is free and what a label or investor would pay for. The rest are in ROADMAP Phase 11 as
+  "idea".
+- **Chosen to build:** the three top-ranked ones that are small or medium, use data we already hold, and need no
+  accounts and no money: a catalog screener, an artist one-pager and a data-quality page. One entry each below.
+- **Rejected for now:**
+  - "What changed this week": the daily log starts 2026-10-23, so a week has 3 days of data, and Movers already
+    covers 30 days.
+  - Watchlist digest: needs a week of log. The email version needs accounts (ROADMAP 10.5, a hard stop).
+  - Embed widget: it widens the reach of Spotify-derived numbers before the licence gate (2.1). Owner's call.
+
+## 2026-10-26 Catalog screener (`#/screener`, Money)
+
+- **For:** investors and catalog buyers ("catalogs worth $X–Y, mostly evergreen, not with a major; export").
+- **Shows:** the top 1,000 as catalogs.
+  - Recordings + songs value: the mid, with the range under it.
+  - The artist's multiple, and the age mix of the streams as a bar (new / 3–10 years / 10+ years).
+  - Streaming royalties a year, what the artist keeps a year (range), monthly listeners and latest release.
+  - Tiles for the selection: count, combined value with its range, median multiple, how many are mostly evergreen,
+    how many are not with a major.
+- **Filters:** value band, age mix (50%+ in a band), owner (incl. "not with a major"), royalties floor, country.
+  Columns sort, with blanks last.
+- **CSV:** every figure as low / mid / high, the multiple and its basis, the age shares and the dated share, then
+  grade "C (estimate)", the data date and "indicative estimate, not a valuation".
+- **Data:** everything was already in `index.json` except the value's low and high ends.
+  - `src/site_build.py` now writes `worth_range` = recordings + publishing, low and high (two numbers per artist).
+- **On the page:** a "How this works" panel with the multiples' sources and grades. It also says the owner shown is
+  who releases the music now, not necessarily who owns older masters.
+- **Rejected:**
+  - Filtering on the multiple itself: the age mix is the input investors reason with.
+  - A single "value" without the range: the house rule is that estimates are ranges.
+
+## 2026-10-26 Artist one-pager (`#/sheet/<id>`, linked from every artist page)
+
+- **For:** A&R and investors who attach a summary to a memo or signing note.
+- **Shows:** one A4 page, in six blocks. Every row names its source and method, and money blocks carry grade C.
+  - Audience;
+  - label and deal;
+  - earnings a year (streaming summed, other lines as on the artist page, artist keeps total);
+  - catalog value (recordings, songs, both, multiple and age mix);
+  - Scout factors with weights;
+  - recognition.
+  - At the foot: sources and grades, the data date and the page's address, so a printout keeps its caveats.
+- **How:** "Print or save as PDF" uses the browser's print dialog. A new `@media print` block in `styles.css` hides the
+  header, menus, buttons, player and "How this ranking works" on any page. Two columns on paper and on wide screens,
+  one on phones.
+- **Rejected:**
+  - Generating PDFs in the build: 1,754 files, and the print dialog does the same for free.
+  - Print styles on the full artist page alone: it runs to 4+ pages.
+
+## 2026-10-26 Data quality and corrections page (`#/quality`, footer)
+
+- **For:** everyone who has to trust a number (investors' diligence, press), and the ROADMAP's "honesty features as a
+  selling point".
+- **Shows:**
+  - Coverage of eight main fields (count and share), plus the existing coverage table.
+  - Open review queues per file: rows, and how many are still open after owner overrides.
+  - First and latest date in each source file, with "late" when older than the source's usual cadence.
+  - A corrections log.
+  - The ranking method's versions.
+- **New:**
+  - `src/quality.py` (`queues`, `latest`, `sources`, `corrections`, `method_versions`, `summary`), written to
+    `extra.json` as `quality` by `src/site_build.py`. Tests: `tests/test_quality.py`.
+  - `registry/corrections.csv`: 17 corrections, each taken from an entry in this log (2026-10-25). Columns: date,
+    genre, kind (data / method), subject, field, was, now, basis, source.
+- **Rule from now on:** a correction to a published figure or classification, or a change to a money or Scout method,
+  gets a row in `registry/corrections.csv` along with its entry here.
+- **Rejected:** file modification times as "last updated": a fresh checkout resets them. The dates inside the files
+  are used instead.
+
+## 2026-10-25 YouTube: matching kworb pages by identifiers (task: "more artists with measured YouTube views")
+
+- **Why most artists had no YouTube figure (top 1,000 hip-hop, 757 country):**
+  - kworb has no YouTube page for them. Its archive lists 1,732 artists worldwide. All 1,732 pages were read once:
+    1,559 link back to a Spotify ID, but only 253 of those are hip-hop and 31 country registry artists. A sample of
+    missing hip-hop artists (A$AP Ferg, Sexyy Red, Vince Staples) returned 404 under their names too.
+  - Pages that exist but have no link back to Spotify were never taken: 9 hip-hop artists.
+  - Wikidata channel IDs were not used for matching (392 missing hip-hop and 202 missing country artists have one).
+  - The archive was decoded as Latin-1 (no charset header), so accented names never matched (Maître Gims, L'Algérino).
+- **Chosen:**
+  - `data/kworb_youtube_index.csv`: every archive page with the Spotify ID it links back to. Each page is read once
+    and kept in `raw/kworb/youtube/pages/`; only new archive entries are read on later runs.
+  - Match on the artist's own channel. The channel ID comes from Wikidata P2397, else MusicBrainz url relations
+    (`data/musicbrainz_youtube.csv`, `youtube.com/channel/` links only). The channel's public feed gives its latest
+    uploads (kept in `raw/youtube/feeds/`). A match needs exactly one kworb page that lists one of those videos as
+    the artist's own (not a feature) and links to no other Spotify ID.
+  - Take a page with no link back when kworb's own page for the Spotify ID links to it.
+  - The `match` column in `data/youtube.csv` records how each row was matched (`backlink`, `kworb_spotify_link`,
+    `channel <ID> video <ID>`). Earlier rows are `backlink`.
+  - Conflicts and name-only candidates go to `review/youtube_review.csv`, never into the data.
+- **Result:** hip-hop 242 -> 255. 7 by channel (mgk, Fugees, Hungria Hip Hop, Maître Gims, Chris Jeday, Bad Meets
+  Evil, JayDaYoungan), 3 by kworb's link, 3 by backlink. Country stays at 31: kworb has no page for the other 726.
+  Six review rows: B.o.B, Macklemore, Macklemore & Ryan Lewis, Quavo (Migos page), and Ye (Kanye West page).
+- **Rejected:**
+  - Name matches without an identifier.
+  - Filling `youtube_channel` in the registry from MusicBrainz. The registry column stays Wikidata P2397.
+  - kworb video pages: they exist only for artists kworb tracks.
+- **Left open:** the 745 hip-hop and 726 country artists still without a figure are not on kworb. 473 hip-hop and
+  314 country have a channel ID. The YouTube Data API (key in Actions) gives their channel views and subscribers,
+  but daily views need two snapshots, and keeping them is limited by the API's terms (no history without III.L).
+  This is an owner decision.
+
+## 2026-10-25 Country flags in every list (owner: "show the country flag each artist is from in all list formats / rankings")
+
+- **Chosen:** a small flag after the artist's name in every list, ranking, search result, card and on the artist page.
+  The country name shows on hover and is read out by screen readers. Up to two flags when an artist has two citizenships and
+  neither matches the birthplace (Sleepy Hallow: Jamaica and the US).
+- **Flags:** self-hosted SVGs from flag-icons 7.2.3 (MIT; licence in `site/flags/LICENSE`), 109 countries, 1.1 MB in
+  all, loaded lazily. Emoji flags were rejected because Windows shows them as two letters.
+- **Source:** the registry's country (Wikidata citizenship; with several, the one matching the birthplace). Names map
+  to ISO codes in `src/countries.py`. Artists without a country on Wikidata get no flag, never a guess.
+- **Fixed in the data:** two citizenships entered on Wikidata as places. "Karachi" becomes Pakistan (Talha Anjum).
+  "Cina", an Indonesian subdistrict entered for Simba La Rue (an Italian rapper born in Tunis), is dropped rather
+  than guessed.
+
+## 2026-10-25 Money, artist, Scout and labels pages: the rest of the client review
+
+Three parallel passes, one per section, on the reviewers' remaining findings.
+
+- **Money:**
+  - Sale-value tiles lead with the mid and name their base: recordings, songs, and recordings + songs. The last one
+    ties to the tables (Drake $1.94bn on both).
+  - The Pay page draws the same deal table, grades and sources as the calculator and artist pages. The joint-venture
+    row is shown as a note, not a percentage.
+  - The tours waterfall is defined before agent, manager and tax, as on the artist pages. Tour dates use one format;
+    partial tours and co-headliners are named.
+  - Platforms flags services whose totals are identical because they share a ratio to Spotify, and notes that
+    YouTube is likely understated.
+  - Label financials:
+    - one money format;
+    - outflows in brackets;
+    - stale years flagged;
+    - the latest period is picked by date, not by string sort.
+- **Artist pages:**
+  - Thousands separators in ranks.
+  - YouTube says "not measured" rather than "no data".
+  - Scout band wording.
+  - Shazam places title-cased and the note built from the data.
+  - Stale stream dates flagged.
+  - A "Labels on record" fallback.
+  - Phone layout: ranges on one line, each row's basis visible.
+  - The Worth card says whether "Artist keeps" covers streaming only (no tour reported in 12 months) or streaming and
+    touring.
+- **Scout, unsigned and labels:**
+  - One tier rule everywhere.
+  - Blanks sort last.
+  - "Signed" filter renamed "Any label deal".
+  - The 15m+ band explains why it is empty under a tier filter.
+  - The CSV export uses readable label statuses and names.
+  - Unsigned peers are described as "active" rather than "growing".
+  - Feature-only artists are greyed.
+  - Month and labels shares are among artists whose label is known, as on the tiles. The State page uses the same
+    basis (`src/state.py`).
+  - Producers coverage is stated: 473 of 2,967 songs have a producer credit.
+  - The "How this ranking works" box starts closed on phones.
+- **Left for the owner (model or data changes):**
+  - Valuing catalogues by release year instead of current share.
+  - Re-grading the Spotify rate's high end ($4.40, unverified).
+  - Better YouTube channel matching.
+  - The catalog rule for acts with new hits only as features (Boef, Honaiser, Sidhu Moose Wala).
+
+## 2026-10-25 Catalogue age, the Spotify rate, and the catalog rule (owner: "do all of the following")
+
+- **Catalogue value by release age:**
+  - **Before:** one multiple chosen from the artist's current share of listening.
+  - **Now:** each of the artist's songs as lead is placed in an age band by its release date: new (under 3 years),
+    mixed (3–10) or evergreen (10+). The multiple is the bands' sourced multiples (registry/catalog_multiples.csv),
+    weighted by the songs' streams a day (`current.score` age_profile, `insights.blended`).
+  - **Fallback:** under half the lead streams on dated songs uses the old current-share band (42 of 1,000 hip-hop
+    artists).
+  - **Effect:**
+    - Drake: 28% new, 36% mixed, 36% evergreen gives 7.9–13.8×, was 10–17×. Recordings + songs mid $1.56bn, was $1.94bn.
+    - Eminem: 87% evergreen, 9.6–16.4×.
+    - Don Toliver: 65% new, 6.1–11.3×.
+  - The worth calculator's "auto" uses the same blended multiple and shows the age mix. The band edges (3 and 10
+    years) are our split; the multiples per band stay sourced. Method explains it.
+- **Spotify rate:**
+  - The high end drops from $4.40 to $3.60 per 1,000 streams. $4.40 was a US-only January 2026 blog figure and was
+    not verified.
+  - The middle stays at Duetti's 2024 figure for independent masters, $3.00, graded B; Spotify disputes per-stream
+    figures. The source is now Duetti's own release, which says Amazon $8.80, Apple $6.20, YouTube $4.80, Spotify
+    $3.00 per 1,000.
+  - The $2.50–3.60 band around it is our estimate (C): lower for ad-supported-heavy listening, higher for US-heavy.
+  - Every royalty high end falls about 18%, because the other services are set as ratios to Spotify. Method now reads
+    the rate from the registry instead of hard-coding it.
+- **Catalog rule:**
+  - An artist with no release of their own in two years, but with collaborations or features on others' records in
+    that window, is active. They are "not yet classified", with the reason, not "catalog". Boef and Honaiser: Deezer
+    files all their recent releases as collaborations.
+  - Sidhu Moose Wala's override goes from catalog to self-released (family/estate). Deezer lists posthumous singles
+    on his own label: Kaali Hoodie 2026-10-16, Ghostface Killah 2026-09-21, Barota 2025-11-28.
+
+## 2026-10-25 Who counts as unsigned: prospects and established independents (owner)
+
+- **Owner's note:** "not sure if stem and independent should count as unsigned as it seems they are established
+  artists and wouldn't bring any value to help understand if up and coming artists are unsigned ... need a better
+  solution". An earlier answer that day ("count stem and independent as unsigned") is replaced by this entry.
+- **Chosen:** self-released artists are split in two (`labels.independent_kind`).
+  - **Established independent:** any one piece of evidence is enough.
+    - a record label on Wikidata's career-long list (a label or a major, not a distributor or the artist's own name);
+    - own recordings, as lead artist, registered by a major (ISRC prefix);
+    - 8+ years of releases (Wikidata's "active since", or the earliest dated song as lead).
+  - **Unsigned prospect:** the rest.
+  - Hip-hop: 38 prospects and 101 established (Jeezy, Lil Pump, KYLE, Meek Mill, Russ, D-Block Europe, among
+    others). Each established artist shows the evidence that placed them.
+- **Where it applies:**
+  - Only prospects appear on the Unsigned page (established independents are listed apart, at the end), under
+    Scout's "Unsigned" filter ("Any self-released" keeps them all), and in the "Top unsigned prospect", "Unsigned and
+    worth a look" and "Unsigned and rising" picks.
+  - Market shares still count every self-released artist, because they measure who owns the listening.
+- **Limits:**
+  - Wikidata covers established acts better than new ones, and Deezer dates can be reissue dates.
+  - So a prospect can be an older act with thin records. The evidence is shown so it can be checked.
+  - 8 years is a judgement, set in one place (`labels.ESTABLISHED_YEARS`).
+- **Licensed out (owner: "be clear about the licensed out method in the method tab"):** the licensee decides.
+  - A record label (Atlantic, Ministry of Sound): signed to that label.
+  - A distribution service that leaves the masters with the artist (UnitedMasters, Stem, DistroKid, TuneCore, CD
+    Baby, Amuse, Too Lost): self-released.
+  - ONErpm offers both distribution and label-services deals with advances, so a licence to it is flagged "licensed
+    out", not decided.
+  - Written out on Method, under Labels.
+- **"Label Deal" (owner: "get clarity around the label deal language"):**
+  - Found only on D-Block Europe's 2026 releases on Deezer ("D-Block Europe Label Deal"). It is not a company. No
+    published definition was found, and Apple does not list the 2026 album.
+  - Our reading: the artist's own imprint as set up in a distributor's or partner's system, so a deal sits behind it
+    without the partner being named.
+  - Evidence:
+    - the 2026 recordings carry registrant US-A2P, also seen on Rostrum Records and BIGHIT MUSIC releases, so a
+      third party registered them;
+    - earlier own recordings were registered by Universal (2019);
+    - "Prada" (2023) was released "under exclusive license to Ministry of Sound Recordings" (Apple);
+    - Wikipedia lists D-Block Records, EGA Distro (distributed by Virgin Music Group) and Caroline as their labels.
+  - So they are an established independent with a partner deal, not an unsigned prospect. Stated on Method.
+
+## 2026-10-25 Lists, start page and compare: the rest of the client review
+
+- **Search:** results say "#205 by monthly listeners" (or "by streams" below the floor), not a bare "#205". Label
+  results say "in our list", which fits the 754-artist country list.
+- **Start page:**
+  - The "Right now" riser card names its scope: "1m+ listeners".
+  - "387 of 1,000" has a thousands separator.
+  - The list intro reads "We track the 1,000 biggest hip-hop and rap artists among Spotify's top 25,219" instead of
+    implying exactly 1,000 qualify.
+- **Status words:** "Self-released" everywhere (it was "Unsigned" in one list and "Self-released" in another). An
+  unknown label reads "not yet classified" instead of "–". "Catalog" explains itself on hover.
+- **Scout tier chips:** hovering a tier explains it, so "93 Rising" next to "90 Breaking" makes sense.
+- **Movers, 30 days:**
+  - Says it covers the 260 artists with a month-ago figure, not the whole 1,000.
+  - Each row shows its own window in days.
+  - The "30 days ago" share column is hidden until it has values.
+- **Compare:** the same artist can't be picked twice. On phones the table fits the screen, so the names stay
+  visible.
+- **Two Spotify profiles named "Macklemore & Ryan Lewis":** the smaller one is labelled "(second Spotify profile)".
+  Its page address is unchanged.
+- **Country floor list:** the heading reads "Places 755–1,000: further artists below the 500k line, in Deezer's
+  order".
+
+## 2026-10-25 Review through a client's eyes: numbers that read right (owner: "scrutinize the entire site ... so all is clean and user friendly")
+
+Four reviews read every page as an investment-banking client would. Fixes:
+
+- **Facts:**
+  - **Grammys:** an award won in several years for several works no longer multiplies into every year × work pair.
+    Awards are grouped per Wikidata statement.
+  - **Country of origin:** an artist with several citizenships shows the one matching their birthplace, else all of
+    them. Drake shows Canada, his birthplace; Sleepy Hallow shows "Jamaica / United States". Names are normalised ("Kingdom of the Netherlands" -> "Netherlands").
+  - **Duplicates:** a below-the-floor name matching an artist already listed is left out.
+  - **Deals:** entries that are not the artist's own income (another artist's contract, a lawsuit) move to a
+    "context" list under the artist's deals; legal filings are labelled as such.
+  - **Certifications:** releases from "as featured artist" tables are marked "as featured guest". The US No. 1s
+    tile counts lead releases only, with guest No. 1s noted beside it. 115 entries whose cached page no longer parses
+    the same keep their stored works, without the mark.
+  - **Labels:** HYBE America's Nashville labels (Big Machine / Blue Highway, Valory, Nashville Harbor) are grouped
+    under Universal, their distributor, as every other major-distributed label is. The note keeps HYBE's ownership.
+  - **Owner's genre notes:** internal notes (such as the "hip-hop rule:" ones) are no longer shown to visitors. An
+    owner's decision reads "checked by our editors".
+- **Numbers:**
+  - **Spotify royalties:** under $1,000 a month shows as "<$1k". An artist whose streams are 90%+ as a featured guest
+    is marked "own songs only".
+  - **Zeros and ranges:** a missing estimate shows "–" or "not estimated", never "$0". A range whose ends round to
+    the same figure shows once. Negative money reads "−$5.0m". A share under 1% shows "<1%". Margin changes are in
+    percentage points.
+  - **Pandora:** now counted in the country streaming total, where it is a large line.
+  - **Chart countries:** a country where the artist charts on both Spotify and Apple counts once. This also changes
+    the Scout "chart reach" signal and the "Global" badge (20+ countries), which had counted such countries twice.
+  - **Majors' share:** taken among artists whose label is known, the same basis as the size-band tiles.
+  - **Movers today:** "outside the top 100" means the top 100 by monthly listeners, whatever view the list is in.
+  - **Summed listeners:** described as summed across artists (a fan of two counts twice), not "people counted once".
+- **Wording:**
+  - **Rankings:** "#N by current listeners" replaces "#N in our ranking".
+  - **Catalog acts:** an artist with no current listeners is described as a catalog act, not shown as 0.
+  - **Royalties:** "Spotify royalties / month" and "streaming royalties / year, all services" are named apart. The
+    top-100 column "Artist keeps" says it includes tours.
+  - **Worth calculator:** an artist whose deal is not on record gets "Deal unknown", whose range spans all four
+    deal types, rather than the DIY share.
+  - **Scout tier tiles:** say Breaking needs new songs or Wikipedia attention clearly up, and that Rising is 65+.
+  - **Levels:** an artist under 5m listeners active for 15+ years is "Established", not "Rookie".
+  - **Method page:**
+    - The deal type follows the recent releases' label.
+    - The back-test is described as done.
+    - Archived listener pages are described as used for the back-test and growth only.
+  - **Platform pay rates:** revenue basis strings print the registry's rates, not a hard-coded $1–6.
+  - **Country pages:** the hip-hop listener-survey panel is no longer word-swapped into false country facts. It is
+    hidden on country pages.
+  - **Bertelsmann and Sony notes:** corrected.
+
 ## 2026-10-25 A change to requirements.txt redeploys the site
 
 - **Asked:** "Yes add to package list" (owner). Merging the Pillow fix did not start a deploy, because the site

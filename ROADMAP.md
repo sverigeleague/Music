@@ -224,6 +224,35 @@ Next candidates: Last.fm listeners as a second below-floor measure (needs a key,
   changes), off by default, unsubscribe in one click.
 - Costs: Cloudflare's free tier covers the storage; email needs a sending service (cost to confirm first).
 
+## Phase 11: Product ideas (overnight, 2026-10-26)
+
+From the product pass in `docs/product/2026-10-26-ideas.md` (user, job, data, effort, value and risks for each). Built
+that night: the catalog screener (`#/screener`), the artist one-pager (`#/sheet/<id>`) and the data quality and
+corrections page (`#/quality`); see DECISIONS.md 2026-10-26. The rest, in ranked order:
+
+| # | Idea | For | Effort | Value | Status |
+| --- | --- | --- | --- | --- | --- |
+| 11.1 | Deal comparison and advance recoupment for one artist (months to recoup at today's streams, per deal type) | artists, managers | S-M | 4 | built (2026-10-26: `#/worth/<id>`, "Deal comparison" panel) |
+| 11.2 | Label one-pager and roster export (roster size, listeners, roster value range, age mix) | investors, analysts | S-M | 4 | built (2026-10-26: `#/label/<slug>/sheet`, roster CSV on the label page) |
+| 11.3 | Saved screens in the address (Scout and screener filters in the URL, to send a colleague) | investors, A&R | S | 3 | built (2026-10-26: Scout, screener, Unsigned; "Copy link to this view") |
+| 11.4 | Catalog age explorer per artist (streams by release year, implied decay) | investors | M | 4 | built (2026-10-26: artist page "Catalog age" panel, three age bands; per-song table not yet) |
+| 11.5 | Watchlist digest: what moved for starred artists since the last visit (browser only) | A&R | M | 4 | idea (needs 7+ days of daily log) |
+| 11.6 | Press page with quotable, dated figures and a citation line | press | S | 3 | built (2026-10-26: `#/press`, figures with method, date and a copyable citation line; estimates as ranges) |
+| 11.7 | Method versions and changelog page for money and Scout (ranking versions are on #/quality) | analysts | S | 3 | built (2026-10-26: `#/changelog` from `registry/method_changes.csv`, tied to corrections.csv) |
+| 11.8 | Embeddable artist widget (iframe) with source and date | press, artists | S | 3 | idea (licence question first, 2.1) |
+| 11.9 | "What changed this week" digest from the daily logs (no new claims) | press, A&R | S-M | 3 | idea (needs 7+ days) |
+| 11.10 | Market share over time by label group | analysts, investors | M | 4 | idea (needs months of log) |
+| 11.11 | Country vs hip-hop comparison page | analysts, press | S | 3 | built (2026-10-26: `#/genres`, Artists > Genres compared) |
+| 11.12 | Unsigned prospects export with official public links only (no personal contact data) | A&R | S | 4 | built (2026-10-26: "Download prospects CSV" on Unsigned) |
+| 11.13 | Correction request form as a prefilled email (nothing stored) | artists, managers | S | 3 | built (2026-10-26: "Report a correction" on artist and label pages) |
+| 11.14 | Label financials side by side, periods aligned | investors | S | 3 | built (2026-10-26: Labels, "music results, periods aligned") |
+| 11.15 | Peer benchmark card: percentile among the 10 nearest artists | artists | S | 3 | built (2026-10-26: artist page "Against the 10 nearest artists") |
+| 11.16 | Read-only JSON API with documentation | analysts, funds | S | 3 | idea (redistribution terms, 2.1) |
+| 11.17 | Glossary page from config.js | all | S | 2 | built (2026-10-26: `#/glossary`, GLOSSARY + How-box metrics; footer and How boxes) |
+| 11.18 | Tours league table v2 by size band | investors, managers | S | 2 | built (2026-10-26: Tours, "By the artist's size"; only 15m+ and 6–15m hold tours today) |
+| 11.19 | Scout hit rate published on our own daily log | A&R, investors | M | 4 | idea (January 2027) |
+| 11.20 | Paid tier: weekly CSV and alerts for labels and investors | labels, investors | M | 5 | idea (hard stop: accounts, cost, licence) |
+
 ## My own additions (beyond the brief)
 
 - **Pay-gap explainer:** the same 100m streams under a DIY, distribution, joint-venture and major deal, side by side.

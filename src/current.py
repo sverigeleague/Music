@@ -25,6 +25,7 @@ MIN_COVERAGE = 0.8
 PROVISIONAL_COVERAGE = 0.5  # 50-80% dated: a provisional rank with a range (method 1.2)
 DATE_SHARE, DATE_MAX = 0.90, 300  # songs dated per artist: until 90% of daily streams are covered, at most 300
 REVIVAL_RISE, REVIVAL_SHARE, REVIVAL_GAP_DAYS = 1.5, 0.02, 28
+AGE_BANDS = (3, 10)  # years: new under 3, mixed 3-10, evergreen 10+ (catalog valuation bands)
 FRESH_DAYS = 90  # Scout's release velocity: songs out this many days or fewer (not part of current listeners)
 
 
@@ -84,6 +85,8 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
     total = sum(wd(r) for r in rows)
     dated = cur = fresh = 0.0
     revivals, top_fresh, latest = [], None, None
+    ages: dict[str, float] = {}  # lead songs' daily streams by release age (catalog valuation, owner 2026-10-25)
+    lead_total = sum(r["daily"] for r in rows if not r["feature"])
     before = {r["track_id"]: r["daily"] for r in earlier or []}
     for r in rows:
         d = parse_date(dates.get(r["track_id"], {}).get("first_release", ""))
@@ -98,6 +101,10 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
                              "dz": dates.get(r["track_id"], {}).get("deezer_id") or None}
         if not r["feature"] and d <= today and (not latest or d > latest):
             latest = d
+        if not r["feature"]:
+            y = (today - d).days / 365.25
+            band = "new" if y < AGE_BANDS[0] else "mixed" if y < AGE_BANDS[1] else "evergreen"
+            ages[band] = ages.get(band, 0.0) + r["daily"]
         old = before.get(r["track_id"])
         if (months(d, today) > ZERO_MONTHS and old and r["daily"] >= REVIVAL_RISE * old
                 and total and wd(r) / total >= REVIVAL_SHARE):
@@ -110,4 +117,7 @@ def score(rows: list[dict], dates: dict[str, dict], today: date, earlier: list[d
             # the range the undated songs could move the share: all old (weight 0) to all new (weight 1)
             "share_range": (round(share * coverage, 4), round(share * coverage + 1 - coverage, 4)) if share is not None else None,
             "fresh_daily": round(fresh), "fresh_share": fresh / total if total else 0.0, "top_fresh": top_fresh,
-            "latest_release": latest.isoformat() if latest else None}
+            "latest_release": latest.isoformat() if latest else None,
+            # share of the dated lead streams by release age, and how much of the lead streams carry a date
+            "age_profile": {**{k: round(v / sum(ages.values()), 4) for k, v in ages.items()},
+                            "coverage": round(sum(ages.values()) / lead_total, 4)} if ages and lead_total else None}

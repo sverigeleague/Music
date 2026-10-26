@@ -73,12 +73,6 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' youtube ') }}
         continue-on-error: true
         timeout-minutes: 20
-      - run: python -m src.run ytapi
-        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' ytapi ') }}
-        continue-on-error: true
-        timeout-minutes: 10
-        env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       - run: python -m src.run photos
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' photos ') }}
         continue-on-error: true
@@ -112,6 +106,18 @@ jobs:
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' credits ') }}
         continue-on-error: true
         timeout-minutes: 90
+      - run: python -m src.run listenbrainz
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' listenbrainz ') }}
+        continue-on-error: true
+        timeout-minutes: 60
+      - name: "MLC publishers of the top songs (skipped until the MLC_USERNAME / MLC_PASSWORD secrets exist)"
+        if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' mlc ') }}
+        continue-on-error: true
+        timeout-minutes: 120
+        env:
+          MLC_USERNAME: ${{ secrets.MLC_USERNAME }}
+          MLC_PASSWORD: ${{ secrets.MLC_PASSWORD }}
+        run: python -m src.run mlc && python -m src.run mlc --genre=country
       - run: python -m src.run financials
         if: ${{ !inputs.only || contains(format(' {0} ', inputs.only), ' financials ') }}
         continue-on-error: true

@@ -92,9 +92,9 @@ Current share = 950,000 / 2,000,000 = 47.5%. Current listeners = 20m × 47.5% = 
 ## Change log
 
 - 1.2 (2026-10-24): no weights changed. Artists with 50-80% of their streams dated get a provisional rank with a
-  range, instead of no rank. Owner: "make the current listener ranking robust". The monthly run also dates songs in
+  range, instead of no rank (editor's decision, to make the ranking robust). The monthly run also dates songs in
   a second Deezer pass after MusicBrainz.
 - 1.1 (2026-10-23): no ranking weights changed. Up to 300 songs dated per artist instead of 40, because the cap
   kept large catalogues under the 80% rule (Drake 50%, Kendrick Lamar 64%). Better title matching, and a
   MusicBrainz search for songs Deezer cannot match.
-- 1.0 (2026-10-23): first version. Owner's choices: taper 18 → 36 months, features at half weight, Revival badge.
+- 1.0 (2026-10-23): first version. Editor's decisions: taper 18 → 36 months, features at half weight, Revival badge.

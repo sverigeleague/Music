@@ -5,7 +5,7 @@
   300 of the 1,000) have a month-ago value.
 - New on Scout's list: tier now against the first day of the window in our daily Scout log (data/scout_history.csv),
   shown only once the log covers MIN_LOG days (the score's method changed in its first days).
-- Unsigned prospects: self-released artists with a Breaking or Rising tier, else the best-scored unsigned.
+- Unsigned prospects: prospects (not mostly featured guests) with a Breaking or Rising tier, else the best-scored.
 - Label shares: monthly listeners of the 1,000 by label status, at the window's start (Scout log) and now. Both use
   today's label status, so a share moves only with listening, not with our relabelling.
 Every list says the dates it compares; while the log is younger than 30 days the window is shorter, and the page says
@@ -14,6 +14,7 @@ so.
 import csv
 from datetime import date, timedelta
 
+from . import insights
 from .config import DATA
 
 WINDOW, NEAR, MIN_LOG = 30, 7, 28
@@ -44,14 +45,15 @@ def build(rows: list[dict], history: dict[str, list[tuple[str, int]]], today: st
     tier = lambda r: (r.get("scout") or {}).get("tier")
     new = {k: [r["id"] for r in rows if tier(r) == k and start and first.get(r["id"], {}).get("tier") != k]
            for k in ("Breaking", "Rising")}
-    unsigned = sorted((r for r in rows if r.get("label_status") == "self_released" and r.get("scout")),
-                      key=lambda r: -r["scout"]["score"])
+    # unsigned prospects, not mostly featured guests (insights.is_pick)
+    unsigned = sorted((r for r in rows if insights.is_pick(r) and r.get("scout")), key=lambda r: -r["scout"]["score"])
     prospects = [r["id"] for r in unsigned if tier(r) in ("Breaking", "Rising")] or [r["id"] for r in unsigned[:n]]
     share = lambda pairs: {k: sum(v for s, v in pairs if s == k) / max(1, sum(v for _, v in pairs))
                            for k in {s for s, _ in pairs}}
     status = {r["id"]: r.get("label_status") or "unknown" for r in rows}
-    shares_then = share([(status[k], int(x["monthly_listeners"] or 0)) for k, x in first.items() if k in status])
-    shares_now = share([(r.get("label_status") or "unknown", r.get("ml") or 0) for r in rows])
+    second = {r["id"] for r in rows if r.get("second_of")}  # second Spotify profiles: left out of the shares
+    shares_then = share([(status[k], int(x["monthly_listeners"] or 0)) for k, x in first.items() if k in status and k not in second])
+    shares_now = share([(r.get("label_status") or "unknown", r.get("ml") or 0) for r in rows if not r.get("second_of")])
     moves.sort(key=lambda m: -m["pct"])
     return {"today": today, "movers_from": min((m["from"] for m in moves), default=None), "movers_n": len(moves),
             "up": moves[:n], "down": moves[::-1][:n], "biggest_gain": sorted(moves, key=lambda m: -m["change"])[:n],

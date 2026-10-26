@@ -1,46 +1,46 @@
 {
  "month": "2026-10",
- "as_of": "2026-10-24",
+ "as_of": "2026-10-25",
  "items": [
   {
    "key": "majors",
    "label": "Majors' share of the top 1,000's listeners",
-   "value": "60%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist; labels on 808 of 1000 artists are known",
+   "value": "68%",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist, among the 670 of 1,000 artists whose label is known (catalog acts left out)",
    "link": "#/labels"
   },
   {
    "key": "top",
    "label": "No. 1 by current listeners",
    "value": "Don Toliver",
-   "detail": "26.0m current listeners, 45.7m monthly",
+   "detail": "26.0m current listeners, 45.8m monthly",
    "link": "#/a/4Gso3d4CscCijv0lmajZWs"
   },
   {
    "key": "mover",
-   "label": "Biggest riser over 30 days",
+   "label": "Biggest riser over about a month",
    "value": "Yung Lean",
-   "detail": "+69% monthly listeners, 7.0m to 11.9m since 2026-09-29",
+   "detail": "+71% monthly listeners, 7.0m to 12.0m since 2026-09-29 (26 days)",
    "link": "#/a/67lytN32YpUxiSeWlKfHJ3"
   },
   {
    "key": "breaking",
    "label": "Breaking now",
-   "value": "21",
-   "detail": "artists Scout rates Breaking; top: Tiakola (95)",
+   "value": "18",
+   "detail": "artists Scout rates Breaking; top: Clarent (94)",
    "link": "#/scout"
   },
   {
    "key": "unsigned",
    "label": "Top unsigned prospect",
-   "value": "SadiQ",
-   "detail": "Scout 93, 1.5m monthly listeners, releasing without a label",
-   "link": "#/a/2cbnuG01tV93pqdfr4OBqL"
+   "value": "LACAZETTE",
+   "detail": "Scout 87, 3.5m monthly listeners, releasing without a label",
+   "link": "#/a/7rBed6Ya7Hwa2fXbh5btJE"
   },
   {
    "key": "royalties",
    "label": "What the top 100 earn on Spotify",
-   "value": "$335.7m a year",
+   "value": "$335.9m a year",
    "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
    "link": "#/worth"
   },
@@ -62,7 +62,7 @@
    "key": "size",
    "label": "Hip-hop artists tracked",
    "value": "1,000",
-   "detail": "6.52bn combined monthly listeners, from Spotify's top 25,225",
+   "detail": "6.50bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,219",
    "link": "#/"
   }
  ]

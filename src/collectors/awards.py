@@ -36,22 +36,39 @@ def update(spotify_ids: list[str] | dict[str, str]) -> int:
         v = " ".join(f'"{s}"' for s in chunk if not qids.get(s))
         known = " ".join(f'(wd:{q} "{s}")' for q, s in by_q.items())
         rows = query(f"""
-SELECT ?sp ?item ?kind ?award ?awardLabel ?date ?work ?workLabel WHERE {{
+SELECT ?sp ?item ?st ?kind ?award ?awardLabel ?date ?work ?workLabel WHERE {{
   {{ VALUES (?item ?sp) {{ {known} }} }} UNION {{ VALUES ?sp {{ {v} }} ?item wdt:P1902 ?sp . }}
   {{ ?item p:P166 ?st . ?st ps:P166 ?award . BIND("win" AS ?kind) }} UNION
   {{ ?item p:P1411 ?st . ?st ps:P1411 ?award . BIND("nomination" AS ?kind) }}
   OPTIONAL {{ ?st pq:P585 ?date }} OPTIONAL {{ ?st pq:P1686 ?work }}
   SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }} }}""")
+        # one statement can carry several dates and several works with nothing pairing them; the query returns every
+        # date x work combination (Jay-Z: 7 x 7 rows for one Grammy statement), so rows are grouped per statement
+        stmts: dict[str, dict] = {}
         for r in rows:
             fam = family(r.get("awardLabel", ""))
             if not fam:
                 continue
-            d = out.setdefault(r["sp"], {"qid": qid(r["item"]), "wins": [], "nominations": []})
-            e = {"award": r["awardLabel"], "family": fam, "year": (r.get("date") or "")[:4],
-                 "work": r.get("workLabel") if r.get("work") else ""}
-            lst = d["wins" if r["kind"] == "win" else "nominations"]
-            if e not in lst:
-                lst.append(e)
+            g = stmts.setdefault(r["st"], {"sp": r["sp"], "item": r["item"], "kind": r["kind"], "award": r["awardLabel"],
+                                           "family": fam, "years": set(), "works": set()})
+            if r.get("date"):
+                g["years"].add(r["date"][:4])
+            if r.get("work"):
+                g["works"].add(r.get("workLabel") or "")
+        for g in stmts.values():
+            d = out.setdefault(g["sp"], {"qid": qid(g["item"]), "wins": [], "nominations": []})
+            years, works = sorted(g["years"]), sorted(g["works"])
+            if len(years) > 1 and len(works) > 1:  # unpaired: one entry per year, the works named together
+                entries = [(y, "") for y in years]
+            elif len(years) > 1:
+                entries = [(y, works[0] if works else "") for y in years]
+            else:
+                entries = [(years[0] if years else "", w) for w in (works or [""])]
+            lst = d["wins" if g["kind"] == "win" else "nominations"]
+            for y, w in entries:
+                e = {"award": g["award"], "family": g["family"], "year": y, "work": w}
+                if e not in lst:
+                    lst.append(e)
     for d in out.values():
         for k in ("wins", "nominations"):
             d[k].sort(key=lambda e: (e["year"] or "0"), reverse=True)

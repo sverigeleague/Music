@@ -38,6 +38,10 @@
   descriptions  one- or two-sentence artist descriptions from English Wikipedia -> data/descriptions.json (monthly)
   awards    award wins and nominations from Wikidata (Grammy, BET, AMA, MTV, BRIT...) -> data/awards.json (monthly)
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
+  listenbrainz  ListenBrainz listeners last month and all time (open CC0 panel, by MusicBrainz ID) for the hip-hop
+            and country top 1,000 -> data/listenbrainz.csv (monthly)
+  mlc       publishers and their shares of each artist's 3 biggest songs from The MLC's Public Search API ->
+            data/mlc_works.csv (monthly; needs the secrets MLC_USERNAME and MLC_PASSWORD, else skipped)
 """
 import csv
 import json
@@ -142,6 +146,7 @@ def registry(mb_limit: int | None = None) -> None:
     WIKIDATA_CACHE.write_text(json.dumps({k: {**v, "majors": sorted(v["majors"])} for k, v in wd.items()},
                                          ensure_ascii=False, indent=0))
     mb = musicbrainz.update({s: wd.get(s, {}).get("musicbrainz_id") for s in ids}, limit=mb_limit)
+    moved = musicbrainz.redirects()  # merged MusicBrainz IDs (Wikidata often keeps the old one): stored as the current
     over = genre.overrides()
     # Deezer matches confirmed from the artist's own songs (ISRCs or titles) count like a Wikidata identity
     sure = {s for s, a in known.items() if a.get("deezer_match") in deezer.SURE
@@ -163,8 +168,8 @@ def registry(mb_limit: int | None = None) -> None:
             decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
         out[s] = {**prev, "spotify_id": s, "name": (top.get(s) or prev or dz.get(s) or {}).get("name", ""), "genre": decision,
                   "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid") or prev.get("wikidata_id", ""),
-                  "musicbrainz_id": d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""),
-                  "country": "" if "people" in d.get("country", "") else d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
+                  "musicbrainz_id": musicbrainz.current_id(d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""), moved),
+                  "country": d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
                   "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
                   "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
                   "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image") or prev.get("image", "")}
@@ -426,12 +431,63 @@ def photos_step(limit: int | None = None) -> None:
     print(f"photos: {sum(1 for v in done.values() if v)} of {len(done)} tried have a free-licence photo")
 
 
+YOUTUBE_REVIEW = REVIEW / "youtube_review.csv"
+YOUTUBE_REVIEW_FIELDS = ["date", "genre", "spotify_id", "name", "slug", "kworb_name", "page_spotify_id", "reason", "evidence"]
+
+
+def youtube_matches(todo: list[dict], idx: dict[str, dict], day: str) -> tuple[dict, list[dict]]:
+    """kworb pages matched by identifiers before the per-artist fetch: the page's link back to the Spotify ID, or a
+    video from the artist's own channel (Wikidata P2397, else MusicBrainz url relations) that the page lists as the
+    artist's own. Returns (spotify_id -> (slug, match)) and the conflicts and name-only candidates for review."""
+    from . import storage
+    from .collectors import youtube_feed
+    back = {r["spotify_id"]: r["slug"] for r in idx.values() if r["spotify_id"]}
+    linked = {r["slug"] for r in idx.values() if r["spotify_id"]}
+    pages = {s: kworb_youtube.own_videos(storage.read(kworb_youtube.page_path(r)).decode("utf-8", "replace")) for s, r in idx.items()}
+    names = {kworb_youtube.slug_guess(r["name"]): s for s, r in idx.items()}
+    mb = musicbrainz.youtube_channels([a["musicbrainz_id"] for a in todo if a["spotify_id"] not in back and not a["youtube_channel"]])
+    known, review = {}, []
+    note = lambda a, slug, reason, evidence="": review.append({
+        "date": day, "genre": a["genre"], "spotify_id": a["spotify_id"], "name": a["name"], "slug": slug,
+        "kworb_name": idx[slug]["name"], "page_spotify_id": idx[slug]["spotify_id"], "reason": reason, "evidence": evidence})
+    for a in todo:
+        sid = a["spotify_id"]
+        if sid in back:
+            known[sid] = (back[sid], "backlink")
+            continue
+        link = kworb_youtube.slug_from_spotify_page(sid)
+        if link in idx and idx[link]["spotify_id"]:
+            note(a, link, "kworb's Spotify page links this YouTube page, which links back to another Spotify ID")
+        chans = [a["youtube_channel"]] if a["youtube_channel"] else mb.get(a["musicbrainz_id"], [])
+        match, hits = kworb_youtube.channel_match({c: youtube_feed.video_ids(c, day) for c in chans}, pages, linked)
+        if match:
+            known[sid] = match
+        for slug, ev in ({} if match else hits).items():
+            note(a, slug, "the channel's video is on a page that links back to another Spotify ID" if slug in linked
+                 else "the channel's videos are on several kworb pages", ev)
+        guess = names.get(kworb_youtube.slug_guess(a["name"]))
+        if not hits and guess and not idx[guess]["spotify_id"] and guess != link:
+            note(a, guess, "same name only: the page has no link back to Spotify and no video from a known channel")
+    return known, review
+
+
 def youtube_step(limit: int | None = None) -> None:
+    from collections import Counter
     have = {s for s, r in kworb_youtube.load_latest().items() if r["date"][:7] == today()[:7]}
     todo = [a for a in tracked() if a["spotify_id"] not in have][:limit]
-    rows = [r for r in (kworb_youtube.fetch(a["spotify_id"], a["name"], today()) for a in todo) if r]
+    known, review = youtube_matches(todo, kworb_youtube.update_index(today()), today())
+    rows = [r for r in (kworb_youtube.fetch(a["spotify_id"], a["name"], today(), known.get(a["spotify_id"])) for a in todo) if r]
     kworb_youtube.save(rows)
-    print(f"YouTube: {len(rows)} of {len(todo)} artists found")
+    found = {r["spotify_id"] for r in rows} | have
+    old = list(csv.DictReader(YOUTUBE_REVIEW.open())) if YOUTUBE_REVIEW.exists() else []
+    tried = {a["spotify_id"] for a in todo}  # their rows are replaced by this run's
+    keep = [r for r in old if r["spotify_id"] not in tried | found] + [r for r in review if r["spotify_id"] not in found]
+    with YOUTUBE_REVIEW.open("w", newline="") as f:
+        w = csv.DictWriter(f, YOUTUBE_REVIEW_FIELDS)
+        w.writeheader()
+        w.writerows(sorted(keep, key=lambda r: (r["genre"], r["name"].casefold())))
+    print(f"YouTube: {len(rows)} of {len(todo)} artists found ({', '.join(f'{m}: {n}' for m, n in sorted(Counter(r['match'].split(' ')[0] for r in rows).items()))}); "
+          f"{len(keep)} in {YOUTUBE_REVIEW.relative_to(REVIEW.parent)}")
 
 
 def videos_step(limit: int | None = None) -> None:
@@ -526,8 +582,24 @@ def awards_step() -> None:
     print(f"awards and nominations (Wikidata): {awards.update({a['spotify_id']: a.get('wikidata_id', '') for a in tracked()})} artists with at least one")
 
 
+def youtube_channels() -> dict[str, str]:
+    """spotify_id -> the artist's own YouTube channel ID: Wikidata P2397, else the one youtube.com/channel/UC... link on
+    their MusicBrainz page (data/musicbrainz_youtube.csv). Two or more MusicBrainz channels: none taken (ambiguous)."""
+    mb = {}
+    p = DATA / "musicbrainz_youtube.csv"
+    if p.exists():
+        with p.open() as f:
+            mb = {r["musicbrainz_id"]: [c for c in r["channels"].split("|") if c.startswith("UC")] for r in csv.DictReader(f)}
+    out = {}
+    for a in tracked():
+        c = a["youtube_channel"] or (lambda cs: cs[0] if len(cs) == 1 else "")(mb.get(a.get("musicbrainz_id", ""), []))
+        if c:
+            out[a["spotify_id"]] = c
+    return out
+
+
 def ytapi_step() -> None:
-    n = youtube_api.update({a["spotify_id"]: a["youtube_channel"] for a in tracked() if a["youtube_channel"]})
+    n = youtube_api.update(youtube_channels())
     print("YouTube API: no YOUTUBE_API_KEY, skipped" if n is None else f"YouTube API: {n} channels")
 
 
@@ -621,6 +693,22 @@ def apple_step() -> None:
     print(f"Apple Music charts: {apple_charts.update(today())} rows for {today()}")
 
 
+def mlc_step(limit: int | None = None) -> None:
+    from .collectors import mlc
+    songs = top_songs()
+    n = mlc.update([s["isrc"] for s in songs], limit)
+    print("MLC: no MLC_USERNAME / MLC_PASSWORD, skipped" if n is None else f"MLC: {n} recordings looked up; "
+          f"{sum(1 for s in songs if s['isrc'] in mlc.load())} of {len(songs)} top songs have publishers")
+
+
+def listenbrainz_step(limit: int | None = None) -> None:
+    from .collectors import listenbrainz
+    arts = tracked(("hip_hop",)) + tracked(("country",))
+    n = listenbrainz.update({a["spotify_id"]: a["musicbrainz_id"] for a in arts if a.get("musicbrainz_id")}, limit)
+    print(f"ListenBrainz: {n['known']} of {n['asked']} artists asked are known ({n['redirected']} by a merged "
+          f"MusicBrainz ID), {n['with_month']} with last month's listeners; {len(arts)} tracked")
+
+
 def pageviews_step() -> None:
     n = wikipedia.update({a["spotify_id"]: a["wikidata_id"] for a in tracked() if a.get("wikidata_id")})
     print(f"Wikipedia page views: {n} artists have an English article")
@@ -632,7 +720,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "descriptions": descriptions_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "descriptions": descriptions_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "listenbrainz": lambda: listenbrainz_step(lim), "mlc": lambda: mlc_step(lim), "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

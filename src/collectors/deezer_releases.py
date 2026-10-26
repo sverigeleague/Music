@@ -39,6 +39,20 @@ def load() -> dict[str, list[dict]]:
     return out
 
 
+def guest_releases() -> dict[str, list[dict]]:
+    """deezer_artist_id -> the window's releases where the artist is not the lead (collaborations and features on
+    another artist's record), newest first. An artist with these but no own release is active, not a catalog act."""
+    out: dict[str, list[dict]] = {}
+    if CSV.exists():
+        with CSV.open() as f:
+            for r in csv.DictReader(f):
+                if r["record_type"] != "none" and r.get("lead") == "0":
+                    out.setdefault(r["deezer_artist_id"], []).append(r)
+    for v in out.values():
+        v.sort(key=lambda r: r["release_date"], reverse=True)
+    return out
+
+
 def releases(deezer_id: str) -> list[dict]:
     r = get(f"{API}/artist/{deezer_id}/albums", params={"limit": 100})
     return r.json().get("data", []) if r.status_code == 200 else []

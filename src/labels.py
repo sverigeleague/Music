@@ -12,6 +12,7 @@ Statuses:
 import csv
 import re
 import unicodedata
+from datetime import date
 
 from .config import REGISTRY
 
@@ -193,6 +194,101 @@ def check_with_isrcs(status: dict, prefixes: list[str], registrants: dict[str, s
     if status["status"] == "unknown" and len(new_us) / len(prefixes) >= 0.5:
         return {**status, "isrc_note": "small or new registrant (QM/QZ/QT codes): a small label or self-release; review"}
     return {**status, "isrc_note": f"{len(new_us)} of {len(prefixes)} recent songs on newer US registrant codes" if new_us else ""}
+
+
+ESTABLISHED_YEARS = 8  # releasing this long: an established act, not a prospect (owner, 2026-10-25)
+ESTABLISHED_LISTENERS = 10_000_000  # this big already: established, not up-and-coming (owner, 2026-10-25)
+PROSPECT_RECENT_YEARS = 2  # a prospect's newest song as lead is at most this old
+FEATURED_GUEST = 0.9  # this share of streams or more as a featured guest: not a prospect (as insights.is_pick)
+
+
+# a release that repackages or re-cuts existing recordings, not a new song (reissue, compilation, live, version)
+REISSUE = re.compile(r"remaster|deluxe|expanded|anniversary|re-?issue|edition|greatest hits|best of|collection|"
+                     r"anthology|essentials|re-?record|\blive\b|ao vivo|en vivo|unplugged|remix|\bmix\b|sped up|slowed|"
+                     r"instrumental|acapella|a cappella|acoustic|radio edit|extended|stripped|\bclean\b|\bdemo\b", re.I)
+
+
+def _title(s: str) -> str:
+    """A song title for matching across Spotify (kworb) and Deezer: guest credits dropped, letters and digits only."""
+    s = re.sub(r"[(\[](?:feat|ft|with|prod)\b[^)\]]*[)\]]|\s-\s(?:feat|ft)\b.*$", "", s, flags=re.I)
+    return re.sub(r"\W", "", s.casefold())
+
+
+def deezer_dated_songs(releases: list[dict], songs: list[dict], dates: dict[str, dict]) -> list[dict]:
+    """Undated songs of the artist's own (lead on the latest kworb page) that Deezer dates: a lead release on the
+    artist's confirmed Deezer page with the same title. A release counts only when it is no reissue, compilation, live
+    or alternate version (record type 'compile', or REISSUE in its title) and, when the song's recording code (ISRC)
+    is known, that code is no older than the year before the release (an older code is an old recording put out
+    again). The title must match a lead song on Spotify, so a Deezer page of the same name that is another artist
+    (Makaveli's Deezer page: two Portuguese singles) dates nothing. Returns [{title, deezer_date, album}]."""
+    by_title: dict[str, dict] = {}
+    for r in sorted(releases, key=lambda r: r.get("release_date") or ""):  # the earliest release of a title
+        if r.get("record_type") == "compile" or REISSUE.search(r.get("title") or "") or not (r.get("release_date") or "")[:4].isdigit():
+            continue
+        by_title.setdefault(_title(r["title"]), r)
+    out = []
+    for s in songs:
+        d = dates.get(s["track_id"], {})
+        if s.get("feature") or d.get("first_release") or d.get("deezer_date") or REISSUE.search(s["title"]):
+            continue
+        r = by_title.get(_title(s["title"]))
+        isrc_year = (d.get("isrc") or "")[5:7]
+        recorded = (1900 if isrc_year > "50" else 2000) + int(isrc_year) if isrc_year.isdigit() else None
+        if not r or (recorded and recorded < int(r["release_date"][:4]) - 1):
+            continue
+        out.append({"title": s["title"], "deezer_date": r["release_date"], "album": r["title"]})
+    return out
+
+
+def independent_kind(artist: str, wd_labels: list[str], tracks: list[dict], registrants: dict[str, str],
+                     since: str, year: int, table: list[dict] | None = None, ml: int | None = None,
+                     cl: int | None = None, latest_lead: str | None = None,
+                     today: date | None = None, floor: bool = False,
+                     deezer_dated: list[dict] | None = None, feat: float | None = None) -> tuple[str, list[str]]:
+    """A self-released artist: an unsigned "prospect", or "established" (independent now, but with a past label deal
+    or a long career). Owner, 2026-10-25: Jeezy, Lil Pump or KYLE releasing on their own say nothing about whether
+    rising artists are unsigned. Evidence, any one enough: a record label on Wikidata's career-long list (a label or a
+    major, not a distributor or the artist's own name); older recordings registered by a major (ISRC prefix); first
+    release or Wikidata's "active since" ESTABLISHED_YEARS or more years ago; ESTABLISHED_LISTENERS or more monthly
+    listeners. tracks: the artist's dated songs. With `today`, the rest need a current audience (current listeners
+    above 0) and a song of their own released in the last PROSPECT_RECENT_YEARS years (the newer of `latest_lead` and
+    the tracks' first release), else they are "inactive": self-released, but not a prospect (owner, 2026-10-25:
+    Knust, Makaveli). deezer_dated: undated own songs Deezer dates (deezer_dated_songs), so a new single kworb's
+    pages carry no date for yet still counts. feat: share of the streams as a featured guest; FEATURED_GUEST or more is
+    not a prospect either (Danny Chung, SRNO: their audience is on others' songs). The reasons come back in the list."""
+    table = table or owners()
+    why = []
+    for lab in wd_labels:
+        st, _ = classify_label(lab, artist, table, use_musicbrainz=False)
+        if st in ("major", "major_distributed", "independent"):
+            why.append(f"earlier label on record: {lab} (Wikidata)")
+            break
+    for tr in sorted(tracks, key=lambda t: t.get("deezer_date") or "9999"):
+        p = (tr.get("isrc") or "")[:5]
+        if p in registrants:
+            why.append(f"own recordings registered by {registrants[p]} ({(tr.get('deezer_date') or '')[:4]}, ISRC)")
+            break
+    years = [int(y) for y in [since[:4]] + [(t.get("deezer_date") or "")[:4] for t in tracks] if y.isdigit()]
+    if years and year - min(years) >= ESTABLISHED_YEARS:
+        why.append(f"releasing since {min(years)}")
+    if (ml or 0) >= ESTABLISHED_LISTENERS:
+        why.append(f"{ESTABLISHED_LISTENERS // 1_000_000}m+ monthly listeners")
+    if why or today is None:
+        return ("established" if why else "prospect"), why
+    newest = max([d for d in [latest_lead or ""] + [t.get("first_release") or t.get("deezer_date") or "" for t in tracks]
+                  + [t["deezer_date"] for t in deezer_dated or []]
+                  if d[:4].isdigit() and d[:10] <= today.isoformat()], default="")
+    cutoff = date(today.year - PROSPECT_RECENT_YEARS, today.month, min(today.day, 28)).isoformat()
+    if not cl:
+        why.append("catalog only: no current listeners (the listening is on older songs)" if cl == 0
+                   else "no listener count below 500k on Spotify, and no stream figure" if floor
+                   else "no current-listener figure (too few of the streams are on dated songs)")
+    if feat is not None and feat >= FEATURED_GUEST:
+        why.append("mostly a featured guest on others' songs")
+    if newest < cutoff:
+        why.append(f"no recent release: newest dated song of their own is from {newest[:4]}" if newest
+                   else "no recent release: no dated song of their own (mostly a featured guest, or songs undated)")
+    return ("inactive" if why else "prospect"), why
 
 
 DEAL_OF_STATUS = {"major": "major", "major_distributed": "services", "independent": "independent",

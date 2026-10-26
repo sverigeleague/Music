@@ -16,6 +16,14 @@ MAJORS = {"Q38903": "Universal Music Group", "Q21077": "Warner Music Group",
           "Q11315210": "Sony Music", "Q330629": "Sony Music", "Q56760250": "Sony Music"}
 
 
+# Wikidata's formal country names, as a reader knows them
+COUNTRY_NAMES = {"Kingdom of the Netherlands": "Netherlands", "People's Republic of China": "China",
+                 "Kingdom of Denmark": "Denmark", "Republic of Ireland": "Ireland",
+                 # citizenship entered as a place (2026-10-25): Karachi is in Pakistan; "Cina" is a subdistrict in
+                 # Indonesia entered for an Italian rapper born in Tunis, so it is dropped rather than guessed
+                 "Karachi": "Pakistan", "Cina": ""}
+
+
 def query(q: str) -> list[dict]:
     r = get(SPARQL, data={"query": q}, headers={"Accept": "text/csv"}, timeout=180)
     r.raise_for_status()
@@ -61,21 +69,32 @@ SELECT ?sp ?item ?g ?gLabel ?hh ?latin WHERE {{
             if r.get("g"):
                 d["genres"].append((r["gLabel"], r["hh"] == "true", r["latin"] == "true"))
         for r in query(f"""
-SELECT ?sp ?mbid ?yt ?ig ?tt ?x ?img ?country ?countryLabel ?born ?start WHERE {{
+SELECT ?sp ?mbid ?yt ?ig ?tt ?x ?img ?country ?countryLabel ?bornIn ?bornInLabel ?born ?start WHERE {{
   VALUES ?sp {{ {v} }} ?item wdt:P1902 ?sp .
   OPTIONAL {{ ?item wdt:P434 ?mbid }} OPTIONAL {{ ?item wdt:P2397 ?yt }} OPTIONAL {{ ?item wdt:P2003 ?ig }}
   OPTIONAL {{ ?item wdt:P7085 ?tt }} OPTIONAL {{ ?item wdt:P2002 ?x }} OPTIONAL {{ ?item wdt:P18 ?img }}
-  OPTIONAL {{ ?item wdt:P27|wdt:P495 ?country }} OPTIONAL {{ ?item wdt:P569 ?born }}
+  OPTIONAL {{ ?item wdt:P27|wdt:P495 ?country }} OPTIONAL {{ ?item wdt:P19/wdt:P17 ?bornIn }} OPTIONAL {{ ?item wdt:P569 ?born }}
   OPTIONAL {{ ?item wdt:P2031|wdt:P571 ?start }}
   SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }} }}"""):
             d = out.get(r["sp"])
             if not d:
                 continue
             for k, src in (("musicbrainz_id", "mbid"), ("youtube_channel", "yt"), ("instagram", "ig"),
-                           ("tiktok", "tt"), ("x", "x"), ("image", "img"), ("country", "countryLabel"),
+                           ("tiktok", "tt"), ("x", "x"), ("image", "img"),
                            ("born", "born"), ("active_since", "start")):
                 if r.get(src) and not d.get(k):
                     d[k] = r[src][:10] if k in ("born", "active_since") else r[src]
+            if r.get("countryLabel"):  # citizenship or origin; an artist can have several (Drake: Canada and the US)
+                d.setdefault("_countries", set()).add(r["countryLabel"])
+            if r.get("bornInLabel"):
+                d.setdefault("_born_in", set()).add(r["bornInLabel"])
+        for d in out.values():  # one country: it; several: the country of birth among them, else all of them
+            cs, born = sorted(d.pop("_countries", set())), d.pop("_born_in", set())
+            if len(cs) > 1:
+                cs = sorted(set(cs) & born) or cs
+            cs = sorted({COUNTRY_NAMES.get(c, c) for c in cs} - {""})
+            if cs:
+                d["country"] = " / ".join(cs)
         for r in query(f"""
 SELECT ?sp ?lab ?labLabel ?major WHERE {{
   VALUES ?sp {{ {v} }} ?item wdt:P1902 ?sp ; wdt:P264 ?lab .

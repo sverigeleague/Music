@@ -2,8 +2,11 @@
 
 Scout score (0-100): a ranking signal for labels, not a prediction. Each factor is turned into a percentile among
 artists of a similar size (monthly-listener band), so a 2m-listener artist is compared with other 2m-listener artists.
-The score is the weighted mean of the factors the artist has (at least 3); weights below. Tiers: Breaking 80+,
-Rising 65+, Watch 50+. Back-test once 90 days of listener history exist (ROADMAP 7.10).
+The score is the weighted mean of the factors the artist has (at least 3); weights below. A signal that is measured
+as absent (no chart entry, no song out in the last 90 days, not on US radio) scores 0, not a percentile among the
+other zeros. Tiers: Breaking 80+, Rising 65+, Watch 50+, only when the factors measured carry at least 60% of the
+weight; below that the score is provisional and has no tier. Back-test once 90 days of listener history exist
+(ROADMAP 7.10).
 
 Worth: the value of an income stream = yearly income x a sale multiple. The multiple depends on how new the music is
 (registry/catalog_multiples.csv, sourced): new music decays faster, so buyers pay fewer years of income for it.
@@ -12,6 +15,7 @@ Shown as a range (low income x low multiple to high income x high multiple), gra
 import csv
 import re
 from bisect import bisect_right
+from datetime import date
 
 from .config import REGISTRY
 
@@ -31,7 +35,7 @@ FACTORS = {
     "current": (0.22, "Current share: listening on releases of the last 18-36 months"),
     "attention": (0.05, "Wikipedia attention: page views of the last 3 months against the 9 before"),
     "engagement": (0.14, "Streams a day per monthly listener"),
-    "breadth": (0.14, "Chart reach: countries with a song in Spotify's weekly top 200, plus Apple Music's daily top 100"),
+    "breadth": (0.14, "Chart reach: countries with a song in Spotify's weekly top 200 or Apple Music's daily top 100, each counted once"),
     "momentum": (0.05, "Monthly listeners, change today"),
 }
 # Country (owner C4, 2026-10-24): US AM/FM radio is the genre's biggest audience outside streaming, so its audience is
@@ -49,6 +53,10 @@ COUNTRY_FACTORS = {
 }
 FACTORS_BY_GENRE = {"hip_hop": FACTORS, "country": COUNTRY_FACTORS}
 TIERS = ((80, "Breaking"), (65, "Rising"), (50, "Watch"))
+# owner, 2026-10-25 (review 5): factors where a zero means the signal is absent, so it scores 0, and the weight a tier
+# needs (MiyaGi & Endspiel was "Rising" on a third of the weight, Tennessee Ernie Ford 50/100 for no chart entry)
+ZERO_IS_ABSENT = ("velocity", "breadth", "radio")
+TIER_MIN_WEIGHT = 0.6
 SCOUTED_BELOW = 15_000_000  # artists this big are established: scored, but given no tier
 # Breaking also needs a measured absolute signal, not only a high rank among peers: new songs pulling at least a
 # quarter of the streams, or Wikipedia attention up 30%+
@@ -104,6 +112,14 @@ def growth(history: list[tuple[str, int]], today: str, days: int = 90, slack: in
     return history[-1][1] / best[1]
 
 
+def chart_countries(r: dict) -> int:
+    """Countries where the artist charts on Spotify's weekly top 200 or Apple Music's daily top 100, each counted once."""
+    spotify = {c[0] for c in (r.get("geo") or {}).get("charts", [])}
+    if not spotify and (r.get("geo") or {}).get("countries"):  # older rows without the per-country list
+        return r["geo"]["countries"] + len((r.get("apple") or {}).get("countries", []))
+    return len(spotify | set((r.get("apple") or {}).get("countries", [])))
+
+
 def raw_factors(r: dict) -> dict:
     att = r.get("attention") or {}
     return {
@@ -112,7 +128,7 @@ def raw_factors(r: dict) -> dict:
         "current": r.get("cur_share"),
         "attention": att.get("trend"),
         "engagement": r["daily"] / r["ml"] if r.get("daily") and r.get("ml") else None,
-        "breadth": (r.get("geo") or {}).get("countries", 0) + len((r.get("apple") or {}).get("countries", [])),
+        "breadth": chart_countries(r),
         "momentum": r.get("chg_pct"),
         "radio": r.get("radio_week"),
     }
@@ -130,7 +146,9 @@ def scout(rows: list[dict], factors: dict = FACTORS) -> None:
             vals = sorted(v for r in members if (v := raw[r["id"]][f]) is not None)
             for r in members:
                 v = raw[r["id"]][f]
-                if v is not None and len(vals) > 1:
+                if v is not None and f in ZERO_IS_ABSENT and v == 0:
+                    pct.setdefault(r["id"], {})[f] = 0
+                elif v is not None and len(vals) > 1:
                     # mid-rank percentile: ties share a value
                     lo, hi = bisect_right(vals, v - 1e-12), bisect_right(vals, v)
                     pct.setdefault(r["id"], {})[f] = round(100 * ((lo + hi) / 2) / len(vals))
@@ -141,13 +159,15 @@ def scout(rows: list[dict], factors: dict = FACTORS) -> None:
                 continue
             w = sum(factors[f][0] for f in p)
             score = round(sum(factors[f][0] * v for f, v in p.items()) / w)
-            tier = next((t for m, t in TIERS if score >= m), None)
+            weight = round(w / sum(x[0] for x in factors.values()), 2)
+            tier = next((t for m, t in TIERS if score >= m), None) if weight >= TIER_MIN_WEIGHT else None
             if tier == "Breaking" and not ((r.get("fresh_share") or 0) >= BREAKING_FRESH
                                            or ((r.get("attention") or {}).get("trend") or 0) >= BREAKING_ATTENTION):
                 tier = "Rising"
             if (r["ml"] or 0) >= SCOUTED_BELOW:
                 tier = None
-            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": band_label(band_of(r))}
+            r["scout"] = {"score": score, "tier": tier, "factors": p, "band": band_label(band_of(r)), "weight": weight,
+                          **({"provisional": True} if weight < TIER_MIN_WEIGHT else {})}
 
 
 def multiples() -> list[dict]:
@@ -160,34 +180,69 @@ def vintage(cur_share: float | None, table: list[dict]) -> dict:
     return next(m for m in table if float(m["current_share_min"]) <= s < float(m["current_share_max"]))
 
 
+AGE_MIN_COVERAGE = 0.5  # share of lead streams on dated songs needed to value by release age
+
+
+def blended(profile: dict | None, table: list[dict]) -> tuple[float, float, str, dict] | None:
+    """Multiples by release age (owner, 2026-10-25): each age band's sourced multiple (new under 3 years, mixed 3-10,
+    evergreen 10+), weighted by the share of the artist's dated lead streams on songs of that age. None when too few
+    streams are dated; the caller then falls back to the current-share vintage."""
+    if not profile or profile.get("coverage", 0) < AGE_MIN_COVERAGE:
+        return None
+    w = {m["vintage"]: profile.get(m["vintage"], 0.0) for m in table}
+    tot = sum(w.values()) or 1
+    lo = sum(w[m["vintage"]] * float(m["multiple_low"]) for m in table) / tot
+    hi = sum(w[m["vintage"]] * float(m["multiple_high"]) for m in table) / tot
+    return round(lo, 2), round(hi, 2), max(w, key=w.get), {k: round(v / tot, 3) for k, v in w.items()}
+
+
 def worth(r: dict, rev: dict, table: list[dict]) -> dict:
     """Yearly income and what each income stream would sell for. rev: revenue.estimate() output."""
     streaming = [l for l in rev["lines"] if l["group"] == "Streaming"]
     pub = [l for l in rev["lines"] if l["group"] == "Publishing"]
     tot = lambda ls, part, k: sum((l.get(part) or {}).get(k, 0) or 0 for l in ls)
-    m = vintage(r.get("cur_share"), table)
-    lo, hi = float(m["multiple_low"]), float(m["multiple_high"])
+    b = blended(r.get("age_profile"), table)
+    m = vintage(r.get("cur_share"), table) if not b else next(x for x in table if x["vintage"] == b[2])
+    lo, hi = (b[0], b[1]) if b else (float(m["multiple_low"]), float(m["multiple_high"]))
     mid = (lo + hi) / 2
     val = lambda ls, part: {"low": tot(ls, part, "low") * lo, "mid": tot(ls, part, "mid") * mid,
                             "high": tot(ls, part, "high") * hi}
     return {"vintage": m["vintage"], "multiple": [lo, hi], "multiple_source": m["source_url"],
+            "method": "release age" if b else "current share", "age_mix": b[3] if b else None,
             "multiple_note": m["source_note"], "grade": "C",
             "recordings": val(streaming, "generated"), "artist_royalties": val(streaming, "artist"),
             "publishing": val(pub, "generated")}
 
 
+PICK_MAX_FEAT = 0.9  # mostly a featured guest: not a pick (SRNO 97%, Danny Chung 100%; owner, 2026-10-25)
+
+
+def is_prospect(r: dict) -> bool:
+    """An unsigned prospect (labels.independent_kind): self-released, no label deal on record, a short career, under
+    10m listeners, a current audience and a recent song of their own; not a second profile of another artist."""
+    return r.get("label_status") == "self_released" and r.get("indie_kind") == "prospect" and not r.get("second_of")
+
+
+def is_pick(r: dict) -> bool:
+    """A prospect we name as a pick (start page, State, Scout, This month): not mostly a featured guest."""
+    return is_prospect(r) and (r.get("feat") or 0) < PICK_MAX_FEAT
+
+
 def level(r: dict) -> dict:
     """Level from today's monthly listeners; badges from the measured signals."""
     name = next(n for m, n in LEVELS if (r["ml"] or 0) >= m)
+    since = str(r.get("since") or "")[:4]
+    if name == "Rookie" and since.isdigit() and date.today().year - int(since) >= 15:
+        name = "Established"  # a smaller audience after 15+ years is not a newcomer's
     badges = []
     sc = r.get("scout") or {}
     if sc.get("tier") == "Breaking":
         badges.append("Breaking")
-    if r.get("label_status") == "self_released" and (sc.get("score") or 0) >= 65:
+    if is_pick(r) and (sc.get("score") or 0) >= 65 and not sc.get("provisional"):
         badges.append("Unsigned and rising")
     if r.get("feature_daily") and r.get("daily") and r["feature_daily"] / r["daily"] >= 0.8:
         badges.append("Feature magnet")
-    if ((r.get("geo") or {}).get("countries") or 0) + len((r.get("apple") or {}).get("countries", [])) >= 20:
+    if chart_countries(r) >= 20:
         badges.append("Global")
     if r.get("revivals"):
         badges.append("Revival")
@@ -208,8 +263,9 @@ def market(rows: list[dict]) -> dict:
     """Share of the top 1,000 by group: artists, monthly listeners, current listeners; overall and per size band.
     Independent labels are also listed one by one."""
     groups: dict[str, dict] = {}
-    catalog = [r for r in rows if r.get("label_status") == "catalog"]  # no new releases: left out of the shares
-    for r in (r for r in rows if r.get("label_status") != "catalog"):
+    catalog = [r for r in rows if r.get("label_status") == "catalog" and not r.get("second_of")]  # no new releases: left out of the shares
+    # a second Spotify profile of an artist (Makaveli / 2Pac) is left out: its listeners are mostly the main profile's
+    for r in (r for r in rows if r.get("label_status") != "catalog" and not r.get("second_of")):
         g = groups.setdefault(group_of(r), {"artists": 0, "ml": 0, "cl": 0, "bands": [0] * len(BAND_LABELS),
                                             "top": [], "labels": {}})
         g["artists"] += 1
@@ -290,11 +346,23 @@ def labels_index(rows: list[dict], release_counts: dict[str, int]) -> list[dict]
         L = by.setdefault(name, {"name": name, "slug": slug(name), "status": r["label_status"], "group": group,
                                  "parent": group if r["label_status"] != "independent" else PARENT_OF.get(group, group),
                                  "artists": [], "ml": 0, "cl": 0, "royalties": 0, "breaking": 0, "rising": 0,
+                                 "roy_low": 0, "roy_high": 0, "value_low": 0, "value_mid": 0, "value_high": 0,
                                  "scores": []})
         L["artists"].append(r["id"])
+        if r.get("second_of"):  # listed on the roster, left out of the sums (the main profile counts)
+            continue
         L["ml"] += r["ml"] or 0
         L["cl"] += r.get("cl") or 0
         L["royalties"] += r.get("streaming_mid") or 0
+        # label one-pager (2026-10-26): the roster's streaming royalties and recordings + songs value as ranges, the
+        # low ends added together and the high ends together (summed grade C estimates)
+        st = [l for l in (r.get("revenue") or {}).get("lines", []) if l.get("group") == "Streaming"]
+        L["roy_low"] += sum(l["generated"]["low"] for l in st)
+        L["roy_high"] += sum(l["generated"]["high"] for l in st)
+        if r.get("worth_range"):
+            L["value_low"] += r["worth_range"][0]
+            L["value_high"] += r["worth_range"][1]
+            L["value_mid"] += r.get("worth_mid") or 0
         tier = (r.get("scout") or {}).get("tier")
         L["breaking"] += tier == "Breaking"
         L["rising"] += tier == "Rising"
@@ -305,5 +373,7 @@ def labels_index(rows: list[dict], release_counts: dict[str, int]) -> list[dict]
         sc = L.pop("scores")
         L["scout_avg"] = round(sum(sc) / len(sc)) if sc else None
         L["releases_2y"] = release_counts.get(L["name"], 0)
+        for k in ("roy_low", "roy_high", "value_low", "value_mid", "value_high"):
+            L[k] = round(L[k])
         out.append(L)
     return sorted(out, key=lambda L: -L["ml"])

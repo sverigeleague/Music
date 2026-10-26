@@ -9,7 +9,7 @@ export const COLUMNS = {
     ["Monthly listeners", "ml", "count"],
     ["By listeners", "rank", "int"],
     ["Scout score", "scout", "int"],
-    ["Royalties generated / month", "gen_mid", "money"],
+    ["Spotify royalties / month", "gen_mid", "money"],
   ],
   monthly: [
     ["Monthly listeners", "ml", "count"],
@@ -17,17 +17,19 @@ export const COLUMNS = {
     ["Spotify rank", "rank_all", "int"],
     ["Peak listeners", "peak_ml", "count"],
     ["Streams / day", "daily", "count"],
-    ["Royalties generated / month", "gen_mid", "money"],
+    ["Spotify royalties / month", "gen_mid", "money"],
   ],
 };
 
 // How many artists outside the top 100 the Rising page lists.
 export const RISING_LIMIT = 50;
 
+// Not used by the pages any more: the Pay gap page now draws registry/deal_shares.csv (store.data.deals), the same
+// table as the worth calculator and the artist pages. Kept for reference only.
 // Pay gap: what an artist keeps of the recording royalties under each deal type (low, mid, high share).
 // Each row has its source; grade A = primary, B = reputable secondary, C = estimate.
 export const DEALS = [
-  { key: "major", name: "Major label royalty deal", low: 0.15, mid: 0.20, high: 0.30, grade: "A",
+  { key: "major", name: "Major label royalty deal", low: 0.15, mid: 0.20, high: 0.30, grade: "B",
     note: "UK CMA: average major-label royalty rose from 19.7% (2012) to 23.3% (2021). Before recouping the advance.",
     src: "https://gov.uk/government/news/music-streaming-report-published" },
   { key: "small", name: "Small label / production deal", low: 0.30, mid: 0.40, high: 0.50, grade: "B",
@@ -46,7 +48,7 @@ export const DEALS = [
 
 // Platforms page: the per-artist columns [label, key, format]; "rev:<platform>" is yearly royalties (mid estimate).
 export const PLATFORM_COLUMNS = [
-  ["Spotify streams / day", "daily", "count"],
+  ["Spotify streams / day, as lead", "lead_daily", "count"],  // what the royalty columns are paid on (features left out)
   ["YouTube views / day", "yt_daily", "count"],
   ["Deezer fans", "deezer_fans", "count"],
   ["Spotify", "rev:spotify", "money"],
@@ -61,7 +63,7 @@ export const GLOSSARY = {
   "Current listeners": "Monthly listeners, counting the listening that comes from recent releases. Old songs still streamed a lot count for little, so this shows who is drawing an audience with new music now.",
   "From recent releases": "Share of the artist's listening that comes from songs released in the last 18–36 months.",
   "Scout score": "0–100: momentum against artists of a similar size (new songs' pull, current share, engagement, chart reach and more). Breaking 80+, Rising 65+, Watch 50+.",
-  "Royalties generated / month": "What Spotify pays the rights holders (label or distributor) for the artist's own songs, mid estimate. Not the artist's pay.",
+  "Spotify royalties / month": "What Spotify pays the rights holders (label or distributor) for the artist's own songs, mid estimate. Not the artist's pay.",
   "New-release pull": "Share of the artist's daily streams that come from songs out 90 days or less.",
   "Current share": "Share of listening on releases of the last 18–36 months.",
   "Wikipedia, 3 mo": "English Wikipedia page views of the last 3 months against the 9 before.",
@@ -69,4 +71,16 @@ export const GLOSSARY = {
   "Chart countries": "Countries where a song is in Spotify's weekly top 200 or Apple Music's daily top 100.",
   "By listeners": "Rank among hip-hop artists by Spotify monthly listeners.",
   "Shazam": "Number of Shazam charts (world, 15 countries, 31 cities; last 7 days) the artist is on: people looking their songs up, often before streams follow. Not part of the score yet.",
+  // terms of the glossary page (#/glossary, 2026-10-26) that no column heading uses
+  "Grade A / B / C": "How far a figure can be relied on. A: primary (company filings, regulators, court records, the platform's own disclosure). B: reputable secondary (trade press, industry reports). C: our estimate, always shown as a range.",
+  "Measured": "A figure read from a public count (Spotify via kworb.net, YouTube, Deezer, the charts), not worked out by us.",
+  "Estimate": "A figure we work out from measured data and published rates or multiples. Always a range with grade C; never a reported figure.",
+  "Range (low–high)": "The span an estimate can reasonably fall in: the low ends of each input multiplied together, and the high ends. The mid is the figure in between, not a forecast.",
+  "Streaming royalties / yr": "What all streaming services pay the rights holders (label or distributor) a year for the artist's own recordings at today's pace, mid estimate. Before the artist's share under their deal.",
+  "Catalog value": "What the artist's recordings and songs might sell for: a year's royalties × the sale multiples buyers have paid for music of that age (new, mixed, evergreen). Indicative, not a valuation.",
+  "Unsigned prospect": "An artist releasing without a label and with no label deal on record, under 8 years of releases and 10m monthly listeners, with current listeners and a song of their own in the last two years.",
+  "Independent (established)": "An artist releasing on their own after a label deal, after 8+ years of releases or with 10m+ monthly listeners.",
+  "Catalog act": "An artist with almost no listening on recent releases: the audience is for older songs.",
+  "Second Spotify profile": "A second Spotify page of an artist already in the list (the same Wikidata item, Deezer page or name). Listed, but left out of summed totals and market shares.",
+  "Provisional (Scout)": "A Scout score resting on under 60% of the signal weight: shown, but given no tier.",
 };

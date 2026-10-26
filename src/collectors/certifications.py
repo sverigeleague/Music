@@ -366,6 +366,8 @@ def parse_tables(text: str) -> list[dict]:
                 break
             stack = [x for x in stack if x[0] < lvl] + [(lvl, h)]
         kind = _heading_kind([h for _, h in stack])
+        # "As featured artist" / "Guest appearances" tables: the artist is a guest on someone else's record
+        featured = any(re.search(r"featur|guest|gastbeitr|gastmusik|en featuring|invité", h.lower()) for _, h in stack)
         for cells in data:
             head = next((c for c in cells if c and c["row"]), None) or (
                 cells[title_col] if title_col is not None and title_col < len(cells) else cells[0] if cells else None)
@@ -387,7 +389,8 @@ def parse_tables(text: str) -> list[dict]:
                     certs = certs or parse_certs(c["text"], kind, year)
             us = _peak(cells[us_col]) if us_col is not None and us_col < len(cells) and not shifted else None
             if certs or us:
-                works.append({"title": title, "type": kind, "year": year, "certs": certs, "us_peak": us})
+                works.append({"title": title, "type": kind, "year": year, "certs": certs, "us_peak": us,
+                              **({"featured": True} if featured else {})})
     return works
 
 

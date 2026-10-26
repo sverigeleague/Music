@@ -27,3 +27,18 @@ def latest(channel_id: str) -> list[dict]:
         out.append({"id": vid[1], "title": htmllib.unescape(title[1]).strip() if title else "",
                     "published": published[1] if published else "", "views": int(views[1]) if views else None})
     return out
+
+
+def video_ids(channel_id: str, day: str) -> set[str]:
+    """IDs of the channel's latest uploads (Shorts included), from its feed; kept in raw/ once a month."""
+    from .. import storage
+    path = f"youtube/feeds/{day[:7]}/{channel_id}.xml"
+    try:
+        text = storage.read(path).decode("utf-8", "replace")
+    except FileNotFoundError:
+        r = get(FEED, params={"channel_id": channel_id})
+        if r.status_code != 200:
+            return set()
+        storage.archive(path, r.url, r.content)
+        text = r.text
+    return set(re.findall(r"<yt:videoId>([\w-]{11})</yt:videoId>", text))

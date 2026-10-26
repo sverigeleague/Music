@@ -30,7 +30,7 @@ def slugify(name: str) -> str:
 def assign_slugs(artists: list[dict]) -> None:
     seen: dict[str, int] = {}
     for a in sorted(artists, key=lambda a: -(a.get("ml") or 0)):  # the bigger artist keeps the plain name
-        s = slugify(a["name"])
+        s = slugify(a["name"].removesuffix(" (second Spotify profile)"))  # the page address stays as it was
         if s in seen:
             s = f"{s}-{a['id'][:6].lower()}"
         seen[s] = 1
@@ -58,8 +58,13 @@ def _usd(n) -> str:
     return "$" + _count(n) if n is not None else "–"
 
 
-def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str, prefix: str = "") -> str:
-    depth = "../" * (2 + prefix.count("/"))
+def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: str, body: str, prefix: str = "",
+           og_type: str = "profile", levels: int = 2, crumbs: list | None = None) -> str:
+    # the breadcrumb the app will draw (app.js crumbs()), written in now so the page does not jump when it loads
+    trail = " &nbsp;/&nbsp; ".join(f'<a href="{h}">{esc(t)}</a>' if h else f"<span>{esc(t)}</span>"
+                                   for t, h in [("Home", "#/"), *crumbs]) if crumbs else ""
+    depth = "../" * (levels + prefix.count("/"))
+    data = f"data/{prefix}index.json"  # fetched by app.js once it loads; preloaded so the two downloads overlap
     img = f'<meta property="og:image" content="{esc(image)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{esc(image)}">' if image else '<meta name="twitter:card" content="summary">'
     return f"""<!doctype html>
 <html lang="en">
@@ -70,21 +75,23 @@ def _shell(title: str, desc: str, url: str, image: str | None, ld: dict, boot: s
 <title>{esc(title)} · tventy music</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(url)}">
-<meta property="og:site_name" content="tventy music"><meta property="og:type" content="profile">
+<meta property="og:site_name" content="tventy music"><meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}"><meta property="og:url" content="{esc(url)}">
 {img}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <link rel="stylesheet" href="styles.css">
+<link rel="preload" href="{data}" as="fetch" crossorigin>{"" if re.match(r"#/(country/)?(a/|$)", boot) else "".join(f'<link rel="preload" href="data/{prefix}{p}.json" as="fetch" crossorigin>' for p in ("extra", "scout"))}
 <script>window.BOOT = {json.dumps(boot)};</script>
 </head>
 <body>
+<a class="skip" href="#app">Skip to content</a>
 <header><div class="wrap bar">
   <span class="brandbox"><a class="brand" href="#/">tventy</a><a class="section" href="https://tventy.se/sport/" title="Go to tventy sport">music</a></span>
   <nav class="genres" aria-label="Genre"><a href="#/" data-genre="hip_hop">Hip-hop</a><a href="#/country/" data-genre="country">Country</a></nav>
-  <div class="search" role="search"><input id="q" type="search" placeholder="Search artists and labels" autocomplete="off" aria-label="Search" aria-controls="q-results" aria-expanded="false"><div class="results" id="q-results" role="listbox" hidden></div></div>
+  <div class="search" role="search"><input id="q" type="search" role="combobox" aria-autocomplete="list" placeholder="Search artists and labels" autocomplete="off" aria-label="Search" aria-controls="q-results" aria-expanded="false"><div class="results" id="q-results" role="listbox" hidden></div></div>
   <nav class="seg main mainnav" aria-label="Section"><a class="segbtn" href="#/" id="nav-artists">Artists</a><a class="segbtn" href="#/scout" id="nav-scout">Scout</a><a class="segbtn" href="#/worth" id="nav-money">Money</a><a class="segbtn" href="#/labels" id="nav-labels">Labels</a></nav>
 </div></header>
-<div class="wrap"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav><main id="app">{body}</main></div>
+<div class="wrap"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb">{trail}</nav><main id="app" tabindex="-1">{body}</main></div>
 <footer class="wrap note" id="foot"></footer>
 <script type="module" src="app.js"></script>
 </body>
@@ -108,7 +115,9 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
     if a.get("scout"):
         facts.append(f"<li>Scout score: {a['scout']['score']}{' (' + esc(tier) + ')' if tier else ''}</li>")
     if keeps.get("mid"):
-        facts.append(f"<li>Keeps from streaming: about {_usd(keeps['mid'])} a year ({_usd(keeps.get('low'))}–{_usd(keeps.get('high'))}, estimate)</li>")
+        # rev_total is every income line the artist page lists (as its "Artist keeps, total"), so touring where reported
+        what = "streaming, songwriting and reported touring" if (a.get("rev_lines") or {}).get("touring") else "streaming and songwriting"
+        facts.append(f"<li>Artist keeps: about {_usd(keeps['mid'])} a year ({_usd(keeps.get('low'))}–{_usd(keeps.get('high'))}, estimate; {what})</li>")
     if (a.get("top_fresh") or {}).get("title"):
         facts.append(f"<li>Newest hit: {esc(a['top_fresh']['title'])}</li>")
     if a.get("awards"):
@@ -118,14 +127,26 @@ def artist_page(a: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
                                          if ab.get("source") == "wikipedia" else "") + "</p>") if ab.get("text") else ""
     body = f"""<article class="static"><h1>{esc(a['name'])}</h1>{about}<p class="sub">{esc(desc)}</p><ul>{''.join(facts)}</ul>
 <p><a href="#/a/{esc(a['id'])}">Open the full page</a></p></article>"""
+    # JSON-LD: only facts we hold: the profiles we looked up (Spotify, and Wikidata's links), the Commons photo with
+    # its credit and licence, the Wikipedia summary with its source
+    links = a.get("links") or {}
+    same = [f"https://open.spotify.com/artist/{a['id']}"] + [links[k] for k in ("wikidata", "youtube", "instagram", "tiktok", "x")
+                                                               if links.get(k) and links[k].startswith("https://")]
     ld = {"@context": "https://schema.org", "@type": "MusicGroup", "name": a["name"], "url": url, "genre": "Country" if gw == "country" else "Hip hop",
-          "sameAs": [f"https://open.spotify.com/artist/{a['id']}"]}
+          "sameAs": list(dict.fromkeys(same))}
+    if ab.get("text"):
+        ld["description"] = ab["text"]
+    ph = a.get("photo") or {}
+    if ph.get("file"):
+        ld["image"] = {"@type": "ImageObject", "url": BASE + ph["file"], **({"creditText": ph["author"]} if ph.get("author") and ph["author"] != "unknown" else {}),
+                       **({"license": ph["license_url"]} if ph.get("license_url") else {}), **({"acquireLicensePage": ph["page"]} if ph.get("page") else {})}
     boot = f"#/{prefix}a/{a['id']}"
     body = body.replace(f'href="#/a/{a["id"]}"', f'href="{boot}"')
-    return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}{prefix}cards/{a['slug']}.png", ld, boot, body, prefix)
+    return url, _shell(f"{a['name']}: listeners, earnings and label", desc, url, f"{BASE}{prefix}cards/{a['slug']}.png", ld, boot, body, prefix,
+                       crumbs=[("Artists", "#/"), (a["name"], "")])
 
 
-def label_page(L: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
+def label_page(L: dict, as_of: str, prefix: str = "", logo: dict | None = None) -> tuple[str, str]:
     url = f"{BASE}{prefix}label/{L['slug']}/"
     gw = "country" if prefix.startswith("country") else "hip-hop"
     n = len(L.get("artists", []))
@@ -138,9 +159,14 @@ def label_page(L: dict, as_of: str, prefix: str = "") -> tuple[str, str]:
     ld = {"@context": "https://schema.org", "@type": "Organization", "name": L["name"], "url": url}
     if L.get("parent") and L["parent"] != L["name"]:
         ld["parentOrganization"] = {"@type": "Organization", "name": L["parent"]}
+    if logo and logo.get("file"):  # the Commons logo the label page shows, and the Wikidata item it was found by
+        ld["logo"] = BASE + logo["file"]
+        if logo.get("qid"):
+            ld["sameAs"] = [f"https://www.wikidata.org/wiki/{logo['qid']}"]
     boot = f"#/{prefix}label/{L['slug']}"
     body = body.replace(f'href="#/label/{L["slug"]}"', f'href="{boot}"')
-    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, boot, body, prefix)
+    return url, _shell(f"{L['name']}: roster, momentum and finances", desc, url, None, ld, boot, body, prefix, og_type="website",
+                       crumbs=[("Labels", "#/labels"), (L["name"], "")])
 
 
 def card(a: dict, as_of: str, path: Path, gw: str = "hip-hop") -> None:
@@ -190,12 +216,32 @@ def state_page(st: dict, prefix: str = "") -> tuple[str, str]:
     return url, _shell(f"State of {word}, {month}", desc, url, None, ld, f"#/{prefix}state/{st['month']}", body, prefix)
 
 
+def genre_home(data: dict, prefix: str) -> str:
+    """site/<genre>/index.html (country): the genre's start page at its own address, so the sitemap's /music/country/
+    is a real page (title, description, the top ten with links) rather than a missing one; the app opens #/<genre>/."""
+    word = prefix.strip("/")
+    url, n = f"{BASE}{prefix}", len(data["artists"])
+    desc = (f"Who is drawing an audience in {word}, what the music earns, who owns it and who is about to break: the top "
+            f"{n:,} artists, updated daily, every figure sourced. Data as of {data.get('as_of') or ''}.")
+    top = sorted((a for a in data["artists"] if a.get("cl_rank")), key=lambda a: a["cl_rank"])[:10]
+    body = (f'<article class="static"><h1>Global {esc(word.title())}</h1><p class="sub">{esc(desc)}</p><ol>'
+            + "".join(f'<li><a href="{prefix}a/{esc(a["slug"])}/">{esc(a["name"])}</a>: {_ml(a)} monthly listeners</li>' for a in top)
+            + f'</ol><p><a href="#/{prefix}">Open the full list</a></p></article>')
+    ld = {"@context": "https://schema.org", "@type": "WebPage", "name": f"Global {word}: listeners, earnings and labels", "url": url,
+          "isPartOf": {"@type": "WebSite", "name": "tventy music", "url": BASE}}
+    return _shell(f"Global {word}: listeners, earnings and labels of the top {n:,} artists", desc, url, None, ld, f"#/{prefix}",
+                  body, prefix, og_type="website", levels=0)
+
+
 def build(data: dict, cards: bool = True, states: list[dict] | None = None, prefix: str = "") -> list[str]:
     """One genre's static pages (prefix "" for hip-hop, "country/" for country); returns their addresses."""
     as_of = data.get("as_of") or ""
     root = SITE / prefix if prefix else SITE
     gw = "country" if prefix.startswith("country") else "hip-hop"
     urls = [BASE + prefix]
+    if prefix:
+        root.mkdir(parents=True, exist_ok=True)
+        (root / "index.html").write_text(genre_home(data, prefix))
     for sub in ("a", "label", "state"):
         if (root / sub).exists():
             for old in (root / sub).glob("*/index.html"):
@@ -214,7 +260,7 @@ def build(data: dict, cards: bool = True, states: list[dict] | None = None, pref
         if cards:
             card(a, as_of, root / "cards" / f"{a['slug']}.png", gw)
     for L in data.get("labels", []):
-        url, page = label_page(L, as_of, prefix)
+        url, page = label_page(L, as_of, prefix, (data.get("label_logos") or {}).get(L["name"]))
         out = root / "label" / L["slug"] / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page)
@@ -229,6 +275,9 @@ def build(data: dict, cards: bool = True, states: list[dict] | None = None, pref
 
 
 def sitemap(urls: list[str]) -> None:
+    """Every static page of both genres; lastmod is the build date (each page is rewritten with the day's data)."""
+    from datetime import date
+    day = date.today().isoformat()
     (SITE / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                                      + "".join(f"<url><loc>{esc(u)}</loc></url>\n" for u in dict.fromkeys(urls)) + "</urlset>\n")
+                                      + "".join(f"<url><loc>{esc(u)}</loc><lastmod>{day}</lastmod></url>\n" for u in dict.fromkeys(urls)) + "</urlset>\n")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE}sitemap.xml\n")

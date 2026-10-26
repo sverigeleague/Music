@@ -76,6 +76,13 @@ th, td { padding: 9px 12px; text-align: right; white-space: nowrap; border-botto
 th.l, td.l { text-align: left; }
 th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; background: var(--soft); }
 th[data-sort] { cursor: pointer; user-select: none; }
+th[tabindex] { cursor: pointer; user-select: none; }
+th[tabindex]:focus-visible, .tablebox[tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+main:focus { outline: none; }
+/* skip link and screen-reader-only text (2026-10-25, accessibility) */
+.vh { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: 8px; top: -60px; z-index: 100; background: var(--fg); color: var(--bg); padding: 8px 14px; font: 600 14px var(--font-ui); text-decoration: none; }
+.skip:focus { top: 8px; }
 th[aria-sort] { color: var(--fg); }
 tbody tr:last-child td { border-bottom: 0; }
 tbody tr:hover td { background: var(--soft); }
@@ -313,6 +320,14 @@ td.lab { max-width: 160px; }
   table.rev td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
   table.rev tr.sec td.l, table.rev tr.sec { font-weight: 600; }
 }
+.cardcol .kv dt { white-space: normal; } .cardcol .kv dd { overflow-wrap: normal; }  /* summary card: the label wraps, never a figure */
+/* artist page on phones: ranges never break mid-figure; rows fill the panel; the hover-only basis and definitions shown as text (no hover on touch) */
+@media (max-width: 560px) {
+  table.rev, table.rev tbody { display: block; width: 100%; }
+  table.rev td[data-k] { white-space: nowrap; }
+  table.rev tr[title]::after { content: attr(title); grid-column: 1 / -1; padding: 0 8px 8px; font-size: 12px; color: var(--muted); }
+  .cardcol .def[title]::after { content: attr(title); display: inline-block; margin-top: 4px; cursor: auto; }
+}
 @media (max-width: 560px) {
   table.stack thead { display: none; }
   table.stack tr { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 8px 0; border-bottom: 1px solid var(--line); }
@@ -321,6 +336,9 @@ td.lab { max-width: 160px; }
   table.stack td.wrap { flex-basis: 100%; }
   table.stack td:empty { display: none; }
   table.stack td[data-k]::before { content: attr(data-k); display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  table.stack td.rk { flex-basis: auto; padding-right: 0; }  /* rank and name on one line */
+  table.stack td.rk + td { flex: 1 1 0; font-weight: 600; }
+  table.stack td.rk + td::before { display: none; }
 }
 /* artist description: one or two sentences under the name (Wikipedia, or our own data) */
 .about { margin: 8px 0 0; max-width: 68ch; }
@@ -328,3 +346,79 @@ td.lab { max-width: 160px; }
 .how { border: 1px solid var(--line); padding: 10px 14px; margin-top: 14px; }
 .how summary { cursor: pointer; font: 600 13px var(--font-ui); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .how table { margin-top: 8px; } .how td.wrap { max-width: none; } .how .note { margin: 8px 0 0; }
+
+/* where the artist is from: small flags after the name (the name's language at a glance) */
+.flags { display: inline-flex; gap: 3px; margin-left: 6px; vertical-align: -1px; white-space: nowrap; }
+.flags img { width: 16px; height: 12px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .14); display: block; }
+.sub .flags { margin: 0 5px 0 0; }
+.who .flags { margin-left: -4px; }
+/* compare: three columns fit a phone, so the artist names never scroll out of view */
+@media (max-width: 700px) {
+  table.cmp { width: 100%; table-layout: fixed; }
+  table.cmp td, table.cmp th { white-space: normal; overflow-wrap: anywhere; position: static; }
+  table.cmp th:first-child, table.cmp td:first-child { width: 34%; }
+  table.cmp .who .pic { display: none; }
+}
+/* Unsigned: feature-only artists, not compared with signed peers */
+tr.dim > td { color: var(--muted); }
+/* State: the citation is one long line with a URL; let it wrap on phones */
+.panel code { overflow-wrap: anywhere; word-break: break-word; }
+/* Catalog screener (2026-10-26): age mix as a three-part bar, new (black) to evergreen (light) */
+.agebar { display: inline-flex; width: 72px; height: 8px; border: 1px solid var(--line); vertical-align: middle; }
+.agebar i { display: block; height: 100%; } .agebar i:nth-child(1) { background: #000; } .agebar i:nth-child(2) { background: #6b7079; } .agebar i:nth-child(3) { background: #d3d6db; }
+table.screener td { vertical-align: top; }
+table.screener th, table.screener td { padding-inline: 8px; }
+table.screener th { white-space: normal; vertical-align: bottom; }
+table.screener td .note { white-space: normal; display: inline-block; min-width: 9em; }
+table.screener td .agebar + .note { display: inline; min-width: 0; white-space: nowrap; }
+table.screener td:nth-child(2) { white-space: normal; min-width: 170px; }
+table.screener td.wrap { min-width: 110px; max-width: 160px; }
+/* Artist one-pager (2026-10-26): two columns on screen and on paper, one column on phones */
+.sheet { display: grid; gap: var(--gap); }
+.sheethead { display: flex; gap: 18px; align-items: flex-start; }
+.sheethead h1 { margin: 0; }
+.sheethead .about { margin: 6px 0; max-width: 70ch; }
+.sheetgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+.sheettab { width: 100%; border-collapse: collapse; font-size: 13px; }
+.sheettab td { padding: 3px 6px 3px 0; border-bottom: 1px solid var(--line); vertical-align: top; text-align: right; white-space: nowrap; }
+.sheettab td.l { text-align: left; white-space: normal; }
+.sheettab td.note { width: 45%; }
+@media (max-width: 700px) {
+  .sheetgrid { grid-template-columns: minmax(0, 1fr); }
+  .sheethead .pic.big { width: 64px; height: 64px; }
+  .sheettab td { white-space: normal; }
+  .sheettab td:not(.l) { white-space: nowrap; }  /* a range ($80m–$150m) stays on one line; the label and source columns wrap */
+}
+/* Printing (any page; made for the one-pager): no header, menus, buttons or player; A4 with small margins */
+@media print {
+  @page { size: A4; margin: 10mm; }
+  header, footer, .crumbs, .subnav, .noprint, .filters, #dock, .star, .play, .how { display: none !important; }
+  body { font-size: 9pt; line-height: 1.3; }
+  .wrap { max-width: none; padding: 0; }
+  .sheet { gap: 5px; }
+  .sheetgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+  .sheethead { gap: 10px; }
+  .sheethead .pic.big { width: 56px; height: 56px; }
+  .sheethead h1 { font-size: 18pt; }
+  .sheethead .sub, .sheethead .about, .sheethead p { margin: 2px 0; }
+  .sheet .panel { padding: 5px 7px; gap: 3px; break-inside: avoid; }
+  .sheet .panel h2 { font-size: 8.5pt; margin: 0; }
+  .sheet .panel p { margin: 0; }
+  .sheettab { font-size: 8pt; }
+  .sheettab td { padding: 1px 4px 1px 0; }
+  .sheet .note, .sheet .about { font-size: 7.5pt; }
+  a { text-decoration: none; }
+}
+/* the Worth card: labels wrap, figures keep their width, nothing spills past the card */
+.cardcol .kv { grid-template-columns: minmax(0, 1fr) auto; }
+/* press figures and glossary (2026-10-26, ROADMAP 11.6, 11.17) */
+.pressgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 12px; }
+.pressfig { border: 1px solid var(--line); padding: 14px 16px; min-width: 0; display: grid; gap: 6px; align-content: start; }
+.pressfig .k { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.pressfig .v { font: 650 24px/1.2 var(--font-ui); overflow-wrap: anywhere; }
+.pressfig p { margin: 0; }
+.pressfig .cite code { font-size: 12px; }
+.gloss { margin: 0; }
+.gloss dt { font-weight: 650; margin-top: 12px; }
+.gloss dt:first-child { margin-top: 0; }
+.gloss dd { margin: 2px 0 0; overflow-wrap: anywhere; }
