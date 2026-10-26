@@ -86,3 +86,22 @@ def test_held_back_rows_stay_open(tmp_path):
     _csv(reg / "genre_overrides.csv", "spotify_id,decision,note\na,review,held back 2026-10-26 (owner)\nb,hip_hop,\nc,review,unclear")
     q = quality.queues("hip_hop", rev, reg)[0]
     assert (q["open"], q["held"]) == (2, 1)  # an owner "review" is not settled; only "held back" rows count as held
+
+
+def test_review_desk_does_not_undo_later_decisions(tmp_path, monkeypatch):
+    import csv
+    import json
+    from src import reviews
+    reg, rev = tmp_path / "registry", tmp_path / "review"
+    reg.mkdir(), rev.mkdir()
+    _csv(reg / "genre_overrides.csv", "spotify_id,name,decision,note,decided_by,date\na,A,latin,rule,owner,2026-10-26")
+    _csv(reg / "label_overrides.csv", "spotify_id,name,status,owner,label,note,date")
+    (rev / "decisions.json").write_text(json.dumps({"genre": {"a": {"decision": "hip_hop", "name": "A", "at": "2026-10-24"},
+                                                              "b": {"decision": "hip_hop", "name": "B", "at": "2026-10-24"}}}))
+    monkeypatch.setattr(reviews, "REGISTRY", reg)
+    monkeypatch.setattr(reviews, "DECISIONS", rev / "decisions.json")
+    monkeypatch.setattr(reviews, "load_artists", lambda: {})
+    monkeypatch.setattr(reviews, "save_artists", lambda a: None)
+    reviews.apply()
+    rows = {r["spotify_id"]: r["decision"] for r in csv.DictReader((reg / "genre_overrides.csv").open())}
+    assert rows == {"a": "latin", "b": "hip_hop"}  # the later decision stands; a new tap is still applied

@@ -78,7 +78,7 @@ spotify_id,name,decision,note,decided_by,date
 2zW6nGPGBEaGNENvqaw9lo,Bello&Dallas,hip_hop,Review desk,owner,2026-10-24
 5gUZ67Vzi1FV2SnrWl1GlE,Benny Benni,latin,Review desk,owner,2026-10-24
 7a0XAaPaK2aDSqa8p3QnC7,Beéle,latin,Review desk,owner,2026-10-24
-7fT2Me47PQ8T7954PKrcwR,Bhavi,hip_hop,Review desk,owner,2026-10-24
+7fT2Me47PQ8T7954PKrcwR,Bhavi,review,"claude reverse check 2026-10-26 (review): unclear: Argentine trap in the urbano circle (biggest song Bésame remix with Tiago PZK, KHEA, Neo Pistea; 14 Latin collaborators incl. Duki, YSY A, C.R.O, which stay Latin) but his own songs are mostly rap; the owner chose hip-hop at the Review desk on 2026-10-24; replaces owner hip_hop (Review desk, 2026-10-24)",claude reverse check,2026-10-26
 5J5DLfdC5YmPjVk8ljdOqU,Big Metra,latin,Review desk,owner,2026-10-24
 2OhUNb01gLwygOizYvTm0e,Big One,latin,Review desk,owner,2026-10-24
 1NB6QyaNXhrDd82y0WyG3I,Bilouki,hip_hop,Review desk,owner,2026-10-24
@@ -327,7 +327,7 @@ spotify_id,name,decision,note,decided_by,date
 0V5bkwV2Bd90bMLMc8JFeS,IShowSpeed,hip_hop,Review desk,owner,2026-10-24
 4BLLuraEiS8Sb3j5csO1jd,Iss,hip_hop,Review desk,owner,2026-10-24
 6p2442ymrT9lZEuCZJdYcH,Ivy Queen,latin,Review desk,owner,2026-10-24
-4s6Xg38sbqh4xpf4OqhVUK,iZaak,hip_hop,Review desk,owner,2026-10-24
+4s6Xg38sbqh4xpf4OqhVUK,iZaak,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican Latin trap/reggaeton (Bonnie and Clyde, BBY BOO, Traqueto); Wikidata Latin pop, Latin trap, reggaeton; 21 Latin collaborators (Anuel AA, Casper Magico, Brytiago), the hip-hop ones are PR trap acts moved here too; replaces owner hip_hop (Review desk, 2026-10-24)",claude reverse check,2026-10-26
 6289Bbkkk3gaCbh1K7Rv8F,Izi,hip_hop,Review desk,owner,2026-10-24
 0QSrUuv6y5Woazd3LAjbSH,İzel,hip_hop,Review desk,owner,2026-10-24
 6XFITTl7cFTdopDY3lUdlY,J Alvarez,latin,Review desk,owner,2026-10-24
@@ -571,7 +571,7 @@ spotify_id,name,decision,note,decided_by,date
 52XMlxvCIzmiNkzSqEw3Uv,O.S.T.R.,hip_hop,Review desk,owner,2026-10-24
 5YBSzuCs7WaFKNr7Bky0Uf,Olivia,other,Review desk,owner,2026-10-24
 0rUu2qzqezBrCddX1RuUyJ,Omar Camacho,other,Review desk,owner,2026-10-24
-3lY9Fxceu60W1rbon7PkuF,Omar Montes,hip_hop,Review desk,owner,2026-10-24
+3lY9Fxceu60W1rbon7PkuF,Omar Montes,latin,"claude reverse check 2026-10-26 (latin): Spanish flamenco-pop and reggaeton (Goteras, Alocao with Bad Gyal, Arena y Sal, sevillanas and rumbas); MusicBrainz reggaeton; 67% of daily streams as a guest of Latin acts (Quevedo, Saiko, Bad Gyal); 19 Latin collaborators; replaces owner hip_hop (Review desk, 2026-10-24)",claude reverse check,2026-10-26
 65jIUih0ZeTUJhSTRuYxpi,Omy de Oro,latin,Review desk,owner,2026-10-24
 2gGvBjb55mnnbQO2gNQSLo,ONDA ANDAR,hip_hop,Review desk,owner,2026-10-24
 5bIttAFRf7URUmuuI9w7XA,ONE OR EIGHT,other,Review desk,owner,2026-10-24
@@ -641,7 +641,7 @@ spotify_id,name,decision,note,decided_by,date
 4Hzj6dfl1y5x5TzCSsvLB6,Remik Gonzalez,hip_hop,Review desk,owner,2026-10-24
 2wYOpkTJZGByNEOjEnSmoW,Revol,latin,Review desk,owner,2026-10-24
 5pU9lKGn9IUnVvOCONrcIS,Rich Gang,hip_hop,Review desk,owner,2026-10-24
-2kqUKsTuEj1lPbm6BSn1AU,Rich Music LTD,hip_hop,Review desk,owner,2026-10-24
+2kqUKsTuEj1lPbm6BSn1AU,Rich Music LTD,other,"claude reverse check 2026-10-26 (other): not an artist: the profile of Rich Music, the reggaeton label of Sech, Dalex and Justin Quiles (Porno, Quizas, Perreo en La Luna); replaces owner hip_hop (Review desk, 2026-10-24)",claude reverse check,2026-10-26
 1FCItwxfRieMGhR0eRxotU,Rich Vagos,hip_hop,Review desk,owner,2026-10-24
 4TGltjqP0MQxdGeSIrM4es,RIDSA,other,Review desk,owner,2026-10-24
 5kgH3qVSSDPPmKnQfrkblH,RIP SLYME,hip_hop,Review desk,owner,2026-10-24
@@ -1236,3 +1236,13 @@ spotify_id,name,decision,note,decided_by,date
 1ZDu0fOcpCIjDwyl2cvk08,Vale Pain,hip_hop,"owner 2026-10-26: accepted after quality check; kworb lead songs In Mezzo ai Guai (feat. Neima Ezza), Cali, Rocket (feat. Artie 5ive); Deezer 95% of 38 releases Rap/Hip Hop",owner,2026-10-26
 31l8FA2bO5qxpqf8uhV5eZ,Millonario & W. Corona,hip_hop,"owner 2026-10-26: Spanish-language hip-hop counts as hip-hop; Mexican rap duo of Cartel de Santa members (Éxtasis, Más Flow Más Cash, Lírica y Metralla); every kworb song is their own",owner,2026-10-26
 3ygJTpJJIK7eEeC2EFRl9D,Alcolirykoz,hip_hop,"owner 2026-10-26: Spanish-language hip-hop counts as hip-hop; Colombian rap group from Medellín (Todo Lo Bueno Tarda, Medellificación, El Remate); 98 of 99 kworb songs their own",owner,2026-10-26
+0KPX4Ucy9dk82uj4GpKesn,Dalex,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican-American reggaeton singer (Hola Remix, Bellaquita, Pa Mí); MusicBrainz latin/reggaeton; 32 of 34 registry collaborators Latin",claude reverse check,2026-10-26
+78F6Xkd46aMHkr4AP60TXY,Clarent,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican urbano singer (Jukiar, Ojos Brujos, IA with Mora); MusicBrainz 'Puerto Rican rapper'; 16 Latin collaborators (Mora, Blessd, Young Miko, De La Rose)",claude reverse check,2026-10-26
+5J7rXWjtn5HzUkJ4Jet8Fr,Alvaro Diaz,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican Latin trap/reggaeton (Reina Pepiada, Problemón, Gatitas Sandungueras); Wikidata Latin trap, reggaeton; MusicBrainz latin, reggaeton; collaborators Feid, Rauw Alejandro, Tainy, Mora",claude reverse check,2026-10-26
+0qTZZWLzuD59Un5r1speHm,Chris Jedi,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican reggaeton producer (Ahora Dice, La Llevo Al Cielo, Perreo Lento); Wikidata Latin trap, reggaeton; collaborators Ozuna, Arcángel, Ñengo Flow, Lunay",claude reverse check,2026-10-26
+3IEvQoAohcGX7CdrbtIle7,Baby Rasta y Gringo,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican reggaeton duo (Me Niegas, Ella Se Contradice); Wikidata and MusicBrainz reggaeton; 15 Latin collaborators (Daddy Yankee, Don Omar, Arcángel)",claude reverse check,2026-10-26
+3huof3P8bH0AJzMvy9kwv2,Baby Ranks,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican-Dominican reggaeton artist (Mayor Que Yo, Mas Flow 2); Wikidata and MusicBrainz reggaeton; 97% of daily streams as a featured guest",claude reverse check,2026-10-26
+0QrUbsrL5imqntAfDl8i7q,Fred De Palma,latin,"claude reverse check 2026-10-26 (latin): Italian reggaeton (Una volta ancora and D'estate non vale with Ana Mena, Paloma with Anitta, Se iluminaba); Wikidata reggaeton, pop rap",claude reverse check,2026-10-26
+2KtMll7bpqySnZhr8wriRE,CDobleta,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican Latin trap (Quienes Son, Bellakita); Wikidata Puerto Rican hip-hop, Latin trap, reggaeton; 75% of daily streams as a guest; 13 Latin collaborators (Luar La L, Brytiago, Casper Magico)",claude reverse check,2026-10-26
+7MNP6nVHIDvPCRvfCeAJpF,Pressure 9X19,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican Latin trap (VVS Switch with Luar La L); Wikidata Latin trap; collaborators YOVNGCHIMI, Slayter, Justin Quiles, Anuel AA",claude reverse check,2026-10-26
+2f0j8IhXgOli2Ub2amAiUZ,Midnvght,latin,"claude reverse check 2026-10-26 (latin): Puerto Rican urbano (Falsas Promesas, Poseída); 28% of Deezer releases Latin; 13 Latin collaborators (Mora, Eladio Carrion, Arcángel, Jon Z)",claude reverse check,2026-10-26

@@ -30,8 +30,8 @@ def apply() -> tuple[int, int]:
     label = {r["spotify_id"]: r for r in csv.DictReader(lpath.open())}
     artists = load_artists()
     for sid, x in d.get("genre", {}).items():
-        if x.get("decision") not in GENRES:
-            continue
+        if x.get("decision") not in GENRES or genre.get(sid, {}).get("date", "") > x.get("at", ""):
+            continue  # a later decision in genre_overrides.csv (e.g. a rule the owner set afterwards) wins
         genre[sid] = {"spotify_id": sid, "name": x.get("name", ""), "decision": x["decision"], "note": "Review desk",
                       "decided_by": "owner", "date": x.get("at", "")}
         if sid in artists:

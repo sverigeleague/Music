@@ -164,11 +164,30 @@ def build(genre: str = "hip_hop") -> dict:
         out = []
         for h in hits.get(sid, []):
             c = cred.get(h["isrc"])
-            if c and (c["producers"] or c["writers"]):
+            pubs = credits_src.publishers(c.get("publishers"))[0] if c else []
+            if c and (c["producers"] or c["writers"] or pubs):
                 out.append({"title": h["title"], "daily": h["daily"], "recording": c["recording"],
                             "producers": [n for n, _ in credits_src.split(c["producers"])],
-                            "writers": [n for n, _ in credits_src.split(c["writers"])]})
+                            "writers": [n for n, _ in credits_src.split(c["writers"])],
+                            **({"work": c["work"], "publishers": pubs, "pub_checked": c["pub_checked"]} if pubs else {})})
         return out
+    def pub_coverage(ids):
+        """Songs with publishers on record / songs checked (the listed artists' 3 biggest, once each), top 40 and all."""
+        best = {}  # a song on several artists' pages counts once, at its biggest daily figure
+        for h in (h for sid in ids for h in hits.get(sid, []) if h["isrc"]):
+            best[h["isrc"]] = max(best.get(h["isrc"], 0), h["daily"])
+        songs = sorted(best, key=lambda i: -best[i])
+        # checked: looked up for publishers, or not on MusicBrainz at all (so none listed)
+        done = [i for i in songs if (c := cred.get(i)) and (c.get("pub_checked") or not c["recording"])]
+        pubs = {i: credits_src.publishers(cred[i].get("publishers")) for i in done}
+        groups = {}
+        for g, _ in pubs.values():
+            for x in g:
+                groups[x["group"]] = groups.get(x["group"], 0) + 1
+        top = [i for i in songs[:40] if i in pubs]
+        return {"songs": len(songs), "checked": len(done), "with": sum(1 for g, _ in pubs.values() if g),
+                "top40_checked": len(top), "top40_with": sum(1 for i in top if pubs[i][0]), "groups": groups,
+                "songs_with_label_dropped": sum(1 for _, d in pubs.values() if d), "names_dropped": sum(len(d) for _, d in pubs.values())}
     isrcs: dict[str, list[str]] = {}
     for tid, tr in dates.items():
         if tr.get("isrc") and tr.get("deezer_date", "") >= cutoff and tid in lead.get(tr["artist_id"], ()):
@@ -366,7 +385,7 @@ def build(genre: str = "hip_hop") -> dict:
             "label_logos": logos.load(), "label_financials": label_financials(),
             "group_finances": health.build(), "sony_music": sony_music.load(), "company_of": health.COMPANY_OF,
             "multiples": mult, "apple_day": apple_day, "apple_countries": len(apple_charts.COUNTRIES),
-            "quality": quality.summary(genre)}  # review queues, source dates, corrections log (#/quality)
+            "quality": {**quality.summary(genre), "publishers": pub_coverage([r["id"] for r in rows])}}  # review queues, source dates, corrections log (#/quality)
 
 
 def genre_note(basis: str) -> str:

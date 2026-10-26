@@ -2,6 +2,15 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Labels page: every label name links before the full list (owner)
+
+- **Owner:** "each label listed should hyperlink to the label page so before i reach the list i can already click them."
+- **Chosen:** on the Labels page, a label or owner name links to its label page where one exists (the share table,
+  "Independent labels and distributors", the rosters). An owner with no page of its own (Believe, Stem, Sony Music…)
+  opens the label list below, filtered to that owner's labels. 38 names link before the list; the rest stay plain text
+  (Self-released, Not yet known, owners with no label in the top 1,000).
+- **Rejected:** a page per owner company: the filtered list already shows its labels, with their figures.
+
 ## 2026-10-26 Site look: "the liner notes", the financial-broadsheet direction (owner)
 
 - **Owner:** "optimize the UI", in the financial-broadsheet direction chosen for both tventy sites; music is the
@@ -72,6 +81,132 @@ What was chosen, what was considered and rejected, and why. Newest first.
     country, movers, compare, the one-pager, State, the screener, the glossary and an unknown address. No page
     errors, no NaN or undefined, no sideways scroll.
   - `pytest` passed (131 tests), the site build ran, and `app.js` and `config.js` parse.
+
+## 2026-10-26 Publishers on record from MusicBrainz works (publisher research, recommendation 1)
+
+- **Task:** recommendation 1 of `docs/research/2026-10-26-publisher-sources.md`. The MusicBrainz credits step also
+  saves each song's publishers and ISWC; the artist page shows "Publishers on record".
+- **Collector (`src/collectors/credits.py`):**
+  - The recording call adds `label-rels`, so it brings the work's "publishing" links to MusicBrainz labels. MusicBrainz
+    exposes no other publisher relationship on works.
+  - Four new columns in `data/credits.csv`: `work`, `iswc`, `publishers` (`Name~<label id>`, plus `~sub` for a
+    sub-publisher) and `pub_checked`.
+  - A row checked before today has a recording but no `pub_checked`. It is checked again once: one request, since the
+    recording ID is already known. A failed re-check keeps the old row. The file is saved every 50 songs, so a cut-off
+    run resumes where it stopped.
+  - `credits_step` now goes biggest songs first, so a partial run covers the hits.
+  - The monthly workflow already runs `credits`, for hip-hop and for country, so it finishes whatever is left.
+- **Grouping:** `GROUPS` in `credits.py` holds name rules. Names are compared in lower case, without accents, with
+  dashes and slashes read as spaces. The first rule that matches wins.
+  - Sony Music Publishing: Sony/ATV and EMI Music Publishing (EMI April, EMI Blackwood), Sony's since 2018.
+  - Universal Music Publishing Group: Songs of Universal, Universal Music Corp., PolyGram publishing, Zomba, Rondor,
+    Almo and Careers-BMG. Careers-BMG is the old BMG Music Publishing, which Universal bought in 2007.
+  - Warner Chappell: Warner-Tamerlane, WB Music, WC Music and (Uni)Chappell.
+  - Kobalt; BMG; Concord (with Imagem); Reservoir; Downtown / Songtrust (with Sentric).
+  - Everything else is "Independent and other".
+- **Record companies are not publishers:** `record_company()` catches the majors' recorded-music companies by name
+  (Sony Music Entertainment, Universal Music Group, Warner Music Group, Warner Records ...). It also catches any
+  "... Records" or "... Recordings" name with no publishing word in it. These names stay in the CSV as entered, but
+  the site leaves them out, and the Data quality page counts the songs where one was dropped.
+- **Site:**
+  - Artist page: a "Publishers on record" panel under "Who makes the hits". Each song links to its MusicBrainz work
+    and shows its names by group. It carries the source, "reported", the check date and the owner's note: "Who holds
+    the publishing ... missing means not listed, not unpublished."
+  - Data quality: a "Publishers on record (songs)" row with songs with publishers out of songs checked, overall and
+    for the biggest 40, plus the source date row.
+  - Method page: one line under Other sources.
+  - Grade B, as for the other MusicBrainz credits: reported by volunteers, not our estimate. The research note had
+    suggested C, but on this site C means "our estimate".
+- **Rejected:**
+  - Publisher rows in `registry/label_owners.csv`, as the research suggested: that file maps record labels by name
+    pattern for the label status, and publisher patterns there could match record labels. The rules sit next to the
+    collector instead, with tests.
+  - Shares or a publishing market share: there are no shares. Counting songs per group is not money, and too few
+    songs are covered.
+  - Showing record companies flagged in the list: they are left out instead, because a reader would take them for
+    publishers.
+  - A separate work request for the ISWC: the work inside the recording reply already carries it.
+- **Run (today):**
+  - 79 songs were seeded from the research agent's cached MusicBrainz replies (same call, same day).
+  - The rest went through `credits_step` at 2 s between requests, so the combined rate stays under 1/s if `mbdates`
+    runs at the same time. About 740 requests. MusicBrainz answered 503 now and then, and those songs were retried
+    once.
+  - The run stopped once the top 1,000 hip-hop songs (by daily streams; 668 of them on MusicBrainz) were done: 663
+    of the 668 checked.
+  - The remaining 926 songs on MusicBrainz, the lower songs, are left to the monthly `credits` step. At its 1.1 s
+    pace that is about 20–35 minutes.
+- **Coverage (listed hip-hop artists, 3 biggest songs each):**
+  - Biggest 40 songs: 15 with publishers (36 of the 40 are on MusicBrainz).
+  - Top 1,000 songs: 107 with publishers.
+  - All checked: 112 of 1,803 songs. That count includes 1,083 songs that are not on MusicBrainz at all.
+  - Songs per group: Sony 49, Universal 51, Warner Chappell 46, BMG 11, Kobalt 10, Reservoir 5, Concord 4,
+    Downtown 1, independent and other 109.
+  - 8 names on 6 songs were dropped: Sony Music Entertainment, Universal Music Group (2), Warner Music Group Corp.,
+    Ultra Records, and Copyright Control (3). "Copyright Control" means the writer holds the rights, so no publisher
+    is named.
+- **Tests:** `tests/test_credits_publishers.py` covers the grouping rules, the label-not-publisher rule and the parse.
+
+## 2026-10-26 Reverse check: hip-hop acts that are Latin urbano moved out; Motive and LENNSKO stay (owner)
+
+- **Task:** the reverse of the Spanish-rap check below. Under the owner's rule (reggaeton, dembow, reparto, corridos
+  and the Latin trap/urbano in the reggaeton orbit are Latin; Spanish-language rap is hip-hop; most of the lead songs
+  decide; unclear goes to review), check the artists filed as hip-hop.
+- **Owner decision, Motive and LENNSKO:** they stay in the ranking. They lead few songs on kworb, but none of their
+  streams come from features, so the features-led hold-back does not apply to them.
+- **Screen:** the top 1,150 hip-hop artists by monthly listeners (the top 1,000 plus those near the floor). 330 had
+  any Spanish or Latin signal: Spanish-speaking country (Puerto Rico included, also by MusicBrainz country), Spanish
+  words in the top 30 kworb titles, Deezer Latin share above 0, MusicBrainz/Wikidata genres naming reggaeton, Latin
+  or urbano, or a featured artist with genre latin. 154 had a strong signal. 56 were checked by hand: kworb lead
+  songs and feature share of daily streams, Deezer top 50 (fetched, cached in the scratchpad), Deezer genre shares,
+  MusicBrainz genres and description (cached; 10 s apart while mbdates ran), Wikidata genres, registry genre of the
+  collaborators on kworb and Deezer. A second pass with a wider Spanish word list found no further cases. Full table
+  (all 330): `review/latin_reverse_check_2026-10-26.csv`.
+- **Hip-hop to Latin (12):** Dalex, Clarent, Alvaro Diaz, Chris Jedi, iZaak, Baby Rasta y Gringo, Omar Montes,
+  Fred De Palma, Baby Ranks, Midnvght, CDobleta, Pressure 9X19.
+  - Ten are Puerto Rican reggaeton or Latin trap. Most of their collaborators are Latin acts (Dalex 32 of 34).
+  - Omar Montes is Spanish flamenco-pop and reggaeton, with 67% of his daily streams as a guest of Latin acts.
+  - Fred De Palma is Italian-language reggaeton: Una volta ancora, D'estate non vale, Paloma. Reggaeton is Latin
+    whatever the language.
+- **Not an artist (1):** Rich Music LTD is the profile of the Panamanian reggaeton label Rich Music (Sech, Dalex,
+  Justin Quiles), so its decision is other.
+- **To review (1):** Bhavi. He is Argentine trap in the urbano circle: his biggest song is the Bésame remix with
+  Tiago PZK, KHEA and Neo Pistea, and 14 of his collaborators are Latin, among them Duki, YSY A and C.R.O, who
+  stay Latin. But his own songs are mostly rap, and the owner chose hip-hop for him at the Review desk on
+  2026-10-24.
+- **Kept hip-hop, notable cases:**
+  - Beny Jr and Morad: Spanish street rap and drill, with French and Moroccan rap collaborators. Wikidata lists
+    Latin trap among their genres, but their lead songs are rap.
+  - Calle 13: an alternative hip-hop band. Only Atrévete-Te-Te is reggaeton.
+  - Also kept: Residente, Kidd Keo, Cruz Cafuné (Cruzzi), Alemán (corrido features, but rap lead songs), La Santa
+    Grifa, Millonario, the Mexican romantic and street rap circle (C-Kan, Charles Ans, Neto Peña, Rich Vagos and
+    others), and El Vega (5 lead songs, romantic rap, the owner's Review desk choice).
+  - English-language acts with Latin features or remixes stay hip-hop: 6ix9ine, CJ, N.O.R.E., Big Pun, Cypress Hill.
+  - Today's 55 Spanish-rap moves, Kase.O, Trueno and MC Davo were not re-checked. Nothing in the screen
+    showed clear reggaeton evidence for them.
+- **Applied:**
+  - The 14 decisions are rows in `registry/genre_overrides.csv` (CRLF kept), decided_by "claude reverse check", date
+    2026-10-26, with the evidence in the note. Four of them replace the owner's Review desk "hip_hop" taps of
+    2026-10-24 (iZaak, Omar Montes, Bhavi, Rich Music LTD), and the note says so.
+  - `registry/artists.csv` was updated the way `registry()` applies overrides. The full registry run was not used.
+  - `review/genre_review.csv` was rewritten with `write_review`: Bhavi was added, and listener counts were refreshed
+    from today's snapshot.
+- **Top 1,000:** 14 entered and 14 left. The floor fell from 1.73m (Rob Vicious) to 1.70m (Pi'erre Bourne).
+  - Entered: Big Tymers, Kenny Mason, Anıl Piyancı, DJEZJA, McKlopedia, Raflow, Ab-Soul, Lagui, GRECAS, Himra,
+    Rakim, JBEE, Izi, Pi'erre Bourne.
+  - Left: the 14 above.
+- **Steps run for the entrants:** streams, dates, labels, photos, awards, certifications, descriptions, pageviews,
+  listenbrainz, mblabels and credits; wikidata-from-mb for the entrants only (5 asked, none found). MusicBrainz calls
+  were 10 s apart because mbdates was running; mbdates, youtube and reports were not run.
+  - Most entrants had been in the top 1,000 before: Anıl Piyancı, McKlopedia and GRECAS left it earlier today.
+  - Coverage of the 14: stream totals 14, Wikidata 9, photo 6.
+- **Rejected:**
+  - Moving Beny Jr, Morad or Kidd Keo on their Wikidata "Latin trap" tag alone. Their lead songs are rap.
+  - Moving Bhavi outright. The owner chose otherwise two days ago, and the case is borderline.
+  - Fixing a latent conflict in passing. `review/decisions.json` still holds the 2026-10-24 Review desk taps, so
+    re-running `python -m src.reviews` would put about 50 of today's override rows back to the taps (this check's
+    four, and earlier ones such as Cartel De Santa). Fixed right after, below.
+- **Fix (same day):** `src/reviews.py` now skips a Review desk tap when `registry/genre_overrides.csv` holds a later
+  decision for the same artist, so the latest decision wins. Replaying the desk now changes nothing; a test covers it.
 
 ## 2026-10-26 Spanish-language hip-hop counted; features-led acts held back (owner)
 
