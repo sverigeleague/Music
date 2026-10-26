@@ -6,7 +6,7 @@
    "key": "majors",
    "label": "Majors' share of the top 1,000's listeners",
    "value": "67%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist, among the 685 of 1,000 artists whose label is known (catalog acts left out)",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist, among the 682 of 1,000 artists whose label is known (catalog acts left out)",
    "link": "#/labels"
   },
   {
@@ -26,7 +26,7 @@
   {
    "key": "breaking",
    "label": "Breaking now",
-   "value": "24",
+   "value": "23",
    "detail": "artists Scout rates Breaking; top: RAPROJECT SIX (95)",
    "link": "#/scout"
   },
@@ -40,7 +40,7 @@
   {
    "key": "royalties",
    "label": "What the top 100 earn on Spotify",
-   "value": "$336.5m a year",
+   "value": "$330.0m a year",
    "detail": "royalties paid to the rights holders for their own songs, mid estimate (grade C)",
    "link": "#/worth"
   },
@@ -62,7 +62,7 @@
    "key": "size",
    "label": "Hip-hop artists tracked",
    "value": "1,000",
-   "detail": "6.73bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,232",
+   "detail": "6.67bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,232",
    "link": "#/"
   }
  ]

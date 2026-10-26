@@ -2,6 +2,68 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Reverse check: hip-hop acts that are Latin urbano moved out; Motive and LENNSKO stay (owner)
+
+- **Task:** the reverse of the Spanish-rap check below. Under the owner's rule (reggaeton, dembow, reparto, corridos
+  and the Latin trap/urbano in the reggaeton orbit are Latin; Spanish-language rap is hip-hop; most of the lead songs
+  decide; unclear goes to review), check the artists filed as hip-hop.
+- **Owner decision, Motive and LENNSKO:** they stay in the ranking. They lead few songs on kworb, but none of their
+  streams come from features, so the features-led hold-back does not apply to them.
+- **Screen:** the top 1,150 hip-hop artists by monthly listeners (the top 1,000 plus those near the floor). 330 had
+  any Spanish or Latin signal: Spanish-speaking country (Puerto Rico included, also by MusicBrainz country), Spanish
+  words in the top 30 kworb titles, Deezer Latin share above 0, MusicBrainz/Wikidata genres naming reggaeton, Latin
+  or urbano, or a featured artist with genre latin. 154 had a strong signal. 56 were checked by hand: kworb lead
+  songs and feature share of daily streams, Deezer top 50 (fetched, cached in the scratchpad), Deezer genre shares,
+  MusicBrainz genres and description (cached; 10 s apart while mbdates ran), Wikidata genres, registry genre of the
+  collaborators on kworb and Deezer. A second pass with a wider Spanish word list found no further cases. Full table
+  (all 330): `review/latin_reverse_check_2026-10-26.csv`.
+- **Hip-hop to Latin (12):** Dalex, Clarent, Alvaro Diaz, Chris Jedi, iZaak, Baby Rasta y Gringo, Omar Montes,
+  Fred De Palma, Baby Ranks, Midnvght, CDobleta, Pressure 9X19.
+  - Ten are Puerto Rican reggaeton or Latin trap. Most of their collaborators are Latin acts (Dalex 32 of 34).
+  - Omar Montes is Spanish flamenco-pop and reggaeton, with 67% of his daily streams as a guest of Latin acts.
+  - Fred De Palma is Italian-language reggaeton: Una volta ancora, D'estate non vale, Paloma. Reggaeton is Latin
+    whatever the language.
+- **Not an artist (1):** Rich Music LTD is the profile of the Panamanian reggaeton label Rich Music (Sech, Dalex,
+  Justin Quiles), so its decision is other.
+- **To review (1):** Bhavi. He is Argentine trap in the urbano circle: his biggest song is the Bésame remix with
+  Tiago PZK, KHEA and Neo Pistea, and 14 of his collaborators are Latin, among them Duki, YSY A and C.R.O, who
+  stay Latin. But his own songs are mostly rap, and the owner chose hip-hop for him at the Review desk on
+  2026-10-24.
+- **Kept hip-hop, notable cases:**
+  - Beny Jr and Morad: Spanish street rap and drill, with French and Moroccan rap collaborators. Wikidata lists
+    Latin trap among their genres, but their lead songs are rap.
+  - Calle 13: an alternative hip-hop band. Only Atrévete-Te-Te is reggaeton.
+  - Also kept: Residente, Kidd Keo, Cruz Cafuné (Cruzzi), Alemán (corrido features, but rap lead songs), La Santa
+    Grifa, Millonario, the Mexican romantic and street rap circle (C-Kan, Charles Ans, Neto Peña, Rich Vagos and
+    others), and El Vega (5 lead songs, romantic rap, the owner's Review desk choice).
+  - English-language acts with Latin features or remixes stay hip-hop: 6ix9ine, CJ, N.O.R.E., Big Pun, Cypress Hill.
+  - Today's 55 Spanish-rap moves, Kase.O, Trueno and MC Davo were not re-checked. Nothing in the screen
+    showed clear reggaeton evidence for them.
+- **Applied:**
+  - The 14 decisions are rows in `registry/genre_overrides.csv` (CRLF kept), decided_by "claude reverse check", date
+    2026-10-26, with the evidence in the note. Four of them replace the owner's Review desk "hip_hop" taps of
+    2026-10-24 (iZaak, Omar Montes, Bhavi, Rich Music LTD), and the note says so.
+  - `registry/artists.csv` was updated the way `registry()` applies overrides. The full registry run was not used.
+  - `review/genre_review.csv` was rewritten with `write_review`: Bhavi was added, and listener counts were refreshed
+    from today's snapshot.
+- **Top 1,000:** 14 entered and 14 left. The floor fell from 1.73m (Rob Vicious) to 1.70m (Pi'erre Bourne).
+  - Entered: Big Tymers, Kenny Mason, Anıl Piyancı, DJEZJA, McKlopedia, Raflow, Ab-Soul, Lagui, GRECAS, Himra,
+    Rakim, JBEE, Izi, Pi'erre Bourne.
+  - Left: the 14 above.
+- **Steps run for the entrants:** streams, dates, labels, photos, awards, certifications, descriptions, pageviews,
+  listenbrainz, mblabels and credits; wikidata-from-mb for the entrants only (5 asked, none found). MusicBrainz calls
+  were 10 s apart because mbdates was running; mbdates, youtube and reports were not run.
+  - Most entrants had been in the top 1,000 before: Anıl Piyancı, McKlopedia and GRECAS left it earlier today.
+  - Coverage of the 14: stream totals 14, Wikidata 9, photo 6.
+- **Rejected:**
+  - Moving Beny Jr, Morad or Kidd Keo on their Wikidata "Latin trap" tag alone. Their lead songs are rap.
+  - Moving Bhavi outright. The owner chose otherwise two days ago, and the case is borderline.
+  - Fixing a latent conflict in passing. `review/decisions.json` still holds the 2026-10-24 Review desk taps, so
+    re-running `python -m src.reviews` would put about 50 of today's override rows back to the taps (this check's
+    four, and earlier ones such as Cartel De Santa). Fixed right after, below.
+- **Fix (same day):** `src/reviews.py` now skips a Review desk tap when `registry/genre_overrides.csv` holds a later
+  decision for the same artist, so the latest decision wins. Replaying the desk now changes nothing; a test covers it.
+
 ## 2026-10-26 Spanish-language hip-hop counted; features-led acts held back (owner)
 
 - **Owner:** "Keep pure Spanish hip hop in", and hold back the acts whose listeners come mostly from features or
