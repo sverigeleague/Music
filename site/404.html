@@ -9,11 +9,11 @@
      unknown address with the start page and a 200, which search engines index as duplicates). Self-contained: it
      can be served at any depth, so it uses no relative links. -->
 <style>
-:root { --bg: #fff; --fg: #0b0c0e; --muted: #5a5f68; }
-@media (prefers-color-scheme: dark) { :root { --bg: #0b0c0e; --fg: #f2f3f5; --muted: #a3a8b1; } }
+/* the site's paper and ink (styles.css), with system fonts: this page loads nothing else */
+:root { --bg: #f2f0e6; --fg: #122b27; --muted: #4b5c55; }
 body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
-main { max-width: 640px; margin: 0 auto; padding: 64px 16px; }
-h1 { font-size: 28px; margin: 0 0 12px; }
+main { max-width: 640px; margin: 0 auto; padding: 64px 16px; border-top: 3px double var(--fg); }
+h1 { font: 400 34px/1.1 Georgia, "Times New Roman", serif; margin: 0 0 12px; }
 p { color: var(--muted); }
 a { color: var(--fg); }
 </style>

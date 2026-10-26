@@ -322,7 +322,7 @@ function top() {
     : `Ranked by Spotify monthly listeners, ${esc(d.as_of)}.`;
   const scoutTop = all.filter(x => x.scout?.tier === "Breaking").sort((x, y) => y.scout.score - x.scout.score).slice(0, 3);
   const labelsN = (d.labels || []).length, total = all.reduce((s, a) => s + (a.second_of ? 0 : a.ml || 0), 0);  // second Spotify profiles left out
-  app.innerHTML = `<section class="hero"><h1>Global Hip-Hop</h1>
+  app.innerHTML = `<section class="hero"><p class="kicker">Front page · ${esc(d.as_of)}</p><h1>Global Hip-Hop</h1>
       <p class="lede">Who is really drawing an audience in hip-hop right now, what their music earns, who owns it, and who is about to break. ${all.length.toLocaleString()} artists, updated daily, every figure sourced. <a href="#/state">This month in numbers →</a></p>
       <div class="stats"><div><b>${all.length.toLocaleString()}</b><span>hip-hop artists tracked${nFloor ? `: ${(all.length - nFloor).toLocaleString()} of Spotify's top ${d.universe.toLocaleString()}, ${nFloor.toLocaleString()} below its 500k floor` : `, of Spotify's top ${d.universe.toLocaleString()}`}</span></div><div><b>${count(total)}</b><span>monthly listeners, summed across artists (a fan of two artists counts twice; second Spotify profiles of the same artist left out)</span></div><div><b>${labelsN}</b><span>labels with artists in the top 1,000</span></div><div><b>${esc(d.as_of)}</b><span>listener data as of</span></div></div></section>
     ${pulse()}
@@ -1201,9 +1201,10 @@ function worthTable() {
 
 // ---------- labels: who owns the hip-hop top 1,000
 const GROUP_ORDER = ["Universal Music Group", "Sony Music", "Warner Music Group", "Independent labels", "Self-released", "Not yet known"];
-// dark to light on the white page; groups outside the order above (HYBE America in country) get the striped shades
-const SHADE = ["#000", "#3b3f46", "#6b7079", "#a3a8b1", "#d3d6db", "repeating-linear-gradient(45deg,#d3d6db 0 3px,#fff 3px 6px)",
-  "repeating-linear-gradient(-45deg,#000 0 2px,#fff 2px 5px)", "radial-gradient(#000 1px,#fff 1.5px) 0 0/5px 5px"];
+// dark to light on the paper; groups outside the order above (HYBE America in country) get the striped shades
+// (the ink ramp --s0 to --s4 in styles.css; the paper behind the stripes and dots)
+const SHADE = ["var(--s0)", "var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)", "repeating-linear-gradient(45deg,var(--s4) 0 3px,var(--bg) 3px 6px)",
+  "repeating-linear-gradient(-45deg,var(--s0) 0 2px,var(--bg) 2px 5px)", "radial-gradient(var(--s0) 1px,var(--bg) 1.5px) 0 0/5px 5px"];
 function stack(parts) {
   const tot = parts.reduce((s, [, v]) => s + v, 0) || 1;
   return `<div class="stack">${parts.map(([g, v], i) => `<i style="width:${v / tot * 100}%;background:${SHADE[i]}" title="${esc(g)}: ${Math.round(v / tot * 100)}%"></i>`).join("")}</div>`;
@@ -1391,7 +1392,7 @@ function labelPage(s) {
       <div class="tile"><div class="k">Momentum</div><div class="v">${L.breaking + L.rising}</div><div class="s">${L.breaking} Breaking, ${L.rising} Rising · avg Scout ${L.scout_avg ?? "–"}</div></div>
       <div class="tile"><div class="k">Releases, last 2 years</div><div class="v">${L.releases_2y ?? "–"}</div><div class="s">across artists we track (Deezer)</div></div>
     </section>
-    ${top?.scout ? `<section class="panel"><h2>The one to watch</h2><p><a href="#/a/${top.id}"><b>${esc(top.name)}</b></a>${flag(top)}: Scout ${top.scout.score} ${tierChip(top.scout.tier)}, ${mlx(top)} monthly listeners${top.top_fresh ? `, newest hit "${esc(top.top_fresh.title)}" at ${count(top.top_fresh.daily)} streams a day` : ""}.</p></section>` : ""}
+    ${top?.scout ? `<section class="panel"><h2>The one to watch</h2><p><a href="#/a/${top.id}"><b>${esc(top.name)}</b></a>${flag(top)}: Scout ${top.scout.score}${top.scout.tier ? " " + tierChip(top.scout.tier) : ""}, ${mlx(top)} monthly listeners${top.top_fresh ? `, newest hit "${esc(top.top_fresh.title)}" at ${count(top.top_fresh.daily)} streams a day` : ""}.</p></section>` : ""}
     <section><h2>Roster</h2><div class="tablebox"><table><thead><tr><th class="l">Artist</th><th>Monthly listeners</th><th>Current listeners</th><th>Scout</th><th>New-release pull</th><th>Today</th><th>Streaming royalties / yr</th><th class="l">Newest hit</th></tr></thead><tbody>
       ${roster.map(a => `<tr><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span>${flag(a)}</a></td><td>${mlx(a)}</td><td>${clx(a)}</td><td>${a.scout ? `${a.scout.score} ${a.scout.provisional ? provChip(a.scout) : tierChip(a.scout.tier)}` : "–"}</td><td>${share(a.fresh_share)}</td><td>${pct(a.chg_pct)}</td><td>${usd(a.streaming_mid)}</td><td class="l wrap">${a.top_fresh ? esc(a.top_fresh.title) : `<span class="note">none in 90 days</span>`}</td></tr>`).join("")}
     </tbody></table></div><p class="note">Hip-hop artists in the top 1,000 whose recent releases carry this label. Royalties are paid to the label before the artist's share (see each artist's page); "–" means no measured streams, so that artist adds nothing to the roster total.</p></section>
@@ -2206,6 +2207,9 @@ async function route() {
   else if (h[0] === "glossary") glossaryPage();
   else if (h[0] === "") top();
   else notFound();
+  app.classList.add("enter"); clearTimeout(route.enter); route.enter = setTimeout(() => app.classList.remove("enter"), 800);  // the sections rise in on a new page only, not on each re-draw (styles.css)
+  const ed = document.getElementById("edition");  // the masthead's edition line (index.html, static pages)
+  if (ed) ed.innerHTML = `<span><b>The liner notes</b><span class="edx"> · ${GENRE === "country" ? "Country" : "<span data-noswap>Global hip-hop</span>"}, by the numbers</span></span><span>Data built ${esc(String(store.data.built || "").slice(0, 10))}</span>`;
   document.getElementById("foot").innerHTML = `Data as of ${esc(store.data.as_of)}; built ${esc(store.data.built)}. Sources: kworb.net (Spotify public counts), Wikidata, MusicBrainz, Deezer, Wikimedia Commons. Estimates are ranges, not reported figures. <a href="#/state">State of ${GENRE === "country" ? "country" : "hip-hop"}</a> · <a href="#/press">Press</a> · <a href="#/method">Method</a> · <a href="#/changelog">Method changelog</a> · <a href="#/quality">Data quality and corrections</a> · <a href="#/glossary">Glossary</a> · <a href="mailto:hello@tventy.se?subject=Correction">Report a correction</a> · <a href="https://tventy.se/sport/">tventy sport</a>`;
   prefixLinks(document.getElementById("foot"));  // country: footer links keep the genre (new tab, copied link)
   window.scrollTo(0, 0);
