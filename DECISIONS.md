@@ -2,6 +2,114 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Scout by country: each country's top 100, on a deeper artist list (owner)
+
+- **Owner:** "for the scout tab, i want there to be the top 100 artists for each country shown with that methodology
+  in that genre. so i see the top 100 for US, Canada, Sweden, etc."
+- **Reading (coordinator's, recorded here):** "country" is the artist's home country, the flag the site already shows
+  (`registry/artists.csv` `country`). Each country's top 100 artists of the genre by the existing Scout score: same
+  signals, weights, size bands and tiers. Both genres (`#/scout?country=SE`, `#/country/scout?country=US`).
+- **The problem was depth:** Scout scored only each genre's top 1,000, and 664 listed hip-hop artists had no country.
+  Before (top 1,000, scored, by country): United States 353, France 69, Germany 44, United Kingdom 33, Italy 33,
+  Poland 18, Turkey 17, Brazil 16, Canada 14, Mexico 9, Netherlands 6, Sweden 2, Spain 2 (country site: United States
+  341, Canada 23, Australia 7, United Kingdom 3).
+- **1. Countries filled (`src/origin.py`, step `origin`, `data/country_of_origin.csv`):**
+  - Where Wikidata's Spotify-ID query gives no country: Wikidata by the item's QID (P27/P495, the registry's rule:
+    several countries, the country of birth decides; a group with neither: P740's country), then MusicBrainz (the
+    artist's country, else the country its area or begin area lies in, walking "part of" up; areas cached in
+    `data/musicbrainz_areas.json`).
+  - The two disagreeing: left blank and listed in `review/country_review.csv` (6 rows, e.g. Boef France/Netherlands,
+    K'NAAN Somalia/Canada, Central Cee "English people"/United Kingdom).
+  - `registry()` now keeps these (Wikidata's country, else the fill), so a full registry run does not erase them;
+    `decide_artist` also passes the filled country to the Spanish-speaking rule. Each row carries source and basis.
+  - Result for the registry as it stood: 1,034 countries filled (Wikidata by QID 236, MusicBrainz 798), 373 with none
+    on either, 6 conflicts. Listed hip-hop artists without a country fell from 664 to 153. The added artists were
+    filled the same way (2,621 rows in the file now).
+- **2. More artists (all on kworb's listener pages, about 25,000 Spotify artists with 500k+ monthly listeners: the
+  only free source of monthly listeners, so the measuring stick):**
+  - Deezer genre rows for the 10,152 listed artists that had none (ranks about 15,000-25,232), `deezer_genres.update`,
+    10 workers inside src.http's Deezer pace.
+  - MusicBrainz tag search (`mb-discover`, `data/musicbrainz_discovered.json`): artists tagged hip-hop (rap, trap,
+    drill, grime, boom bap) in 36 countries, and country (americana, bluegrass...) in US, CA, AU, GB, IE, NZ, whose
+    name matches a listed artist not in the registry. The Spotify ID is read from the MusicBrainz artist's own url
+    relations and kept only when it is that listed artist. 371 found.
+  - Wikidata hip-hop and country genres with a Spotify ID (the registry's own query) added 1: the registry already
+    held the rest.
+  - `registry-add` (`src/run.py`): the 1,585 candidates go through the registry's own decision (`decide_artist`,
+    factored out of `registry()` unchanged; existing rows untouched): Wikidata details, MusicBrainz votes, country of
+    origin, `genre.decide` / `decide_country`, owner overrides. A Deezer match by name only is then confirmed from the
+    songs (2 of the 5 biggest lead songs on kworb among the Deezer artist's top tracks, `deezer.by_titles`; 631
+    confirmed) and decided again. Then three holds to review: features-led (the owner's test, 22); found through
+    MusicBrainz tags only with under 80% hip-hop votes or Deezer filing most releases elsewhere (29: Chase Atlantic,
+    Sofiane Pamart, Banks, Stereo MC's, BADBADNOTGOOD...); big enough to enter the global top 1,000 (1: Ren), so the
+    main list does not change without the owner.
+  - Outcome: 636 hip-hop and 11 country artists added; 721 to review, 212 other, 5 Latin. Every decision, with how it
+    was found: `review/scout_depth_added.csv`.
+  - Review queue: `review/genre_review.csv` now holds 1,185 rows (+721 from this run: 374 name-only Deezer matches the
+    songs could not confirm, 144 thin or split MusicBrainz votes, 80 Spanish-language rap or urbano (owner rule), 49
+    no genre data, 22 other borderline rule cases, 52 holds above).
+  - A follow-up step `confirm-name-only` ran the same song check on the 324 older name-only review items: 83
+    confirmed (Deezer match now "titles"), none moved out of review. Four the rule would move stay (Big Papa313, NO11
+    and Jokhay were left unclear by today's quality check, which the step now respects; Ghard is left for the owner).
+    Log: `review/name_only_confirmed.csv`.
+- **3. Measured (free steps; MusicBrainz release dates `mbdates` not run):**
+  - kworb artist pages for every listed artist of the genre below the top 1,000 (`depth-streams`,
+    `registry-add-pages`).
+  - Deezer first release dates of the songs behind 90% of their streams (`depth-dates`: 42,954 of 44,595 songs dated
+    for hip-hop; country `dates`: 9,926 of 10,061).
+  - English Wikipedia page views (`depth-views`).
+  - The archived Spotify country charts re-read for the bigger registry (`countries-reparse`), and Shazam's archived
+    charts re-matched (`shazam-reparse`, new). Apple Music presence is matched at build time.
+  - Listener growth stays limited to artists with Internet Archive history (weight 5%).
+  - Label status below the top 1,000 is mostly "not yet known": the Deezer release-label step was not run for them
+    (time). It is not a Scout signal.
+- **4. Scoring (`site_build.scout_by_country`):** every listed artist of the genre is scored with `insights.scout` on
+  copies of the rows, so the size-band percentiles run over the whole scored set (hip-hop 2,533 of 2,536 listed;
+  country 684 of 765) and a score means the same in every country. The top 1,000's own scores, tiers and ranks are not
+  touched; an artist in both can differ by a few points, and the page says so. Per country: listed, scored (3+
+  signals) and the top 100 by score (ties: listeners). An artist with two countries is in both.
+- **5. Site:**
+  - Scout's Country select is now the picker: "All: the top 1,000", then every country with its number of scored
+    artists, biggest first. Choosing one opens that country's top 100 with the same table, tiles, filters, sort,
+    watchlist, radio and CSV (with a `country_source` column); a country opens on all tiers. Address
+    `#/scout?country=SE`; an older `?country=Sweden` link is read as SE.
+  - Under 100 scorable, all are shown, with "N hip-hop artists from Sweden have enough data to score; smaller acts
+    are below the public listener counts we use (kworb.net lists Spotify artists with about 500,000 monthly listeners
+    or more)".
+  - Artists outside the top 1,000 have no artist page: the name opens Spotify. A flag's tooltip names its country
+    source. Panel "About the country view": source counts, the whole-set scoring, grade C.
+  - Data: `scout_countries.json` (hip-hop 566 KB raw, 119 KB gzip; country 89 KB, 18 KB gzip), loaded only when a
+    country is picked (app.js `scoutCountry`; the preload script in `index.html` for a `country=` address). The
+    picker's list rides in `scout.json` (about 5 KB; `site_build.PARTS`, `EXTRA_KEYS`). `index.json` is unchanged
+    (898 KB); the start page loads nothing new. Method page: one paragraph.
+- **Results (scored artists, before → after):**
+  - Hip-hop: United States 353→859, France 69→208, Germany 44→174, Brazil 16→138, United Kingdom 33→121, Italy
+    33→97, Poland 18→77, Turkey 17→57, Netherlands 6→53, Russia 5→43, Spain 2→26, Canada 14→24, Mexico 9→23, Sweden
+    2→15, Japan 2→14, Denmark 0→12, Australia 4→11, Belgium 2→11, Colombia 1→10, Nigeria 2→9, Finland 1→7, South
+    Africa 2→7, South Korea 2→6, Argentina 3→6, Norway 1→5, Chile 0→3.
+  - Reach 100: United States, France, Germany, Brazil, United Kingdom. Italy has 97.
+  - Sweden's 15 is the real ceiling of this source: Z.E, Ant Wan, Thrife, Haval and most Swedish rap are not on
+    kworb's listener list. Yasin is in review (Deezer match by name only; the song check did not confirm it).
+  - Country site: United States 341→585, Canada 23→45, Australia 7→10, United Kingdom 3→6, Ireland 0.
+  - 325 listed hip-hop artists still have no country on either source.
+  - The hip-hop top 1,000 is unchanged (no added artist in it). The country list gains the 11 added artists (765).
+- **Rejected:**
+  - Hip-hop artists below kworb's 500k floor: no monthly listeners, so no size band. The country genre's below-floor
+    rows (already scored by streams) stay as they were.
+  - Changing the main list's percentiles to the whole set: the owner asked not to change the top 1,000.
+  - Chart-only discovery (Spotify, Apple, Shazam country charts): a chart says nothing about genre, and every listed
+    artist now has a Deezer genre row, so the registry's own rule covers them.
+  - Hand classification at scale; MusicBrainz release dates (too slow).
+- **Tests:** `tests/test_scout_countries.py`: the fill's order and conflicts, the area walk, the per-country top 100
+  on whole-set percentiles without touching the rows, the features-led and depth holds. `pytest` 141 passed;
+  `app.js` parses as a module; Playwright at 1280 and 390 px on `#/scout`, `#/scout?country=US`, `CA`, `SE`,
+  `#/country/scout` and `#/country/scout?country=US`: no page errors, no undefined, NaN or [object Object], no
+  sideways scroll.
+
+- **Check after the build (same day):** 5 of the 11 artists added to the country list were sent to review: Jonathan
+  Bailey and Cheyenne Jackson (stage singers; a Deezer genre share alone), Keith & Kristyn Getty (hymns), Country Night
+  (a compilation-style profile) and Atlanta Rhythm Section (southern rock). The re-read Spotify country charts drop 152
+  rows, all for artists now Latin or other (Taylor Swift, Boza, Dj Honda…), and add 236.
 ## 2026-10-26 Labels page: every label name links before the full list (owner)
 
 - **Owner:** "each label listed should hyperlink to the label page so before i reach the list i can already click them."

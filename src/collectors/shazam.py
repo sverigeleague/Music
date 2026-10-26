@@ -189,6 +189,30 @@ def update(day: str) -> tuple[int, int, list[tuple[str, str, int]]]:
     return len(texts), n, failed
 
 
+def reparse() -> int:
+    """Rebuild data/shazam.csv from the archived chart CSVs (raw/shazam/<day>/), matching every row against today's
+    registry, so artists added since (Scout by country, 2026-10-26) get their chart rows too. Days with no archive
+    keep their stored rows. Returns the rows written."""
+    global _names
+    _names = None
+    old = list(csv.DictReader(CSV.open())) if CSV.exists() else []
+    days = sorted(p.name for p in (storage.RAW / "shazam").iterdir() if p.is_dir()) if (storage.RAW / "shazam").exists() else []
+    rows = [r for r in old if r["date"] not in days]
+    for day in days:
+        for kind, place, _url in CHARTS:
+            rel = _raw_path(day, kind, place)
+            if not (storage.RAW / (rel + ".gz")).exists():
+                continue
+            for r in parse(storage.read(rel).decode("utf-8-sig")):
+                rows += [{"date": day, "chart_kind": kind, "place": place, "rank": r["rank"], "artist_raw": r["artist"],
+                          "title": r["title"], "spotify_id": sid} for sid in match(r["artist"], r["title"])]
+    with CSV.open("w", newline="") as f:
+        w = csv.DictWriter(f, FIELDS)
+        w.writeheader()
+        w.writerows(sorted(rows, key=lambda r: (r["date"], r["chart_kind"], r["place"], int(r["rank"]))))
+    return len(rows)
+
+
 _KIND_ORDER = {"top": 0, "hiphop": 1, "country": 1, "city": 2}
 
 

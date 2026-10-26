@@ -4,9 +4,9 @@
  "items": [
   {
    "key": "majors",
-   "label": "Majors' share of the top 754's listeners",
+   "label": "Majors' share of the top 760's listeners",
    "value": "77%",
-   "detail": "Universal, Sony and Warner, by monthly listeners added per artist, among the 437 of 754 artists whose label is known (catalog acts left out)",
+   "detail": "Universal, Sony and Warner, by monthly listeners added per artist, among the 437 of 760 artists whose label is known (catalog acts left out)",
    "link": "#/labels"
   },
   {
@@ -61,8 +61,8 @@
   {
    "key": "size",
    "label": "Country artists tracked",
-   "value": "754",
-   "detail": "1.43bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,232",
+   "value": "760",
+   "detail": "1.44bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,232",
    "link": "#/"
   }
  ]

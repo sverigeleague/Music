@@ -28,6 +28,7 @@
   credits   producer and songwriter credits, publishers on record and ISWC of each artist's 3 biggest songs from
             MusicBrainz -> data/credits.csv
   radio     US radio airplay audience per song (kworb.net/radio; today and the last 30 archived days) -> data/radio.csv
+  shazam-reparse  data/shazam.csv rebuilt from the archived charts against today's registry
   shazam    Shazam's charts (world, 15 countries, 10 hip-hop, 31 cities) -> data/shazam.csv; an internal Scout signal (daily)
   wikidata-from-mb  Wikidata items linked from MusicBrainz for artists Wikidata has no Spotify ID for (monthly)
   deezer-audit re-check name-only Deezer matches by song titles, then ISRC; corrects wrong ones (monthly)
@@ -41,6 +42,15 @@
   pageviews English Wikipedia page views, 24 months, for hip-hop artists with a Wikidata item (monthly)
   listenbrainz  ListenBrainz listeners last month and all time (open CC0 panel, by MusicBrainz ID) for the hip-hop
             and country top 1,000 -> data/listenbrainz.csv (monthly)
+  confirm-name-only  review artists held only for a name-only Deezer match: confirmed from the songs, decided again
+  mb-discover  Scout by country: artists MusicBrainz tags hip-hop or country in each listed country, on kworb's
+            listener pages but not in the registry (Spotify ID from their MusicBrainz url relations)
+  registry-add-pages, registry-add  Scout by country: candidates on kworb's listener pages the registry does not hold
+            yet, decided by the registry's rules; existing rows unchanged (kworb pages first, then the decision)
+  depth-streams, depth-dates, depth-views  Scout by country: kworb pages, Deezer release dates and Wikipedia views for
+            the genre's listed artists below the top 1,000 (monthly)
+  origin    country of origin where Wikidata's Spotify-ID query gives none: Wikidata by QID, then MusicBrainz's
+            area (src/origin.py) -> data/country_of_origin.csv (monthly, new artists only)
   mlc       publishers and their shares of each artist's 3 biggest songs from The MLC's Public Search API ->
             data/mlc_works.csv (monthly; needs the secrets MLC_USERNAME and MLC_PASSWORD, else skipped)
 """
@@ -124,6 +134,34 @@ def snapshot(archive_all: bool | None = None) -> None:
           f"{' (all pages archived)' if archive_all else ''}")
 
 
+def decide_artist(s: str, d: dict, prev: dict, mbrow: dict, dzrow: dict | None, over: dict, sure: bool, name: str,
+                  moved: dict, origin_fill: dict) -> dict:
+    """One registry row: the genre decision (hip-hop rule, then country; the owner's override wins) and the details
+    from Wikidata (d), MusicBrainz (mbrow) and Deezer (dzrow). Shared by `registry` and `registry-add`."""
+    votes = musicbrainz.genres_of(mbrow)
+    country = d.get("country", "") or origin_fill.get(s, {}).get("country", "")
+    decision, basis = genre.decide(votes, d.get("genres", []), dzrow, wikidata=bool(d.get("qid")) or sure, country=country)
+    if decision in ("other", "review"):  # a second genre: country (owner, 2026-10-24)
+        c = genre.decide_country(votes, d.get("genres", []), dzrow, wikidata=bool(d.get("qid")) or sure)
+        if c and not (decision == "review" and c[0] == "review"):
+            decision, basis = c[0], f"{c[1]}; hip-hop rule: {decision}"
+        elif c:
+            basis = f"{basis}; also country? {c[1]}"
+    reviewed = ""
+    if s in over:
+        decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
+    row = {**prev, "spotify_id": s, "name": name, "genre": decision,
+           "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid") or prev.get("wikidata_id", ""),
+           "musicbrainz_id": musicbrainz.current_id(d.get("musicbrainz_id") or mbrow.get("musicbrainz_id", ""), moved),
+           "country": country, "born": d.get("born", ""), "active_since": d.get("active_since", ""),
+           "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
+           "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
+           "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image") or prev.get("image", "")}
+    if not row.get("deezer_match") and dzrow and dzrow.get("deezer_id"):
+        row.update(deezer_id=dzrow["deezer_id"], deezer_fans=dzrow["fans"], deezer_match=dzrow["match"])
+    return row
+
+
 def registry(mb_limit: int | None = None) -> None:
     from .collectors import deezer_genres
     top = {r["spotify_id"]: r for r in latest_listeners()}
@@ -149,39 +187,242 @@ def registry(mb_limit: int | None = None) -> None:
     mb = musicbrainz.update({s: wd.get(s, {}).get("musicbrainz_id") for s in ids}, limit=mb_limit)
     moved = musicbrainz.redirects()  # merged MusicBrainz IDs (Wikidata often keeps the old one): stored as the current
     over = genre.overrides()
+    from . import origin
+    origin_fill = origin.load()  # countries Wikidata's Spotify-ID query gives none for (src/origin.py)
     # Deezer matches confirmed from the artist's own songs (ISRCs or titles) count like a Wikidata identity
     sure = {s for s, a in known.items() if a.get("deezer_match") in deezer.SURE
             and str(a.get("deezer_id")) == str(dz.get(s, {}).get("deezer_id"))} | {s for s, r in dz.items() if r.get("match") in deezer.SURE}
-    out = {}
-    for s in ids:
-        d, prev = wd.get(s, {}), known.get(s, {})
-        votes = musicbrainz.genres_of(mb.get(s, {}))
-        decision, basis = genre.decide(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")) or s in sure,
-                                       country=d.get("country", ""))
-        if decision in ("other", "review"):  # a second genre: country (owner, 2026-10-24)
-            c = genre.decide_country(votes, d.get("genres", []), dz.get(s), wikidata=bool(d.get("qid")) or s in sure)
-            if c and not (decision == "review" and c[0] == "review"):
-                decision, basis = c[0], f"{c[1]}; hip-hop rule: {decision}"
-            elif c:
-                basis = f"{basis}; also country? {c[1]}"
-        reviewed = ""
-        if s in over:
-            decision, basis, reviewed = over[s]["decision"], f"owner: {over[s]['note'] or over[s]['decision']}", over[s]["date"]
-        out[s] = {**prev, "spotify_id": s, "name": (top.get(s) or prev or dz.get(s) or {}).get("name", ""), "genre": decision,
-                  "genre_basis": basis, "reviewed": reviewed, "wikidata_id": d.get("qid") or prev.get("wikidata_id", ""),
-                  "musicbrainz_id": musicbrainz.current_id(d.get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""), moved),
-                  "country": d.get("country", ""), "born": d.get("born", ""), "active_since": d.get("active_since", ""),
-                  "labels": "|".join(d.get("labels", [])), "major": "|".join(sorted(d.get("majors", []))),
-                  "youtube_channel": d.get("youtube_channel", ""), "instagram": d.get("instagram", ""),
-                  "tiktok": d.get("tiktok", ""), "x": d.get("x", ""), "image": d.get("image") or prev.get("image", "")}
-        if not out[s].get("deezer_match") and s in dz and dz[s].get("deezer_id"):
-            out[s].update(deezer_id=dz[s]["deezer_id"], deezer_fans=dz[s]["fans"], deezer_match=dz[s]["match"])
+    out = {s: decide_artist(s, wd.get(s, {}), known.get(s, {}), mb.get(s, {}), dz.get(s), over, s in sure,
+                            (top.get(s) or known.get(s) or dz.get(s) or {}).get("name", ""), moved, origin_fill)
+           for s in ids}
     save_artists(out)
     write_review(out, top, mb, wd)
     counts = {}
     for r in out.values():
         counts[r["genre"]] = counts.get(r["genre"], 0) + 1
     print(f"{len(out)} artists: {counts}")
+
+
+ADDED = REVIEW / "scout_depth_added.csv"  # every artist registry-add decided on, with how it was found
+
+
+def new_candidates() -> list[tuple[str, str]]:
+    """Artists on kworb's listener pages not in the registry yet that the registry's own rule would take as
+    candidates: a Wikidata hip-hop or country genre with this Spotify ID, or a confirmed Deezer match with most
+    releases under Rap/Hip Hop (or 30%+ under Country). (spotify_id, how found), biggest first."""
+    from .collectors import deezer_genres
+    known, dz = load_artists(), deezer_genres.load()
+    wd_hh, wd_c = set(wikidata.hip_hop_spotify_ids()), set(wikidata.country_spotify_ids())
+    mbf = _json(MB_FOUND, {})
+    num = lambda r, k: float(r[k]) if r.get(k) not in ("", None) else 0.0
+    out = []
+    for t in latest_listeners():
+        s, d = t["spotify_id"], dz.get(t["spotify_id"], {})
+        if s in known:
+            continue
+        how = [w for w, ok in (("Wikidata hip-hop genre", s in wd_hh), ("Wikidata country genre", s in wd_c), (mbf.get(s, ""), s in mbf),
+                               ("Deezer: most releases Rap/Hip Hop", d.get("match") in deezer.CONFIRMED and num(d, "rap_share") >= 0.5),
+                               ("Deezer: 30%+ of releases Country", d.get("match") in deezer.CONFIRMED and num(d, "country_share") >= 0.3)) if ok]
+        if how:
+            out.append((s, "; ".join(how)))
+    return out
+
+
+MB_FOUND = DATA / "musicbrainz_discovered.json"  # spotify_id -> how MusicBrainz's tag search found it (mb-discover)
+DISCOVER = {"hip_hop": ("us gb fr de ca it es nl se pl br tr ru jp kr au ng za be no dk fi mx ar cl co at ch ie nz pt "
+                        "gh ke cz gr ro"),
+            "country": "us ca au gb ie nz"}
+
+
+def mb_discover_step() -> None:
+    """Scout by country: artists MusicBrainz tags hip-hop (or country) with a main country, whose name matches an
+    artist on kworb's listener pages that the registry does not hold: the Spotify ID is read from the MusicBrainz
+    artist's own url relations, and kept only when it is that listed artist. Saved for registry-add to decide."""
+    from .collectors import deezer as dzm
+    listed: dict[str, list[str]] = {}
+    for r in latest_listeners():
+        listed.setdefault(dzm._norm(r["name"]), []).append(r["spotify_id"])
+    known, found = load_artists(), _json(MB_FOUND, {})
+    tags = {"hip_hop": musicbrainz.HIP_HOP_TAGS, "country": musicbrainz.COUNTRY_TAGS}
+    for g, ccs in DISCOVER.items():
+        for cc in ccs.split():
+            hits = musicbrainz.search_tagged(tags[g], cc)
+            n = 0
+            for a in hits:
+                ids = [s for s in listed.get(dzm._norm(a["name"]), []) if s not in known and s not in found]
+                if not ids:
+                    continue
+                sid = musicbrainz.spotify_of(a["id"])
+                if sid in ids:
+                    found[sid] = f"MusicBrainz {'hip-hop' if g == 'hip_hop' else 'country'} tag, country {cc.upper()}"
+                    n += 1
+            MB_FOUND.write_text(json.dumps(found, indent=0, sort_keys=True))
+            print(f"  {g} {cc}: {len(hits)} tagged on MusicBrainz, {n} new on kworb's listener pages", flush=True)
+    print(f"MusicBrainz discovery: {len(found)} candidates")
+
+
+def features_led(sid: str) -> str:
+    """The owner's hold-back test (2026-10-26): 5 lead songs or fewer on kworb and more than half of the daily streams
+    as a featured guest. Returns the note, or ""."""
+    p = current.pages(sid)
+    if not p:
+        return ""
+    songs = current.songs(p[-1][1])
+    lead, daily = [x for x in songs if not x["feature"]], sum(x["daily"] for x in songs)
+    feat = sum(x["daily"] for x in songs if x["feature"])
+    if len(lead) <= 5 and daily and feat / daily > 0.5:
+        return f"held back: listeners mostly from features; {len(lead)} lead songs of {len(songs)}"
+    return ""
+
+
+def depth_hold(r: dict, how: str, mbrow: dict, dzrow: dict | None, ml: int, floor: int) -> str:
+    """Two more checks on a new hip-hop decision (2026-10-26), else "": (1) found only through MusicBrainz's tags (not a
+    Wikidata genre or Deezer's releases, the registry's own candidate rule): kept only with 80%+ of the MusicBrainz
+    votes on hip-hop and Deezer not filing most releases elsewhere; (2) big enough to enter the global top 1,000:
+    held for the owner, so the main list does not change without a look."""
+    if r["genre"] != "hip_hop":
+        return ""
+    if "Deezer" not in how and "Wikidata" not in how:
+        votes = musicbrainz.genres_of(mbrow)
+        tot = sum(n for _, n in votes)
+        hh = sum(n for g, n in votes if genre.family(g) == "hip_hop") / tot if tot else 0
+        rap = float(dzrow["rap_share"]) if dzrow and dzrow.get("rap_share") not in ("", None) and dzrow.get("match") in deezer.CONFIRMED else None
+        if hh < 0.8 or (rap is not None and rap < 0.5):
+            return (f"held for review: found through MusicBrainz's tags only, {hh:.0%} of {tot} votes hip-hop"
+                    + (f", Deezer files {rap:.0%} of releases under Rap/Hip Hop" if rap is not None else ""))
+    if ml >= floor:
+        return f"held for review: {ml:,} monthly listeners would enter the top {TOP_N:,}; for the owner to check first"
+    return ""
+
+
+def registry_add_step(part: str, limit: int | None = None) -> None:
+    """Scout by country (2026-10-26): add the candidates on kworb's listener pages the registry does not hold yet,
+    by the registry's own rules (decide_artist), leaving every existing row as it is. part "pages": their kworb
+    artist pages (streams and songs, for the checks below and for Scout); part "decide": Wikidata details,
+    MusicBrainz votes, country of origin (src/origin.py), the genre decision; a Deezer match by name only is then
+    confirmed from the songs (2 of the 5 biggest lead songs among the Deezer artist's top tracks) and decided again;
+    a hip-hop act that is features-led goes to review. Uncertain cases land in review/genre_review.csv."""
+    from .collectors import deezer_genres
+    from . import origin
+    cands = new_candidates()[:limit]
+    ids = [s for s, _ in cands]
+    if part == "pages":
+        month = today()[:7]
+        todo, rows = [s for s in ids if not any(d[:7] == month for d, _ in current.pages(s))], []
+        for s in todo:
+            try:
+                rows.append(kworb.fetch_artist(s))
+            except Exception as e:
+                print(f"  kworb page {s} failed: {e}")
+            if len(rows) % 25 == 0:
+                kworb.save_streams(rows)
+                rows = []
+        kworb.save_streams(rows)
+        print(f"registry-add: kworb pages read for {len(todo)} of {len(ids)} candidates")
+        return
+    top = {r["spotify_id"]: r for r in latest_listeners()}
+    known, dz = load_artists(), deezer_genres.load()
+    wd = wikidata.details(ids)
+    mb = musicbrainz.update({s: wd.get(s, {}).get("musicbrainz_id") for s in ids})
+    moved, over = musicbrainz.redirects(), genre.overrides()
+    mbid = lambda s: musicbrainz.current_id(wd.get(s, {}).get("musicbrainz_id") or mb.get(s, {}).get("musicbrainz_id", ""), moved)
+    origin.fill({s: {"spotify_id": s, "name": top[s]["name"], "genre": "new", "country": wd.get(s, {}).get("country", ""),
+                     "wikidata_id": wd.get(s, {}).get("qid", ""), "musicbrainz_id": mbid(s)} for s in ids}, genres=None)
+    fill = origin.load()
+    decide = lambda s, dzrow, sure: decide_artist(s, wd.get(s, {}), {}, mb.get(s, {}), dzrow, over, sure,
+                                                  top[s]["name"], moved, fill)
+    rows = {s: decide(s, dz.get(s), dz.get(s, {}).get("match") in deezer.SURE) for s in ids}
+    confirmed = 0
+    for s, r in rows.items():
+        d = dz.get(s, {})
+        if r["genre"] == "review" and "name only" in r["genre_basis"] and d.get("deezer_id") and s not in over:
+            if not current.pages(s):  # registry-add-pages not run (or the page failed): read it now
+                try:
+                    kworb.save_streams([kworb.fetch_artist(s)])
+                except Exception as e:
+                    print(f"  kworb page {s} failed: {e}")
+            p = current.pages(s)
+            songs = sorted((x for x in current.songs(p[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:5] if p else []
+            if songs and deezer.by_titles(d["deezer_id"], [x["title"] for x in songs]):
+                row = deezer_genres.add_confirmed(s, r["name"], d["deezer_id"], d.get("fans"))
+                rows[s] = decide(s, row, True)
+                confirmed += 1
+    held, how = 0, dict(cands)
+    floor = min((top.get(a["spotify_id"], {}).get("monthly_listeners") or 0 for a in tracked(("hip_hop",))), default=0)
+    for s, r in rows.items():
+        note = features_led(s) if r["genre"] == "hip_hop" and s not in over else ""
+        note = note or (depth_hold(r, how[s], mb.get(s, {}), dz.get(s), top[s]["monthly_listeners"] or 0, floor) if s not in over else "")
+        if note:
+            r.update(genre="review", genre_basis=f"{r['genre_basis']}; {note}")
+            held += 1
+    known.update(rows)
+    save_artists(known)
+    cache = _json(WIKIDATA_CACHE, {})
+    cache.update({k: {**v, "majors": sorted(v["majors"])} for k, v in wd.items()})
+    WIKIDATA_CACHE.write_text(json.dumps(cache, ensure_ascii=False, indent=0))
+    CANDIDATES.write_text(json.dumps(sorted(set(_json(CANDIDATES, [])) | set(ids))))
+    write_review(known, top, musicbrainz.load(), cache)
+    old = {r["spotify_id"]: r for r in csv.DictReader(ADDED.open())} if ADDED.exists() else {}
+    for s, r in rows.items():
+        old[s] = {"date": today(), "spotify_id": s, "name": r["name"], "monthly_listeners": top[s]["monthly_listeners"],
+                  "found_by": how[s], "genre": r["genre"], "basis": r["genre_basis"], "country": r["country"],
+                  "country_source": "wikidata" if wd.get(s, {}).get("country") else (fill.get(s) or {}).get("source", "")}
+    with ADDED.open("w", newline="") as f:
+        w = csv.DictWriter(f, ["date", "spotify_id", "name", "monthly_listeners", "found_by", "genre", "basis", "country", "country_source"])
+        w.writeheader()
+        w.writerows(sorted(old.values(), key=lambda r: -int(r["monthly_listeners"] or 0)))
+    counts = {}
+    for r in rows.values():
+        counts[r["genre"]] = counts.get(r["genre"], 0) + 1
+    print(f"registry-add: {len(rows)} candidates decided {counts}; {confirmed} Deezer matches confirmed from the songs, "
+          f"{held} features-led acts held back")
+
+
+def confirm_name_only_step(limit: int | None = None) -> None:
+    """Artists held in review only because their Deezer match rests on the name (no Wikidata item, no owner
+    decision): confirm the Deezer artist from the songs, as registry-add does, and decide again by the registry's
+    rules (decide_artist), with the features-led and top-1,000 holds. Changes: review/name_only_confirmed.csv."""
+    from .collectors import deezer_genres
+    top = {r["spotify_id"]: r for r in latest_listeners()}
+    known, dz, mb, over = load_artists(), deezer_genres.load(), musicbrainz.load(), genre.overrides()
+    wd, moved = _json(WIKIDATA_CACHE, {}), musicbrainz.redirects()
+    from . import origin
+    fill = origin.load()
+    floor = min((top.get(a["spotify_id"], {}).get("monthly_listeners") or 0 for a in tracked(("hip_hop",))), default=0)
+    kept = set()  # left in review by a hand check (review/genre_quality_check_*.csv "KEEP IN REVIEW"): not re-decided
+    for path in REVIEW.glob("genre_quality_check_*.csv"):
+        kept |= {r["spotify_id"] for r in csv.DictReader(path.open()) if r.get("verdict", "").upper().startswith("KEEP")}
+    todo = [a for a in known.values() if a["genre"] == "review" and "name only" in a["genre_basis"] and not a["reviewed"]
+            and a["spotify_id"] not in over and a["spotify_id"] not in kept and dz.get(a["spotify_id"], {}).get("deezer_id") and a["spotify_id"] in top][:limit]
+    changed = []
+    for a in todo:
+        s, d = a["spotify_id"], dz[a["spotify_id"]]
+        p = current.pages(s)
+        songs = sorted((x for x in current.songs(p[-1][1]) if not x["feature"]), key=lambda x: -x["daily"])[:5] if p else []
+        if not songs or not deezer.by_titles(d["deezer_id"], [x["title"] for x in songs]):
+            continue
+        row = deezer_genres.add_confirmed(s, a["name"], d["deezer_id"], d.get("fans"))
+        new = decide_artist(s, {**wd.get(s, {}), "majors": set(wd.get(s, {}).get("majors", []))}, a, mb.get(s, {}), row,
+                            over, True, a["name"], moved, fill)
+        new.update(deezer_id=d["deezer_id"], deezer_match="titles")
+        note = features_led(s) if new["genre"] == "hip_hop" else ""
+        if not note and new["genre"] == "hip_hop" and (top[s]["monthly_listeners"] or 0) >= floor:
+            note = f"held for review: {top[s]['monthly_listeners']:,} monthly listeners would enter the top {TOP_N:,}; for the owner to check first"
+        if note:
+            new.update(genre="review", genre_basis=f"{new['genre_basis']}; {note}")
+        known[s] = new
+        changed.append({"date": today(), "spotify_id": s, "name": a["name"], "monthly_listeners": top[s]["monthly_listeners"],
+                        "before": a["genre"], "after": new["genre"], "basis": new["genre_basis"], "country": new["country"]})
+    save_artists(known)
+    write_review(known, top, mb, wd)
+    path = REVIEW / "name_only_confirmed.csv"
+    old = list(csv.DictReader(path.open())) if path.exists() else []
+    with path.open("w", newline="") as f:
+        w = csv.DictWriter(f, ["date", "spotify_id", "name", "monthly_listeners", "before", "after", "basis", "country"])
+        w.writeheader()
+        w.writerows(old + changed)
+    from collections import Counter
+    print(f"name-only Deezer matches: {len(changed)} of {len(todo)} confirmed from the songs; now {dict(Counter(c['after'] for c in changed))}")
 
 
 def write_review(rows, top, mb, wd) -> None:
@@ -244,6 +485,42 @@ def streams(limit: int | None = None) -> None:
             rows = []
     kworb.save_streams(rows)
     print(f"stream totals fetched for {len(todo)} artists")
+
+
+def scout_depth_step(part: str, limit: int | None = None) -> None:
+    """Scout by country (2026-10-26): the free inputs of the Scout score for the genre's registry artists below the top
+    1,000 that kworb's listener pages list (the country view scores them all). part: "streams" (kworb artist pages:
+    streams and songs), "dates" (Deezer first release dates of the songs behind 90% of the daily streams) or "views"
+    (English Wikipedia page views). MusicBrainz release dates (mbdates) are not run for them: too slow."""
+    listed = {r["spotify_id"]: r["rank"] for r in latest_listeners()}
+    rest = [a for a in tracked(top_n=None)[TOP_N:] if a["spotify_id"] in listed]
+    if part == "streams":
+        have = set()
+        if kworb.STREAMS_CSV.exists():
+            with kworb.STREAMS_CSV.open() as f:
+                have = {r["spotify_id"] for r in csv.DictReader(f) if r["date"][:7] == today()[:7]}
+        todo, rows = [a["spotify_id"] for a in rest if a["spotify_id"] not in have][:limit], []
+        for s in todo:
+            try:
+                rows.append(kworb.fetch_artist(s))
+            except Exception as e:  # one failed page must not lose the others
+                print(f"  kworb page {s} failed: {e}")
+            if len(rows) % 25 == 0:
+                kworb.save_streams(rows)
+                rows = []
+        kworb.save_streams(rows)
+        print(f"Scout depth: stream totals fetched for {len(todo)} of {len(rest)} artists below the top {TOP_N}")
+    elif part == "dates":
+        todo = []
+        for a in sorted(rest, key=lambda a: listed[a["spotify_id"]]):
+            p = current.pages(a["spotify_id"])
+            if p:
+                todo += [(a["spotify_id"], a["name"], x["track_id"], x["title"]) for x in current.to_date(current.songs(p[-1][1]))]
+        cache = release_dates.update(todo, limit=limit)
+        print(f"Scout depth: {sum(1 for _a, _n, t, _ in todo if cache.get(t, {}).get('first_release'))} of {len(todo)} songs dated")
+    elif part == "views":
+        qids = {a["spotify_id"]: a["wikidata_id"] for a in tracked(top_n=None) if a.get("wikidata_id")}
+        print(f"Scout depth: Wikipedia page views, {wikipedia.update(qids)} artists have an English article")
 
 
 def deezer_step() -> None:
@@ -416,6 +693,16 @@ def wikidata_from_mb_step(limit: int | None = None) -> None:
             n += 1
     save_artists(rows)
     print(f"Wikidata items from MusicBrainz: {n} of {len(todo[:limit])}")
+
+
+def origin_step(limit: int | None = None) -> None:
+    """Country of origin where Wikidata's Spotify-ID query gives none: Wikidata by QID, then MusicBrainz (src/origin.py)."""
+    from . import origin
+    rows = load_artists()
+    n = origin.fill(rows, limit)
+    k = origin.apply(rows)
+    save_artists(rows)
+    print(f"country of origin: {n}; {k} registry rows filled")
 
 
 def photos_step(limit: int | None = None) -> None:
@@ -722,7 +1009,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "descriptions": descriptions_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "listenbrainz": lambda: listenbrainz_step(lim), "mlc": lambda: mlc_step(lim), "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "descriptions": descriptions_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "shazam-reparse": lambda: print(f"Shazam rows rebuilt from the archive: {__import__('src.collectors.shazam', fromlist=['x']).reparse()}"), "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "listenbrainz": lambda: listenbrainz_step(lim), "mlc": lambda: mlc_step(lim), "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "origin": lambda: origin_step(lim), "registry-add-pages": lambda: registry_add_step("pages", lim), "registry-add": lambda: registry_add_step("decide", lim), "mb-discover": mb_discover_step, "confirm-name-only": lambda: confirm_name_only_step(lim), "depth-streams": lambda: scout_depth_step("streams", lim), "depth-dates": lambda: scout_depth_step("dates", lim), "depth-views": lambda: scout_depth_step("views"), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()

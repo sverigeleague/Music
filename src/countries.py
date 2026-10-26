@@ -21,6 +21,7 @@ ISO2 = {
     "Kenya": "ke", "Uganda": "ug", "Tanzania": "tz", "Angola": "ao", "Mali": "ml", "Guinea": "gn", "Barbados": "bb",
     "Bahamas": "bs", "Iceland": "is", "Luxembourg": "lu", "Moldova": "md", "North Macedonia": "mk",
     "Montenegro": "me", "Uzbekistan": "uz", "Mongolia": "mn", "Taiwan": "tw", "Hong Kong": "hk", "Singapore": "sg",
+    "Panama": "pa", "Guyana": "gy", "Sri Lanka": "lk", "Bahrain": "bh",  # MusicBrainz codes seen (2026-10-26)
 }
 # a place entered instead of a country (see wikidata.COUNTRY_NAMES)
 FIX = {"Karachi": "Pakistan", "Cina": ""}

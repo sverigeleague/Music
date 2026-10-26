@@ -731,6 +731,7 @@ function method() {
    <li><b>Artist's share:</b> royalties generated × the share for the deal type (UK CMA, court filings, published distributor terms). The deal type follows the label on the artist's releases of the last two years (see Labels); only where that is unknown is it inferred from Wikidata's record-label list, which covers the whole career. Before recoupment. Estimate (C).</li>
    <li>Spotify's own figures for scale: it paid out more than $11bn in 2025; about 1,500 artists generated at least $1m and 80 at least $10m (recordings and publishing, before any split). <a href="https://newsroom.spotify.com/?p=39435" target="_blank" rel="noopener">Loud &amp; Clear</a> ${grade("A")}</li></ul>
   <h2>Scout score</h2><p>${cap(nSignals())} signals, each turned into a percentile among artists of a similar size (monthly listeners ${bands().map(bandName).join(", ")}), then averaged with these weights: ${Object.values(store.data.scout_factors).map(x => `${esc(x.label)} ${Math.round(x.weight * 100)}%`).join("; ")}. Tiers: ${TIER_RULE()}. It is a pointer, not a prediction: the back-test on archived listener pages (<a href="#/scout">Scout</a>) found the signals with a long history do not yet pick next quarter's risers; the hit rate on our own daily log will be published once 90 days of it exist.</p>
+  ${store.data.scout_country_list ? `<p><b>Scout by country</b> (<a href="#/scout?country=US">for example the United States</a>): each country's top 100 by the same score, over all ${store.data.scout_country_list.scored.toLocaleString()} artists of this genre on kworb's listener list with enough signals (three or more), not only the top 1,000. The size-band percentiles are taken over that whole set, so a score means the same in every country; an artist in the top 1,000 can therefore score a few points differently there than on the main list. Country: the artist's home country, from Wikidata (citizenship or country of origin, the country of birth breaking a tie), else from MusicBrainz (the artist's area or where they began); where the two disagree it is left blank for review. A country with fewer than 100 scorable artists shows them all: smaller acts are below kworb's 500,000-listener floor. Grade C.</p>` : ""}
   <h2>Worth</h2><p>Yearly royalties at today's pace (above) and what each income stream would sell for: a year's income × a multiple that depends on how old the songs earning it are. Buyers pay fewer years for new music because its streams fall faster. Each of the artist's songs as lead artist is placed by its release date in an age band: new (under 3 years), mixed (3–10 years) or evergreen (10+ years). The artist's multiple is the bands' multiples weighted by the streams a day on songs of each age. Where under half of those streams are on dated songs, the band follows the share of listening on recent releases instead. The bands are our split; the multiples per band are sourced: ${store.data.multiples.map(m => `${esc(m.vintage)} ${m.multiple_low}–${m.multiple_high}× (<a href="${esc(m.source_url)}" target="_blank" rel="noopener">source</a>)`).join("; ")}. Estimate (C), shown as a range.</p>
   <h2>Labels</h2><p>The label printed on each artist's releases of the last two years (Deezer), mapped to its owner (Universal, Sony, Warner, or independent), and checked against the registrant codes of the recordings (ISRCs). Artists that cannot be placed are listed as not yet known until an editor checks them.</p>
   <ul>
@@ -803,12 +804,60 @@ const PLACE = { "Kingdom of the Netherlands": "Netherlands", "Karachi": "Pakista
 const placesOf = a => (a.country || "").split(" / ").map(c => PLACE[c.trim()] || c.trim()).filter(Boolean);
 // the band as shown: where the under-500k band exists, "under 1.5m" holds only 500k–1.5m
 const bandName = b => b === "under 1.5m" && bands().length > BANDS.length ? "500k–1.5m" : b.replace(/(\d)-(\d)/, "$1–$2");
+// ---------- Scout by country (owner, 2026-10-26: "the top 100 artists for each country"): #/scout?country=SE. Every
+// artist of the genre on kworb's listener pages is scored by the same method, the percentiles over that whole set
+// (src/site_build.py scout_by_country). The picker's list is in scout.json; the rows in scout_countries.json, fetched
+// only when a country is picked.
+const SRC_NAME = { wikidata: "Wikidata", musicbrainz: "MusicBrainz" };
+function scoutCountry(f) {
+  if (!f.country || f.country === "all") return null;
+  const list = store.data.scout_country_list?.countries || [];
+  if (!/^[A-Z]{2}$/.test(f.country)) {  // an older link names the country ("Sweden"): its code
+    const c = list.find(c => placesOf({ country: f.country }).includes(c.name));
+    f.country = c ? c.cc.toUpperCase() : "all";
+    if (!c) return null;
+  }
+  const k = GENRE, g = genreStore[k].data, p = scoutCountry.p = scoutCountry.p || {};
+  if (!g.scout_countries) {
+    app.innerHTML = `<p class="note">Loading…</p>`;
+    p[k] = p[k] || getJSON(`${DATA_DIR()}scout_countries.json`).then(x => Object.assign(g, x));
+    p[k].then(() => { if (GENRE === k && /^#\/(country\/)?scout/.test(location.hash)) scoutPage(); })
+      .catch(e => { delete p[k]; app.innerHTML = `<p class="note">The country lists did not load (${esc(e.message)}). Reload the page to try again.</p>`; });
+    return false;
+  }
+  const c = g.scout_countries.countries.find(c => c.cc === f.country.toLowerCase());
+  return c || { cc: f.country.toLowerCase(), name: f.country, listed: 0, scored: 0, rows: [] };
+}
+function scoutCountryPicker(SC, names, f) {
+  const list = store.data.scout_country_list?.countries || [];
+  if (!list.length) return `<label class="sel">Country <select data-f="country"><option value="all">all countries</option>${names.map(c => `<option${f.country === c ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></label>`;
+  return `<label class="sel">Country <select data-f="country" title="Each country's top 100 by Scout score; the number is the artists from there with enough data to score"><option value="all">All: the top 1,000</option>${list.map(c => `<option value="${c.cc.toUpperCase()}"${SC?.cc === c.cc ? " selected" : ""}>${esc(c.name)} (${c.scored.toLocaleString()})</option>`).join("")}</select></label>`;
+}
+function scoutCountryIntro(SC) {
+  const top = Math.min(100, SC.scored), from = `from ${/^(United|Netherlands|Czech|Philippines|Dominican|Democratic|Bahamas|Gambia)/.test(SC.name) ? "the " : ""}${esc(SC.name)}`;
+  return `<p class="sub">${top === 100 ? `The top 100 hip-hop artists ${from} by Scout score, of the ${SC.scored.toLocaleString()} ${from} with enough data to score.`
+    : `${SC.scored ? SC.scored.toLocaleString() : "No"} hip-hop artist${SC.scored === 1 ? "" : "s"} ${from} ${SC.scored === 1 ? "has" : "have"} enough data to score; smaller acts are below the public listener counts we use (kworb.net lists Spotify artists with about 500,000 monthly listeners or more).`}
+    Our hip-hop list holds ${SC.listed.toLocaleString()} artist${SC.listed === 1 ? "" : "s"} ${from} in all. Same ${nSignals()} signals, weights, size bands and tiers as the main list; each country opens on all its tiers.</p>`;
+}
+function scoutCountryWho(a) {
+  const f = flag({ ...a, country: `${a.country || ""} (source: ${SRC_NAME[a.csrc] || "Wikidata"})` });
+  return a.page ? `<a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span>${f}</a>`
+    : `<a class="who" href="https://open.spotify.com/artist/${esc(a.id)}" target="_blank" rel="noopener" title="Outside the top 1,000, so no artist page here: opens Spotify">${pic(a)}<span>${esc(a.name)}</span>${f}</a>`;
+}
+function scoutCountryNote(SC) {
+  const D = store.data.scout_countries, n = s => SC.rows.filter(a => (a.csrc || "wikidata") === s).length, out = SC.rows.filter(a => !a.page).length;
+  return `<section class="panel"><h2>About the country view</h2>
+    <p class="note">Country: the artist's home country, from Wikidata (citizenship or country of origin) or, where Wikidata has none, from MusicBrainz (the artist's area or where they began). Of the ${SC.rows.length} listed here, ${n("wikidata")} come from Wikidata and ${n("musicbrainz")} from MusicBrainz; hover a flag for its source, and the CSV has a column for it. An artist with two countries is in both lists. ${D.no_country.toLocaleString()} of the ${D.listed.toLocaleString()} artists on the list have no country on either source and are in no country's list.</p>
+    <p class="note">Scores here are computed over all ${D.scored.toLocaleString()} scored hip-hop artists of every country, not only the top 1,000, each signal a percentile within the artist's size band over that whole set, so scores compare across countries. An artist in the top 1,000 can therefore score a few points differently here than on the main list. ${out ? `${out} of these artists are outside the top 1,000: they have no artist page here (the name opens Spotify) and fewer signals measured (no Internet Archive listener history), so more of their scores are provisional. ` : ""}Source: kworb.net (Spotify's public counts), Deezer (release dates), Wikipedia, Spotify and Apple Music charts; data as of ${esc(store.data.as_of)}. ${grade("C")}</p></section>`;
+}
 function scoutPage() {
   nav("scout");
   const f = ui.scout = ui.scout || { status: "all", band: "all", tier: "rising", country: "all", sort: ["score", -1] };
-  const all = store.data.artists.filter(a => a.scout);
+  const SC = scoutCountry(f);  // the country view (#/scout?country=SE), null on the main list; false while its file loads
+  if (SC === false) return;
+  const all = SC ? SC.rows : store.data.artists.filter(a => a.scout);
   const ok = a => (f.status === "all" || (f.status === "signed" ? ["major", "major_distributed", "independent"].includes(a.label_status) : f.status === "prospect" ? isProspect(a) : a.label_status === f.status))
-    && (f.band === "all" || a.scout.band === f.band) && (f.country === "all" || placesOf(a).includes(f.country))
+    && (f.band === "all" || a.scout.band === f.band) && (SC || f.country === "all" || placesOf(a).includes(f.country))
     && (f.tier !== "watch" || watch.has(a.id)) && (f.tier === "all" || f.tier === "watch" || (f.tier === "rising" ? ["Breaking", "Rising"].includes(a.scout.tier) : a.scout.tier === f.tier));
   const val = (a, k) => ({ score: a.scout.score, ml: a.ml, fresh: a.fresh_share, cur: a.cur_share, att: a.attention?.trend,
     spl: a.daily && a.ml ? a.daily / a.ml : null, geo: chartCountries(a), shz: a.shazam?.charts ?? null, chg: a.chg_pct })[k];
@@ -822,8 +871,8 @@ function scoutPage() {
   const cols = [["Scout score", "score"], ["Monthly listeners", "ml"], ["New-release pull", "fresh"], ["Current share", "cur"], ["Wikipedia, 3 mo", "att"], ["Streams / listener", "spl"], ["Chart countries", "geo"], ["Shazam", "shz"], ["Today", "chg"]];
   const brief = ["score", "ml", "fresh"];  // shown by default; the other signals behind "Show all signals"
   const th = ([l, k]) => `<th data-ssort="${k}"${brief.includes(k) ? "" : ` class="sig"`}${k === sk ? ` aria-sort="${sd < 0 ? "descending" : "ascending"}"` : ""}><span${defn(l)}>${esc(l)}</span></th>`;
-  app.innerHTML = `${subnav()}<section><h1>Scout: who is rising</h1>
-    <p class="sub">${all.length === store.data.artists.length ? "Every hip-hop artist in the top 1,000" : `${all.length.toLocaleString()} of the hip-hop artists in the top 1,000 (those with enough signals to score)`}, scored 0–100 on ${nSignals()} signals of momentum. Each artist is compared only with artists of a similar size, so a 1m-listener act that is taking off scores as high as a superstar. The score points at who to look at; it does not predict a hit.</p></section>
+  app.innerHTML = `${subnav()}<section><h1>Scout: ${SC ? esc(SC.name) : "who is rising"}</h1>
+    ${SC ? scoutCountryIntro(SC) : `<p class="sub">${all.length === store.data.artists.length ? "Every hip-hop artist in the top 1,000" : `${all.length.toLocaleString()} of the hip-hop artists in the top 1,000 (those with enough signals to score)`}, scored 0–100 on ${nSignals()} signals of momentum. Each artist is compared only with artists of a similar size, so a 1m-listener act that is taking off scores as high as a superstar. The score points at who to look at; it does not predict a hit.</p>`}</section>
     <section class="tiles">
       <div class="tile"><div class="k">Breaking</div><div class="v">${n("Breaking")}</div><div class="s">score 80+ with new songs or Wikipedia attention clearly up</div></div>
       <div class="tile"><div class="k">Rising</div><div class="v">${n("Rising")}</div><div class="s">score 65+ (80+ without the Breaking test)</div></div>
@@ -834,19 +883,19 @@ function scoutPage() {
       ${seg("tier", [["rising", "Breaking + Rising"], ["Breaking", "Breaking"], ["Watch", "Watch"], ["all", "All"], ["watch", `★ My watchlist (${watch.size})`]])}
       ${seg("status", [["all", "Any label"], ["prospect", "Unsigned prospect"], ["self_released", "Any self-released"], ["independent", "Indie label"], ["signed", "Any label deal"], ["unknown", "Not yet known"]])}
       <label class="sel">Size <select data-f="band"><option value="all">all sizes</option>${bands().map(b => `<option value="${esc(b)}"${f.band === b ? " selected" : ""}>${esc(bandName(b))}</option>`).join("")}</select></label>
-      <label class="sel">Country <select data-f="country"><option value="all">all countries</option>${countries.map(c => `<option${f.country === c ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></label>
+      ${scoutCountryPicker(SC, countries, f)}
       <button type="button" class="btn" id="signals" aria-pressed="${!!f.signals}">${f.signals ? "Fewer columns" : "Show all signals"}</button>
       <button type="button" class="btn" id="csv">Download CSV</button>${linkBtn()}
       <button type="button" class="btn" id="radio" title="30-second previews of each artist's newest hit, in the order shown">📻 Scout radio (${rows.filter(a => a.top_fresh?.dz).length})</button>
     </section>
     <section><div class="tablebox"><table class="${f.signals ? "" : "brief"}"><thead><tr><th class="l">#</th><th class="l">Artist</th>${cols.slice(0, 1).map(th).join("")}<th class="l">Label</th><th class="l">Newest hit</th>${cols.slice(1).map(th).join("")}</tr></thead><tbody>
-      ${rows.slice(0, f.all ? rows.length : 50).map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l"><a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span>${flag(a)}</a></td><td><b>${a.scout.score}</b> ${a.scout.provisional ? provChip(a.scout) : tierChip(a.scout.tier)}</td><td class="l wrap lab">${statusShort(a)}</td>
+      ${rows.slice(0, f.all || SC ? rows.length : 50).map((a, i) => `<tr><td class="l">${star(a.id)} ${i + 1}</td><td class="l">${SC ? scoutCountryWho(a) : `<a class="who" href="#/a/${a.id}">${pic(a)}<span>${esc(a.name)}</span>${flag(a)}</a>`}</td><td><b>${a.scout.score}</b> ${a.scout.provisional ? provChip(a.scout) : tierChip(a.scout.tier)}</td><td class="l wrap lab">${statusShort(a)}</td>
         <td class="l wrap hit">${a.top_fresh ? `${a.scout.tier ? playBtn(a) + videoBtn(a) : ""}${esc(a.top_fresh.title)} <span class="note">${count(a.top_fresh.daily)}/day, out ${esc(a.top_fresh.released)}</span>` : `<span class="note">none in 90 days</span>`}</td>
         <td>${mlx(a)}</td><td>${share(a.fresh_share)}</td><td class="sig">${share(a.cur_share)}</td><td class="sig">${trend(a.attention?.trend)}</td>
         <td class="sig">${val(a, "spl") ? val(a, "spl").toFixed(2) : "–"}</td><td class="sig" title="Spotify weekly top 200 + Apple Music daily top 100">${val(a, "geo") || "–"}</td><td class="sig">${shazamBadge(a, true)}</td><td class="sig">${pct(a.chg_pct)}</td></tr>`).join("") || `<tr><td class="l" colspan="12">${f.band === "15m+" && !["all", "watch"].includes(f.tier) ? "Artists with 15m+ monthly listeners are established and get no tier: choose All to see them." : "No artist matches these filters."}</td></tr>`}
     </tbody></table></div>
-    ${!f.all && rows.length > 50 ? `<p class="more"><button type="button" class="btn" id="showall">Show all ${rows.length}</button></p>` : ""}
-    <p class="note">${rows.length} artists. Click a column to sort. ☆ adds an artist to your watchlist (kept in this browser). Percentiles are within the artist's size band (monthly listeners ${bands().map(bandName).join(", ")}).</p></section>
+    ${!f.all && !SC && rows.length > 50 ? `<p class="more"><button type="button" class="btn" id="showall">Show all ${rows.length}</button></p>` : ""}
+    <p class="note">${rows.length} artists. Click a column to sort. ☆ adds an artist to your watchlist (kept in this browser). Percentiles are within the artist's size band (monthly listeners ${bands().map(bandName).join(", ")})${SC ? `, over all ${store.data.scout_countries.scored.toLocaleString()} scored artists of every country` : ""}.</p></section>${SC ? scoutCountryNote(SC) : ""}
     <section class="panel"><h2>How the score works</h2>
       <ul>${Object.values(store.data.scout_factors).map(x => `<li><b>${Math.round(x.weight * 100)}%</b> ${esc(x.label)}</li>`).join("")}</ul>
       <p class="note">Each signal becomes a percentile (0–100) among artists in the same size band; the score is their weighted average over the signals the artist has (at least three). Tiers: ${TIER_RULE()}. Wikipedia views count only artists with an English article. Listener growth uses the Internet Archive's weekly copies of kworb's listener page, so it exists only for artists that page lists. ${grade("C")}</p></section>
@@ -854,12 +903,13 @@ function scoutPage() {
   app.querySelectorAll("button[data-f]").forEach(b => b.onclick = () => { f[b.dataset.f] = b.dataset.v; scoutPage(); });
   app.querySelector("#signals").onclick = () => { f.signals = !f.signals; scoutPage(); };
   bindStars(scoutPage);
-  app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { f[s.dataset.f] = s.value; scoutPage(); });
+  app.querySelectorAll("select[data-f]").forEach(s => s.onchange = () => { if (s.dataset.f === "country") f.tier = s.value === "all" ? "rising" : "all";  // a country opens on its whole top 100
+    f[s.dataset.f] = s.value; scoutPage(); });
   app.querySelectorAll("th[data-ssort]").forEach(th => th.onclick = () => { f.sort = [th.dataset.ssort, sk === th.dataset.ssort ? -sd : -1]; scoutPage(); });
   app.querySelector("#showall")?.addEventListener("click", () => { f.all = true; scoutPage(); });
   app.querySelector("#radio").onclick = () => startRadio(rows.filter(a => a.top_fresh?.dz));
-  app.querySelector("#csv").onclick = () => download("tventy-music-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit"],
-    ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || (a.scout.provisional ? "provisional" : ""), statusWord(a), a.label_name || "", a.label_owner || "", a.country || "", a.floor ? "under 500k" : a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || ""])]);
+  app.querySelector("#csv").onclick = () => download(SC ? `tventy-music-scout-${SC.cc}.csv` : "tventy-music-scout.csv", [["name", "spotify_url", "scout_score", "tier", "label_status", "label", "label_group", "country", "monthly_listeners", "current_listeners", "new_release_share", "current_share", "wikipedia_trend", "streams_per_listener", "countries_charting", "newest_hit", ...(SC ? ["country_source"] : [])],
+    ...rows.map(a => [a.name, `https://open.spotify.com/artist/${a.id}`, a.scout.score, a.scout.tier || (a.scout.provisional ? "provisional" : ""), statusWord(a), a.label_name || "", a.label_owner || "", a.country || "", a.floor ? "under 500k" : a.ml, a.cl ?? "", a.fresh_share ?? "", a.cur_share ?? "", a.attention?.trend ?? "", val(a, "spl")?.toFixed(3) ?? "", val(a, "geo"), a.top_fresh?.title || "", ...(SC ? [SRC_NAME[a.csrc] || "Wikidata"] : [])])]);
   syncScreen("scout");
 }
 
@@ -1946,12 +1996,14 @@ function readScreen(p) {
     if (Array.isArray(def[k])) { const [c, d] = v.split(","); if (c) f[k] = [c, d === "1" ? 1 : -1]; }
     else if (!SCREEN_OK[k] || SCREEN_OK[k](v)) f[k] = v; }
   for (const k of flags) f[k] = q.get(k) === "1";
+  if (p === "scout" && f.country !== "all" && q.get("tier") == null) f.tier = "all";  // a country view opens on its whole top 100
   ui[key] = f;
 }
 function syncScreen(p) {
   const [, def, flags] = SCREENS[p], f = screenNow(p), q = new URLSearchParams();
   for (const k of Object.keys(def)) { const v = Array.isArray(f[k]) ? f[k].join(",") : f[k], d = Array.isArray(def[k]) ? def[k].join(",") : def[k]; if (v != null && String(v) !== String(d)) q.set(k, v); }
   for (const k of flags) if (f[k]) q.set(k, "1");
+  if (p === "scout" && f.country !== "all") { if (f.tier === "all") q.delete("tier"); else q.set("tier", f.tier); }  // there the default tier is "all"
   const base = (location.hash || PREFIX() + p).replace(/\?.*$/, ""), want = q.toString() ? `${base}?${q}` : base;
   if (location.hash !== want) history.replaceState(history.state, "", want);  // no hashchange: the page is not redrawn
 }
