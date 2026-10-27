@@ -2,6 +2,101 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-27 Smaller acts: the Spain check, single-source acts ranked after, lo-fi not hip-hop (owner)
+
+- **Owner's answers:** 1. "Run the Spain check." 2. "Yes, rank those after." 3. "Don't count lo-fi as hip-hop."
+- **1. Spain and the other Spanish-speaking countries.** All 272 held hip-hop candidates were checked: Spain 136,
+  Colombia 27, Argentina 24, Dominican Republic 23, Mexico 17, Peru 17, Cuba 7, Chile 6, Venezuela 5, and 10 elsewhere.
+  - **The rule** (owner 2026-10-26) is unchanged:
+    - Spanish-language rap in the hip-hop tradition is hip-hop.
+    - Reggaeton, dembow, reparto, corridos, cumbia/champeta and the Latin trap/urbano near reggaeton are Latin.
+    - A mixed act goes by most of its own lead songs; an unclear one stays in review with a note.
+    - An act that is not rap at all is "other": Basque and Catalan rock, ska and pop, rap metal, electronic.
+  - **Evidence**, all from caches (no new MusicBrainz request):
+    - Deezer release genre shares and the top 10 songs (lead artist, featured artists, and each song's own release
+      genre);
+    - Wikidata genres and occupation;
+    - MusicBrainz tags;
+    - the collaborators' genres (registry or smaller acts).
+    - Scripts: `scratchpad/es/` (collect, show, decide, write).
+  - **Bar for thin cases** (no songs on Deezer): a Wikidata hip-hop genre, plus the occupation rapper or a second
+    hip-hop genre, with no Latin genre. Weaker cases stay in review: the occupation rapper alone, "rapping" alone,
+    or "trap music" alone.
+  - **Store:** `registry/small_acts_overrides.csv`, 270 rows: genre, key (QID or `mb:<MBID>`), decision, reason,
+    evidence, date.
+    - Read by `genre.small_overrides()` and applied in `collectors/small_acts.discover` (`_hand`).
+    - It replaces the rule's genre decision. The basis keeps the rule's own reading beside it.
+    - The identity hold (several Spotify IDs) and the features-led hold still apply. Held for that reason:
+      Santa Salut, Kinder Malo, Norykko, Hazhe, Selecta, DelaJowy, Muerejoven, Telmary Díaz and Aid Alonso.
+  - **Check file:** `review/spain_small_acts_check_2026-10-27.csv` (272 rows: id, name, country, decision, reason,
+    evidence).
+  - **Hand decisions:** hip-hop 85, Latin 36, other 64, review 82. The other 5 were taken by the lo-fi rule.
+  - **Hip-hop:** Tote King, El Langui, Los Chikos del Maíz, Lágrimas de Sangre, Tribade, Pimp Flaco, Rayden, Denom,
+    Sticky M.A., Matasvandals, Gata Cattana, SWIT EME (Spain); Sara Hebe, Mustafá Yoda (Argentina); Valles-T,
+    Gordo Sarkasmus (Colombia); Gabylonia (Venezuela); Hordatoj, Flor de Rap (Chile).
+  - **Latin:** Mushkaa, Xriz, El Bugg, La Cruz (Spain); Sky Rompiendo, L'Omy, Jaycob Duque (Colombia); Malu Trevejo
+    (Cuba); Lara91k, Miss Bolivia, La Yegros (Argentina); Isabella Lovestory (Honduras).
+  - **Other:** Boikot, Gatibu, Txarango, Miki Núñez, Def Con Dos, Negu Gorriak.
+  - **Review** (82): mostly the occupation rapper alone with no genre and no Deezer page (about 40), unnamed Wikidata
+    items (11), Deezer pages that look like a namesake's (Sokram: metal; MDG: US rap; Anubiis; Bålsam), and mixed
+    acts (Jiggy Drama, Sloowtrack, Boyanka Kostova, Lucale).
+- **Results, Spanish-speaking candidates (hip-hop / Latin / other / review):**
+  - all: 14 / 62 / 77 / 272 → 90 / 99 / 145 / 92;
+  - Spain: 5 / 7 / 42 / 136 → 46 / 13 / 92 / 39.
+  - "Latin" counts the "other" rows whose rule or hand decision was Latin.
+- **2. Order** (`site_build.add_smaller`, `small_tier`): ranked acts whose size sources agree come first, then
+  single-source acts ("low confidence"), then "sources disagree" acts, each group by score. Unranked acts come last,
+  by name.
+  - The labels are kept. The order is stated in the page's method note, on the Method page and in the
+    "low confidence" tooltip.
+  - Effect on this data: 658 hip-hop rows and 26 country rows change position. 10 hip-hop rows newly enter a
+    country's shown list: Russia 5, Poland 2, Netherlands 2 and Italy 1, where the list is cut at 100.
+- **3. Lo-fi** (`genre.decide_small`, module docstring):
+  - An act is "other", not listed, when it is tagged lo-fi, lofi, chillhop or instrumental hip hop (Wikidata genre
+    or MusicBrainz tag) and shows no sign of vocal rap. A sign of vocal rap is the Wikidata occupation rapper, or a
+    Wikidata hip-hop genre other than the lo-fi ones.
+  - Tagged acts with that sign stay in review: Pedro Fernando, Lil Mboiz, Nec Nymbl, 6363, Pticu EM, Planet Giza
+    and Phantom Tone.
+  - Hand decisions:
+    - Krisy (Belgian rapper; label-wide lo-fi tags) is included through the row that carries his Deezer page
+      (`mb:5c1b9ce3...`). His second row, a Wikidata item with the same MusicBrainz ID and no Deezer page, is held as
+      a duplicate (it had been listed twice).
+    - Brenk Sinatra (a producer whose albums feature rappers) stays in review.
+  - Moka Only is unaffected: a Wikidata "instrumental hip-hop" genre spelling was tried in the tag list and then
+    dropped, since it caught him.
+  - **Removed** (116, of which 112 were in review): 9ICK, AC, Alys Good, Axian, BluntOne, Bomshi, Botram, BƱBBLE,
+    Cloudsurfin', Cosmonkey, DRWN., Devaloop, Dpsht, ENRA, El Jazzy Chavo, Elijah Lee, Enoki, Fool Parsley, Fredfades,
+    Gabb., Ghostnaut, Gianni, Glimlip, Goldenninjah, Guidolain beats, H.1, HOMESHAKE, Hanz, Hopmax, Houch,
+    I.N.Kognito, JazzyHan, Jhove, Juan RIOS, KLIM, KOHEI YOSHII, Karavelo, Kiabits, Kichiro, Kind Puppy, Koalres,
+    Koralle, Kuranes, Lawrence Walther, Lemeria, Less Gravity, Limes, Lock, Lofi Milk, Lo-fi Luke, Lvnt, Macem Ly,
+    Mindeliq, Mocky, Moderator, Monma, Mononome, Mozzie, Nicolas Kluzek, Nogymx, Oilix, Ol' Burger Beats,
+    Peak Twilight, Psalm Trees, Puar, RINZ., Raimu, Rakuyou, Refeeld, RejSende, Rnla, Ruck P, Saiko, Saito, Sam Cross,
+    SamuW, Sem0r, Shin-Ski, Simon F.R.E.S.H., Sinnr, So.Lo, Sorai, Stan Forebee, Suray Sertin, T.Check, Tomppabeats,
+    Wilee, Yestalgia, [bsd.u], bits & hits, cxlt., don C, dryhope, eery, eevee, flowless, frad, homieunculus,
+    hotpotatoes, iamalex, idealism, invention_, kavv, kz1teryyy, mt. fujitive, mvnitou, møndberg, o k h o, ok2222,
+    oofoe, orchidbae, skrn, stream_error, ticofaces, vhskid., yungmerrin.
+  - Untagged lo-fi beatmakers found in the Spain check were set to "other" by hand: Beteulan, Kowhaii, sig.beats.
+- **Run:**
+  - Hip-hop smaller-acts discovery was re-run from the session's Deezer cache. MusicBrainz was answered from the
+    caches only: one uncached url batch (new chart songs) was refused locally, not sent.
+  - Candidates 5,023 → 5,028: new chart songs.
+  - Hip-hop: included 1,863 → 1,939, review 862 → 576, other 2,298 → 2,513.
+  - Review queue: 998 → 712 rows. Country music was not re-run (nothing in it changed).
+  - The `mbdates` job was found stopped: it crashed at 15:36 on a MusicBrainz connection reset, not caused here
+    (log kept as `scratchpad/mbdates_crash_1536.log`). It was restarted.
+- **Per-country totals, hip-hop (top 100 + smaller acts):** Spain 32 → 73, Colombia 10 → 17, Mexico 25 → 30,
+  Argentina 7 → 12, Peru 4 → 8, Chile 3 → 7, Venezuela 4 → 7, Dominican Republic 2 → 6, Cuba 2 → 4.
+  - Elsewhere only the "waiting for a genre check" counts fell, as lo-fi rows left review.
+  - Countries at 100: still 10. Smaller acts shown: 1,602 → 1,677. Country music totals are unchanged.
+- **Rejected:**
+  - Taking every Wikidata "rapper" from these countries without songs: urbano singers.
+  - Treating the label-wide MusicBrainz tags (hip hop, boom bap) as a sign of vocal rap.
+  - Re-running the full discovery against live MusicBrainz while `mbdates` holds the rate.
+- **Tests:** `pytest` 166 passed. New tests cover the order, the lo-fi rule (beatmakers out; rappers over lo-fi beats
+  kept), the hand decisions and the overrides file. `app.js` parses as a module. Playwright at 1280 and 390 px on
+  `#/scout?country=` ES, MX, AR, SE, FI, BE and `#/method`: no page errors, no undefined, NaN or [object Object], no
+  sideways scroll.
+
 ## 2026-10-27 Smaller acts: Wikidata genre is enough, every country shown, wider discovery, official national charts (owner)
 
 - **Owner's answers:**

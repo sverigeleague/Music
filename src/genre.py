@@ -17,10 +17,19 @@ MusicBrainz votes; for country music, a Wikidata country genre (half or more). T
 Spotify or Deezer page must be linked at the source), and so are the other rules: Deezer filing most releases as Latin
 or few as Rap still decides first; Wikidata naming any Latin genre, or Deezer filing 30%+ of the releases or of the top
 songs' releases as Latin, goes to review (Wikidata calls many reggaeton and urbano singers rappers), as does Deezer
-filing 20% or less as Rap, and any act tagged lo-fi or instrumental hip-hop (beatmakers, found through Deezer's lo-fi
-playlists, even when the registry's vote rule would take them); from a
-Spanish-speaking country it takes the songs too (3+ of the Deezer top tracks dated on the artist's own releases, none
-filed Latin, and under 10% of the releases Latin), else review. The registry's own decisions do not use this.
+filing 20% or less as Rap; from a Spanish-speaking country it takes the songs too (3+ of the Deezer top tracks dated
+on the artist's own releases, none filed Latin, and under 10% of the releases Latin), else review. The registry's own
+decisions do not use this.
+
+Lo-fi (owner 2026-10-27, "don't count lo-fi as hip-hop", `decide_small`): an act tagged lo-fi, chillhop or
+instrumental hip-hop (a Wikidata genre or MusicBrainz tag; one MusicBrainz editor tagged whole lo-fi labels with
+"lo-fi hip hop, instrumental hip hop, boom bap, hip hop", found on Deezer's lo-fi playlists) with no sign of vocal rap
+(neither the occupation rapper on Wikidata nor a Wikidata hip-hop genre other than the lo-fi ones) is an instrumental
+beatmaker: "other", not listed. Tagged and with that sign (a rapper over lo-fi beats), it stays in review.
+
+Hand decisions (`small_overrides`, registry/small_acts_overrides.csv): the smaller-acts checks done by hand with their
+evidence (the Spain and Spanish-speaking check of 2026-10-27, owner: "run the Spain check"); they replace the rule's
+genre decision, while the identity and features-led holds still apply.
 """
 import csv
 
@@ -41,6 +50,7 @@ SPANISH_SPEAKING = {"Argentina", "Bolivia", "Chile", "Colombia", "Costa Rica", "
                     "El Salvador", "Guatemala", "Honduras", "Mexico", "Nicaragua", "Panama", "Paraguay", "Peru",
                     "Puerto Rico", "Spain", "Uruguay", "Venezuela"}
 OVERRIDES = REGISTRY / "genre_overrides.csv"
+SMALL_OVERRIDES = REGISTRY / "small_acts_overrides.csv"
 
 
 def family(genre: str) -> str:
@@ -57,6 +67,15 @@ def overrides() -> dict[str, dict]:
         return {}
     with OVERRIDES.open() as f:
         return {r["spotify_id"]: r for r in csv.DictReader(f)}
+
+
+def small_overrides() -> dict[tuple[str, str], dict]:
+    """(genre, smaller act's key: QID or "mb:<MBID>") -> the hand decision row (decision hip_hop | latin | country |
+    other | review, reason, evidence, decided)."""
+    if not SMALL_OVERRIDES.exists():
+        return {}
+    with SMALL_OVERRIDES.open() as f:
+        return {(r["genre"], r["key"]): r for r in csv.DictReader(f)}
 
 
 def _deezer(dz: dict | None) -> tuple[float, float] | None:
@@ -122,6 +141,9 @@ def decide_small(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, boo
     review. dz may carry "top_latin" and "top_dated" (the Deezer top tracks' own releases filed Latin, and dated)."""
     dec, basis = decide(mb_votes, wd_genres, dz, wikidata=True, country=country)
     beats = [g for g in [g for g, _n in mb_votes] + [g for g, _h, _l in wd_genres] if any(w in g.casefold() for w in BEATS)]
+    vocal = rapper or any(h and not any(w in g.casefold() for w in BEATS) for g, h, _l in wd_genres)
+    if beats and not vocal and dec != "latin":  # owner 2026-10-27: lo-fi and instrumental beatmakers are not hip-hop
+        return "other", basis + f"; tagged {beats[0]}, no sign of vocal rap: an instrumental beatmaker (owner 2026-10-27: not hip-hop)"
     if dec == "hip_hop" and beats:
         return "review", basis + f"; tagged {beats[0]}: an instrumental beatmaker rather than a rap act?"
     if dec != "review":

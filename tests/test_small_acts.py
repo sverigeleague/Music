@@ -249,6 +249,72 @@ def test_deezer_read_counts_lead_and_latin_top_songs(monkeypatch):
 def test_decide_small_holds_beatmakers_and_deezer_contradictions():
     from src import genre
     lofi = [("boom bap", 1), ("lo-fi hip hop", 1), ("hip hop", 1), ("chillwave", 1)]
-    assert genre.decide_small(lofi, [], None, country="Austria")[0] == "review"
+    assert genre.decide_small(lofi, [], None, country="Austria")[0] == "other"  # 2026-10-27: lo-fi is not hip-hop
     few = {"match": "links", "releases": 17, "rap_share": "0.06", "latin_share": "0", "top_latin": "0", "top_dated": 9}
     assert genre.decide_small([], [("hip-hop", True, False)], few, country="Argentina")[0] == "review"
+
+
+# ---------- 2026-10-27 (owner): single-source acts rank after the agreeing ones; lo-fi is not hip-hop; the Spain check
+def test_add_smaller_orders_agreeing_then_single_then_disagree_then_unranked(monkeypatch):
+    from src import site_build
+    from src.collectors import small_acts as col2
+    base = {"sp": None, "dz": "1", "sources": 3, "agree": 3, "disagree": False, "single": False, "size_pct": 50,
+            "fans": 10, "wiki": None, "fresh": None, "fresh_title": None, "charts": None, "latest": "2026-01-01",
+            "growth": None, "used": ["fans"], "country": "Spain"}
+    rows = [{**base, "qid": "Q1", "name": "Disagree", "score": 95, "disagree": True},
+            {**base, "qid": "Q2", "name": "Single", "score": 90, "sources": 1, "agree": 1, "single": True},
+            {**base, "qid": "Q3", "name": "Agree low", "score": 30},
+            {**base, "qid": "Q4", "name": "Unranked", "score": None, "size_pct": None, "sources": 0, "agree": 0},
+            {**base, "qid": "Q5", "name": "Agree high", "score": 60},
+            {**base, "qid": "Q6", "name": "Single low", "score": 20, "sources": 1, "agree": 1, "single": True}]
+    val = {"all": {"n": 100, "rho": 0.7, "miss": 1.7, **{s: {"n": 1, "rho": None} for s in small_acts.SIGNALS}},
+           "countries": {}, "calibration": 100}
+    monkeypatch.setattr(small_acts, "rank", lambda g: {"validation": val, "rows": rows, "model": {}, "growth_ready": False, "yt_ready": False})
+    monkeypatch.setattr(col2, "load", lambda: [{"genre": "hip_hop", "decision": "include", "country": "Spain"}] * 6)
+    by = {"countries": []}
+    site_build.add_smaller(by, "hip_hop")
+    names = [r["name"] for r in by["countries"][0]["small"]["rows"]]
+    assert names == ["Agree high", "Agree low", "Single", "Single low", "Disagree", "Unranked"]
+    assert site_build.small_tier({"disagree": False, "single": True}) == 1
+
+
+def test_lofi_beatmakers_are_other_but_rappers_over_lofi_beats_are_not():
+    from src import genre
+    label_wide = [("boom bap", 1), ("chillwave", 1), ("downtempo", 1), ("hip hop", 1), ("instrumental", 1),
+                  ("instrumental hip hop", 1), ("lo-fi", 1), ("lo-fi hip hop", 1)]
+    dz = {"match": "links", "releases": 40, "rap_share": "0.9", "latin_share": "0", "top_latin": "0", "top_dated": 8}
+    dec, basis = genre.decide_small(label_wide, [], dz, country="Sweden")
+    assert dec == "other" and "no sign of vocal rap" in basis
+    assert genre.decide_small([], [("lofi hip-hop", True, False)], dz, country="Japan")[0] == "other"  # Wikidata lo-fi only
+    assert genre.decide_small([], [("chillhop", True, False)], None, country="Norway")[0] == "other"
+    # a rapper on lo-fi beats: the occupation rapper, or a Wikidata hip-hop genre beside the lo-fi one, keeps them
+    assert genre.decide_small(label_wide, [], dz, country="Hungary", rapper=True)[0] == "review"
+    assert genre.decide_small(label_wide, [("abstract hip-hop", True, False), ("lo-fi music", False, False)], dz,
+                              country="Russia")[0] == "review"
+    # untagged acts are untouched, and a Latin decision stays Latin
+    assert genre.decide_small([], [("hip-hop", True, False)], dz, country="Sweden")[0] == "hip_hop"
+    assert genre.decide_small([("reggaeton", 5), ("lo-fi", 1)], [], None, country="Sweden")[0] == "latin"
+
+
+def test_hand_decisions_replace_the_rule_and_keep_its_basis():
+    hand = {("hip_hop", "Q1"): {"decision": "hip_hop", "reason": "Spanish rapper", "decided": "2026-10-27"},
+            ("hip_hop", "mb:x"): {"decision": "latin", "reason": "reggaeton", "decided": "2026-10-27"}}
+    dec, basis = col._hand(hand, "hip_hop", "Q1", "review", "Spain: the songs do not settle it")
+    assert dec == "hip_hop" and basis.startswith("hand check 2026-10-27: Spanish rapper") and "rule: review" in basis
+    assert col._hand(hand, "hip_hop", "mb:x", "review", "b")[0] == "latin"
+    assert col._hand(hand, "country", "Q1", "other", "b") == ("other", "b")  # per genre
+    assert col._hand(hand, "hip_hop", "Q2", "review", "b") == ("review", "b")
+
+
+def test_spain_check_overrides_file():
+    from src import genre
+    o = genre.small_overrides()
+    assert len(o) >= 260
+    for (g, k), r in o.items():
+        assert g == "hip_hop" and (k.startswith("Q") or k.startswith("mb:")), k
+        assert r["decision"] in ("hip_hop", "latin", "other", "review") and r["reason"] and r["evidence"] and r["decided"]
+    by_name = {r["name"]: r["decision"] for r in o.values()}
+    assert by_name["Tote King"] == "hip_hop" and by_name["Los Chikos del Maíz"] == "hip_hop"  # Spanish rap
+    assert by_name["Mushkaa"] == "latin" and by_name["Sky Rompiendo"] == "latin"  # urbano / reggaeton
+    assert by_name["Boikot"] == "other" and by_name["Resorte"] == "other"  # rock; rap metal
+    assert o[("hip_hop", "mb:5c1b9ce3-88f0-40cb-8cb2-fe46dd561981")]["decision"] == "hip_hop"  # Krisy: a rapper the lo-fi tags took

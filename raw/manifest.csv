@@ -9562,3 +9562,9 @@ shazam/2026-10-27/city-brazil-são-paulo.csv.gz,https://www.shazam.com/services/
 shazam/2026-10-27/city-netherlands-amsterdam.csv.gz,https://www.shazam.com/services/charts/csv/top-50/netherlands/amsterdam,2026-10-27T10:02:10+00:00,81ec4e1eda82bafc2fb0f0cbc38dac707023dea10c9b1f1a49be311df5d59052,2131
 shazam/2026-10-27/city-sweden-stockholm.csv.gz,https://www.shazam.com/services/charts/csv/top-50/sweden/stockholm,2026-10-27T10:02:12+00:00,a31cc46efe3a9a775e8e67ce38695bd412ae95c6b500e0374afe8c81d1c4183f,2302
 kworb/radio/2026-10-27.html.gz,https://kworb.net/radio/,2026-10-27T10:02:13+00:00,086414c900cb09600369185d5763de45e22afb2b95c0403651d7fe4ea71ab0f8,41437
+listenbrainz/2026-10/popularity-e6a03fd232.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T15:48:10+00:00,13328ee3ebfdbe3bcf83355e215ff19affe473d427d5d243dc8cfa7f932e04ad,51623
+listenbrainz/2026-10/popularity-e69c124bd4.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T15:48:10+00:00,b40606aba471d4d855710e6e29addcc6f091e02db3c780d93d2c1e82e4a2f23f,51714
+listenbrainz/2026-10/popularity-13b21ae651.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T15:48:11+00:00,f84e32ba19a051d5e7ac07547307cce5c2133cc5d37a8ae3cbb08db1387d10d4,44099
+listenbrainz/2026-10/popularity-68ff7fbc1a.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T16:00:54+00:00,47f4afb86b07d28522ce8acfd4686edf42036204c665da1b243b5b3f8727a9d8,51629
+listenbrainz/2026-10/popularity-74bdff11d1.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T16:00:54+00:00,8dc23a0ddf87fe9b22bacaa63e48bd53b15b1ac72052c7b33623c29a9a5fa3cf,51712
+listenbrainz/2026-10/popularity-4b27099967.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T16:00:55+00:00,4c792205ca0babf8156421fa1882b586b6cb4c684aa7d5e7f68d9f7541eb84a2,44203
