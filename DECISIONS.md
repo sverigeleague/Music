@@ -2,6 +2,56 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-26 Scout by country: smaller acts below the listener floor, ranked on triangulated free signals (owner)
+
+- **Owner:** "yes, look into deezer fans for smaller countries"; then "Triangulate with other sources to make the
+  ranking as robust as possible." Research: `docs/research/2026-10-26-deezer-fans-small-countries.md`.
+- **Measured first** (artists with both a Deezer page and kworb listeners):
+  - Deezer fans alone track Spotify monthly listeners weakly: Spearman 0.37 over 21,737 artists, 0.50 for hip-hop.
+  - Within a country, hip-hop: United States 0.70, Canada 0.68, France 0.52, Sweden 0.34, Denmark 0.29,
+    Russia 0.02.
+  - Listeners per fan swing by country: France 3, Belgium 5, United States 70, Sweden 278, Norway 507.
+  - Deezer's top-10 track rank is the best single signal (hip-hop 0.53 overall; 0.6-0.8 within most countries).
+    Then Wikipedia views (English + home language, 0.50) and ListenBrainz (0.31).
+- **Chosen:**
+  - **Size estimate.** Each source is calibrated per country against Spotify listeners: the source regressed on
+    log listeners, so kworb's floor does not bias the slope, with a country term shrunk to the pool. Each source is
+    weighted by its within-country rank agreement, no source above half the weight. They are combined as a weighted
+    median, then a clipped mean.
+  - **Hold-out check** (ten folds): Spearman 0.69 for hip-hop (2,211 artists) and 0.76 for country (384), median
+    miss 1.7x. It drops to 0.31 within 500k-1.5m listeners. That limit is said on the page and the Method page.
+  - Size shows as a third of the set, never as a listener figure. "Sources agreeing" is shown per artist. Fewer than
+    half agreeing: flagged and ranked last (on the hold-out, flagged artists miss by 2.9x against 1.7x).
+  - **Score:** "Smaller-acts score", grade C, provisional, never the Scout score or mixed into it. Size 40%, new songs
+    among the Deezer top 10 (90 days) 25%, home charts (Spotify, Apple, Shazam) 15%, Wikipedia trend 10%, Deezer fan
+    growth 10%.
+  - **Who:** Wikidata (hip-hop genre or occupation rapper, or country genre, with a Spotify or Deezer ID), Deezer's
+    related artists when a Wikidata item carries the Deezer ID, and MusicBrainz url relations for the Deezer page.
+    Genre goes through the registry's rule; uncertain cases go to `review/small_acts_review.csv`. Spotify links only
+    from Wikidata P1902; without one the name opens Deezer.
+  - **Per country:** listed when its own hold-out is 0.4+ on 8+ artists. With fewer artists to test, the overall
+    figure is used and the page says so. Tested and weaker: the list is withheld (Belgium 0.33).
+  - **Weekly Deezer fans snapshot** (`smallfans`, Mondays in daily.yml), so fan growth becomes a signal.
+  - YouTube channel IDs (Wikidata P2397) are added to the `ytapi` step for 186 smaller acts. Their subscribers join
+    the estimate once the workflow has read them.
+- **Results (hip-hop, scored → scored + smaller):** Sweden 15→25, Canada 24→49, Denmark 12→26, Finland 7→23, Norway
+  5→7, Netherlands 53→78, Russia 43→74, Italy 97→100, Switzerland 3→14. Belgium is withheld; Spain's candidates are
+  all in review. 299 smaller hip-hop acts listed. Country music: Canada 45→48, Norway 0→1.
+- **Review queue:** +1,819 rows in `review/small_acts_review.csv` (1,638 hip-hop, 181 country). Most are Wikidata
+  genres without MusicBrainz votes (506), the occupation rapper only (438), or Deezer 20-70% Rap (251).
+- **Data:** `data/small_acts.csv`, `data/small_acts_calibration.csv`, `data/musicbrainz_deezer_links.json`,
+  `data/deezer_fans_history.csv`. `scout_countries.json` (hip-hop) grows from 119 to 140 KB gzip and still loads
+  only with the country view.
+- **Rejected:**
+  - Deezer fans alone: too weak in the Nordics, Poland, Turkey and Russia.
+  - Showing an estimated listener figure: it is an extrapolation below the floor.
+  - Deezer name-search matches: identity unconfirmed.
+  - Deezer-only related artists (6,043): no country source.
+  - Official national charts: terms not read yet. Spotify's top 200 per country is deeper. Follow-up.
+  - Weighting by residual variance: it ordered the held-out artists worse (0.65).
+  - Per-country source weights: no better, and worse for small countries.
+  - MusicBrainz genre votes for the candidates: not read, to spare MusicBrainz.
+
 ## 2026-10-26 Scout by country: each country's top 100, on a deeper artist list (owner)
 
 - **Owner:** "for the scout tab, i want there to be the top 100 artists for each country shown with that methodology
