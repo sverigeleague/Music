@@ -638,6 +638,7 @@ def discover(genre: str, skip_countries: set[str], workers: int = 6, wide: bool 
     rappers = wikidata_rappers(wqs)
     links = sitelinks(wqs, {LANG[c] for _q, _d, c, _s in todo if c in LANG})
     rows, review = [], []
+    hand = genre_rule.small_overrides()
     import re
     for q, d, c, csrc in todo:
         dzs = sorted((x for x in d["deezer_ids"] if reads.get(x)), key=lambda x: -int(reads[x].get("fans") or 0))
@@ -665,7 +666,8 @@ def discover(genre: str, skip_countries: set[str], workers: int = 6, wide: bool 
             if cd:  # a hip-hop "review" with no sign of hip-hop at all does not hold back a country decision
                 hh_doubt = dec == "review" and _evidence("hip_hop", wdg, votes, rd, q in rappers)
                 dec, basis = cd if cd[0] == "review" or not hh_doubt else ("review", basis + "; " + cd[1])
-        want = "hip_hop" if genre == "hip_hop" else "country"
+        dec, basis = _hand(hand, genre, q, dec, basis)
+        want ="hip_hop" if genre == "hip_hop" else "country"
         row["decision"] = "include" if dec == want else "review" if dec == "review" else "other"
         row["basis"] = basis + ("" if dz else "; no Deezer page linked")
         if row["decision"] == "review" and d.get("wide") and not _evidence(genre, wdg, votes, rd, q in rappers):
@@ -712,6 +714,13 @@ def discover(genre: str, skip_countries: set[str], workers: int = 6, wide: bool 
     return {"wikidata items": len(items), "seeds": len(seeds), "related read": len(rel), "related with item": len(found),
             **stats, "Wikipedia views left for the next run": left, "candidates": len(todo), "included": len(inc), "review": sum(r["decision"] == "review" for r in rows),
             "other": sum(r["decision"] == "other" for r in rows)}
+
+
+def _hand(hand: dict, genre: str, q: str, dec: str, basis: str) -> tuple[str, str]:
+    """A hand decision (registry/small_acts_overrides.csv, genre.small_overrides) replaces the rule's genre decision;
+    the rule's own basis is kept beside it."""
+    o = hand.get((genre, q))
+    return (o["decision"], f"hand check {o['decided']}: {o['reason']} (rule: {dec}; {basis})") if o else (dec, basis)
 
 
 def _evidence(genre: str, wdg: list, votes: list, rd: dict, rapper: bool) -> bool:

@@ -455,7 +455,8 @@ def add_smaller(by_country: dict, genre: str) -> None:
     there; the genre's overall figure applies), "weak" (tested and below VALID_RHO) or "none". Since 2026-10-27 (owner:
     "lower the bar for all until you get to 100 for each country") every country's list is shown, a weak one with a
     plain warning; acts with no release in three years, with one size source, or with no size reading at all are
-    listed and marked; "sources disagree" and unranked acts come last."""
+    listed and marked. Order (owner 2026-10-27, "yes, rank those after"): ranked acts whose size sources agree, then
+    single-source ("low confidence") acts, then "sources disagree" acts, each by score; then the unranked, by name."""
     from . import small_acts
     from .collectors.small_acts import load as sm_load
     res = small_acts.rank(genre)
@@ -478,7 +479,7 @@ def add_smaller(by_country: dict, genre: str) -> None:
         v = val["countries"].get(countries.name(names.get(cc, "")), {})
         n_ok = (v.get("n") or 0) >= small_acts.VALID_N and v.get("rho") is not None
         status = ("ok" if v["rho"] >= small_acts.VALID_RHO else "weak") if n_ok else "pooled" if mine else "none"
-        mine.sort(key=lambda r: (r["score"] is None, r["disagree"], -(r["score"] or 0), -(r["fans"] or 0), r["name"].casefold()))
+        mine.sort(key=lambda r: (r["score"] is None, small_tier(r), -(r["score"] or 0), -(r["fans"] or 0), r["name"].casefold()))
         room = max(0, COUNTRY_TOP - min(COUNTRY_TOP, c["scored"]))
         shown = mine[:room]
         c["small"] = {"found": found.get(cc, 0), "review": held.get(cc, 0), "scored": sum(1 for r in mine if r["score"] is not None),
@@ -506,6 +507,11 @@ def add_smaller(by_country: dict, genre: str) -> None:
                            "national": {f"{cc}-{ch}": {"name": x["name"], "credit": x["credit"], "show": x["show"]}
                                         for (cc, ch), x in national_charts.CHARTS.items()},
                            "found": sum(found.values()), "shown": sum(c["small"]["shown"] for c in by.values())}
+
+
+def small_tier(r: dict) -> int:
+    """A ranked smaller act's band: 0 several size sources agreeing, 1 one size source, 2 sources disagree."""
+    return 2 if r.get("disagree") else 1 if r.get("single") else 0
 
 
 def _shown_charts(c: dict | None) -> dict | None:
