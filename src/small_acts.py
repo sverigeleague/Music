@@ -181,22 +181,27 @@ def validate(cal: list[dict], folds: int = 10, seed: int = 7) -> dict:
 
 
 def chart_presence(rows: list[dict], registry_names: set[str]) -> dict[str, dict]:
-    """key -> {"spotify": best position, "apple": best, "shazam": best} in the artist's home country (key: the row's
-    QID). Spotify: the latest archived weekly top 200 per country (kworb pages, by Spotify ID). Apple Music (last 7
-    days) and Shazam (archived days) by exact folded name, only when no registry artist or other smaller act shares
-    the name."""
+    """key -> {"spotify": best position, "apple": best, "shazam": best, "national": {...}} in the artist's home
+    country (key: src.key, the row's QID or MusicBrainz ID). Spotify: the latest archived weekly top 200 per country
+    (kworb pages, by Spotify ID). Apple Music (last 7 days) and Shazam (archived days) by exact folded name, only when
+    no registry artist or other smaller act shares the name. The official national charts (2026-10-27; the last 52
+    weeks, src/collectors/national_charts.py): by the Deezer artist IDs Deezer credits on the charted song
+    (data/chart_identities.csv), else by the same name rule; {"chart", "name", "peak", "weeks", "size", "show"} for the
+    artist's best run (lowest peak, then most weeks)."""
     import glob
     import gzip
-    from .collectors import kworb_countries, shazam
+    from .collectors import kworb_countries, national_charts, shazam
     from .collectors.apple_charts import CSV as APPLE, fold, split_names
     from .config import RAW
     from .countries import ISO2
     out: dict[str, dict] = {}
-    cc_of = {r["qid"]: ISO2.get(home(r["country"]), "") for r in rows}
-    by_sp = {r["spotify_id"]: r["qid"] for r in rows if r.get("spotify_id")}
+    k_of = {src.key(r): r for r in rows}
+    cc_of = {k: ISO2.get(home(r["country"]), "") for k, r in k_of.items()}
+    by_sp = {r["spotify_id"]: src.key(r) for r in rows if r.get("spotify_id")}
+    by_dz = {r["deezer_id"]: src.key(r) for r in rows if r.get("deezer_id")}
     names: dict[str, list[str]] = {}
-    for r in rows:
-        names.setdefault(fold(r["name"]), []).append(r["qid"])
+    for k, r in k_of.items():
+        names.setdefault(fold(r["name"]), []).append(k)
     names = {k: v[0] for k, v in names.items() if len(v) == 1 and k and k not in registry_names}
     weeks = sorted(glob.glob(str(RAW / "kworb" / "country" / "*")))
     if weeks:
@@ -237,7 +242,45 @@ def chart_presence(rows: list[dict], registry_names: set[str]) -> dict[str, dict
                         if c and place.startswith(c):
                             d = out.setdefault(q, {})
                             d["shazam"] = min(d.get("shazam", 999), int(r["rank"]))
+    nat = national_charts.load()
+    if nat:
+        ids = {(r["kind"], r["artist"], r["title"]): [x for x in r["deezer_ids"].split(";") if x] for r in src._read(src.IDS)}
+        keep = set(national_charts._weeks(date.today(), national_charts.WEEKS))
+        runs: dict[tuple, dict] = {}
+        for r in nat:
+            yw = (int(r["year"]), int(r["week"]))
+            if yw not in keep:
+                continue
+            kind = "album" if r["chart"] in ("albums", "hiphop") else "track"
+            who = {by_dz[x] for x in ids.get((kind, r["artist"], r["title"]), []) if x in by_dz}
+            if not ids.get((kind, r["artist"], r["title"])):  # Deezer did not find the song: the name rule
+                who = {names[fold(nm)] for nm in national_charts.names(r["artist"]) if fold(nm) in names}
+            for q in who:
+                if cc_of[q] != r["country"]:
+                    continue
+                d = runs.setdefault((q, r["country"], r["chart"]), {"peak": 999, "weeks": set()})
+                d["peak"] = min(d["peak"], int(r["position"]))
+                d["weeks"].add(yw)
+        for (q, cc, ch), d in runs.items():
+            c = national_charts.CHARTS[(cc, ch)]
+            run = {"chart": ch, "name": c["name"], "peak": d["peak"], "weeks": len(d["weeks"]), "size": c["size"],
+                   "show": c["show"]}
+            best = out.setdefault(q, {}).get("national")
+            if not best or (run["peak"], -run["weeks"]) < (best["peak"], -best["weeks"]):
+                out[q]["national"] = run
     return out
+
+
+def chart_points(c: dict | None) -> float:
+    """The home-charts signal: 1 for each of Spotify, Apple Music and Shazam the act is on, plus, on an official
+    national chart in the last 52 weeks, 1 + weeks / 52 + how high it peaked (1 for #1, near 0 at the chart's end)."""
+    if not c:
+        return 0.0
+    n = sum(1 for k in ("spotify", "apple", "shazam") if k in c)
+    if c.get("national"):
+        r = c["national"]
+        n += 1 + min(r["weeks"], 52) / 52 + (r["size"] - r["peak"] + 1) / r["size"]
+    return n
 
 
 def _pct(vals: dict[str, float]) -> dict[str, int]:
@@ -250,7 +293,10 @@ def _pct(vals: dict[str, float]) -> dict[str, int]:
 
 
 def rank(genre: str, today: date | None = None) -> dict:
-    """{"model": per-source fit summary, "validation", "rows": [scored smaller acts]} for the genre."""
+    """{"model": per-source fit summary, "validation", "rows": [smaller acts]} for the genre. Since 2026-10-27 (owner:
+    "lower the bar for all until you get to 100 for each country") every included act is returned: an act with no
+    release in RECENT_YEARS years is kept and marked "old"; one size source is marked "single"; an act with no size
+    reading at all (no Deezer page, article or ListenBrainz count) has no score and comes back with "score": None."""
     from .collectors import youtube_api
     from .run import load_artists
     today = today or date.today()
@@ -258,44 +304,44 @@ def rank(genre: str, today: date | None = None) -> dict:
     cal = calibration_rows(genre, yt)
     model = fit(cal)
     val = validate(cal)
-    # as site_build.below_floor: no release in RECENT_YEARS years is a past act (reissues), not a smaller act to watch
     cutoff = date(today.year - RECENT_YEARS, today.month, min(today.day, 28)).isoformat()
-    rows = [r for r in src.load() if r["genre"] == genre and r["decision"] == "include" and (r.get("latest") or "") >= cutoff]
+    rows = [r for r in src.load() if r["genre"] == genre and r["decision"] == "include"]
     from .collectors.apple_charts import fold
     charts = chart_presence(rows, {fold(a["name"]) for a in load_artists().values()})
     growth = src.fan_growth()
     est, comp = {}, {k: {} for k in SCORE}
     for r in rows:
+        q = src.key(r)
         e = estimate(values(r, yt), home(r["country"]), model)
         if not e:
             continue
-        est[r["qid"]] = e
-        comp["size"][r["qid"]] = e["y"]
+        est[q] = e
+        comp["size"][q] = e["y"]
         if int(r.get("dated_n") or 0) >= 3:
-            comp["fresh"][r["qid"]] = int(r["fresh_n"]) / int(r["dated_n"])
-        comp["charts"][r["qid"]] = len(charts.get(r["qid"], {}))
+            comp["fresh"][q] = int(r["fresh_n"]) / int(r["dated_n"])
+        comp["charts"][q] = chart_points(charts.get(q))
         if r.get("wiki_prev3m") and int(r["wiki_prev3m"]) >= 30:
-            comp["attention"][r["qid"]] = int(r["wiki_3m"]) / int(r["wiki_prev3m"]) - 1
+            comp["attention"][q] = int(r["wiki_3m"]) / int(r["wiki_prev3m"]) - 1
         if r.get("deezer_id") in growth:
-            comp["growth"][r["qid"]] = growth[r["deezer_id"]]
+            comp["growth"][q] = growth[r["deezer_id"]]
     pct = {k: _pct(v) for k, v in comp.items()}
     out = []
     for r in rows:
-        q = r["qid"]
-        if q not in est:
-            continue
+        q = src.key(r)
         p = {k: pct[k][q] for k in SCORE if q in pct[k]}
-        if len(p) < 2:
-            continue
+        e = est.get(q)
+        scored = e is not None and len(p) >= 2
         w = sum(SCORE[k][0] for k in p)
-        e = est[q]
         out.append({"qid": q, "name": r["name"], "country": r["country"], "sp": r["spotify_id"] or None,
-                    "dz": r["deezer_id"] or None, "score": round(sum(SCORE[k][0] * v for k, v in p.items()) / w),
-                    "parts": p, "sources": e["n"], "agree": e["agree"], "disagree": e["disagree"],
-                    "size_pct": p["size"], "fans": int(r["fans"]) if r.get("fans") else None,
+                    "dz": r["deezer_id"] or None, "score": round(sum(SCORE[k][0] * v for k, v in p.items()) / w) if scored else None,
+                    "parts": p if scored else {}, "sources": e["n"] if e else 0, "agree": e["agree"] if e else 0,
+                    "disagree": bool(e and e["disagree"]), "size_pct": p.get("size") if scored else None,
+                    "fans": int(r["fans"]) if r.get("fans") else None,
                     "wiki": int(r["wiki_3m"]) if r.get("wiki_3m") else None, "fresh": comp["fresh"].get(q),
                     "fresh_title": r.get("fresh_title") or None, "charts": charts.get(q) or None,
                     "latest": r.get("latest") or None, "growth": comp["growth"].get(q),
-                    "yt": bool(r.get("youtube_channel")), "used": sorted(e["each"])})
+                    "old": bool(r.get("latest")) and r["latest"] < cutoff, "single": bool(e and e["n"] == 1),
+                    "yt": bool(r.get("youtube_channel")), "used": sorted(e["each"]) if e else [],
+                    "csrc": r.get("country_source") or "", "via": r.get("found_via") or ""})
     return {"model": {s: {"n": m["n"], "slope": round(m["d"], 3), "rho": m["rho"]} for s, m in model.items()},
             "validation": val, "rows": out, "growth_ready": bool(growth), "yt_ready": bool(yt)}

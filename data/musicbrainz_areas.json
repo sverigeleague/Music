@@ -514,5 +514,803 @@
 "type": "City",
 "code": "",
 "parent": "75e398a3-5f3f-4224-9cd8-0fe44715bc95"
+},
+"7c87112d-504d-31f1-8147-11ff45fc3bfd": {
+"name": "Pakistan",
+"type": "Country",
+"code": "PK",
+"parent": ""
+},
+"b84d8617-249a-3a06-849d-fc5c25e2249b": {
+"name": "Morocco",
+"type": "Country",
+"code": "MA",
+"parent": ""
+},
+"222d0da4-b670-4ba7-a094-0dbdee63b1e2": {
+"name": "Limpopo",
+"type": "Subdivision",
+"code": "ZA",
+"parent": "50cc7852-862e-30ae-aa82-385fe7135b7f"
+},
+"ea88d395-87c9-3c47-b49a-114cad41fd39": {
+"name": "Uruguay",
+"type": "Country",
+"code": "UY",
+"parent": ""
+},
+"51d34c28-61bf-3d21-849f-7492672a9d44": {
+"name": "Czechia",
+"type": "Country",
+"code": "CZ",
+"parent": ""
+},
+"c364d266-bc5e-4d00-914c-80151efb0e20": {
+"name": "Gouda",
+"type": "City",
+"code": "",
+"parent": "33c20196-8212-4975-b914-5d52855d94ff"
+},
+"3f179da4-83c6-4a28-a627-e46b4a8ff1ed": {
+"name": "Sydney",
+"type": "City",
+"code": "",
+"parent": "ee8fe1ca-7455-485d-afbc-064844f5ee43"
+},
+"ee8fe1ca-7455-485d-afbc-064844f5ee43": {
+"name": "New South Wales",
+"type": "Subdivision",
+"code": "AU",
+"parent": "106e0bec-b638-3b37-b731-f53d507dc00e"
+},
+"e82975d0-7258-4e4c-9c56-6e1deea8ad4c": {
+"name": "Kraków",
+"type": "City",
+"code": "",
+"parent": "c02806b4-ba8f-4b15-8531-f12a59fdc9b3"
+},
+"c02806b4-ba8f-4b15-8531-f12a59fdc9b3": {
+"name": "Małopolskie",
+"type": "Subdivision",
+"code": "PL",
+"parent": "dd7f80c8-f017-3d01-8608-2a8c9c32b954"
+},
+"200956d9-f608-47b0-b2f6-54cf63573cc8": {
+"name": "Hattiesburg",
+"type": "City",
+"code": "",
+"parent": "ed4c2c6d-5db1-479f-a4cd-56f170bd7a6a"
+},
+"ed4c2c6d-5db1-479f-a4cd-56f170bd7a6a": {
+"name": "Forrest County",
+"type": "County",
+"code": "",
+"parent": "6fddb177-f3fc-4c30-9d49-9c7e949fe0bc"
+},
+"6fddb177-f3fc-4c30-9d49-9c7e949fe0bc": {
+"name": "Mississippi",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"a71b0d32-7752-49e9-8594-2247ad6ac12c": {
+"name": "Brooklyn",
+"type": "District",
+"code": "",
+"parent": "74e50e58-5deb-4b99-93a2-decbb365c07f"
+},
+"40d758a4-b7c2-40f3-b439-5efbd2a3b038": {
+"name": "Bristol",
+"type": "City",
+"code": "GB",
+"parent": "9d5dd675-3cf4-4296-9e39-67865ebee758"
+},
+"2272360d-c657-433b-907a-50e0c2bb6a87": {
+"name": "Vila Franca de Xira",
+"type": "Municipality",
+"code": "",
+"parent": "4f01d77c-1e16-4e8c-b1c2-7c8d76dcae7b"
+},
+"4f01d77c-1e16-4e8c-b1c2-7c8d76dcae7b": {
+"name": "Lisboa",
+"type": "Subdivision",
+"code": "PT",
+"parent": "781b0c54-3d54-362d-a941-8a617def4992"
+},
+"dc10c22b-e510-4006-8b7f-fecb4f36436e": {
+"name": "Paris",
+"type": "City",
+"code": "FR",
+"parent": "d79e4501-8cba-431b-96e7-bb9976f0ae76"
+},
+"57aea637-fcf6-4263-b760-b921b5d44ebf": {
+"name": "Friedrichshafen",
+"type": "City",
+"code": "",
+"parent": "4b8c47dd-0fe2-450e-8a21-d4d739ee0e0c"
+},
+"fc1aee9a-f1a8-45dc-8820-af6b5d7f7450": {
+"name": "Denver",
+"type": "City",
+"code": "",
+"parent": "373183af-56db-44d7-b06a-5877c02c5f01"
+},
+"373183af-56db-44d7-b06a-5877c02c5f01": {
+"name": "Colorado",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"39d41edd-5b4e-496e-a080-077283989dd0": {
+"name": "Mobile",
+"type": "City",
+"code": "",
+"parent": "02fbe980-db6d-4791-befc-60b143a32ac4"
+},
+"02fbe980-db6d-4791-befc-60b143a32ac4": {
+"name": "Mobile County",
+"type": "County",
+"code": "",
+"parent": "cffc0190-1aa2-489f-b6f9-43b9a9e01a91"
+},
+"cffc0190-1aa2-489f-b6f9-43b9a9e01a91": {
+"name": "Alabama",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"bca5a4aa-b2b3-4561-bec9-6577fe789d77": {
+"name": "Vallejo",
+"type": "City",
+"code": "",
+"parent": "3c13ae68-568f-4d6c-8725-7c1e78f84a4b"
+},
+"3c13ae68-568f-4d6c-8725-7c1e78f84a4b": {
+"name": "Solano County",
+"type": "County",
+"code": "",
+"parent": "ae0110b6-13d4-4998-9116-5b926287aa23"
+},
+"325ce9a0-d58f-3564-b24e-647b33098767": {
+"name": "Mozambique",
+"type": "Country",
+"code": "MZ",
+"parent": ""
+},
+"53ccc8be-1551-3e28-965b-7f95465f2093": {
+"name": "Curaçao",
+"type": "Country",
+"code": "CW",
+"parent": "aee96acc-29ab-4f1b-b23d-52012b29c25b"
+},
+"1bf52e6e-d46b-4013-9427-3ad4446ecbc0": {
+"name": "Den Haag",
+"type": "City",
+"code": "",
+"parent": "33c20196-8212-4975-b914-5d52855d94ff"
+},
+"b03ff310-d8e2-45cf-9455-769f76641eb2": {
+"name": "Detroit",
+"type": "City",
+"code": "",
+"parent": "8a056332-8dc0-489f-a0d6-5e0c8352af99"
+},
+"8a056332-8dc0-489f-a0d6-5e0c8352af99": {
+"name": "Wayne County",
+"type": "County",
+"code": "",
+"parent": "29fa065f-a568-418c-98b9-5023f64d9312"
+},
+"29fa065f-a568-418c-98b9-5023f64d9312": {
+"name": "Michigan",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"a75b525f-8c01-31f6-975e-4a32a2b001d5": {
+"name": "Cyprus",
+"type": "Country",
+"code": "CY",
+"parent": ""
+},
+"1f1fc3a4-9500-39b8-9f10-f0a465557eef": {
+"name": "Russia",
+"type": "Country",
+"code": "RU",
+"parent": ""
+},
+"c09b8028-938b-4645-85fd-45299caf8582": {
+"name": "Palmdale",
+"type": "City",
+"code": "",
+"parent": "720f8272-6ba3-48f7-b78e-14cd2641c2cf"
+},
+"720f8272-6ba3-48f7-b78e-14cd2641c2cf": {
+"name": "Los Angeles County",
+"type": "County",
+"code": "",
+"parent": "ae0110b6-13d4-4998-9116-5b926287aa23"
+},
+"4766ab48-7d4a-4e44-b401-413a91d8c995": {
+"name": "Saint Thomas",
+"type": "Subdivision",
+"code": "",
+"parent": "f33958ac-4198-3ce8-a751-1c44d9b4063a"
+},
+"f33958ac-4198-3ce8-a751-1c44d9b4063a": {
+"name": "U.S. Virgin Islands",
+"type": "Country",
+"code": "VI",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"29a709d8-0320-493e-8d0c-f2c386662b7f": {
+"name": "Chicago",
+"type": "City",
+"code": "",
+"parent": "db06e80c-a1cd-44c5-b3ca-9fb72b5bfc1e"
+},
+"db06e80c-a1cd-44c5-b3ca-9fb72b5bfc1e": {
+"name": "Cook County",
+"type": "County",
+"code": "",
+"parent": "8c2196d9-b7be-4051-90d1-ac81895355f1"
+},
+"3eba1671-51f3-465d-bd24-45455c20fddb": {
+"name": "Alicante",
+"type": "City",
+"code": "",
+"parent": "a5fa66a3-4a92-4b9f-ab43-9121a199ebbc"
+},
+"a5fa66a3-4a92-4b9f-ab43-9121a199ebbc": {
+"name": "Alicante",
+"type": "Subdivision",
+"code": "ES",
+"parent": "7514d443-6f68-4d09-ab6b-30f92798bb4a"
+},
+"08310658-51eb-3801-80de-5a0739207115": {
+"name": "France",
+"type": "Country",
+"code": "FR",
+"parent": ""
+},
+"ef1b7cc0-cd26-36f4-8ea0-04d9623786c7": {
+"name": "Netherlands",
+"type": "Country",
+"code": "NL",
+"parent": "aee96acc-29ab-4f1b-b23d-52012b29c25b"
+},
+"489ce91b-6658-3307-9877-795b68554c98": {
+"name": "United States",
+"type": "Country",
+"code": "US",
+"parent": ""
+},
+"26d7f775-1bae-4551-9412-1ab9c61c4314": {
+"name": "Lyon",
+"type": "City",
+"code": "",
+"parent": "78cae463-5e8b-4a76-b074-c742c016b885"
+},
+"78cae463-5e8b-4a76-b074-c742c016b885": {
+"name": "Rhône",
+"type": "Subdivision",
+"code": "FR",
+"parent": "0c8eaaf0-731a-4963-b643-061ff74486f8"
+},
+"a2993fdb-6cc6-49da-abe6-831142053fd1": {
+"name": "Fort Lauderdale",
+"type": "City",
+"code": "",
+"parent": "4d9d9bb7-a419-40ad-b292-dea20df41a35"
+},
+"2b748d6e-bc1c-4434-9f7b-ecd6332bc557": {
+"name": "Portland",
+"type": "City",
+"code": "",
+"parent": "3cbfeef5-c98f-4ec0-9246-a9f34d035698"
+},
+"3cbfeef5-c98f-4ec0-9246-a9f34d035698": {
+"name": "Multnomah County",
+"type": "County",
+"code": "",
+"parent": "376ea713-8f27-4ab1-818b-9cca72023382"
+},
+"376ea713-8f27-4ab1-818b-9cca72023382": {
+"name": "Oregon",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"6f849214-bfee-4a06-a0e3-c19906a3c8d8": {
+"name": "Moroni",
+"type": "City",
+"code": "",
+"parent": "c50166c5-4422-4490-a1c0-e465b4b26335"
+},
+"c50166c5-4422-4490-a1c0-e465b4b26335": {
+"name": "Andjazîdja (Anjazījah)",
+"type": "Subdivision",
+"code": "KM",
+"parent": "f8002d93-3b43-3bb7-84dd-4766ff7e5b3b"
+},
+"23d10872-f5ae-3f0c-bf55-332788a16ecb": {
+"name": "Sweden",
+"type": "Country",
+"code": "SE",
+"parent": ""
+},
+"424c1b50-57f8-34af-ab97-313e2ad40058": {
+"name": "Serbia",
+"type": "Country",
+"code": "RS",
+"parent": ""
+},
+"471c46a7-afc5-31c4-923c-d0444f5053a4": {
+"name": "Spain",
+"type": "Country",
+"code": "ES",
+"parent": ""
+},
+"e183ffae-1d35-4c78-b552-957535e40af1": {
+"name": "Long Beach",
+"type": "City",
+"code": "",
+"parent": "720f8272-6ba3-48f7-b78e-14cd2641c2cf"
+},
+"1127ddc2-eab3-4662-8718-6adbdeea3b10": {
+"name": "Stockholm",
+"type": "City",
+"code": "",
+"parent": "80e5d577-bd4e-435c-86de-909c76a74a58"
+},
+"80e5d577-bd4e-435c-86de-909c76a74a58": {
+"name": "Stockholm municipality",
+"type": "Municipality",
+"code": "",
+"parent": "63ee9426-d32f-4593-a262-6401bc85c6ba"
+},
+"63ee9426-d32f-4593-a262-6401bc85c6ba": {
+"name": "Stockholms län",
+"type": "Subdivision",
+"code": "SE",
+"parent": "23d10872-f5ae-3f0c-bf55-332788a16ecb"
+},
+"3501ffa5-f3dd-4a11-97d8-cd47a1b6bfb8": {
+"name": "Lviv",
+"type": "City",
+"code": "",
+"parent": "997a775f-fd0d-4371-884a-6260d4df1cfa"
+},
+"997a775f-fd0d-4371-884a-6260d4df1cfa": {
+"name": "L'vivs'ka Oblast'",
+"type": "Subdivision",
+"code": "UA",
+"parent": "904768d0-61ca-3c40-93ac-93adc36fef4b"
+},
+"49b113da-9bda-4439-b2dd-fa11ad369a09": {
+"name": "Kamensk-Uralsky",
+"type": "City",
+"code": "",
+"parent": "7d3118da-038c-46dd-bae9-16689b926862"
+},
+"7d3118da-038c-46dd-bae9-16689b926862": {
+"name": "Sverdlovskaya oblast'",
+"type": "Subdivision",
+"code": "RU",
+"parent": "1f1fc3a4-9500-39b8-9f10-f0a465557eef"
+},
+"0782e67a-4326-41e3-a49c-7db270efd87a": {
+"name": "Mombasa",
+"type": "City",
+"code": "",
+"parent": "822b5821-eac1-4c1a-bdf2-c0f995ffcf0b"
+},
+"822b5821-eac1-4c1a-bdf2-c0f995ffcf0b": {
+"name": "Mombasa County",
+"type": "Subdivision",
+"code": "",
+"parent": "023da4a0-acee-3fb1-b91e-5de74ccf787b"
+},
+"023da4a0-acee-3fb1-b91e-5de74ccf787b": {
+"name": "Kenya",
+"type": "Country",
+"code": "KE",
+"parent": ""
+},
+"f2fa4bfb-97aa-3db4-8d49-cc64969ce1a7": {
+"name": "El Salvador",
+"type": "Country",
+"code": "SV",
+"parent": ""
+},
+"92d52542-3363-351c-a8b6-d991e0bccb8f": {
+"name": "Kazakhstan",
+"type": "Country",
+"code": "KZ",
+"parent": ""
+},
+"b4e9352c-8edf-4911-8fa3-e852afa30501": {
+"name": "Melbourne",
+"type": "City",
+"code": "",
+"parent": "09936ede-4dcc-4794-a1e7-83d3af37bf4e"
+},
+"09936ede-4dcc-4794-a1e7-83d3af37bf4e": {
+"name": "Victoria",
+"type": "Subdivision",
+"code": "AU",
+"parent": "106e0bec-b638-3b37-b731-f53d507dc00e"
+},
+"fe40c648-ba74-3e17-b768-58181d5ee563": {
+"name": "United Arab Emirates",
+"type": "Country",
+"code": "AE",
+"parent": ""
+},
+"46f3c1de-24b7-4ced-bea5-c0e2b84d0598": {
+"name": "Ufa",
+"type": "City",
+"code": "",
+"parent": "8570458e-202d-44b9-8d9b-f1d3f4926c6b"
+},
+"8570458e-202d-44b9-8d9b-f1d3f4926c6b": {
+"name": "Respublika Bashkortostan",
+"type": "Subdivision",
+"code": "RU",
+"parent": "1f1fc3a4-9500-39b8-9f10-f0a465557eef"
+},
+"2e40127e-0b8a-3a01-bfbc-58c7fcdba532": {
+"name": "Jordan",
+"type": "Country",
+"code": "JO",
+"parent": ""
+},
+"9ed3be5f-d54c-3add-a6a6-76c0cca54fd8": {
+"name": "Faroe Islands",
+"type": "Country",
+"code": "FO",
+"parent": "4757b525-2a60-324a-b060-578765d2c993"
+},
+"0b5ad473-8977-4baf-82d2-c6f77a9b113f": {
+"name": "Tórshavn",
+"type": "City",
+"code": "",
+"parent": "5c6a357f-4a0f-4b25-bcb6-5afbeec14a1f"
+},
+"5c6a357f-4a0f-4b25-bcb6-5afbeec14a1f": {
+"name": "Tórshavnar Municipality",
+"type": "Municipality",
+"code": "",
+"parent": "9ed3be5f-d54c-3add-a6a6-76c0cca54fd8"
+},
+"2db42837-c832-3c27-b4a3-08198f75693c": {
+"name": "Japan",
+"type": "Country",
+"code": "JP",
+"parent": ""
+},
+"185bc3c4-4c5a-3f69-9384-7c280dfdf072": {
+"name": "Congo",
+"type": "Country",
+"code": "CG",
+"parent": ""
+},
+"725210c4-3f89-4f49-a508-794e92f700ef": {
+"name": "Damascus",
+"type": "City",
+"code": "",
+"parent": "6d6c7aa5-a82f-4c0d-9003-cafb8cd087c5"
+},
+"6d6c7aa5-a82f-4c0d-9003-cafb8cd087c5": {
+"name": "Dimashq",
+"type": "Subdivision",
+"code": "SY",
+"parent": "18086faa-7f75-3ca3-a5bb-a77a83d4b200"
+},
+"3e4e751b-0838-428f-a44c-ba54b69508f4": {
+"name": "Kitchener",
+"type": "City",
+"code": "",
+"parent": "763dac5b-2304-4266-81dc-a7b4fcee79df"
+},
+"763dac5b-2304-4266-81dc-a7b4fcee79df": {
+"name": "Regional Municipality of Waterloo",
+"type": "Municipality",
+"code": "",
+"parent": "2747553f-b44d-44c4-a7c3-b67412b6f10b"
+},
+"2747553f-b44d-44c4-a7c3-b67412b6f10b": {
+"name": "Ontario",
+"type": "Subdivision",
+"code": "CA",
+"parent": "71bbafaa-e825-3e15-8ca9-017dcad1748b"
+},
+"6530983e-7194-423b-ba0b-240112d51608": {
+"name": "Apeldoorn",
+"type": "Municipality",
+"code": "",
+"parent": "8a3749e4-4be2-4bc1-88cf-7a44d65f795e"
+},
+"8a3749e4-4be2-4bc1-88cf-7a44d65f795e": {
+"name": "Gelderland",
+"type": "Subdivision",
+"code": "NL",
+"parent": "ef1b7cc0-cd26-36f4-8ea0-04d9623786c7"
+},
+"83beceaf-a2e0-41c4-80d7-7572bebc3869": {
+"name": "L'Ancienne-Lorette",
+"type": "City",
+"code": "",
+"parent": "99ac3dd7-77b9-4066-8074-55d7ddf2ca7e"
+},
+"99ac3dd7-77b9-4066-8074-55d7ddf2ca7e": {
+"name": "Capitale-Nationale",
+"type": "Municipality",
+"code": "",
+"parent": "a510b9b1-404d-4e23-8db8-0f6585909ed8"
+},
+"a510b9b1-404d-4e23-8db8-0f6585909ed8": {
+"name": "Québec",
+"type": "Subdivision",
+"code": "CA",
+"parent": "71bbafaa-e825-3e15-8ca9-017dcad1748b"
+},
+"6406e79d-165b-4b4a-9c54-5d781daa1ffd": {
+"name": "Ivano-Frankivsk",
+"type": "City",
+"code": "",
+"parent": "33635a21-84fb-484b-91cd-adc875a17b3c"
+},
+"33635a21-84fb-484b-91cd-adc875a17b3c": {
+"name": "Ivano-Frankivs'ka Oblast'",
+"type": "Subdivision",
+"code": "UA",
+"parent": "904768d0-61ca-3c40-93ac-93adc36fef4b"
+},
+"050c94f7-1413-3a34-bb90-4a94f3bb2084": {
+"name": "Malta",
+"type": "Country",
+"code": "MT",
+"parent": ""
+},
+"5d55ef3b-4484-48a1-9237-6bd8ccefca23": {
+"name": "Kil Municipality",
+"type": "Municipality",
+"code": "",
+"parent": "aeba3a03-a5fe-4feb-baa9-6e88efdcc091"
+},
+"aeba3a03-a5fe-4feb-baa9-6e88efdcc091": {
+"name": "Värmland",
+"type": "Subdivision",
+"code": "SE",
+"parent": "23d10872-f5ae-3f0c-bf55-332788a16ecb"
+},
+"61ebc007-0ab4-419b-a187-d6916dfc1d96": {
+"name": "Frauenfeld",
+"type": "Municipality",
+"code": "",
+"parent": "d32929bd-4c78-4afa-8b25-f6a1355f9212"
+},
+"d32929bd-4c78-4afa-8b25-f6a1355f9212": {
+"name": "Thurgau",
+"type": "Subdivision",
+"code": "CH",
+"parent": "1333ff06-8e3d-3c8e-9f3a-13a2a38b41df"
+},
+"aee96acc-29ab-4f1b-b23d-52012b29c25b": {
+"name": "Kingdom of the Netherlands",
+"type": "Country",
+"code": "",
+"parent": ""
+},
+"1f40c6e1-47ba-4e35-996f-fe6ee5840e62": {
+"name": "Los Angeles",
+"type": "City",
+"code": "",
+"parent": "720f8272-6ba3-48f7-b78e-14cd2641c2cf"
+},
+"cd22d0ba-c79b-45b3-a8e0-617b240df5f0": {
+"name": "Las Vegas",
+"type": "City",
+"code": "",
+"parent": "b35c13ac-ecf7-44a0-b262-13b7e6cb32b9"
+},
+"b35c13ac-ecf7-44a0-b262-13b7e6cb32b9": {
+"name": "Clark County",
+"type": "County",
+"code": "",
+"parent": "ab47b3b2-838d-463c-9907-30dcd3438d65"
+},
+"ab47b3b2-838d-463c-9907-30dcd3438d65": {
+"name": "Nevada",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"fb5b7e24-27c2-4b57-a95b-563eb90c4006": {
+"name": "Riyadh",
+"type": "City",
+"code": "",
+"parent": "13c5a17f-5c0c-4fa2-817b-fce9a51fdad3"
+},
+"13c5a17f-5c0c-4fa2-817b-fce9a51fdad3": {
+"name": "Ar Riyāḑ",
+"type": "Subdivision",
+"code": "SA",
+"parent": "9705be0d-51fb-3990-8726-ec9f56c66ba0"
+},
+"91c01e7e-c0c5-463a-a8d3-1eba77e1fdff": {
+"name": "Luanda",
+"type": "City",
+"code": "",
+"parent": "a16b6778-e910-4908-a334-1eb2e584c91a"
+},
+"a16b6778-e910-4908-a334-1eb2e584c91a": {
+"name": "Luanda",
+"type": "Subdivision",
+"code": "AO",
+"parent": "2afd5d6a-5fee-3836-8783-44d0ec9ac115"
+},
+"5f886d01-5c12-3abb-b8be-d758b282ab05": {
+"name": "Burkina Faso",
+"type": "Country",
+"code": "BF",
+"parent": ""
+},
+"f5e2257b-8dc3-4ee8-91e4-b449df71cb84": {
+"name": "Abidjan",
+"type": "City",
+"code": "",
+"parent": "16a5a0e4-1671-4642-b8a7-087951b40857"
+},
+"16a5a0e4-1671-4642-b8a7-087951b40857": {
+"name": "District autonome d'Abidjan",
+"type": "Subdivision",
+"code": "",
+"parent": "e56e3d7a-4b90-3546-8450-49548050924a"
+},
+"e56e3d7a-4b90-3546-8450-49548050924a": {
+"name": "Côte d'Ivoire",
+"type": "Country",
+"code": "CI",
+"parent": ""
+},
+"11a44e18-a2e5-43a9-bee9-aa4f7c83f967": {
+"name": "Hamburg",
+"type": "City",
+"code": "DE",
+"parent": "85752fda-13c4-31a3-bee5-0e5cb1f51dad"
+},
+"0c3ea915-4e49-34fc-b702-debb216fd7fa": {
+"name": "Honduras",
+"type": "Country",
+"code": "HN",
+"parent": ""
+},
+"1b24c330-d503-4406-8cc8-c1e8dbe7d5a6": {
+"name": "Gracias a Dios",
+"type": "Subdivision",
+"code": "HN",
+"parent": "0c3ea915-4e49-34fc-b702-debb216fd7fa"
+},
+"6bf45af6-f1bf-357c-91b5-9593a9c32cb0": {
+"name": "Belize",
+"type": "Country",
+"code": "BZ",
+"parent": ""
+},
+"339ed589-3664-4741-99ab-b4d479b0a2b9": {
+"name": "Ashkelon",
+"type": "City",
+"code": "",
+"parent": "8f51fd77-89d9-4b70-ad27-492298424037"
+},
+"8f51fd77-89d9-4b70-ad27-492298424037": {
+"name": "HaDarom",
+"type": "Subdivision",
+"code": "IL",
+"parent": "03691455-bb46-37e3-91d2-cb064a35ffcc"
+},
+"691e8ad6-2cc8-3678-8495-1ac96bbede55": {
+"name": "Zimbabwe",
+"type": "Country",
+"code": "ZW",
+"parent": ""
+},
+"338346f8-4dc2-38e8-a009-5a3e1585348f": {
+"name": "Guadeloupe",
+"type": "Country",
+"code": "GP",
+"parent": "08310658-51eb-3801-80de-5a0739207115"
+},
+"817bf729-4a80-422e-b706-feeff29e9eea": {
+"name": "Palermo",
+"type": "Municipality",
+"code": "",
+"parent": "b92d4b0a-faab-4206-bbe0-a226383a2c09"
+},
+"b92d4b0a-faab-4206-bbe0-a226383a2c09": {
+"name": "Palermo",
+"type": "Subdivision",
+"code": "IT",
+"parent": "d4c33fca-8194-4c8f-824c-9df8717138cc"
+},
+"2dd1049b-00af-4761-965b-dadc912f2b45": {
+"name": "Nieuwegein",
+"type": "Municipality",
+"code": "",
+"parent": "2e9922f6-e902-4a80-ba8e-a0e76de43ced"
+},
+"2e9922f6-e902-4a80-ba8e-a0e76de43ced": {
+"name": "Utrecht",
+"type": "Subdivision",
+"code": "NL",
+"parent": "ef1b7cc0-cd26-36f4-8ea0-04d9623786c7"
+},
+"6743d351-6f37-3049-9724-5041161fff4d": {
+"name": "Norway",
+"type": "Country",
+"code": "NO",
+"parent": ""
+},
+"ae16a029-5c33-4513-8f96-5c11376901c7": {
+"name": "Pulaski County",
+"type": "County",
+"code": "",
+"parent": "85255cb8-edb9-4a66-b23a-a5261d42c116"
+},
+"85255cb8-edb9-4a66-b23a-a5261d42c116": {
+"name": "Kentucky",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
+},
+"852531bf-3410-401f-b432-9c3157a386b9": {
+"name": "Manchester",
+"type": "City",
+"code": "GB",
+"parent": "a769ad5b-0988-4963-b480-4f91e33f2beb"
+},
+"1c2b1a6c-d95f-4e89-9a7b-30a17f519daf": {
+"name": "Beaufort",
+"type": "City",
+"code": "",
+"parent": "cc12b7a9-3138-44e3-8dda-2f3ccfabb8a8"
+},
+"cc12b7a9-3138-44e3-8dda-2f3ccfabb8a8": {
+"name": "Beaufort County",
+"type": "County",
+"code": "",
+"parent": "aec173a2-0f12-489e-812b-7d2c252e4b62"
+},
+"bdf7509d-e81a-4286-a55b-c159be4267d7": {
+"name": "Montevideo",
+"type": "City",
+"code": "",
+"parent": "7fdfdefe-9b3b-4810-8c34-41e9d9e7bcfb"
+},
+"7fdfdefe-9b3b-4810-8c34-41e9d9e7bcfb": {
+"name": "Montevideo",
+"type": "Subdivision",
+"code": "UY",
+"parent": "ea88d395-87c9-3c47-b49a-114cad41fd39"
+},
+"1b4c4320-f55b-47ca-84c6-6e95dc5493b4": {
+"name": "Providence",
+"type": "City",
+"code": "",
+"parent": "9c86871e-d55d-4ba1-b9f8-a1a8862df279"
+},
+"9c86871e-d55d-4ba1-b9f8-a1a8862df279": {
+"name": "Providence County",
+"type": "County",
+"code": "",
+"parent": "b8c5f945-678b-43eb-a77a-f237d7f01493"
+},
+"b8c5f945-678b-43eb-a77a-f237d7f01493": {
+"name": "Rhode Island",
+"type": "Subdivision",
+"code": "US",
+"parent": "489ce91b-6658-3307-9877-795b68554c98"
 }
 }

@@ -10,6 +10,17 @@ Latin (owner 2026-10-26): reggaeton, dembow, Cuban reparto, corridos and the Lat
 reggaeton orbit are a separate bucket ("latin", left out). Spanish-language rap in the hip-hop tradition (boom bap,
 conscious, battle/freestyle, drill) is hip-hop, as Kase.O, Trueno and MC Davo. Where an artist mixes, most of their
 lead songs decide; the hand decisions are in genre_overrides.csv.
+
+Smaller acts (owner 2026-10-27, "yes", `decide_small`): for the smaller-acts candidates below kworb's floor only, a
+Wikidata hip-hop genre (half or more of the item's genres) or the occupation rapper (P106) is enough evidence without
+MusicBrainz votes; for country music, a Wikidata country genre (half or more). The identity rule is unchanged (the
+Spotify or Deezer page must be linked at the source), and so are the other rules: Deezer filing most releases as Latin
+or few as Rap still decides first; Wikidata naming any Latin genre, or Deezer filing 30%+ of the releases or of the top
+songs' releases as Latin, goes to review (Wikidata calls many reggaeton and urbano singers rappers), as does Deezer
+filing 20% or less as Rap, and any act tagged lo-fi or instrumental hip-hop (beatmakers, found through Deezer's lo-fi
+playlists, even when the registry's vote rule would take them); from a
+Spanish-speaking country it takes the songs too (3+ of the Deezer top tracks dated on the artist's own releases, none
+filed Latin, and under 10% of the releases Latin), else review. The registry's own decisions do not use this.
 """
 import csv
 
@@ -101,6 +112,41 @@ def decide(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, boo
     return ("hip_hop" if hh >= 0.67 and total else "review"), basis
 
 
+SMALL_WD, SMALL_LATIN = 0.5, 0.3
+BEATS = ("lo-fi", "lofi", "chillhop", "instrumental hip hop", "beat tape")  # beatmakers met on Deezer's lo-fi playlists
+
+
+def decide_small(mb_votes: list[tuple[str, int]], wd_genres: list[tuple[str, bool, bool]], dz: dict | None = None,
+                 country: str = "", rapper: bool = False) -> tuple[str, str]:
+    """The registry's rule, then the owner's smaller-acts rule (2026-10-27, module docstring) for what it leaves in
+    review. dz may carry "top_latin" and "top_dated" (the Deezer top tracks' own releases filed Latin, and dated)."""
+    dec, basis = decide(mb_votes, wd_genres, dz, wikidata=True, country=country)
+    beats = [g for g in [g for g, _n in mb_votes] + [g for g, _h, _l in wd_genres] if any(w in g.casefold() for w in BEATS)]
+    if dec == "hip_hop" and beats:
+        return "review", basis + f"; tagged {beats[0]}: an instrumental beatmaker rather than a rap act?"
+    if dec != "review":
+        return dec, basis
+    hh = sum(1 for _, h, _l in wd_genres if h) / len(wd_genres) if wd_genres else 0
+    if hh < SMALL_WD and not rapper:
+        return dec, basis
+    ev = " and ".join(x for x in ("a Wikidata hip-hop genre" if hh >= SMALL_WD else "",
+                                  "the occupation rapper on Wikidata" if rapper else "") if x)
+    d = _deezer(dz)
+    tl = float(dz["top_latin"]) if dz and dz.get("top_latin") not in ("", None) else None
+    td = int(dz.get("top_dated") or 0) if dz else 0
+    if beats:
+        return "review", basis + f"; {ev}, but tagged {beats[0]} (an instrumental beatmaker?)"
+    if d and d[0] <= 0.2:
+        return "review", basis + f"; {ev}, but Deezer files few of the releases as Rap/Hip Hop"
+    if any(l for _, _h, l in wd_genres):
+        return "review", basis + f"; {ev}, but Wikidata also names a Latin genre"
+    if (d and d[1] >= SMALL_LATIN) or (tl is not None and td >= 3 and tl >= SMALL_LATIN):
+        return "review", basis + f"; {ev}, but Deezer files Latin releases (reggaeton or urbano?)"
+    if country in SPANISH_SPEAKING and not (td >= 3 and tl == 0 and (d is None or d[1] < 0.1)):
+        return "review", basis + f"; {ev}; {country}: the songs do not settle Spanish-language rap or Latin urbano"
+    return "hip_hop", basis + f"; {ev} (owner 2026-10-27: enough without MusicBrainz votes)"
+
+
 # Country (owner, 2026-10-24: a second genre). Checked only when the hip-hop rule says "other" or "review", so no
 # hip-hop decision changes; the owner settles crossovers (Jelly Roll: country).
 COUNTRY_WORDS = ("country", "americana", "bluegrass", "red dirt", "outlaw", "honky-tonk", "honky tonk", "western swing",
@@ -115,8 +161,9 @@ def is_country(genre: str) -> bool:
 
 
 def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: dict | None = None,
-                   wikidata: bool = True) -> tuple[str, str] | None:
-    """("country" | "review", basis) when the artist looks country; None otherwise."""
+                   wikidata: bool = True, small: bool = False) -> tuple[str, str] | None:
+    """("country" | "review", basis) when the artist looks country; None otherwise. small: the smaller-acts rule (owner
+    2026-10-27): a Wikidata country genre (half or more of the item's genres) is enough without MusicBrainz votes."""
     total = sum(n for _, n in mb_votes)
     if total >= 3:
         share = sum(n for g, n in mb_votes if is_country(g)) / total
@@ -143,6 +190,8 @@ def decide_country(mb_votes: list[tuple[str, int]], wd_genres: list[tuple], dz: 
             return "review", basis + f"; Deezer files {float(dz['country_share']):.0%} of {dz['releases']} releases under Country"
         if share >= 0.67 and total:
             return "country", basis
+        if share >= SMALL_WD and small:
+            return "country", basis + " (owner 2026-10-27: enough without MusicBrainz votes)"
         if share >= 0.5:
             return "review", basis
     return None

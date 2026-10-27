@@ -2,6 +2,117 @@
 
 What was chosen, what was considered and rejected, and why. Newest first.
 
+## 2026-10-27 Smaller acts: Wikidata genre is enough, every country shown, wider discovery, official national charts (owner)
+
+- **Owner's answers:**
+  1. "Yes": a Wikidata hip-hop genre or the occupation rapper is enough evidence of genre without MusicBrainz votes
+     (and a Wikidata country genre for country music).
+  2. "Lower the bar for all until you get to 100 for each country."
+  3. "Yea": use the official national charts where their terms allow.
+- **1. Genre rule** (`genre.decide_small`; `decide_country(small=True)`; both in the module docstring):
+  - For the smaller-acts candidates only, the registry's rule runs first. What it leaves in review is taken when
+    half or more of the Wikidata genres are hip-hop, or the occupation is rapper (P106), with no votes needed.
+  - It still goes to review when:
+    - Wikidata names any Latin genre;
+    - Deezer files 30% or more of the releases, or of the top songs' own releases, as Latin. This catches reggaeton
+      and urbano singers that Wikidata calls rappers. It needs new Deezer fields `top_latin` and `top_dated`;
+    - Deezer files 20% or less as Rap;
+    - it is tagged lo-fi or instrumental hip-hop. These are beatmakers from Deezer's lo-fi playlists, which one
+      MusicBrainz editor tagged label-wide.
+  - From a Spanish-speaking country, the songs must settle it: 3 or more top tracks dated on the artist's own
+    releases, none Latin, and under 10% Latin releases.
+  - Country music: a Wikidata country genre (half or more) is enough, unless Deezer files under 30% of the releases
+    as Country.
+  - A hip-hop "review" with no sign of hip-hop no longer holds back a country decision.
+  - The owner's features-led hold now applies here too: fewer than half of the Deezer top 10 as lead artist goes to
+    review (34 acts).
+  - Identity is unchanged: a Spotify, Deezer or Apple Music page must be linked at Wikidata or MusicBrainz.
+  - The registry's own decisions do not use this rule. No overrides were added.
+- **2. Every country shown** (`site_build.add_smaller`, `small_acts.rank`):
+  - Nothing is withheld now. Each list carries its confidence: the country's own hold-out figure (8+ artists with
+    listener counts), else the overall figure. Below 0.4 a plain "weak check" warning shows (Belgium 0.33, Colombia
+    0.19).
+  - Acts with no release in 3 years are listed with "no release since YYYY".
+  - Acts with one size source are listed as "low confidence".
+  - Acts with no size reading at all are listed as "not ranked", after the rest, by name (297 hip-hop, 16 country).
+  - "Sources disagree" acts still rank after the others.
+  - A country under 100 says "N of 100" and why.
+  - The main Scout top 100 per country and the global top 1,000 are untouched by this code. Their figures moved a
+    little in this build only because the `mbdates` job updated release dates.
+- **Wider discovery** (`collectors/small_acts._widen`). The sources:
+  - the 6,043 Deezer related artists with no country source;
+  - Deezer's "Top <country>" chart playlists (with the credited contributors) and its editors' rap and country
+    playlists;
+  - the official national charts and the archived Shazam charts. Each song is matched on Deezer by title and a
+    credited name: 4,040 of 4,557 matched (`data/chart_identities.csv`);
+  - our latest Spotify weekly top 200 per country (by Spotify ID) and Apple Music charts (by Apple artist ID).
+- **How a country is found.** Each ID goes to Wikidata (P2722, P1902, P2850), then to MusicBrainz url relations
+  (a batch url lookup, 100 per request), then the MusicBrainz artist (country or area, genres, links).
+  - A chart never gives the country: only Wikidata or MusicBrainz does.
+  - A find from a chart or playlist with no sign of the genre at all is "other", not review.
+  - Cached: `data/musicbrainz_url_lookup.json` (11,462 URLs, 4,597 linked) and `data/musicbrainz_small_artists.json`
+    (3,264 artists).
+  - 6,865 hip-hop and 2,596 country IDs have no country source and are counted only.
+  - The `mbdates` job was found stopped at the start. It was restarted after the MusicBrainz reads.
+- **3. National charts** (`collectors/national_charts.py`, step `natcharts`, added to the daily workflow; it reads
+  only weeks not yet archived). Verdicts with links: `docs/research/2026-10-27-national-charts.md`.
+  - **Allowed:**
+    - Sverigetopplistan: singles 100, albums 60, hip-hop albums 20;
+    - Hitlisten: tracks 40, albums 40;
+    - the Finnish list: singles and albums 50. Its rules forbid even partial publication without IFPI Finland's
+      agreement, so it is a signal and a discovery source only, and no position is shown.
+  - **Refused:** VG-lista, Dutch Top 40 and Single Top 100, Ultratop, Ö3, Hitparade, Offizielle Charts, SNEP,
+    PROMUSICAE, ARIA and Billboard Canadian Hot 100. The reasons are terms that forbid scraping or reuse, a site
+    that turns our client away, or robots.txt blocking Claude's agents.
+  - FIMI was not used: all rights reserved, and Italy is already full.
+  - kworb mirrors no official national charts.
+  - Collected: 52 weeks, 17,839 rows (`data/national_charts.csv`), with the pages archived under
+    `raw/national_charts/`.
+  - **In the score:** the home-charts part (15%) now gives 1 point each for Spotify, Apple and Shazam, plus, for an
+    official chart in the last 52 weeks, 1 + weeks/52 + the peak against the chart's size
+    (`small_acts.chart_points`). The match is by the Deezer IDs credited on the song, else by a unique exact name.
+  - Shown as "Sverigetopplistan #41, 4 wks".
+- **Results, hip-hop (top 100 + smaller acts, before → after):**
+  - Canada 49→100, Netherlands 78→100, Poland 89→100, Russia 74→100.
+  - Short of 100: Finland 23→96, Turkey 66→96, Japan 19→87, Sweden 25→82, Denmark 26→75, South Korea 7→71,
+    Belgium 11→68 (was withheld), Israel 13→65, Norway 7→57, Switzerland 14→56, Australia 13→55, South Africa 15→47,
+    Portugal 11→42, Spain 26→32, Mexico 23→25, Austria 10→18, Colombia 10→10.
+  - Countries at 100: 6 → 10 of 105. Smaller acts shown: 299 → 1,602.
+  - Spain stays short: 136 candidates wait for the Spanish-language-rap-or-urbano check.
+- **Results, country music:** Canada 48→84, Australia 9→18, Norway 1→10, United Kingdom 5→10, Sweden 4→8. United
+  States only at 100. Smaller acts shown: 4 → 91.
+- **Review queue** (`review/small_acts_review.csv`): 1,819 → 998 rows (hip-hop 1,638 → 862, country 181 → 136).
+  - Of the old rows, 1,185 hip-hop and 71 country are now included.
+  - New reasons: features-led (34), lo-fi beatmakers (about 110).
+  - Left: Latin or Spanish-urbano doubt (about 250), Deezer 20-70% Rap with no Wikidata evidence (218), mixed
+    Wikidata genres (about 200), several Spotify IDs (124).
+- **Candidates:**
+  - hip-hop 2,784 → 5,023 (included 389 → 1,863, other 757 → 2,298);
+  - country 404 → 1,707 (included 8 → 91).
+- **Data:**
+  - `scout_countries.json`: hip-hop 639 → 926 KB raw (140 → 196 KB gzip); country 91 → 110 KB (22 KB gzip). It
+    still loads only with the country view.
+  - `scout.json` is 159 KB; `index.json` is unchanged (898 KB).
+  - New files: `data/national_charts.csv` 0.9 MB, `data/chart_identities.csv` 0.3 MB, the two MusicBrainz caches
+    1.9 MB, `raw/national_charts/` 7.2 MB (including the terms pages read). `data/small_acts.csv` is 2.4 MB.
+- **Wikipedia:** the pageviews API answered 429 throughout. Acts read in the last 30 days keep their views. New
+  reads get a 30-minute budget per run; 483 hip-hop acts wait for the next run.
+- **Rejected:**
+  - Taking every rapper-only act everywhere: reggaeton singers.
+  - Taking MusicBrainz's label-wide lo-fi tags as hip-hop.
+  - Name-only matches from charts (the song must match on Deezer).
+  - Deezer's `artist:"" track:""` search form: it returns nothing now.
+  - A chart as country evidence.
+  - Re-ranking single-source acts after the others: the owner asked only to mark them.
+- **Tests:**
+  - `tests/test_small_acts.py` covers the new rule and its Latin, beatmaker and Spanish checks, the country rule,
+    the three chart parsers, the 52-week runs, chart points, the Deezer song identity, the evidence gate, the
+    MusicBrainz key, the lead and Latin counts, and add_smaller with unranked, old, single-source and hidden-Finnish
+    rows.
+  - `pytest` 162 passed; `app.js` parses as a module.
+  - Playwright at 1280 and 390 px on `#/scout?country=` SE, NO, DK, FI, BE, CA, NL, ES, AU and
+    `#/country/scout?country=CA`: no page errors, no undefined, NaN or [object Object], no sideways scroll.
+
 ## 2026-10-26 Scout by country: smaller acts below the listener floor, ranked on triangulated free signals (owner)
 
 - **Owner:** "yes, look into deezer fans for smaller countries"; then "Triangulate with other sources to make the

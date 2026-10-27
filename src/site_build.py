@@ -450,9 +450,12 @@ def scout_by_country(rows: list[dict], factors: dict) -> dict:
 
 def add_smaller(by_country: dict, genre: str) -> None:
     """Smaller acts (src/small_acts.py) under each country's scored list: up to 100 combined, kept apart from the Scout
-    score. Per country: how many were found, the hold-out check, and whether the list is shown (status): "ok" (the
+    score. Per country: how many were found, the hold-out check, and how sure the list is (status): "ok" (the
     country's hold-out Spearman is VALID_RHO+ on VALID_N+ artists), "pooled" (too few artists with kworb counts to test
-    there; the genre's overall figure applies), "weak" (tested and below VALID_RHO: not shown) or "none"."""
+    there; the genre's overall figure applies), "weak" (tested and below VALID_RHO) or "none". Since 2026-10-27 (owner:
+    "lower the bar for all until you get to 100 for each country") every country's list is shown, a weak one with a
+    plain warning; acts with no release in three years, with one size source, or with no size reading at all are
+    listed and marked; "sources disagree" and unranked acts come last."""
     from . import small_acts
     from .collectors.small_acts import load as sm_load
     res = small_acts.rank(genre)
@@ -466,7 +469,7 @@ def add_smaller(by_country: dict, genre: str) -> None:
                 d[cc] = d.get(cc, 0) + 1
     names = {v: k for k, v in countries.ISO2.items() if k not in ("Northern Ireland", "East Germany")}
     by = {c["cc"]: c for c in by_country["countries"]}
-    tercile = lambda p: "larger" if p >= 67 else "mid" if p >= 34 else "smaller"
+    tercile = lambda p: None if p is None else "larger" if p >= 67 else "mid" if p >= 34 else "smaller"
     for cc in set(found) - set(by):
         by[cc] = {"cc": cc, "name": names.get(cc, cc.upper()), "listed": 0, "scored": 0, "rows": []}
         by_country["countries"].append(by[cc])
@@ -475,21 +478,24 @@ def add_smaller(by_country: dict, genre: str) -> None:
         v = val["countries"].get(countries.name(names.get(cc, "")), {})
         n_ok = (v.get("n") or 0) >= small_acts.VALID_N and v.get("rho") is not None
         status = ("ok" if v["rho"] >= small_acts.VALID_RHO else "weak") if n_ok else "pooled" if mine else "none"
-        mine.sort(key=lambda r: (r["disagree"], -r["score"], -(r["fans"] or 0)))
+        mine.sort(key=lambda r: (r["score"] is None, r["disagree"], -(r["score"] or 0), -(r["fans"] or 0), r["name"].casefold()))
         room = max(0, COUNTRY_TOP - min(COUNTRY_TOP, c["scored"]))
-        shown = mine[:room] if status in ("ok", "pooled") else []
-        c["small"] = {"found": found.get(cc, 0), "review": held.get(cc, 0), "scored": len(mine), "shown": len(shown), "status": status,
-                      "rho": v.get("rho"), "n": v.get("n") or 0,
+        shown = mine[:room]
+        c["small"] = {"found": found.get(cc, 0), "review": held.get(cc, 0), "scored": sum(1 for r in mine if r["score"] is not None),
+                      "shown": len(shown), "status": status, "rho": v.get("rho"), "n": v.get("n") or 0,
+                      "unranked": sum(1 for r in shown if r["score"] is None),
                       "src_rho": {s: v[s]["rho"] for s in small_acts.SIGNALS if v.get(s, {}).get("rho") is not None},
                       "rows": [{k: x for k, x in {"name": r["name"], "q": r["qid"], "sp": r["sp"], "dz": r["dz"],
                                 "score": r["score"], "size": tercile(r["size_pct"]), "src": r["sources"],
                                 "agree": r["agree"], "dis": r["disagree"] or None, "fans": r["fans"], "wiki": r["wiki"],
                                 "fresh": round(r["fresh"], 2) if r["fresh"] is not None else None, "ft": r["fresh_title"],
-                                "charts": r["charts"], "year": (r["latest"] or "")[:4] or None,
+                                "charts": _shown_charts(r["charts"]), "year": (r["latest"] or "")[:4] or None,
+                                "old": r.get("old") or None, "single": r.get("single") or None,
                                 "growth": round(r["growth"], 3) if r["growth"] is not None else None,
-                                "used": r["used"]}.items() if x is not None} for r in shown]}
+                                "used": r["used"] or None, "csrc": r.get("csrc") or None}.items() if x is not None} for r in shown]}
     by_country["countries"].sort(key=lambda c: (-c["scored"], -c["small"]["shown"], c["cc"]))
     a = val["all"]
+    from .collectors import national_charts
     by_country["small"] = {"rho": a["rho"], "n": a["n"], "miss": a["miss"], "calibration": val["calibration"],
                            "src_rho": {s: a[s]["rho"] for s in small_acts.SIGNALS if a.get(s, {}).get("rho") is not None},
                            "src_n": {s: a[s]["n"] for s in small_acts.SIGNALS},
@@ -497,7 +503,21 @@ def add_smaller(by_country: dict, genre: str) -> None:
                            "weights": {k: w for k, (w, _l) in small_acts.SCORE.items()},
                            "labels": {**small_acts.SIGNALS, **{k: l for k, (_w, l) in small_acts.SCORE.items()}},
                            "valid_rho": small_acts.VALID_RHO, "valid_n": small_acts.VALID_N,
+                           "national": {f"{cc}-{ch}": {"name": x["name"], "credit": x["credit"], "show": x["show"]}
+                                        for (cc, ch), x in national_charts.CHARTS.items()},
                            "found": sum(found.values()), "shown": sum(c["small"]["shown"] for c in by.values())}
+
+
+def _shown_charts(c: dict | None) -> dict | None:
+    """The home charts as the page shows them: a national chart whose terms do not allow showing positions (the
+    Finnish list, IFPI Finland's rules) is left out here; it still counts in the score."""
+    if not c:
+        return None
+    out = {k: v for k, v in c.items() if k != "national"}
+    n = c.get("national")
+    if n and n["show"]:
+        out["national"] = {"name": n["name"], "peak": n["peak"], "weeks": n["weeks"]}
+    return out or None
 
 
 def genre_note(basis: str) -> str:

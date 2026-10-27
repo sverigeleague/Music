@@ -1,6 +1,7 @@
 # Daily: kworb's top 2,500 by monthly listeners (raw page archived, tracked artists' rows kept). About 1 minute.
 # Also Apple Music's daily top 100 in 25 countries (a few seconds), and YouTube channel statistics (YouTube Data API).
-# Mondays also: Deezer fans of the smaller acts below kworb's floor (Scout by country). Fridays also: the weekly Spotify top 200 of 76 countries (where each artist's songs are streamed), about 2 minutes,
+# Every day: the official national charts whose terms allow reading (Sverigetopplistan, Hitlisten, the Finnish list;
+# new weeks only). Mondays also: Deezer fans of the smaller acts below kworb's floor (Scout by country). Fridays also: the weekly Spotify top 200 of 76 countries (where each artist's songs are streamed), about 2 minutes,
 # and the YouTube videos of Scout's risers (data/videos.json), about 4 minutes.
 # Scheduled workflows run only from the default branch (main).
 name: daily
@@ -50,6 +51,9 @@ jobs:
           key: ytapi-${{ github.run_id }}
       - name: Deezer fans of the smaller acts (Mondays; data/deezer_fans_history.csv, for fan growth; about 2 minutes)
         run: if [ "$(date -u +%u)" = "1" ]; then python -m src.run smallfans; fi
+        continue-on-error: true
+      - name: Official national charts whose terms allow it (SE, DK, FI; only weeks not yet archived, a few requests)
+        run: python -m src.run natcharts
         continue-on-error: true
       - name: Country charts (Fridays, when kworb has the new week)
         run: if [ "$(date -u +%u)" = "5" ]; then python -m src.run countries; fi
