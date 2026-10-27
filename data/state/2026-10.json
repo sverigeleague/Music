@@ -1,6 +1,6 @@
 {
  "month": "2026-10",
- "as_of": "2026-10-26",
+ "as_of": "2026-10-27",
  "items": [
   {
    "key": "majors",
@@ -13,29 +13,29 @@
    "key": "top",
    "label": "No. 1 by current listeners",
    "value": "Don Toliver",
-   "detail": "26.1m current listeners, 46.0m monthly",
+   "detail": "26.1m current listeners, 46.1m monthly",
    "link": "#/a/4Gso3d4CscCijv0lmajZWs"
   },
   {
    "key": "mover",
    "label": "Biggest riser over about a month",
    "value": "Yung Lean",
-   "detail": "+72% monthly listeners, 7.0m to 12.1m since 2026-09-29 (27 days)",
+   "detail": "+74% monthly listeners, 7.0m to 12.2m since 2026-09-29 (28 days)",
    "link": "#/a/67lytN32YpUxiSeWlKfHJ3"
   },
   {
    "key": "breaking",
    "label": "Breaking now",
    "value": "23",
-   "detail": "artists Scout rates Breaking; top: RAPROJECT SIX (95)",
+   "detail": "artists Scout rates Breaking; top: Uncle Dags (94)",
    "link": "#/scout"
   },
   {
    "key": "unsigned",
    "label": "Top unsigned prospect",
-   "value": "RAPROJECT SIX",
-   "detail": "Scout 95, 6.0m monthly listeners, releasing without a label",
-   "link": "#/a/02QBz6b5fpeADDbuTE1C59"
+   "value": "Ahiyan",
+   "detail": "Scout 94, 3.4m monthly listeners, releasing without a label",
+   "link": "#/a/0U8sdaBYsYld98xOIX1nYB"
   },
   {
    "key": "royalties",
@@ -54,15 +54,15 @@
   {
    "key": "shazam",
    "label": "Most Shazamed hip-hop artist",
-   "value": "JADE",
-   "detail": "on 43 Shazam charts in the last 7 days",
-   "link": "#/a/24b0qNYNgeOfpP5rbljIB3"
+   "value": "Dave",
+   "detail": "on 39 Shazam charts in the last 7 days",
+   "link": "#/a/6Ip8FS7vWT1uKkJSweANQK"
   },
   {
    "key": "size",
    "label": "Hip-hop artists tracked",
    "value": "1,000",
-   "detail": "6.67bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,232",
+   "detail": "6.67bn combined monthly listeners (second Spotify profiles left out), from Spotify's top 25,225",
    "link": "#/"
   }
  ]
