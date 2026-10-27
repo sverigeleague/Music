@@ -9492,6 +9492,14 @@ listenbrainz/2026-10/popularity-bdceb03ce8.json.gz,https://api.listenbrainz.org/
 listenbrainz/2026-10/popularity-991c99bd05.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-26T23:36:49+00:00,3bbc58ed786445d784c4738cb0f07fc90cdc63f7685632bcf7a7bb04ce1609b1,108
 listenbrainz/2026-10/popularity-0ad2be8db3.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-26T23:41:02+00:00,f9f98217baeeb92e3e18007ead5e366192d4973388aca11618dc7f0c8d993ec4,831
 listenbrainz/2026-10/popularity-64c68c0c69.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-26T23:42:08+00:00,5e588f2d6a89131a092c68341fe884ccbbd058193c9642363131672135784b76,40804
+listenbrainz/2026-10/popularity-56e05a0aa2.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T12:10:40+00:00,81ac4bb2ecdbc639af9f1dcc42b37f3ce44c174f1270454ab4ce243e2f0969ff,51675
+listenbrainz/2026-10/popularity-4c0d08116f.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T12:10:40+00:00,635b55bc5a0cec92b4f6fea42abb4eaaa578826dc444b33940748322c176d33e,51718
+listenbrainz/2026-10/popularity-4d31a7bb1d.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T12:49:38+00:00,2cd6e65646d199933e527cc25f38ed2b2e109fa4bee8ab171a5b02d5eb6b103c,49114
+listenbrainz/2026-10/popularity-0b0846f92f.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T13:06:17+00:00,ff3eff2f50ef3df061d7743877c2aa3e482d6f4b6601849b73d220172c076f8d,1957
+listenbrainz/2026-10/popularity-ff1982cd83.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T13:48:50+00:00,24644a31873cd47f60f8bf75d39ecb0c4d2c7ee26baf5e9e65a00a57b24fcb02,51622
+listenbrainz/2026-10/popularity-e60b86e1a6.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T13:48:50+00:00,b2cb5a042c93f5582f983178e5ad02a1128c4f89481609e54733b14a1e8d6073,51722
+listenbrainz/2026-10/popularity-23dbff58f2.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T13:48:51+00:00,2bd500fad1f0defd0d5e4799144fa0f95325bbd7706ab7852ac4fe356f6945e3,38939
+listenbrainz/2026-10/popularity-1e181c1847.json.gz,https://api.listenbrainz.org/1/popularity/artist,2026-10-27T13:57:13+00:00,f2f8aa95b9f42c359abd24251b96494d975054e49de2773f4b5a2c34440e09f9,6392
 kworb/listeners/2026-10-27.html.gz,https://kworb.net/spotify/listeners.html,2026-10-27T09:55:30+00:00,cbde931770fa71ce11642f91ccaffb6aab0330f0da2d893405a6f723c77348af,511790
 shazam/2026-10-27/top-world.csv.gz,https://www.shazam.com/services/charts/csv/top-200/world,2026-10-27T10:00:14+00:00,5d6b9d2e5f1bda3f6cd5cef75a92265607a1cafcca22397efdca59fb2724a684,8308
 shazam/2026-10-27/hiphop-world.csv.gz,https://www.shazam.com/services/charts/csv/genre/world/hip-hop-rap,2026-10-27T10:00:15+00:00,4c6751a3c6409cc59741ee417889e7b4a916ca2cdfff1c7f9e30915a24586bfa,8063

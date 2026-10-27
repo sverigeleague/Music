@@ -199,3 +199,15 @@ Deezer API (no key; used under the site's non-commercial status, credited, as el
 Wikimedia pageviews API (free; it throttles: answers 429 with Retry-After 7 s, so views are read one at a time),
 MusicBrainz (1 request a second, url relations CC0), ListenBrainz (CC0), kworb.net, Apple Music RSS, Shazam (badge
 only, as decided K3).
+
+## Update 2026-10-27 (owner's answers)
+
+- Genre: for these candidates a Wikidata hip-hop genre or the occupation rapper is enough without MusicBrainz votes
+  (`genre.decide_small`), with Latin, beatmaker, Deezer-contradiction and Spanish-language checks; country music
+  likewise on a Wikidata country genre.
+- Every country's list is shown with its confidence (a weak check is said plainly); past acts, single-source and
+  unsized acts are listed and marked.
+- Discovery widened to the Deezer related artists with no Wikidata item, Deezer's chart and editor playlists, the
+  official national charts (`2026-10-27-national-charts.md`) and our Spotify, Apple Music and Shazam charts, the
+  country always from Wikidata or MusicBrainz (url relations). Hip-hop candidates 2,784 → 5,023, listed smaller acts
+  299 → 1,602; countries at 100: 6 → 10. Details and per-country counts: DECISIONS.md, 2026-10-27.
