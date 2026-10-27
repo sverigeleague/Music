@@ -8,6 +8,8 @@
   photos    Wikimedia Commons photos for hip-hop artists not yet tried
   youtube   YouTube total and daily views (kworb.net), for hip-hop artists not yet fetched this month
   ytapi     YouTube channel subscribers and views (YouTube Data API; needs the secret YOUTUBE_API_KEY)
+  small-acts  smaller acts below kworb's floor for Scout's country view, and their calibration set (--genre=country too)
+  smallfans   weekly Deezer fans snapshot of the smaller acts (data/deezer_fans_history.csv)
   countries kworb's weekly Spotify top 200 in 76 countries: where each hip-hop artist's songs are streamed
   labels    the label on each hip-hop artist's releases of the last 2 years (Deezer), for the signed/unsigned status
   dates     first release dates from Deezer for the songs behind 90% of each hip-hop artist's daily streams
@@ -884,7 +886,35 @@ def youtube_channels() -> dict[str, str]:
         c = a["youtube_channel"] or (lambda cs: cs[0] if len(cs) == 1 else "")(mb.get(a.get("musicbrainz_id", ""), []))
         if c:
             out[a["spotify_id"]] = c
+    from .collectors import small_acts  # smaller acts with an official channel on Wikidata (P2397), 2026-10-26
+    for r in small_acts.load():
+        if r["genre"] == GENRE and r["decision"] == "include" and r["spotify_id"] and r["youtube_channel"].startswith("UC"):
+            out.setdefault(r["spotify_id"], r["youtube_channel"])
     return out
+
+
+def full_countries(genre: str) -> set[str]:
+    """Countries whose Scout country view already has 100 scored artists (the last build's scout.json)."""
+    from .config import SITE
+    p = SITE / "data" / ("" if genre == "hip_hop" else genre) / "scout.json"
+    if not p.exists():
+        return set()
+    from .origin import name_of
+    return {name_of(c["cc"]) for c in json.loads(p.read_text())["scout_country_list"]["countries"] if c["scored"] >= 100}
+
+
+def small_acts_step() -> None:
+    """Smaller acts below kworb's floor for the genre's Scout country view (src/collectors/small_acts.py)."""
+    from .collectors import small_acts
+    print("smaller acts:", small_acts.discover(GENRE, full_countries(GENRE)))
+    print(f"calibration set: {small_acts.calibrate(GENRE)} artists with kworb listeners")
+
+
+def small_acts_mb_step() -> None:
+    """MusicBrainz url relations for smaller acts with no Deezer page on Wikidata (then run small-acts again)."""
+    from .collectors import small_acts
+    todo = [r["mbid"] for r in small_acts.load() if r["genre"] == GENRE and not r["deezer_id"] and r["mbid"]]
+    print(f"MusicBrainz url relations read for {small_acts.mb_links(todo)} of {len(todo)} smaller acts")
 
 
 def ytapi_step() -> None:
@@ -1009,7 +1039,7 @@ if __name__ == "__main__":
     lim = int(args[0]) if args else None
     {"snapshot": snapshot, "registry": lambda: registry(lim), "streams": lambda: streams(lim),
      "deezer": deezer_step, "youtube": lambda: youtube_step(lim),
-     "ytapi": ytapi_step, "videos": lambda: videos_step(lim), "awards": awards_step, "descriptions": descriptions_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "shazam-reparse": lambda: print(f"Shazam rows rebuilt from the archive: {__import__('src.collectors.shazam', fromlist=['x']).reparse()}"), "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "listenbrainz": lambda: listenbrainz_step(lim), "mlc": lambda: mlc_step(lim), "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "origin": lambda: origin_step(lim), "registry-add-pages": lambda: registry_add_step("pages", lim), "registry-add": lambda: registry_add_step("decide", lim), "mb-discover": mb_discover_step, "confirm-name-only": lambda: confirm_name_only_step(lim), "depth-streams": lambda: scout_depth_step("streams", lim), "depth-dates": lambda: scout_depth_step("dates", lim), "depth-views": lambda: scout_depth_step("views"), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
+     "ytapi": ytapi_step, "small-acts": small_acts_step, "small-acts-mb": small_acts_mb_step, "smallfans": lambda: print(f"Deezer fans snapshot: {__import__('src.collectors.small_acts', fromlist=['x']).fans_snapshot()} smaller acts"), "videos": lambda: videos_step(lim), "awards": awards_step, "descriptions": descriptions_step, "certifications": certifications_step, "countrycrawl": lambda: countrycrawl_step(lim), "country-ids": lambda: country_ids_step(lim), "country-floor": lambda: country_floor_step(lim), "deezer-isrc": lambda: deezer_isrc_step(lim), "confirm-country": lambda: confirm_country_step(lim), "country-from-crawl": lambda: country_from_crawl_step(lim), "deezer-audit": deezer_audit_step, "wikidata-from-mb": lambda: wikidata_from_mb_step(lim), "shazam": shazam_step, "shazam-reparse": lambda: print(f"Shazam rows rebuilt from the archive: {__import__('src.collectors.shazam', fromlist=['x']).reparse()}"), "radio": radio_step, "credits": lambda: credits_step(lim), "pageviews": pageviews_step, "listenbrainz": lambda: listenbrainz_step(lim), "mlc": lambda: mlc_step(lim), "apple": apple_step, "financials": financials_step, "reports": lambda: reports_step(lim), "scoutlog": scoutlog_step, "mblabels": lambda: mblabels_step(lim), "mblabels-refresh": lambda: mblabels_step(lim, refresh=True), "backfill": lambda: backfill_step(lim), "backfill-refetch": lambda: backfill_step(lim, refetch=True), "labels": labels_step, "countries": countries_step, "countries-reparse": countries_reparse, "photos": lambda: photos_step(lim), "origin": lambda: origin_step(lim), "registry-add-pages": lambda: registry_add_step("pages", lim), "registry-add": lambda: registry_add_step("decide", lim), "mb-discover": mb_discover_step, "confirm-name-only": lambda: confirm_name_only_step(lim), "depth-streams": lambda: scout_depth_step("streams", lim), "depth-dates": lambda: scout_depth_step("dates", lim), "depth-views": lambda: scout_depth_step("views"), "dates": lambda: dates_step(lim), "dates-retry": lambda: dates_step(lim, retry=True),
      # the title search first: it adds coverage; the ISRC lookups then correct dates already found
      "mbdates": lambda: print(f"MusicBrainz: {release_dates.update_musicbrainz_search(lim)} undated songs searched, "
                               f"{release_dates.update_musicbrainz(lim)} ISRCs looked up")}[step]()
