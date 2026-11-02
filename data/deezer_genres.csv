@@ -5133,7 +5133,7 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 0e6qzpphJHtObTSwD75mi0,The Avener,5283366,407873,exact,43,0.0,0.0,2026-10-23,0.0
 5kD46P0iLqWZtITQB9nmAn,Pradeep Solanki,148644142,1,exact,35,0.057,0.0,2026-10-23,0.0
 4XWaILHqySwH1y6LhlYcsb,ilyTOMMY,95905402,6804,exact,50,0.66,0.0,2026-10-23,0.0
-4DMkrFIqGXLycc4YLYTn1i,Tiagz,13530987,14133,exact,50,0.76,0.12,2026-10-23,0.0
+4DMkrFIqGXLycc4YLYTn1i,Tiagz,223613235,1225,isrc,10,0.4,0.3,2026-11-02,0.0
 5icKdCmMhNMYoAzVBAWt39,Dax,67443,124287,exact,50,0.54,0.0,2026-10-23,0.44
 0oBEeN6BCxEgMogzThqrPf,Big & Rich,7739,31766,exact,23,0.0,0.0,2026-10-23,1.0
 1dmuM6bG5J8sDFyp26x9Nf,Aziz Harun,5796476,1299,exact,46,0.022,0.0,2026-10-23,0.0
@@ -25589,3 +25589,97 @@ spotify_id,name,deezer_id,fans,match,releases,rap_share,latin_share,checked,coun
 51mpNR9ivpZEWp50hXyltm,Mae Hill,7115145,674,exact,11,0.0,0.0,2026-10-26,0.0
 3HEVwMM5Qabf9L0D2E2cTV,Difki Khalif,260650271,3,exact,5,0.0,0.0,2026-10-26,0.0
 4IZ35TKvLNNaGZac96ozab,Omcon SB,103508232,6,exact,36,0.083,0.0,2026-10-26,0.0
+2rkJFJhJwqL5ZKbPoFwFN9,Joshua Slone,176038697,249,links,3,0.0,0.0,2026-11-02,1.0
+6DQ6mdEhxCgHPqfX1niZZK,Floyd Cramer,76383,1112,links,49,0.0,0.0,2026-11-02,0.939
+26VEPCGAYB9OClQodb0OR1,Tiera Kennedy,158098532,1231,titles,25,0.0,0.0,2026-11-02,0.68
+66Pq6HMX0YqsJgtUZrFwmo,Connie Smith,77779,1659,links,49,0.0,0.0,2026-11-02,0.959
+7ocagKTuL7owEFIvssbzVq,Ashley Ryan,62702332,520,links,29,0.0,0.0,2026-11-02,0.966
+1BqH9nNwDO7dfvFjKSxr5X,Larry Jon Wilson,260350,258,links,3,0.0,0.0,2026-11-02,0.667
+0yXAvxrEkI26bKj0o4yyou,Highway 101,244209,496,links,5,0.0,0.0,2026-11-02,0.8
+7j0u9yPUVMa70NyhpdHfP4,Razzy Bailey,93309,467,links,17,0.0,0.0,2026-11-02,0.941
+5aizOVB0aFinBgezLPkhnm,Callista Clark,122446612,444,titles,25,0.0,0.0,2026-11-02,0.96
+2pvPkEAN9xSrDrIVUOxWMB,Dottie West,76156,1038,links,43,0.0,0.0,2026-11-02,0.977
+5x5aoKBB8MuJRoV7fjTFAx,Mickey Newbury,248216,849,links,20,0.0,0.0,2026-11-02,0.95
+6TeB6t5E1uJfbJGRZvJAAv,Melba Montgomery,172858,86,links,24,0.0,0.0,2026-11-02,0.958
+6MaIFcQgc3Buqm4eCu3yU8,Jeff Bates,443636,585,links,25,0.0,0.0,2026-11-02,0.92
+26mSNyxjAsV5HSb7vAHu1W,The Long Ryders,296932,797,links,34,0.0,0.0,2026-11-02,0.559
+1klmpKnfBdJkVqr94BnuOF,Fancy Hagood,5793330,1004,links,16,0.0,0.0,2026-11-02,0.75
+20UltlhZa5iKdeQeEpdiX9,Ian Tyson,300070,1101,links,21,0.0,0.0,2026-11-02,0.524
+2ahMUMyJ2xTC1Qaneot7Sm,Johnny Duncan,321393,116,links,9,0.0,0.0,2026-11-02,0.889
+0tPkIoqIyEKDqvxO4YzadS,Red Simpson,139454,213,links,8,0.0,0.0,2026-11-02,1.0
+0L977x5wFRhedcXSan71ma,Dick Curless,1233488,134,links,14,0.0,0.0,2026-11-02,1.0
+5cX6PE94aP77FQP0YVHNPX,Aaron Pritchett,429044,663,links,22,0.0,0.0,2026-11-02,1.0
+4LwB86Ve6LpHYtsbnu6bvC,Charlie McCoy,73828,776,links,37,0.0,0.027,2026-11-02,0.865
+3Zk03qhmFLepNYW2atWkmE,The Last Bandoleros,7586476,607,links,39,0.0,0.205,2026-11-02,0.59
+2VDsDEKCdNm7c7Ve43Z9gw,Clare Dunn,5415347,652,links,39,0.0,0.0,2026-11-02,0.949
+52FOkBVb83F2QduWKRqmhm,Peter Rowan,174319,420,links,29,0.0,0.0,2026-11-02,0.552
+1456WwI15Lm9CktCzkLZvm,Josh Gracin,13920,1948,links,23,0.0,0.0,2026-11-02,0.826
+5C5yczYHPeBi5PrwxfksLP,Ashland Craft,52638922,333,links,36,0.0,0.0,2026-11-02,0.972
+7F7zi7OcJYBOmSFZIYYFCR,Lila Mccann,265885,553,links,7,0.0,0.0,2026-11-02,1.0
+5THBJK4ynnBnn5uvIamir1,Doug Kershaw,64439,268,links,26,0.0,0.0,2026-11-02,0.962
+09efpf4ONuA3Ezctd8lXza,Susan Raye,178191,199,links,15,0.0,0.0,2026-11-02,1.0
+0dyEUZv8ftA0dzL5vb2Y9s,Elizabeth Cook,390863,681,links,23,0.0,0.0,2026-11-02,0.783
+5DWq2OARZMu64IqyWZ2xpb,Mel Tillis,160872,524,links,16,0.062,0.0,2026-11-02,0.938
+0ZZOIWyRv8tdx0kLPlTtMg,Ronnie McDowell,353314,381,links,40,0.0,0.0,2026-11-02,0.8
+17VaTNp7RfgYr5JAJKTqAv,The Wilkinsons,275402,285,links,5,0.0,0.0,2026-11-02,1.0
+7tIs7rxqGuBvWMhIIigunf,David Houston,134464,189,links,47,0.0,0.0,2026-11-02,0.745
+0OraDGrDGEuqJ2d7250K1i,Doug Supernaw,157338,317,links,4,0.0,0.0,2026-11-02,1.0
+1nr2UtzP8aCphyHM3IEZ9P,Foster And Lloyd,157335,66,links,4,0.0,0.0,2026-11-02,1.0
+1AhfLNt7teChymEclbsHlo,Cledus T. Judd,7736,506,links,22,0.045,0.0,2026-11-02,0.773
+7DCIJOYaG1Yj8uVlR4QGlu,Tex Williams,90476,310,links,20,0.0,0.0,2026-11-02,0.85
+4d2dDZ4kx0YKLfEuSQ18H0,Bonnie Guitar,140747,264,links,11,0.0,0.0,2026-11-02,0.727
+1dueb4USSa0IBdtDolg4pO,Mandy Barnett,367419,397,links,13,0.0,0.0,2026-11-02,0.846
+1RprcCfY08k2trEW0m3aHg,Jim Cuddy,264407,575,links,11,0.0,0.0,2026-11-02,0.727
+6uj0hiujWH5JsinhnBWqHp,Sons Of The San Joaquin,253436,57,links,9,0.0,0.0,2026-11-02,1.0
+3wFMSWADqsChenXd5yYkRb,The Great Divide,484515,2273,links,14,0.0,0.0,2026-11-02,0.714
+06hC4FCcHy4f295XTV1qrF,Red Steagall,138547,145,links,19,0.0,0.0,2026-11-02,1.0
+2dSu4iBQikoVlBc43gwaHY,Mac McAnally,610665,262,links,22,0.0,0.0,2026-11-02,0.909
+0YmStfdKDDogHs80PfUWyv,Chris Cummings,253730,368,links,6,0.0,0.0,2026-11-02,1.0
+10XMe12TQkDF6o4QPJlZFJ,The Delmore Brothers,94889,251,links,5,0.0,0.0,2026-11-02,1.0
+5Xh0e6sCvMXJUNVa4oynvx,Sandy Posey,93227,501,links,30,0.0,0.0,2026-11-02,0.633
+7rB502Ec9wP6wZQxhztkM7,Don Reno,1332636,83,links,28,0.0,0.0,2026-11-02,0.714
+1vPiDJD75MrDmqQw3Jj6oV,Bad Livers,1175943,174,links,8,0.0,0.0,2026-11-02,0.875
+5aC3wjbpR5fL6qBGlM2u7S,The Greencards,16057,252,links,4,0.0,0.0,2026-11-02,0.5
+7qBnCBxjX9xHgepd3ayVc5,Dave Loggins,69666,210,links,5,0.0,0.0,2026-11-02,0.6
+01buTDfh4qo8wbcUt9Enly,Mac Wiseman,191173,119,links,37,0.0,0.0,2026-11-02,0.865
+7GHomDn4a8u8k0AlUTwBWQ,Bob Luman,100462,436,links,28,0.0,0.0,2026-11-02,0.821
+5PGABhW8oXdQS6nINmDJ53,Doc Walker,414935,1266,links,18,0.0,0.0,2026-11-02,1.0
+78jG8Y0sek0gP9WpBuludG,Joe Maphis,189624,135,links,19,0.0,0.0,2026-11-02,1.0
+1bkPltv18ZrFr2IhEdIae5,Jimmy Wakely,189775,99,links,24,0.0,0.0,2026-11-02,1.0
+5Aa1aFuL2vUePqwhMFnxO0,Uncle Dave Macon,147505,196,links,13,0.0,0.0,2026-11-02,0.769
+4Rx72ewRjxlDGiO6wPHpxe,Kim Richey,3732,931,links,25,0.0,0.0,2026-11-02,0.72
+7bZ2L2XgLitgclkNQ2mYpD,Jason McCoy,151980,1082,links,7,0.0,0.0,2026-11-02,1.0
+2tn388eKIoCPIo5roQtT41,Lari White,317118,189,links,7,0.0,0.0,2026-11-02,0.857
+6BoGPE6HncyAwa1Ka8uQVn,Amanda Cook,348081,7665,links,28,0.0,0.0,2026-11-02,0.643
+3MNxoB8Ybc8SW79rnxy67T,Johnny Gimble,76080,116,links,7,0.0,0.0,2026-11-02,1.0
+3JIIXBm4XFx2GGMTpWw1D5,Freddy Weller,143008,23,links,16,0.0,0.0,2026-11-02,0.875
+6nVajVKiqi2obmxfx7Kutn,George Ducas,243889,266,links,16,0.0,0.0,2026-11-02,1.0
+32ywq93L2q60xzB5kwCvcZ,Malcolm Holcombe,625457,570,links,20,0.0,0.0,2026-11-02,0.55
+6OUTtVUjAvUF0uZ3wudxtv,Henson Cargill,141701,125,links,20,0.0,0.0,2026-11-02,1.0
+5rwNZAjCBPGFWDrDNeTCC2,Donna Ulisse,421531,46,links,21,0.0,0.0,2026-11-02,0.667
+12bBoCZdPZbBEq1xHT0heD,Rebecca Lynn Howard,72483,401,links,16,0.0,0.0,2026-11-02,0.938
+16C53fCphxpf4lcPsBXeov,George Fox,66447,73,links,14,0.0,0.0,2026-11-02,0.786
+2yRMmVyjP0HNh8vB3Ia1ON,Bering Strait,134169,162,links,4,0.0,0.0,2026-11-02,0.5
+1y8dFCzQRfgHZvjsUsYGjV,Gail Davies,253867,55,links,11,0.0,0.0,2026-11-02,1.0
+2U7nIOFSqqsKaBdSIdL0iZ,Catherine Britt,365083,497,links,44,0.0,0.0,2026-11-02,0.864
+1FTj0srAc2A1iV1uatbnE1,Joni Harms,367708,113,links,11,0.0,0.0,2026-11-02,0.909
+3t9CxPpwrW22uoYBQTgeP9,Chalee Tennison,301071,87,links,3,0.0,0.0,2026-11-02,1.0
+67eC9fUYu938JT8aOyKXfN,Sonny Curtis,14207,94,links,5,0.0,0.0,2026-11-02,0.8
+10nZL5iEI60Z11z1BUtfRj,Graeme Connors,266827,173,links,24,0.0,0.0,2026-11-02,1.0
+2DtEjX1i4Vs7Gs1gADNiWj,Jessica Harp,280249,569,links,3,0.0,0.0,2026-11-02,1.0
+1SkREU1C2GYl4JSFuPXEQI,Marty Raybon,249256,195,links,13,0.0,0.0,2026-11-02,0.615
+7J7zkant0HwoShdwP6FHbe,Bastard Sons of Johnny Cash,5006720,521,links,7,0.0,0.0,2026-11-02,0.857
+1SBOIGVsnKRnTj8Cp7xthl,Ashley Gearing,343289,359,links,9,0.0,0.0,2026-11-02,0.889
+4p5IivUAFtFlrvtVFnbK0l,Will Kimbrough,63226,122,links,26,0.0,0.0,2026-11-02,0.577
+777v7gGGlGEYyqqvinQ481,Claudia Scott,315367,136,links,22,0.0,0.0,2026-11-02,0.864
+4cS6Zwohxh3AbIT2iYQ8TZ,Jim Eanes,173524,16,links,6,0.0,0.0,2026-11-02,0.667
+5KWwjK7mqox5VjmLszHmJB,Riley Puckett,135342,48,links,10,0.0,0.0,2026-11-02,1.0
+0ufpo9lLFIrtE5J9HIXOHm,Alecia Nugent,293477,80,links,6,0.0,0.0,2026-11-02,0.667
+5EVYoaZNxCPnB3J5DfSqec,Bill Carlisle,156591,32,links,14,0.0,0.0,2026-11-02,0.929
+4bZ35anzwQN5e7jBYkB6iO,Autry Inman,467633,30,links,9,0.0,0.0,2026-11-02,0.778
+5MP4ZdhofIUip2uXxoCUld,Merle Kilgore,134475,24,links,5,0.0,0.0,2026-11-02,1.0
+5YNWhwZhxzvHkS4cx2kdk8,Molly Bee,206216,53,links,6,0.0,0.0,2026-11-02,0.833
+2SmICejsbfW9xy1ZFt9C1q,David Frizzell,165423,303,links,27,0.0,0.0,2026-11-02,1.0
+7CyJIUpcWZK2zFM6gKLKvD,Andy Griggs,76154,988,links,12,0.0,0.0,2026-11-02,0.917
+3uaDC1OCdUiczpBNCbQne3,Lauren Lucas,266294,59,links,16,0.0,0.0,2026-11-02,0.625
+2cSCdjTGPgMRFDNh804VXU,Wade Mainer,376347,19,links,6,0.0,0.0,2026-11-02,0.833

@@ -13766,5 +13766,110 @@
 "looked_up": [],
 "chain": [],
 "distributors": []
+},
+"88 Touches Production": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"TTBRxBLV": {
+"looked_up": [
+"TTBRxBLV"
+],
+"mbid": "a912adba-f6b7-4221-9437-0ee570164912",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Street Mob Records": {
+"looked_up": [
+"Street Mob Records"
+],
+"mbid": "fa450aa2-dc87-4473-8a33-2db2c183ff91",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"anonimuza": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"unstable entertainment": {
+"looked_up": [
+"unstable entertainment"
+],
+"mbid": "03bc8d29-923d-4f81-9645-19b3b59941ab",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"NMMR": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Fearless Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Donut Boy Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Ice Baby Records": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Lofi Jazz Records": {
+"looked_up": [
+"Lofi Jazz Records"
+],
+"mbid": "1158c78d-3466-4360-bbe2-8f3df01af144",
+"chain": [
+"Lofi Chill Records"
+],
+"distributors": [],
+"current_only": true
+},
+"XL Recordings": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Lofi Chill Records": {
+"looked_up": [
+"Lofi Chill Records"
+],
+"mbid": "9716603b-1ace-4d16-9ada-d78a6c7b8fe6",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"oury": {
+"looked_up": [
+"oury"
+],
+"mbid": "31b36a09-ea25-4c14-af93-39788cb20a7c",
+"chain": [],
+"distributors": [],
+"current_only": true
+},
+"Chris Brown": {
+"looked_up": [],
+"chain": [],
+"distributors": []
+},
+"Thasup s.r.l.": {
+"looked_up": [
+"Thasup s.r.l"
+],
+"mbid": "b3415cdb-709e-43bc-bcbf-ecd9c34309e2",
+"chain": [],
+"distributors": [],
+"current_only": true
 }
 }
